@@ -78,6 +78,23 @@ bool DataBaseUserInfo::insertDBUserInfo(DBUserInfo dbuser){
 	return true;
 }
 
+bool DataBaseUserInfo::updateDBUserInfo(DBUserInfo dbuser, std::map<string, void *>maps){
+	string sqlstr = "update ";
+	sqlstr += MJ_TABLENAME_USER;
+	sqlstr += " set ";
+	
+	char buff[2048];
+	string uid = dbuser.userid();
+	sprintf(buff, "%s=%d,%s='%s',%s='%s',%s=%d,%s='%s',%s=%d,%s=%d,%s=%d,%s='%s',%s='%s',%s='%s',%s=%d,%s='%s',%s='%s' ", 
+		g_dbitennames[0], dbuser.id(), g_dbitennames[1], uid.c_str(), g_dbitennames[2], dbuser.username().c_str(), g_dbitennames[3], dbuser.sex(), g_dbitennames[4], dbuser.address().c_str(),
+		g_dbitennames[5], dbuser.gold(), g_dbitennames[6], dbuser.diamon(), g_dbitennames[7], dbuser.card(), g_dbitennames[8], dbuser.icon().c_str(), g_dbitennames[9], dbuser.code().c_str(),
+		g_dbitennames[10], dbuser.token().c_str(), g_dbitennames[11], dbuser.picid(), g_dbitennames[12], dbuser.unionid().c_str(), g_dbitennames[13], dbuser.picurl().c_str());
+	sqlstr += buff;
+	sqlstr += "where ";
+	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), insert_sql);
+	setDBUserData(getDBUserInfo((char *)uid.c_str()));
+}
+
 DBUserInfo DataBaseUserInfo::setDBUserData(std::vector<std::string> vecs){
 	DBUserInfo dbuser;
 	if (!vecs.empty()){
