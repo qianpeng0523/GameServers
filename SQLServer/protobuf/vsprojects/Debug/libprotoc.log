@@ -1,0 +1,80 @@
+﻿生成启动时间为 2018/3/2 13:04:07。
+     1>项目“F:\GameServers\SQLServer\protobuf\vsprojects\libprotoc.vcxproj”在节点 2 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (libprotobuf-lite.vcxproj, libprotobuf.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../src /I. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LIBPROTOC_EXPORTS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt /wd4244 /wd4267 /wd4018 /wd4355 /wd4800 /wd4251 /wd4996 /wd4146 /wd4305 ..\src\google\protobuf\compiler\java\java_doc_comment.cc ..\src\google\protobuf\compiler\code_generator.cc ..\src\google\protobuf\compiler\command_line_interface.cc ..\src\google\protobuf\compiler\subprocess.cc ..\src\google\protobuf\compiler\zip_writer.cc ..\src\google\protobuf\compiler\plugin.cc ..\src\google\protobuf\compiler\plugin.pb.cc ..\src\google\protobuf\compiler\cpp\cpp_enum.cc ..\src\google\protobuf\compiler\cpp\cpp_enum_field.cc ..\src\google\protobuf\compiler\cpp\cpp_extension.cc ..\src\google\protobuf\compiler\cpp\cpp_field.cc ..\src\google\protobuf\compiler\cpp\cpp_file.cc ..\src\google\protobuf\compiler\cpp\cpp_generator.cc ..\src\google\protobuf\compiler\cpp\cpp_helpers.cc ..\src\google\protobuf\compiler\cpp\cpp_message.cc ..\src\google\protobuf\compiler\cpp\cpp_message_field.cc ..\src\google\protobuf\compiler\cpp\cpp_primitive_field.cc ..\src\google\protobuf\compiler\cpp\cpp_service.cc ..\src\google\protobuf\compiler\cpp\cpp_string_field.cc ..\src\google\protobuf\compiler\java\java_enum.cc ..\src\google\protobuf\compiler\java\java_enum_field.cc ..\src\google\protobuf\compiler\java\java_extension.cc ..\src\google\protobuf\compiler\java\java_field.cc ..\src\google\protobuf\compiler\java\java_file.cc ..\src\google\protobuf\compiler\java\java_generator.cc ..\src\google\protobuf\compiler\java\java_helpers.cc ..\src\google\protobuf\compiler\java\java_message.cc ..\src\google\protobuf\compiler\java\java_message_field.cc ..\src\google\protobuf\compiler\java\java_primitive_field.cc ..\src\google\protobuf\compiler\java\java_service.cc ..\src\google\protobuf\compiler\java\java_string_field.cc ..\src\google\protobuf\compiler\python\python_generator.cc
+         python_generator.cc
+         java_string_field.cc
+         java_service.cc
+         java_primitive_field.cc
+         java_message_field.cc
+         java_message.cc
+         java_helpers.cc
+         java_generator.cc
+         java_file.cc
+         java_field.cc
+         java_extension.cc
+         java_enum_field.cc
+         java_enum.cc
+         cpp_string_field.cc
+         cpp_service.cc
+         cpp_primitive_field.cc
+         cpp_message_field.cc
+         cpp_message.cc
+         cpp_helpers.cc
+         cpp_generator.cc
+         正在生成代码...
+         正在编译...
+         cpp_file.cc
+         cpp_field.cc
+         cpp_extension.cc
+         cpp_enum_field.cc
+         cpp_enum.cc
+         plugin.pb.cc
+         plugin.cc
+         zip_writer.cc
+         subprocess.cc
+         command_line_interface.cc
+         code_generator.cc
+         java_doc_comment.cc
+         正在生成代码...
+       Lib:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"..\..\Server1\Debug\libprotoc.lib" /NOLOGO Debug\java_doc_comment.obj
+         Debug\code_generator.obj
+         Debug\command_line_interface.obj
+         Debug\subprocess.obj
+         Debug\zip_writer.obj
+         Debug\plugin.obj
+         Debug\plugin.pb.obj
+         Debug\cpp_enum.obj
+         Debug\cpp_enum_field.obj
+         Debug\cpp_extension.obj
+         Debug\cpp_field.obj
+         Debug\cpp_file.obj
+         Debug\cpp_generator.obj
+         Debug\cpp_helpers.obj
+         Debug\cpp_message.obj
+         Debug\cpp_message_field.obj
+         Debug\cpp_primitive_field.obj
+         Debug\cpp_service.obj
+         Debug\cpp_string_field.obj
+         Debug\java_enum.obj
+         Debug\java_enum_field.obj
+         Debug\java_extension.obj
+         Debug\java_field.obj
+         Debug\java_file.obj
+         Debug\java_generator.obj
+         Debug\java_helpers.obj
+         Debug\java_message.obj
+         Debug\java_message_field.obj
+         Debug\java_primitive_field.obj
+         Debug\java_service.obj
+         Debug\java_string_field.obj
+         Debug\python_generator.obj
+         libprotoc.vcxproj -> F:\GameServers\SQLServer\protobuf\vsprojects\..\..\Server1\Debug\libprotoc.lib
+     1>已完成生成项目“F:\GameServers\SQLServer\protobuf\vsprojects\libprotoc.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:15.16
