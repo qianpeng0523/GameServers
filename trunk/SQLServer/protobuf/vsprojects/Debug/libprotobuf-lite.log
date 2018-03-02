@@ -1,0 +1,37 @@
+﻿生成启动时间为 2016/11/10 15:53:36。
+     1>项目“F:\Projects\Server\protobuf\vsprojects\libprotobuf-lite.vcxproj”在节点 2 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (libprotobuf.vcxproj, libprotoc.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../src /I. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LIBPROTOBUF_EXPORTS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt /wd4244 /wd4267 /wd4018 /wd4355 /wd4800 /wd4251 /wd4996 /wd4146 /wd4305 ..\src\google\protobuf\io\coded_stream.cc ..\src\google\protobuf\stubs\common.cc ..\src\google\protobuf\extension_set.cc ..\src\google\protobuf\generated_message_util.cc ..\src\google\protobuf\message_lite.cc ..\src\google\protobuf\stubs\once.cc ..\src\google\protobuf\stubs\atomicops_internals_x86_msvc.cc ..\src\google\protobuf\repeated_field.cc ..\src\google\protobuf\wire_format_lite.cc ..\src\google\protobuf\io\zero_copy_stream.cc ..\src\google\protobuf\io\zero_copy_stream_impl_lite.cc ..\src\google\protobuf\stubs\stringprintf.cc
+         正在跳过...(未检测到相关更改)
+         stringprintf.cc
+         zero_copy_stream_impl_lite.cc
+         zero_copy_stream.cc
+         wire_format_lite.cc
+         repeated_field.cc
+         atomicops_internals_x86_msvc.cc
+         once.cc
+         message_lite.cc
+         generated_message_util.cc
+         extension_set.cc
+         common.cc
+         coded_stream.cc
+       Lib:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"Debug\libprotobuf-lite.lib" /NOLOGO Debug\coded_stream.obj
+         Debug\common.obj
+         Debug\extension_set.obj
+         Debug\generated_message_util.obj
+         Debug\message_lite.obj
+         Debug\once.obj
+         Debug\atomicops_internals_x86_msvc.obj
+         Debug\repeated_field.obj
+         Debug\wire_format_lite.obj
+         Debug\zero_copy_stream.obj
+         Debug\zero_copy_stream_impl_lite.obj
+         Debug\stringprintf.obj
+         libprotobuf-lite.vcxproj -> F:\Projects\Server\protobuf\vsprojects\Debug\libprotobuf-lite.lib
+     1>已完成生成项目“F:\Projects\Server\protobuf\vsprojects\libprotobuf-lite.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.43
