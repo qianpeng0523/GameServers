@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\Classes">
+      <UniqueIdentifier>{56beafc3-1183-42a1-88eb-7787e92c6215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\netjson">
+      <UniqueIdentifier>{e41585d4-2f61-4df7-be80-0b14694c0daa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\db">
+      <UniqueIdentifier>{f453705d-532d-4c04-bfbd-e54035b82079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\cc">
+      <UniqueIdentifier>{1f4cd657-03ad-4b76-be51-f27b49a0bb80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\config">
+      <UniqueIdentifier>{4ccbcd91-a344-403f-93d8-7b1cff9cf418}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\HttpEvent.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\main.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\MD5.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\stdafx.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\netjson\json_reader.cpp">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\netjson\json_value.cpp">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\netjson\json_writer.cpp">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SqlControl.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\XXIconv.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\DBProto.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\db\DataBaseUserinfo.cpp">
+      <Filter>源文件\Classes\db</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\config\CSVDataHelper.cpp">
+      <Filter>源文件\Classes\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\config\CSVDataInfo.cpp">
+      <Filter>源文件\Classes\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\config\Object.cpp">
+      <Filter>源文件\Classes\config</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Classes\HttpEvent.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\MD5.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\stdafx.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\targetver.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\json_batchallocator.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\json_lib.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\json_tool.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMconfig.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMfeatures.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMforwards.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMreader.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMSocketData.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMSocketDataEvent.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMvalue.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMwriter.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\SqlControl.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\XXIconv.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\iconv.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\DBProto.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\db\DataBaseUserinfo.h">
+      <Filter>源文件\Classes\db</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\config\CSVBaseData.h">
+      <Filter>源文件\Classes\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\config\CSVDataHelper.h">
+      <Filter>源文件\Classes\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\config\CSVDataInfo.h">
+      <Filter>源文件\Classes\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\config\Object.h">
+      <Filter>源文件\Classes\config</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Classes\netjson\json_internalarray.inl">
+      <Filter>源文件\Classes\netjson</Filter>
+    </None>
+    <None Include="Classes\netjson\json_internalmap.inl">
+      <Filter>源文件\Classes\netjson</Filter>
+    </None>
+    <None Include="Classes\netjson\json_valueiterator.inl">
+      <Filter>源文件\Classes\netjson</Filter>
+    </None>
+  </ItemGroup>
+</Project>
