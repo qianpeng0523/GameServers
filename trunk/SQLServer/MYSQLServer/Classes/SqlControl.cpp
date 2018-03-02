@@ -59,7 +59,7 @@ void SqlControl::close(){
 	mysql_close(m_mysql);
 }
 
-std::vector<std::string> SqlControl::ExcuteQuery(char* sqlstr){
+std::vector<std::string> SqlControl::ExcuteQuery(char* sqlstr, sqloptype type){
 	printf("%s\n",sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
@@ -91,7 +91,9 @@ std::vector<std::string> SqlControl::ExcuteQuery(char* sqlstr){
 		mysql_free_result(res);
 	}
 	else{
-		printf("未能查找到数据\n");
+		if (type == select_sql){
+			printf("未能查找到数据\n");
+		}
 	}
 	return vecs;
 }
