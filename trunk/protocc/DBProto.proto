@@ -1,0 +1,22 @@
+syntax = "proto2";
+package protocol;
+
+// DBUserInfo
+message DBUserInfo
+{
+    required uint32 id    		= 1;  //
+    required string userid 		= 2;  // 
+    required string username    = 3; //
+	required uint32 sex			=4;
+	optional string ip			=5;
+	optional string address		=6;
+	required uint32 gold		=7;
+	required uint32 diamon		=8;
+	required uint32 card		=9;
+	optional string icon		=10;
+	optional string code		=11;
+	optional string token		=12;
+	optional uint32 picid		=13;
+	optional string unionid		=14;
+	optional string picurl		=15;
+}
