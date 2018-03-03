@@ -91,17 +91,10 @@ class DBUserInfo : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 id = 1;
-  inline bool has_id() const;
-  inline void clear_id();
-  static const int kIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 id() const;
-  inline void set_id(::google::protobuf::uint32 value);
-
-  // required string userid = 2;
+  // required string userid = 1;
   inline bool has_userid() const;
   inline void clear_userid();
-  static const int kUseridFieldNumber = 2;
+  static const int kUseridFieldNumber = 1;
   inline const ::std::string& userid() const;
   inline void set_userid(const ::std::string& value);
   inline void set_userid(const char* value);
@@ -110,10 +103,10 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_userid();
   inline void set_allocated_userid(::std::string* userid);
 
-  // required string username = 3;
+  // required string username = 2;
   inline bool has_username() const;
   inline void clear_username();
-  static const int kUsernameFieldNumber = 3;
+  static const int kUsernameFieldNumber = 2;
   inline const ::std::string& username() const;
   inline void set_username(const ::std::string& value);
   inline void set_username(const char* value);
@@ -122,17 +115,17 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_username();
   inline void set_allocated_username(::std::string* username);
 
-  // required uint32 sex = 4;
+  // required uint32 sex = 3 [default = 1];
   inline bool has_sex() const;
   inline void clear_sex();
-  static const int kSexFieldNumber = 4;
+  static const int kSexFieldNumber = 3;
   inline ::google::protobuf::uint32 sex() const;
   inline void set_sex(::google::protobuf::uint32 value);
 
-  // optional string ip = 5;
+  // optional string ip = 4;
   inline bool has_ip() const;
   inline void clear_ip();
-  static const int kIpFieldNumber = 5;
+  static const int kIpFieldNumber = 4;
   inline const ::std::string& ip() const;
   inline void set_ip(const ::std::string& value);
   inline void set_ip(const char* value);
@@ -141,10 +134,10 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_ip();
   inline void set_allocated_ip(::std::string* ip);
 
-  // optional string address = 6;
+  // optional string address = 5;
   inline bool has_address() const;
   inline void clear_address();
-  static const int kAddressFieldNumber = 6;
+  static const int kAddressFieldNumber = 5;
   inline const ::std::string& address() const;
   inline void set_address(const ::std::string& value);
   inline void set_address(const char* value);
@@ -153,43 +146,31 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_address();
   inline void set_allocated_address(::std::string* address);
 
-  // required uint32 gold = 7;
+  // required uint32 gold = 6 [default = 4000];
   inline bool has_gold() const;
   inline void clear_gold();
-  static const int kGoldFieldNumber = 7;
+  static const int kGoldFieldNumber = 6;
   inline ::google::protobuf::uint32 gold() const;
   inline void set_gold(::google::protobuf::uint32 value);
 
-  // required uint32 diamon = 8;
+  // required uint32 diamon = 7 [default = 8];
   inline bool has_diamon() const;
   inline void clear_diamon();
-  static const int kDiamonFieldNumber = 8;
+  static const int kDiamonFieldNumber = 7;
   inline ::google::protobuf::uint32 diamon() const;
   inline void set_diamon(::google::protobuf::uint32 value);
 
-  // required uint32 card = 9;
+  // required uint32 card = 8 [default = 1];
   inline bool has_card() const;
   inline void clear_card();
-  static const int kCardFieldNumber = 9;
+  static const int kCardFieldNumber = 8;
   inline ::google::protobuf::uint32 card() const;
   inline void set_card(::google::protobuf::uint32 value);
 
-  // optional string icon = 10;
-  inline bool has_icon() const;
-  inline void clear_icon();
-  static const int kIconFieldNumber = 10;
-  inline const ::std::string& icon() const;
-  inline void set_icon(const ::std::string& value);
-  inline void set_icon(const char* value);
-  inline void set_icon(const char* value, size_t size);
-  inline ::std::string* mutable_icon();
-  inline ::std::string* release_icon();
-  inline void set_allocated_icon(::std::string* icon);
-
-  // optional string code = 11;
+  // optional string code = 9;
   inline bool has_code() const;
   inline void clear_code();
-  static const int kCodeFieldNumber = 11;
+  static const int kCodeFieldNumber = 9;
   inline const ::std::string& code() const;
   inline void set_code(const ::std::string& value);
   inline void set_code(const char* value);
@@ -198,10 +179,10 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_code();
   inline void set_allocated_code(::std::string* code);
 
-  // optional string token = 12;
+  // optional string token = 10;
   inline bool has_token() const;
   inline void clear_token();
-  static const int kTokenFieldNumber = 12;
+  static const int kTokenFieldNumber = 10;
   inline const ::std::string& token() const;
   inline void set_token(const ::std::string& value);
   inline void set_token(const char* value);
@@ -210,17 +191,17 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_token();
   inline void set_allocated_token(::std::string* token);
 
-  // optional uint32 picid = 13;
+  // optional uint32 picid = 11 [default = 1];
   inline bool has_picid() const;
   inline void clear_picid();
-  static const int kPicidFieldNumber = 13;
+  static const int kPicidFieldNumber = 11;
   inline ::google::protobuf::uint32 picid() const;
   inline void set_picid(::google::protobuf::uint32 value);
 
-  // optional string unionid = 14;
+  // optional string unionid = 12;
   inline bool has_unionid() const;
   inline void clear_unionid();
-  static const int kUnionidFieldNumber = 14;
+  static const int kUnionidFieldNumber = 12;
   inline const ::std::string& unionid() const;
   inline void set_unionid(const ::std::string& value);
   inline void set_unionid(const char* value);
@@ -229,10 +210,10 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_unionid();
   inline void set_allocated_unionid(::std::string* unionid);
 
-  // optional string picurl = 15;
+  // optional string picurl = 13;
   inline bool has_picurl() const;
   inline void clear_picurl();
-  static const int kPicurlFieldNumber = 15;
+  static const int kPicurlFieldNumber = 13;
   inline const ::std::string& picurl() const;
   inline void set_picurl(const ::std::string& value);
   inline void set_picurl(const char* value);
@@ -243,8 +224,6 @@ class DBUserInfo : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:protocol.DBUserInfo)
  private:
-  inline void set_has_id();
-  inline void clear_has_id();
   inline void set_has_userid();
   inline void clear_has_userid();
   inline void set_has_username();
@@ -261,8 +240,6 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline void clear_has_diamon();
   inline void set_has_card();
   inline void clear_has_card();
-  inline void set_has_icon();
-  inline void clear_has_icon();
   inline void set_has_code();
   inline void clear_has_code();
   inline void set_has_token();
@@ -277,23 +254,21 @@ class DBUserInfo : public ::google::protobuf::Message {
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* userid_;
-  ::google::protobuf::uint32 id_;
-  ::google::protobuf::uint32 sex_;
   ::std::string* username_;
   ::std::string* ip_;
-  ::std::string* address_;
+  ::google::protobuf::uint32 sex_;
   ::google::protobuf::uint32 gold_;
+  ::std::string* address_;
   ::google::protobuf::uint32 diamon_;
-  ::std::string* icon_;
-  ::std::string* code_;
   ::google::protobuf::uint32 card_;
-  ::google::protobuf::uint32 picid_;
+  ::std::string* code_;
   ::std::string* token_;
   ::std::string* unionid_;
   ::std::string* picurl_;
+  ::google::protobuf::uint32 picid_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(15 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(13 + 31) / 32];
 
   friend void  protobuf_AddDesc_DBProto_2eproto();
   friend void protobuf_AssignDesc_DBProto_2eproto();
@@ -309,37 +284,15 @@ class DBUserInfo : public ::google::protobuf::Message {
 
 // DBUserInfo
 
-// required uint32 id = 1;
-inline bool DBUserInfo::has_id() const {
+// required string userid = 1;
+inline bool DBUserInfo::has_userid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void DBUserInfo::set_has_id() {
+inline void DBUserInfo::set_has_userid() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void DBUserInfo::clear_has_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void DBUserInfo::clear_id() {
-  id_ = 0u;
-  clear_has_id();
-}
-inline ::google::protobuf::uint32 DBUserInfo::id() const {
-  return id_;
-}
-inline void DBUserInfo::set_id(::google::protobuf::uint32 value) {
-  set_has_id();
-  id_ = value;
-}
-
-// required string userid = 2;
-inline bool DBUserInfo::has_userid() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void DBUserInfo::set_has_userid() {
-  _has_bits_[0] |= 0x00000002u;
-}
 inline void DBUserInfo::clear_has_userid() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void DBUserInfo::clear_userid() {
   if (userid_ != &::google::protobuf::internal::kEmptyString) {
@@ -401,15 +354,15 @@ inline void DBUserInfo::set_allocated_userid(::std::string* userid) {
   }
 }
 
-// required string username = 3;
+// required string username = 2;
 inline bool DBUserInfo::has_username() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000002u) != 0;
 }
 inline void DBUserInfo::set_has_username() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000002u;
 }
 inline void DBUserInfo::clear_has_username() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void DBUserInfo::clear_username() {
   if (username_ != &::google::protobuf::internal::kEmptyString) {
@@ -471,18 +424,18 @@ inline void DBUserInfo::set_allocated_username(::std::string* username) {
   }
 }
 
-// required uint32 sex = 4;
+// required uint32 sex = 3 [default = 1];
 inline bool DBUserInfo::has_sex() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void DBUserInfo::set_has_sex() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void DBUserInfo::clear_has_sex() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void DBUserInfo::clear_sex() {
-  sex_ = 0u;
+  sex_ = 1u;
   clear_has_sex();
 }
 inline ::google::protobuf::uint32 DBUserInfo::sex() const {
@@ -493,15 +446,15 @@ inline void DBUserInfo::set_sex(::google::protobuf::uint32 value) {
   sex_ = value;
 }
 
-// optional string ip = 5;
+// optional string ip = 4;
 inline bool DBUserInfo::has_ip() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void DBUserInfo::set_has_ip() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void DBUserInfo::clear_has_ip() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void DBUserInfo::clear_ip() {
   if (ip_ != &::google::protobuf::internal::kEmptyString) {
@@ -563,15 +516,15 @@ inline void DBUserInfo::set_allocated_ip(::std::string* ip) {
   }
 }
 
-// optional string address = 6;
+// optional string address = 5;
 inline bool DBUserInfo::has_address() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void DBUserInfo::set_has_address() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void DBUserInfo::clear_has_address() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void DBUserInfo::clear_address() {
   if (address_ != &::google::protobuf::internal::kEmptyString) {
@@ -633,18 +586,18 @@ inline void DBUserInfo::set_allocated_address(::std::string* address) {
   }
 }
 
-// required uint32 gold = 7;
+// required uint32 gold = 6 [default = 4000];
 inline bool DBUserInfo::has_gold() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void DBUserInfo::set_has_gold() {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void DBUserInfo::clear_has_gold() {
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void DBUserInfo::clear_gold() {
-  gold_ = 0u;
+  gold_ = 4000u;
   clear_has_gold();
 }
 inline ::google::protobuf::uint32 DBUserInfo::gold() const {
@@ -655,18 +608,18 @@ inline void DBUserInfo::set_gold(::google::protobuf::uint32 value) {
   gold_ = value;
 }
 
-// required uint32 diamon = 8;
+// required uint32 diamon = 7 [default = 8];
 inline bool DBUserInfo::has_diamon() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 inline void DBUserInfo::set_has_diamon() {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000040u;
 }
 inline void DBUserInfo::clear_has_diamon() {
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void DBUserInfo::clear_diamon() {
-  diamon_ = 0u;
+  diamon_ = 8u;
   clear_has_diamon();
 }
 inline ::google::protobuf::uint32 DBUserInfo::diamon() const {
@@ -677,18 +630,18 @@ inline void DBUserInfo::set_diamon(::google::protobuf::uint32 value) {
   diamon_ = value;
 }
 
-// required uint32 card = 9;
+// required uint32 card = 8 [default = 1];
 inline bool DBUserInfo::has_card() const {
-  return (_has_bits_[0] & 0x00000100u) != 0;
+  return (_has_bits_[0] & 0x00000080u) != 0;
 }
 inline void DBUserInfo::set_has_card() {
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000080u;
 }
 inline void DBUserInfo::clear_has_card() {
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline void DBUserInfo::clear_card() {
-  card_ = 0u;
+  card_ = 1u;
   clear_has_card();
 }
 inline ::google::protobuf::uint32 DBUserInfo::card() const {
@@ -699,85 +652,15 @@ inline void DBUserInfo::set_card(::google::protobuf::uint32 value) {
   card_ = value;
 }
 
-// optional string icon = 10;
-inline bool DBUserInfo::has_icon() const {
-  return (_has_bits_[0] & 0x00000200u) != 0;
-}
-inline void DBUserInfo::set_has_icon() {
-  _has_bits_[0] |= 0x00000200u;
-}
-inline void DBUserInfo::clear_has_icon() {
-  _has_bits_[0] &= ~0x00000200u;
-}
-inline void DBUserInfo::clear_icon() {
-  if (icon_ != &::google::protobuf::internal::kEmptyString) {
-    icon_->clear();
-  }
-  clear_has_icon();
-}
-inline const ::std::string& DBUserInfo::icon() const {
-  return *icon_;
-}
-inline void DBUserInfo::set_icon(const ::std::string& value) {
-  set_has_icon();
-  if (icon_ == &::google::protobuf::internal::kEmptyString) {
-    icon_ = new ::std::string;
-  }
-  icon_->assign(value);
-}
-inline void DBUserInfo::set_icon(const char* value) {
-  set_has_icon();
-  if (icon_ == &::google::protobuf::internal::kEmptyString) {
-    icon_ = new ::std::string;
-  }
-  icon_->assign(value);
-}
-inline void DBUserInfo::set_icon(const char* value, size_t size) {
-  set_has_icon();
-  if (icon_ == &::google::protobuf::internal::kEmptyString) {
-    icon_ = new ::std::string;
-  }
-  icon_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* DBUserInfo::mutable_icon() {
-  set_has_icon();
-  if (icon_ == &::google::protobuf::internal::kEmptyString) {
-    icon_ = new ::std::string;
-  }
-  return icon_;
-}
-inline ::std::string* DBUserInfo::release_icon() {
-  clear_has_icon();
-  if (icon_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = icon_;
-    icon_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void DBUserInfo::set_allocated_icon(::std::string* icon) {
-  if (icon_ != &::google::protobuf::internal::kEmptyString) {
-    delete icon_;
-  }
-  if (icon) {
-    set_has_icon();
-    icon_ = icon;
-  } else {
-    clear_has_icon();
-    icon_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
-}
-
-// optional string code = 11;
+// optional string code = 9;
 inline bool DBUserInfo::has_code() const {
-  return (_has_bits_[0] & 0x00000400u) != 0;
+  return (_has_bits_[0] & 0x00000100u) != 0;
 }
 inline void DBUserInfo::set_has_code() {
-  _has_bits_[0] |= 0x00000400u;
+  _has_bits_[0] |= 0x00000100u;
 }
 inline void DBUserInfo::clear_has_code() {
-  _has_bits_[0] &= ~0x00000400u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline void DBUserInfo::clear_code() {
   if (code_ != &::google::protobuf::internal::kEmptyString) {
@@ -839,15 +722,15 @@ inline void DBUserInfo::set_allocated_code(::std::string* code) {
   }
 }
 
-// optional string token = 12;
+// optional string token = 10;
 inline bool DBUserInfo::has_token() const {
-  return (_has_bits_[0] & 0x00000800u) != 0;
+  return (_has_bits_[0] & 0x00000200u) != 0;
 }
 inline void DBUserInfo::set_has_token() {
-  _has_bits_[0] |= 0x00000800u;
+  _has_bits_[0] |= 0x00000200u;
 }
 inline void DBUserInfo::clear_has_token() {
-  _has_bits_[0] &= ~0x00000800u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline void DBUserInfo::clear_token() {
   if (token_ != &::google::protobuf::internal::kEmptyString) {
@@ -909,18 +792,18 @@ inline void DBUserInfo::set_allocated_token(::std::string* token) {
   }
 }
 
-// optional uint32 picid = 13;
+// optional uint32 picid = 11 [default = 1];
 inline bool DBUserInfo::has_picid() const {
-  return (_has_bits_[0] & 0x00001000u) != 0;
+  return (_has_bits_[0] & 0x00000400u) != 0;
 }
 inline void DBUserInfo::set_has_picid() {
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00000400u;
 }
 inline void DBUserInfo::clear_has_picid() {
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00000400u;
 }
 inline void DBUserInfo::clear_picid() {
-  picid_ = 0u;
+  picid_ = 1u;
   clear_has_picid();
 }
 inline ::google::protobuf::uint32 DBUserInfo::picid() const {
@@ -931,15 +814,15 @@ inline void DBUserInfo::set_picid(::google::protobuf::uint32 value) {
   picid_ = value;
 }
 
-// optional string unionid = 14;
+// optional string unionid = 12;
 inline bool DBUserInfo::has_unionid() const {
-  return (_has_bits_[0] & 0x00002000u) != 0;
+  return (_has_bits_[0] & 0x00000800u) != 0;
 }
 inline void DBUserInfo::set_has_unionid() {
-  _has_bits_[0] |= 0x00002000u;
+  _has_bits_[0] |= 0x00000800u;
 }
 inline void DBUserInfo::clear_has_unionid() {
-  _has_bits_[0] &= ~0x00002000u;
+  _has_bits_[0] &= ~0x00000800u;
 }
 inline void DBUserInfo::clear_unionid() {
   if (unionid_ != &::google::protobuf::internal::kEmptyString) {
@@ -1001,15 +884,15 @@ inline void DBUserInfo::set_allocated_unionid(::std::string* unionid) {
   }
 }
 
-// optional string picurl = 15;
+// optional string picurl = 13;
 inline bool DBUserInfo::has_picurl() const {
-  return (_has_bits_[0] & 0x00004000u) != 0;
+  return (_has_bits_[0] & 0x00001000u) != 0;
 }
 inline void DBUserInfo::set_has_picurl() {
-  _has_bits_[0] |= 0x00004000u;
+  _has_bits_[0] |= 0x00001000u;
 }
 inline void DBUserInfo::clear_has_picurl() {
-  _has_bits_[0] &= ~0x00004000u;
+  _has_bits_[0] &= ~0x00001000u;
 }
 inline void DBUserInfo::clear_picurl() {
   if (picurl_ != &::google::protobuf::internal::kEmptyString) {
