@@ -34,8 +34,7 @@ void protobuf_AssignDesc_DBProto_2eproto() {
       "DBProto.proto");
   GOOGLE_CHECK(file != NULL);
   DBUserInfo_descriptor_ = file->message_type(0);
-  static const int DBUserInfo_offsets_[15] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, id_),
+  static const int DBUserInfo_offsets_[13] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, userid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, username_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, sex_),
@@ -44,7 +43,6 @@ void protobuf_AssignDesc_DBProto_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, gold_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, diamon_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, card_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, icon_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, code_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, picid_),
@@ -92,13 +90,13 @@ void protobuf_AddDesc_DBProto_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rDBProto.proto\022\010protocol\"\353\001\n\nDBUserInfo"
-    "\022\n\n\002id\030\001 \002(\r\022\016\n\006userid\030\002 \002(\t\022\020\n\010username"
-    "\030\003 \002(\t\022\013\n\003sex\030\004 \002(\r\022\n\n\002ip\030\005 \001(\t\022\017\n\007addre"
-    "ss\030\006 \001(\t\022\014\n\004gold\030\007 \002(\r\022\016\n\006diamon\030\010 \002(\r\022\014"
-    "\n\004card\030\t \002(\r\022\014\n\004icon\030\n \001(\t\022\014\n\004code\030\013 \001(\t"
-    "\022\r\n\005token\030\014 \001(\t\022\r\n\005picid\030\r \001(\r\022\017\n\007unioni"
-    "d\030\016 \001(\t\022\016\n\006picurl\030\017 \001(\t", 263);
+    "\n\rDBProto.proto\022\010protocol\"\343\001\n\nDBUserInfo"
+    "\022\016\n\006userid\030\001 \002(\t\022\020\n\010username\030\002 \002(\t\022\016\n\003se"
+    "x\030\003 \002(\r:\0011\022\n\n\002ip\030\004 \001(\t\022\017\n\007address\030\005 \001(\t\022"
+    "\022\n\004gold\030\006 \002(\r:\0044000\022\021\n\006diamon\030\007 \002(\r:\0018\022\017"
+    "\n\004card\030\010 \002(\r:\0011\022\014\n\004code\030\t \001(\t\022\r\n\005token\030\n"
+    " \001(\t\022\020\n\005picid\030\013 \001(\r:\0011\022\017\n\007unionid\030\014 \001(\t\022"
+    "\016\n\006picurl\030\r \001(\t", 255);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "DBProto.proto", &protobuf_RegisterTypes);
   DBUserInfo::default_instance_ = new DBUserInfo();
@@ -116,7 +114,6 @@ struct StaticDescriptorInitializer_DBProto_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int DBUserInfo::kIdFieldNumber;
 const int DBUserInfo::kUseridFieldNumber;
 const int DBUserInfo::kUsernameFieldNumber;
 const int DBUserInfo::kSexFieldNumber;
@@ -125,7 +122,6 @@ const int DBUserInfo::kAddressFieldNumber;
 const int DBUserInfo::kGoldFieldNumber;
 const int DBUserInfo::kDiamonFieldNumber;
 const int DBUserInfo::kCardFieldNumber;
-const int DBUserInfo::kIconFieldNumber;
 const int DBUserInfo::kCodeFieldNumber;
 const int DBUserInfo::kTokenFieldNumber;
 const int DBUserInfo::kPicidFieldNumber;
@@ -149,19 +145,17 @@ DBUserInfo::DBUserInfo(const DBUserInfo& from)
 
 void DBUserInfo::SharedCtor() {
   _cached_size_ = 0;
-  id_ = 0u;
   userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   username_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  sex_ = 0u;
+  sex_ = 1u;
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   address_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  gold_ = 0u;
-  diamon_ = 0u;
-  card_ = 0u;
-  icon_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  gold_ = 4000u;
+  diamon_ = 8u;
+  card_ = 1u;
   code_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  picid_ = 0u;
+  picid_ = 1u;
   unionid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   picurl_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -183,9 +177,6 @@ void DBUserInfo::SharedDtor() {
   }
   if (address_ != &::google::protobuf::internal::kEmptyString) {
     delete address_;
-  }
-  if (icon_ != &::google::protobuf::internal::kEmptyString) {
-    delete icon_;
   }
   if (code_ != &::google::protobuf::internal::kEmptyString) {
     delete code_;
@@ -226,7 +217,6 @@ DBUserInfo* DBUserInfo::New() const {
 
 void DBUserInfo::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    id_ = 0u;
     if (has_userid()) {
       if (userid_ != &::google::protobuf::internal::kEmptyString) {
         userid_->clear();
@@ -237,7 +227,7 @@ void DBUserInfo::Clear() {
         username_->clear();
       }
     }
-    sex_ = 0u;
+    sex_ = 1u;
     if (has_ip()) {
       if (ip_ != &::google::protobuf::internal::kEmptyString) {
         ip_->clear();
@@ -248,16 +238,11 @@ void DBUserInfo::Clear() {
         address_->clear();
       }
     }
-    gold_ = 0u;
-    diamon_ = 0u;
+    gold_ = 4000u;
+    diamon_ = 8u;
+    card_ = 1u;
   }
   if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    card_ = 0u;
-    if (has_icon()) {
-      if (icon_ != &::google::protobuf::internal::kEmptyString) {
-        icon_->clear();
-      }
-    }
     if (has_code()) {
       if (code_ != &::google::protobuf::internal::kEmptyString) {
         code_->clear();
@@ -268,7 +253,7 @@ void DBUserInfo::Clear() {
         token_->clear();
       }
     }
-    picid_ = 0u;
+    picid_ = 1u;
     if (has_unionid()) {
       if (unionid_ != &::google::protobuf::internal::kEmptyString) {
         unionid_->clear();
@@ -290,26 +275,10 @@ bool DBUserInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 id = 1;
+      // required string userid = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &id_)));
-          set_has_id();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(18)) goto parse_userid;
-        break;
-      }
-
-      // required string userid = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_userid:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_userid()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
@@ -318,12 +287,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(26)) goto parse_username;
+        if (input->ExpectTag(18)) goto parse_username;
         break;
       }
 
-      // required string username = 3;
-      case 3: {
+      // required string username = 2;
+      case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_username:
@@ -335,12 +304,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(32)) goto parse_sex;
+        if (input->ExpectTag(24)) goto parse_sex;
         break;
       }
 
-      // required uint32 sex = 4;
-      case 4: {
+      // required uint32 sex = 3 [default = 1];
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_sex:
@@ -351,12 +320,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(42)) goto parse_ip;
+        if (input->ExpectTag(34)) goto parse_ip;
         break;
       }
 
-      // optional string ip = 5;
-      case 5: {
+      // optional string ip = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_ip:
@@ -368,12 +337,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(50)) goto parse_address;
+        if (input->ExpectTag(42)) goto parse_address;
         break;
       }
 
-      // optional string address = 6;
-      case 6: {
+      // optional string address = 5;
+      case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_address:
@@ -385,12 +354,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(56)) goto parse_gold;
+        if (input->ExpectTag(48)) goto parse_gold;
         break;
       }
 
-      // required uint32 gold = 7;
-      case 7: {
+      // required uint32 gold = 6 [default = 4000];
+      case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_gold:
@@ -401,12 +370,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(64)) goto parse_diamon;
+        if (input->ExpectTag(56)) goto parse_diamon;
         break;
       }
 
-      // required uint32 diamon = 8;
-      case 8: {
+      // required uint32 diamon = 7 [default = 8];
+      case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_diamon:
@@ -417,12 +386,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(72)) goto parse_card;
+        if (input->ExpectTag(64)) goto parse_card;
         break;
       }
 
-      // required uint32 card = 9;
-      case 9: {
+      // required uint32 card = 8 [default = 1];
+      case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_card:
@@ -433,29 +402,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(82)) goto parse_icon;
+        if (input->ExpectTag(74)) goto parse_code;
         break;
       }
 
-      // optional string icon = 10;
-      case 10: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_icon:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_icon()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->icon().data(), this->icon().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(90)) goto parse_code;
-        break;
-      }
-
-      // optional string code = 11;
-      case 11: {
+      // optional string code = 9;
+      case 9: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_code:
@@ -467,12 +419,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(98)) goto parse_token;
+        if (input->ExpectTag(82)) goto parse_token;
         break;
       }
 
-      // optional string token = 12;
-      case 12: {
+      // optional string token = 10;
+      case 10: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_token:
@@ -484,12 +436,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(104)) goto parse_picid;
+        if (input->ExpectTag(88)) goto parse_picid;
         break;
       }
 
-      // optional uint32 picid = 13;
-      case 13: {
+      // optional uint32 picid = 11 [default = 1];
+      case 11: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_picid:
@@ -500,12 +452,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(114)) goto parse_unionid;
+        if (input->ExpectTag(98)) goto parse_unionid;
         break;
       }
 
-      // optional string unionid = 14;
-      case 14: {
+      // optional string unionid = 12;
+      case 12: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_unionid:
@@ -517,12 +469,12 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(122)) goto parse_picurl;
+        if (input->ExpectTag(106)) goto parse_picurl;
         break;
       }
 
-      // optional string picurl = 15;
-      case 15: {
+      // optional string picurl = 13;
+      case 13: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_picurl:
@@ -556,115 +508,101 @@ bool DBUserInfo::MergePartialFromCodedStream(
 
 void DBUserInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 id = 1;
-  if (has_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
-  }
-
-  // required string userid = 2;
+  // required string userid = 1;
   if (has_userid()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->userid().data(), this->userid().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->userid(), output);
+      1, this->userid(), output);
   }
 
-  // required string username = 3;
+  // required string username = 2;
   if (has_username()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->username().data(), this->username().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      3, this->username(), output);
+      2, this->username(), output);
   }
 
-  // required uint32 sex = 4;
+  // required uint32 sex = 3 [default = 1];
   if (has_sex()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->sex(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->sex(), output);
   }
 
-  // optional string ip = 5;
+  // optional string ip = 4;
   if (has_ip()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->ip().data(), this->ip().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      5, this->ip(), output);
+      4, this->ip(), output);
   }
 
-  // optional string address = 6;
+  // optional string address = 5;
   if (has_address()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->address().data(), this->address().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      6, this->address(), output);
+      5, this->address(), output);
   }
 
-  // required uint32 gold = 7;
+  // required uint32 gold = 6 [default = 4000];
   if (has_gold()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->gold(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->gold(), output);
   }
 
-  // required uint32 diamon = 8;
+  // required uint32 diamon = 7 [default = 8];
   if (has_diamon()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->diamon(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->diamon(), output);
   }
 
-  // required uint32 card = 9;
+  // required uint32 card = 8 [default = 1];
   if (has_card()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(9, this->card(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->card(), output);
   }
 
-  // optional string icon = 10;
-  if (has_icon()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->icon().data(), this->icon().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      10, this->icon(), output);
-  }
-
-  // optional string code = 11;
+  // optional string code = 9;
   if (has_code()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->code().data(), this->code().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      11, this->code(), output);
+      9, this->code(), output);
   }
 
-  // optional string token = 12;
+  // optional string token = 10;
   if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->token().data(), this->token().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      12, this->token(), output);
+      10, this->token(), output);
   }
 
-  // optional uint32 picid = 13;
+  // optional uint32 picid = 11 [default = 1];
   if (has_picid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(13, this->picid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(11, this->picid(), output);
   }
 
-  // optional string unionid = 14;
+  // optional string unionid = 12;
   if (has_unionid()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->unionid().data(), this->unionid().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      14, this->unionid(), output);
+      12, this->unionid(), output);
   }
 
-  // optional string picurl = 15;
+  // optional string picurl = 13;
   if (has_picurl()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->picurl().data(), this->picurl().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      15, this->picurl(), output);
+      13, this->picurl(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -675,124 +613,109 @@ void DBUserInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* DBUserInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required uint32 id = 1;
-  if (has_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
-  }
-
-  // required string userid = 2;
+  // required string userid = 1;
   if (has_userid()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->userid().data(), this->userid().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->userid(), target);
+        1, this->userid(), target);
   }
 
-  // required string username = 3;
+  // required string username = 2;
   if (has_username()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->username().data(), this->username().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->username(), target);
+        2, this->username(), target);
   }
 
-  // required uint32 sex = 4;
+  // required uint32 sex = 3 [default = 1];
   if (has_sex()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->sex(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->sex(), target);
   }
 
-  // optional string ip = 5;
+  // optional string ip = 4;
   if (has_ip()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->ip().data(), this->ip().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->ip(), target);
+        4, this->ip(), target);
   }
 
-  // optional string address = 6;
+  // optional string address = 5;
   if (has_address()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->address().data(), this->address().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->address(), target);
+        5, this->address(), target);
   }
 
-  // required uint32 gold = 7;
+  // required uint32 gold = 6 [default = 4000];
   if (has_gold()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->gold(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->gold(), target);
   }
 
-  // required uint32 diamon = 8;
+  // required uint32 diamon = 7 [default = 8];
   if (has_diamon()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->diamon(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->diamon(), target);
   }
 
-  // required uint32 card = 9;
+  // required uint32 card = 8 [default = 1];
   if (has_card()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(9, this->card(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->card(), target);
   }
 
-  // optional string icon = 10;
-  if (has_icon()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->icon().data(), this->icon().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        10, this->icon(), target);
-  }
-
-  // optional string code = 11;
+  // optional string code = 9;
   if (has_code()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->code().data(), this->code().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        11, this->code(), target);
+        9, this->code(), target);
   }
 
-  // optional string token = 12;
+  // optional string token = 10;
   if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->token().data(), this->token().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        12, this->token(), target);
+        10, this->token(), target);
   }
 
-  // optional uint32 picid = 13;
+  // optional uint32 picid = 11 [default = 1];
   if (has_picid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(13, this->picid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(11, this->picid(), target);
   }
 
-  // optional string unionid = 14;
+  // optional string unionid = 12;
   if (has_unionid()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->unionid().data(), this->unionid().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        14, this->unionid(), target);
+        12, this->unionid(), target);
   }
 
-  // optional string picurl = 15;
+  // optional string picurl = 13;
   if (has_picurl()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->picurl().data(), this->picurl().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        15, this->picurl(), target);
+        13, this->picurl(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -806,107 +729,93 @@ int DBUserInfo::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 id = 1;
-    if (has_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->id());
-    }
-
-    // required string userid = 2;
+    // required string userid = 1;
     if (has_userid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->userid());
     }
 
-    // required string username = 3;
+    // required string username = 2;
     if (has_username()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->username());
     }
 
-    // required uint32 sex = 4;
+    // required uint32 sex = 3 [default = 1];
     if (has_sex()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->sex());
     }
 
-    // optional string ip = 5;
+    // optional string ip = 4;
     if (has_ip()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->ip());
     }
 
-    // optional string address = 6;
+    // optional string address = 5;
     if (has_address()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->address());
     }
 
-    // required uint32 gold = 7;
+    // required uint32 gold = 6 [default = 4000];
     if (has_gold()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->gold());
     }
 
-    // required uint32 diamon = 8;
+    // required uint32 diamon = 7 [default = 8];
     if (has_diamon()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->diamon());
     }
 
-  }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    // required uint32 card = 9;
+    // required uint32 card = 8 [default = 1];
     if (has_card()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->card());
     }
 
-    // optional string icon = 10;
-    if (has_icon()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->icon());
-    }
-
-    // optional string code = 11;
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    // optional string code = 9;
     if (has_code()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->code());
     }
 
-    // optional string token = 12;
+    // optional string token = 10;
     if (has_token()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->token());
     }
 
-    // optional uint32 picid = 13;
+    // optional uint32 picid = 11 [default = 1];
     if (has_picid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->picid());
     }
 
-    // optional string unionid = 14;
+    // optional string unionid = 12;
     if (has_unionid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->unionid());
     }
 
-    // optional string picurl = 15;
+    // optional string picurl = 13;
     if (has_picurl()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -940,9 +849,6 @@ void DBUserInfo::MergeFrom(const ::google::protobuf::Message& from) {
 void DBUserInfo::MergeFrom(const DBUserInfo& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_id()) {
-      set_id(from.id());
-    }
     if (from.has_userid()) {
       set_userid(from.userid());
     }
@@ -964,14 +870,11 @@ void DBUserInfo::MergeFrom(const DBUserInfo& from) {
     if (from.has_diamon()) {
       set_diamon(from.diamon());
     }
-  }
-  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     if (from.has_card()) {
       set_card(from.card());
     }
-    if (from.has_icon()) {
-      set_icon(from.icon());
-    }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     if (from.has_code()) {
       set_code(from.code());
     }
@@ -1004,14 +907,13 @@ void DBUserInfo::CopyFrom(const DBUserInfo& from) {
 }
 
 bool DBUserInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000001cf) != 0x000001cf) return false;
+  if ((_has_bits_[0] & 0x000000e7) != 0x000000e7) return false;
 
   return true;
 }
 
 void DBUserInfo::Swap(DBUserInfo* other) {
   if (other != this) {
-    std::swap(id_, other->id_);
     std::swap(userid_, other->userid_);
     std::swap(username_, other->username_);
     std::swap(sex_, other->sex_);
@@ -1020,7 +922,6 @@ void DBUserInfo::Swap(DBUserInfo* other) {
     std::swap(gold_, other->gold_);
     std::swap(diamon_, other->diamon_);
     std::swap(card_, other->card_);
-    std::swap(icon_, other->icon_);
     std::swap(code_, other->code_);
     std::swap(token_, other->token_);
     std::swap(picid_, other->picid_);

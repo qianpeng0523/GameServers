@@ -30,8 +30,7 @@ CSVDataInfo::~CSVDataInfo(){
 
 bool CSVDataInfo::init()
 {
-	CSVDataInfo::getIns()->openCSVFile("../Server1/res/config.csv", CSV_CONFIG);
-	CSVDataInfo::getIns()->openCSVFile("../Server1/res/robot.csv", CSV_ROBOT);
+	CSVDataInfo::getIns()->openCSVFile("./res/robot.csv", CSV_ROBOT);
     return true;
 }
 

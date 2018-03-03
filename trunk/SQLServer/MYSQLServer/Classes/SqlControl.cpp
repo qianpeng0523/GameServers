@@ -1,7 +1,10 @@
 ﻿#include "SqlControl.h"
 #include "DataBaseUserinfo.h"
+#include "HttpLogic.h"
 
 SqlControl *SqlControl::m_ins = NULL;
+
+static string g_othersql[] = {"information_schema","mysql","test","performance_schema"};
 
 SqlControl::SqlControl()
 {	
@@ -25,41 +28,88 @@ SqlControl* SqlControl::getIns(){
 }
 
 void SqlControl::init(){
-	start();
+	
 }
 
 bool SqlControl::start(){
-	char *query = NULL;
-	int rt;
-	m_mysql = mysql_init((MYSQL*)0);
-	if (m_mysql != NULL && mysql_real_connect(m_mysql, DBIP, DBUSER, DBPASSWD, DBNAME, DBPORT, NULL, 0)) {
-		if (!mysql_select_db(m_mysql, DBNAME)) {
-			printf("Select successfully the database!\n");
-			m_mysql->reconnect = 1;
-			query = "set names \'GBK\'";
-			rt = mysql_real_query(m_mysql, query, strlen(query));
-			if (rt) {
-				printf("Error making query: %s !!!\n", mysql_error(m_mysql));
+	if (!m_mysql){
+		char *query = NULL;
+		int rt;
+		m_mysql = mysql_init((MYSQL*)0);
+		SQLInfo *p = HttpLogic::getIns()->getSQLInfo();
+		if (m_mysql != NULL && mysql_real_connect(m_mysql, p->_ip.c_str(), p->_name.c_str(), p->_pass.c_str(), p->_db.c_str(), p->_port, NULL, 0)) {
+			if (SelectDB(p->_db)) {
+				printf("选择数据库成功!\n");
+				m_mysql->reconnect = 1;
+				query = "set names \'GBK\'";
+				rt = mysql_real_query(m_mysql, query, strlen(query));
+				if (rt) {
+					printf("Error making query: %s !!!\n", mysql_error(m_mysql));
+				}
+				else {
+					printf("query %s succeed!\n", query);
+				}
+				DataBaseUserInfo::getIns();
+				getAllDatabases();
+				getAllTables();
+				return true;
 			}
-			else {
-				printf("query %s succeed!\n", query);
-			}
-			DataBaseUserInfo::getIns();
-			return true;
+			return false;
 		}
-		return false;
+		else {
+			
+			printf("连接数据库失败，请检查配置!\n");
+		}
 	}
-	else {
-		printf("Unable to connect the database,check your configuration!");
+	else{
+		getAllDatabases();
+		getAllTables();
+		return true;
 	}
 	return false;
 }
 
-void SqlControl::close(){
-	mysql_close(m_mysql);
+bool SqlControl::SelectDB(string dbname){
+	return !mysql_select_db(m_mysql, dbname.c_str());
 }
 
-std::vector<std::string> SqlControl::ExcuteQuery(char* sqlstr, sqloptype type){
+vector<string> SqlControl::getAllDatabases(){
+	string sqlstr = "show databases";
+	vector<string> vecs = ExcuteQuery((char *)sqlstr.c_str(), showdatatses_sql);
+	for (int i = 0; i < 4;i++){
+		string oname = g_othersql[i];
+		vector<string>::iterator itr = vecs.begin();
+		for (itr; itr != vecs.end();itr++){
+			if (oname.compare(*itr) == 0){
+				vecs.erase(itr);
+				break;
+			}
+		}
+	}
+	DataBaseUserInfo::getIns()->setDatabases(vecs);
+	return vecs;
+}
+
+vector<string> SqlControl::getAllTables(){
+	string sqlstr = "show tables";
+	vector<string> vecs = ExcuteQuery((char *)sqlstr.c_str(), showdatatses_sql);
+	DataBaseUserInfo::getIns()->setdbtables(vecs);
+	return vecs;
+}
+
+bool SqlControl::close(){
+	if (m_mysql){
+		mysql_close(m_mysql);
+		m_mysql = NULL;
+		printf("关闭数据库成功\n");
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+vector<string> SqlControl::ExcuteQuery(char* sqlstr, sqloptype type){
 	printf("%s\n",sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
@@ -96,4 +146,43 @@ std::vector<std::string> SqlControl::ExcuteQuery(char* sqlstr, sqloptype type){
 		}
 	}
 	return vecs;
+}
+
+vector<vector<string>> SqlControl::ExcuteQueryAll(char* sqlstr){
+	printf("%s\n", sqlstr);
+	int rt;
+	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
+	if (rt)
+	{
+		printf("Error making query: %s !!!\n", mysql_error(m_mysql));
+	}
+	else
+	{
+		printf("%s executed!!!\n", sqlstr);
+	}
+	MYSQL_RES *res;
+	res = mysql_store_result(m_mysql);//将结果保存在res结构体中
+	int t = 0;
+	int count = 0;
+	vector<vector<string>> allvecs;
+	if (res){
+		MYSQL_ROW row;
+		while (row = mysql_fetch_row(res)) {
+			std::vector<std::string> vecs;
+			for (t = 0; t < mysql_num_fields(res); t++) {
+				std::string s = row[t];
+				//printf("%s ",s.c_str());
+				vecs.push_back(s);
+			}
+			//printf("\n");
+			allvecs.push_back(vecs);
+			count++;
+		}
+		//printf("number of rows %d\n", count);
+		mysql_free_result(res);
+	}
+	else{
+		printf("未能查找到数据\n");
+	}
+	return allvecs;
 }

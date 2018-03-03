@@ -18,6 +18,9 @@
 #include <signal.h>
 #include <map>
 #include "DBProto.h"
+#include "XXIconv.h"
+#include "YMSocketData.h"
+
 
 #define CC_REPEAT_FOREVER (UINT_MAX -1)
 #define kRepeatForever CC_REPEAT_FOREVER
@@ -34,13 +37,13 @@
 #define CC_UNUSED_PARAM(unusedparam) (void)unusedparam
 
 
-#define SQLSERVER_IP "192.168.50.151"
+#define SQLSERVER_IP "192.168.1.102"
 #define HTTP_H "http://"
 #define SQL_FIND_USERINFO HTTP_H+SQLSERVER_IP
 
 #define DBUSER "qpserver"
 #define DBPASSWD "3.1415926qp"
-#define DBIP "192.168.50.151"
+#define DBIP "192.168.1.102"
 #define DBNAME "majiang"
 #define MJ_TABLENAME_USER "userinfo"
 #define DBPORT 3306

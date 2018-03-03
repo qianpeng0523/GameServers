@@ -17,6 +17,7 @@
     <ClCompile Include="Classes\config\Object.cpp" />
     <ClCompile Include="Classes\db\DataBaseUserinfo.cpp" />
     <ClCompile Include="Classes\HttpEvent.cpp" />
+    <ClCompile Include="Classes\HttpLogic.cpp" />
     <ClCompile Include="Classes\main.cpp" />
     <ClCompile Include="Classes\MD5.cpp" />
     <ClCompile Include="Classes\netjson\json_reader.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="Classes\config\Object.h" />
     <ClInclude Include="Classes\db\DataBaseUserinfo.h" />
     <ClInclude Include="Classes\HttpEvent.h" />
+    <ClInclude Include="Classes\HttpLogic.h" />
     <ClInclude Include="Classes\iconv.h" />
     <ClInclude Include="Classes\MD5.h" />
     <ClInclude Include="Classes\netjson\json_batchallocator.h" />
@@ -91,7 +93,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\MYSQLServer\libevent\include;..\MYSQLServer\libevent\include\event2;..\protobuf;..\protobuf\src;D:\Program Files\mysql\include;..\libMessagePack\src;..\libMessagePack\;$(IncludePath)</IncludePath>
     <ReferencePath>..\MYSQLServer\libevent\lib;..\..\lib;..\..\bin;D:\Program Files\mysql\lib;..\curl\prebuilt\win32;$(ReferencePath)</ReferencePath>
-    <SourcePath>..\Server1\res;$(SourcePath)</SourcePath>
+    <SourcePath>..\MYSQLServer\res;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

@@ -72,6 +72,9 @@
     <ClCompile Include="Classes\config\Object.cpp">
       <Filter>源文件\Classes\config</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\HttpLogic.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\HttpEvent.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Classes\config\Object.h">
       <Filter>源文件\Classes\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\HttpLogic.h">
+      <Filter>源文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

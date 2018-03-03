@@ -1,7 +1,7 @@
 ﻿#include "HttpEvent.h"
 #include "MD5.h"
 #include "curl.h"
-
+#include "HttpLogic.h"
 #define WECHAT_APPID "wx73057982ca59e10c"
 #define WECHAT_APPSECRET "021Odmeo0sPwHo1Nqxco0Glneo0OdmeH"
 
@@ -10,7 +10,10 @@ HttpEvent *HttpEvent::m_ins = NULL;
 HttpEvent::HttpEvent()
 {	
 	m_httpd = NULL;
-
+#ifdef WIN32
+	WSADATA wsa_data;
+	WSAStartup(0x0201, &wsa_data);
+#endif
 }
 
 HttpEvent::~HttpEvent()
@@ -65,28 +68,25 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	//获取客户端请求的URI(使用evhttp_request_uri或直接req->uri)
 	const char *uri;
 	uri = evhttp_request_uri(req);
-	
-	HttpEvent::getIns()->EventDispath(req, uri);
+	string str = uri;
+	str = str.substr(1,str.length());
+	HttpEvent::getIns()->EventDispath(req, str);
 }
 
-void HttpEvent::EventDispath(struct evhttp_request *&req, const char* url){
+void HttpEvent::EventDispath(struct evhttp_request *&req, string uri){
 	struct evbuffer *buf;
 	buf = evbuffer_new();
-
-	char packBuffer[4096] = { 0 };
-	int packSize = 0;
-
-	YMSocketData sd;
+	YMSocketData sd = getSocketDataByStr(uri,uri.length());
 
 	//通过url分写逻辑
 
-	sd.serializer(packBuffer, &packSize);
-	std::printf("%s\n", sd.getJsonString().c_str());
-
+	char *packBuffer= (char *)malloc(4096);
+	int packSize = 0;
+	HttpLogic::getIns()->HandleLogic(sd, packBuffer, packSize);
 	evbuffer_add(buf, packBuffer, packSize);
 	evhttp_send_reply(req, HTTP_OK, "OK", buf);
 	evbuffer_free(buf);
-	
+	free(packBuffer);
 }
 
 void HttpEvent::init(){
@@ -124,9 +124,12 @@ void HttpEvent::init(){
 
 }
 
-YMSocketData HttpEvent::getSocketDataByStr(string str){
-	YMSocketDataEvent sds(0, (char *)str.c_str(), str.length());
-	YMSocketData sd = sds.getBody();
+YMSocketData HttpEvent::getSocketDataByStr(string str,int sz){
+	YMSocketData sd;
+	if (str.empty()){
+		return sd;
+	}
+	sd.parse((char *)str.c_str(), sz);
 
 	return sd;
 }
