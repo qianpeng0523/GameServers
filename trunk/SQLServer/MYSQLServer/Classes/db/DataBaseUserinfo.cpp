@@ -4,7 +4,7 @@
 
 DataBaseUserInfo *DataBaseUserInfo::m_ins = NULL;
 
-string g_dbitennames[] = { "userid", "username", "sex", "address", "gold", "diamond", "card",  "code", "token", "picid", "unionid", "picurl" };
+string DataBaseUserInfo::g_dbitennames[12] = { "userid", "username", "sex", "address", "gold", "diamond", "card", "code", "token", "picid", "unionid", "picurl" };
 
 DataBaseUserInfo::DataBaseUserInfo(){
 	m_maxuid = "100000";
@@ -12,7 +12,8 @@ DataBaseUserInfo::DataBaseUserInfo(){
 	sqlstr += MJ_TABLENAME_USER;
 	sqlstr += " where userid = ";
 	sqlstr += "(select max(userid) from userinfo)";
-	std::vector<std::string> vecs1 = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str());
+	std::vector<std::string> vecs1;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vecs1);
 	if (!vecs1.empty()){
 		char buff[100];
 		sprintf(buff, "%d", atoi(m_maxuid.c_str()) + 1);
@@ -71,8 +72,12 @@ bool DataBaseUserInfo::insertDBUserInfo(DBUserInfo dbuser){
 	sprintf(buff, "'%s','%s',%d,'%s',%d,%d,%d,'%s','%s',%d,'%s','%s')", uid.c_str(), dbuser.username().c_str(), dbuser.sex(), dbuser.address().c_str(),
 		dbuser.gold(), dbuser.diamon(),dbuser.card(),  dbuser.code().c_str(), dbuser.token().c_str(), dbuser.picid(), dbuser.unionid().c_str(), dbuser.picurl().c_str());
 	sqlstr += buff;
-	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),insert_sql);
-	setDBUserData(getDBUserInfo((char *)uid.c_str()));
+	vector<string> vec;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, insert_sql);
+	if (err == 0){
+		setDBUserData(getDBUserData((char *)uid.c_str()));
+	}
+	
 	return true;
 }
 
@@ -106,10 +111,69 @@ bool DataBaseUserInfo::updateDBUserInfo(DBUserInfo dbuser, std::map<string, void
 			sqlstr += buff;
 		}
 	}
-	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), update_sql);
-	setDBUserData(getDBUserInfo((char *)uid.c_str()));
+	vector<string> vec;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, insert_sql);
+	if (err == 0){
+		setDBUserData(getDBUserData((char *)uid.c_str()));
+	}
 	maps.clear();
 	return true;
+}
+
+int DataBaseUserInfo::updateDBUserInfoByKey(std::map<string, string >updatedata, string key, string value){
+	string sqlstr = "update ";
+	sqlstr += MJ_TABLENAME_USER;
+	sqlstr += " set ";
+	char buff[255];
+	int ct = 0;
+	std::map<string, string>::iterator itr1 = updatedata.begin();
+	for (itr1; itr1 != updatedata.end(); itr1++){
+		string name = itr1->first;
+		sqlstr += name + "= ";
+		if (name.compare(g_dbitennames[0]) == 0 || name.compare(g_dbitennames[1]) == 0 || name.compare(g_dbitennames[3]) == 0
+			|| name.compare(g_dbitennames[7]) == 0 || name.compare(g_dbitennames[8]) == 0 || name.compare(g_dbitennames[10]) == 0
+			|| name.compare(g_dbitennames[11]) == 0){
+			sqlstr += "'";
+			sqlstr += (char*)itr1->second.c_str();
+			sqlstr += "'";
+		}
+		else{
+			sprintf(buff, "%d", atoi(itr1->second.c_str()));
+			sqlstr += buff;
+		}
+		ct++;
+		if (ct != updatedata.size()){
+			sqlstr += ",";
+		}
+		else{
+			sqlstr += " ";
+		}
+	}
+	sqlstr += " where " + key + " = '";
+
+	if (key.compare(g_dbitennames[0]) == 0 || key.compare(g_dbitennames[1]) == 0 || key.compare(g_dbitennames[3]) == 0
+		|| key.compare(g_dbitennames[7]) == 0 || key.compare(g_dbitennames[8]) == 0 || key.compare(g_dbitennames[10]) == 0
+		|| key.compare(g_dbitennames[11]) == 0){
+		sqlstr += (char*)value.c_str();
+		sqlstr += "'";
+	}
+	else{
+		sprintf(buff, "%d", atoi(value.c_str()));
+		sqlstr += buff;
+	}
+
+	vector<string> vec;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, update_sql);
+	if (err == 0){
+		if (key.compare("userid") == 0){
+			setDBUserData(getDBUserData((char *)value.c_str()));
+		}
+		else{
+			getAllDBUserInfo();
+		}
+	}
+	
+	return err;
 }
 
 bool DataBaseUserInfo::updateDBUserInfoByUid(std::map<string, void *>updatedata, string uid){
@@ -143,8 +207,11 @@ bool DataBaseUserInfo::updateDBUserInfoByUid(std::map<string, void *>updatedata,
 	}
 	sqlstr += " where userid = '"+uid+"'";
 	
-	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), update_sql);
-	setDBUserData(getDBUserInfo((char *)uid.c_str()));
+	vector<string> vec;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, update_sql);
+	if (err == 0){
+		setDBUserData(getDBUserData((char *)uid.c_str()));
+	}
 	updatedata.clear();
 	return true;
 }
@@ -167,8 +234,11 @@ bool DataBaseUserInfo::updateDBUserInfoByUid(string upname, void *upvalue, strin
 		sqlstr += buff;
 	}
 	sqlstr += " where userid = '" + uid + "'";
-	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), update_sql);
-	setDBUserData(getDBUserInfo((char *)uid.c_str()));
+	vector<string> vec;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, update_sql);
+	if (err == 0){
+		setDBUserData(getDBUserData((char *)uid.c_str()));
+	}
 	return true;
 }
 
@@ -232,14 +302,16 @@ std::vector<std::string> DataBaseUserInfo::getDBUserData(char *uid){
 	sqlstr += MJ_TABLENAME_USER;
 	sqlstr += " where userid = ";
 	sqlstr += uid;
-	std::vector<std::string> vecs = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str());
+	std::vector<std::string> vecs;
+	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vecs);
 	return vecs;
 }
 
 void DataBaseUserInfo::getAllDBUserInfo(){
 	std::string sqlstr = "select * from ";
 	sqlstr += MJ_TABLENAME_USER;
-	vector < vector < string >> vecs= SqlControl::getIns()->ExcuteQueryAll((char *)sqlstr.c_str());
+	vector < vector < string >> vecs;
+	SqlControl::getIns()->ExcuteQueryAll((char *)sqlstr.c_str(),vecs);
 	for (int i = 0; i < vecs.size();i++){
 		setDBUserData(vecs.at(i));
 	}
@@ -247,14 +319,9 @@ void DataBaseUserInfo::getAllDBUserInfo(){
 }
 
 std::map<string, DBUserInfo> DataBaseUserInfo::getUserInfoDatas(){
-// 	std::string sqlstr = "select top(10) * from ";
-// 	sqlstr += MJ_TABLENAME_USER;
-// 	sqlstr += " where 1=1";
-// 	vector < vector < string >> vecs = SqlControl::getIns()->ExcuteQueryAll((char *)sqlstr.c_str());
-// 	for (int i = 0; i < vecs.size(); i++){
-// 		setDBUserData(vecs.at(i));
-// 	}
-// 	printf("所有前10条数据查询完毕!!\n");
+	if (m_dbusers.empty()){
+		getAllDBUserInfo();
+	}
 	std::map<string, DBUserInfo> vecs;
 	int count = 0;
 	std::map<string, DBUserInfo>::iterator itr = m_dbusers.begin();
@@ -266,4 +333,55 @@ std::map<string, DBUserInfo> DataBaseUserInfo::getUserInfoDatas(){
 		}
 	}
 	return vecs;
+}
+
+vector<string> DataBaseUserInfo::getTableColumnName(string tablename){
+	vector<string> vec;
+	if (m_tablecolumnsname.find(tablename) != m_tablecolumnsname.end()){
+		vec = m_tablecolumnsname.at(tablename);
+	}
+	else{
+		string sqlstr = "select COLUMN_NAME from information_schema.columns where table_name='";
+		sqlstr += tablename;
+		sqlstr += "'";
+		SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vec,column_sql);
+	}
+	
+	return vec;
+}
+
+string DataBaseUserInfo::getTablePrikey(string tablename){
+	string prikey;
+	if (m_tableprikey.find(tablename) != m_tableprikey.end()){
+		prikey = m_tableprikey.at(tablename);
+	}
+	else{
+		string sqlstr = "select COLUMN_NAME from information_schema.key_column_usage where table_name = '";
+		sqlstr += tablename;
+		sqlstr += "'";
+		vector<string> vec1;
+		SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vec1, column_sql);
+		if (!vec1.empty()){
+			prikey = vec1.at(0);
+		}
+	}
+	return prikey;
+}
+
+DBUserInfo DataBaseUserInfo::getDBUserInfo(string coname, string covalue){
+	string sqlstr = "select * from userinfo where "+coname+" = ";
+	if (coname.compare(g_dbitennames[0]) == 0 || coname.compare(g_dbitennames[1]) == 0 || coname.compare(g_dbitennames[3]) == 0
+		|| coname.compare(g_dbitennames[7]) == 0 || coname.compare(g_dbitennames[8]) == 0 || coname.compare(g_dbitennames[10]) == 0
+		|| coname.compare(g_dbitennames[11]) == 0){
+		sqlstr += "'";
+		sqlstr += covalue;
+		sqlstr += "'";
+	}
+	else{
+		sqlstr += covalue;
+	}
+	vector<string> vec;
+	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vec,select_sql);
+	DBUserInfo user = setDBUserData(vec);
+	return user;
 }
