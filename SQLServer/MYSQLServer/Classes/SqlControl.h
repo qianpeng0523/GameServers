@@ -10,6 +10,7 @@ enum sqloptype{
 	update_sql,
 	insert_sql,
 	showdatatses_sql,
+	column_sql,
 };
 
 class SqlControl{
@@ -21,12 +22,14 @@ public:
 	void init();
 	bool start();
 	bool close();
-	vector<string> ExcuteQuery(char* sqlstr, sqloptype type=select_sql);
-	vector<vector<string>> ExcuteQueryAll(char* sqlstr);
+	int ExcuteQuery(char* sqlstr, std::vector<std::string> &vecs, sqloptype type = select_sql);
+	int ExcuteQueryAll(char* sqlstr, vector<vector<string>> &allvecs);
 
 	bool SelectDB(string dbname);
 	vector<string> getAllDatabases();
 	vector<string> getAllTables();
+
+	bool isConnect();
 private:
 	static SqlControl *m_ins;
 	MYSQL * m_mysql;

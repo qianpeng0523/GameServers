@@ -36,7 +36,7 @@ void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 		SqlClose(buff,sz);
 	}
 	else if (cmd == 0x03){
-		
+		SqlExcute(sd, buff, sz);
 	}
 	else if (cmd == 0x04){
 		SelectDB(sd["dbname"].asString(), buff, sz);
@@ -44,6 +44,21 @@ void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	else if (cmd == 0x05){
 		SelectTableData(sd["tname"].asString(), buff, sz);
 	}
+	else if (cmd == 0x06){
+		SqlConnect( buff, sz);
+	}
+	else if (cmd == 0x07){
+		SqlColumns(sd["tname"].asString(),buff, sz);
+	}
+	else if (cmd == 0x08){
+		SqlFind(sd, buff, sz);
+	}
+}
+
+void HttpLogic::SqlConnect(char *&buff, int &sz){
+	YMSocketData sd1;
+	sd1["err"] = SqlControl::getIns()->isConnect();
+	sd1.serializer(buff, &sz);
 }
 
 void HttpLogic::SqlStart(YMSocketData sd, char *&buff, int &sz){
@@ -107,10 +122,11 @@ void HttpLogic::SelectDB(string dbname, char *&buff, int &sz){
 }
 
 void HttpLogic::SelectTableData(string tname, char *&buff, int &sz){
+	YMSocketData sd;
+	sd["err"] = 0;
+	sd["tname"] = tname;
+	
 	if (tname.compare("userinfo") == 0){
-		YMSocketData sd;
-		sd["err"] = 0;
-		sd["tname"] = tname;
 		std::map<string, DBUserInfo> dbusers=DataBaseUserInfo::getIns()->getUserInfoDatas();
 		std::map<string, DBUserInfo>::iterator itr = dbusers.begin();
 		int i = 0;
@@ -121,6 +137,65 @@ void HttpLogic::SelectTableData(string tname, char *&buff, int &sz){
 			sd["tablelist"][i] = sm;
 			i++;
 		}
-		sd.serializer(buff, &sz);
 	}
+	else if(tname.compare("records")==0){
+		
+	}
+	sd.serializer(buff, &sz);
+}
+
+void HttpLogic::SqlColumns(string tname, char *&buff, int &sz){
+	YMSocketData sd;
+	sd["err"] = 0;
+	sd["tname"] = tname;
+	
+	
+	vector<string>vec = DataBaseUserInfo::getIns()->getTableColumnName(tname);
+	for (int i = 0; i < vec.size(); i++){
+		sd["columns"][i] = vec.at(i);
+	}
+	sd.serializer(buff, &sz);
+}
+
+void HttpLogic::SqlFind(YMSocketData sd, char *&buff, int &sz){
+	string tname = sd["tname"].asString();
+	string coname = sd["coname"].asString();
+	string covalue = sd["covalue"].asString();
+	YMSocketData sd1;
+	sd1["tname"] = tname;
+	sd1["prikey"] = DataBaseUserInfo::getIns()->getTablePrikey(tname);
+	if (tname.compare("userinfo") == 0){
+		string prikey;
+		DBUserInfo user= DataBaseUserInfo::getIns()->getDBUserInfo(coname, covalue);
+		int sz = user.ByteSize();
+		char* sm = new char[sz+1];
+		user.SerializeToArray(sm,sz);
+		sd1["data"] = sm; 
+		printf("sqlfind:%s",sd1["data"].asString().c_str());
+		delete sm;
+	}
+	sd1.serializer(buff, &sz);
+}
+
+void HttpLogic::SqlExcute(YMSocketData sd, char *&buff, int &sz){
+	string tname = sd["tname"].asString();
+	string key = sd["key"].asString();
+	string keyvalue = sd["keyvalue"].asString();
+	printf("%s",sd.getJsonString().c_str());
+	int err = 0;
+	if (tname.compare("userinfo") == 0){
+		map<string, string>maps;
+		for (int i = 0; i < 12; i++){
+			string coname = DataBaseUserInfo::g_dbitennames[i];
+			if (sd.isMember(coname)){
+				string covalue= sd[coname].asString();
+				maps.insert(make_pair(coname,covalue));
+			}
+		}
+		err=DataBaseUserInfo::getIns()->updateDBUserInfoByKey(maps, key, keyvalue);
+	}
+	YMSocketData sd1;
+	sd1["err"] = err;
+	sd1["tname"] = tname;
+	sd1.serializer(buff, &sz);
 }

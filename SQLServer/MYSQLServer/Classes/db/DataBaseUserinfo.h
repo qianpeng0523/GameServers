@@ -13,12 +13,12 @@ public:
 	DBUserInfo setDBUserData(std::vector<std::string> vecs);//设置整个数据
 	void setDBUserData(DBUserInfo dbuser);//设置整个数据
 	DBUserInfo getDBUserInfo(char *uid);
-	
 
 	bool insertDBUserInfo(DBUserInfo dbuser);
 	bool updateDBUserInfo(DBUserInfo dbuser,std::map<string,void *>maps);
 	bool updateDBUserInfoByUid(std::map<string, void *>updatedata,string uid);
 	bool updateDBUserInfoByUid(string upname,void *upvalue, string uid);
+	int updateDBUserInfoByKey(std::map<string, string >updatedata, string key, string value);
 
 	void setDatabases(vector<string> dbs){
 		m_databases = dbs;
@@ -35,6 +35,12 @@ public:
 	}
 
 	std::map<string, DBUserInfo> getUserInfoDatas();
+	vector<string> getTableColumnName(string tablename);
+
+	DBUserInfo getDBUserInfo(string coname, string covalue);
+	string getTablePrikey(string tablename);
+
+	static string g_dbitennames[12];
 private:
 	void startAI();
 	
@@ -49,4 +55,6 @@ private:
 	vector<string> m_curdbtables;
 	static DataBaseUserInfo *m_ins;
 	string m_maxuid;
+	map<string, vector<string>>m_tablecolumnsname;
+	map<string, string>m_tableprikey;
 };

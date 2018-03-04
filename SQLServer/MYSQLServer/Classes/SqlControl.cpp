@@ -1,7 +1,7 @@
 ﻿#include "SqlControl.h"
 #include "DataBaseUserinfo.h"
 #include "HttpLogic.h"
-
+#include "HttpEvent.h"
 SqlControl *SqlControl::m_ins = NULL;
 
 static string g_othersql[] = {"information_schema","mysql","test","performance_schema"};
@@ -31,12 +31,19 @@ void SqlControl::init(){
 	
 }
 
+bool SqlControl::isConnect(){
+	if (m_mysql&&m_mysql->info){
+		return true;
+	}
+	return false;
+}
+
 bool SqlControl::start(){
+	SQLInfo *p = HttpLogic::getIns()->getSQLInfo();
 	if (!m_mysql){
 		char *query = NULL;
 		int rt;
 		m_mysql = mysql_init((MYSQL*)0);
-		SQLInfo *p = HttpLogic::getIns()->getSQLInfo();
 		if (m_mysql != NULL && mysql_real_connect(m_mysql, p->_ip.c_str(), p->_name.c_str(), p->_pass.c_str(), p->_db.c_str(), p->_port, NULL, 0)) {
 			if (SelectDB(p->_db)) {
 				printf("选择数据库成功!\n");
@@ -62,6 +69,7 @@ bool SqlControl::start(){
 		}
 	}
 	else{
+		SelectDB(p->_db);
 		getAllDatabases();
 		getAllTables();
 		return true;
@@ -75,25 +83,31 @@ bool SqlControl::SelectDB(string dbname){
 
 vector<string> SqlControl::getAllDatabases(){
 	string sqlstr = "show databases";
-	vector<string> vecs = ExcuteQuery((char *)sqlstr.c_str(), showdatatses_sql);
-	for (int i = 0; i < 4;i++){
-		string oname = g_othersql[i];
-		vector<string>::iterator itr = vecs.begin();
-		for (itr; itr != vecs.end();itr++){
-			if (oname.compare(*itr) == 0){
-				vecs.erase(itr);
-				break;
+	vector<string> vecs;
+	int err= ExcuteQuery((char *)sqlstr.c_str(), vecs,showdatatses_sql);
+	if (err == 0){
+		for (int i = 0; i < 4; i++){
+			string oname = g_othersql[i];
+			vector<string>::iterator itr = vecs.begin();
+			for (itr; itr != vecs.end(); itr++){
+				if (oname.compare(*itr) == 0){
+					vecs.erase(itr);
+					break;
+				}
 			}
 		}
+		DataBaseUserInfo::getIns()->setDatabases(vecs);
 	}
-	DataBaseUserInfo::getIns()->setDatabases(vecs);
 	return vecs;
 }
 
 vector<string> SqlControl::getAllTables(){
 	string sqlstr = "show tables";
-	vector<string> vecs = ExcuteQuery((char *)sqlstr.c_str(), showdatatses_sql);
-	DataBaseUserInfo::getIns()->setdbtables(vecs);
+	vector<string> vecs;
+	int err = ExcuteQuery((char *)sqlstr.c_str(),vecs, showdatatses_sql);
+	if (err == 0){
+		DataBaseUserInfo::getIns()->setdbtables(vecs);
+	}
 	return vecs;
 }
 
@@ -109,13 +123,14 @@ bool SqlControl::close(){
 	}
 }
 
-vector<string> SqlControl::ExcuteQuery(char* sqlstr, sqloptype type){
+int SqlControl::ExcuteQuery(char* sqlstr, std::vector<std::string> &vecs, sqloptype type){
 	printf("%s\n",sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
 	if (rt)
 	{
 		printf("Error making query: %s !!!\n", mysql_error(m_mysql));
+		return 1;
 	}
 	else
 	{
@@ -125,7 +140,6 @@ vector<string> SqlControl::ExcuteQuery(char* sqlstr, sqloptype type){
 	res = mysql_store_result(m_mysql);//将结果保存在res结构体中
 	int t = 0;
 	int count = 0;
-	std::vector<std::string> vecs;
 	if (res){
 		MYSQL_ROW row;
 		while (row = mysql_fetch_row(res)) {
@@ -143,18 +157,21 @@ vector<string> SqlControl::ExcuteQuery(char* sqlstr, sqloptype type){
 	else{
 		if (type == select_sql){
 			printf("未能查找到数据\n");
+			return 2;
 		}
+		
 	}
-	return vecs;
+	return 0;
 }
 
-vector<vector<string>> SqlControl::ExcuteQueryAll(char* sqlstr){
+int SqlControl::ExcuteQueryAll(char* sqlstr, vector<vector<string>> &allvecs){
 	printf("%s\n", sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
 	if (rt)
 	{
 		printf("Error making query: %s !!!\n", mysql_error(m_mysql));
+		return 1;
 	}
 	else
 	{
@@ -164,15 +181,15 @@ vector<vector<string>> SqlControl::ExcuteQueryAll(char* sqlstr){
 	res = mysql_store_result(m_mysql);//将结果保存在res结构体中
 	int t = 0;
 	int count = 0;
-	vector<vector<string>> allvecs;
+	
 	if (res){
 		MYSQL_ROW row;
 		while (row = mysql_fetch_row(res)) {
 			std::vector<std::string> vecs;
 			for (t = 0; t < mysql_num_fields(res); t++) {
 				std::string s = row[t];
-				//printf("%s ",s.c_str());
 				vecs.push_back(s);
+				
 			}
 			//printf("\n");
 			allvecs.push_back(vecs);
@@ -183,6 +200,7 @@ vector<vector<string>> SqlControl::ExcuteQueryAll(char* sqlstr){
 	}
 	else{
 		printf("未能查找到数据\n");
+		return 2;
 	}
-	return allvecs;
+	return 0;
 }
