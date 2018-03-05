@@ -46,6 +46,8 @@
 #define DBIP "192.168.1.102"
 #define DBNAME "majiang"
 #define MJ_TABLENAME_USER "userinfo"
+#define MJ_TABLENAME_RECORDS "records"
+#define MJ_TABLENAME_DETAIL_RECORDS "records"
 #define DBPORT 3306
 
 #pragma comment(lib,"../MYSQLServer/Debug/libprotobuf.lib") 

@@ -10,15 +10,13 @@ public:
 	static DataBaseUserInfo *getIns();
 
 	//////////////DBUserInfo
-	DBUserInfo setDBUserData(std::vector<std::string> vecs);//设置整个数据
-	void setDBUserData(DBUserInfo dbuser);//设置整个数据
-	DBUserInfo getDBUserInfo(char *uid);
+	::google::protobuf::Message* setDBData(std::vector<std::string> vecs, string tablename);//设置整个数据
+	void setDBData(::google::protobuf::Message* msg,string tablename);//设置整个数据
+	//DBUserInfo getDBUserInfo(char *uid);
 
-	bool insertDBUserInfo(DBUserInfo dbuser);
-	bool updateDBUserInfo(DBUserInfo dbuser,std::map<string,void *>maps);
-	bool updateDBUserInfoByUid(std::map<string, void *>updatedata,string uid);
-	bool updateDBUserInfoByUid(string upname,void *upvalue, string uid);
-	int updateDBUserInfoByKey(std::map<string, string >updatedata, string key, string value);
+	bool insertDBData(::google::protobuf::Message *msg, string tablename);
+	
+	int updateDBDataByKey(string tablename, std::map<string, string >updatedata, string key, string value);
 
 	void setDatabases(vector<string> dbs){
 		m_databases = dbs;
@@ -34,26 +32,30 @@ public:
 		return m_curdbtables;
 	}
 
-	std::map<string, DBUserInfo> getUserInfoDatas();
+	std::map<string, ::google::protobuf::Message*> getDBDatas(string tablename);
 	vector<string> getTableColumnName(string tablename);
 
-	DBUserInfo getDBUserInfo(string coname, string covalue);
+	std::vector<::google::protobuf::Message*> getDBData(string tablename, string coname, string covalue);
 	string getTablePrikey(string tablename);
 
 	void getDBUserFromSocketData(DBUserInfo &user, YMSocketData sd, string listname="", int index=0);
 	void setDBUserToSocketData(DBUserInfo user, YMSocketData &sd, string listname="", int index=0);
 
 	static string g_dbitennames[12];
+	static string g_dbrecordsnames[4];
+	static string g_dbdetailrecordsnames[5];
 private:
 	void startAI();
 	
 	//////////////DBUserInfo
-	void getAllDBUserInfo();
+	void getAllDBData(string tablename);
 	bool getDBUser(char *uid, DBUserInfo &dbuser);
-	std::vector<std::string> getDBUserData(char *uid);
-	
+	//std::vector<std::string> getDBUserData(char *uid);
+	bool isStringType(string tablename, string name);
 private:
 	std::map<string,DBUserInfo> m_dbusers;
+	std::map<int, DBRecords> m_dbrecordss;
+	std::map<int, DBDetailRecords> m_dbdetailrecords;
 	vector<string> m_databases;
 	vector<string> m_curdbtables;
 	static DataBaseUserInfo *m_ins;

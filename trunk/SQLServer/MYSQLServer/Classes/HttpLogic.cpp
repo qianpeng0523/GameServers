@@ -171,20 +171,26 @@ void HttpLogic::SelectTableData(string tname, char *&buff, int &sz){
 	sd["err"] = 0;
 	sd["tname"] = tname;
 	DataBaseUserInfo *p = DataBaseUserInfo::getIns();
-	if (tname.compare("userinfo") == 0){
-		std::map<string, DBUserInfo> dbusers=p->getUserInfoDatas();
-		std::map<string, DBUserInfo>::iterator itr = dbusers.begin();
-		int i = 0;
-		for (itr; itr != dbusers.end();itr++){
-			
-			DBUserInfo msg = itr->second;
-			p->setDBUserToSocketData(msg, sd,"datas",i);
-			i++;
+	
+	std::map<string, ::google::protobuf::Message*> dbusers = p->getDBDatas(tname);
+	std::map<string, ::google::protobuf::Message*>::iterator itr = dbusers.begin();
+	int i = 0;
+	for (itr; itr != dbusers.end(); itr++){
+		if (tname.compare(MJ_TABLENAME_USER) == 0){
+			DBUserInfo msg;
+			msg.CopyFrom(*itr->second);
+			p->setDBUserToSocketData(msg, sd, "datas", i);
 		}
+		else if (tname.compare(MJ_TABLENAME_RECORDS) == 0){
+
+		}
+		else if (tname.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
+
+		}
+		i++;
 	}
-	else if(tname.compare("records")==0){
-		
-	}
+	
+	
 	sd.serializer(buff, &sz);
 }
 
@@ -209,11 +215,29 @@ void HttpLogic::SqlFind(YMSocketData sd, char *&buff, int &sz){
 	sd1["tname"] = tname;
 	DataBaseUserInfo *p = DataBaseUserInfo::getIns();
 	sd1["prikey"] = p->getTablePrikey(tname);
-	if (tname.compare("userinfo") == 0){
+	if (tname.compare(MJ_TABLENAME_USER) == 0){
 		string prikey;
-		DBUserInfo user= p->getDBUserInfo(coname, covalue);
-		p->setDBUserToSocketData(user, sd1);
-		
+		DBUserInfo user;
+		vector<::google::protobuf::Message*> vec = p->getDBData(tname, coname, covalue);
+		if (!vec.empty()){
+			user.CopyFrom(*vec.at(0));
+			if (user.userid().empty()){
+				sd1["err"] = 1;
+			}
+			else{
+				sd1["err"] = 0;
+				p->setDBUserToSocketData(user, sd1);
+			}
+		}
+		else{
+			sd1["err"] = 1;
+		}
+	}
+	else if (tname.compare(MJ_TABLENAME_RECORDS) == 0){
+
+	}
+	else if (tname.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
+
 	}
 	sd1.serializer(buff, &sz);
 }
@@ -224,7 +248,7 @@ void HttpLogic::SqlExcute(YMSocketData sd, char *&buff, int &sz){
 	string keyvalue = sd["keyvalue"].asString();
 	printf("%s",sd.getJsonString().c_str());
 	int err = 0;
-	if (tname.compare("userinfo") == 0){
+	if (tname.compare(MJ_TABLENAME_USER) == 0){
 		map<string, string>maps;
 		for (int i = 0; i < 12; i++){
 			string coname = DataBaseUserInfo::g_dbitennames[i];
@@ -233,7 +257,13 @@ void HttpLogic::SqlExcute(YMSocketData sd, char *&buff, int &sz){
 				maps.insert(make_pair(coname,covalue));
 			}
 		}
-		err=DataBaseUserInfo::getIns()->updateDBUserInfoByKey(maps, key, keyvalue);
+		err=DataBaseUserInfo::getIns()->updateDBDataByKey(tname,maps, key, keyvalue);
+	}
+	else if (tname.compare(MJ_TABLENAME_RECORDS) == 0){
+
+	}
+	else if (tname.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
+
 	}
 	YMSocketData sd1;
 	sd1["err"] = err;

@@ -22,7 +22,7 @@ public:
 	void init();
 	bool start();
 	bool close();
-	int ExcuteQuery(char* sqlstr, std::vector<std::string> &vecs, sqloptype type = select_sql);
+	int ExcuteQuery(char* sqlstr, vector<vector<string>> &vecs, sqloptype type = select_sql);
 	int ExcuteQueryAll(char* sqlstr, vector<vector<string>> &allvecs);
 
 	bool SelectDB(string dbname);

@@ -83,32 +83,32 @@ bool SqlControl::SelectDB(string dbname){
 
 vector<string> SqlControl::getAllDatabases(){
 	string sqlstr = "show databases";
-	vector<string> vecs;
+	vector<vector<string>> vecs;
 	int err= ExcuteQuery((char *)sqlstr.c_str(), vecs,showdatatses_sql);
-	if (err == 0){
+	if (err == 0&&!vecs.empty()){
 		for (int i = 0; i < 4; i++){
 			string oname = g_othersql[i];
-			vector<string>::iterator itr = vecs.begin();
-			for (itr; itr != vecs.end(); itr++){
+			vector<string>::iterator itr = vecs.at(0).begin();
+			for (itr; itr != vecs.at(0).end(); itr++){
 				if (oname.compare(*itr) == 0){
-					vecs.erase(itr);
+					vecs.at(0).erase(itr);
 					break;
 				}
 			}
 		}
-		DataBaseUserInfo::getIns()->setDatabases(vecs);
+		DataBaseUserInfo::getIns()->setDatabases(vecs.at(0));
 	}
-	return vecs;
+	return vecs.at(0);
 }
 
 vector<string> SqlControl::getAllTables(){
 	string sqlstr = "show tables";
-	vector<string> vecs;
+	vector<vector<string>> vecs;
 	int err = ExcuteQuery((char *)sqlstr.c_str(),vecs, showdatatses_sql);
 	if (err == 0){
-		DataBaseUserInfo::getIns()->setdbtables(vecs);
+		DataBaseUserInfo::getIns()->setdbtables(vecs.at(0));
 	}
-	return vecs;
+	return vecs.at(0);
 }
 
 bool SqlControl::close(){
@@ -123,7 +123,7 @@ bool SqlControl::close(){
 	}
 }
 
-int SqlControl::ExcuteQuery(char* sqlstr, std::vector<std::string> &vecs, sqloptype type){
+int SqlControl::ExcuteQuery(char* sqlstr, vector<vector<string>> &vecs, sqloptype type){
 	printf("%s\n",sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
@@ -143,15 +143,18 @@ int SqlControl::ExcuteQuery(char* sqlstr, std::vector<std::string> &vecs, sqlopt
 	if (res){
 		MYSQL_ROW row;
 		while (row = mysql_fetch_row(res)) {
+			std::vector<std::string> vec;
 			for (t = 0; t < mysql_num_fields(res); t++) {
 				std::string s = row[t];
 				//printf("%s ",s.c_str());
-				vecs.push_back(s);
+				vec.push_back(s);
 			}
 			//printf("\n");
+			vecs.push_back(vec);
 			count++;
 		}
 		//printf("number of rows %d\n", count);
+		
 		mysql_free_result(res);
 	}
 	else{

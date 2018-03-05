@@ -34,6 +34,8 @@ void protobuf_AssignDesc_DBProto_2eproto();
 void protobuf_ShutdownFile_DBProto_2eproto();
 
 class DBUserInfo;
+class DBRecords;
+class DBDetailRecords;
 
 // ===================================================================
 
@@ -276,6 +278,255 @@ class DBUserInfo : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static DBUserInfo* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DBRecords : public ::google::protobuf::Message {
+ public:
+  DBRecords();
+  virtual ~DBRecords();
+
+  DBRecords(const DBRecords& from);
+
+  inline DBRecords& operator=(const DBRecords& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DBRecords& default_instance();
+
+  void Swap(DBRecords* other);
+
+  // implements Message ----------------------------------------------
+
+  DBRecords* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DBRecords& from);
+  void MergeFrom(const DBRecords& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 id = 1;
+  inline bool has_id() const;
+  inline void clear_id();
+  static const int kIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 id() const;
+  inline void set_id(::google::protobuf::uint32 value);
+
+  // optional string roomid = 2;
+  inline bool has_roomid() const;
+  inline void clear_roomid();
+  static const int kRoomidFieldNumber = 2;
+  inline const ::std::string& roomid() const;
+  inline void set_roomid(const ::std::string& value);
+  inline void set_roomid(const char* value);
+  inline void set_roomid(const char* value, size_t size);
+  inline ::std::string* mutable_roomid();
+  inline ::std::string* release_roomid();
+  inline void set_allocated_roomid(::std::string* roomid);
+
+  // optional uint32 rtype = 3 [default = 1];
+  inline bool has_rtype() const;
+  inline void clear_rtype();
+  static const int kRtypeFieldNumber = 3;
+  inline ::google::protobuf::uint32 rtype() const;
+  inline void set_rtype(::google::protobuf::uint32 value);
+
+  // optional string ctime = 4;
+  inline bool has_ctime() const;
+  inline void clear_ctime();
+  static const int kCtimeFieldNumber = 4;
+  inline const ::std::string& ctime() const;
+  inline void set_ctime(const ::std::string& value);
+  inline void set_ctime(const char* value);
+  inline void set_ctime(const char* value, size_t size);
+  inline ::std::string* mutable_ctime();
+  inline ::std::string* release_ctime();
+  inline void set_allocated_ctime(::std::string* ctime);
+
+  // @@protoc_insertion_point(class_scope:protocol.DBRecords)
+ private:
+  inline void set_has_id();
+  inline void clear_has_id();
+  inline void set_has_roomid();
+  inline void clear_has_roomid();
+  inline void set_has_rtype();
+  inline void clear_has_rtype();
+  inline void set_has_ctime();
+  inline void clear_has_ctime();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* roomid_;
+  ::google::protobuf::uint32 id_;
+  ::google::protobuf::uint32 rtype_;
+  ::std::string* ctime_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_DBProto_2eproto();
+  friend void protobuf_AssignDesc_DBProto_2eproto();
+  friend void protobuf_ShutdownFile_DBProto_2eproto();
+
+  void InitAsDefaultInstance();
+  static DBRecords* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DBDetailRecords : public ::google::protobuf::Message {
+ public:
+  DBDetailRecords();
+  virtual ~DBDetailRecords();
+
+  DBDetailRecords(const DBDetailRecords& from);
+
+  inline DBDetailRecords& operator=(const DBDetailRecords& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DBDetailRecords& default_instance();
+
+  void Swap(DBDetailRecords* other);
+
+  // implements Message ----------------------------------------------
+
+  DBDetailRecords* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DBDetailRecords& from);
+  void MergeFrom(const DBDetailRecords& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 id = 1;
+  inline bool has_id() const;
+  inline void clear_id();
+  static const int kIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 id() const;
+  inline void set_id(::google::protobuf::uint32 value);
+
+  // optional uint32 fkey = 2;
+  inline bool has_fkey() const;
+  inline void clear_fkey();
+  static const int kFkeyFieldNumber = 2;
+  inline ::google::protobuf::uint32 fkey() const;
+  inline void set_fkey(::google::protobuf::uint32 value);
+
+  // optional string userid = 3;
+  inline bool has_userid() const;
+  inline void clear_userid();
+  static const int kUseridFieldNumber = 3;
+  inline const ::std::string& userid() const;
+  inline void set_userid(const ::std::string& value);
+  inline void set_userid(const char* value);
+  inline void set_userid(const char* value, size_t size);
+  inline ::std::string* mutable_userid();
+  inline ::std::string* release_userid();
+  inline void set_allocated_userid(::std::string* userid);
+
+  // optional uint32 score = 4;
+  inline bool has_score() const;
+  inline void clear_score();
+  static const int kScoreFieldNumber = 4;
+  inline ::google::protobuf::uint32 score() const;
+  inline void set_score(::google::protobuf::uint32 value);
+
+  // optional uint32 win = 5;
+  inline bool has_win() const;
+  inline void clear_win();
+  static const int kWinFieldNumber = 5;
+  inline ::google::protobuf::uint32 win() const;
+  inline void set_win(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.DBDetailRecords)
+ private:
+  inline void set_has_id();
+  inline void clear_has_id();
+  inline void set_has_fkey();
+  inline void clear_has_fkey();
+  inline void set_has_userid();
+  inline void clear_has_userid();
+  inline void set_has_score();
+  inline void clear_has_score();
+  inline void set_has_win();
+  inline void clear_has_win();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 id_;
+  ::google::protobuf::uint32 fkey_;
+  ::std::string* userid_;
+  ::google::protobuf::uint32 score_;
+  ::google::protobuf::uint32 win_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+
+  friend void  protobuf_AddDesc_DBProto_2eproto();
+  friend void protobuf_AssignDesc_DBProto_2eproto();
+  friend void protobuf_ShutdownFile_DBProto_2eproto();
+
+  void InitAsDefaultInstance();
+  static DBDetailRecords* default_instance_;
 };
 // ===================================================================
 
@@ -952,6 +1203,356 @@ inline void DBUserInfo::set_allocated_picurl(::std::string* picurl) {
     clear_has_picurl();
     picurl_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
+}
+
+// -------------------------------------------------------------------
+
+// DBRecords
+
+// required uint32 id = 1;
+inline bool DBRecords::has_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void DBRecords::set_has_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void DBRecords::clear_has_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void DBRecords::clear_id() {
+  id_ = 0u;
+  clear_has_id();
+}
+inline ::google::protobuf::uint32 DBRecords::id() const {
+  return id_;
+}
+inline void DBRecords::set_id(::google::protobuf::uint32 value) {
+  set_has_id();
+  id_ = value;
+}
+
+// optional string roomid = 2;
+inline bool DBRecords::has_roomid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void DBRecords::set_has_roomid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DBRecords::clear_has_roomid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void DBRecords::clear_roomid() {
+  if (roomid_ != &::google::protobuf::internal::kEmptyString) {
+    roomid_->clear();
+  }
+  clear_has_roomid();
+}
+inline const ::std::string& DBRecords::roomid() const {
+  return *roomid_;
+}
+inline void DBRecords::set_roomid(const ::std::string& value) {
+  set_has_roomid();
+  if (roomid_ == &::google::protobuf::internal::kEmptyString) {
+    roomid_ = new ::std::string;
+  }
+  roomid_->assign(value);
+}
+inline void DBRecords::set_roomid(const char* value) {
+  set_has_roomid();
+  if (roomid_ == &::google::protobuf::internal::kEmptyString) {
+    roomid_ = new ::std::string;
+  }
+  roomid_->assign(value);
+}
+inline void DBRecords::set_roomid(const char* value, size_t size) {
+  set_has_roomid();
+  if (roomid_ == &::google::protobuf::internal::kEmptyString) {
+    roomid_ = new ::std::string;
+  }
+  roomid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* DBRecords::mutable_roomid() {
+  set_has_roomid();
+  if (roomid_ == &::google::protobuf::internal::kEmptyString) {
+    roomid_ = new ::std::string;
+  }
+  return roomid_;
+}
+inline ::std::string* DBRecords::release_roomid() {
+  clear_has_roomid();
+  if (roomid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = roomid_;
+    roomid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void DBRecords::set_allocated_roomid(::std::string* roomid) {
+  if (roomid_ != &::google::protobuf::internal::kEmptyString) {
+    delete roomid_;
+  }
+  if (roomid) {
+    set_has_roomid();
+    roomid_ = roomid;
+  } else {
+    clear_has_roomid();
+    roomid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint32 rtype = 3 [default = 1];
+inline bool DBRecords::has_rtype() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void DBRecords::set_has_rtype() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void DBRecords::clear_has_rtype() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void DBRecords::clear_rtype() {
+  rtype_ = 1u;
+  clear_has_rtype();
+}
+inline ::google::protobuf::uint32 DBRecords::rtype() const {
+  return rtype_;
+}
+inline void DBRecords::set_rtype(::google::protobuf::uint32 value) {
+  set_has_rtype();
+  rtype_ = value;
+}
+
+// optional string ctime = 4;
+inline bool DBRecords::has_ctime() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void DBRecords::set_has_ctime() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void DBRecords::clear_has_ctime() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void DBRecords::clear_ctime() {
+  if (ctime_ != &::google::protobuf::internal::kEmptyString) {
+    ctime_->clear();
+  }
+  clear_has_ctime();
+}
+inline const ::std::string& DBRecords::ctime() const {
+  return *ctime_;
+}
+inline void DBRecords::set_ctime(const ::std::string& value) {
+  set_has_ctime();
+  if (ctime_ == &::google::protobuf::internal::kEmptyString) {
+    ctime_ = new ::std::string;
+  }
+  ctime_->assign(value);
+}
+inline void DBRecords::set_ctime(const char* value) {
+  set_has_ctime();
+  if (ctime_ == &::google::protobuf::internal::kEmptyString) {
+    ctime_ = new ::std::string;
+  }
+  ctime_->assign(value);
+}
+inline void DBRecords::set_ctime(const char* value, size_t size) {
+  set_has_ctime();
+  if (ctime_ == &::google::protobuf::internal::kEmptyString) {
+    ctime_ = new ::std::string;
+  }
+  ctime_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* DBRecords::mutable_ctime() {
+  set_has_ctime();
+  if (ctime_ == &::google::protobuf::internal::kEmptyString) {
+    ctime_ = new ::std::string;
+  }
+  return ctime_;
+}
+inline ::std::string* DBRecords::release_ctime() {
+  clear_has_ctime();
+  if (ctime_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = ctime_;
+    ctime_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void DBRecords::set_allocated_ctime(::std::string* ctime) {
+  if (ctime_ != &::google::protobuf::internal::kEmptyString) {
+    delete ctime_;
+  }
+  if (ctime) {
+    set_has_ctime();
+    ctime_ = ctime;
+  } else {
+    clear_has_ctime();
+    ctime_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// DBDetailRecords
+
+// required uint32 id = 1;
+inline bool DBDetailRecords::has_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void DBDetailRecords::set_has_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void DBDetailRecords::clear_has_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void DBDetailRecords::clear_id() {
+  id_ = 0u;
+  clear_has_id();
+}
+inline ::google::protobuf::uint32 DBDetailRecords::id() const {
+  return id_;
+}
+inline void DBDetailRecords::set_id(::google::protobuf::uint32 value) {
+  set_has_id();
+  id_ = value;
+}
+
+// optional uint32 fkey = 2;
+inline bool DBDetailRecords::has_fkey() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void DBDetailRecords::set_has_fkey() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DBDetailRecords::clear_has_fkey() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void DBDetailRecords::clear_fkey() {
+  fkey_ = 0u;
+  clear_has_fkey();
+}
+inline ::google::protobuf::uint32 DBDetailRecords::fkey() const {
+  return fkey_;
+}
+inline void DBDetailRecords::set_fkey(::google::protobuf::uint32 value) {
+  set_has_fkey();
+  fkey_ = value;
+}
+
+// optional string userid = 3;
+inline bool DBDetailRecords::has_userid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void DBDetailRecords::set_has_userid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void DBDetailRecords::clear_has_userid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void DBDetailRecords::clear_userid() {
+  if (userid_ != &::google::protobuf::internal::kEmptyString) {
+    userid_->clear();
+  }
+  clear_has_userid();
+}
+inline const ::std::string& DBDetailRecords::userid() const {
+  return *userid_;
+}
+inline void DBDetailRecords::set_userid(const ::std::string& value) {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  userid_->assign(value);
+}
+inline void DBDetailRecords::set_userid(const char* value) {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  userid_->assign(value);
+}
+inline void DBDetailRecords::set_userid(const char* value, size_t size) {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  userid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* DBDetailRecords::mutable_userid() {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  return userid_;
+}
+inline ::std::string* DBDetailRecords::release_userid() {
+  clear_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = userid_;
+    userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void DBDetailRecords::set_allocated_userid(::std::string* userid) {
+  if (userid_ != &::google::protobuf::internal::kEmptyString) {
+    delete userid_;
+  }
+  if (userid) {
+    set_has_userid();
+    userid_ = userid;
+  } else {
+    clear_has_userid();
+    userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint32 score = 4;
+inline bool DBDetailRecords::has_score() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void DBDetailRecords::set_has_score() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void DBDetailRecords::clear_has_score() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void DBDetailRecords::clear_score() {
+  score_ = 0u;
+  clear_has_score();
+}
+inline ::google::protobuf::uint32 DBDetailRecords::score() const {
+  return score_;
+}
+inline void DBDetailRecords::set_score(::google::protobuf::uint32 value) {
+  set_has_score();
+  score_ = value;
+}
+
+// optional uint32 win = 5;
+inline bool DBDetailRecords::has_win() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void DBDetailRecords::set_has_win() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void DBDetailRecords::clear_has_win() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void DBDetailRecords::clear_win() {
+  win_ = 0u;
+  clear_has_win();
+}
+inline ::google::protobuf::uint32 DBDetailRecords::win() const {
+  return win_;
+}
+inline void DBDetailRecords::set_win(::google::protobuf::uint32 value) {
+  set_has_win();
+  win_ = value;
 }
 
 
