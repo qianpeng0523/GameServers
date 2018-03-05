@@ -40,6 +40,9 @@ public:
 	DBUserInfo getDBUserInfo(string coname, string covalue);
 	string getTablePrikey(string tablename);
 
+	void getDBUserFromSocketData(DBUserInfo &user, YMSocketData sd, string listname="", int index=0);
+	void setDBUserToSocketData(DBUserInfo user, YMSocketData &sd, string listname="", int index=0);
+
 	static string g_dbitennames[12];
 private:
 	void startAI();

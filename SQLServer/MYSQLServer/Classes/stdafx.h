@@ -50,6 +50,7 @@
 
 #pragma comment(lib,"../MYSQLServer/Debug/libprotobuf.lib") 
 #pragma comment(lib,"../MYSQLServer/Debug/libprotoc.lib") 
+#pragma comment(lib, "../MYSQLServer//Debug/libcrypto.lib") 
 
 using namespace protocol;
 using namespace std;

@@ -28,15 +28,18 @@
     <Filter Include="源文件\Classes\config">
       <UniqueIdentifier>{4ccbcd91-a344-403f-93d8-7b1cff9cf418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes\zlib">
+      <UniqueIdentifier>{30bff838-094d-4a3a-aebe-c6933a7d26e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\zlib\include">
+      <UniqueIdentifier>{433ddda5-9872-4429-b744-5ff6f1bc380a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\HttpEvent.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Classes\main.cpp">
-      <Filter>源文件\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\MD5.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Classes\stdafx.cpp">
@@ -75,12 +78,12 @@
     <ClCompile Include="Classes\HttpLogic.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\MD55.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\HttpEvent.h">
-      <Filter>源文件\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\MD5.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Classes\stdafx.h">
@@ -151,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="Classes\HttpLogic.h">
       <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\MD55.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\zlib\include\zconf.h">
+      <Filter>源文件\Classes\zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\zlib\include\zlib.h">
+      <Filter>源文件\Classes\zlib\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

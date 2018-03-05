@@ -103,7 +103,7 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_userid();
   inline void set_allocated_userid(::std::string* userid);
 
-  // required string username = 2;
+  // optional string username = 2;
   inline bool has_username() const;
   inline void clear_username();
   static const int kUsernameFieldNumber = 2;
@@ -115,7 +115,7 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_username();
   inline void set_allocated_username(::std::string* username);
 
-  // required uint32 sex = 3 [default = 1];
+  // optional uint32 sex = 3 [default = 1];
   inline bool has_sex() const;
   inline void clear_sex();
   static const int kSexFieldNumber = 3;
@@ -146,21 +146,21 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_address();
   inline void set_allocated_address(::std::string* address);
 
-  // required uint32 gold = 6 [default = 4000];
+  // optional uint32 gold = 6 [default = 4000];
   inline bool has_gold() const;
   inline void clear_gold();
   static const int kGoldFieldNumber = 6;
   inline ::google::protobuf::uint32 gold() const;
   inline void set_gold(::google::protobuf::uint32 value);
 
-  // required uint32 diamon = 7 [default = 8];
+  // optional uint32 diamon = 7 [default = 8];
   inline bool has_diamon() const;
   inline void clear_diamon();
   static const int kDiamonFieldNumber = 7;
   inline ::google::protobuf::uint32 diamon() const;
   inline void set_diamon(::google::protobuf::uint32 value);
 
-  // required uint32 card = 8 [default = 1];
+  // optional uint32 card = 8 [default = 1];
   inline bool has_card() const;
   inline void clear_card();
   static const int kCardFieldNumber = 8;
@@ -354,7 +354,7 @@ inline void DBUserInfo::set_allocated_userid(::std::string* userid) {
   }
 }
 
-// required string username = 2;
+// optional string username = 2;
 inline bool DBUserInfo::has_username() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -424,7 +424,7 @@ inline void DBUserInfo::set_allocated_username(::std::string* username) {
   }
 }
 
-// required uint32 sex = 3 [default = 1];
+// optional uint32 sex = 3 [default = 1];
 inline bool DBUserInfo::has_sex() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -586,7 +586,7 @@ inline void DBUserInfo::set_allocated_address(::std::string* address) {
   }
 }
 
-// required uint32 gold = 6 [default = 4000];
+// optional uint32 gold = 6 [default = 4000];
 inline bool DBUserInfo::has_gold() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
@@ -608,7 +608,7 @@ inline void DBUserInfo::set_gold(::google::protobuf::uint32 value) {
   gold_ = value;
 }
 
-// required uint32 diamon = 7 [default = 8];
+// optional uint32 diamon = 7 [default = 8];
 inline bool DBUserInfo::has_diamon() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
@@ -630,7 +630,7 @@ inline void DBUserInfo::set_diamon(::google::protobuf::uint32 value) {
   diamon_ = value;
 }
 
-// required uint32 card = 8 [default = 1];
+// optional uint32 card = 8 [default = 1];
 inline bool DBUserInfo::has_card() const {
   return (_has_bits_[0] & 0x00000080u) != 0;
 }

@@ -9,7 +9,6 @@ HttpEvent *HttpEvent::m_ins = NULL;
 
 HttpEvent::HttpEvent()
 {	
-	m_httpd = NULL;
 #ifdef WIN32
 	WSADATA wsa_data;
 	WSAStartup(0x0201, &wsa_data);

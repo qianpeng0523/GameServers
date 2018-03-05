@@ -1,9 +1,9 @@
-#include "md5.h"
+#include "MD55.h"
 
 
 using namespace std;
 
-/* Constants for MD5Transform routine. */
+/* Constants for MD55Transform routine. */
 #define S11 7
 #define S12 12
 #define S13 17
@@ -22,7 +22,7 @@ using namespace std;
 #define S44 21
 
 
-/* F, G, H and I are basic MD5 functions.
+/* F, G, H and I are basic MD55 functions.
 */
 #define F(x, y, z) (((x) & (y)) | ((~x) & (z)))
 #define G(x, y, z) (((x) & (z)) | ((y) & (~z)))
@@ -58,8 +58,8 @@ Rotation is separate from addition to prevent recomputation.
 }
 
 
-const byte MD5::PADDING[64] = { 0x80 };
-const char MD5::HEX[16] = {
+const byte MD55::PADDING[64] = { 0x80 };
+const char MD55::HEX[16] = {
 	'0', '1', '2', '3',
 	'4', '5', '6', '7',
 	'8', '9', 'a', 'b',
@@ -68,30 +68,30 @@ const char MD5::HEX[16] = {
 
 
 /* Default construct. */
-MD5::MD5() {
+MD55::MD55() {
 	reset();
 }
 
-/* Construct a MD5 object with a input buffer. */
-MD5::MD5(const void* input, size_t length) {
+/* Construct a MD55 object with a input buffer. */
+MD55::MD55(const void* input, size_t length) {
 	reset();
 	update(input, length);
 }
 
-/* Construct a MD5 object with a string. */
-MD5::MD5(const string& str) {
+/* Construct a MD55 object with a string. */
+MD55::MD55(const string& str) {
 	reset();
 	update(str);
 }
 
-/* Construct a MD5 object with a file. */
-MD5::MD5(ifstream& in) {
+/* Construct a MD55 object with a file. */
+MD55::MD55(ifstream& in) {
 	reset();
 	update(in);
 }
 
 /* Return the message-digest */
-const byte* MD5::digest() {
+const byte* MD55::digest() {
 
 	if (!_finished) {
 		_finished = true;
@@ -101,7 +101,7 @@ const byte* MD5::digest() {
 }
 
 /* Reset the calculate state */
-void MD5::reset() {
+void MD55::reset() {
 
 	_finished = false;
 	/* reset number of bits. */
@@ -114,17 +114,17 @@ void MD5::reset() {
 }
 
 /* Updating the context with a input buffer. */
-void MD5::update(const void* input, size_t length) {
+void MD55::update(const void* input, size_t length) {
 	update((const byte*)input, length);
 }
 
 /* Updating the context with a string. */
-void MD5::update(const string& str) {
+void MD55::update(const string& str) {
 	update((const byte*)str.c_str(), str.length());
 }
 
 /* Updating the context with a file. */
-void MD5::update(ifstream& in) {
+void MD55::update(ifstream& in) {
 
 	if (!in) {
 		return;
@@ -142,11 +142,11 @@ void MD5::update(ifstream& in) {
 	in.close();
 }
 
-/* MD5 block update operation. Continues an MD5 message-digest
+/* MD55 block update operation. Continues an MD55 message-digest
 operation, processing another message block, and updating the
 context.
 */
-void MD5::update(const byte* input, size_t length) {
+void MD55::update(const byte* input, size_t length) {
 
 	uint32 i, index, partLen;
 
@@ -182,10 +182,10 @@ void MD5::update(const byte* input, size_t length) {
 	memcpy(&_buffer[index], &input[i], length - i);
 }
 
-/* MD5 finalization. Ends an MD5 message-_digest operation, writing the
+/* MD55 finalization. Ends an MD55 message-_digest operation, writing the
 the message _digest and zeroizing the context.
 */
-void MD5::final() {
+void MD55::final() {
 
 	byte bits[8];
 	uint32 oldState[4];
@@ -215,8 +215,8 @@ void MD5::final() {
 	memcpy(_count, oldCount, 8);
 }
 
-/* MD5 basic transformation. Transforms _state based on block. */
-void MD5::transform(const byte block[64]) {
+/* MD55 basic transformation. Transforms _state based on block. */
+void MD55::transform(const byte block[64]) {
 
 	uint32 a = _state[0], b = _state[1], c = _state[2], d = _state[3], x[16];
 
@@ -304,17 +304,17 @@ void MD5::transform(const byte block[64]) {
 a multiple of 4.
 */
 
-//CString MD5::GetStrMD5(CString str)
+//CString MD55::GetStrMD55(CString str)
 //{
 //	string s(str.GetBuffer());
 //	CString tmp="";
-//	MD5 md5;
-//	md5.update(s);
-//	tmp = md5.toString().c_str();
+//	MD55 MD55;
+//	MD55.update(s);
+//	tmp = MD55.toString().c_str();
 //	return tmp;
 //}
 
-void MD5::encode(const uint32* input, byte* output, size_t length) {
+void MD55::encode(const uint32* input, byte* output, size_t length) {
 
 	for (size_t i = 0, j = 0; j < length; ++i, j += 4) {
 		output[j]= (byte)(input[i] & 0xff);
@@ -327,7 +327,7 @@ void MD5::encode(const uint32* input, byte* output, size_t length) {
 /* Decodes input (byte) into output (ulong). Assumes length is
 a multiple of 4.
 */
-void MD5::decode(const byte* input, uint32* output, size_t length) {
+void MD55::decode(const byte* input, uint32* output, size_t length) {
 
 	for (size_t i = 0, j = 0; j < length; ++i, j += 4) {
 		output[i] = ((uint32)input[j]) | (((uint32)input[j + 1]) << 8) |
@@ -336,7 +336,7 @@ void MD5::decode(const byte* input, uint32* output, size_t length) {
 }
 
 /* Convert byte array to hex string. */
-string MD5::bytesToHexString(const byte* input, size_t length) {
+string MD55::bytesToHexString(const byte* input, size_t length) {
 
 	string str;
 	str.reserve(length << 1);
@@ -351,6 +351,6 @@ string MD5::bytesToHexString(const byte* input, size_t length) {
 }
 
 /* Convert digest to string value */
-string MD5::toString() {
+string MD55::toString() {
 	return bytesToHexString(digest(), 16);
 }

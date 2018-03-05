@@ -1,12 +1,57 @@
 #include "HttpLogic.h"
 #include "SqlControl.h"
 #include "DataBaseUserInfo.h"
+#include "aes.h"
+#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+
+
 
 HttpLogic *HttpLogic::m_Ins = NULL;
 
 
+int HttpLogic::aes_decrypt(char* in, int inlen,char* key, char* out)
+{
+	if (!in || !key || !out) return 0;
+	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
+	memcpy(iv, key, AES_BLOCK_SIZE);
+
+	AES_KEY aes;
+	if (AES_set_encrypt_key((unsigned char*)key, 128, &aes) < 0)
+	{
+		return 0;
+	}
+	
+	int num = 0,en_len=0;
+	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_DECRYPT);
+	
+	return num;
+
+}
+
+int HttpLogic::aes_encrypt(char* in, int inlen, char* key, char* out)
+{
+	if (!in || !key || !out) return 0;
+	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
+	memcpy(iv, key, AES_BLOCK_SIZE);
+	AES_KEY aes;
+	if (AES_set_encrypt_key((unsigned char*)key, 128, &aes) < 0)
+	{
+		return 0;
+	}
+	
+	int num = 0,en_len=0;
+	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_ENCRYPT);
+	
+	return num;
+
+}
+
+
+
 HttpLogic::HttpLogic(){
 	m_pSQLInfo = new SQLInfo();
+
+	
 }
 HttpLogic::~HttpLogic(){
 	delete m_pSQLInfo;
@@ -125,16 +170,15 @@ void HttpLogic::SelectTableData(string tname, char *&buff, int &sz){
 	YMSocketData sd;
 	sd["err"] = 0;
 	sd["tname"] = tname;
-	
+	DataBaseUserInfo *p = DataBaseUserInfo::getIns();
 	if (tname.compare("userinfo") == 0){
-		std::map<string, DBUserInfo> dbusers=DataBaseUserInfo::getIns()->getUserInfoDatas();
+		std::map<string, DBUserInfo> dbusers=p->getUserInfoDatas();
 		std::map<string, DBUserInfo>::iterator itr = dbusers.begin();
 		int i = 0;
 		for (itr; itr != dbusers.end();itr++){
-			string sm;
+			
 			DBUserInfo msg = itr->second;
-			msg.SerializePartialToString(&sm);
-			sd["tablelist"][i] = sm;
+			p->setDBUserToSocketData(msg, sd,"datas",i);
 			i++;
 		}
 	}
@@ -163,16 +207,13 @@ void HttpLogic::SqlFind(YMSocketData sd, char *&buff, int &sz){
 	string covalue = sd["covalue"].asString();
 	YMSocketData sd1;
 	sd1["tname"] = tname;
-	sd1["prikey"] = DataBaseUserInfo::getIns()->getTablePrikey(tname);
+	DataBaseUserInfo *p = DataBaseUserInfo::getIns();
+	sd1["prikey"] = p->getTablePrikey(tname);
 	if (tname.compare("userinfo") == 0){
 		string prikey;
-		DBUserInfo user= DataBaseUserInfo::getIns()->getDBUserInfo(coname, covalue);
-		int sz = user.ByteSize();
-		char* sm = new char[sz+1];
-		user.SerializeToArray(sm,sz);
-		sd1["data"] = sm; 
-		printf("sqlfind:%s",sd1["data"].asString().c_str());
-		delete sm;
+		DBUserInfo user= p->getDBUserInfo(coname, covalue);
+		p->setDBUserToSocketData(user, sd1);
+		
 	}
 	sd1.serializer(buff, &sz);
 }
@@ -198,4 +239,45 @@ void HttpLogic::SqlExcute(YMSocketData sd, char *&buff, int &sz){
 	sd1["err"] = err;
 	sd1["tname"] = tname;
 	sd1.serializer(buff, &sz);
+}
+
+string HttpLogic::encryptStringFromProto(::google::protobuf::Message* msg){
+	int sz = msg->ByteSize();
+	string sm;
+	msg->SerializePartialToString(&sm);
+	char *out = new char[4096];
+	int num=aes_encrypt((char *)sm.c_str(), sz, DECKEY, out);
+	out[sz] = '\0';
+	string ss = out;
+	int len = ss.length();
+	delete out;
+	return ss;
+}
+
+void HttpLogic::decryptStringFromProto(string keyvalue, int sz, ::google::protobuf::Message* msg){
+	int len = keyvalue.length();
+	char out[4096];
+	int nn = aes_decrypt((char *)keyvalue.c_str(), len, DECKEY, out);
+	out[sz + nn] = '\0';
+	msg->ParsePartialFromArray(out, sz);
+}
+
+string HttpLogic::encryptStringFromString(string in,int sz){
+	char *out = new char[4096];
+	int num = aes_encrypt((char *)in.c_str(), sz, DECKEY, out);
+	out[sz+num] = '\0';
+	string ss = out;
+	int len = ss.length();
+	delete out;
+	return ss;
+}
+
+string HttpLogic::decryptStringFromString(string in,int sz){
+	char *out = new char[4096];
+	int nn = aes_decrypt((char *)in.c_str(), sz, DECKEY, out);
+	out[sz + nn] = '\0';
+	string ss = out;
+	int len = ss.length();
+	delete out;
+	return ss;
 }
