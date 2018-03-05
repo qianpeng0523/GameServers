@@ -5,13 +5,13 @@ package protocol;
 message DBUserInfo
 {
     required string userid 		= 1;  // 
-    required string username    = 2; //
-	required uint32 sex			=3[default = 1];
+    optional string username    = 2; //
+	optional uint32 sex			=3[default = 1];
 	optional string ip			=4;
 	optional string address		=5;
-	required uint32 gold		=6[default = 4000];
-	required uint32 diamon		=7[default = 8];
-	required uint32 card		=8[default = 1];
+	optional uint32 gold		=6[default = 4000];
+	optional uint32 diamon		=7[default = 8];
+	optional uint32 card		=8[default = 1];
 	optional string code		=9;
 	optional string token		=10;
 	optional uint32 picid		=11[default = 1];
