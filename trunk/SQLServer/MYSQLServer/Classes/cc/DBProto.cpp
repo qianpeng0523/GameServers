@@ -91,10 +91,10 @@ void protobuf_AddDesc_DBProto_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rDBProto.proto\022\010protocol\"\343\001\n\nDBUserInfo"
-    "\022\016\n\006userid\030\001 \002(\t\022\020\n\010username\030\002 \002(\t\022\016\n\003se"
-    "x\030\003 \002(\r:\0011\022\n\n\002ip\030\004 \001(\t\022\017\n\007address\030\005 \001(\t\022"
-    "\022\n\004gold\030\006 \002(\r:\0044000\022\021\n\006diamon\030\007 \002(\r:\0018\022\017"
-    "\n\004card\030\010 \002(\r:\0011\022\014\n\004code\030\t \001(\t\022\r\n\005token\030\n"
+    "\022\016\n\006userid\030\001 \002(\t\022\020\n\010username\030\002 \001(\t\022\016\n\003se"
+    "x\030\003 \001(\r:\0011\022\n\n\002ip\030\004 \001(\t\022\017\n\007address\030\005 \001(\t\022"
+    "\022\n\004gold\030\006 \001(\r:\0044000\022\021\n\006diamon\030\007 \001(\r:\0018\022\017"
+    "\n\004card\030\010 \001(\r:\0011\022\014\n\004code\030\t \001(\t\022\r\n\005token\030\n"
     " \001(\t\022\020\n\005picid\030\013 \001(\r:\0011\022\017\n\007unionid\030\014 \001(\t\022"
     "\016\n\006picurl\030\r \001(\t", 255);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
@@ -291,7 +291,7 @@ bool DBUserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required string username = 2;
+      // optional string username = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -308,7 +308,7 @@ bool DBUserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 sex = 3 [default = 1];
+      // optional uint32 sex = 3 [default = 1];
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -358,7 +358,7 @@ bool DBUserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 gold = 6 [default = 4000];
+      // optional uint32 gold = 6 [default = 4000];
       case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -374,7 +374,7 @@ bool DBUserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 diamon = 7 [default = 8];
+      // optional uint32 diamon = 7 [default = 8];
       case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -390,7 +390,7 @@ bool DBUserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 card = 8 [default = 1];
+      // optional uint32 card = 8 [default = 1];
       case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -517,7 +517,7 @@ void DBUserInfo::SerializeWithCachedSizes(
       1, this->userid(), output);
   }
 
-  // required string username = 2;
+  // optional string username = 2;
   if (has_username()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->username().data(), this->username().length(),
@@ -526,7 +526,7 @@ void DBUserInfo::SerializeWithCachedSizes(
       2, this->username(), output);
   }
 
-  // required uint32 sex = 3 [default = 1];
+  // optional uint32 sex = 3 [default = 1];
   if (has_sex()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->sex(), output);
   }
@@ -549,17 +549,17 @@ void DBUserInfo::SerializeWithCachedSizes(
       5, this->address(), output);
   }
 
-  // required uint32 gold = 6 [default = 4000];
+  // optional uint32 gold = 6 [default = 4000];
   if (has_gold()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->gold(), output);
   }
 
-  // required uint32 diamon = 7 [default = 8];
+  // optional uint32 diamon = 7 [default = 8];
   if (has_diamon()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->diamon(), output);
   }
 
-  // required uint32 card = 8 [default = 1];
+  // optional uint32 card = 8 [default = 1];
   if (has_card()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->card(), output);
   }
@@ -623,7 +623,7 @@ void DBUserInfo::SerializeWithCachedSizes(
         1, this->userid(), target);
   }
 
-  // required string username = 2;
+  // optional string username = 2;
   if (has_username()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->username().data(), this->username().length(),
@@ -633,7 +633,7 @@ void DBUserInfo::SerializeWithCachedSizes(
         2, this->username(), target);
   }
 
-  // required uint32 sex = 3 [default = 1];
+  // optional uint32 sex = 3 [default = 1];
   if (has_sex()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->sex(), target);
   }
@@ -658,17 +658,17 @@ void DBUserInfo::SerializeWithCachedSizes(
         5, this->address(), target);
   }
 
-  // required uint32 gold = 6 [default = 4000];
+  // optional uint32 gold = 6 [default = 4000];
   if (has_gold()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->gold(), target);
   }
 
-  // required uint32 diamon = 7 [default = 8];
+  // optional uint32 diamon = 7 [default = 8];
   if (has_diamon()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->diamon(), target);
   }
 
-  // required uint32 card = 8 [default = 1];
+  // optional uint32 card = 8 [default = 1];
   if (has_card()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->card(), target);
   }
@@ -736,14 +736,14 @@ int DBUserInfo::ByteSize() const {
           this->userid());
     }
 
-    // required string username = 2;
+    // optional string username = 2;
     if (has_username()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->username());
     }
 
-    // required uint32 sex = 3 [default = 1];
+    // optional uint32 sex = 3 [default = 1];
     if (has_sex()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -764,21 +764,21 @@ int DBUserInfo::ByteSize() const {
           this->address());
     }
 
-    // required uint32 gold = 6 [default = 4000];
+    // optional uint32 gold = 6 [default = 4000];
     if (has_gold()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->gold());
     }
 
-    // required uint32 diamon = 7 [default = 8];
+    // optional uint32 diamon = 7 [default = 8];
     if (has_diamon()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->diamon());
     }
 
-    // required uint32 card = 8 [default = 1];
+    // optional uint32 card = 8 [default = 1];
     if (has_card()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -907,7 +907,7 @@ void DBUserInfo::CopyFrom(const DBUserInfo& from) {
 }
 
 bool DBUserInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000000e7) != 0x000000e7) return false;
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }

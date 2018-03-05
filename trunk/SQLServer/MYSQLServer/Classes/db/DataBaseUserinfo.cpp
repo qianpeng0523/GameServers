@@ -385,3 +385,92 @@ DBUserInfo DataBaseUserInfo::getDBUserInfo(string coname, string covalue){
 	DBUserInfo user = setDBUserData(vec);
 	return user;
 }
+
+void DataBaseUserInfo::getDBUserFromSocketData(DBUserInfo &user, YMSocketData sd, string listname, int index){
+	string uid, uname, add, code, token, unionid, picurl;
+	int sex, gold, diamond, card, picid;
+	if (listname.empty()){
+		uid = sd["userid"].asString();
+		uname = sd["username"].asString();
+		sex = sd["sex"].asInt();
+		add = sd["address"].asString();
+		gold = sd["gold"].asInt();
+		diamond = sd["diamond"].asInt();
+		card = sd["card"].asInt();
+		code = sd["code"].asString();
+		token = sd["token"].asString();
+		picid = sd["picid"].asInt();
+		unionid = sd["unionid"].asString();
+		picurl = sd["picurl"].asString();
+	}
+	else{
+		uid = sd[listname][index]["userid"].asString();
+		uname = sd[listname][index]["username"].asString();
+		sex = sd[listname][index]["sex"].asInt();
+		add = sd[listname][index]["address"].asString();
+		gold = sd[listname][index]["gold"].asInt();
+		diamond = sd[listname][index]["diamond"].asInt();
+		card = sd[listname][index]["card"].asInt();
+		code = sd[listname][index]["code"].asString();
+		token = sd[listname][index]["token"].asString();
+		picid = sd[listname][index]["picid"].asInt();
+		unionid = sd[listname][index]["unionid"].asString();
+		picurl = sd[listname][index]["picurl"].asString();
+	}
+	user.set_userid(uid);
+	user.set_username(uname);
+	user.set_sex(sex);
+	user.set_address(add);
+	user.set_gold(gold);
+	user.set_diamon(diamond);
+	user.set_card(card);
+	user.set_code(code);
+	user.set_token(token);
+	user.set_picid(picid);
+	user.set_unionid(unionid);
+	user.set_picurl(picurl);
+}
+
+void DataBaseUserInfo::setDBUserToSocketData(DBUserInfo user, YMSocketData &sd, string listname, int index){
+	string uid = user.userid();
+	string uname = user.username();
+	int sex = user.sex();
+	string add = user.address();
+	int gold = user.gold();
+	int diamond = user.diamon();
+	int card = user.card();
+	string code = user.code();
+	string token = user.token();
+	int picid = user.picid();
+	string unionid = user.unionid();
+	string picurl = user.picurl();
+	if (listname.empty()){
+		sd["userid"] = uid;
+		sd["username"] = uname;
+		sd["sex"] = sex;
+		sd["address"] = add;
+		sd["gold"] = gold;
+		sd["diamond"] = diamond;
+		sd["card"] = card;
+		sd["code"] = code;
+		sd["token"] = token;
+		sd["picid"] = picid;
+		sd["unionid"] = unionid;
+		sd["picurl"] = picurl;
+	}
+	else{
+		sd[listname][index]["userid"] = uid;
+		sd[listname][index]["username"] = uname;
+		sd[listname][index]["sex"] = sex;
+		sd[listname][index]["address"] = add;
+		sd[listname][index]["gold"] = gold;
+		sd[listname][index]["diamond"] = diamond;
+		sd[listname][index]["card"] = card;
+		sd[listname][index]["code"] = code;
+		sd[listname][index]["token"] = token;
+		sd[listname][index]["picid"] = picid;
+		sd[listname][index]["unionid"] = unionid;
+		sd[listname][index]["picurl"] = picurl;
+	}
+
+}
