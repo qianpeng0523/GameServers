@@ -18,3 +18,22 @@ message DBUserInfo
 	optional string unionid		=12;
 	optional string picurl		=13;
 }
+
+//DBRecords
+message DBRecords
+{
+    required uint32 id 		= 1;  // 
+    optional string roomid  = 2; //
+	optional uint32 rtype	= 3[default = 1];
+	optional string ctime	= 4;
+}
+
+//DBDetailRecords
+message DBDetailRecords
+{
+    required uint32 id 		= 1;  // 
+    optional uint32 fkey    = 2; //
+	optional string userid	= 3;
+	optional uint32 score	= 4;
+	optional uint32 win		= 5;
+}
