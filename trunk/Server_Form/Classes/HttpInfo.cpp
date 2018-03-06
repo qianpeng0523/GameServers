@@ -824,6 +824,36 @@ void HttpInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Messa
 		sd["score"] = score;
 		sd["win"] = win;
 	}
+	else if (tablename.compare(MJ_TABLENAME_NOTICE) == 0){
+		DBNotice notice;
+		notice.CopyFrom(*data);
+		int id = notice.id();
+		string notice1 = notice.notice1();
+		string notice2 = notice.notice2();
+		
+		sd["notice1"] = notice1;
+		sd["notice2"] = notice2;
+		
+	}
+	else if (tablename.compare(MJ_TABLENAME_ROOM) == 0){
+		DBRoom room;
+		room.CopyFrom(*data);
+		int id = room.id();
+		int round = room.round();
+		int ante = room.ante();
+		string remark = room.remark();
+		int number = room.number();
+		int piao = room.piao();
+		int laizi = room.laizi();
+		
+		sd["id"] = id;
+		sd["round"] = round;
+		sd["ante"] = ante;
+		sd["remark"] = remark;
+		sd["number"] = number;
+		sd["piao"] =piao ;
+		sd["laizi"] = laizi;
+	}
 }
 
 string HttpInfo::encryptStringFromString(string in, int sz){
