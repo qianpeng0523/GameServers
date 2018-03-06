@@ -766,7 +766,7 @@ string HttpInfo::getDBDataString(::google::protobuf::Message *data, string tname
 	}
 }
 
-void HttpInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Message* data, YMSocketData &sd, string listname, int index){
+void HttpInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Message* data, YMSocketData &sd){
 	if (tablename.compare(MJ_TABLENAME_USER) == 0){
 		DBUserInfo user;
 		user.CopyFrom(*data);
@@ -782,34 +782,19 @@ void HttpInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Messa
 		int picid = user.picid();
 		string unionid = user.unionid();
 		string picurl = user.picurl();
-		if (listname.empty()){
-			sd["userid"] = uid;
-			sd["username"] = uname;
-			sd["sex"] = sex;
-			sd["address"] = add;
-			sd["gold"] = gold;
-			sd["diamond"] = diamond;
-			sd["card"] = card;
-			sd["code"] = code;
-			sd["token"] = token;
-			sd["picid"] = picid;
-			sd["unionid"] = unionid;
-			sd["picurl"] = picurl;
-		}
-		else{
-			sd[listname][index]["userid"] = uid;
-			sd[listname][index]["username"] = uname;
-			sd[listname][index]["sex"] = sex;
-			sd[listname][index]["address"] = add;
-			sd[listname][index]["gold"] = gold;
-			sd[listname][index]["diamond"] = diamond;
-			sd[listname][index]["card"] = card;
-			sd[listname][index]["code"] = code;
-			sd[listname][index]["token"] = token;
-			sd[listname][index]["picid"] = picid;
-			sd[listname][index]["unionid"] = unionid;
-			sd[listname][index]["picurl"] = picurl;
-		}
+		sd["userid"] = uid;
+		sd["username"] = uname;
+		sd["sex"] = sex;
+		sd["address"] = add;
+		sd["gold"] = gold;
+		sd["diamond"] = diamond;
+		sd["card"] = card;
+		sd["code"] = code;
+		sd["token"] = token;
+		sd["picid"] = picid;
+		sd["unionid"] = unionid;
+		sd["picurl"] = picurl;
+		
 	}
 	else if (tablename.compare(MJ_TABLENAME_RECORDS) == 0){
 		DBRecords record;
@@ -818,18 +803,11 @@ void HttpInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Messa
 		string rid = record.roomid();
 		int rtype = record.rtype();
 		string ctime = record.ctime();
-		if (listname.empty()){
-			sd["id"] = id;
-			sd["roomid"] = rid;
-			sd["rtype"] = rtype;
-			sd["ctime"] = ctime;
-		}
-		else{
-			sd[listname][index]["id"] = id;
-			sd[listname][index]["roomid"] = rid;
-			sd[listname][index]["rtype"] = rtype;
-			sd[listname][index]["ctime"] = ctime;
-		}
+		
+		sd["id"] = id;
+		sd["roomid"] = rid;
+		sd["rtype"] = rtype;
+		sd["ctime"] = ctime;
 	}
 	else if (tablename.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
 		DBDetailRecords de_record;
@@ -839,20 +817,12 @@ void HttpInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Messa
 		string uid = de_record.userid();
 		int score = de_record.score();
 		int win = de_record.win();
-		if (listname.empty()){
-			sd["id"] = id;
-			sd["fkey"] = fkey;
-			sd["userid"] = uid;
-			sd["score"] = score;
-			sd["win"] = win;
-		}
-		else{
-			sd[listname]["id"] = id;
-			sd[listname]["fkey"] = fkey;
-			sd[listname]["userid"] = uid;
-			sd[listname]["score"] = score;
-			sd[listname]["win"] = win;
-		}
+		
+		sd["id"] = id;
+		sd["fkey"] = fkey;
+		sd["userid"] = uid;
+		sd["score"] = score;
+		sd["win"] = win;
 	}
 }
 
