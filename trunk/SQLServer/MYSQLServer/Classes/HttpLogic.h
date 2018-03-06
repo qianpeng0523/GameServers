@@ -35,7 +35,7 @@ private:
 	void SqlColumns(string tname, char *&buff, int &sz);
 	void SqlFind(YMSocketData sd, char *&buff, int &sz);
 	void SqlExcute(YMSocketData sd, char *&buff, int &sz);
-
+	void SqlBackup(string dbname, char *&buff, int &sz);
 	
 private:
 	static HttpLogic *m_Ins;

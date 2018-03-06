@@ -95,6 +95,9 @@ void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	else if (cmd == 0x08){
 		SqlFind(sd, buff, sz);
 	}
+	else if (cmd == 0x09){
+		SqlBackup(sd["dbname"].asString(), buff, sz);
+	}
 }
 
 void HttpLogic::SqlConnect(char *&buff, int &sz){
@@ -243,4 +246,13 @@ string HttpLogic::decryptStringFromString(string in,int sz){
 	int len = ss.length();
 	delete out;
 	return ss;
+}
+
+void HttpLogic::SqlBackup(string dbname, char *&buff, int &sz){
+	string sqlstr = "backup database " + dbname + " to disk='d://sqlbackup/" + dbname + ".bak'";
+	vector<string> vecs;
+	SqlControl::getIns()->ExcuteQuery1((char *)sqlstr.c_str(), vecs, backup_sql);
+	YMSocketData sd1;
+	sd1["err"] = 0;
+	sd1.serializer(buff, &sz);
 }

@@ -11,6 +11,7 @@ enum sqloptype{
 	insert_sql,
 	showdatatses_sql,
 	column_sql,
+	backup_sql,
 };
 
 class SqlControl{
