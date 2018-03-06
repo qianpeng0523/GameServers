@@ -37,3 +37,23 @@ message DBDetailRecords
 	optional uint32 score	= 4;
 	optional uint32 win		= 5;
 }
+
+//DBNotice
+message DBNotice
+{
+    required uint32 id 		= 1;  // 
+    optional string notice1  = 2; //
+	optional string notice2	= 3;
+}
+
+//DBRoom
+message DBRoom
+{
+    required uint32 id 		= 1;  // 
+    optional uint32 round  	= 2; //
+	optional uint32 ante	= 3;
+	optional string remark	= 4;
+	optional uint32 number	= 5;
+	optional uint32 piao	= 6;
+	optional uint32 laizi	= 7;
+}
