@@ -4,7 +4,7 @@
 #include "HttpEvent.h"
 SqlControl *SqlControl::m_ins = NULL;
 
-static string g_othersql[] = {"information_schema","mysql","test","performance_schema"};
+
 
 SqlControl::SqlControl()
 {	
@@ -56,9 +56,9 @@ bool SqlControl::start(){
 				else {
 					printf("query %s succeed!\n", query);
 				}
-				DataBaseUserInfo::getIns();
-				getAllDatabases();
-				getAllTables();
+				DataBaseUserInfo *pinfo= DataBaseUserInfo::getIns();
+				pinfo->getAllDatabases();
+				pinfo->getAllTables();
 				return true;
 			}
 			return false;
@@ -70,8 +70,9 @@ bool SqlControl::start(){
 	}
 	else{
 		SelectDB(p->_db);
-		getAllDatabases();
-		getAllTables();
+		DataBaseUserInfo *pinfo = DataBaseUserInfo::getIns();
+		pinfo->getAllDatabases();
+		pinfo->getAllTables();
 		return true;
 	}
 	return false;
@@ -79,36 +80,6 @@ bool SqlControl::start(){
 
 bool SqlControl::SelectDB(string dbname){
 	return !mysql_select_db(m_mysql, dbname.c_str());
-}
-
-vector<string> SqlControl::getAllDatabases(){
-	string sqlstr = "show databases";
-	vector<vector<string>> vecs;
-	int err= ExcuteQuery((char *)sqlstr.c_str(), vecs,showdatatses_sql);
-	if (err == 0&&!vecs.empty()){
-		for (int i = 0; i < 4; i++){
-			string oname = g_othersql[i];
-			vector<string>::iterator itr = vecs.at(0).begin();
-			for (itr; itr != vecs.at(0).end(); itr++){
-				if (oname.compare(*itr) == 0){
-					vecs.at(0).erase(itr);
-					break;
-				}
-			}
-		}
-		DataBaseUserInfo::getIns()->setDatabases(vecs.at(0));
-	}
-	return vecs.at(0);
-}
-
-vector<string> SqlControl::getAllTables(){
-	string sqlstr = "show tables";
-	vector<vector<string>> vecs;
-	int err = ExcuteQuery((char *)sqlstr.c_str(),vecs, showdatatses_sql);
-	if (err == 0){
-		DataBaseUserInfo::getIns()->setdbtables(vecs.at(0));
-	}
-	return vecs.at(0);
 }
 
 bool SqlControl::close(){
@@ -123,7 +94,60 @@ bool SqlControl::close(){
 	}
 }
 
-int SqlControl::ExcuteQuery(char* sqlstr, vector<vector<string>> &vecs, sqloptype type){
+int SqlControl::ExcuteQuery(char* sqlstr, map<string, string> &vecs, int &effectrow, sqloptype type){
+	printf("%s\n", sqlstr);
+	int rt;
+	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
+	if (rt)
+	{
+		printf("Error making query: %s !!!\n", mysql_error(m_mysql));
+		return 1;
+	}
+	else
+	{
+		printf("%s executed!!!\n", sqlstr);
+	}
+
+	effectrow=mysql_affected_rows(m_mysql);
+
+	MYSQL_RES *res;
+	res = mysql_store_result(m_mysql);//将结果保存在res结构体中
+	int t = 0;
+	int count = 0;
+	
+	if (res){
+		vector<string> fieldnames;
+		MYSQL_FIELD *field;
+		int i = 0;
+		while (field = mysql_fetch_field(res)){
+			fieldnames.push_back(field->name);
+			i++;
+		}
+
+		MYSQL_ROW row;
+		while (row = mysql_fetch_row(res)) {
+			for (t = 0; t < mysql_num_fields(res); t++) {
+				std::string s = row[t];
+				//printf("%s ",s.c_str());
+				vecs.insert(make_pair(fieldnames.at(t), s));
+			}
+			count++;
+		}
+		//printf("number of rows %d\n", count);
+
+		mysql_free_result(res);
+	}
+	else{
+		if (type == select_sql){
+			printf("未能查找到数据\n");
+			return 2;
+		}
+
+	}
+	return 0;
+}
+
+int SqlControl::ExcuteQuery(char* sqlstr, vector<map<string, string>> &vecs, sqloptype type){
 	printf("%s\n",sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
@@ -141,16 +165,26 @@ int SqlControl::ExcuteQuery(char* sqlstr, vector<vector<string>> &vecs, sqloptyp
 	int t = 0;
 	int count = 0;
 	if (res){
+		vector<string> fieldnames;
+		MYSQL_FIELD *field;
+		int i = 0;
+		while (field = mysql_fetch_field(res)){
+			fieldnames.push_back(field->name);
+			i++;
+		}
+
 		MYSQL_ROW row;
 		while (row = mysql_fetch_row(res)) {
-			std::vector<std::string> vec;
+			map<string, string> vec;
 			for (t = 0; t < mysql_num_fields(res); t++) {
 				std::string s = row[t];
 				//printf("%s ",s.c_str());
-				vec.push_back(s);
+				vec.insert(make_pair(fieldnames.at(t), s));
 			}
 			//printf("\n");
-			vecs.push_back(vec);
+			if (!vec.empty()){
+				vecs.push_back(vec);
+			}
 			count++;
 		}
 		//printf("number of rows %d\n", count);
@@ -167,7 +201,7 @@ int SqlControl::ExcuteQuery(char* sqlstr, vector<vector<string>> &vecs, sqloptyp
 	return 0;
 }
 
-int SqlControl::ExcuteQueryAll(char* sqlstr, vector<vector<string>> &allvecs){
+int SqlControl::ExcuteQuery1(char* sqlstr, vector< string> &vecs, sqloptype type){
 	printf("%s\n", sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
@@ -184,26 +218,26 @@ int SqlControl::ExcuteQueryAll(char* sqlstr, vector<vector<string>> &allvecs){
 	res = mysql_store_result(m_mysql);//将结果保存在res结构体中
 	int t = 0;
 	int count = 0;
-	
 	if (res){
 		MYSQL_ROW row;
 		while (row = mysql_fetch_row(res)) {
-			std::vector<std::string> vecs;
 			for (t = 0; t < mysql_num_fields(res); t++) {
 				std::string s = row[t];
+				//printf("%s ",s.c_str());
 				vecs.push_back(s);
-				
 			}
-			//printf("\n");
-			allvecs.push_back(vecs);
+			
 			count++;
 		}
-		//printf("number of rows %d\n", count);
+		
 		mysql_free_result(res);
 	}
 	else{
-		printf("未能查找到数据\n");
-		return 2;
+		if (type == select_sql){
+			printf("未能查找到数据\n");
+			return 2;
+		}
+
 	}
 	return 0;
 }

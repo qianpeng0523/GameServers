@@ -3,32 +3,13 @@
 #include "CSVDataInfo.h"
 
 DataBaseUserInfo *DataBaseUserInfo::m_ins = NULL;
-
-string DataBaseUserInfo::g_dbitennames[12] = { "userid", "username", "sex", "address", "gold", "diamond", "card", "code", "token", "picid", "unionid", "picurl" };
-string DataBaseUserInfo::g_dbrecordsnames[4] = { "id", "roomid", "rtype", "createtime"};
-string DataBaseUserInfo::g_dbdetailrecordsnames[5] = { "id", "fkey", "userid", "score", "win"};
+static string g_othersql[] = { "information_schema", "mysql", "test", "performance_schema" };
+// string DataBaseUserInfo::g_dbitennames[12] = { "userid", "username", "sex", "address", "gold", "diamond", "card", "code", "token", "picid", "unionid", "picurl" };
+// string DataBaseUserInfo::g_dbrecordsnames[4] = { "id", "roomid", "rtype", "createtime"};
+// string DataBaseUserInfo::g_dbdetailrecordsnames[5] = { "id", "fkey", "userid", "score", "win"};
 
 DataBaseUserInfo::DataBaseUserInfo(){
 	m_maxuid = "100000";
-	string sqlstr = "select userid from ";
-	sqlstr += MJ_TABLENAME_USER;
-	sqlstr += " where userid = ";
-	sqlstr += "(select max(userid) from ";
-	sqlstr += MJ_TABLENAME_USER;
-	sqlstr+=")";
-	vector<vector<string>> vecs1;
-	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vecs1);
-	if (!vecs1.empty()){
-		char buff[100];
-		sprintf(buff, "%d", atoi(m_maxuid.c_str()) + 1);
-		m_maxuid = buff;
-	}
-
-	printf("maxuid:%s\n",m_maxuid.c_str());
-	
-	//updateDBUserInfoByUid("gold",(void *)80000,"100000");
-	getAllDBData(MJ_TABLENAME_USER);
-	//startAI();
 }
 
 DataBaseUserInfo::~DataBaseUserInfo(){
@@ -50,22 +31,24 @@ void DataBaseUserInfo::startAI(){
 	for (itr; itr != maps.end(); itr++){
 		RobotData *rd = (RobotData *)itr->second;
 		string name = "jq"+rd->_name;
-		DBUserInfo dbuser;
-		dbuser.set_userid(m_maxuid);
-		dbuser.set_username(name);
+		YMSocketData dbuser;
+		dbuser["userid"] = m_maxuid;
+		dbuser["username"] = name;
 		sprintf(buff, "%d", atoi(m_maxuid.c_str()) + 1);
 		m_maxuid = buff;
-		insertDBData(&dbuser,MJ_TABLENAME_USER);
+		insertDBData(dbuser,"userinfo");
 	}
 }
 
-bool DataBaseUserInfo::insertDBData(::google::protobuf::Message *msg,string tablename){
+bool DataBaseUserInfo::insertDBData(YMSocketData sd, string tablename){
 	string sqlstr = "insert into ";
 	sqlstr += tablename;
 	sqlstr += "(";
-	for (int i = 0; i < 11; i++){
-		sqlstr += g_dbitennames[i];
-		if (i < 10){
+
+	vector<string >tablenames = getAllTables();
+	for (int i = 0; i < tablenames.size(); i++){
+		sqlstr += tablename.at(i);
+		if (i < tablenames.size()-1){
 			sqlstr += ",";
 		}
 	}
@@ -74,77 +57,76 @@ bool DataBaseUserInfo::insertDBData(::google::protobuf::Message *msg,string tabl
 	char buff[2048];
 	string key;
 	string keyvalue;
-	
-	if (tablename.compare(MJ_TABLENAME_USER) == 0){
-		DBUserInfo dbuser;
-		dbuser.CopyFrom(*msg);
-		sprintf(buff, "'%s','%s',%d,'%s',%d,%d,%d,'%s','%s',%d,'%s','%s')", dbuser.userid().c_str(), dbuser.username().c_str(), dbuser.sex(), dbuser.address().c_str(),
-			dbuser.gold(), dbuser.diamon(), dbuser.card(), dbuser.code().c_str(), dbuser.token().c_str(), dbuser.picid(), dbuser.unionid().c_str(), dbuser.picurl().c_str());
-		sqlstr += buff;
-		key = "userid";
-		keyvalue = dbuser.userid();
+	vector<string >conames = getTableColumnName(tablename);
+	int sz = conames.size();
+	for (int i = 0; i < sz; i++){
+		string coname = conames.at(i);
+		if (sd.isMember(coname)){
+			ColumnType type = getColumnType(tablename,coname);
+			if (type==String_Type){
+				sprintf(buff,"%s='%s' ",coname.c_str(),sd[coname].asString().c_str());
+			}
+			else if (type == Int_Type || type == Bool_Type){
+				sprintf(buff, "%s=%d ",coname.c_str(), sd[coname].asInt());
+			}
+			else if (type == Float_Type || type == Double_Type){
+				sprintf(buff, "%s=%g ", coname.c_str(), sd[coname].asInt());
+			}
+			sqlstr += buff;
+			if (i < sz - 1){
+				sqlstr += ",";
+			}
+		}
 	}
-	else if (tablename.compare(MJ_TABLENAME_RECORDS) == 0){
-		DBRecords dbuser;
-		dbuser.CopyFrom(*msg);
-		sprintf(buff, "'%d','%s',%d,'%s')", dbuser.id(), dbuser.roomid().c_str(), dbuser.rtype(), dbuser.ctime().c_str());
-		sqlstr += buff;
-		key = "id";
-		char buf[30];
-		sprintf(buf,"%d",dbuser.id());
-		keyvalue = buf;
-	}
-	else if (tablename.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
-		DBDetailRecords dbuser;
-		dbuser.CopyFrom(*msg);
-		sprintf(buff, "'%d','%d',%s,'%d',%d)", dbuser.id(), dbuser.fkey(), dbuser.userid().c_str(), dbuser.score(),
-			dbuser.win());
-		sqlstr += buff;
-		key = "id";
-		char buf[30];
-		sprintf(buf, "%d", dbuser.id());
-		keyvalue = buf;
-	}
-	vector<vector<string>> vec;
-	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, insert_sql);
+	int erow = 0;
+	map<string,string> vec;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec,erow, insert_sql);
 	if (err == 0){
 		//更新数据
-		
-		vector<::google::protobuf::Message*> vec = getDBData(key, (char *)keyvalue.c_str(), tablename);
-		for (int i = 0; i < vec.size(); i++){
-			setDBData(vec.at(i), tablename);
+		if (erow>0){
+			sqlstr = "select * from " + tablename + " limit ";
+			sprintf(buff,"%d,%d",erow-1,erow);
+			sqlstr += buff;
+			vector<map<string, string>> vec1;
+			err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec1, insert_sql);
+			if (err == 0){
+				for (int i = 0; i < vec1.size(); i++){
+					setDBData(vec1.at(i), tablename);
+				}
+			}
 		}
 	}
 	
 	return true;
 }
 
-bool DataBaseUserInfo::isStringType(string tablename, string name){
-	if (tablename.compare(MJ_TABLENAME_USER) == 0){
-		if (name.compare(g_dbitennames[0]) == 0 || name.compare(g_dbitennames[1]) == 0 || name.compare(g_dbitennames[3]) == 0
-			|| name.compare(g_dbitennames[7]) == 0 || name.compare(g_dbitennames[8]) == 0 || name.compare(g_dbitennames[10]) == 0
-			|| name.compare(g_dbitennames[11]) == 0){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}else if (tablename.compare(MJ_TABLENAME_RECORDS) == 0){
-		if (name.compare(g_dbrecordsnames[1]) == 0 || name.compare(g_dbrecordsnames[4]) == 0){
-			return true;
-		}
-		else{
-			return false;
+ColumnType DataBaseUserInfo::getColumnType(string tablename, string name){
+	vector<string>tableconames = getTableColumnName(tablename);
+	vector<string>tabletypes = getTableColumnType(tablename);
+	for (int i = 0; i < tableconames.size(); i++){
+		if (name.compare(tableconames.at(i)) == 0){
+			string type = tabletypes.at(i);
+			if (type.compare("varchar") == 0){
+				return String_Type;
+			}
+			else if (type.compare("int") == 0){
+				return Int_Type;
+			}
+			else if (type.compare("float") == 0){
+				return Float_Type;
+			}
+			else if (type.compare("double") == 0){
+				return Double_Type;
+			}
+			else if (type.compare("bool") == 0){
+				return Bool_Type;
+			}
+			else{
+				return String_Type;
+			}
 		}
 	}
-	else if (tablename.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
-		if (name.compare(g_dbdetailrecordsnames[2]) == 0){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
+	return String_Type;
 }
 
 int DataBaseUserInfo::updateDBDataByKey(string tablename,std::map<string, string >updatedata, string key, string value){
@@ -157,16 +139,22 @@ int DataBaseUserInfo::updateDBDataByKey(string tablename,std::map<string, string
 	for (itr1; itr1 != updatedata.end(); itr1++){
 		string name = itr1->first;
 		sqlstr += name + "= ";
-		bool istring = isStringType(tablename,name);
-		if (istring){
+
+		ColumnType type = getColumnType(tablename, name);
+		if (type == String_Type){
 			sqlstr += "'";
 			sqlstr += (char*)itr1->second.c_str();
 			sqlstr += "'";
 		}
-		else{
+		else if (type == Int_Type || type == Bool_Type){
 			sprintf(buff, "%d", atoi(itr1->second.c_str()));
 			sqlstr += buff;
 		}
+		else if (type == Float_Type || type == Double_Type){
+			sprintf(buff, "%g", atoi(itr1->second.c_str()));
+			sqlstr += buff;
+		}
+
 		ct++;
 		if (ct != updatedata.size()){
 			sqlstr += ",";
@@ -175,137 +163,147 @@ int DataBaseUserInfo::updateDBDataByKey(string tablename,std::map<string, string
 			sqlstr += " ";
 		}
 	}
-	sqlstr += " where " + key + " = '";
-	bool istring = isStringType(tablename, key);
-	if (istring){
+	sqlstr += " where " + key + " = ";
+	ColumnType type = getColumnType(tablename, key);
+	if (type == String_Type){
+		sqlstr += "'";
 		sqlstr += (char*)value.c_str();
 		sqlstr += "'";
 	}
-	else{
+	else if (type == Int_Type || type == Bool_Type){
 		sprintf(buff, "%d", atoi(value.c_str()));
 		sqlstr += buff;
 	}
-
-	vector<vector<string>> vecs;
-	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vecs, update_sql);
+	else if (type == Float_Type || type == Double_Type){
+		sprintf(buff, "%g", atoi(value.c_str()));
+		sqlstr += buff;
+	}
+	int erow = 0;
+	map<string,string> vecs;
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vecs,erow, update_sql);
 	if (err == 0){
 		//更新数据
-		vector<::google::protobuf::Message*> vec = getDBData(key, (char *)value.c_str(), tablename);
-		for (int i = 0; i < vec.size(); i++){
-			setDBData(vec.at(i), tablename);
+		if (erow > 0){
+			sqlstr = "select * from " + tablename + " limit ";
+			sprintf(buff, "%d,%d", erow - 1, erow);
+			sqlstr += buff;
+			vector<map<string, string>> vec1;
+			err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec1, insert_sql);
+			if (err == 0){
+				for (int i = 0; i < vec1.size(); i++){
+					setDBData(vec1.at(i), tablename);
+				}
+			}
 		}
 	}
 	
 	return err;
 }
 
-::google::protobuf::Message* DataBaseUserInfo::setDBData(std::vector<std::string> vecs, string tablename){
-	if (tablename.compare(MJ_TABLENAME_USER) == 0){
-		DBUserInfo dbuser;
-		if (!vecs.empty()){
-			string uid = vecs.at(0);
-			dbuser.set_userid(uid);
-			dbuser.set_username(vecs.at(1));
-			dbuser.set_sex(atoi(vecs.at(2).c_str()));
-			dbuser.set_address(vecs.at(3));
-			dbuser.set_gold(atoi(vecs.at(4).c_str()));
-			dbuser.set_diamon(atoi(vecs.at(5).c_str()));
-			dbuser.set_card(atoi(vecs.at(6).c_str()));
-			dbuser.set_code(vecs.at(7));
-			dbuser.set_token(vecs.at(8));
-			dbuser.set_picid(atoi(vecs.at(9).c_str()));
-			dbuser.set_unionid(vecs.at(10));
-			dbuser.set_picurl(vecs.at(11));
-			if (m_dbusers.find(uid) != m_dbusers.end()){
-				m_dbusers.at(uid) = dbuser;
-			}
-			else{
-				m_dbusers.insert(make_pair(uid.c_str(), dbuser));
-			}
+YMSocketData DataBaseUserInfo::setDBData(map<string, string> vecs, string tablename){
+	string prikey=getTablePrikey(tablename);
+	string prikeyvalue;
+	YMSocketData sd;
+	map<string, string>::iterator itr = vecs.begin();
+	for (itr; itr != vecs.end(); itr++){
+		string coname = itr->first;
+		string covalue = itr->second;
+		if (prikey.compare(coname) == 0){
+			prikeyvalue = covalue;
 		}
-		return &dbuser;
+
+		ColumnType type = getColumnType(tablename, coname);
+		if (type == String_Type){
+			sd[coname] = covalue;
+		}
+		else if (type == Int_Type || type == Bool_Type){
+			sd[coname] = atoi(covalue.c_str());
+		}
+		else if (type == Float_Type || type == Double_Type){
+			sd[coname] = atof(covalue.c_str());
+		}
+
 	}
-	else if (tablename.compare(MJ_TABLENAME_RECORDS) == 0){
-		DBRecords dbrecord;
-		return &dbrecord;
+	setDBData(sd, tablename);
+	return sd;
+}
+
+void DataBaseUserInfo::setDBData(YMSocketData sd, string tablename){
+	string key = getTablePrikey(tablename);
+	string keyvalue;
+	if (sd.isMember(key)){
+		ColumnType type = getColumnType(tablename, key);
+		if (type == String_Type){
+			keyvalue = sd[key].asString();
+		}
+		else if (type == Int_Type || type == Bool_Type){
+			char buff[50];
+			sprintf(buff, "%d", sd[key].asInt());
+			keyvalue = buff;
+		}
+		else if (type == Float_Type || type == Double_Type){
+			char buff[50];
+			sprintf(buff, "%g", sd[key].asInt());
+			keyvalue = buff;
+		}
+
 	}
-	else if (tablename.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
-		DBDetailRecords dbdetailrecord;
-		return &dbdetailrecord;
+	if (m_dbdatas.find(tablename) != m_dbdatas.end()){
+		map<string, YMSocketData> dbs=m_dbdatas.at(tablename);
+		if (dbs.find(key) != dbs.end()){
+			dbs.at(key) = sd;
+		}
+		else{
+			dbs.insert(make_pair(key,sd));
+		}
+		m_dbdatas.at(tablename) = dbs;
+	}
+	else{
+		map<string, YMSocketData> dbs;
+		dbs.insert(make_pair(key,sd));
+		m_dbdatas.insert(make_pair(tablename, dbs));
 	}
 }
 
-void DataBaseUserInfo::setDBData(::google::protobuf::Message* msg, string tablename){
-	if (tablename.compare(MJ_TABLENAME_USER) == 0){
-		DBUserInfo dbuser;
-		dbuser.CopyFrom(*msg);
-		string uid = dbuser.userid();
-		if (m_dbusers.find(uid) != m_dbusers.end()){
-			m_dbusers.at(uid) = dbuser;
-		}
-		else{
-			m_dbusers.insert(make_pair(uid, dbuser));
-		}
-	}
-	else if (tablename.compare(MJ_TABLENAME_RECORDS) == 0){
-		DBRecords rec;
-		rec.CopyFrom(*msg);
-		int id = rec.id();
-		if (m_dbrecordss.find(id) != m_dbrecordss.end()){
-			m_dbrecordss.at(id) = rec;
-		}
-		else{
-			m_dbrecordss.insert(make_pair(id, rec));
-		}
-	}
-	else if (tablename.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
-		DBDetailRecords dbdroc;
-		dbdroc.CopyFrom(*msg);
-		int id = dbdroc.id();
-		if (m_dbdetailrecords.find(id) != m_dbdetailrecords.end()){
-			m_dbdetailrecords.at(id) = dbdroc;
-		}
-		else{
-			m_dbdetailrecords.insert(make_pair(id, dbdroc));
-		}
-	}
-}
-
-bool DataBaseUserInfo::getDBUser(char *uid, DBUserInfo &dbuser){
-	if (m_dbusers.find(uid) != m_dbusers.end()){
-		dbuser = m_dbusers.at(uid);
-		return true;
-	}
+bool DataBaseUserInfo::getDBUser(char *uid, YMSocketData &dbuser){
+// 	if (m_dbusers.find(uid) != m_dbusers.end()){
+// 		dbuser = m_dbusers.at(uid);
+// 		return true;
+// 	}
 	return false;
 }
 
 void DataBaseUserInfo::getAllDBData(string tablename){
 	std::string sqlstr = "select * from ";
 	sqlstr += tablename;
-	vector < vector < string >> vecs;
-	SqlControl::getIns()->ExcuteQueryAll((char *)sqlstr.c_str(),vecs);
+	vector <map<string, string>> vecs;
+	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vecs);
 	for (int i = 0; i < vecs.size();i++){
 		setDBData(vecs.at(i),tablename);
 	}
 	printf("所有数据查询完毕!!\n");
 }
 
-std::map<string, ::google::protobuf::Message*> DataBaseUserInfo::getDBDatas(string tablename){
-	if ((tablename.compare(MJ_TABLENAME_USER) == 0&&m_dbusers.empty()) ||
-		(tablename.compare(MJ_TABLENAME_RECORDS) == 0&&m_dbrecordss.empty())||
-		tablename.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0 && m_dbdetailrecords.empty()){
+map<string, YMSocketData> DataBaseUserInfo::getDBDatas(string tablename){
+	std::map<string, YMSocketData > copyvec;
+	if (m_dbdatas.find(tablename)==m_dbdatas.end()){
 		getAllDBData(tablename);
+		if (m_dbdatas.find(tablename) != m_dbdatas.end()){
+			copyvec = m_dbdatas.at(tablename);
+		}
 	}
-	std::map<string, ::google::protobuf::Message*> vecs;
+	else{
+		copyvec = m_dbdatas.at(tablename);
+	}
+
+	std::map<string, YMSocketData > vecs;
 	int count = 0;
-	if (tablename.compare(MJ_TABLENAME_USER)==0){
-		std::map<string, DBUserInfo>::iterator itr = m_dbusers.begin();
-		for (itr; itr != m_dbusers.end(); itr++){
-			vecs.insert(make_pair(itr->first, &itr->second));
-			count++;
-			if (count == 10){
-				break;
-			}
+	std::map<string, YMSocketData >::iterator itr = copyvec.begin();
+	for (itr; itr != copyvec.end(); itr++){
+		vecs.insert(make_pair(itr->first, itr->second));
+		count++;
+		if (count == 10){
+			break;
 		}
 	}
 	return vecs;
@@ -320,13 +318,30 @@ vector<string> DataBaseUserInfo::getTableColumnName(string tablename){
 		string sqlstr = "select COLUMN_NAME from information_schema.columns where table_name='";
 		sqlstr += tablename;
 		sqlstr += "'";
-		vector< vector<string>> vec1;
-		SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vec1,column_sql);
-		if (!vec1.empty() ){
-			vec = vec1.at(0);
+		SqlControl::getIns()->ExcuteQuery1((char *)sqlstr.c_str(),vec,column_sql);
+		if (!vec.empty()){
+			m_tablecolumnsname.insert(make_pair(tablename,vec));
 		}
 	}
 	
+	return vec;
+}
+
+vector<string> DataBaseUserInfo::getTableColumnType(string tablename){
+	vector<string> vec;
+	if (m_tablecolumnstype.find(tablename) != m_tablecolumnstype.end()){
+		vec = m_tablecolumnstype.at(tablename);
+	}
+	else{
+		string sqlstr = "select DATA_TYPE from information_schema.columns where table_name='";
+		sqlstr += tablename;
+		sqlstr += "'";
+		SqlControl::getIns()->ExcuteQuery1((char *)sqlstr.c_str(), vec, column_sql);
+		if (!vec.empty()){
+			m_tablecolumnstype.insert(make_pair(tablename, vec));
+		}
+	}
+
 	return vec;
 }
 
@@ -339,122 +354,70 @@ string DataBaseUserInfo::getTablePrikey(string tablename){
 		string sqlstr = "select COLUMN_NAME from information_schema.key_column_usage where table_name = '";
 		sqlstr += tablename;
 		sqlstr += "'";
-		vector< vector<string>> vec1;
-		SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vec1, column_sql);
-		if (!vec1.empty()&&!vec1.at(0).empty()){
-			prikey = vec1.at(0).at(0);
+		vector<string> vec1;
+		SqlControl::getIns()->ExcuteQuery1((char *)sqlstr.c_str(),vec1, column_sql);
+		if (!vec1.empty()){
+			prikey = vec1.at(0);
 		}
+		m_tableprikey.insert(make_pair(tablename,prikey));
 	}
 	return prikey;
 }
 
-std::vector<::google::protobuf::Message*> DataBaseUserInfo::getDBData(string tablename, string coname, string covalue) {
+std::vector<YMSocketData> DataBaseUserInfo::getDBData(string tablename, string coname, string covalue) {
 	string sqlstr = "select * from "; 
 	sqlstr += tablename;
 	sqlstr += " where " + coname + " = ";
-	bool istring = isStringType(tablename,coname);
-	if (istring){
+
+	ColumnType type = getColumnType(tablename, coname);
+	if (type == String_Type){
 		sqlstr += "'";
 		sqlstr += covalue;
 		sqlstr += "'";
 	}
-	else{
+	else if (type == Int_Type || type == Bool_Type){
 		sqlstr += covalue;
 	}
-	vector<vector<string>> vec;
+	else if (type == Float_Type || type == Double_Type){
+		sqlstr += covalue;
+	}
+
+	vector<map<string,string>> vec;
 	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vec,select_sql);
-	std::vector<::google::protobuf::Message*> msgs;
+	std::vector<YMSocketData > msgs;
 	for (int i = 0; i < vec.size(); i++){
 		msgs.push_back(setDBData(vec.at(i), tablename));
 	}
 	return msgs;
 }
 
-void DataBaseUserInfo::getDBUserFromSocketData(DBUserInfo &user, YMSocketData sd, string listname, int index){
-	string uid, uname, add, code, token, unionid, picurl;
-	int sex, gold, diamond, card, picid;
-	if (listname.empty()){
-		uid = sd["userid"].asString();
-		uname = sd["username"].asString();
-		sex = sd["sex"].asInt();
-		add = sd["address"].asString();
-		gold = sd["gold"].asInt();
-		diamond = sd["diamond"].asInt();
-		card = sd["card"].asInt();
-		code = sd["code"].asString();
-		token = sd["token"].asString();
-		picid = sd["picid"].asInt();
-		unionid = sd["unionid"].asString();
-		picurl = sd["picurl"].asString();
+
+vector<string> DataBaseUserInfo::getAllDatabases(){
+	string sqlstr = "show databases";
+	vector<string> vecs;
+	int err = SqlControl::getIns()->ExcuteQuery1((char *)sqlstr.c_str(), vecs, showdatatses_sql);
+	if (err == 0 && !vecs.empty()){
+		for (int i = 0; i < 4; i++){
+			string oname = g_othersql[i];
+			vector<string>::iterator itr = vecs.begin();
+			for (itr; itr != vecs.end(); itr++){
+				if (oname.compare(*itr) == 0){
+					vecs.erase(itr);
+					break;
+				}
+			}
+		}
+		DataBaseUserInfo::getIns()->setDatabases(vecs);
 	}
-	else{
-		uid = sd[listname][index]["userid"].asString();
-		uname = sd[listname][index]["username"].asString();
-		sex = sd[listname][index]["sex"].asInt();
-		add = sd[listname][index]["address"].asString();
-		gold = sd[listname][index]["gold"].asInt();
-		diamond = sd[listname][index]["diamond"].asInt();
-		card = sd[listname][index]["card"].asInt();
-		code = sd[listname][index]["code"].asString();
-		token = sd[listname][index]["token"].asString();
-		picid = sd[listname][index]["picid"].asInt();
-		unionid = sd[listname][index]["unionid"].asString();
-		picurl = sd[listname][index]["picurl"].asString();
-	}
-	user.set_userid(uid);
-	user.set_username(uname);
-	user.set_sex(sex);
-	user.set_address(add);
-	user.set_gold(gold);
-	user.set_diamon(diamond);
-	user.set_card(card);
-	user.set_code(code);
-	user.set_token(token);
-	user.set_picid(picid);
-	user.set_unionid(unionid);
-	user.set_picurl(picurl);
+	return vecs;
 }
 
-void DataBaseUserInfo::setDBUserToSocketData(DBUserInfo user, YMSocketData &sd, string listname, int index){
-	string uid = user.userid();
-	string uname = user.username();
-	int sex = user.sex();
-	string add = user.address();
-	int gold = user.gold();
-	int diamond = user.diamon();
-	int card = user.card();
-	string code = user.code();
-	string token = user.token();
-	int picid = user.picid();
-	string unionid = user.unionid();
-	string picurl = user.picurl();
-	if (listname.empty()){
-		sd["userid"] = uid;
-		sd["username"] = uname;
-		sd["sex"] = sex;
-		sd["address"] = add;
-		sd["gold"] = gold;
-		sd["diamond"] = diamond;
-		sd["card"] = card;
-		sd["code"] = code;
-		sd["token"] = token;
-		sd["picid"] = picid;
-		sd["unionid"] = unionid;
-		sd["picurl"] = picurl;
+vector<string> DataBaseUserInfo::getAllTables(){
+	string sqlstr = "show tables";
+	vector<string> vecs;
+	int err = SqlControl::getIns()->ExcuteQuery1((char *)sqlstr.c_str(), vecs, showdatatses_sql);
+	if (err == 0){
+		DataBaseUserInfo::getIns()->setdbtables(vecs);
 	}
-	else{
-		sd[listname][index]["userid"] = uid;
-		sd[listname][index]["username"] = uname;
-		sd[listname][index]["sex"] = sex;
-		sd[listname][index]["address"] = add;
-		sd[listname][index]["gold"] = gold;
-		sd[listname][index]["diamond"] = diamond;
-		sd[listname][index]["card"] = card;
-		sd[listname][index]["code"] = code;
-		sd[listname][index]["token"] = token;
-		sd[listname][index]["picid"] = picid;
-		sd[listname][index]["unionid"] = unionid;
-		sd[listname][index]["picurl"] = picurl;
-	}
-
+	return vecs;
 }
