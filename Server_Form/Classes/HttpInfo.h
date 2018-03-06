@@ -41,6 +41,9 @@ public:
 	void requestSQLFindConnect(string tablename,string coname,string covalue);
 	void SQLLFindCallBack(HttpClient* client, HttpResponse* response);
 
+	void requestSQLBackupConnect(string dbname);
+	void SQLBackupCallBack(HttpClient* client, HttpResponse* response);
+
 	int aes_encrypt(char* in, int inlen, char* key, char* out);
 	int aes_decrypt(char* in, int inlen, char* key, char* out);
 	

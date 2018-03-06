@@ -155,6 +155,9 @@ void HttpInfo::SQLStartCallBack(HttpClient* client, HttpResponse* response){
 					p->ShowFindBar(false);
 					p->ShowFindBg(false);
 				}
+
+
+				//requestSQLBackupConnect("majiang");
 			}
 			else if (err == 1){
 				LogoLayer::ShowPrintf("连接数据库失败，请检查配置");
@@ -475,6 +478,35 @@ void HttpInfo::SQLLFindCallBack(HttpClient* client, HttpResponse* response){
 		else{
 			LogoLayer::ShowPrintf("未查找到数据");
 			p->ShowFindBg(false);
+		}
+	}
+}
+
+void HttpInfo::requestSQLBackupConnect(string dbname){
+	YMSocketData sd;
+	sd["cmd"] = 0x09;
+	sd["dbname"] = dbname;
+	HttpInfo::getIns()->HttpSend(sd, httpresponse_selector(HttpInfo::SQLBackupCallBack));
+}
+
+void HttpInfo::SQLBackupCallBack(HttpClient* client, HttpResponse* response){
+	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
+	int sz = 0;
+	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	bool isc = true;
+	if (str.empty()){
+		LogoLayer::ShowPrintf("服务器已关闭");
+		isc = false;
+	}
+	else{
+		YMSocketData sd = getSocketDataByStr(str, sz);
+		log("sd:%s", sd.getJsonString().c_str());
+		int err = sd["err"].asInt();
+		if (err == 0){
+			LogoLayer::ShowPrintf("备份数据库成功");
+		}
+		else{
+			LogoLayer::ShowPrintf("备份数据库失败");
 		}
 	}
 }
