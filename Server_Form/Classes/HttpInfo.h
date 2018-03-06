@@ -79,7 +79,7 @@ private:
 	void HttpSend(YMSocketData sd, SEL_HttpResponse respond);
 
 	::google::protobuf::Message * getDBDataFromSocketData(string tablename, CSJson::Value sd);
-	void setDBDataToSocketData(string tablename, ::google::protobuf::Message *user, YMSocketData &sd, string listname = "", int index = 0);
+	void setDBDataToSocketData(string tablename, ::google::protobuf::Message *user, YMSocketData &sd);
 
 	string encryptStringFromString(string in, int sz);
 	string decryptStringFromString(string in, int sz);
