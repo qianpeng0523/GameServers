@@ -1,7 +1,14 @@
 #pragma once
 #include "stdafx.h"
 
-
+enum ColumnType
+{
+	String_Type = 0,
+	Int_Type,
+	Float_Type,
+	Double_Type,
+	Bool_Type,
+};
 
 class DataBaseUserInfo{
 public:
@@ -10,11 +17,11 @@ public:
 	static DataBaseUserInfo *getIns();
 
 	//////////////DBUserInfo
-	::google::protobuf::Message* setDBData(std::vector<std::string> vecs, string tablename);//设置整个数据
-	void setDBData(::google::protobuf::Message* msg,string tablename);//设置整个数据
+	YMSocketData setDBData(map<string, string> vecs, string tablename);//设置整个数据
+	void setDBData(YMSocketData sd, string tablename);//设置整个数据
 	//DBUserInfo getDBUserInfo(char *uid);
 
-	bool insertDBData(::google::protobuf::Message *msg, string tablename);
+	bool insertDBData(YMSocketData sd, string tablename);
 	
 	int updateDBDataByKey(string tablename, std::map<string, string >updatedata, string key, string value);
 
@@ -32,34 +39,36 @@ public:
 		return m_curdbtables;
 	}
 
-	std::map<string, ::google::protobuf::Message*> getDBDatas(string tablename);
+	map<string, YMSocketData> getDBDatas(string tablename);
 	vector<string> getTableColumnName(string tablename);
+	vector<string> getTableColumnType(string tablename);
 
-	std::vector<::google::protobuf::Message*> getDBData(string tablename, string coname, string covalue);
+	std::vector<YMSocketData> getDBData(string tablename, string coname, string covalue);
 	string getTablePrikey(string tablename);
 
-	void getDBUserFromSocketData(DBUserInfo &user, YMSocketData sd, string listname="", int index=0);
-	void setDBUserToSocketData(DBUserInfo user, YMSocketData &sd, string listname="", int index=0);
-
-	static string g_dbitennames[12];
-	static string g_dbrecordsnames[4];
-	static string g_dbdetailrecordsnames[5];
+	
+	vector<string> getAllDatabases();
+	vector<string> getAllTables();
+// 
+// 	static string g_dbitennames[12];
+// 	static string g_dbrecordsnames[4];
+// 	static string g_dbdetailrecordsnames[5];
 private:
 	void startAI();
 	
 	//////////////DBUserInfo
 	void getAllDBData(string tablename);
-	bool getDBUser(char *uid, DBUserInfo &dbuser);
+	bool getDBUser(char *uid, YMSocketData &dbuser);
 	//std::vector<std::string> getDBUserData(char *uid);
-	bool isStringType(string tablename, string name);
+	ColumnType getColumnType(string tablename, string name);
+	
 private:
-	std::map<string,DBUserInfo> m_dbusers;
-	std::map<int, DBRecords> m_dbrecordss;
-	std::map<int, DBDetailRecords> m_dbdetailrecords;
+	map<string, map<string, YMSocketData>>m_dbdatas;
 	vector<string> m_databases;
 	vector<string> m_curdbtables;
 	static DataBaseUserInfo *m_ins;
 	string m_maxuid;
 	map<string, vector<string>>m_tablecolumnsname;
+	map<string, vector<string>>m_tablecolumnstype;
 	map<string, string>m_tableprikey;
 };

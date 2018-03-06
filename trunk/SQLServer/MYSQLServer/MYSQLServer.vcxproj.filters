@@ -60,9 +60,6 @@
     <ClCompile Include="Classes\XXIconv.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\cc\DBProto.cpp">
-      <Filter>源文件\Classes\cc</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\db\DataBaseUserinfo.cpp">
       <Filter>源文件\Classes\db</Filter>
     </ClCompile>
@@ -133,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="Classes\iconv.h">
       <Filter>源文件\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\cc\DBProto.h">
-      <Filter>源文件\Classes\cc</Filter>
     </ClInclude>
     <ClInclude Include="Classes\db\DataBaseUserinfo.h">
       <Filter>源文件\Classes\db</Filter>

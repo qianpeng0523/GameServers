@@ -17,7 +17,6 @@
 #include <evhttp.h>
 #include <signal.h>
 #include <map>
-#include "DBProto.h"
 #include "XXIconv.h"
 #include "YMSocketData.h"
 
@@ -45,14 +44,13 @@
 #define DBPASSWD "3.1415926qp"
 #define DBIP "192.168.1.102"
 #define DBNAME "majiang"
-#define MJ_TABLENAME_USER "userinfo"
-#define MJ_TABLENAME_RECORDS "records"
-#define MJ_TABLENAME_DETAIL_RECORDS "records"
+// #define MJ_TABLENAME_USER "userinfo"
+// #define MJ_TABLENAME_RECORDS "records"
+// #define MJ_TABLENAME_DETAIL_RECORDS "detail_records"
 #define DBPORT 3306
 
 #pragma comment(lib,"../MYSQLServer/Debug/libprotobuf.lib") 
 #pragma comment(lib,"../MYSQLServer/Debug/libprotoc.lib") 
 #pragma comment(lib, "../MYSQLServer//Debug/libcrypto.lib") 
 
-using namespace protocol;
 using namespace std;

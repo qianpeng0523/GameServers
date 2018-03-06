@@ -86,9 +86,6 @@ void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	else if (cmd == 0x04){
 		SelectDB(sd["dbname"].asString(), buff, sz);
 	}
-	else if (cmd == 0x05){
-		SelectTableData(sd["tname"].asString(), buff, sz);
-	}
 	else if (cmd == 0x06){
 		SqlConnect( buff, sz);
 	}
@@ -155,7 +152,7 @@ void HttpLogic::SelectDB(string dbname, char *&buff, int &sz){
 	if (ist){
 		sd["err"] = 0;
 		sd["dbname"] = dbname;
-		vector<string> tables = SqlControl::getIns()->getAllTables();
+		vector<string> tables = DataBaseUserInfo::getIns()->getAllTables();
 		for (int i = 0; i < tables.size(); i++){
 			sd["tables"][i] = tables[i];
 		}
@@ -163,34 +160,6 @@ void HttpLogic::SelectDB(string dbname, char *&buff, int &sz){
 	else{
 		sd["err"] = 1;
 	}
-	sd.serializer(buff, &sz);
-}
-
-void HttpLogic::SelectTableData(string tname, char *&buff, int &sz){
-	YMSocketData sd;
-	sd["err"] = 0;
-	sd["tname"] = tname;
-	DataBaseUserInfo *p = DataBaseUserInfo::getIns();
-	
-	std::map<string, ::google::protobuf::Message*> dbusers = p->getDBDatas(tname);
-	std::map<string, ::google::protobuf::Message*>::iterator itr = dbusers.begin();
-	int i = 0;
-	for (itr; itr != dbusers.end(); itr++){
-		if (tname.compare(MJ_TABLENAME_USER) == 0){
-			DBUserInfo msg;
-			msg.CopyFrom(*itr->second);
-			p->setDBUserToSocketData(msg, sd, "datas", i);
-		}
-		else if (tname.compare(MJ_TABLENAME_RECORDS) == 0){
-
-		}
-		else if (tname.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
-
-		}
-		i++;
-	}
-	
-	
 	sd.serializer(buff, &sz);
 }
 
@@ -215,29 +184,16 @@ void HttpLogic::SqlFind(YMSocketData sd, char *&buff, int &sz){
 	sd1["tname"] = tname;
 	DataBaseUserInfo *p = DataBaseUserInfo::getIns();
 	sd1["prikey"] = p->getTablePrikey(tname);
-	if (tname.compare(MJ_TABLENAME_USER) == 0){
-		string prikey;
-		DBUserInfo user;
-		vector<::google::protobuf::Message*> vec = p->getDBData(tname, coname, covalue);
-		if (!vec.empty()){
-			user.CopyFrom(*vec.at(0));
-			if (user.userid().empty()){
-				sd1["err"] = 1;
-			}
-			else{
-				sd1["err"] = 0;
-				p->setDBUserToSocketData(user, sd1);
-			}
-		}
-		else{
-			sd1["err"] = 1;
+	
+	vector<YMSocketData> vec = p->getDBData(tname, coname, covalue);
+	if (!vec.empty()){
+		sd1["err"] = 0;
+		for (int i = 0; i < vec.size(); i++){
+			sd1["datas"][i] = vec.at(i);
 		}
 	}
-	else if (tname.compare(MJ_TABLENAME_RECORDS) == 0){
-
-	}
-	else if (tname.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
-
+	else{
+		sd1["err"] = 1;
 	}
 	sd1.serializer(buff, &sz);
 }
@@ -247,49 +203,26 @@ void HttpLogic::SqlExcute(YMSocketData sd, char *&buff, int &sz){
 	string key = sd["key"].asString();
 	string keyvalue = sd["keyvalue"].asString();
 	printf("%s",sd.getJsonString().c_str());
+
+	vector<string>columnnames = DataBaseUserInfo::getIns()->getTableColumnName(tname);
+	int sz1 = columnnames.size();
 	int err = 0;
-	if (tname.compare(MJ_TABLENAME_USER) == 0){
-		map<string, string>maps;
-		for (int i = 0; i < 12; i++){
-			string coname = DataBaseUserInfo::g_dbitennames[i];
-			if (sd.isMember(coname)){
-				string covalue= sd[coname].asString();
-				maps.insert(make_pair(coname,covalue));
-			}
+	
+	map<string, string>maps;
+	for (int i = 0; i < sz1; i++){
+		string coname = columnnames.at(i);
+		if (sd.isMember(coname)){
+			string covalue = sd[coname].asString();
+			maps.insert(make_pair(coname, covalue));
 		}
-		err=DataBaseUserInfo::getIns()->updateDBDataByKey(tname,maps, key, keyvalue);
 	}
-	else if (tname.compare(MJ_TABLENAME_RECORDS) == 0){
-
-	}
-	else if (tname.compare(MJ_TABLENAME_DETAIL_RECORDS) == 0){
-
-	}
+	err = DataBaseUserInfo::getIns()->updateDBDataByKey(tname, maps, key, keyvalue);
+	
+	
 	YMSocketData sd1;
 	sd1["err"] = err;
 	sd1["tname"] = tname;
 	sd1.serializer(buff, &sz);
-}
-
-string HttpLogic::encryptStringFromProto(::google::protobuf::Message* msg){
-	int sz = msg->ByteSize();
-	string sm;
-	msg->SerializePartialToString(&sm);
-	char *out = new char[4096];
-	int num=aes_encrypt((char *)sm.c_str(), sz, DECKEY, out);
-	out[sz] = '\0';
-	string ss = out;
-	int len = ss.length();
-	delete out;
-	return ss;
-}
-
-void HttpLogic::decryptStringFromProto(string keyvalue, int sz, ::google::protobuf::Message* msg){
-	int len = keyvalue.length();
-	char out[4096];
-	int nn = aes_decrypt((char *)keyvalue.c_str(), len, DECKEY, out);
-	out[sz + nn] = '\0';
-	msg->ParsePartialFromArray(out, sz);
 }
 
 string HttpLogic::encryptStringFromString(string in,int sz){
