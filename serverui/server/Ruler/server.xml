@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GuidesProject>
+    <Project>sqlserver</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>databases</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>dbitem</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>listitem</Project>
+    <GuidesList />
+  </GuidesProject>
+</ArrayOfGuidesProject>

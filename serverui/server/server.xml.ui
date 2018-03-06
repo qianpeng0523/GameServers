@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\GameServer\serverui\server</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>E:\GameServer\serverui\server\Resources</Resources>
+  <Name>server</Name>
+  <JsonFileName>server.json</JsonFileName>
+  <JsonFolder>E:\GameServer\serverui\server\Json</JsonFolder>
+  <JsonList>
+    <string>sqlserver.json</string>
+    <string>databases.json</string>
+    <string>dbitem.json</string>
+    <string>listitem.json</string>
+  </JsonList>
+  <CanvasSize>
+    <Width>120</Width>
+    <Height>36</Height>
+  </CanvasSize>
+  <filePath>E:\GameServer\serverui\server\server.xml.ui</filePath>
+  <ProjectType>UIProject</ProjectType>
+  <ResRelativePath />
+  <imageFileList />
+  <imagePngList>
+    <string>roomlistbg.png</string>
+    <string>input_bg.png</string>
+    <string>buybtn.png</string>
+    <string>bg5.png</string>
+    <string>shuru.png</string>
+    <string>list.png</string>
+    <string>input.png</string>
+    <string>bg3_list.png</string>
+    <string>buy_btn1.png</string>
+  </imagePngList>
+  <JsonSuffix>.json</JsonSuffix>
+  <CurrentUIJson>listitem.json</CurrentUIJson>
+</UIProject>
