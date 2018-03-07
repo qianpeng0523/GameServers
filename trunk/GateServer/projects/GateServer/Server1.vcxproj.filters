@@ -45,9 +45,6 @@
     <ClCompile Include="Classes\network\EventDispatcher.cpp">
       <Filter>源文件\Classes\network</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\network\EventInfo.cpp">
-      <Filter>源文件\Classes\network</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\common\Object.cpp">
       <Filter>源文件\Classes\common</Filter>
     </ClCompile>
@@ -96,6 +93,12 @@
     <ClCompile Include="Classes\http\HttpEvent.cpp">
       <Filter>源文件\Classes\http</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\network\ClientSocket.cpp">
+      <Filter>源文件\Classes\network</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\network\TcpSocket.cpp">
+      <Filter>源文件\Classes\network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -105,9 +108,6 @@
       <Filter>源文件\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Classes\network\EventDispatcher.h">
-      <Filter>源文件\Classes\network</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\network\EventInfo.h">
       <Filter>源文件\Classes\network</Filter>
     </ClInclude>
     <ClInclude Include="Classes\common\Object.h">
@@ -190,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="Classes\http\HttpEvent.h">
       <Filter>源文件\Classes\http</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\network\ClientSocket.h">
+      <Filter>源文件\Classes\network</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\network\TcpSocket.h">
+      <Filter>源文件\Classes\network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

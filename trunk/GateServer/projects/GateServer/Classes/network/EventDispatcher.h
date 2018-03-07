@@ -1,7 +1,6 @@
 ﻿#ifndef __EventDispatcher_SCENE_H__
 #define __EventDispatcher_SCENE_H__
 
-#include "EventInfo.h"
 #include "ccEvent.h"
 #include <fstream>
 
@@ -33,23 +32,15 @@ public:
 	void removeAllKistener();
 	void disEventDispatcher(ccEvent *event);
 	
-	void update(float dt);
-	void schedulUpdate(Object *obj, float dt=1000/50);
-	void unschulUpdate(Object *obj, float dt = 1000 / 50);
-
-	
+	void registerProto(int cmd,string tname);
+	string getProtoName(int cmd);
 private:
-	void AddUpdate(Object *obj,float dt);
-	void EventPathch(std::vector<ccEvent *> &ep, int &eventLock);
-	void EventDis();
+	void EventPathch(std::vector<ccEvent *> &ep);
 private:
 	static EventDispatcher* m_ins;
 	std::map<int, CallList_Vec> m_eventLists;
 	std::vector<ccEvent *> m_Events;
-	std::vector<ccEvent *> m_Events1;
-	//int m_keycount;
-	bool m_isopen;
-	int m_eventLock;
+	map<int, string> m_protos;
 private:
 
 };

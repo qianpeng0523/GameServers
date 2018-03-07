@@ -101,9 +101,10 @@
     <ClCompile Include="Classes\netjson\json_value.cpp" />
     <ClCompile Include="Classes\netjson\json_writer.cpp" />
     <ClCompile Include="Classes\network\ccEvent.cpp" />
+    <ClCompile Include="Classes\network\ClientSocket.cpp" />
     <ClCompile Include="Classes\network\EventDispatcher.cpp" />
-    <ClCompile Include="Classes\network\EventInfo.cpp" />
     <ClCompile Include="Classes\network\EventListen.cpp" />
+    <ClCompile Include="Classes\network\TcpSocket.cpp" />
     <ClCompile Include="Classes\poco\LibEvent.cpp" />
     <ClCompile Include="Classes\poco\LibPOCO.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
@@ -131,9 +132,10 @@
     <ClInclude Include="Classes\netjson\YMvalue.h" />
     <ClInclude Include="Classes\netjson\YMwriter.h" />
     <ClInclude Include="Classes\network\ccEvent.h" />
+    <ClInclude Include="Classes\network\ClientSocket.h" />
     <ClInclude Include="Classes\network\EventDispatcher.h" />
-    <ClInclude Include="Classes\network\EventInfo.h" />
     <ClInclude Include="Classes\network\EventListen.h" />
+    <ClInclude Include="Classes\network\TcpSocket.h" />
     <ClInclude Include="Classes\poco\CLibEventData.h" />
     <ClInclude Include="Classes\poco\CProtocol.h" />
     <ClInclude Include="Classes\poco\LibEvent.h" />

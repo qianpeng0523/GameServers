@@ -22,7 +22,7 @@ public:
 	bool StartServer(int port, short workernum, unsigned int connnum, int read_timeout, int write_timeout);
 	void StopServer();
 
-	void SendData(int code, const google::protobuf::Message *msg, string recv_type_name, int fd);
+	void SendData(int cmd, const google::protobuf::Message *msg, string recv_type_name, int fd);
 		
 	static void DoAccept(struct evconnlistener *listener, evutil_socket_t fd, struct sockaddr *sa, int socklen, void *user_data);
 	Server getServer(){
@@ -30,8 +30,6 @@ public:
 	}
 
 private:
-
-		
 	static void DoError(struct bufferevent *bev, short error, void *ctx);
 	void CloseConn(Conn *pConn, int nFunID);
 	void CloseConn(Conn *pConn);
@@ -41,13 +39,19 @@ private:
 	static DWORD WINAPI ThreadWorkers(LPVOID lPVOID);
 	static DWORD WINAPI ThreadHttp(LPVOID lPVOID);
 	static DWORD WINAPI ThreadAI(LPVOID lPVOID);
-
-
-private:
-	int getServerDest(Head *h);
+	int getReq(Head *h);
 	int getCMD(Head *h);
 	int getBodyLen(Head *h);
-	int getCode(Head *h);
-
+	int getStamp(Head *h);
+	
+	void inserClientData(int fd,ClientData *data);
+	ClientData * getClientData(int fd);
+	ClientData * getClientData(string sessionid);
+	void eraseClientData(int fd);
+	void eraseClientData(string seesionid);
+	void resetConn(Conn *pConn);
+private:
+	map<int fd,ClientData *>m_ClientDatas;
+	int m_stamp;
 	static LibEvent *m_ins;
 };

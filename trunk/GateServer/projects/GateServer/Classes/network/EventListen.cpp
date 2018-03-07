@@ -1,5 +1,5 @@
 ﻿#include "EventListen.h"
-#include "EventInfo.h"
+#include "EventDispatcher.h"
 
 
 EventListen *EventListen::m_ins=NULL;
@@ -19,15 +19,16 @@ EventListen::~EventListen() {
 
 }
 
-void EventListen::addDataPacketListener(int code, Object *target, EventHandler handler, string typeName){
+void EventListen::addDataPacketListener(int cmd, Object *target, EventHandler handler, string typeName){
+	EventDispatcher *p = EventDispatcher::getIns();
 	if (!typeName.empty()){
-		EventInfo::getIns()->pushCMD(code, typeName);
+		p->registerProto(cmd, typeName);
 	}
-	EventDispatcher::getIns()->addListener(code, target, handler);
+	EventDispatcher::getIns()->addListener(cmd, target, handler);
 }
 
-void EventListen::removeDataPacketListener(int code, Object *target, EventHandler handler){
-	EventDispatcher::getIns()->removeListener(code, target, handler);
+void EventListen::removeDataPacketListener(int cmd, Object *target, EventHandler handler){
+	EventDispatcher::getIns()->removeListener(cmd, target, handler);
 }
 
 void EventListen::removeAllDataPacketListener(){
