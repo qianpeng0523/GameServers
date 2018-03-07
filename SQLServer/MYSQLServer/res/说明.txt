@@ -1,0 +1,4 @@
+1.gateserver:
+ip和port指的是gateserver的ip和端口
+2.logicmanager:
+指的否是逻辑管理器的
