@@ -29,7 +29,7 @@ static cocos2d::Size largeResolutionSize = cocos2d::Size(1136, 640);
 
 #define MJ_TABLENAME_USER "userinfo"
 #define MJ_TABLENAME_RECORDS "records"
-#define MJ_TABLENAME_DETAIL_RECORDS "records"
+#define MJ_TABLENAME_DETAIL_RECORDS "detail_records"
 #define MJ_TABLENAME_NOTICE "notice"
 #define MJ_TABLENAME_ROOM "room"
 
