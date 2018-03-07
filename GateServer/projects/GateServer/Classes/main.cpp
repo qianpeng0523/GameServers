@@ -15,7 +15,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	std::cout << "socket start!" << std::endl;
 	LibEvent *clib = LibEvent::getIns();
-	clib->StartServer(SERVER_PORT, 2, 1000, 600, 600);
+	clib->StartServer(SERVER_PORT, 2, 5000, 600, 600);
 	getchar();
 	clib->StopServer();
 

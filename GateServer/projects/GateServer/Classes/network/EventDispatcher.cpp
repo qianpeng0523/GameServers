@@ -6,11 +6,7 @@
 EventDispatcher* EventDispatcher::m_ins = NULL;
 
 EventDispatcher::EventDispatcher(){
-	m_isopen = false;
-	m_eventLock = 0;
 	
-	//m_keycount = -99999;
-	//this->schedulUpdate(this,1000);
 }
 
 EventDispatcher::~EventDispatcher(){
@@ -82,57 +78,20 @@ void EventDispatcher::removeAllKistener(){
 }
 
 void EventDispatcher::disEventDispatcher(ccEvent *event){
-	//if (m_Events.find(m_keycount) == m_Events.end()){
-	//	m_Events.insert(make_pair(m_keycount++, event));
-	//	m_keycount++;
-	//}
-	//else{
-	//	m_keycount++;
-	//}
-	if (m_eventLock==0||m_eventLock==3){
+	if (event&&event->cmd > 0){
 		m_Events.push_back(event);
-		update(0);
-	}
-	else if(m_eventLock==1||m_eventLock==2){
-		m_Events1.push_back(event);
-		update(0);
-	}
-}
-
-void EventDispatcher::update(float dt){
-	EventDis();
-}
-
-void EventDispatcher::EventDis(){
-	if (m_eventLock == 0){
-		if (!m_Events.empty()){
-			EventPathch(m_Events, m_eventLock);
-		}
-	}
-	else if (m_eventLock == 2){
-		if (!m_Events1.empty()){
-			EventPathch(m_Events1, m_eventLock);
+		while (!m_Events.empty()){
+			EventPathch(m_Events);
 		}
 	}
 }
 
-void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep,int &eventLock){
+void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 	if (!ep.empty()){
-		if (eventLock == 0){
-			eventLock = 1;
-		}
-		else if (eventLock == 2){
-			eventLock =3;
-		}
-		printf("update!!!!!!!!!!!!!!\n");
-		vector<ccEvent *>::iterator itr1 = ep.begin();
-		for (itr1; itr1 != ep.end(); itr1++){
-			ccEvent *event = *itr1;
+		vector<ccEvent *>::iterator itr = ep.begin();
+		if (itr != ep.end()){
+			ccEvent *event = *itr;
 			int cmd = event->cmd;
-			if (cmd < 0){
-				itr1 = ep.erase(itr1);
-				continue;
-			}
 			CallList_Vec vec;
 			if (m_eventLists.find(cmd) != m_eventLists.end()){
 				vec = m_eventLists.at(cmd);
@@ -151,41 +110,20 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep,int &eventLock){
 			}
 
 			delete event;
-			itr1 = ep.erase(itr1);
-			if (ep.empty()){
-				if (eventLock == 1){
-					eventLock = 2;
-				}
-				else if (eventLock == 3){
-					eventLock = 0;
-				}
-				break;
-			}
+			ep.erase(itr);
 		}
-		EventDis();
-	}
-	else{
-		EventDis();
-	}
-
-}
-
-void EventDispatcher::AddUpdate(Object *obj, float dt){
-	while (m_isopen){
-		Sleep(dt);
-		obj->update(dt);
 	}
 }
 
-void EventDispatcher::schedulUpdate(Object *obj, float dt){
-	if (!m_isopen){
-		m_isopen = true;
-		AddUpdate(obj,dt);
+void EventDispatcher::registerProto(int cmd, string tname){
+	if (m_protos.find(cmd) == m_protos.end()){
+		m_protos.insert(make_pair(cmd,tname));
 	}
 }
 
-void EventDispatcher::unschulUpdate(Object *obj, float dt){
-	if (m_isopen){
-		m_isopen = false;
+string EventDispatcher::getProtoName(int cmd){
+	if (m_protos.find(cmd) != m_protos.end()){
+		return m_protos.at(cmd);
 	}
+	return "";
 }

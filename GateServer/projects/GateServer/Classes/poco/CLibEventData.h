@@ -52,26 +52,17 @@ struct _Conn
 		fd=NULL;
 		bufev=NULL;
 		index=-1;
-		in_buf_len=0;
-		out_buf_len=0;
 		owner=NULL;
 		next=NULL;
-		in_buf=new char[emMaxBuffLen];
-		out_buf=new char[emMaxBuffLen];
+		
 	}
 	~_Conn()
 	{
-		delete[]in_buf;
-		delete[]out_buf;
 		bufferevent_free(bufev);
 	}
 	struct bufferevent *bufev;
 	evutil_socket_t fd;
 	int index;
-	char *in_buf;
-	short in_buf_len;
-	char *out_buf;
-	short out_buf_len;
 	_Worker *owner;
 	_Conn *next;
 	
@@ -105,7 +96,21 @@ struct _Worker
 	}
 };
 
+struct _ClientData
+{
+	_ClientData(){
+		m_stamp = 0;
+		_fd = 0;
+		_conn = NULL;
+	}
+	evutil_socket_t _fd;
+	_Conn _conn;
+	string _sessionID;
+	int m_stamp;
+};
+
 typedef struct _Server Server;
 typedef struct _Worker Worker;
 typedef struct _Conn Conn;
 typedef struct _ConnList ConnList;
+typedef struct _ClientData ClientData;

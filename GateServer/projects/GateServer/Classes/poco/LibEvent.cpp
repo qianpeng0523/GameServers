@@ -4,7 +4,7 @@
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()
 {
-	
+	m_stamp = 0;
 	ZeroMemory(&m_Server, sizeof(m_Server));
 	WSADATA WSAData;
 	WSAStartup(0x0201, &WSAData);
@@ -113,6 +113,7 @@ bool LibEvent::StartServer(int port, short workernum, unsigned int connnum, int 
 
 void LibEvent::StopServer()
 {
+	m_stamp = 0;
 	if (m_Server.bStart)
 	{
 		struct timeval delay = { 2, 0 };
@@ -146,18 +147,20 @@ void LibEvent::StopServer()
 
 void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 {
-
 	char headchar[10];
 	Conn *c = (Conn *)ctx;
 	size_t len = bufferevent_read(bev, headchar, 10);
 	if (len >= 0){
+		LibEvent *pLibEvent = LibEvent::getIns();
 		Head *testhead = (Head*)headchar;
-		int serverdest = LibEvent::getIns()->getBodyLen(testhead);
-		int cmd = LibEvent::getIns()->getCMD(testhead);
-		int bodylen = LibEvent::getIns()->getBodyLen(testhead);
-		int code = LibEvent::getIns()->getCode(testhead);
-		printf("sercverdest:%d,cmd:%d,bodylen:%d,code:%d\n", serverdest, cmd, bodylen, code);
-
+		int serverdest = pLibEvent->getReq(testhead);
+		if (serverdest != SERVER_CODE){
+			printf("数据不合法！！！！！！！！\n");
+			return;
+		}
+		int cmd = pLibEvent->getCMD(testhead);
+		int bodylen = pLibEvent->getBodyLen(testhead);
+		int stamp = pLibEvent->getStamp(testhead);
 		char *buffer = new char[bodylen];
 		len = bufferevent_read(bev, buffer, bodylen);
 		if (len == bodylen){
@@ -174,69 +177,38 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 	}
 }
 
-void LibEvent::DoWrite(Conn *pconn){
-	char msg[4096];
-	size_t len = bufferevent_read(pconn->bufev, msg, sizeof(msg)-1);
+void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, string recv_type_name, evutil_socket_t fd){
+	ClientData *pdata = getClientData(fd);
+	if (pdata&&pdata->_conn){
+		pdata->m_stamp = (pdata->m_stamp+1)/256;
+		int len = msg->ByteSize();
+		char *buffer = new char[HEADLEN + len];
+		memset(buffer, 0, HEADLEN + len);
 
-	msg[len] = '\0';
-	printf("send data: %s\n", msg);
+		//服务器编号
+		buffer[0] = SERVER_CODE;
+		//消息序列号
+		buffer[1] = pdata->m_stamp;
+		//bodylen
+		char * clen = (char *)&len;
+		for (int i = 0; i < 4; i++){
+			buffer[2 + i] = *(clen + i);
+		}
+		//cmd
+		char *ccmd = (char *)&cmd;
+		for (int i = 0; i < 4; i++){
+			buffer[6 + i] = *(ccmd + i);
+		}
 
-	bufferevent_write(pconn->bufev, pconn->in_buf, pconn->in_buf_len);
-
-}
-
-void LibEvent::SendData(int code, const google::protobuf::Message *msg, string recv_type_name, int fd){
-		
-	Conn *pconn=NULL ;
-
-	if (pconn){
 		string sm;
 		msg->SerializePartialToString(&sm);
 
-		string ss = msg->DebugString();
-		printf("SendData:%s  name:%s\n", ss.c_str(), recv_type_name.c_str());
-
-		//delete msg;
-		//msg = NULL;
-		int len = sm.length();
-		int headlen = sizeof(Head);
-		char *buffer = new char[len + headlen];
-		//备用
-		buffer[0] = 1;
-		buffer[1] = 1;
-		//serverdest
-		buffer[2] = 2;
-
-		//cmd
-		buffer[3] = 2;
-
-		//bodylen
-		int  blen = len;
-		char * b = (char *)&blen;
-		char ble[2] = { *(b + 1), *b };
-		for (int i = 0; i < 2; i++){
-			buffer[4 + i] = ble[i];
+		for (int i = start_char; i < HEADLEN + len; i++){
+			buffer[i] = sm[i - HEADLEN];
 		}
 
-		//code
-		char * a = (char *)&code;
-		//char bf[4] = { *(a ), *(a + 1), *(a + 2), *(a+3) };
-		char bf[4] = { *(a + 3), *(a + 2), *(a + 1), *(a) };
-		for (int i = 0; i < 4; i++){
-			buffer[6 + i] = bf[i];
-		}
+		bufferevent_write(pconn->bufev, buffer, len + HEADLEN);
 
-		for (int i = headlen; i < len + headlen; i++){
-			buffer[i] = sm[i - headlen];
-		}
-		// 		for (int i = 0; i < len + headlen; i++){
-		// 			printf("buffer[%d]:%c\n",i,buffer[i]);
-		// 		}
-
-		pconn->in_buf = buffer;
-		pconn->in_buf_len = len + headlen;
-
-		DoWrite(pconn);
 		delete buffer;
 	}
 }
@@ -245,12 +217,15 @@ void LibEvent::CloseConn(Conn *pConn, int nFunID)
 {
 	int fd = pConn->fd;
 	if (fd > 0){
-			
-		pConn->in_buf_len = 0;
-		bufferevent_disable(pConn->bufev, EV_READ | EV_WRITE);
-		evutil_closesocket(fd);
-		pConn->owner->PutFreeConn(pConn);
+		eraseClientData(fd);
+		resetConn(pConn);
 	}
+}
+
+void LibEvent::resetConn(Conn *pConn){
+	bufferevent_disable(pConn->bufev, EV_READ | EV_WRITE);
+	evutil_closesocket(fd);
+	pConn->owner->PutFreeConn(pConn);
 }
 
 void LibEvent::CloseConn(Conn *pConn)
@@ -297,12 +272,13 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	printf("accept IP:%s\n", ip.c_str());
 	pConn->fd = fd;
 
-
-
 	evutil_make_socket_nonblocking(pConn->fd);
 	bufferevent_setfd(pConn->bufev, pConn->fd);
-	//转发发送事件
-	//LibEventFunction::DispatchFunction(emFunConnected,pConn);
+	//记录连接的信息 fd关键
+	ClientData *data = new ClientData();
+	data->_fd = fd;
+	data->_conn = pConn;
+	inserClientData(fd, data);
 	bufferevent_enable(pConn->bufev, EV_READ | EV_WRITE);
 }
 
@@ -339,8 +315,8 @@ DWORD WINAPI LibEvent::ThreadWorkers(LPVOID lPVOID)
 	return GetCurrentThreadId();
 }
 
-int LibEvent::getServerDest(Head *h){
-	int sd = h->_serverdest;
+int LibEvent::getReq(Head *h){
+	int sd = h->_req;
 	return sd;
 }
 
@@ -351,20 +327,66 @@ int LibEvent::getCMD(Head *h){
 
 int LibEvent::getBodyLen(Head *h){
 	int len = 0;
-	char buf[2];
-	buf[1] = h->_bodylen[0];
-	buf[0] = h->_bodylen[1];
-	memcpy(&len, buf, 2);
+	memcpy(&len, h->_bodylen, 4);
 	return len;
 }
 
 int LibEvent::getCode(Head *h){
-	char buf1[4];
-	buf1[0] = h->_code[3];
-	buf1[1] = h->_code[2];
-	buf1[2] = h->_code[1];
-	buf1[3] = h->_code[0];
-	int code = 0;
-	memcpy(&code, buf1, 4);
-	return code;
+	int cmd = 0;
+	memcpy(&cmd, h->_cmd, 4);
+	return cmd;
+}
+
+void LibEvent::inserClientData(int fd, ClientData *data){
+	if (m_ClientDatas.find(fd) == m_ClientDatas.end()){
+		m_ClientDatas.insert(make_pair(fd, data));
+	}
+}
+
+ClientData * LibEvent::getClientData(int fd){
+	if (m_ClientDatas.find(fd) != m_ClientDatas.end()){
+		return m_ClientDatas.at(fd);
+	}
+	return NULL;
+}
+
+ClientData * LibEvent::getClientData(string sessionid){
+	map<int fd, ClientData *>::iterator itr = m_ClientDatas.begin();
+	for (itr;itr!=m_ClientDatas.end(); itr++){
+		ClientData *data = itr->second;
+		if (data&&data->_sessionID.compare(sessionid) == 0){
+			return data;
+		}
+	}
+	return NULL;
+}
+
+void LibEvent::eraseClientData(int fd){
+	if (m_ClientDatas.find(fd) != m_ClientDatas.end()){
+		ClientData *data = m_ClientDatas.at(fd);
+		m_ClientDatas.erase(m_ClientDatas.find(fd));
+		if (data){
+			if (data->_conn){
+				resetConn(data->_conn);
+			}
+			delete data;
+		}
+	}
+}
+
+void LibEvent::eraseClientData(string seesionid){
+	map<int fd, ClientData *>::iterator itr = m_ClientDatas.begin();
+	for (itr; itr != m_ClientDatas.end(); itr++){
+		ClientData *data = itr->second;
+		if (data&&data->_sessionID.compare(sessionid) == 0){
+			m_ClientDatas.erase(itr);
+			if (data){
+				if (data->_conn){
+					CloseConn(data->_conn, emFunClosed);
+				}
+				delete data;
+			}
+			return;
+		}
+	}
 }

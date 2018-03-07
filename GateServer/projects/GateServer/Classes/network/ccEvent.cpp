@@ -1,5 +1,5 @@
 #include "ccEvent.h"
-#include "EventInfo.h"
+#include "EventDispatcher.h"
 
 ccEvent::ccEvent(int pcmd, const char* data, int size, int fd) :
 msg(NULL){
@@ -11,16 +11,14 @@ msg(NULL){
 
 void ccEvent::parse(const char* data, int size){
 
-	std::string type_name = EventInfo::getIns()->getTypeName(cmd);
+	std::string type_name = EventDispatcher::getIns()->getProtoName(cmd);
 	if (!type_name.empty()){
 		msg = create_message(type_name);
 		msg->ParseFromArray(data, size);
 
 		msg->PrintDebugString();
 		string ss = msg->DebugString();
-		printf("ccEvent:%s  name:%s", ss.c_str(), type_name.c_str());
-
-
+		printf("ccEvent:%s",ss.c_str());
 	}
 	delete data;
 }

@@ -23,8 +23,8 @@ private:
     virtual ~EventListen();
 public:
    
-	void addDataPacketListener(int code, Object *target, EventHandler handler, string typeName = "");
-	void removeDataPacketListener(int code, Object *target, EventHandler handler);
+	void addDataPacketListener(int cmd, Object *target, EventHandler handler, string typeName = "");
+	void removeDataPacketListener(int cmd, Object *target, EventHandler handler);
 	void removeAllDataPacketListener();
 
 };
