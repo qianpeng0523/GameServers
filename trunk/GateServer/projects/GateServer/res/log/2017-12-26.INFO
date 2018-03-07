@@ -1,0 +1,2155 @@
+[msg] 2017-12-26 14:32:42:host=192.168.50.151;user=qpserver;password=3.1415926qp;db=majiang;compress=true;auto-reconnect=true
+[msg] 2017-12-26 14:32:42:session info:5.6.24
+server info:50624
+host info:192.168.50.151 via TCP/IP
+[msg] 2017-12-26 14:32:42:
+
+/****************数据库信息*****************/
+[msg] 2017-12-26 14:32:42:
+/*******************************************/
+
+[msg] 2017-12-26 14:32:42://///////////////查询数据库信息select * from room://///////////////////
+
+[msg] 2017-12-26 14:32:42:
+[msg] 2017-12-26 14:32:42:
+[msg] 2017-12-26 14:32:42:
+[msg] 2017-12-26 14:32:42:
+[msg] 2017-12-26 14:32:42:
+[msg] 2017-12-26 14:32:42:
+[msg] 2017-12-26 14:32:42://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:42://///////////////查询数据库信息select * from roomrecord where id=(select max(id) from roomrecord)://///////////////////
+
+[msg] 2017-12-26 14:32:42://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:42://///////////////查询数据库信息select * from userinfo where userid=(select max(userid) from userinfo)://///////////////////
+
+[msg] 2017-12-26 14:32:42:
+[msg] 2017-12-26 14:32:42://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where code='100000'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:44:fcntl(-1, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:44:ccEvent:token: "5a68e6cc0195b878aa5ff70df000cd5c"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where token='5a68e6cc0195b878aa5ff70df000cd5c'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where code='100001'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:44:fcntl(-2, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:44:ccEvent:token: "58ec79d0df4ac0be489b49a24d3b3c08"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where token='58ec79d0df4ac0be489b49a24d3b3c08'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where code='100002'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:44:fcntl(-3, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:44:ccEvent:token: "3cc4f07c92a240dd56dcdebf58161f58"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where token='3cc4f07c92a240dd56dcdebf58161f58'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where code='100003'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:44:fcntl(-4, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:44:ccEvent:token: "699123454aa4781d475b96aaac59dc62"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where token='699123454aa4781d475b96aaac59dc62'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where code='100004'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:44:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:44:fcntl(-5, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:44:ccEvent:token: "cb1bc074b72dca1191308e9adc6792cd"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:44://///////////////查询数据库信息select * from userinfo where token='cb1bc074b72dca1191308e9adc6792cd'://///////////////////
+
+[msg] 2017-12-26 14:32:44:
+[msg] 2017-12-26 14:32:44://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100005'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-6, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "2c471a5a93a3404ab1cfb8c054d2c693"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='2c471a5a93a3404ab1cfb8c054d2c693'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100006'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-7, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "72d1b4e4dd5b9071797bf39fcb420f92"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='72d1b4e4dd5b9071797bf39fcb420f92'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100007'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-8, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "a588b762d68fe60225d3de3c647a52b9"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='a588b762d68fe60225d3de3c647a52b9'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100008'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-9, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "a1e7fb77550451d64aed45250cdcb04b"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='a1e7fb77550451d64aed45250cdcb04b'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100009'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-10, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "f1069383b6b5aab8ca543a35e9c65c87"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='f1069383b6b5aab8ca543a35e9c65c87'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100010'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-11, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "c4bbc69cad5c99edfdf9a75ac210dce2"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='c4bbc69cad5c99edfdf9a75ac210dce2'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100011'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-12, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "d66d7531860ea50930a6d1280ae9f5e3"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='d66d7531860ea50930a6d1280ae9f5e3'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100012'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-13, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "c21152d513a740be16401febdffcc534"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='c21152d513a740be16401febdffcc534'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100013'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-14, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "d0bc2050431b6f182680677fc8feb896"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='d0bc2050431b6f182680677fc8feb896'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100014'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-15, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "bb76d8a537b2afddffbff4496ab86726"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='bb76d8a537b2afddffbff4496ab86726'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100015'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-16, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "b4a52d5e8d7a56355abf7597fe5b2bbd"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='b4a52d5e8d7a56355abf7597fe5b2bbd'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100016'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-17, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "4773b356503b0370e3380e03ec73421c"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='4773b356503b0370e3380e03ec73421c'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100017'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-18, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "0bd4cddb7692ab6e39732c404f093a2a"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='0bd4cddb7692ab6e39732c404f093a2a'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100018'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-19, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "172ef5a94b4dd0aa120c6878fc29f70c"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='172ef5a94b4dd0aa120c6878fc29f70c'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where code='100019'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:32:45:accept IP:204.204.204.204
+[warn] 2017-12-26 14:32:45:fcntl(-20, F_GETFL): Socket operation on nonsocket [WSAENOTSOCK ][msg] 2017-12-26 14:32:45:ccEvent:token: "38dadc9fae7b5a4415d01986ee4907fe"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:32:45://///////////////查询数据库信息select * from userinfo where token='38dadc9fae7b5a4415d01986ee4907fe'://///////////////////
+
+[msg] 2017-12-26 14:32:45:
+[msg] 2017-12-26 14:32:45://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:25://///////////////查询数据库信息select * from userinfo where code='did106806'://///////////////////
+
+[msg] 2017-12-26 14:35:25://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:25:
+******************插入数据*******************
+
+[msg] 2017-12-26 14:35:25:
+**********************插入数值到数据库******************
+[msg] 2017-12-26 14:35:26://///////////////查询数据库信息select * from userinfo where code='did106806'://///////////////////
+
+[msg] 2017-12-26 14:35:26:
+[msg] 2017-12-26 14:35:26://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:26:accept IP:192.168.50.151
+[msg] 2017-12-26 14:35:26:sercverdest:34,cmd:2,bodylen:34,code:1
+[msg] 2017-12-26 14:35:26:ccEvent:token: "d7f6f515ad5fbbf32bbd88be0090781e"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:35:26:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:26://///////////////查询数据库信息select * from userinfo where token='d7f6f515ad5fbbf32bbd88be0090781e'://///////////////////
+
+[msg] 2017-12-26 14:35:26:
+[msg] 2017-12-26 14:35:26://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:26:SendData:code: 1
+errcode: 0
+userinfo {
+  uid: "100022"
+  ip: ""
+  cardcount: 3
+  uname: "did106806"
+  picurl: ""
+  sex: 1
+  picid: 3
+}
+  name:FxGame.Protocol.SLogin
+[msg] 2017-12-26 14:35:26:send data: 
+[msg] 2017-12-26 14:35:26:sercverdest:0,cmd:2,bodylen:0,code:3
+[msg] 2017-12-26 14:35:26:ccEvent:  name:FxGame.Protocol.CRoomCheck[msg] 2017-12-26 14:35:26:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:26:SendData:stats: 0
+roomid: 0
+  name:FxGame.Protocol.SRoomCheck
+[msg] 2017-12-26 14:35:26:send data: 
+[msg] 2017-12-26 14:35:26:sercverdest:2,cmd:2,bodylen:2,code:4
+[msg] 2017-12-26 14:35:26:ccEvent:code: 4
+  name:FxGame.Protocol.CNotice[msg] 2017-12-26 14:35:26:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:26://///////////////查询数据库信息select *from notice://///////////////////
+
+[msg] 2017-12-26 14:35:26:
+[msg] 2017-12-26 14:35:26://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:26:SendData:cardinfo: "\346\265\213\350\257\2251"
+paomainfo: "\346\265\213\350\257\2251"
+  name:FxGame.Protocol.SNotice
+[msg] 2017-12-26 14:35:26:send data: 
+[msg] 2017-12-26 14:35:32:sercverdest:5,cmd:2,bodylen:5,code:256
+[msg] 2017-12-26 14:35:32:ccEvent:code: 256
+kind: 1
+  name:FxGame.Protocol.CRoomCreat[msg] 2017-12-26 14:35:32:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:32:a:::::556389[msg] 2017-12-26 14:35:32:SendData:roomid: 556389
+roominfo {
+  roomid: 556389
+  roomname: "\345\255\235\346\230\214\345\215\241\344\272\224\346\230\237"
+  kind: 1
+  fzuid: "100022"
+  round: 8
+  remark: "\347\216\251\346\263\2251:\345\212\240\346\263\250\343\200\201\350\207\252\346\221\270\343\200\201\344\270\211\345\210\273\345\255\227\343\200\201\345\205\253\345\274\240"
+}
+errcode: 0
+  name:FxGame.Protocol.SRoomCreat
+[msg] 2017-12-26 14:35:32:send data: 
+[msg] 2017-12-26 14:35:33:sercverdest:7,cmd:2,bodylen:7,code:258
+[msg] 2017-12-26 14:35:33:ccEvent:code: 258
+roomid: 556389
+  name:FxGame.Protocol.CInRoom[msg] 2017-12-26 14:35:33:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:33:SendData:roomid: 0
+rinfo {
+  roomid: 556389
+  roomname: "\345\255\235\346\230\214\345\215\241\344\272\224\346\230\237"
+  kind: 1
+  remark: "\347\216\251\346\263\2251:\345\212\240\346\263\250\343\200\201\350\207\252\346\221\270\343\200\201\344\270\211\345\210\273\345\255\227\343\200\201\345\205\253\345\274\240"
+}
+errcode: 0
+  name:FxGame.Protocol.SInRoom
+[msg] 2017-12-26 14:35:33:send data: 
+[msg] 2017-12-26 14:35:33:发送的 fd:716[msg] 2017-12-26 14:35:33:111[msg] 2017-12-26 14:35:33:SendData:info {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 1
+}
+  name:FxGame.Protocol.SComein
+[msg] 2017-12-26 14:35:33:send data: 
+[msg] 2017-12-26 14:35:34:sercverdest:3,cmd:2,bodylen:3,code:265
+[msg] 2017-12-26 14:35:34:ccEvent:code: 265
+  name:FxGame.Protocol.CReleaseCheck[msg] 2017-12-26 14:35:34:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:46://///////////////查询数据库信息select * from userinfo where code='did106806'://///////////////////
+
+[msg] 2017-12-26 14:35:46:
+[msg] 2017-12-26 14:35:46://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:46:accept IP:192.168.50.151
+[msg] 2017-12-26 14:35:46:sercverdest:34,cmd:2,bodylen:34,code:1
+[msg] 2017-12-26 14:35:46:ccEvent:token: "d7f6f515ad5fbbf32bbd88be0090781e"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:35:46:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:46://///////////////查询数据库信息select * from userinfo where token='d7f6f515ad5fbbf32bbd88be0090781e'://///////////////////
+
+[msg] 2017-12-26 14:35:46:
+[msg] 2017-12-26 14:35:46://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:46:SendData:code: 1
+errcode: 0
+userinfo {
+  uid: "100022"
+  ip: ""
+  cardcount: 3
+  uname: "did106806"
+  picurl: ""
+  sex: 1
+  picid: 3
+}
+  name:FxGame.Protocol.SLogin
+[msg] 2017-12-26 14:35:46:send data: 
+[msg] 2017-12-26 14:35:46:sercverdest:0,cmd:2,bodylen:0,code:3
+[msg] 2017-12-26 14:35:46:ccEvent:  name:FxGame.Protocol.CRoomCheck[msg] 2017-12-26 14:35:46:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:46:SendData:stats: 1
+roomid: 556389
+  name:FxGame.Protocol.SRoomCheck
+[msg] 2017-12-26 14:35:46:send data: 
+[msg] 2017-12-26 14:35:46:sercverdest:7,cmd:2,bodylen:7,code:272
+[msg] 2017-12-26 14:35:46:ccEvent:roomid: 556389
+code: 272
+  name:FxGame.Protocol.CReline[msg] 2017-12-26 14:35:46:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:46:座位号：1,出牌：[msg] 2017-12-26 14:35:46:SendData:rinfo {
+  roomid: 556389
+  roomname: "\345\255\235\346\230\214\345\215\241\344\272\224\346\230\237"
+  kind: 1
+  fzuid: "100022"
+  remark: "\347\216\251\346\263\2251:\345\212\240\346\263\250\343\200\201\350\207\252\346\221\270\343\200\201\344\270\211\345\210\273\345\255\227\343\200\201\345\205\253\345\274\240"
+}
+uinfos {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 1
+}
+counts {
+  uid: "100022"
+  seat: 1
+  hands: ""
+  liang: 0
+  value: 0
+}
+turn: 0
+leftcard: 100
+zhuang: 0
+dice: ""
+begin: 0
+card: 0
+oprateseat: 0
+  name:FxGame.Protocol.SReline
+[msg] 2017-12-26 14:35:46:send data: 
+[msg] 2017-12-26 14:35:47:sercverdest:3,cmd:2,bodylen:3,code:265
+[msg] 2017-12-26 14:35:47:ccEvent:code: 265
+  name:FxGame.Protocol.CReleaseCheck[msg] 2017-12-26 14:35:47:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:48:ccEvent:roomid: 556389
+  name:FxGame.Protocol.CInRoom[msg] 2017-12-26 14:35:48:SendData:roomid: 0
+rinfo {
+  roomid: 556389
+  roomname: "\345\255\235\346\230\214\345\215\241\344\272\224\346\230\237"
+  kind: 1
+  remark: "\347\216\251\346\263\2251:\345\212\240\346\263\250\343\200\201\350\207\252\346\221\270\343\200\201\344\270\211\345\210\273\345\255\227\343\200\201\345\205\253\345\274\240"
+}
+errcode: 0
+  name:FxGame.Protocol.SInRoom
+[msg] 2017-12-26 14:35:48:send data: 
+[msg] 2017-12-26 14:35:48:发送的 fd:-20[msg] 2017-12-26 14:35:48:111[msg] 2017-12-26 14:35:48:111[msg] 2017-12-26 14:35:48:SendData:info {
+  udata {
+    uid: "100020"
+    ip: ""
+    uname: "100019"
+    picurl: "100019"
+    sex: 1
+    picid: 2
+  }
+  seat: 2
+  online: 1
+  score: 0
+  ready: 0
+}
+info {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 1
+}
+  name:FxGame.Protocol.SComein
+[msg] 2017-12-26 14:35:48:send data: 
+[msg] 2017-12-26 14:35:48:ccEvent:reday: 1
+  name:FxGame.Protocol.CReday[msg] 2017-12-26 14:35:48:SendData:seat: 2
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:48:send data: 
+[msg] 2017-12-26 14:35:48:SendData:seat: 2
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:48:send data: 
+[msg] 2017-12-26 14:35:48:发送的 fd:712[msg] 2017-12-26 14:35:48:111[msg] 2017-12-26 14:35:48:111[msg] 2017-12-26 14:35:48:SendData:info {
+  udata {
+    uid: "100020"
+    ip: ""
+    uname: "100019"
+    picurl: "100019"
+    sex: 1
+    picid: 2
+  }
+  seat: 2
+  online: 1
+  score: 0
+  ready: 1
+}
+info {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 1
+}
+  name:FxGame.Protocol.SComein
+[msg] 2017-12-26 14:35:48:send data: 
+[msg] 2017-12-26 14:35:49:ccEvent:roomid: 556389
+  name:FxGame.Protocol.CInRoom[msg] 2017-12-26 14:35:49:SendData:roomid: 0
+rinfo {
+  roomid: 556389
+  roomname: "\345\255\235\346\230\214\345\215\241\344\272\224\346\230\237"
+  kind: 1
+  remark: "\347\216\251\346\263\2251:\345\212\240\346\263\250\343\200\201\350\207\252\346\221\270\343\200\201\344\270\211\345\210\273\345\255\227\343\200\201\345\205\253\345\274\240"
+}
+errcode: 0
+  name:FxGame.Protocol.SInRoom
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:发送的 fd:-19[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:SendData:info {
+  udata {
+    uid: "100019"
+    ip: ""
+    uname: "100018"
+    picurl: "100018"
+    sex: 1
+    picid: 2
+  }
+  seat: 3
+  online: 1
+  score: 0
+  ready: 0
+}
+info {
+  udata {
+    uid: "100020"
+    ip: ""
+    uname: "100019"
+    picurl: "100019"
+    sex: 1
+    picid: 2
+  }
+  seat: 2
+  online: 1
+  score: 0
+  ready: 1
+}
+info {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 1
+}
+  name:FxGame.Protocol.SComein
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:ccEvent:reday: 1
+  name:FxGame.Protocol.CReday[msg] 2017-12-26 14:35:49:SendData:seat: 3
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:SendData:seat: 3
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:SendData:seat: 3
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:
+
+[msg] 2017-12-26 14:35:49:
+******************更新数据*******************
+
+[msg] 2017-12-26 14:35:49:
+update userinfo set card=2  where userid='100022'
+[msg] 2017-12-26 14:35:49:
+**********************更新数据到数据库******************
+[msg] 2017-12-26 14:35:49:zhuang:3,fd:-19,seat:3
+[msg] 2017-12-26 14:35:49:SendData:zhuang: 3
+  name:FxGame.Protocol.SZhuang
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:99[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:98[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:97[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:96[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:95[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:94[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:93[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:92[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:91[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:90[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:89[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:88[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:87[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:86[msg] 2017-12-26 14:35:49:18 19 19 19 20 36 39 40 50 50 51 66 66 67 
+[msg] 2017-12-26 14:35:49:SendData:userid: "100019"
+cards: "\022\023\023\023\024$\'(223BBC"
+value: 0
+  name:FxGame.Protocol.SDeal
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:zhuang:3,fd:-20,seat:2
+[msg] 2017-12-26 14:35:49:SendData:zhuang: 2
+  name:FxGame.Protocol.SZhuang
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:85[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:84[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:83[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:82[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:81[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:80[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:79[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:78[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:77[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:76[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:75[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:74[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:73[msg] 2017-12-26 14:35:49:17 20 20 21 21 22 23 33 34 49 49 66 67 
+[msg] 2017-12-26 14:35:49:SendData:userid: "100020"
+cards: "\021\024\024\025\025\026\027!\"11BC"
+value: 0
+  name:FxGame.Protocol.SDeal
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:zhuang:3,fd:712,seat:1
+[msg] 2017-12-26 14:35:49:SendData:zhuang: 1
+  name:FxGame.Protocol.SZhuang
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:72[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:71[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:70[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:69[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:68[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:67[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:66[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:65[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:64[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:63[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:62[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:61[msg] 2017-12-26 14:35:49:roomid:556389,leftcard:60[msg] 2017-12-26 14:35:49:18 24 24 24 25 35 38 51 65 65 66 67 67 
+[msg] 2017-12-26 14:35:49:SendData:userid: "100022"
+cards: "\022\030\030\030\031#&3AABCC"
+value: 0
+  name:FxGame.Protocol.SDeal
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:发送的 fd:-20[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:SendData:info {
+  udata {
+    uid: "100019"
+    ip: ""
+    uname: "100018"
+    picurl: "100018"
+    sex: 1
+    picid: 2
+  }
+  seat: 3
+  online: 1
+  score: 0
+  ready: 0
+}
+info {
+  udata {
+    uid: "100020"
+    ip: ""
+    uname: "100019"
+    picurl: "100019"
+    sex: 1
+    picid: 2
+  }
+  seat: 2
+  online: 1
+  score: 0
+  ready: 0
+}
+info {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 0
+}
+  name:FxGame.Protocol.SComein
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:ccEvent:reday: 1
+  name:FxGame.Protocol.CReday[msg] 2017-12-26 14:35:49:SendData:seat: 2
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:SendData:seat: 2
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:SendData:seat: 2
+ready: 1
+  name:FxGame.Protocol.SReday
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:49:发送的 fd:712[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:111[msg] 2017-12-26 14:35:49:SendData:info {
+  udata {
+    uid: "100019"
+    ip: ""
+    uname: "100018"
+    picurl: "100018"
+    sex: 1
+    picid: 2
+  }
+  seat: 3
+  online: 1
+  score: 0
+  ready: 0
+}
+info {
+  udata {
+    uid: "100020"
+    ip: ""
+    uname: "100019"
+    picurl: "100019"
+    sex: 1
+    picid: 2
+  }
+  seat: 2
+  online: 1
+  score: 0
+  ready: 1
+}
+info {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 0
+}
+  name:FxGame.Protocol.SComein
+[msg] 2017-12-26 14:35:49:send data: 
+[msg] 2017-12-26 14:35:55:ccEvent:card: 36
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:35:55:出牌-seat:3-----[msg] 2017-12-26 14:35:55:36  [msg] 2017-12-26 14:35:55:seat:1----[msg] 2017-12-26 14:35:55:18 :[msg] 2017-12-26 14:35:55:24 :[msg] 2017-12-26 14:35:55:24 :[msg] 2017-12-26 14:35:55:24 :[msg] 2017-12-26 14:35:55:25 :[msg] 2017-12-26 14:35:55:35 :[msg] 2017-12-26 14:35:55:38 :[msg] 2017-12-26 14:35:55:51 :[msg] 2017-12-26 14:35:55:65 :[msg] 2017-12-26 14:35:55:65 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:
+
+[msg] 2017-12-26 14:35:55:seat:2----[msg] 2017-12-26 14:35:55:17 :[msg] 2017-12-26 14:35:55:20 :[msg] 2017-12-26 14:35:55:20 :[msg] 2017-12-26 14:35:55:21 :[msg] 2017-12-26 14:35:55:21 :[msg] 2017-12-26 14:35:55:22 :[msg] 2017-12-26 14:35:55:23 :[msg] 2017-12-26 14:35:55:33 :[msg] 2017-12-26 14:35:55:34 :[msg] 2017-12-26 14:35:55:49 :[msg] 2017-12-26 14:35:55:49 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:
+
+[msg] 2017-12-26 14:35:55:seat:3----[msg] 2017-12-26 14:35:55:18 :[msg] 2017-12-26 14:35:55:19 :[msg] 2017-12-26 14:35:55:19 :[msg] 2017-12-26 14:35:55:19 :[msg] 2017-12-26 14:35:55:20 :[msg] 2017-12-26 14:35:55:39 :[msg] 2017-12-26 14:35:55:40 :[msg] 2017-12-26 14:35:55:50 :[msg] 2017-12-26 14:35:55:50 :[msg] 2017-12-26 14:35:55:51 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:
+
+[msg] 2017-12-26 14:35:55:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:35:55:send data: 
+[msg] 2017-12-26 14:35:55:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:35:55:send data: 
+[msg] 2017-12-26 14:35:55:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:35:55:send data: 
+[msg] 2017-12-26 14:35:55:roomid:556389,leftcard:59[msg] 2017-12-26 14:35:55:seat:1----[msg] 2017-12-26 14:35:55:18 :[msg] 2017-12-26 14:35:55:24 :[msg] 2017-12-26 14:35:55:24 :[msg] 2017-12-26 14:35:55:24 :[msg] 2017-12-26 14:35:55:25 :[msg] 2017-12-26 14:35:55:35 :[msg] 2017-12-26 14:35:55:38 :[msg] 2017-12-26 14:35:55:51 :[msg] 2017-12-26 14:35:55:65 :[msg] 2017-12-26 14:35:55:65 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:49 :[msg] 2017-12-26 14:35:55:
+
+[msg] 2017-12-26 14:35:55:seat:2----[msg] 2017-12-26 14:35:55:17 :[msg] 2017-12-26 14:35:55:20 :[msg] 2017-12-26 14:35:55:20 :[msg] 2017-12-26 14:35:55:21 :[msg] 2017-12-26 14:35:55:21 :[msg] 2017-12-26 14:35:55:22 :[msg] 2017-12-26 14:35:55:23 :[msg] 2017-12-26 14:35:55:33 :[msg] 2017-12-26 14:35:55:34 :[msg] 2017-12-26 14:35:55:49 :[msg] 2017-12-26 14:35:55:49 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:
+
+[msg] 2017-12-26 14:35:55:seat:3----[msg] 2017-12-26 14:35:55:18 :[msg] 2017-12-26 14:35:55:19 :[msg] 2017-12-26 14:35:55:19 :[msg] 2017-12-26 14:35:55:19 :[msg] 2017-12-26 14:35:55:20 :[msg] 2017-12-26 14:35:55:39 :[msg] 2017-12-26 14:35:55:40 :[msg] 2017-12-26 14:35:55:50 :[msg] 2017-12-26 14:35:55:50 :[msg] 2017-12-26 14:35:55:51 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:66 :[msg] 2017-12-26 14:35:55:67 :[msg] 2017-12-26 14:35:55:
+
+[msg] 2017-12-26 14:35:55:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:35:55:send data: 
+[msg] 2017-12-26 14:35:55:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:35:55:send data: 
+[msg] 2017-12-26 14:35:55:SendData:card: 49
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:35:55:send data: 
+[msg] 2017-12-26 14:35:57:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:35:57:ccEvent:card: 49
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:35:57:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:57:出牌-seat:1-----[msg] 2017-12-26 14:35:57:49  [msg] 2017-12-26 14:35:57:seat:1----[msg] 2017-12-26 14:35:57:18 :[msg] 2017-12-26 14:35:57:24 :[msg] 2017-12-26 14:35:57:24 :[msg] 2017-12-26 14:35:57:24 :[msg] 2017-12-26 14:35:57:25 :[msg] 2017-12-26 14:35:57:35 :[msg] 2017-12-26 14:35:57:38 :[msg] 2017-12-26 14:35:57:51 :[msg] 2017-12-26 14:35:57:65 :[msg] 2017-12-26 14:35:57:65 :[msg] 2017-12-26 14:35:57:66 :[msg] 2017-12-26 14:35:57:67 :[msg] 2017-12-26 14:35:57:67 :[msg] 2017-12-26 14:35:57:
+
+[msg] 2017-12-26 14:35:57:seat:2----[msg] 2017-12-26 14:35:57:17 :[msg] 2017-12-26 14:35:57:20 :[msg] 2017-12-26 14:35:57:20 :[msg] 2017-12-26 14:35:57:21 :[msg] 2017-12-26 14:35:57:21 :[msg] 2017-12-26 14:35:57:22 :[msg] 2017-12-26 14:35:57:23 :[msg] 2017-12-26 14:35:57:33 :[msg] 2017-12-26 14:35:57:34 :[msg] 2017-12-26 14:35:57:49 :[msg] 2017-12-26 14:35:57:49 :[msg] 2017-12-26 14:35:57:66 :[msg] 2017-12-26 14:35:57:67 :[msg] 2017-12-26 14:35:57:
+
+[msg] 2017-12-26 14:35:57:seat:3----[msg] 2017-12-26 14:35:57:18 :[msg] 2017-12-26 14:35:57:19 :[msg] 2017-12-26 14:35:57:19 :[msg] 2017-12-26 14:35:57:19 :[msg] 2017-12-26 14:35:57:20 :[msg] 2017-12-26 14:35:57:39 :[msg] 2017-12-26 14:35:57:40 :[msg] 2017-12-26 14:35:57:50 :[msg] 2017-12-26 14:35:57:50 :[msg] 2017-12-26 14:35:57:51 :[msg] 2017-12-26 14:35:57:66 :[msg] 2017-12-26 14:35:57:66 :[msg] 2017-12-26 14:35:57:67 :[msg] 2017-12-26 14:35:57:
+
+[msg] 2017-12-26 14:35:57:SendData:seat: 1
+card: 49
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:35:57:send data: 
+[msg] 2017-12-26 14:35:57:SendData:seat: 1
+card: 49
+value: 8
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:35:57:send data: 
+[msg] 2017-12-26 14:35:57:SendData:seat: 1
+card: 49
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:35:57:send data: 
+[msg] 2017-12-26 14:35:59:SendData:seat: 1
+  name:FxGame.Protocol.SExit
+[msg] 2017-12-26 14:35:59:send data: 
+[msg] 2017-12-26 14:35:59:SendData:seat: 1
+  name:FxGame.Protocol.SExit
+[msg] 2017-12-26 14:35:59:send data: 
+[msg] 2017-12-26 14:35:59:SendData:seat: 1
+  name:FxGame.Protocol.SExit
+[msg] 2017-12-26 14:35:59:send data: 
+[msg] 2017-12-26 14:35:59:close client!  fd:716
+[msg] 2017-12-26 14:35:59:sercverdest:2,cmd:2,bodylen:2,code:4
+[msg] 2017-12-26 14:35:59:ccEvent:code: 4
+  name:FxGame.Protocol.CNotice[msg] 2017-12-26 14:35:59:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:35:59://///////////////查询数据库信息select *from notice://///////////////////
+
+[msg] 2017-12-26 14:35:59:
+[msg] 2017-12-26 14:35:59://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:35:59:SendData:cardinfo: "\346\265\213\350\257\2251"
+paomainfo: "\346\265\213\350\257\2251"
+  name:FxGame.Protocol.SNotice
+[msg] 2017-12-26 14:35:59:send data: 
+[msg] 2017-12-26 14:36:02:ccEvent:card: 49
+value: 2
+  name:FxGame.Protocol.COperation[msg] 2017-12-26 14:36:02:seat:1----[msg] 2017-12-26 14:36:02:18 :[msg] 2017-12-26 14:36:02:24 :[msg] 2017-12-26 14:36:02:24 :[msg] 2017-12-26 14:36:02:24 :[msg] 2017-12-26 14:36:02:25 :[msg] 2017-12-26 14:36:02:35 :[msg] 2017-12-26 14:36:02:38 :[msg] 2017-12-26 14:36:02:51 :[msg] 2017-12-26 14:36:02:65 :[msg] 2017-12-26 14:36:02:65 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:
+
+[msg] 2017-12-26 14:36:02:seat:2----[msg] 2017-12-26 14:36:02:17 :[msg] 2017-12-26 14:36:02:20 :[msg] 2017-12-26 14:36:02:20 :[msg] 2017-12-26 14:36:02:21 :[msg] 2017-12-26 14:36:02:21 :[msg] 2017-12-26 14:36:02:22 :[msg] 2017-12-26 14:36:02:23 :[msg] 2017-12-26 14:36:02:33 :[msg] 2017-12-26 14:36:02:34 :[msg] 2017-12-26 14:36:02:49 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:
+
+[msg] 2017-12-26 14:36:02:seat:3----[msg] 2017-12-26 14:36:02:18 :[msg] 2017-12-26 14:36:02:19 :[msg] 2017-12-26 14:36:02:19 :[msg] 2017-12-26 14:36:02:19 :[msg] 2017-12-26 14:36:02:20 :[msg] 2017-12-26 14:36:02:39 :[msg] 2017-12-26 14:36:02:40 :[msg] 2017-12-26 14:36:02:50 :[msg] 2017-12-26 14:36:02:50 :[msg] 2017-12-26 14:36:02:51 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:
+
+[msg] 2017-12-26 14:36:02:seat:1----[msg] 2017-12-26 14:36:02:18 :[msg] 2017-12-26 14:36:02:24 :[msg] 2017-12-26 14:36:02:24 :[msg] 2017-12-26 14:36:02:24 :[msg] 2017-12-26 14:36:02:25 :[msg] 2017-12-26 14:36:02:35 :[msg] 2017-12-26 14:36:02:38 :[msg] 2017-12-26 14:36:02:51 :[msg] 2017-12-26 14:36:02:65 :[msg] 2017-12-26 14:36:02:65 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:
+
+[msg] 2017-12-26 14:36:02:seat:2----[msg] 2017-12-26 14:36:02:17 :[msg] 2017-12-26 14:36:02:20 :[msg] 2017-12-26 14:36:02:20 :[msg] 2017-12-26 14:36:02:21 :[msg] 2017-12-26 14:36:02:21 :[msg] 2017-12-26 14:36:02:22 :[msg] 2017-12-26 14:36:02:23 :[msg] 2017-12-26 14:36:02:33 :[msg] 2017-12-26 14:36:02:34 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:
+
+[msg] 2017-12-26 14:36:02:seat:3----[msg] 2017-12-26 14:36:02:18 :[msg] 2017-12-26 14:36:02:19 :[msg] 2017-12-26 14:36:02:19 :[msg] 2017-12-26 14:36:02:19 :[msg] 2017-12-26 14:36:02:20 :[msg] 2017-12-26 14:36:02:39 :[msg] 2017-12-26 14:36:02:40 :[msg] 2017-12-26 14:36:02:50 :[msg] 2017-12-26 14:36:02:50 :[msg] 2017-12-26 14:36:02:51 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:66 :[msg] 2017-12-26 14:36:02:67 :[msg] 2017-12-26 14:36:02:
+
+[msg] 2017-12-26 14:36:02:SendData:seat: 2
+besite: 1
+card: 49
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:02:send data: 
+[msg] 2017-12-26 14:36:02:SendData:seat: 2
+besite: 1
+card: 49
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:02:send data: 
+[msg] 2017-12-26 14:36:02:SendData:seat: 2
+besite: 1
+card: 49
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:02:send data: 
+[msg] 2017-12-26 14:36:03:SendData:seat: 1
+  name:FxGame.Protocol.SExit
+[msg] 2017-12-26 14:36:03:send data: 
+[msg] 2017-12-26 14:36:03:SendData:seat: 1
+  name:FxGame.Protocol.SExit
+[msg] 2017-12-26 14:36:03:send data: 
+[msg] 2017-12-26 14:36:03:SendData:seat: 1
+  name:FxGame.Protocol.SExit
+[msg] 2017-12-26 14:36:03:send data: 
+[msg] 2017-12-26 14:36:03:close client!  fd:712
+[msg] 2017-12-26 14:36:06:ccEvent:card: 17
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:06:出牌-seat:2-----[msg] 2017-12-26 14:36:06:17  [msg] 2017-12-26 14:36:06:seat:1----[msg] 2017-12-26 14:36:06:18 :[msg] 2017-12-26 14:36:06:24 :[msg] 2017-12-26 14:36:06:24 :[msg] 2017-12-26 14:36:06:24 :[msg] 2017-12-26 14:36:06:25 :[msg] 2017-12-26 14:36:06:35 :[msg] 2017-12-26 14:36:06:38 :[msg] 2017-12-26 14:36:06:51 :[msg] 2017-12-26 14:36:06:65 :[msg] 2017-12-26 14:36:06:65 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:
+
+[msg] 2017-12-26 14:36:06:seat:2----[msg] 2017-12-26 14:36:06:20 :[msg] 2017-12-26 14:36:06:20 :[msg] 2017-12-26 14:36:06:21 :[msg] 2017-12-26 14:36:06:21 :[msg] 2017-12-26 14:36:06:22 :[msg] 2017-12-26 14:36:06:23 :[msg] 2017-12-26 14:36:06:33 :[msg] 2017-12-26 14:36:06:34 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:
+
+[msg] 2017-12-26 14:36:06:seat:3----[msg] 2017-12-26 14:36:06:18 :[msg] 2017-12-26 14:36:06:19 :[msg] 2017-12-26 14:36:06:19 :[msg] 2017-12-26 14:36:06:19 :[msg] 2017-12-26 14:36:06:20 :[msg] 2017-12-26 14:36:06:39 :[msg] 2017-12-26 14:36:06:40 :[msg] 2017-12-26 14:36:06:50 :[msg] 2017-12-26 14:36:06:50 :[msg] 2017-12-26 14:36:06:51 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:
+
+[msg] 2017-12-26 14:36:06:SendData:seat: 2
+card: 17
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:06:send data: 
+[msg] 2017-12-26 14:36:06:roomid:556389,leftcard:58[msg] 2017-12-26 14:36:06:seat:1----[msg] 2017-12-26 14:36:06:18 :[msg] 2017-12-26 14:36:06:24 :[msg] 2017-12-26 14:36:06:24 :[msg] 2017-12-26 14:36:06:24 :[msg] 2017-12-26 14:36:06:25 :[msg] 2017-12-26 14:36:06:35 :[msg] 2017-12-26 14:36:06:38 :[msg] 2017-12-26 14:36:06:51 :[msg] 2017-12-26 14:36:06:65 :[msg] 2017-12-26 14:36:06:65 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:
+
+[msg] 2017-12-26 14:36:06:seat:2----[msg] 2017-12-26 14:36:06:20 :[msg] 2017-12-26 14:36:06:20 :[msg] 2017-12-26 14:36:06:21 :[msg] 2017-12-26 14:36:06:21 :[msg] 2017-12-26 14:36:06:22 :[msg] 2017-12-26 14:36:06:23 :[msg] 2017-12-26 14:36:06:33 :[msg] 2017-12-26 14:36:06:34 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:
+
+[msg] 2017-12-26 14:36:06:seat:3----[msg] 2017-12-26 14:36:06:34 :[msg] 2017-12-26 14:36:06:18 :[msg] 2017-12-26 14:36:06:19 :[msg] 2017-12-26 14:36:06:19 :[msg] 2017-12-26 14:36:06:19 :[msg] 2017-12-26 14:36:06:20 :[msg] 2017-12-26 14:36:06:39 :[msg] 2017-12-26 14:36:06:40 :[msg] 2017-12-26 14:36:06:50 :[msg] 2017-12-26 14:36:06:50 :[msg] 2017-12-26 14:36:06:51 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:66 :[msg] 2017-12-26 14:36:06:67 :[msg] 2017-12-26 14:36:06:
+
+[msg] 2017-12-26 14:36:06:SendData:seat: 2
+card: 17
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:06:send data: 
+[msg] 2017-12-26 14:36:06:SendData:card: 34
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:06:send data: 
+[msg] 2017-12-26 14:36:06:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:06:send data: 
+[msg] 2017-12-26 14:36:07:ccEvent:card: 38
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:07:出牌-seat:3-----[msg] 2017-12-26 14:36:07:36  [msg] 2017-12-26 14:36:07:38  [msg] 2017-12-26 14:36:07:seat:1----[msg] 2017-12-26 14:36:07:18 :[msg] 2017-12-26 14:36:07:24 :[msg] 2017-12-26 14:36:07:24 :[msg] 2017-12-26 14:36:07:24 :[msg] 2017-12-26 14:36:07:25 :[msg] 2017-12-26 14:36:07:35 :[msg] 2017-12-26 14:36:07:38 :[msg] 2017-12-26 14:36:07:51 :[msg] 2017-12-26 14:36:07:65 :[msg] 2017-12-26 14:36:07:65 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:
+
+[msg] 2017-12-26 14:36:07:seat:2----[msg] 2017-12-26 14:36:07:20 :[msg] 2017-12-26 14:36:07:20 :[msg] 2017-12-26 14:36:07:21 :[msg] 2017-12-26 14:36:07:21 :[msg] 2017-12-26 14:36:07:22 :[msg] 2017-12-26 14:36:07:23 :[msg] 2017-12-26 14:36:07:33 :[msg] 2017-12-26 14:36:07:34 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:
+
+[msg] 2017-12-26 14:36:07:seat:3----[msg] 2017-12-26 14:36:07:18 :[msg] 2017-12-26 14:36:07:19 :[msg] 2017-12-26 14:36:07:19 :[msg] 2017-12-26 14:36:07:19 :[msg] 2017-12-26 14:36:07:20 :[msg] 2017-12-26 14:36:07:34 :[msg] 2017-12-26 14:36:07:39 :[msg] 2017-12-26 14:36:07:40 :[msg] 2017-12-26 14:36:07:50 :[msg] 2017-12-26 14:36:07:50 :[msg] 2017-12-26 14:36:07:51 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:
+
+[msg] 2017-12-26 14:36:07:SendData:seat: 3
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:07:send data: 
+[msg] 2017-12-26 14:36:07:SendData:seat: 3
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:07:send data: 
+[msg] 2017-12-26 14:36:07:roomid:556389,leftcard:57[msg] 2017-12-26 14:36:07:seat:1----[msg] 2017-12-26 14:36:07:24 :[msg] 2017-12-26 14:36:07:18 :[msg] 2017-12-26 14:36:07:24 :[msg] 2017-12-26 14:36:07:24 :[msg] 2017-12-26 14:36:07:24 :[msg] 2017-12-26 14:36:07:25 :[msg] 2017-12-26 14:36:07:35 :[msg] 2017-12-26 14:36:07:38 :[msg] 2017-12-26 14:36:07:51 :[msg] 2017-12-26 14:36:07:65 :[msg] 2017-12-26 14:36:07:65 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:
+
+[msg] 2017-12-26 14:36:07:seat:2----[msg] 2017-12-26 14:36:07:20 :[msg] 2017-12-26 14:36:07:20 :[msg] 2017-12-26 14:36:07:21 :[msg] 2017-12-26 14:36:07:21 :[msg] 2017-12-26 14:36:07:22 :[msg] 2017-12-26 14:36:07:23 :[msg] 2017-12-26 14:36:07:33 :[msg] 2017-12-26 14:36:07:34 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:
+
+[msg] 2017-12-26 14:36:07:seat:3----[msg] 2017-12-26 14:36:07:18 :[msg] 2017-12-26 14:36:07:19 :[msg] 2017-12-26 14:36:07:19 :[msg] 2017-12-26 14:36:07:19 :[msg] 2017-12-26 14:36:07:20 :[msg] 2017-12-26 14:36:07:34 :[msg] 2017-12-26 14:36:07:39 :[msg] 2017-12-26 14:36:07:40 :[msg] 2017-12-26 14:36:07:50 :[msg] 2017-12-26 14:36:07:50 :[msg] 2017-12-26 14:36:07:51 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:66 :[msg] 2017-12-26 14:36:07:67 :[msg] 2017-12-26 14:36:07:
+
+[msg] 2017-12-26 14:36:07:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:07:send data: 
+[msg] 2017-12-26 14:36:07:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:07:send data: 
+[msg] 2017-12-26 14:36:09:ccEvent:card: 34
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:16://///////////////查询数据库信息select * from userinfo where code='did106806'://///////////////////
+
+[msg] 2017-12-26 14:36:16:
+[msg] 2017-12-26 14:36:16://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:36:16:accept IP:192.168.50.151
+[msg] 2017-12-26 14:36:16:sercverdest:34,cmd:2,bodylen:34,code:1
+[msg] 2017-12-26 14:36:16:ccEvent:token: "d7f6f515ad5fbbf32bbd88be0090781e"
+  name:FxGame.Protocol.CLogin[msg] 2017-12-26 14:36:16:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:16://///////////////查询数据库信息select * from userinfo where token='d7f6f515ad5fbbf32bbd88be0090781e'://///////////////////
+
+[msg] 2017-12-26 14:36:16:
+[msg] 2017-12-26 14:36:16://///////////////////查询数据完毕//////////////////////
+
+[msg] 2017-12-26 14:36:16:SendData:code: 1
+errcode: 0
+userinfo {
+  uid: "100022"
+  ip: ""
+  cardcount: 2
+  uname: "did106806"
+  picurl: ""
+  sex: 1
+  picid: 3
+}
+  name:FxGame.Protocol.SLogin
+[msg] 2017-12-26 14:36:16:send data: 
+[msg] 2017-12-26 14:36:16:sercverdest:0,cmd:2,bodylen:0,code:3
+[msg] 2017-12-26 14:36:16:ccEvent:  name:FxGame.Protocol.CRoomCheck[msg] 2017-12-26 14:36:16:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:16:SendData:stats: 1
+roomid: 556389
+  name:FxGame.Protocol.SRoomCheck
+[msg] 2017-12-26 14:36:16:send data: 
+[msg] 2017-12-26 14:36:16:sercverdest:7,cmd:2,bodylen:7,code:272
+[msg] 2017-12-26 14:36:16:ccEvent:roomid: 556389
+code: 272
+  name:FxGame.Protocol.CReline[msg] 2017-12-26 14:36:16:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:16:座位号：3,出牌：[msg] 2017-12-26 14:36:16:36   [msg] 2017-12-26 14:36:16:38   [msg] 2017-12-26 14:36:16:
+[msg] 2017-12-26 14:36:16:座位号：2,出牌：[msg] 2017-12-26 14:36:16:17   [msg] 2017-12-26 14:36:16:
+[msg] 2017-12-26 14:36:16:座位号：1,出牌：[msg] 2017-12-26 14:36:16:SendData:rinfo {
+  roomid: 556389
+  roomname: "\345\255\235\346\230\214\345\215\241\344\272\224\346\230\237"
+  kind: 1
+  fzuid: "100022"
+  remark: "\347\216\251\346\263\2251:\345\212\240\346\263\250\343\200\201\350\207\252\346\221\270\343\200\201\344\270\211\345\210\273\345\255\227\343\200\201\345\205\253\345\274\240"
+}
+uinfos {
+  udata {
+    uid: "100019"
+    ip: ""
+    uname: "100018"
+    picurl: "100018"
+    sex: 1
+    picid: 2
+  }
+  seat: 3
+  online: 1
+  score: 0
+  ready: 0
+}
+uinfos {
+  udata {
+    uid: "100020"
+    ip: ""
+    uname: "100019"
+    picurl: "100019"
+    sex: 1
+    picid: 2
+  }
+  seat: 2
+  online: 1
+  score: 0
+  ready: 1
+}
+uinfos {
+  udata {
+    uid: "100022"
+    ip: ""
+    uname: "did106806"
+    picurl: "did106806"
+    sex: 1
+    picid: 3
+  }
+  seat: 1
+  online: 1
+  score: 0
+  ready: 0
+}
+counts {
+  uid: "100019"
+  seat: 3
+  hands: "\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+  discards: "$&"
+  liang: 0
+  value: 0
+}
+counts {
+  uid: "100020"
+  seat: 2
+  hands: "\000\000\000\000\000\000\000\000\000\000"
+  discards: "\021"
+  pginfo {
+    beiseat: 1
+    card: 49
+    value: 2
+  }
+  liang: 0
+  value: 0
+}
+counts {
+  uid: "100022"
+  seat: 1
+  hands: "\022\030\030\030\030\031#&3AABCC"
+  liang: 0
+  value: 2
+}
+turn: 1
+leftcard: 57
+zhuang: 3
+dice: ""
+begin: 1
+card: 24
+oprateseat: 1
+  name:FxGame.Protocol.SReline
+[msg] 2017-12-26 14:36:16:send data: 
+[msg] 2017-12-26 14:36:18:sercverdest:3,cmd:2,bodylen:3,code:265
+[msg] 2017-12-26 14:36:18:ccEvent:code: 265
+  name:FxGame.Protocol.CReleaseCheck[msg] 2017-12-26 14:36:18:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:20:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:36:20:ccEvent:card: 51
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:20:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:20:出牌-seat:1-----[msg] 2017-12-26 14:36:20:51  [msg] 2017-12-26 14:36:20:seat:1----[msg] 2017-12-26 14:36:20:18 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:25 :[msg] 2017-12-26 14:36:20:35 :[msg] 2017-12-26 14:36:20:38 :[msg] 2017-12-26 14:36:20:65 :[msg] 2017-12-26 14:36:20:65 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:
+
+[msg] 2017-12-26 14:36:20:seat:2----[msg] 2017-12-26 14:36:20:20 :[msg] 2017-12-26 14:36:20:20 :[msg] 2017-12-26 14:36:20:21 :[msg] 2017-12-26 14:36:20:21 :[msg] 2017-12-26 14:36:20:22 :[msg] 2017-12-26 14:36:20:23 :[msg] 2017-12-26 14:36:20:33 :[msg] 2017-12-26 14:36:20:34 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:
+
+[msg] 2017-12-26 14:36:20:seat:3----[msg] 2017-12-26 14:36:20:18 :[msg] 2017-12-26 14:36:20:19 :[msg] 2017-12-26 14:36:20:19 :[msg] 2017-12-26 14:36:20:19 :[msg] 2017-12-26 14:36:20:20 :[msg] 2017-12-26 14:36:20:34 :[msg] 2017-12-26 14:36:20:39 :[msg] 2017-12-26 14:36:20:40 :[msg] 2017-12-26 14:36:20:50 :[msg] 2017-12-26 14:36:20:50 :[msg] 2017-12-26 14:36:20:51 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:
+
+[msg] 2017-12-26 14:36:20:SendData:seat: 1
+card: 51
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:20:send data: 
+[msg] 2017-12-26 14:36:20:SendData:seat: 1
+card: 51
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:20:send data: 
+[msg] 2017-12-26 14:36:20:roomid:556389,leftcard:56[msg] 2017-12-26 14:36:20:seat:1----[msg] 2017-12-26 14:36:20:18 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:24 :[msg] 2017-12-26 14:36:20:25 :[msg] 2017-12-26 14:36:20:35 :[msg] 2017-12-26 14:36:20:38 :[msg] 2017-12-26 14:36:20:65 :[msg] 2017-12-26 14:36:20:65 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:
+
+[msg] 2017-12-26 14:36:20:seat:2----[msg] 2017-12-26 14:36:20:37 :[msg] 2017-12-26 14:36:20:20 :[msg] 2017-12-26 14:36:20:20 :[msg] 2017-12-26 14:36:20:21 :[msg] 2017-12-26 14:36:20:21 :[msg] 2017-12-26 14:36:20:22 :[msg] 2017-12-26 14:36:20:23 :[msg] 2017-12-26 14:36:20:33 :[msg] 2017-12-26 14:36:20:34 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:
+
+[msg] 2017-12-26 14:36:20:seat:3----[msg] 2017-12-26 14:36:20:18 :[msg] 2017-12-26 14:36:20:19 :[msg] 2017-12-26 14:36:20:19 :[msg] 2017-12-26 14:36:20:19 :[msg] 2017-12-26 14:36:20:20 :[msg] 2017-12-26 14:36:20:34 :[msg] 2017-12-26 14:36:20:39 :[msg] 2017-12-26 14:36:20:40 :[msg] 2017-12-26 14:36:20:50 :[msg] 2017-12-26 14:36:20:50 :[msg] 2017-12-26 14:36:20:51 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:66 :[msg] 2017-12-26 14:36:20:67 :[msg] 2017-12-26 14:36:20:
+
+[msg] 2017-12-26 14:36:20:SendData:seat: 1
+card: 51
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:20:send data: 
+[msg] 2017-12-26 14:36:20:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:20:send data: 
+[msg] 2017-12-26 14:36:20:SendData:card: 37
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:20:send data: 
+[msg] 2017-12-26 14:36:20:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:20:send data: 
+[msg] 2017-12-26 14:36:23:ccEvent:card: 37
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:23:出牌-seat:2-----[msg] 2017-12-26 14:36:23:17  [msg] 2017-12-26 14:36:23:37  [msg] 2017-12-26 14:36:23:seat:1----[msg] 2017-12-26 14:36:23:18 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:25 :[msg] 2017-12-26 14:36:23:35 :[msg] 2017-12-26 14:36:23:38 :[msg] 2017-12-26 14:36:23:65 :[msg] 2017-12-26 14:36:23:65 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:
+
+[msg] 2017-12-26 14:36:23:seat:2----[msg] 2017-12-26 14:36:23:20 :[msg] 2017-12-26 14:36:23:20 :[msg] 2017-12-26 14:36:23:21 :[msg] 2017-12-26 14:36:23:21 :[msg] 2017-12-26 14:36:23:22 :[msg] 2017-12-26 14:36:23:23 :[msg] 2017-12-26 14:36:23:33 :[msg] 2017-12-26 14:36:23:34 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:
+
+[msg] 2017-12-26 14:36:23:seat:3----[msg] 2017-12-26 14:36:23:18 :[msg] 2017-12-26 14:36:23:19 :[msg] 2017-12-26 14:36:23:19 :[msg] 2017-12-26 14:36:23:19 :[msg] 2017-12-26 14:36:23:20 :[msg] 2017-12-26 14:36:23:34 :[msg] 2017-12-26 14:36:23:39 :[msg] 2017-12-26 14:36:23:40 :[msg] 2017-12-26 14:36:23:50 :[msg] 2017-12-26 14:36:23:50 :[msg] 2017-12-26 14:36:23:51 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:
+
+[msg] 2017-12-26 14:36:23:SendData:seat: 2
+card: 37
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:23:send data: 
+[msg] 2017-12-26 14:36:23:roomid:556389,leftcard:55[msg] 2017-12-26 14:36:23:seat:1----[msg] 2017-12-26 14:36:23:18 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:24 :[msg] 2017-12-26 14:36:23:25 :[msg] 2017-12-26 14:36:23:35 :[msg] 2017-12-26 14:36:23:38 :[msg] 2017-12-26 14:36:23:65 :[msg] 2017-12-26 14:36:23:65 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:
+
+[msg] 2017-12-26 14:36:23:seat:2----[msg] 2017-12-26 14:36:23:20 :[msg] 2017-12-26 14:36:23:20 :[msg] 2017-12-26 14:36:23:21 :[msg] 2017-12-26 14:36:23:21 :[msg] 2017-12-26 14:36:23:22 :[msg] 2017-12-26 14:36:23:23 :[msg] 2017-12-26 14:36:23:33 :[msg] 2017-12-26 14:36:23:34 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:
+
+[msg] 2017-12-26 14:36:23:seat:3----[msg] 2017-12-26 14:36:23:18 :[msg] 2017-12-26 14:36:23:19 :[msg] 2017-12-26 14:36:23:19 :[msg] 2017-12-26 14:36:23:19 :[msg] 2017-12-26 14:36:23:20 :[msg] 2017-12-26 14:36:23:34 :[msg] 2017-12-26 14:36:23:39 :[msg] 2017-12-26 14:36:23:40 :[msg] 2017-12-26 14:36:23:50 :[msg] 2017-12-26 14:36:23:50 :[msg] 2017-12-26 14:36:23:51 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:66 :[msg] 2017-12-26 14:36:23:67 :[msg] 2017-12-26 14:36:23:
+
+[msg] 2017-12-26 14:36:23:SendData:seat: 2
+card: 37
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:23:send data: 
+[msg] 2017-12-26 14:36:23:SendData:seat: 2
+card: 37
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:23:send data: 
+[msg] 2017-12-26 14:36:24:SendData:card: 22
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:24:send data: 
+[msg] 2017-12-26 14:36:24:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:24:send data: 
+[msg] 2017-12-26 14:36:24:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:24:send data: 
+[msg] 2017-12-26 14:36:27:ccEvent:card: 22
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:27:出牌-seat:3-----[msg] 2017-12-26 14:36:27:36  [msg] 2017-12-26 14:36:27:38  [msg] 2017-12-26 14:36:27:22  [msg] 2017-12-26 14:36:27:seat:1----[msg] 2017-12-26 14:36:27:18 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:25 :[msg] 2017-12-26 14:36:27:35 :[msg] 2017-12-26 14:36:27:38 :[msg] 2017-12-26 14:36:27:65 :[msg] 2017-12-26 14:36:27:65 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:
+
+[msg] 2017-12-26 14:36:27:seat:2----[msg] 2017-12-26 14:36:27:20 :[msg] 2017-12-26 14:36:27:20 :[msg] 2017-12-26 14:36:27:21 :[msg] 2017-12-26 14:36:27:21 :[msg] 2017-12-26 14:36:27:22 :[msg] 2017-12-26 14:36:27:23 :[msg] 2017-12-26 14:36:27:33 :[msg] 2017-12-26 14:36:27:34 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:
+
+[msg] 2017-12-26 14:36:27:seat:3----[msg] 2017-12-26 14:36:27:18 :[msg] 2017-12-26 14:36:27:19 :[msg] 2017-12-26 14:36:27:19 :[msg] 2017-12-26 14:36:27:19 :[msg] 2017-12-26 14:36:27:20 :[msg] 2017-12-26 14:36:27:34 :[msg] 2017-12-26 14:36:27:39 :[msg] 2017-12-26 14:36:27:40 :[msg] 2017-12-26 14:36:27:50 :[msg] 2017-12-26 14:36:27:50 :[msg] 2017-12-26 14:36:27:51 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:
+
+[msg] 2017-12-26 14:36:27:SendData:seat: 3
+card: 22
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:27:send data: 
+[msg] 2017-12-26 14:36:27:SendData:seat: 3
+card: 22
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:27:send data: 
+[msg] 2017-12-26 14:36:27:SendData:seat: 3
+card: 22
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:27:send data: 
+[msg] 2017-12-26 14:36:27:roomid:556389,leftcard:54[msg] 2017-12-26 14:36:27:seat:1----[msg] 2017-12-26 14:36:27:65 :[msg] 2017-12-26 14:36:27:18 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:24 :[msg] 2017-12-26 14:36:27:25 :[msg] 2017-12-26 14:36:27:35 :[msg] 2017-12-26 14:36:27:38 :[msg] 2017-12-26 14:36:27:65 :[msg] 2017-12-26 14:36:27:65 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:
+
+[msg] 2017-12-26 14:36:27:seat:2----[msg] 2017-12-26 14:36:27:20 :[msg] 2017-12-26 14:36:27:20 :[msg] 2017-12-26 14:36:27:21 :[msg] 2017-12-26 14:36:27:21 :[msg] 2017-12-26 14:36:27:22 :[msg] 2017-12-26 14:36:27:23 :[msg] 2017-12-26 14:36:27:33 :[msg] 2017-12-26 14:36:27:34 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:
+
+[msg] 2017-12-26 14:36:27:seat:3----[msg] 2017-12-26 14:36:27:18 :[msg] 2017-12-26 14:36:27:19 :[msg] 2017-12-26 14:36:27:19 :[msg] 2017-12-26 14:36:27:19 :[msg] 2017-12-26 14:36:27:20 :[msg] 2017-12-26 14:36:27:34 :[msg] 2017-12-26 14:36:27:39 :[msg] 2017-12-26 14:36:27:40 :[msg] 2017-12-26 14:36:27:50 :[msg] 2017-12-26 14:36:27:50 :[msg] 2017-12-26 14:36:27:51 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:66 :[msg] 2017-12-26 14:36:27:67 :[msg] 2017-12-26 14:36:27:
+
+[msg] 2017-12-26 14:36:27:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:27:send data: 
+[msg] 2017-12-26 14:36:27:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:27:send data: 
+[msg] 2017-12-26 14:36:27:SendData:card: 65
+value: 64
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:27:send data: 
+[msg] 2017-12-26 14:36:28:sercverdest:4,cmd:2,bodylen:4,code:516
+[msg] 2017-12-26 14:36:28:ccEvent:card: 24
+value: 5
+  name:FxGame.Protocol.COperation[msg] 2017-12-26 14:36:28:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:28:seat:1----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:24 :[msg] 2017-12-26 14:36:28:24 :[msg] 2017-12-26 14:36:28:24 :[msg] 2017-12-26 14:36:28:25 :[msg] 2017-12-26 14:36:28:35 :[msg] 2017-12-26 14:36:28:38 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:2----[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:22 :[msg] 2017-12-26 14:36:28:23 :[msg] 2017-12-26 14:36:28:33 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:3----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:39 :[msg] 2017-12-26 14:36:28:40 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:51 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:1----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:24 :[msg] 2017-12-26 14:36:28:24 :[msg] 2017-12-26 14:36:28:25 :[msg] 2017-12-26 14:36:28:35 :[msg] 2017-12-26 14:36:28:38 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:2----[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:22 :[msg] 2017-12-26 14:36:28:23 :[msg] 2017-12-26 14:36:28:33 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:3----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:39 :[msg] 2017-12-26 14:36:28:40 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:51 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:1----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:24 :[msg] 2017-12-26 14:36:28:25 :[msg] 2017-12-26 14:36:28:35 :[msg] 2017-12-26 14:36:28:38 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:2----[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:22 :[msg] 2017-12-26 14:36:28:23 :[msg] 2017-12-26 14:36:28:33 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:3----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:39 :[msg] 2017-12-26 14:36:28:40 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:51 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:1----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:25 :[msg] 2017-12-26 14:36:28:35 :[msg] 2017-12-26 14:36:28:38 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:2----[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:22 :[msg] 2017-12-26 14:36:28:23 :[msg] 2017-12-26 14:36:28:33 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:3----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:39 :[msg] 2017-12-26 14:36:28:40 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:51 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:SendData:seat: 1
+besite: 1
+card: 24
+value: 5
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:28:send data: 
+[msg] 2017-12-26 14:36:28:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:28:send data: 
+[msg] 2017-12-26 14:36:28:SendData:seat: 1
+besite: 1
+card: 24
+value: 5
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:28:send data: 
+[msg] 2017-12-26 14:36:28:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:28:send data: 
+[msg] 2017-12-26 14:36:28:SendData:seat: 1
+besite: 1
+card: 24
+value: 5
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:28:send data: 
+[msg] 2017-12-26 14:36:28:seat:1----[msg] 2017-12-26 14:36:28:40 :[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:25 :[msg] 2017-12-26 14:36:28:35 :[msg] 2017-12-26 14:36:28:38 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:65 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:2----[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:21 :[msg] 2017-12-26 14:36:28:22 :[msg] 2017-12-26 14:36:28:23 :[msg] 2017-12-26 14:36:28:33 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:seat:3----[msg] 2017-12-26 14:36:28:18 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:19 :[msg] 2017-12-26 14:36:28:20 :[msg] 2017-12-26 14:36:28:34 :[msg] 2017-12-26 14:36:28:39 :[msg] 2017-12-26 14:36:28:40 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:50 :[msg] 2017-12-26 14:36:28:51 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:66 :[msg] 2017-12-26 14:36:28:67 :[msg] 2017-12-26 14:36:28:
+
+[msg] 2017-12-26 14:36:28:SendData:card: 40
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:28:send data: 
+[msg] 2017-12-26 14:36:30:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:36:30:ccEvent:card: 25
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:30:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:30:出牌-seat:1-----[msg] 2017-12-26 14:36:30:51  [msg] 2017-12-26 14:36:30:25  [msg] 2017-12-26 14:36:30:seat:1----[msg] 2017-12-26 14:36:30:40 :[msg] 2017-12-26 14:36:30:18 :[msg] 2017-12-26 14:36:30:35 :[msg] 2017-12-26 14:36:30:38 :[msg] 2017-12-26 14:36:30:65 :[msg] 2017-12-26 14:36:30:65 :[msg] 2017-12-26 14:36:30:65 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:
+
+[msg] 2017-12-26 14:36:30:seat:2----[msg] 2017-12-26 14:36:30:20 :[msg] 2017-12-26 14:36:30:20 :[msg] 2017-12-26 14:36:30:21 :[msg] 2017-12-26 14:36:30:21 :[msg] 2017-12-26 14:36:30:22 :[msg] 2017-12-26 14:36:30:23 :[msg] 2017-12-26 14:36:30:33 :[msg] 2017-12-26 14:36:30:34 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:
+
+[msg] 2017-12-26 14:36:30:seat:3----[msg] 2017-12-26 14:36:30:18 :[msg] 2017-12-26 14:36:30:19 :[msg] 2017-12-26 14:36:30:19 :[msg] 2017-12-26 14:36:30:19 :[msg] 2017-12-26 14:36:30:20 :[msg] 2017-12-26 14:36:30:34 :[msg] 2017-12-26 14:36:30:39 :[msg] 2017-12-26 14:36:30:40 :[msg] 2017-12-26 14:36:30:50 :[msg] 2017-12-26 14:36:30:50 :[msg] 2017-12-26 14:36:30:51 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:
+
+[msg] 2017-12-26 14:36:30:SendData:seat: 1
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:30:send data: 
+[msg] 2017-12-26 14:36:30:SendData:seat: 1
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:30:send data: 
+[msg] 2017-12-26 14:36:30:roomid:556389,leftcard:52[msg] 2017-12-26 14:36:30:seat:1----[msg] 2017-12-26 14:36:30:18 :[msg] 2017-12-26 14:36:30:35 :[msg] 2017-12-26 14:36:30:38 :[msg] 2017-12-26 14:36:30:40 :[msg] 2017-12-26 14:36:30:65 :[msg] 2017-12-26 14:36:30:65 :[msg] 2017-12-26 14:36:30:65 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:
+
+[msg] 2017-12-26 14:36:30:seat:2----[msg] 2017-12-26 14:36:30:33 :[msg] 2017-12-26 14:36:30:20 :[msg] 2017-12-26 14:36:30:20 :[msg] 2017-12-26 14:36:30:21 :[msg] 2017-12-26 14:36:30:21 :[msg] 2017-12-26 14:36:30:22 :[msg] 2017-12-26 14:36:30:23 :[msg] 2017-12-26 14:36:30:33 :[msg] 2017-12-26 14:36:30:34 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:
+
+[msg] 2017-12-26 14:36:30:seat:3----[msg] 2017-12-26 14:36:30:18 :[msg] 2017-12-26 14:36:30:19 :[msg] 2017-12-26 14:36:30:19 :[msg] 2017-12-26 14:36:30:19 :[msg] 2017-12-26 14:36:30:20 :[msg] 2017-12-26 14:36:30:34 :[msg] 2017-12-26 14:36:30:39 :[msg] 2017-12-26 14:36:30:40 :[msg] 2017-12-26 14:36:30:50 :[msg] 2017-12-26 14:36:30:50 :[msg] 2017-12-26 14:36:30:51 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:66 :[msg] 2017-12-26 14:36:30:67 :[msg] 2017-12-26 14:36:30:
+
+[msg] 2017-12-26 14:36:30:SendData:seat: 1
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:30:send data: 
+[msg] 2017-12-26 14:36:31:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:31:send data: 
+[msg] 2017-12-26 14:36:31:SendData:card: 33
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:31:send data: 
+[msg] 2017-12-26 14:36:31:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:31:send data: 
+[msg] 2017-12-26 14:36:34:ccEvent:card: 33
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:34:出牌-seat:2-----[msg] 2017-12-26 14:36:34:17  [msg] 2017-12-26 14:36:34:37  [msg] 2017-12-26 14:36:34:33  [msg] 2017-12-26 14:36:34:seat:1----[msg] 2017-12-26 14:36:34:18 :[msg] 2017-12-26 14:36:34:35 :[msg] 2017-12-26 14:36:34:38 :[msg] 2017-12-26 14:36:34:40 :[msg] 2017-12-26 14:36:34:65 :[msg] 2017-12-26 14:36:34:65 :[msg] 2017-12-26 14:36:34:65 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:
+
+[msg] 2017-12-26 14:36:34:seat:2----[msg] 2017-12-26 14:36:34:20 :[msg] 2017-12-26 14:36:34:20 :[msg] 2017-12-26 14:36:34:21 :[msg] 2017-12-26 14:36:34:21 :[msg] 2017-12-26 14:36:34:22 :[msg] 2017-12-26 14:36:34:23 :[msg] 2017-12-26 14:36:34:33 :[msg] 2017-12-26 14:36:34:34 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:
+
+[msg] 2017-12-26 14:36:34:seat:3----[msg] 2017-12-26 14:36:34:18 :[msg] 2017-12-26 14:36:34:19 :[msg] 2017-12-26 14:36:34:19 :[msg] 2017-12-26 14:36:34:19 :[msg] 2017-12-26 14:36:34:20 :[msg] 2017-12-26 14:36:34:34 :[msg] 2017-12-26 14:36:34:39 :[msg] 2017-12-26 14:36:34:40 :[msg] 2017-12-26 14:36:34:50 :[msg] 2017-12-26 14:36:34:50 :[msg] 2017-12-26 14:36:34:51 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:
+
+[msg] 2017-12-26 14:36:34:SendData:seat: 2
+card: 33
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:34:send data: 
+[msg] 2017-12-26 14:36:34:roomid:556389,leftcard:51[msg] 2017-12-26 14:36:34:seat:1----[msg] 2017-12-26 14:36:34:18 :[msg] 2017-12-26 14:36:34:35 :[msg] 2017-12-26 14:36:34:38 :[msg] 2017-12-26 14:36:34:40 :[msg] 2017-12-26 14:36:34:65 :[msg] 2017-12-26 14:36:34:65 :[msg] 2017-12-26 14:36:34:65 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:
+
+[msg] 2017-12-26 14:36:34:seat:2----[msg] 2017-12-26 14:36:34:20 :[msg] 2017-12-26 14:36:34:20 :[msg] 2017-12-26 14:36:34:21 :[msg] 2017-12-26 14:36:34:21 :[msg] 2017-12-26 14:36:34:22 :[msg] 2017-12-26 14:36:34:23 :[msg] 2017-12-26 14:36:34:33 :[msg] 2017-12-26 14:36:34:34 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:
+
+[msg] 2017-12-26 14:36:34:seat:3----[msg] 2017-12-26 14:36:34:18 :[msg] 2017-12-26 14:36:34:19 :[msg] 2017-12-26 14:36:34:19 :[msg] 2017-12-26 14:36:34:19 :[msg] 2017-12-26 14:36:34:20 :[msg] 2017-12-26 14:36:34:34 :[msg] 2017-12-26 14:36:34:39 :[msg] 2017-12-26 14:36:34:40 :[msg] 2017-12-26 14:36:34:50 :[msg] 2017-12-26 14:36:34:50 :[msg] 2017-12-26 14:36:34:51 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:66 :[msg] 2017-12-26 14:36:34:67 :[msg] 2017-12-26 14:36:34:
+
+[msg] 2017-12-26 14:36:34:SendData:seat: 2
+card: 33
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:34:send data: 
+[msg] 2017-12-26 14:36:34:SendData:seat: 2
+card: 33
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:34:send data: 
+[msg] 2017-12-26 14:36:34:SendData:card: 36
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:34:send data: 
+[msg] 2017-12-26 14:36:34:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:34:send data: 
+[msg] 2017-12-26 14:36:34:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:34:send data: 
+[msg] 2017-12-26 14:36:39:ccEvent:card: 36
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:39:出牌-seat:3-----[msg] 2017-12-26 14:36:39:36  [msg] 2017-12-26 14:36:39:38  [msg] 2017-12-26 14:36:39:22  [msg] 2017-12-26 14:36:39:36  [msg] 2017-12-26 14:36:39:seat:1----[msg] 2017-12-26 14:36:39:18 :[msg] 2017-12-26 14:36:39:35 :[msg] 2017-12-26 14:36:39:38 :[msg] 2017-12-26 14:36:39:40 :[msg] 2017-12-26 14:36:39:65 :[msg] 2017-12-26 14:36:39:65 :[msg] 2017-12-26 14:36:39:65 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:
+
+[msg] 2017-12-26 14:36:39:seat:2----[msg] 2017-12-26 14:36:39:20 :[msg] 2017-12-26 14:36:39:20 :[msg] 2017-12-26 14:36:39:21 :[msg] 2017-12-26 14:36:39:21 :[msg] 2017-12-26 14:36:39:22 :[msg] 2017-12-26 14:36:39:23 :[msg] 2017-12-26 14:36:39:33 :[msg] 2017-12-26 14:36:39:34 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:
+
+[msg] 2017-12-26 14:36:39:seat:3----[msg] 2017-12-26 14:36:39:18 :[msg] 2017-12-26 14:36:39:19 :[msg] 2017-12-26 14:36:39:19 :[msg] 2017-12-26 14:36:39:19 :[msg] 2017-12-26 14:36:39:20 :[msg] 2017-12-26 14:36:39:34 :[msg] 2017-12-26 14:36:39:39 :[msg] 2017-12-26 14:36:39:40 :[msg] 2017-12-26 14:36:39:50 :[msg] 2017-12-26 14:36:39:50 :[msg] 2017-12-26 14:36:39:51 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:
+
+[msg] 2017-12-26 14:36:39:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:39:send data: 
+[msg] 2017-12-26 14:36:39:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:39:send data: 
+[msg] 2017-12-26 14:36:39:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:39:send data: 
+[msg] 2017-12-26 14:36:39:roomid:556389,leftcard:50[msg] 2017-12-26 14:36:39:seat:1----[msg] 2017-12-26 14:36:39:36 :[msg] 2017-12-26 14:36:39:18 :[msg] 2017-12-26 14:36:39:35 :[msg] 2017-12-26 14:36:39:38 :[msg] 2017-12-26 14:36:39:40 :[msg] 2017-12-26 14:36:39:65 :[msg] 2017-12-26 14:36:39:65 :[msg] 2017-12-26 14:36:39:65 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:
+
+[msg] 2017-12-26 14:36:39:seat:2----[msg] 2017-12-26 14:36:39:20 :[msg] 2017-12-26 14:36:39:20 :[msg] 2017-12-26 14:36:39:21 :[msg] 2017-12-26 14:36:39:21 :[msg] 2017-12-26 14:36:39:22 :[msg] 2017-12-26 14:36:39:23 :[msg] 2017-12-26 14:36:39:33 :[msg] 2017-12-26 14:36:39:34 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:
+
+[msg] 2017-12-26 14:36:39:seat:3----[msg] 2017-12-26 14:36:39:18 :[msg] 2017-12-26 14:36:39:19 :[msg] 2017-12-26 14:36:39:19 :[msg] 2017-12-26 14:36:39:19 :[msg] 2017-12-26 14:36:39:20 :[msg] 2017-12-26 14:36:39:34 :[msg] 2017-12-26 14:36:39:39 :[msg] 2017-12-26 14:36:39:40 :[msg] 2017-12-26 14:36:39:50 :[msg] 2017-12-26 14:36:39:50 :[msg] 2017-12-26 14:36:39:51 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:66 :[msg] 2017-12-26 14:36:39:67 :[msg] 2017-12-26 14:36:39:
+
+[msg] 2017-12-26 14:36:39:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:39:send data: 
+[msg] 2017-12-26 14:36:39:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:39:send data: 
+[msg] 2017-12-26 14:36:39:SendData:card: 36
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:39:send data: 
+[msg] 2017-12-26 14:36:41:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:36:41:ccEvent:card: 66
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:41:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:41:出牌-seat:1-----[msg] 2017-12-26 14:36:41:51  [msg] 2017-12-26 14:36:41:25  [msg] 2017-12-26 14:36:41:66  [msg] 2017-12-26 14:36:41:seat:1----[msg] 2017-12-26 14:36:41:18 :[msg] 2017-12-26 14:36:41:35 :[msg] 2017-12-26 14:36:41:36 :[msg] 2017-12-26 14:36:41:38 :[msg] 2017-12-26 14:36:41:40 :[msg] 2017-12-26 14:36:41:65 :[msg] 2017-12-26 14:36:41:65 :[msg] 2017-12-26 14:36:41:65 :[msg] 2017-12-26 14:36:41:67 :[msg] 2017-12-26 14:36:41:67 :[msg] 2017-12-26 14:36:41:
+
+[msg] 2017-12-26 14:36:41:seat:2----[msg] 2017-12-26 14:36:41:20 :[msg] 2017-12-26 14:36:41:20 :[msg] 2017-12-26 14:36:41:21 :[msg] 2017-12-26 14:36:41:21 :[msg] 2017-12-26 14:36:41:22 :[msg] 2017-12-26 14:36:41:23 :[msg] 2017-12-26 14:36:41:33 :[msg] 2017-12-26 14:36:41:34 :[msg] 2017-12-26 14:36:41:66 :[msg] 2017-12-26 14:36:41:67 :[msg] 2017-12-26 14:36:41:
+
+[msg] 2017-12-26 14:36:41:seat:3----[msg] 2017-12-26 14:36:41:18 :[msg] 2017-12-26 14:36:41:19 :[msg] 2017-12-26 14:36:41:19 :[msg] 2017-12-26 14:36:41:19 :[msg] 2017-12-26 14:36:41:20 :[msg] 2017-12-26 14:36:41:34 :[msg] 2017-12-26 14:36:41:39 :[msg] 2017-12-26 14:36:41:40 :[msg] 2017-12-26 14:36:41:50 :[msg] 2017-12-26 14:36:41:50 :[msg] 2017-12-26 14:36:41:51 :[msg] 2017-12-26 14:36:41:66 :[msg] 2017-12-26 14:36:41:66 :[msg] 2017-12-26 14:36:41:67 :[msg] 2017-12-26 14:36:41:
+
+[msg] 2017-12-26 14:36:41:SendData:seat: 1
+card: 66
+value: 8
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:41:send data: 
+[msg] 2017-12-26 14:36:41:SendData:seat: 1
+card: 66
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:41:send data: 
+[msg] 2017-12-26 14:36:41:SendData:seat: 1
+card: 66
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:41:send data: 
+[msg] 2017-12-26 14:36:46:ccEvent:card: 66
+value: 2
+  name:FxGame.Protocol.COperation[msg] 2017-12-26 14:36:46:seat:1----[msg] 2017-12-26 14:36:46:18 :[msg] 2017-12-26 14:36:46:35 :[msg] 2017-12-26 14:36:46:36 :[msg] 2017-12-26 14:36:46:38 :[msg] 2017-12-26 14:36:46:40 :[msg] 2017-12-26 14:36:46:65 :[msg] 2017-12-26 14:36:46:65 :[msg] 2017-12-26 14:36:46:65 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:
+
+[msg] 2017-12-26 14:36:46:seat:2----[msg] 2017-12-26 14:36:46:20 :[msg] 2017-12-26 14:36:46:20 :[msg] 2017-12-26 14:36:46:21 :[msg] 2017-12-26 14:36:46:21 :[msg] 2017-12-26 14:36:46:22 :[msg] 2017-12-26 14:36:46:23 :[msg] 2017-12-26 14:36:46:33 :[msg] 2017-12-26 14:36:46:34 :[msg] 2017-12-26 14:36:46:66 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:
+
+[msg] 2017-12-26 14:36:46:seat:3----[msg] 2017-12-26 14:36:46:18 :[msg] 2017-12-26 14:36:46:19 :[msg] 2017-12-26 14:36:46:19 :[msg] 2017-12-26 14:36:46:19 :[msg] 2017-12-26 14:36:46:20 :[msg] 2017-12-26 14:36:46:34 :[msg] 2017-12-26 14:36:46:39 :[msg] 2017-12-26 14:36:46:40 :[msg] 2017-12-26 14:36:46:50 :[msg] 2017-12-26 14:36:46:50 :[msg] 2017-12-26 14:36:46:51 :[msg] 2017-12-26 14:36:46:66 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:
+
+[msg] 2017-12-26 14:36:46:seat:1----[msg] 2017-12-26 14:36:46:18 :[msg] 2017-12-26 14:36:46:35 :[msg] 2017-12-26 14:36:46:36 :[msg] 2017-12-26 14:36:46:38 :[msg] 2017-12-26 14:36:46:40 :[msg] 2017-12-26 14:36:46:65 :[msg] 2017-12-26 14:36:46:65 :[msg] 2017-12-26 14:36:46:65 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:
+
+[msg] 2017-12-26 14:36:46:seat:2----[msg] 2017-12-26 14:36:46:20 :[msg] 2017-12-26 14:36:46:20 :[msg] 2017-12-26 14:36:46:21 :[msg] 2017-12-26 14:36:46:21 :[msg] 2017-12-26 14:36:46:22 :[msg] 2017-12-26 14:36:46:23 :[msg] 2017-12-26 14:36:46:33 :[msg] 2017-12-26 14:36:46:34 :[msg] 2017-12-26 14:36:46:66 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:
+
+[msg] 2017-12-26 14:36:46:seat:3----[msg] 2017-12-26 14:36:46:18 :[msg] 2017-12-26 14:36:46:19 :[msg] 2017-12-26 14:36:46:19 :[msg] 2017-12-26 14:36:46:19 :[msg] 2017-12-26 14:36:46:20 :[msg] 2017-12-26 14:36:46:34 :[msg] 2017-12-26 14:36:46:39 :[msg] 2017-12-26 14:36:46:40 :[msg] 2017-12-26 14:36:46:50 :[msg] 2017-12-26 14:36:46:50 :[msg] 2017-12-26 14:36:46:51 :[msg] 2017-12-26 14:36:46:67 :[msg] 2017-12-26 14:36:46:
+
+[msg] 2017-12-26 14:36:47:SendData:seat: 3
+besite: 1
+card: 66
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:47:send data: 
+[msg] 2017-12-26 14:36:47:SendData:seat: 3
+besite: 1
+card: 66
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:47:send data: 
+[msg] 2017-12-26 14:36:47:SendData:seat: 3
+besite: 1
+card: 66
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:36:47:send data: 
+[msg] 2017-12-26 14:36:50:ccEvent:card: 13
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:52:ccEvent:card: 34
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:52:出牌-seat:3-----[msg] 2017-12-26 14:36:52:36  [msg] 2017-12-26 14:36:52:38  [msg] 2017-12-26 14:36:52:22  [msg] 2017-12-26 14:36:52:36  [msg] 2017-12-26 14:36:52:34  [msg] 2017-12-26 14:36:52:seat:1----[msg] 2017-12-26 14:36:52:18 :[msg] 2017-12-26 14:36:52:35 :[msg] 2017-12-26 14:36:52:36 :[msg] 2017-12-26 14:36:52:38 :[msg] 2017-12-26 14:36:52:40 :[msg] 2017-12-26 14:36:52:65 :[msg] 2017-12-26 14:36:52:65 :[msg] 2017-12-26 14:36:52:65 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:
+
+[msg] 2017-12-26 14:36:52:seat:2----[msg] 2017-12-26 14:36:52:20 :[msg] 2017-12-26 14:36:52:20 :[msg] 2017-12-26 14:36:52:21 :[msg] 2017-12-26 14:36:52:21 :[msg] 2017-12-26 14:36:52:22 :[msg] 2017-12-26 14:36:52:23 :[msg] 2017-12-26 14:36:52:33 :[msg] 2017-12-26 14:36:52:34 :[msg] 2017-12-26 14:36:52:66 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:
+
+[msg] 2017-12-26 14:36:52:seat:3----[msg] 2017-12-26 14:36:52:18 :[msg] 2017-12-26 14:36:52:19 :[msg] 2017-12-26 14:36:52:19 :[msg] 2017-12-26 14:36:52:19 :[msg] 2017-12-26 14:36:52:20 :[msg] 2017-12-26 14:36:52:39 :[msg] 2017-12-26 14:36:52:40 :[msg] 2017-12-26 14:36:52:50 :[msg] 2017-12-26 14:36:52:50 :[msg] 2017-12-26 14:36:52:51 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:
+
+[msg] 2017-12-26 14:36:52:SendData:seat: 3
+card: 34
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:52:send data: 
+[msg] 2017-12-26 14:36:52:SendData:seat: 3
+card: 34
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:52:send data: 
+[msg] 2017-12-26 14:36:52:SendData:seat: 3
+card: 34
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:52:send data: 
+[msg] 2017-12-26 14:36:52:roomid:556389,leftcard:49[msg] 2017-12-26 14:36:52:seat:1----[msg] 2017-12-26 14:36:52:35 :[msg] 2017-12-26 14:36:52:18 :[msg] 2017-12-26 14:36:52:35 :[msg] 2017-12-26 14:36:52:36 :[msg] 2017-12-26 14:36:52:38 :[msg] 2017-12-26 14:36:52:40 :[msg] 2017-12-26 14:36:52:65 :[msg] 2017-12-26 14:36:52:65 :[msg] 2017-12-26 14:36:52:65 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:
+
+[msg] 2017-12-26 14:36:52:seat:2----[msg] 2017-12-26 14:36:52:20 :[msg] 2017-12-26 14:36:52:20 :[msg] 2017-12-26 14:36:52:21 :[msg] 2017-12-26 14:36:52:21 :[msg] 2017-12-26 14:36:52:22 :[msg] 2017-12-26 14:36:52:23 :[msg] 2017-12-26 14:36:52:33 :[msg] 2017-12-26 14:36:52:34 :[msg] 2017-12-26 14:36:52:66 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:
+
+[msg] 2017-12-26 14:36:52:seat:3----[msg] 2017-12-26 14:36:52:18 :[msg] 2017-12-26 14:36:52:19 :[msg] 2017-12-26 14:36:52:19 :[msg] 2017-12-26 14:36:52:19 :[msg] 2017-12-26 14:36:52:20 :[msg] 2017-12-26 14:36:52:39 :[msg] 2017-12-26 14:36:52:40 :[msg] 2017-12-26 14:36:52:50 :[msg] 2017-12-26 14:36:52:50 :[msg] 2017-12-26 14:36:52:51 :[msg] 2017-12-26 14:36:52:67 :[msg] 2017-12-26 14:36:52:
+
+[msg] 2017-12-26 14:36:52:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:52:send data: 
+[msg] 2017-12-26 14:36:52:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:52:send data: 
+[msg] 2017-12-26 14:36:52:SendData:card: 35
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:52:send data: 
+[msg] 2017-12-26 14:36:53:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:36:53:ccEvent:card: 18
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:53:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:36:53:出牌-seat:1-----[msg] 2017-12-26 14:36:53:51  [msg] 2017-12-26 14:36:53:25  [msg] 2017-12-26 14:36:53:18  [msg] 2017-12-26 14:36:53:seat:1----[msg] 2017-12-26 14:36:53:35 :[msg] 2017-12-26 14:36:53:35 :[msg] 2017-12-26 14:36:53:36 :[msg] 2017-12-26 14:36:53:38 :[msg] 2017-12-26 14:36:53:40 :[msg] 2017-12-26 14:36:53:65 :[msg] 2017-12-26 14:36:53:65 :[msg] 2017-12-26 14:36:53:65 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:
+
+[msg] 2017-12-26 14:36:53:seat:2----[msg] 2017-12-26 14:36:53:20 :[msg] 2017-12-26 14:36:53:20 :[msg] 2017-12-26 14:36:53:21 :[msg] 2017-12-26 14:36:53:21 :[msg] 2017-12-26 14:36:53:22 :[msg] 2017-12-26 14:36:53:23 :[msg] 2017-12-26 14:36:53:33 :[msg] 2017-12-26 14:36:53:34 :[msg] 2017-12-26 14:36:53:66 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:
+
+[msg] 2017-12-26 14:36:53:seat:3----[msg] 2017-12-26 14:36:53:18 :[msg] 2017-12-26 14:36:53:19 :[msg] 2017-12-26 14:36:53:19 :[msg] 2017-12-26 14:36:53:19 :[msg] 2017-12-26 14:36:53:20 :[msg] 2017-12-26 14:36:53:39 :[msg] 2017-12-26 14:36:53:40 :[msg] 2017-12-26 14:36:53:50 :[msg] 2017-12-26 14:36:53:50 :[msg] 2017-12-26 14:36:53:51 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:
+
+[msg] 2017-12-26 14:36:53:SendData:seat: 1
+card: 18
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:53:send data: 
+[msg] 2017-12-26 14:36:53:SendData:seat: 1
+card: 18
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:53:send data: 
+[msg] 2017-12-26 14:36:53:roomid:556389,leftcard:48[msg] 2017-12-26 14:36:53:seat:1----[msg] 2017-12-26 14:36:53:35 :[msg] 2017-12-26 14:36:53:35 :[msg] 2017-12-26 14:36:53:36 :[msg] 2017-12-26 14:36:53:38 :[msg] 2017-12-26 14:36:53:40 :[msg] 2017-12-26 14:36:53:65 :[msg] 2017-12-26 14:36:53:65 :[msg] 2017-12-26 14:36:53:65 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:
+
+[msg] 2017-12-26 14:36:53:seat:2----[msg] 2017-12-26 14:36:53:41 :[msg] 2017-12-26 14:36:53:20 :[msg] 2017-12-26 14:36:53:20 :[msg] 2017-12-26 14:36:53:21 :[msg] 2017-12-26 14:36:53:21 :[msg] 2017-12-26 14:36:53:22 :[msg] 2017-12-26 14:36:53:23 :[msg] 2017-12-26 14:36:53:33 :[msg] 2017-12-26 14:36:53:34 :[msg] 2017-12-26 14:36:53:66 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:
+
+[msg] 2017-12-26 14:36:53:seat:3----[msg] 2017-12-26 14:36:53:18 :[msg] 2017-12-26 14:36:53:19 :[msg] 2017-12-26 14:36:53:19 :[msg] 2017-12-26 14:36:53:19 :[msg] 2017-12-26 14:36:53:20 :[msg] 2017-12-26 14:36:53:39 :[msg] 2017-12-26 14:36:53:40 :[msg] 2017-12-26 14:36:53:50 :[msg] 2017-12-26 14:36:53:50 :[msg] 2017-12-26 14:36:53:51 :[msg] 2017-12-26 14:36:53:67 :[msg] 2017-12-26 14:36:53:
+
+[msg] 2017-12-26 14:36:53:SendData:seat: 1
+card: 18
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:53:send data: 
+[msg] 2017-12-26 14:36:53:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:53:send data: 
+[msg] 2017-12-26 14:36:53:SendData:card: 41
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:53:send data: 
+[msg] 2017-12-26 14:36:53:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:53:send data: 
+[msg] 2017-12-26 14:36:58:ccEvent:card: 41
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:36:58:出牌-seat:2-----[msg] 2017-12-26 14:36:58:17  [msg] 2017-12-26 14:36:58:37  [msg] 2017-12-26 14:36:58:33  [msg] 2017-12-26 14:36:58:41  [msg] 2017-12-26 14:36:58:seat:1----[msg] 2017-12-26 14:36:58:35 :[msg] 2017-12-26 14:36:58:35 :[msg] 2017-12-26 14:36:58:36 :[msg] 2017-12-26 14:36:58:38 :[msg] 2017-12-26 14:36:58:40 :[msg] 2017-12-26 14:36:58:65 :[msg] 2017-12-26 14:36:58:65 :[msg] 2017-12-26 14:36:58:65 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:
+
+[msg] 2017-12-26 14:36:58:seat:2----[msg] 2017-12-26 14:36:58:20 :[msg] 2017-12-26 14:36:58:20 :[msg] 2017-12-26 14:36:58:21 :[msg] 2017-12-26 14:36:58:21 :[msg] 2017-12-26 14:36:58:22 :[msg] 2017-12-26 14:36:58:23 :[msg] 2017-12-26 14:36:58:33 :[msg] 2017-12-26 14:36:58:34 :[msg] 2017-12-26 14:36:58:66 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:
+
+[msg] 2017-12-26 14:36:58:seat:3----[msg] 2017-12-26 14:36:58:18 :[msg] 2017-12-26 14:36:58:19 :[msg] 2017-12-26 14:36:58:19 :[msg] 2017-12-26 14:36:58:19 :[msg] 2017-12-26 14:36:58:20 :[msg] 2017-12-26 14:36:58:39 :[msg] 2017-12-26 14:36:58:40 :[msg] 2017-12-26 14:36:58:50 :[msg] 2017-12-26 14:36:58:50 :[msg] 2017-12-26 14:36:58:51 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:
+
+[msg] 2017-12-26 14:36:58:SendData:seat: 2
+card: 41
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:58:send data: 
+[msg] 2017-12-26 14:36:58:roomid:556389,leftcard:47[msg] 2017-12-26 14:36:58:seat:1----[msg] 2017-12-26 14:36:58:35 :[msg] 2017-12-26 14:36:58:35 :[msg] 2017-12-26 14:36:58:36 :[msg] 2017-12-26 14:36:58:38 :[msg] 2017-12-26 14:36:58:40 :[msg] 2017-12-26 14:36:58:65 :[msg] 2017-12-26 14:36:58:65 :[msg] 2017-12-26 14:36:58:65 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:
+
+[msg] 2017-12-26 14:36:58:seat:2----[msg] 2017-12-26 14:36:58:20 :[msg] 2017-12-26 14:36:58:20 :[msg] 2017-12-26 14:36:58:21 :[msg] 2017-12-26 14:36:58:21 :[msg] 2017-12-26 14:36:58:22 :[msg] 2017-12-26 14:36:58:23 :[msg] 2017-12-26 14:36:58:33 :[msg] 2017-12-26 14:36:58:34 :[msg] 2017-12-26 14:36:58:66 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:
+
+[msg] 2017-12-26 14:36:58:seat:3----[msg] 2017-12-26 14:36:58:36 :[msg] 2017-12-26 14:36:58:18 :[msg] 2017-12-26 14:36:58:19 :[msg] 2017-12-26 14:36:58:19 :[msg] 2017-12-26 14:36:58:19 :[msg] 2017-12-26 14:36:58:20 :[msg] 2017-12-26 14:36:58:39 :[msg] 2017-12-26 14:36:58:40 :[msg] 2017-12-26 14:36:58:50 :[msg] 2017-12-26 14:36:58:50 :[msg] 2017-12-26 14:36:58:51 :[msg] 2017-12-26 14:36:58:67 :[msg] 2017-12-26 14:36:58:
+
+[msg] 2017-12-26 14:36:58:SendData:seat: 2
+card: 41
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:58:send data: 
+[msg] 2017-12-26 14:36:58:SendData:seat: 2
+card: 41
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:36:58:send data: 
+[msg] 2017-12-26 14:36:58:SendData:card: 36
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:36:58:send data: 
+[msg] 2017-12-26 14:36:58:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:58:send data: 
+[msg] 2017-12-26 14:36:58:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:36:58:send data: 
+[msg] 2017-12-26 14:37:03:ccEvent:card: 36
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:03:出牌-seat:3-----[msg] 2017-12-26 14:37:03:36  [msg] 2017-12-26 14:37:03:38  [msg] 2017-12-26 14:37:03:22  [msg] 2017-12-26 14:37:03:36  [msg] 2017-12-26 14:37:03:34  [msg] 2017-12-26 14:37:03:36  [msg] 2017-12-26 14:37:03:seat:1----[msg] 2017-12-26 14:37:03:35 :[msg] 2017-12-26 14:37:03:35 :[msg] 2017-12-26 14:37:03:36 :[msg] 2017-12-26 14:37:03:38 :[msg] 2017-12-26 14:37:03:40 :[msg] 2017-12-26 14:37:03:65 :[msg] 2017-12-26 14:37:03:65 :[msg] 2017-12-26 14:37:03:65 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:
+
+[msg] 2017-12-26 14:37:03:seat:2----[msg] 2017-12-26 14:37:03:20 :[msg] 2017-12-26 14:37:03:20 :[msg] 2017-12-26 14:37:03:21 :[msg] 2017-12-26 14:37:03:21 :[msg] 2017-12-26 14:37:03:22 :[msg] 2017-12-26 14:37:03:23 :[msg] 2017-12-26 14:37:03:33 :[msg] 2017-12-26 14:37:03:34 :[msg] 2017-12-26 14:37:03:66 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:
+
+[msg] 2017-12-26 14:37:03:seat:3----[msg] 2017-12-26 14:37:03:18 :[msg] 2017-12-26 14:37:03:19 :[msg] 2017-12-26 14:37:03:19 :[msg] 2017-12-26 14:37:03:19 :[msg] 2017-12-26 14:37:03:20 :[msg] 2017-12-26 14:37:03:39 :[msg] 2017-12-26 14:37:03:40 :[msg] 2017-12-26 14:37:03:50 :[msg] 2017-12-26 14:37:03:50 :[msg] 2017-12-26 14:37:03:51 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:
+
+[msg] 2017-12-26 14:37:03:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:03:send data: 
+[msg] 2017-12-26 14:37:03:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:03:send data: 
+[msg] 2017-12-26 14:37:03:SendData:seat: 3
+card: 36
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:03:send data: 
+[msg] 2017-12-26 14:37:03:roomid:556389,leftcard:46[msg] 2017-12-26 14:37:03:seat:1----[msg] 2017-12-26 14:37:03:37 :[msg] 2017-12-26 14:37:03:35 :[msg] 2017-12-26 14:37:03:35 :[msg] 2017-12-26 14:37:03:36 :[msg] 2017-12-26 14:37:03:38 :[msg] 2017-12-26 14:37:03:40 :[msg] 2017-12-26 14:37:03:65 :[msg] 2017-12-26 14:37:03:65 :[msg] 2017-12-26 14:37:03:65 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:
+
+[msg] 2017-12-26 14:37:03:seat:2----[msg] 2017-12-26 14:37:03:20 :[msg] 2017-12-26 14:37:03:20 :[msg] 2017-12-26 14:37:03:21 :[msg] 2017-12-26 14:37:03:21 :[msg] 2017-12-26 14:37:03:22 :[msg] 2017-12-26 14:37:03:23 :[msg] 2017-12-26 14:37:03:33 :[msg] 2017-12-26 14:37:03:34 :[msg] 2017-12-26 14:37:03:66 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:
+
+[msg] 2017-12-26 14:37:03:seat:3----[msg] 2017-12-26 14:37:03:18 :[msg] 2017-12-26 14:37:03:19 :[msg] 2017-12-26 14:37:03:19 :[msg] 2017-12-26 14:37:03:19 :[msg] 2017-12-26 14:37:03:20 :[msg] 2017-12-26 14:37:03:39 :[msg] 2017-12-26 14:37:03:40 :[msg] 2017-12-26 14:37:03:50 :[msg] 2017-12-26 14:37:03:50 :[msg] 2017-12-26 14:37:03:51 :[msg] 2017-12-26 14:37:03:67 :[msg] 2017-12-26 14:37:03:
+
+[msg] 2017-12-26 14:37:04:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:04:send data: 
+[msg] 2017-12-26 14:37:04:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:04:send data: 
+[msg] 2017-12-26 14:37:04:SendData:card: 37
+value: 128
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:04:send data: 
+[msg] 2017-12-26 14:37:08:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:37:08:ccEvent:card: 40
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:08:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:37:08:出牌-seat:1-----[msg] 2017-12-26 14:37:08:51  [msg] 2017-12-26 14:37:08:25  [msg] 2017-12-26 14:37:08:18  [msg] 2017-12-26 14:37:08:40  [msg] 2017-12-26 14:37:08:seat:1----[msg] 2017-12-26 14:37:08:35 :[msg] 2017-12-26 14:37:08:35 :[msg] 2017-12-26 14:37:08:36 :[msg] 2017-12-26 14:37:08:37 :[msg] 2017-12-26 14:37:08:38 :[msg] 2017-12-26 14:37:08:65 :[msg] 2017-12-26 14:37:08:65 :[msg] 2017-12-26 14:37:08:65 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:
+
+[msg] 2017-12-26 14:37:08:seat:2----[msg] 2017-12-26 14:37:08:20 :[msg] 2017-12-26 14:37:08:20 :[msg] 2017-12-26 14:37:08:21 :[msg] 2017-12-26 14:37:08:21 :[msg] 2017-12-26 14:37:08:22 :[msg] 2017-12-26 14:37:08:23 :[msg] 2017-12-26 14:37:08:33 :[msg] 2017-12-26 14:37:08:34 :[msg] 2017-12-26 14:37:08:66 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:
+
+[msg] 2017-12-26 14:37:08:seat:3----[msg] 2017-12-26 14:37:08:18 :[msg] 2017-12-26 14:37:08:19 :[msg] 2017-12-26 14:37:08:19 :[msg] 2017-12-26 14:37:08:19 :[msg] 2017-12-26 14:37:08:20 :[msg] 2017-12-26 14:37:08:39 :[msg] 2017-12-26 14:37:08:40 :[msg] 2017-12-26 14:37:08:50 :[msg] 2017-12-26 14:37:08:50 :[msg] 2017-12-26 14:37:08:51 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:
+
+[msg] 2017-12-26 14:37:08:SendData:seat: 1
+card: 40
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:SendData:seat: 1
+card: 40
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:roomid:556389,leftcard:45[msg] 2017-12-26 14:37:08:seat:1----[msg] 2017-12-26 14:37:08:35 :[msg] 2017-12-26 14:37:08:35 :[msg] 2017-12-26 14:37:08:36 :[msg] 2017-12-26 14:37:08:37 :[msg] 2017-12-26 14:37:08:38 :[msg] 2017-12-26 14:37:08:65 :[msg] 2017-12-26 14:37:08:65 :[msg] 2017-12-26 14:37:08:65 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:
+
+[msg] 2017-12-26 14:37:08:seat:2----[msg] 2017-12-26 14:37:08:38 :[msg] 2017-12-26 14:37:08:20 :[msg] 2017-12-26 14:37:08:20 :[msg] 2017-12-26 14:37:08:21 :[msg] 2017-12-26 14:37:08:21 :[msg] 2017-12-26 14:37:08:22 :[msg] 2017-12-26 14:37:08:23 :[msg] 2017-12-26 14:37:08:33 :[msg] 2017-12-26 14:37:08:34 :[msg] 2017-12-26 14:37:08:66 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:
+
+[msg] 2017-12-26 14:37:08:seat:3----[msg] 2017-12-26 14:37:08:18 :[msg] 2017-12-26 14:37:08:19 :[msg] 2017-12-26 14:37:08:19 :[msg] 2017-12-26 14:37:08:19 :[msg] 2017-12-26 14:37:08:20 :[msg] 2017-12-26 14:37:08:39 :[msg] 2017-12-26 14:37:08:40 :[msg] 2017-12-26 14:37:08:50 :[msg] 2017-12-26 14:37:08:50 :[msg] 2017-12-26 14:37:08:51 :[msg] 2017-12-26 14:37:08:67 :[msg] 2017-12-26 14:37:08:
+
+[msg] 2017-12-26 14:37:08:SendData:seat: 1
+card: 40
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:sercverdest:18,cmd:2,bodylen:18,code:518
+[msg] 2017-12-26 14:37:08:ccEvent:code: 518
+liangcards: "##$&AAACC%\375"
+tingcards: ""
+  name:FxGame.Protocol.CTing[msg] 2017-12-26 14:37:08:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:37:08:SendData:seat: 1
+liangcards: "##$&AAACC%\375"
+tingcards: "#C"
+  name:FxGame.Protocol.STing
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:SendData:seat: 1
+liangcards: "##$&AAACC%\375"
+tingcards: "#C"
+  name:FxGame.Protocol.STing
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:SendData:seat: 1
+liangcards: "##$&AAACC%\375"
+tingcards: "#C"
+  name:FxGame.Protocol.STing
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:SendData:card: 38
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:08:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:08:send data: 
+[msg] 2017-12-26 14:37:13:ccEvent:card: 38
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:13:出牌-seat:2-----[msg] 2017-12-26 14:37:13:17  [msg] 2017-12-26 14:37:13:37  [msg] 2017-12-26 14:37:13:33  [msg] 2017-12-26 14:37:13:41  [msg] 2017-12-26 14:37:13:38  [msg] 2017-12-26 14:37:13:seat:1----[msg] 2017-12-26 14:37:13:35 :[msg] 2017-12-26 14:37:13:35 :[msg] 2017-12-26 14:37:13:36 :[msg] 2017-12-26 14:37:13:37 :[msg] 2017-12-26 14:37:13:38 :[msg] 2017-12-26 14:37:13:65 :[msg] 2017-12-26 14:37:13:65 :[msg] 2017-12-26 14:37:13:65 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:
+
+[msg] 2017-12-26 14:37:13:seat:2----[msg] 2017-12-26 14:37:13:20 :[msg] 2017-12-26 14:37:13:20 :[msg] 2017-12-26 14:37:13:21 :[msg] 2017-12-26 14:37:13:21 :[msg] 2017-12-26 14:37:13:22 :[msg] 2017-12-26 14:37:13:23 :[msg] 2017-12-26 14:37:13:33 :[msg] 2017-12-26 14:37:13:34 :[msg] 2017-12-26 14:37:13:66 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:
+
+[msg] 2017-12-26 14:37:13:seat:3----[msg] 2017-12-26 14:37:13:18 :[msg] 2017-12-26 14:37:13:19 :[msg] 2017-12-26 14:37:13:19 :[msg] 2017-12-26 14:37:13:19 :[msg] 2017-12-26 14:37:13:20 :[msg] 2017-12-26 14:37:13:39 :[msg] 2017-12-26 14:37:13:40 :[msg] 2017-12-26 14:37:13:50 :[msg] 2017-12-26 14:37:13:50 :[msg] 2017-12-26 14:37:13:51 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:
+
+[msg] 2017-12-26 14:37:13:SendData:seat: 2
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:13:send data: 
+[msg] 2017-12-26 14:37:13:roomid:556389,leftcard:44[msg] 2017-12-26 14:37:13:seat:1----[msg] 2017-12-26 14:37:13:35 :[msg] 2017-12-26 14:37:13:35 :[msg] 2017-12-26 14:37:13:36 :[msg] 2017-12-26 14:37:13:37 :[msg] 2017-12-26 14:37:13:38 :[msg] 2017-12-26 14:37:13:65 :[msg] 2017-12-26 14:37:13:65 :[msg] 2017-12-26 14:37:13:65 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:
+
+[msg] 2017-12-26 14:37:13:seat:2----[msg] 2017-12-26 14:37:13:20 :[msg] 2017-12-26 14:37:13:20 :[msg] 2017-12-26 14:37:13:21 :[msg] 2017-12-26 14:37:13:21 :[msg] 2017-12-26 14:37:13:22 :[msg] 2017-12-26 14:37:13:23 :[msg] 2017-12-26 14:37:13:33 :[msg] 2017-12-26 14:37:13:34 :[msg] 2017-12-26 14:37:13:66 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:
+
+[msg] 2017-12-26 14:37:13:seat:3----[msg] 2017-12-26 14:37:13:34 :[msg] 2017-12-26 14:37:13:18 :[msg] 2017-12-26 14:37:13:19 :[msg] 2017-12-26 14:37:13:19 :[msg] 2017-12-26 14:37:13:19 :[msg] 2017-12-26 14:37:13:20 :[msg] 2017-12-26 14:37:13:39 :[msg] 2017-12-26 14:37:13:40 :[msg] 2017-12-26 14:37:13:50 :[msg] 2017-12-26 14:37:13:50 :[msg] 2017-12-26 14:37:13:51 :[msg] 2017-12-26 14:37:13:67 :[msg] 2017-12-26 14:37:13:
+
+[msg] 2017-12-26 14:37:13:SendData:seat: 2
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:13:send data: 
+[msg] 2017-12-26 14:37:13:SendData:seat: 2
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:13:send data: 
+[msg] 2017-12-26 14:37:13:SendData:card: 34
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:13:send data: 
+[msg] 2017-12-26 14:37:13:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:13:send data: 
+[msg] 2017-12-26 14:37:13:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:13:send data: 
+[msg] 2017-12-26 14:37:17:ccEvent:card: 34
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:17:出牌-seat:3-----[msg] 2017-12-26 14:37:17:36  [msg] 2017-12-26 14:37:17:38  [msg] 2017-12-26 14:37:17:22  [msg] 2017-12-26 14:37:17:36  [msg] 2017-12-26 14:37:17:34  [msg] 2017-12-26 14:37:17:36  [msg] 2017-12-26 14:37:17:34  [msg] 2017-12-26 14:37:17:seat:1----[msg] 2017-12-26 14:37:17:35 :[msg] 2017-12-26 14:37:17:35 :[msg] 2017-12-26 14:37:17:36 :[msg] 2017-12-26 14:37:17:37 :[msg] 2017-12-26 14:37:17:38 :[msg] 2017-12-26 14:37:17:65 :[msg] 2017-12-26 14:37:17:65 :[msg] 2017-12-26 14:37:17:65 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:
+
+[msg] 2017-12-26 14:37:17:seat:2----[msg] 2017-12-26 14:37:17:20 :[msg] 2017-12-26 14:37:17:20 :[msg] 2017-12-26 14:37:17:21 :[msg] 2017-12-26 14:37:17:21 :[msg] 2017-12-26 14:37:17:22 :[msg] 2017-12-26 14:37:17:23 :[msg] 2017-12-26 14:37:17:33 :[msg] 2017-12-26 14:37:17:34 :[msg] 2017-12-26 14:37:17:66 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:
+
+[msg] 2017-12-26 14:37:17:seat:3----[msg] 2017-12-26 14:37:17:18 :[msg] 2017-12-26 14:37:17:19 :[msg] 2017-12-26 14:37:17:19 :[msg] 2017-12-26 14:37:17:19 :[msg] 2017-12-26 14:37:17:20 :[msg] 2017-12-26 14:37:17:39 :[msg] 2017-12-26 14:37:17:40 :[msg] 2017-12-26 14:37:17:50 :[msg] 2017-12-26 14:37:17:50 :[msg] 2017-12-26 14:37:17:51 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:
+
+[msg] 2017-12-26 14:37:17:SendData:seat: 3
+card: 34
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:17:send data: 
+[msg] 2017-12-26 14:37:17:SendData:seat: 3
+card: 34
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:17:send data: 
+[msg] 2017-12-26 14:37:17:SendData:seat: 3
+card: 34
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:17:send data: 
+[msg] 2017-12-26 14:37:17:roomid:556389,leftcard:43[msg] 2017-12-26 14:37:17:seat:1----[msg] 2017-12-26 14:37:17:37 :[msg] 2017-12-26 14:37:17:35 :[msg] 2017-12-26 14:37:17:35 :[msg] 2017-12-26 14:37:17:36 :[msg] 2017-12-26 14:37:17:37 :[msg] 2017-12-26 14:37:17:38 :[msg] 2017-12-26 14:37:17:65 :[msg] 2017-12-26 14:37:17:65 :[msg] 2017-12-26 14:37:17:65 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:
+
+[msg] 2017-12-26 14:37:17:seat:2----[msg] 2017-12-26 14:37:17:20 :[msg] 2017-12-26 14:37:17:20 :[msg] 2017-12-26 14:37:17:21 :[msg] 2017-12-26 14:37:17:21 :[msg] 2017-12-26 14:37:17:22 :[msg] 2017-12-26 14:37:17:23 :[msg] 2017-12-26 14:37:17:33 :[msg] 2017-12-26 14:37:17:34 :[msg] 2017-12-26 14:37:17:66 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:
+
+[msg] 2017-12-26 14:37:17:seat:3----[msg] 2017-12-26 14:37:17:18 :[msg] 2017-12-26 14:37:17:19 :[msg] 2017-12-26 14:37:17:19 :[msg] 2017-12-26 14:37:17:19 :[msg] 2017-12-26 14:37:17:20 :[msg] 2017-12-26 14:37:17:39 :[msg] 2017-12-26 14:37:17:40 :[msg] 2017-12-26 14:37:17:50 :[msg] 2017-12-26 14:37:17:50 :[msg] 2017-12-26 14:37:17:51 :[msg] 2017-12-26 14:37:17:67 :[msg] 2017-12-26 14:37:17:
+
+[msg] 2017-12-26 14:37:18:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:SendData:card: 37
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:37:18:ccEvent:card: 37
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:18:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:37:18:出牌-seat:1-----[msg] 2017-12-26 14:37:18:51  [msg] 2017-12-26 14:37:18:25  [msg] 2017-12-26 14:37:18:18  [msg] 2017-12-26 14:37:18:40  [msg] 2017-12-26 14:37:18:37  [msg] 2017-12-26 14:37:18:seat:1----[msg] 2017-12-26 14:37:18:35 :[msg] 2017-12-26 14:37:18:35 :[msg] 2017-12-26 14:37:18:36 :[msg] 2017-12-26 14:37:18:37 :[msg] 2017-12-26 14:37:18:38 :[msg] 2017-12-26 14:37:18:65 :[msg] 2017-12-26 14:37:18:65 :[msg] 2017-12-26 14:37:18:65 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:
+
+[msg] 2017-12-26 14:37:18:seat:2----[msg] 2017-12-26 14:37:18:20 :[msg] 2017-12-26 14:37:18:20 :[msg] 2017-12-26 14:37:18:21 :[msg] 2017-12-26 14:37:18:21 :[msg] 2017-12-26 14:37:18:22 :[msg] 2017-12-26 14:37:18:23 :[msg] 2017-12-26 14:37:18:33 :[msg] 2017-12-26 14:37:18:34 :[msg] 2017-12-26 14:37:18:66 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:
+
+[msg] 2017-12-26 14:37:18:seat:3----[msg] 2017-12-26 14:37:18:18 :[msg] 2017-12-26 14:37:18:19 :[msg] 2017-12-26 14:37:18:19 :[msg] 2017-12-26 14:37:18:19 :[msg] 2017-12-26 14:37:18:20 :[msg] 2017-12-26 14:37:18:39 :[msg] 2017-12-26 14:37:18:40 :[msg] 2017-12-26 14:37:18:50 :[msg] 2017-12-26 14:37:18:50 :[msg] 2017-12-26 14:37:18:51 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:
+
+[msg] 2017-12-26 14:37:18:SendData:seat: 1
+card: 37
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:SendData:seat: 1
+card: 37
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:roomid:556389,leftcard:42[msg] 2017-12-26 14:37:18:seat:1----[msg] 2017-12-26 14:37:18:35 :[msg] 2017-12-26 14:37:18:35 :[msg] 2017-12-26 14:37:18:36 :[msg] 2017-12-26 14:37:18:37 :[msg] 2017-12-26 14:37:18:38 :[msg] 2017-12-26 14:37:18:65 :[msg] 2017-12-26 14:37:18:65 :[msg] 2017-12-26 14:37:18:65 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:
+
+[msg] 2017-12-26 14:37:18:seat:2----[msg] 2017-12-26 14:37:18:38 :[msg] 2017-12-26 14:37:18:20 :[msg] 2017-12-26 14:37:18:20 :[msg] 2017-12-26 14:37:18:21 :[msg] 2017-12-26 14:37:18:21 :[msg] 2017-12-26 14:37:18:22 :[msg] 2017-12-26 14:37:18:23 :[msg] 2017-12-26 14:37:18:33 :[msg] 2017-12-26 14:37:18:34 :[msg] 2017-12-26 14:37:18:66 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:
+
+[msg] 2017-12-26 14:37:18:seat:3----[msg] 2017-12-26 14:37:18:18 :[msg] 2017-12-26 14:37:18:19 :[msg] 2017-12-26 14:37:18:19 :[msg] 2017-12-26 14:37:18:19 :[msg] 2017-12-26 14:37:18:20 :[msg] 2017-12-26 14:37:18:39 :[msg] 2017-12-26 14:37:18:40 :[msg] 2017-12-26 14:37:18:50 :[msg] 2017-12-26 14:37:18:50 :[msg] 2017-12-26 14:37:18:51 :[msg] 2017-12-26 14:37:18:67 :[msg] 2017-12-26 14:37:18:
+
+[msg] 2017-12-26 14:37:18:SendData:seat: 1
+card: 37
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:SendData:card: 38
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:18:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:18:send data: 
+[msg] 2017-12-26 14:37:21:ccEvent:card: 38
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:21:出牌-seat:2-----[msg] 2017-12-26 14:37:21:17  [msg] 2017-12-26 14:37:21:37  [msg] 2017-12-26 14:37:21:33  [msg] 2017-12-26 14:37:21:41  [msg] 2017-12-26 14:37:21:38  [msg] 2017-12-26 14:37:21:38  [msg] 2017-12-26 14:37:21:seat:1----[msg] 2017-12-26 14:37:21:35 :[msg] 2017-12-26 14:37:21:35 :[msg] 2017-12-26 14:37:21:36 :[msg] 2017-12-26 14:37:21:37 :[msg] 2017-12-26 14:37:21:38 :[msg] 2017-12-26 14:37:21:65 :[msg] 2017-12-26 14:37:21:65 :[msg] 2017-12-26 14:37:21:65 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:
+
+[msg] 2017-12-26 14:37:21:seat:2----[msg] 2017-12-26 14:37:21:20 :[msg] 2017-12-26 14:37:21:20 :[msg] 2017-12-26 14:37:21:21 :[msg] 2017-12-26 14:37:21:21 :[msg] 2017-12-26 14:37:21:22 :[msg] 2017-12-26 14:37:21:23 :[msg] 2017-12-26 14:37:21:33 :[msg] 2017-12-26 14:37:21:34 :[msg] 2017-12-26 14:37:21:66 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:
+
+[msg] 2017-12-26 14:37:21:seat:3----[msg] 2017-12-26 14:37:21:18 :[msg] 2017-12-26 14:37:21:19 :[msg] 2017-12-26 14:37:21:19 :[msg] 2017-12-26 14:37:21:19 :[msg] 2017-12-26 14:37:21:20 :[msg] 2017-12-26 14:37:21:39 :[msg] 2017-12-26 14:37:21:40 :[msg] 2017-12-26 14:37:21:50 :[msg] 2017-12-26 14:37:21:50 :[msg] 2017-12-26 14:37:21:51 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:
+
+[msg] 2017-12-26 14:37:21:SendData:seat: 2
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:21:send data: 
+[msg] 2017-12-26 14:37:21:roomid:556389,leftcard:41[msg] 2017-12-26 14:37:21:seat:1----[msg] 2017-12-26 14:37:21:35 :[msg] 2017-12-26 14:37:21:35 :[msg] 2017-12-26 14:37:21:36 :[msg] 2017-12-26 14:37:21:37 :[msg] 2017-12-26 14:37:21:38 :[msg] 2017-12-26 14:37:21:65 :[msg] 2017-12-26 14:37:21:65 :[msg] 2017-12-26 14:37:21:65 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:
+
+[msg] 2017-12-26 14:37:21:seat:2----[msg] 2017-12-26 14:37:21:20 :[msg] 2017-12-26 14:37:21:20 :[msg] 2017-12-26 14:37:21:21 :[msg] 2017-12-26 14:37:21:21 :[msg] 2017-12-26 14:37:21:22 :[msg] 2017-12-26 14:37:21:23 :[msg] 2017-12-26 14:37:21:33 :[msg] 2017-12-26 14:37:21:34 :[msg] 2017-12-26 14:37:21:66 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:
+
+[msg] 2017-12-26 14:37:21:seat:3----[msg] 2017-12-26 14:37:21:25 :[msg] 2017-12-26 14:37:21:18 :[msg] 2017-12-26 14:37:21:19 :[msg] 2017-12-26 14:37:21:19 :[msg] 2017-12-26 14:37:21:19 :[msg] 2017-12-26 14:37:21:20 :[msg] 2017-12-26 14:37:21:39 :[msg] 2017-12-26 14:37:21:40 :[msg] 2017-12-26 14:37:21:50 :[msg] 2017-12-26 14:37:21:50 :[msg] 2017-12-26 14:37:21:51 :[msg] 2017-12-26 14:37:21:67 :[msg] 2017-12-26 14:37:21:
+
+[msg] 2017-12-26 14:37:21:SendData:seat: 2
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:21:send data: 
+[msg] 2017-12-26 14:37:21:SendData:seat: 2
+card: 38
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:21:send data: 
+[msg] 2017-12-26 14:37:22:SendData:card: 25
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:22:send data: 
+[msg] 2017-12-26 14:37:22:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:22:send data: 
+[msg] 2017-12-26 14:37:22:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:22:send data: 
+[msg] 2017-12-26 14:37:25:ccEvent:card: 25
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:25:出牌-seat:3-----[msg] 2017-12-26 14:37:25:36  [msg] 2017-12-26 14:37:25:38  [msg] 2017-12-26 14:37:25:22  [msg] 2017-12-26 14:37:25:36  [msg] 2017-12-26 14:37:25:34  [msg] 2017-12-26 14:37:25:36  [msg] 2017-12-26 14:37:25:34  [msg] 2017-12-26 14:37:25:25  [msg] 2017-12-26 14:37:25:seat:1----[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:36 :[msg] 2017-12-26 14:37:25:37 :[msg] 2017-12-26 14:37:25:38 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:2----[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:22 :[msg] 2017-12-26 14:37:25:23 :[msg] 2017-12-26 14:37:25:33 :[msg] 2017-12-26 14:37:25:34 :[msg] 2017-12-26 14:37:25:66 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:3----[msg] 2017-12-26 14:37:25:18 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:39 :[msg] 2017-12-26 14:37:25:40 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:51 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:SendData:seat: 3
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:SendData:seat: 3
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:SendData:seat: 3
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:roomid:556389,leftcard:40[msg] 2017-12-26 14:37:25:seat:1----[msg] 2017-12-26 14:37:25:22 :[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:36 :[msg] 2017-12-26 14:37:25:37 :[msg] 2017-12-26 14:37:25:38 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:2----[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:22 :[msg] 2017-12-26 14:37:25:23 :[msg] 2017-12-26 14:37:25:33 :[msg] 2017-12-26 14:37:25:34 :[msg] 2017-12-26 14:37:25:66 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:3----[msg] 2017-12-26 14:37:25:18 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:39 :[msg] 2017-12-26 14:37:25:40 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:51 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:SendData:card: 22
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:sercverdest:5,cmd:2,bodylen:5,code:513
+[msg] 2017-12-26 14:37:25:ccEvent:card: 22
+code: 513
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:25:update!!!!!!!!!!!!!!
+[msg] 2017-12-26 14:37:25:出牌-seat:1-----[msg] 2017-12-26 14:37:25:51  [msg] 2017-12-26 14:37:25:25  [msg] 2017-12-26 14:37:25:18  [msg] 2017-12-26 14:37:25:40  [msg] 2017-12-26 14:37:25:37  [msg] 2017-12-26 14:37:25:22  [msg] 2017-12-26 14:37:25:seat:1----[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:36 :[msg] 2017-12-26 14:37:25:37 :[msg] 2017-12-26 14:37:25:38 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:2----[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:22 :[msg] 2017-12-26 14:37:25:23 :[msg] 2017-12-26 14:37:25:33 :[msg] 2017-12-26 14:37:25:34 :[msg] 2017-12-26 14:37:25:66 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:3----[msg] 2017-12-26 14:37:25:18 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:39 :[msg] 2017-12-26 14:37:25:40 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:51 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:SendData:seat: 1
+card: 22
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:SendData:seat: 1
+card: 22
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:25:roomid:556389,leftcard:39[msg] 2017-12-26 14:37:25:seat:1----[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:35 :[msg] 2017-12-26 14:37:25:36 :[msg] 2017-12-26 14:37:25:37 :[msg] 2017-12-26 14:37:25:38 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:65 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:2----[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:21 :[msg] 2017-12-26 14:37:25:22 :[msg] 2017-12-26 14:37:25:23 :[msg] 2017-12-26 14:37:25:33 :[msg] 2017-12-26 14:37:25:34 :[msg] 2017-12-26 14:37:25:66 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:seat:3----[msg] 2017-12-26 14:37:25:18 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:19 :[msg] 2017-12-26 14:37:25:20 :[msg] 2017-12-26 14:37:25:39 :[msg] 2017-12-26 14:37:25:40 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:50 :[msg] 2017-12-26 14:37:25:51 :[msg] 2017-12-26 14:37:25:67 :[msg] 2017-12-26 14:37:25:
+
+[msg] 2017-12-26 14:37:25:SendData:seat: 1
+card: 22
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:25:send data: 
+[msg] 2017-12-26 14:37:26:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:26:send data: 
+[msg] 2017-12-26 14:37:26:SendData:card: 19
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:26:send data: 
+[msg] 2017-12-26 14:37:26:SendData:seat: 2
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:26:send data: 
+[msg] 2017-12-26 14:37:31:ccEvent:card: 19
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:31:出牌-seat:2-----[msg] 2017-12-26 14:37:31:17  [msg] 2017-12-26 14:37:31:37  [msg] 2017-12-26 14:37:31:33  [msg] 2017-12-26 14:37:31:41  [msg] 2017-12-26 14:37:31:38  [msg] 2017-12-26 14:37:31:38  [msg] 2017-12-26 14:37:31:19  [msg] 2017-12-26 14:37:31:seat:1----[msg] 2017-12-26 14:37:31:35 :[msg] 2017-12-26 14:37:31:35 :[msg] 2017-12-26 14:37:31:36 :[msg] 2017-12-26 14:37:31:37 :[msg] 2017-12-26 14:37:31:38 :[msg] 2017-12-26 14:37:31:65 :[msg] 2017-12-26 14:37:31:65 :[msg] 2017-12-26 14:37:31:65 :[msg] 2017-12-26 14:37:31:67 :[msg] 2017-12-26 14:37:31:67 :[msg] 2017-12-26 14:37:31:
+
+[msg] 2017-12-26 14:37:31:seat:2----[msg] 2017-12-26 14:37:31:20 :[msg] 2017-12-26 14:37:31:20 :[msg] 2017-12-26 14:37:31:21 :[msg] 2017-12-26 14:37:31:21 :[msg] 2017-12-26 14:37:31:22 :[msg] 2017-12-26 14:37:31:23 :[msg] 2017-12-26 14:37:31:33 :[msg] 2017-12-26 14:37:31:34 :[msg] 2017-12-26 14:37:31:66 :[msg] 2017-12-26 14:37:31:67 :[msg] 2017-12-26 14:37:31:
+
+[msg] 2017-12-26 14:37:31:seat:3----[msg] 2017-12-26 14:37:31:18 :[msg] 2017-12-26 14:37:31:19 :[msg] 2017-12-26 14:37:31:19 :[msg] 2017-12-26 14:37:31:19 :[msg] 2017-12-26 14:37:31:20 :[msg] 2017-12-26 14:37:31:39 :[msg] 2017-12-26 14:37:31:40 :[msg] 2017-12-26 14:37:31:50 :[msg] 2017-12-26 14:37:31:50 :[msg] 2017-12-26 14:37:31:51 :[msg] 2017-12-26 14:37:31:67 :[msg] 2017-12-26 14:37:31:
+
+[msg] 2017-12-26 14:37:31:SendData:seat: 2
+card: 19
+value: 24
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:31:send data: 
+[msg] 2017-12-26 14:37:31:SendData:seat: 2
+card: 19
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:31:send data: 
+[msg] 2017-12-26 14:37:31:SendData:seat: 2
+card: 19
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:31:send data: 
+[msg] 2017-12-26 14:37:34:ccEvent:card: 19
+value: 3
+  name:FxGame.Protocol.COperation[msg] 2017-12-26 14:37:34:seat:1----[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:36 :[msg] 2017-12-26 14:37:34:37 :[msg] 2017-12-26 14:37:34:38 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:2----[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:22 :[msg] 2017-12-26 14:37:34:23 :[msg] 2017-12-26 14:37:34:33 :[msg] 2017-12-26 14:37:34:34 :[msg] 2017-12-26 14:37:34:66 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:3----[msg] 2017-12-26 14:37:34:18 :[msg] 2017-12-26 14:37:34:19 :[msg] 2017-12-26 14:37:34:19 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:39 :[msg] 2017-12-26 14:37:34:40 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:51 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:1----[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:36 :[msg] 2017-12-26 14:37:34:37 :[msg] 2017-12-26 14:37:34:38 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:2----[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:22 :[msg] 2017-12-26 14:37:34:23 :[msg] 2017-12-26 14:37:34:33 :[msg] 2017-12-26 14:37:34:34 :[msg] 2017-12-26 14:37:34:66 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:3----[msg] 2017-12-26 14:37:34:18 :[msg] 2017-12-26 14:37:34:19 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:39 :[msg] 2017-12-26 14:37:34:40 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:51 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:1----[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:36 :[msg] 2017-12-26 14:37:34:37 :[msg] 2017-12-26 14:37:34:38 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:2----[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:22 :[msg] 2017-12-26 14:37:34:23 :[msg] 2017-12-26 14:37:34:33 :[msg] 2017-12-26 14:37:34:34 :[msg] 2017-12-26 14:37:34:66 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:3----[msg] 2017-12-26 14:37:34:18 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:39 :[msg] 2017-12-26 14:37:34:40 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:51 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+besite: 2
+card: 19
+value: 3
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:seat:1----[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:36 :[msg] 2017-12-26 14:37:34:37 :[msg] 2017-12-26 14:37:34:38 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:2----[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:22 :[msg] 2017-12-26 14:37:34:23 :[msg] 2017-12-26 14:37:34:33 :[msg] 2017-12-26 14:37:34:34 :[msg] 2017-12-26 14:37:34:66 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:3----[msg] 2017-12-26 14:37:34:25 :[msg] 2017-12-26 14:37:34:18 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:39 :[msg] 2017-12-26 14:37:34:40 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:51 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+besite: 2
+card: 19
+value: 3
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+besite: 2
+card: 19
+value: 3
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:ccEvent:card: 19
+value: 2
+  name:FxGame.Protocol.COperation[msg] 2017-12-26 14:37:34:seat:1----[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:36 :[msg] 2017-12-26 14:37:34:37 :[msg] 2017-12-26 14:37:34:38 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:2----[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:22 :[msg] 2017-12-26 14:37:34:23 :[msg] 2017-12-26 14:37:34:33 :[msg] 2017-12-26 14:37:34:34 :[msg] 2017-12-26 14:37:34:66 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:3----[msg] 2017-12-26 14:37:34:25 :[msg] 2017-12-26 14:37:34:18 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:39 :[msg] 2017-12-26 14:37:34:40 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:51 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:1----[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:35 :[msg] 2017-12-26 14:37:34:36 :[msg] 2017-12-26 14:37:34:37 :[msg] 2017-12-26 14:37:34:38 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:65 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:2----[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:21 :[msg] 2017-12-26 14:37:34:22 :[msg] 2017-12-26 14:37:34:23 :[msg] 2017-12-26 14:37:34:33 :[msg] 2017-12-26 14:37:34:34 :[msg] 2017-12-26 14:37:34:66 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:seat:3----[msg] 2017-12-26 14:37:34:25 :[msg] 2017-12-26 14:37:34:18 :[msg] 2017-12-26 14:37:34:20 :[msg] 2017-12-26 14:37:34:39 :[msg] 2017-12-26 14:37:34:40 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:50 :[msg] 2017-12-26 14:37:34:51 :[msg] 2017-12-26 14:37:34:67 :[msg] 2017-12-26 14:37:34:
+
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+besite: 3
+card: 19
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+besite: 3
+card: 19
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:SendData:seat: 3
+besite: 3
+card: 19
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:34:SendData:card: 25
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:34:send data: 
+[msg] 2017-12-26 14:37:37:ccEvent:card: 20
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:37:出牌-seat:3-----[msg] 2017-12-26 14:37:37:36  [msg] 2017-12-26 14:37:37:38  [msg] 2017-12-26 14:37:37:22  [msg] 2017-12-26 14:37:37:36  [msg] 2017-12-26 14:37:37:34  [msg] 2017-12-26 14:37:37:36  [msg] 2017-12-26 14:37:37:34  [msg] 2017-12-26 14:37:37:25  [msg] 2017-12-26 14:37:37:20  [msg] 2017-12-26 14:37:37:seat:1----[msg] 2017-12-26 14:37:37:35 :[msg] 2017-12-26 14:37:37:35 :[msg] 2017-12-26 14:37:37:36 :[msg] 2017-12-26 14:37:37:37 :[msg] 2017-12-26 14:37:37:38 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:seat:2----[msg] 2017-12-26 14:37:37:20 :[msg] 2017-12-26 14:37:37:20 :[msg] 2017-12-26 14:37:37:21 :[msg] 2017-12-26 14:37:37:21 :[msg] 2017-12-26 14:37:37:22 :[msg] 2017-12-26 14:37:37:23 :[msg] 2017-12-26 14:37:37:33 :[msg] 2017-12-26 14:37:37:34 :[msg] 2017-12-26 14:37:37:66 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:seat:3----[msg] 2017-12-26 14:37:37:18 :[msg] 2017-12-26 14:37:37:25 :[msg] 2017-12-26 14:37:37:39 :[msg] 2017-12-26 14:37:37:40 :[msg] 2017-12-26 14:37:37:50 :[msg] 2017-12-26 14:37:37:50 :[msg] 2017-12-26 14:37:37:51 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:SendData:seat: 3
+card: 20
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:SendData:seat: 3
+card: 20
+value: 8
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:SendData:seat: 3
+card: 20
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:ccEvent:card: 25
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:37:出牌-seat:3-----[msg] 2017-12-26 14:37:37:36  [msg] 2017-12-26 14:37:37:38  [msg] 2017-12-26 14:37:37:22  [msg] 2017-12-26 14:37:37:36  [msg] 2017-12-26 14:37:37:34  [msg] 2017-12-26 14:37:37:36  [msg] 2017-12-26 14:37:37:34  [msg] 2017-12-26 14:37:37:25  [msg] 2017-12-26 14:37:37:20  [msg] 2017-12-26 14:37:37:25  [msg] 2017-12-26 14:37:37:seat:1----[msg] 2017-12-26 14:37:37:35 :[msg] 2017-12-26 14:37:37:35 :[msg] 2017-12-26 14:37:37:36 :[msg] 2017-12-26 14:37:37:37 :[msg] 2017-12-26 14:37:37:38 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:seat:2----[msg] 2017-12-26 14:37:37:20 :[msg] 2017-12-26 14:37:37:20 :[msg] 2017-12-26 14:37:37:21 :[msg] 2017-12-26 14:37:37:21 :[msg] 2017-12-26 14:37:37:22 :[msg] 2017-12-26 14:37:37:23 :[msg] 2017-12-26 14:37:37:33 :[msg] 2017-12-26 14:37:37:34 :[msg] 2017-12-26 14:37:37:66 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:seat:3----[msg] 2017-12-26 14:37:37:18 :[msg] 2017-12-26 14:37:37:39 :[msg] 2017-12-26 14:37:37:40 :[msg] 2017-12-26 14:37:37:50 :[msg] 2017-12-26 14:37:37:50 :[msg] 2017-12-26 14:37:37:51 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:SendData:seat: 3
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:SendData:seat: 3
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:SendData:seat: 3
+card: 25
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:roomid:556389,leftcard:37[msg] 2017-12-26 14:37:37:seat:1----[msg] 2017-12-26 14:37:37:17 :[msg] 2017-12-26 14:37:37:35 :[msg] 2017-12-26 14:37:37:35 :[msg] 2017-12-26 14:37:37:36 :[msg] 2017-12-26 14:37:37:37 :[msg] 2017-12-26 14:37:37:38 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:65 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:seat:2----[msg] 2017-12-26 14:37:37:20 :[msg] 2017-12-26 14:37:37:20 :[msg] 2017-12-26 14:37:37:21 :[msg] 2017-12-26 14:37:37:21 :[msg] 2017-12-26 14:37:37:22 :[msg] 2017-12-26 14:37:37:23 :[msg] 2017-12-26 14:37:37:33 :[msg] 2017-12-26 14:37:37:34 :[msg] 2017-12-26 14:37:37:66 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:seat:3----[msg] 2017-12-26 14:37:37:18 :[msg] 2017-12-26 14:37:37:39 :[msg] 2017-12-26 14:37:37:40 :[msg] 2017-12-26 14:37:37:50 :[msg] 2017-12-26 14:37:37:50 :[msg] 2017-12-26 14:37:37:51 :[msg] 2017-12-26 14:37:37:67 :[msg] 2017-12-26 14:37:37:
+
+[msg] 2017-12-26 14:37:37:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:37:SendData:card: 17
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:37:send data: 
+[msg] 2017-12-26 14:37:38:ccEvent:card: 13
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:42:ccEvent:card: 20
+value: 2
+  name:FxGame.Protocol.COperation[msg] 2017-12-26 14:37:42:seat:1----[msg] 2017-12-26 14:37:42:17 :[msg] 2017-12-26 14:37:42:35 :[msg] 2017-12-26 14:37:42:35 :[msg] 2017-12-26 14:37:42:36 :[msg] 2017-12-26 14:37:42:37 :[msg] 2017-12-26 14:37:42:38 :[msg] 2017-12-26 14:37:42:65 :[msg] 2017-12-26 14:37:42:65 :[msg] 2017-12-26 14:37:42:65 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:
+
+[msg] 2017-12-26 14:37:42:seat:2----[msg] 2017-12-26 14:37:42:20 :[msg] 2017-12-26 14:37:42:21 :[msg] 2017-12-26 14:37:42:21 :[msg] 2017-12-26 14:37:42:22 :[msg] 2017-12-26 14:37:42:23 :[msg] 2017-12-26 14:37:42:33 :[msg] 2017-12-26 14:37:42:34 :[msg] 2017-12-26 14:37:42:66 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:
+
+[msg] 2017-12-26 14:37:42:seat:3----[msg] 2017-12-26 14:37:42:18 :[msg] 2017-12-26 14:37:42:39 :[msg] 2017-12-26 14:37:42:40 :[msg] 2017-12-26 14:37:42:50 :[msg] 2017-12-26 14:37:42:50 :[msg] 2017-12-26 14:37:42:51 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:
+
+[msg] 2017-12-26 14:37:42:seat:1----[msg] 2017-12-26 14:37:42:17 :[msg] 2017-12-26 14:37:42:35 :[msg] 2017-12-26 14:37:42:35 :[msg] 2017-12-26 14:37:42:36 :[msg] 2017-12-26 14:37:42:37 :[msg] 2017-12-26 14:37:42:38 :[msg] 2017-12-26 14:37:42:65 :[msg] 2017-12-26 14:37:42:65 :[msg] 2017-12-26 14:37:42:65 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:
+
+[msg] 2017-12-26 14:37:42:seat:2----[msg] 2017-12-26 14:37:42:21 :[msg] 2017-12-26 14:37:42:21 :[msg] 2017-12-26 14:37:42:22 :[msg] 2017-12-26 14:37:42:23 :[msg] 2017-12-26 14:37:42:33 :[msg] 2017-12-26 14:37:42:34 :[msg] 2017-12-26 14:37:42:66 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:
+
+[msg] 2017-12-26 14:37:42:seat:3----[msg] 2017-12-26 14:37:42:18 :[msg] 2017-12-26 14:37:42:39 :[msg] 2017-12-26 14:37:42:40 :[msg] 2017-12-26 14:37:42:50 :[msg] 2017-12-26 14:37:42:50 :[msg] 2017-12-26 14:37:42:51 :[msg] 2017-12-26 14:37:42:67 :[msg] 2017-12-26 14:37:42:
+
+[msg] 2017-12-26 14:37:42:SendData:seat: 2
+besite: 1
+card: 20
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:42:send data: 
+[msg] 2017-12-26 14:37:42:SendData:seat: 2
+besite: 1
+card: 20
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:42:send data: 
+[msg] 2017-12-26 14:37:42:SendData:seat: 2
+besite: 1
+card: 20
+value: 2
+discontinue: 0
+  name:FxGame.Protocol.SOperation
+[msg] 2017-12-26 14:37:42:send data: 
+[msg] 2017-12-26 14:37:45:ccEvent:card: 29
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:47:ccEvent:card: 14
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:47:出牌-seat:2-----[msg] 2017-12-26 14:37:47:17  [msg] 2017-12-26 14:37:47:37  [msg] 2017-12-26 14:37:47:33  [msg] 2017-12-26 14:37:47:41  [msg] 2017-12-26 14:37:47:38  [msg] 2017-12-26 14:37:47:38  [msg] 2017-12-26 14:37:47:14  [msg] 2017-12-26 14:37:47:seat:1----[msg] 2017-12-26 14:37:47:17 :[msg] 2017-12-26 14:37:47:35 :[msg] 2017-12-26 14:37:47:35 :[msg] 2017-12-26 14:37:47:36 :[msg] 2017-12-26 14:37:47:37 :[msg] 2017-12-26 14:37:47:38 :[msg] 2017-12-26 14:37:47:65 :[msg] 2017-12-26 14:37:47:65 :[msg] 2017-12-26 14:37:47:65 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:
+
+[msg] 2017-12-26 14:37:47:seat:2----[msg] 2017-12-26 14:37:47:21 :[msg] 2017-12-26 14:37:47:21 :[msg] 2017-12-26 14:37:47:22 :[msg] 2017-12-26 14:37:47:23 :[msg] 2017-12-26 14:37:47:33 :[msg] 2017-12-26 14:37:47:34 :[msg] 2017-12-26 14:37:47:66 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:
+
+[msg] 2017-12-26 14:37:47:seat:3----[msg] 2017-12-26 14:37:47:18 :[msg] 2017-12-26 14:37:47:39 :[msg] 2017-12-26 14:37:47:40 :[msg] 2017-12-26 14:37:47:50 :[msg] 2017-12-26 14:37:47:50 :[msg] 2017-12-26 14:37:47:51 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:
+
+[msg] 2017-12-26 14:37:47:SendData:seat: 2
+card: 14
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:47:send data: 
+[msg] 2017-12-26 14:37:47:roomid:556389,leftcard:36[msg] 2017-12-26 14:37:47:seat:1----[msg] 2017-12-26 14:37:47:17 :[msg] 2017-12-26 14:37:47:35 :[msg] 2017-12-26 14:37:47:35 :[msg] 2017-12-26 14:37:47:36 :[msg] 2017-12-26 14:37:47:37 :[msg] 2017-12-26 14:37:47:38 :[msg] 2017-12-26 14:37:47:65 :[msg] 2017-12-26 14:37:47:65 :[msg] 2017-12-26 14:37:47:65 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:
+
+[msg] 2017-12-26 14:37:47:seat:2----[msg] 2017-12-26 14:37:47:21 :[msg] 2017-12-26 14:37:47:21 :[msg] 2017-12-26 14:37:47:22 :[msg] 2017-12-26 14:37:47:23 :[msg] 2017-12-26 14:37:47:33 :[msg] 2017-12-26 14:37:47:34 :[msg] 2017-12-26 14:37:47:66 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:
+
+[msg] 2017-12-26 14:37:47:seat:3----[msg] 2017-12-26 14:37:47:52 :[msg] 2017-12-26 14:37:47:18 :[msg] 2017-12-26 14:37:47:39 :[msg] 2017-12-26 14:37:47:40 :[msg] 2017-12-26 14:37:47:50 :[msg] 2017-12-26 14:37:47:50 :[msg] 2017-12-26 14:37:47:51 :[msg] 2017-12-26 14:37:47:67 :[msg] 2017-12-26 14:37:47:
+
+[msg] 2017-12-26 14:37:47:SendData:seat: 2
+card: 14
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:47:send data: 
+[msg] 2017-12-26 14:37:47:SendData:seat: 2
+card: 14
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:47:send data: 
+[msg] 2017-12-26 14:37:47:SendData:card: 52
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:47:send data: 
+[msg] 2017-12-26 14:37:47:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:47:send data: 
+[msg] 2017-12-26 14:37:47:SendData:seat: 3
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:47:send data: 
+[msg] 2017-12-26 14:37:52:ccEvent:card: 52
+  name:FxGame.Protocol.CPushCard[msg] 2017-12-26 14:37:52:出牌-seat:3-----[msg] 2017-12-26 14:37:52:36  [msg] 2017-12-26 14:37:52:38  [msg] 2017-12-26 14:37:52:22  [msg] 2017-12-26 14:37:52:36  [msg] 2017-12-26 14:37:52:34  [msg] 2017-12-26 14:37:52:36  [msg] 2017-12-26 14:37:52:34  [msg] 2017-12-26 14:37:52:25  [msg] 2017-12-26 14:37:52:20  [msg] 2017-12-26 14:37:52:25  [msg] 2017-12-26 14:37:52:52  [msg] 2017-12-26 14:37:52:seat:1----[msg] 2017-12-26 14:37:52:17 :[msg] 2017-12-26 14:37:52:35 :[msg] 2017-12-26 14:37:52:35 :[msg] 2017-12-26 14:37:52:36 :[msg] 2017-12-26 14:37:52:37 :[msg] 2017-12-26 14:37:52:38 :[msg] 2017-12-26 14:37:52:65 :[msg] 2017-12-26 14:37:52:65 :[msg] 2017-12-26 14:37:52:65 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:
+
+[msg] 2017-12-26 14:37:52:seat:2----[msg] 2017-12-26 14:37:52:21 :[msg] 2017-12-26 14:37:52:21 :[msg] 2017-12-26 14:37:52:22 :[msg] 2017-12-26 14:37:52:23 :[msg] 2017-12-26 14:37:52:33 :[msg] 2017-12-26 14:37:52:34 :[msg] 2017-12-26 14:37:52:66 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:
+
+[msg] 2017-12-26 14:37:52:seat:3----[msg] 2017-12-26 14:37:52:18 :[msg] 2017-12-26 14:37:52:39 :[msg] 2017-12-26 14:37:52:40 :[msg] 2017-12-26 14:37:52:50 :[msg] 2017-12-26 14:37:52:50 :[msg] 2017-12-26 14:37:52:51 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:
+
+[msg] 2017-12-26 14:37:52:SendData:seat: 3
+card: 52
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:52:send data: 
+[msg] 2017-12-26 14:37:52:SendData:seat: 3
+card: 52
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:52:send data: 
+[msg] 2017-12-26 14:37:52:SendData:seat: 3
+card: 52
+value: 0
+  name:FxGame.Protocol.SPushCard
+[msg] 2017-12-26 14:37:52:send data: 
+[msg] 2017-12-26 14:37:52:roomid:556389,leftcard:35[msg] 2017-12-26 14:37:52:seat:1----[msg] 2017-12-26 14:37:52:25 :[msg] 2017-12-26 14:37:52:17 :[msg] 2017-12-26 14:37:52:35 :[msg] 2017-12-26 14:37:52:35 :[msg] 2017-12-26 14:37:52:36 :[msg] 2017-12-26 14:37:52:37 :[msg] 2017-12-26 14:37:52:38 :[msg] 2017-12-26 14:37:52:65 :[msg] 2017-12-26 14:37:52:65 :[msg] 2017-12-26 14:37:52:65 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:
+
+[msg] 2017-12-26 14:37:52:seat:2----[msg] 2017-12-26 14:37:52:21 :[msg] 2017-12-26 14:37:52:21 :[msg] 2017-12-26 14:37:52:22 :[msg] 2017-12-26 14:37:52:23 :[msg] 2017-12-26 14:37:52:33 :[msg] 2017-12-26 14:37:52:34 :[msg] 2017-12-26 14:37:52:66 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:
+
+[msg] 2017-12-26 14:37:52:seat:3----[msg] 2017-12-26 14:37:52:18 :[msg] 2017-12-26 14:37:52:39 :[msg] 2017-12-26 14:37:52:40 :[msg] 2017-12-26 14:37:52:50 :[msg] 2017-12-26 14:37:52:50 :[msg] 2017-12-26 14:37:52:51 :[msg] 2017-12-26 14:37:52:67 :[msg] 2017-12-26 14:37:52:
+
+[msg] 2017-12-26 14:37:52:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:52:send data: 
+[msg] 2017-12-26 14:37:52:SendData:seat: 1
+  name:FxGame.Protocol.SOtherGetCard
+[msg] 2017-12-26 14:37:52:send data: 
+[msg] 2017-12-26 14:37:52:SendData:card: 25
+value: 0
+  name:FxGame.Protocol.SGetCard
+[msg] 2017-12-26 14:37:52:send data: 
+[msg] 2017-12-26 14:37:52:SendData:seat: 1
+  name:FxGame.Protocol.SExit
+[msg] 

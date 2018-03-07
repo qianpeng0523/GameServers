@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\Classes">
+      <UniqueIdentifier>{56beafc3-1183-42a1-88eb-7787e92c6215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\network">
+      <UniqueIdentifier>{6f5a3625-d13e-452e-ad18-a7ba42b1c237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\cc">
+      <UniqueIdentifier>{b8a8306c-1b5d-4ef8-b5a3-91b384928e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\common">
+      <UniqueIdentifier>{d941371e-9ca2-4936-a213-94c94255a0f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\poco">
+      <UniqueIdentifier>{5ff86713-a8f1-471b-8d3a-cff89345aa72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\proto">
+      <UniqueIdentifier>{9db3fc26-c6a1-4296-a800-ffd1c55a7028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\netjson">
+      <UniqueIdentifier>{daaef0eb-db39-4b78-9b86-3ffee47d6e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\http">
+      <UniqueIdentifier>{1835ae49-3e5c-4e67-bafc-104b7f6faa06}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\stdafx.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\network\EventDispatcher.cpp">
+      <Filter>源文件\Classes\network</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\network\EventInfo.cpp">
+      <Filter>源文件\Classes\network</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\common\Object.cpp">
+      <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\network\ccEvent.cpp">
+      <Filter>源文件\Classes\network</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\poco\LibEvent.cpp">
+      <Filter>源文件\Classes\poco</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\poco\LibPOCO.cpp">
+      <Filter>源文件\Classes\poco</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\main.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\network\EventListen.cpp">
+      <Filter>源文件\Classes\network</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\netjson\json_reader.cpp">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\netjson\json_value.cpp">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\netjson\json_writer.cpp">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\common\Common.cpp">
+      <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\common\MD5.cpp">
+      <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\common\XXIconv.cpp">
+      <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\common\CSVDataHelper.cpp">
+      <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\common\CSVDataInfo.cpp">
+      <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\DBProto.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\http\HttpEvent.cpp">
+      <Filter>源文件\Classes\http</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Classes\stdafx.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\targetver.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\network\EventDispatcher.h">
+      <Filter>源文件\Classes\network</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\network\EventInfo.h">
+      <Filter>源文件\Classes\network</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\Object.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\network\ccEvent.h">
+      <Filter>源文件\Classes\network</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\poco\CLibEventData.h">
+      <Filter>源文件\Classes\poco</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\poco\CProtocol.h">
+      <Filter>源文件\Classes\poco</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\poco\LibEvent.h">
+      <Filter>源文件\Classes\poco</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\poco\LibPOCO.h">
+      <Filter>源文件\Classes\poco</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\network\EventListen.h">
+      <Filter>源文件\Classes\network</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\json_batchallocator.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\json_lib.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\json_tool.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMconfig.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMfeatures.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMforwards.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMreader.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMSocketData.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMvalue.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMwriter.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\netjson\YMSocketDataEvent.h">
+      <Filter>源文件\Classes\netjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\Common.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\MD5.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\XXIconv.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\iconv.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\CSVDataHelper.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\CSVBaseData.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\CSVDataInfo.h">
+      <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\DBProto.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\http\HttpEvent.h">
+      <Filter>源文件\Classes\http</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Classes\netjson\json_internalarray.inl">
+      <Filter>源文件\Classes\netjson</Filter>
+    </None>
+    <None Include="Classes\netjson\json_internalmap.inl">
+      <Filter>源文件\Classes\netjson</Filter>
+    </None>
+    <None Include="Classes\netjson\json_valueiterator.inl">
+      <Filter>源文件\Classes\netjson</Filter>
+    </None>
+  </ItemGroup>
+</Project>
