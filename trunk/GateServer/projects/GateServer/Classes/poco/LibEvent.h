@@ -39,7 +39,7 @@ private:
 	static DWORD WINAPI ThreadWorkers(LPVOID lPVOID);
 	static DWORD WINAPI ThreadHttp(LPVOID lPVOID);
 	static DWORD WINAPI ThreadAI(LPVOID lPVOID);
-	int getReq(Head *h);
+	string getReq(Head *h);
 	int getCMD(Head *h);
 	int getBodyLen(Head *h);
 	int getStamp(Head *h);
@@ -51,7 +51,7 @@ private:
 	void eraseClientData(string seesionid);
 	void resetConn(Conn *pConn);
 private:
-	map<int fd,ClientData *>m_ClientDatas;
+	map<int ,ClientData *>m_ClientDatas;
 	int m_stamp;
 	static LibEvent *m_ins;
 };

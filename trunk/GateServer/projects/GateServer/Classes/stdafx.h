@@ -18,6 +18,8 @@
 #include <xstring>
 #include "MD5.h"
 #include "XXIconv.h"
+#include "CProtocol.h"
+
 using namespace std;
 using namespace protocol;
 #define CC_REPEAT_FOREVER (UINT_MAX -1)
@@ -58,7 +60,7 @@ enum ERR_CODE{
 };
 
 #define SERVER_PORT 5600
-#define SERVER_CODE 1
+#define SERVER_CODE "wg1"
 #define HEADLEN 10
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 #include "iconv.h"
