@@ -153,7 +153,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 	if (len >= 0){
 		LibEvent *pLibEvent = LibEvent::getIns();
 		Head *testhead = (Head*)headchar;
-		int serverdest = pLibEvent->getReq(testhead);
+		string serverdest = pLibEvent->getReq(testhead);
 		if (serverdest != SERVER_CODE){
 			printf("数据不合法！！！！！！！！\n");
 			return;
@@ -164,7 +164,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		char *buffer = new char[bodylen];
 		len = bufferevent_read(bev, buffer, bodylen);
 		if (len == bodylen){
-			ccEvent *cce = new ccEvent(code, buffer, bodylen, c->fd);
+			ccEvent *cce = new ccEvent(cmd, buffer, bodylen, c->fd);
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{
@@ -186,13 +186,14 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, string re
 		memset(buffer, 0, HEADLEN + len);
 
 		//服务器编号
-		buffer[0] = SERVER_CODE;
+		memcpy(buffer, SERVER_CODE,3);
+		
 		//消息序列号
-		buffer[1] = pdata->m_stamp;
+		buffer[3] = pdata->m_stamp;
 		//bodylen
 		char * clen = (char *)&len;
-		for (int i = 0; i < 4; i++){
-			buffer[2 + i] = *(clen + i);
+		for (int i = 0; i < 2; i++){
+			buffer[4 + i] = *(clen + i);
 		}
 		//cmd
 		char *ccmd = (char *)&cmd;
@@ -203,11 +204,11 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, string re
 		string sm;
 		msg->SerializePartialToString(&sm);
 
-		for (int i = start_char; i < HEADLEN + len; i++){
+		for (int i = HEADLEN; i < HEADLEN + len; i++){
 			buffer[i] = sm[i - HEADLEN];
 		}
 
-		bufferevent_write(pconn->bufev, buffer, len + HEADLEN);
+		bufferevent_write(pdata->_conn->bufev, buffer, len + HEADLEN);
 
 		delete buffer;
 	}
@@ -223,9 +224,11 @@ void LibEvent::CloseConn(Conn *pConn, int nFunID)
 }
 
 void LibEvent::resetConn(Conn *pConn){
-	bufferevent_disable(pConn->bufev, EV_READ | EV_WRITE);
-	evutil_closesocket(fd);
-	pConn->owner->PutFreeConn(pConn);
+	if (pConn&&pConn->fd>0){
+		bufferevent_disable(pConn->bufev, EV_READ | EV_WRITE);
+		evutil_closesocket(pConn->fd);
+		pConn->owner->PutFreeConn(pConn);
+	}
 }
 
 void LibEvent::CloseConn(Conn *pConn)
@@ -278,7 +281,8 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	ClientData *data = new ClientData();
 	data->_fd = fd;
 	data->_conn = pConn;
-	inserClientData(fd, data);
+	LibEvent *pLibEvent = LibEvent::getIns();
+	pLibEvent->inserClientData(fd, data);
 	bufferevent_enable(pConn->bufev, EV_READ | EV_WRITE);
 }
 
@@ -315,26 +319,28 @@ DWORD WINAPI LibEvent::ThreadWorkers(LPVOID lPVOID)
 	return GetCurrentThreadId();
 }
 
-int LibEvent::getReq(Head *h){
-	int sd = h->_req;
-	return sd;
+string LibEvent::getReq(Head *h){
+	char buff[10];
+	memset(buff,0,10);
+	memcpy(buff,h->_req,3);
+	return buff;
 }
 
 int LibEvent::getCMD(Head *h){
-	int cmd = h->_cmd;
+	int cmd = 0;
+	memcpy(&cmd, h->_cmd, 4);
 	return cmd;
 }
 
 int LibEvent::getBodyLen(Head *h){
 	int len = 0;
-	memcpy(&len, h->_bodylen, 4);
+	memcpy(&len, h->_bodylen, 2);
 	return len;
 }
 
-int LibEvent::getCode(Head *h){
-	int cmd = 0;
-	memcpy(&cmd, h->_cmd, 4);
-	return cmd;
+int LibEvent::getStamp(Head *h){
+	int stamp = h->_stamp;
+	return stamp;
 }
 
 void LibEvent::inserClientData(int fd, ClientData *data){
@@ -351,7 +357,7 @@ ClientData * LibEvent::getClientData(int fd){
 }
 
 ClientData * LibEvent::getClientData(string sessionid){
-	map<int fd, ClientData *>::iterator itr = m_ClientDatas.begin();
+	map<int , ClientData *>::iterator itr = m_ClientDatas.begin();
 	for (itr;itr!=m_ClientDatas.end(); itr++){
 		ClientData *data = itr->second;
 		if (data&&data->_sessionID.compare(sessionid) == 0){
@@ -374,11 +380,11 @@ void LibEvent::eraseClientData(int fd){
 	}
 }
 
-void LibEvent::eraseClientData(string seesionid){
-	map<int fd, ClientData *>::iterator itr = m_ClientDatas.begin();
+void LibEvent::eraseClientData(string sesionid){
+	map<int , ClientData *>::iterator itr = m_ClientDatas.begin();
 	for (itr; itr != m_ClientDatas.end(); itr++){
 		ClientData *data = itr->second;
-		if (data&&data->_sessionID.compare(sessionid) == 0){
+		if (data&&data->_sessionID.compare(sesionid) == 0){
 			m_ClientDatas.erase(itr);
 			if (data){
 				if (data->_conn){

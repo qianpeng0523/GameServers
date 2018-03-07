@@ -29,8 +29,8 @@ typedef enum emFunReturn
 /************************************************************************/
 typedef struct _Head 
 {
-	char _req;//服务器序列号
+	char _req[3];//服务器序列号
 	char _stamp;
-	char _bodylen[4];//长度
+	char _bodylen[2];//长度
 	char _cmd[4];//cmd
 }Head,*PHead;

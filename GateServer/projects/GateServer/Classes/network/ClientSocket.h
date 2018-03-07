@@ -38,7 +38,10 @@ private:
 	int Recv(char* buf, int len, int flags = 0);
 	void DataIn(char* data, int size, int cmd);
 	void getKey(int cmd, int stamp, int needKeylen, char buffer[]);
-	
+	string getReq(Head *h);
+	int getCMD(Head *h);
+	int getBodyLen(Head *h);
+	int getStamp(Head *h);
 public:
 	bool m_isConnected;
 	TcpSocket *m_tcpSocket;

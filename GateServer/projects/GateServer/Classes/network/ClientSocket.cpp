@@ -99,24 +99,25 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	memset(buffer, 0, HEADLEN + len);
 
 	//服务器编号
-	buffer[0] = SERVER_CODE;
+	memcpy(buffer, SERVER_CODE, 3);
+
 	//消息序列号
-	buffer[1] = m_stamp;
+	buffer[3] = m_stamp;
 	//bodylen
 	char * clen = (char *)&len;
-	for (int i = 0; i < 4; i++){
-		buffer[2 + i] = *(clen + i);
+	for (int i = 0; i < 2; i++){
+		buffer[4 + i] = *(clen + i);
 	}
 	//cmd
 	char *ccmd = (char *)&cmd;
 	for (int i = 0; i < 4; i++){
-		buffer[6 + i] = *(ccmd+i);
+		buffer[6 + i] = *(ccmd + i);
 	}
 
 	string sm;
 	msg->SerializePartialToString(&sm);
 
-	for (int i = start_char; i < HEADLEN + len; i++){
+	for (int i = HEADLEN; i < HEADLEN + len; i++){
 		buffer[i] = sm[i - HEADLEN];
 	}
 	m_stamp++;
@@ -142,15 +143,15 @@ void *ClientSocket::threadHandler(void *arg) {
     while (1) {
 		len = p->Recv(buff, HEADLEN, 0);
         if (len > 0) {
-			int servercode = buff[0];
-			int stamp = buff[1];
-			memcpy(&len, buff+2, 4);
-			int cmd;
-			memcpy(&cmd, buff+6, 4);
+			Head *head = (Head*)buff;
+			string servercode = p->getReq(head);
+			int stamp = p->getStamp(head);
+			len = p->getBodyLen(head);
+			int cmd=p->getCMD(head);
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
-			if (stamp == m_stamp + 1&&servercode==SERVER_CODE){
+			if (stamp == p->m_stamp + 1&&servercode==SERVER_CODE){
 				p->DataIn(temp, len, cmd);
 			}
 			else{
@@ -176,4 +177,29 @@ void ClientSocket::reConnect(){
 
 void ClientSocket::update(float dt){
 	
+}
+
+
+string ClientSocket::getReq(Head *h){
+	char buff[10];
+	memset(buff, 0, 10);
+	memcpy(buff, h->_req, 3);
+	return buff;
+}
+
+int ClientSocket::getCMD(Head *h){
+	int cmd = 0;
+	memcpy(&cmd, h->_cmd, 4);
+	return cmd;
+}
+
+int ClientSocket::getBodyLen(Head *h){
+	int len = 0;
+	memcpy(&len, h->_bodylen, 2);
+	return len;
+}
+
+int ClientSocket::getStamp(Head *h){
+	int stamp = h->_stamp;
+	return stamp;
 }

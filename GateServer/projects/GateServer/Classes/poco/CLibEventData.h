@@ -104,7 +104,7 @@ struct _ClientData
 		_conn = NULL;
 	}
 	evutil_socket_t _fd;
-	_Conn _conn;
+	_Conn *_conn;
 	string _sessionID;
 	int m_stamp;
 };
