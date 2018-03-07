@@ -76,7 +76,7 @@ void HttpEvent::EventDispath(struct evhttp_request *&req, string uri){
 	m_req = req;
 	YMSocketData sd = getSocketDataByStr(uri,uri.length());
 	//通过url分写逻辑
-	SendMsg(sd);
+	SendMsg(sd,req);
 	
 }
 

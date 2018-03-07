@@ -2,6 +2,8 @@
 #include "SqlControl.h"
 #include "DataBaseUserInfo.h"
 #include "aes.h"
+#include "CSVDataInfo.h"
+
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 
 
@@ -60,7 +62,13 @@ HttpLogic::~HttpLogic(){
 
 bool HttpLogic::init()
 {
-	
+	std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_GATESERVER);
+	std::map<int, Object *>::iterator itr = maps.begin();
+	for (itr; itr != maps.end();itr++){
+		GateData *data = (GateData *)itr->second;
+		string name = data->_name;
+		setGateUse(name, false);
+	}
     return true;
 }
 
@@ -255,4 +263,72 @@ void HttpLogic::SqlBackup(string dbname, char *&buff, int &sz){
 	YMSocketData sd1;
 	sd1["err"] = 0;
 	sd1.serializer(buff, &sz);
+}
+
+void HttpLogic::setGateUse(string name, bool isUse){
+	if (m_gateUse.find(name) != m_gateUse.end()){
+		m_gateUse.at(name) = isUse;
+	}
+	else{
+		m_gateUse.insert(make_pair(name,isUse));
+	}
+}
+
+void HttpLogic::getGateData(char *&buff, int &sz){
+	string name;
+	map<string, bool>::iterator itr = m_gateUse.begin();
+	for (itr; itr != m_gateUse.end();itr++){
+		if (!itr->second){
+			name = itr->first;
+			break;
+		}
+	}
+	YMSocketData sd;
+	int err = 0;
+	if (!name.empty()){
+		std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_GATESERVER);
+		std::map<int, Object *>::iterator itr1 = maps.begin();
+		GateData *data = NULL;
+		for (itr1; itr1 != maps.end(); itr1++){
+			GateData *data1 = (GateData *)itr1->second;
+			string name1 = data1->_name;
+			if (name.compare(name1) == 0){
+				data = data1;
+			}
+		}
+		if (data){
+			sd["servername"] = data->_name;
+			sd["serverip"] = data->_ip;
+			sd["serverport"] = data->_port;
+		}
+		else{
+			err = 2;
+		}
+	}
+	else{
+		err = 1;
+	}
+	sd["err"] = err;
+	sd.serializer(buff, &sz);
+}
+
+void HttpLogic::getLogicManagerData(char *&buff, int &sz){
+	YMSocketData sd;
+	int err = 0;
+	
+	std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_GATESERVER);
+	std::map<int, Object *>::iterator itr1 = maps.begin();
+	GateData *data = NULL;
+	for (itr1; itr1 != maps.end(); itr1++){
+		data = (GateData *)itr1->second;
+		sd["servername"] = data->_name;
+		sd["serverip"] = data->_ip;
+		sd["serverport"] = data->_port;
+	}
+	if (!data){
+		err = 1;
+	}
+	
+	sd["err"] = err;
+	sd.serializer(buff, &sz);
 }

@@ -19,7 +19,7 @@
 #include <map>
 #include "XXIconv.h"
 #include "YMSocketData.h"
-
+#include "Object.h"
 
 #define CC_REPEAT_FOREVER (UINT_MAX -1)
 #define kRepeatForever CC_REPEAT_FOREVER
