@@ -54,3 +54,5 @@
 #pragma comment(lib, "../MYSQLServer//Debug/libcrypto.lib") 
 
 using namespace std;
+#define REPLACESTRR "||||&***#@"
+#define REPLACESTRN "%^&*():"

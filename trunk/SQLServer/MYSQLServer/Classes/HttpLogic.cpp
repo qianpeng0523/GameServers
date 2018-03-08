@@ -107,10 +107,10 @@ void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 		SqlBackup(sd["dbname"].asString(), buff, sz);
 	}
 	else if (cmd == 0x0A){
-		getLogicManagerData( buff, sz);
+		getLogicManagerData(cmd, buff, sz);
 	}
 	else if (cmd == 0x0B){
-		getGateData(buff, sz);
+		getGateData(cmd,buff, sz);
 	}
 }
 
@@ -280,7 +280,7 @@ void HttpLogic::setGateUse(string name, bool isUse){
 	}
 }
 
-void HttpLogic::getGateData(char *&buff, int &sz){
+void HttpLogic::getGateData(int cmd, char *&buff, int &sz){
 	string name;
 	map<string, bool>::iterator itr = m_gateUse.begin();
 	for (itr; itr != m_gateUse.end();itr++){
@@ -314,15 +314,16 @@ void HttpLogic::getGateData(char *&buff, int &sz){
 	else{
 		err = 1;
 	}
+	sd["cmd"] = cmd;
 	sd["err"] = err;
 	sd.serializer(buff, &sz);
 }
 
-void HttpLogic::getLogicManagerData(char *&buff, int &sz){
+void HttpLogic::getLogicManagerData(int cmd, char *&buff, int &sz){
 	YMSocketData sd;
 	int err = 0;
 	
-	std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_GATESERVER);
+	std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_LOGOCMANAGER);
 	std::map<int, Object *>::iterator itr1 = maps.begin();
 	GateData *data = NULL;
 	for (itr1; itr1 != maps.end(); itr1++){
@@ -334,7 +335,7 @@ void HttpLogic::getLogicManagerData(char *&buff, int &sz){
 	if (!data){
 		err = 1;
 	}
-	
+	sd["cmd"] = cmd;
 	sd["err"] = err;
 	sd.serializer(buff, &sz);
 }

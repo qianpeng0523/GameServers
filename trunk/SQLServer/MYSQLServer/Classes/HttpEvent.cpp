@@ -2,6 +2,8 @@
 #include "MD5.h"
 #include "curl.h"
 #include "HttpLogic.h"
+#include "Common.h"
+
 #define WECHAT_APPID "wx73057982ca59e10c"
 #define WECHAT_APPSECRET "021Odmeo0sPwHo1Nqxco0Glneo0OdmeH"
 
@@ -69,6 +71,8 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	uri = evhttp_request_uri(req);
 	string str = uri;
 	str = str.substr(1,str.length());
+	str = Common::replace_all(str, REPLACESTRR,"\r" );
+	str = Common::replace_all(str, REPLACESTRN,"\n");
 	HttpEvent::getIns()->EventDispath(req, str);
 }
 
