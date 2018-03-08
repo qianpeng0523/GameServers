@@ -54,7 +54,7 @@ struct _Conn
 		index=-1;
 		owner=NULL;
 		next=NULL;
-		
+		m_stamp = 0;
 	}
 	~_Conn()
 	{
@@ -65,6 +65,7 @@ struct _Conn
 	int index;
 	_Worker *owner;
 	_Conn *next;
+	int m_stamp;
 	
 };
 //工作线程封装对象.
@@ -99,14 +100,14 @@ struct _Worker
 struct _ClientData
 {
 	_ClientData(){
-		m_stamp = 0;
+		
 		_fd = 0;
 		_conn = NULL;
 	}
 	evutil_socket_t _fd;
 	_Conn *_conn;
 	string _sessionID;
-	int m_stamp;
+	string m_ip;
 };
 
 typedef struct _Server Server;

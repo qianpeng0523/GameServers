@@ -21,7 +21,7 @@ public:
 	bool StartServer(int port, short workernum, unsigned int connnum, int read_timeout, int write_timeout);
 	void StopServer();
 
-	void SendData(int cmd, const google::protobuf::Message *msg, string recv_type_name, int fd);
+	void SendData(int cmd, const google::protobuf::Message *msg, int fd);
 		
 	static void DoAccept(struct evconnlistener *listener, evutil_socket_t fd, struct sockaddr *sa, int socklen, void *user_data);
 	Server getServer(){

@@ -20,6 +20,7 @@ private:
 public:
 	static google::protobuf::Message* create_message(const std::string& type_name);
 	int m_fd;
+	string m_servername;
 };
 
 #endif // __ccccEvent_H__

@@ -1,6 +1,6 @@
 ﻿#include "LibEvent.h"
 #include "HttpEvent.h"
-
+#include "LogicServerInfo.h"
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()
 {
@@ -107,7 +107,7 @@ bool LibEvent::StartServer(int port, short workernum, unsigned int connnum, int 
 	m_Server.bStart = true;
 
 	CreateThread(NULL, 0, ThreadHttp, NULL, 0, NULL);
-		
+	LogicServerInfo::getIns();
 	return true;
 }
 
@@ -163,7 +163,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		int stamp = pLibEvent->getStamp(testhead);
 		char *buffer = new char[bodylen];
 		len = bufferevent_read(bev, buffer, bodylen);
-		if (len == bodylen){
+		if (len == bodylen&&c->m_stamp+1==stamp){
 			ccEvent *cce = new ccEvent(cmd, buffer, bodylen, c->fd);
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
@@ -177,10 +177,10 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 	}
 }
 
-void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, string recv_type_name, evutil_socket_t fd){
+void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_socket_t fd){
 	ClientData *pdata = getClientData(fd);
 	if (pdata&&pdata->_conn){
-		pdata->m_stamp = (pdata->m_stamp+1)/256;
+		pdata->_conn->m_stamp = (pdata->_conn->m_stamp + 1) % 256;
 		int len = msg->ByteSize();
 		char *buffer = new char[HEADLEN + len];
 		memset(buffer, 0, HEADLEN + len);
@@ -189,7 +189,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, string re
 		memcpy(buffer, SERVER_CODE.c_str(),3);
 		
 		//消息序列号
-		buffer[3] = pdata->m_stamp;
+		buffer[3] = pdata->_conn->m_stamp;
 		//bodylen
 		char * clen = (char *)&len;
 		for (int i = 0; i < 2; i++){
@@ -227,6 +227,7 @@ void LibEvent::resetConn(Conn *pConn){
 	if (pConn&&pConn->fd>0){
 		bufferevent_disable(pConn->bufev, EV_READ | EV_WRITE);
 		evutil_closesocket(pConn->fd);
+		pConn->m_stamp = 0;
 		pConn->owner->PutFreeConn(pConn);
 	}
 }
@@ -281,6 +282,7 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	ClientData *data = new ClientData();
 	data->_fd = fd;
 	data->_conn = pConn;
+	data->m_ip = ip;
 	LibEvent *pLibEvent = LibEvent::getIns();
 	pLibEvent->inserClientData(fd, data);
 	bufferevent_enable(pConn->bufev, EV_READ | EV_WRITE);
@@ -373,6 +375,7 @@ void LibEvent::eraseClientData(int fd){
 		m_ClientDatas.erase(m_ClientDatas.find(fd));
 		if (data){
 			if (data->_conn){
+				printf("IP:%s close connect!\n",data->m_ip.c_str());
 				resetConn(data->_conn);
 			}
 			delete data;
@@ -388,6 +391,7 @@ void LibEvent::eraseClientData(string sesionid){
 			m_ClientDatas.erase(itr);
 			if (data){
 				if (data->_conn){
+					printf("IP:%s close connect!\n", data->m_ip.c_str());
 					CloseConn(data->_conn, emFunClosed);
 				}
 				delete data;
