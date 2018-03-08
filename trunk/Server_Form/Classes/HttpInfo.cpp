@@ -618,7 +618,7 @@ void HttpInfo::HttpSend(YMSocketData sd, SEL_HttpResponse respond){
 	url += info->_httpip + ":";
 	url += info->_httpport + "/";
 	log("url:%s",url.c_str());
-	char buff[300];
+	char buff[4096];
 	int sz = 0;
 	sd.serializer(buff, &sz);
 	buff[sz] = '\0';
