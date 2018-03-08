@@ -5,12 +5,13 @@
 #define __SERVER_H__
 #include "stdafx.h"
 #include "ClientSocket.h"
-
+#include "HttpLogic.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ClientSocket::getIns()->connect("192.168.1.103", 5600);
+	HttpLogic::getIns()->requestManagerData();
+	
 	getchar();
 	return 0;
 }

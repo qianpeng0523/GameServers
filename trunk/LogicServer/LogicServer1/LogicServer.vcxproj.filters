@@ -90,6 +90,9 @@
     <ClCompile Include="Classes\network\TcpSocket.cpp">
       <Filter>源文件\Classes\network</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\http\HttpLogic.cpp">
+      <Filter>源文件\Classes\http</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="Classes\network\TcpSocket.h">
       <Filter>源文件\Classes\network</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\http\HttpLogic.h">
+      <Filter>源文件\Classes\http</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

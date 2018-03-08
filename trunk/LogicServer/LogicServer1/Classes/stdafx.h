@@ -18,7 +18,7 @@
 #include <xstring>
 #include "MD5.h"
 #include "XXIconv.h"
-
+#include "YMSocketData.h"
 
 using namespace std;
 using namespace protocol;
@@ -70,8 +70,9 @@ typedef struct _Head
 	char _cmd[4];//cmd
 }Head, *PHead;
 
-#define SERVER_PORT 6000
-#define SERVER_CODE "yw1"
+static int SERVER_PORT = 6000;
+static string SERVER_CODE = "yw1";
+static string SERVER_IP = "192.168.1.103";
 #define HEADLEN 10
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 #include "iconv.h"
@@ -79,3 +80,7 @@ typedef struct _Head
 #pragma comment(lib,"../Debug/libprotobuf.lib")
 #pragma comment(lib,"../Debug/libMessagePack.lib")
 #endif
+
+#define sqlhttp "http://192.168.1.103:8080/"
+#define REPLACESTRR "||||&***#@"
+#define REPLACESTRN "%^&*():"
