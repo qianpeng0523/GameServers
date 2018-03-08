@@ -2,7 +2,7 @@
 #include "CSVDataInfo.h"
 #include "HttpEvent.h"
 #include "LibEvent.h"
-
+#include "Common.h"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 
 
@@ -40,19 +40,32 @@ void HttpLogic::requestManagerData(){
 	sd.serializer(buff, &sz);
 	buff[sz] = '\0';
 	
-	//url += buff;
+	url += buff;
+	url = Common::replace_all(url, "\r", REPLACESTRR);
+	url = Common::replace_all(url, "\n", REPLACESTRN);
 	HttpEvent::getIns()->requestData(url);
 }
 
 void HttpLogic::ManagerDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
-	SERVER_PORT = sd["serverport"].asInt();
-	std::cout << "socket start!" << std::endl;
-	LibEvent *clib = LibEvent::getIns();
-	clib->StartServer(SERVER_PORT, 2, 5000, 600, 600);
-	getchar();
-	clib->StopServer();
+	if (err == 0){
+		SERVER_PORT = sd["serverport"].asInt();
+		std::cout << "socket start:" <<SERVER_PORT<< std::endl;
+		LibEvent *clib = LibEvent::getIns();
+		clib->StartServer(SERVER_PORT, 2, 5000, 600, 600);
+		getchar();
+		clib->StopServer();
+	}
+	else{
+		printf("未获取到数据\n");
+	}
+}
 
+void HttpLogic::respondleLogic(YMSocketData sd){
+	int cmd = sd["cmd"].asInt();
+	if (cmd == 0x0A){
+		ManagerDataCall(sd);
+	}
 }
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){

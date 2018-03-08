@@ -28,8 +28,8 @@ HttpEvent* HttpEvent::getIns(){
 
 size_t read_data(void* buffer, size_t size, size_t nmemb, void *stream)
 {
-	string *content = (string *)stream;
-	content->append((char*)buffer, size * nmemb);
+ 	string *content = (string *)stream;
+ 	content->append((char*)buffer, size * nmemb);
 	return size*nmemb;
 }
 
@@ -54,7 +54,24 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 
 
 void HttpEvent::requestData(string url){
-	
+	CURL *curl = curl_easy_init();
+	if (curl == NULL)
+	{
+		printf("cannot curl");
+		curl_easy_cleanup(curl);
+	}
+	//ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。
+	string content;
+	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, read_data);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &content);
+	//跟踪到的协议信息、libcurl版本、libcurl的客户代码、操作系统名称、版本、编译器名称、版本等等。
+	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+	curl_easy_perform(curl);
+	YMSocketData sd = getSocketDataByStr(content, content.length());
+	HttpLogic::getIns()->respondleLogic(sd);
+
+	curl_easy_cleanup(curl);
 }
 
 void HttpEvent::EventDispath(struct evhttp_request *&req, string uri){
