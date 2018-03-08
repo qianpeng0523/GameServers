@@ -106,6 +106,12 @@ void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	else if (cmd == 0x09){
 		SqlBackup(sd["dbname"].asString(), buff, sz);
 	}
+	else if (cmd == 0x0A){
+		getLogicManagerData( buff, sz);
+	}
+	else if (cmd == 0x0B){
+		getGateData(buff, sz);
+	}
 }
 
 void HttpLogic::SqlConnect(char *&buff, int &sz){
