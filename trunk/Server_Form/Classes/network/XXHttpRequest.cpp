@@ -41,7 +41,6 @@ void XXHttpRequest::postServerDataFromUrl(string url, SEL_HttpResponse respond){
 	request->setRequestType(HttpRequest::Type::POST);
 
 
-
 	request->setResponseCallback(this, respond);
 
 	request->setTag("get test1");
