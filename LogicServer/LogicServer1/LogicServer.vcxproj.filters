@@ -93,6 +93,12 @@
     <ClCompile Include="Classes\http\HttpLogic.cpp">
       <Filter>源文件\Classes\http</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\proto\LogicServerInfo.cpp">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\LogicServer.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -181,6 +187,12 @@
     </ClInclude>
     <ClInclude Include="Classes\http\HttpLogic.h">
       <Filter>源文件\Classes\http</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\proto\LogicServerInfo.h">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\LogicServer.h">
+      <Filter>源文件\Classes\cc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

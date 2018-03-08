@@ -1,5 +1,5 @@
 ﻿#include "ClientSocket.h"
-
+#include "LogicServerInfo.h"
 /**********消息头********
 0		服务器序列号
 1		stamp
@@ -68,6 +68,8 @@ int ClientSocket::connect(const char* ip, unsigned short port) {
 		std::thread t1(&ClientSocket::threadHandler, this);//创建一个分支线程，回调到myThread函数里
 		t1.detach();
         m_isConnected = true;
+
+		LogicServerInfo::getIns()->SendCLogicLogin();
 	}
     return connectFlag;
 }
@@ -93,7 +95,7 @@ int ClientSocket::GetError() {
 }
 
 void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
-	m_stamp = m_stamp%256;
+	m_stamp = (m_stamp+1)%256;
 	int len = msg->ByteSize();
 	char *buffer = new char[HEADLEN + len];
 	memset(buffer, 0, HEADLEN + len);
@@ -120,7 +122,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	for (int i = HEADLEN; i < HEADLEN + len; i++){
 		buffer[i] = sm[i - HEADLEN];
 	}
-	m_stamp++;
+	
 	printf("sendmsg:body:%s",msg->DebugString().c_str());
 	if (m_tcpSocket){
 		m_tcpSocket->Send(buffer, HEADLEN + len);
@@ -151,7 +153,7 @@ void *ClientSocket::threadHandler(void *arg) {
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
-			if (stamp == p->m_stamp + 1&&servercode==SERVER_CODE){
+			if (stamp == p->m_stamp&&servercode==SERVER_CODE){
 				p->DataIn(temp, len, cmd);
 			}
 			else{
