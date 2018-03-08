@@ -1,0 +1,17 @@
+syntax = "proto2";
+package protocol;
+
+//CLogicLogin
+message CLogicLogin
+{
+	required uint32 cmd 			= 1[default=0x1000];  	// 
+    required string servername 		= 2;  					// 
+    optional string seession  		= 3; 					//
+}
+
+//SLogicLogin
+message SLogicLogin
+{
+	required uint32 cmd 			= 1[default=0x1000];  	// 
+    optional uint32 err  		= 2;					//
+}
