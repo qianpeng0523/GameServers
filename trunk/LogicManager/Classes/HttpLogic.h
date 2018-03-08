@@ -15,6 +15,7 @@ public:
 	void requestManagerData();
 	void ManagerDataCall(YMSocketData sd);
 	void HandleLogic(YMSocketData sd, char *&buff, int &sz);
+	void respondleLogic(YMSocketData sd);
 private:
 	static HttpLogic *m_Ins;
 	

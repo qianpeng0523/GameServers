@@ -8,6 +8,11 @@ public:
 	Object();
 	virtual ~Object();
 	virtual void update(float dt);
+
+	void retain();
+	void release();
+private:
+	int m_retainCount;
 };
 
 
