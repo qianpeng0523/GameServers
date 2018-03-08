@@ -39,8 +39,8 @@ private:
 	void SqlExcute(YMSocketData sd, char *&buff, int &sz);
 	void SqlBackup(string dbname, char *&buff, int &sz);
 	
-	void getGateData(char *&buff, int &sz);
-	void getLogicManagerData(char *&buff, int &sz);
+	void getGateData(int cmd,char *&buff, int &sz);
+	void getLogicManagerData(int cmd,char *&buff, int &sz);
 	
 private:
 	static HttpLogic *m_Ins;
