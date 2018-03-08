@@ -19,7 +19,8 @@
 #include "MD5.h"
 #include "XXIconv.h"
 #include "YMSocketData.h"
-
+#include "ccEvent.h"
+#include "LogicServer.h"
 using namespace std;
 using namespace protocol;
 
@@ -64,3 +65,4 @@ typedef void (Object::*Http_CallFun)(YMSocketData );
 #define sqlhttp "http://192.168.1.103:8080/"
 #define REPLACESTRR "||||&***#@"
 #define REPLACESTRN "%^&*():"
+#define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
