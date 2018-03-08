@@ -23,7 +23,7 @@ public:
 	~HttpEvent();
 
 	static HttpEvent* getIns();
-	void curlPost(string url, Object *target, Http_CallFun selector);
+	void requestData(string url);
 	void init();
 	
 	void EventDispath(struct evhttp_request *&req, string uri);

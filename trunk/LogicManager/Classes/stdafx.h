@@ -73,3 +73,5 @@ static string SERVER_CODE = "yw1";
 #define CC_HTTPFUNC_SELECTOR(_SELECTOR) static_cast<Http_CallFun>(&_SELECTOR)
 #define http_handler(_SELECTOR) CC_HTTPFUNC_SELECTOR(_SELECTOR)
 typedef void (Object::*Http_CallFun)(YMSocketData );
+
+#define sqlhttp "http://192.168.50.151:8080/"

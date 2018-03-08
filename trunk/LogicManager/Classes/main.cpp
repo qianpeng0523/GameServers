@@ -5,15 +5,12 @@
 #define __SERVER_H__
 #include "stdafx.h"
 #include "LibEvent.h"
-
+#include "HttpLogic.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	std::cout << "socket start!" << std::endl;
-	LibEvent *clib = LibEvent::getIns();
-	clib->StartServer(SERVER_PORT, 2, 5000, 600, 600);
+	HttpLogic::getIns()->requestManagerData();
 	getchar();
-	clib->StopServer();
 	return 0;
 }
 

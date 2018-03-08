@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 
-class HttpLogic
+class HttpLogic:public Object
 {
 public:
 	HttpLogic();
