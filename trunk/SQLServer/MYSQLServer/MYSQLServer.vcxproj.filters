@@ -78,6 +78,9 @@
     <ClCompile Include="Classes\MD55.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Common.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\HttpEvent.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="Classes\zlib\include\zlib.h">
       <Filter>源文件\Classes\zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Common.h">
+      <Filter>源文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

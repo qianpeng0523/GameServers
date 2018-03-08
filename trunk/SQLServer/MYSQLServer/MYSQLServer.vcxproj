@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Classes\Common.cpp" />
     <ClCompile Include="Classes\config\CSVDataHelper.cpp" />
     <ClCompile Include="Classes\config\CSVDataInfo.cpp" />
     <ClCompile Include="Classes\config\Object.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="Classes\XXIconv.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Classes\Common.h" />
     <ClInclude Include="Classes\config\CSVBaseData.h" />
     <ClInclude Include="Classes\config\CSVDataHelper.h" />
     <ClInclude Include="Classes\config\CSVDataInfo.h" />
