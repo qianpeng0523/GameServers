@@ -1,5 +1,5 @@
 ﻿#include "LibEvent.h"
-
+#include "HttpEvent.h"
 
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()

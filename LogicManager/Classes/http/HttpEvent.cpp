@@ -33,47 +33,16 @@ size_t read_data(void* buffer, size_t size, size_t nmemb, void *stream)
 	return size*nmemb;
 }
 
-void HttpEvent::curlPost(string url, Object *target, Http_CallFun selector){
-	CURL *curl = curl_easy_init();
-	if (curl == NULL)
-	{
-		
-		printf( "cannot curl");
-		curl_easy_cleanup(curl);
-	}
-	struct curl_httppost *formPost = NULL;
-	
-	string content;
-
-	curl_easy_setopt(curl, CURLOPT_HTTPPOST, formPost);
-	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, read_data);
-	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &content);
-	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
-	//跟踪到的协议信息、libcurl版本、libcurl的客户代码、操作系统名称、版本、编译器名称、版本等等。
-	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
-
-
-	curl_easy_perform(curl);
-
-	curl_easy_cleanup(curl);
-	curl_formfree(formPost);
-
-	YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(content,content.length());
-	printf("content:%s\n", sd.getJsonString().c_str());
-	
-	(target->*selector)(sd);
-}
 
 //处理模块
 void httpd_handler(struct evhttp_request *req, void *arg) {
-	
+
 	//HTTP header
 	evhttp_add_header(req->output_headers, "Server", MYHTTPD_SIGNATURE);
 	evhttp_add_header(req->output_headers, "Content-Type", "text/plain; charset=UTF-8");
 	evhttp_add_header(req->output_headers, "Connection", "close");
 	//输出的内容
-	
+
 	//获取客户端请求的URI(使用evhttp_request_uri或直接req->uri)
 	const char *uri;
 	uri = evhttp_request_uri(req);
@@ -81,6 +50,11 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	string str = uri;
 	str = str.substr(1, str.length());
 	HttpEvent::getIns()->EventDispath(req, str);
+}
+
+
+void HttpEvent::requestData(string url){
+	
 }
 
 void HttpEvent::EventDispath(struct evhttp_request *&req, string uri){
@@ -107,7 +81,7 @@ void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 void HttpEvent::init(){
 	//默认参数
 	char *httpd_option_listen = "0.0.0.0";
-	int httpd_option_port = 8080;
+	int httpd_option_port = 8081;
 	int httpd_option_timeout = 120; //in seconds
 
 	/* 使用libevent创建HTTP Server */

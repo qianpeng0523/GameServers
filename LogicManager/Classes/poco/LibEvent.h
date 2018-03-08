@@ -4,7 +4,6 @@
 #include <WinSock2.h>
 #include "EventDispatcher.h"
 #include "EventListen.h"
-#include "HttpEvent.h"
 #include "CSVDataInfo.h"
 #include "CLibEventData.h"
 
