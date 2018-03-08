@@ -7,7 +7,7 @@
 #include <pthread.h>
 #endif
 
-#include <stdlib.h>
+#include "stdafx.h"
 #include "EventDispatcher.h"
 
 
@@ -23,7 +23,7 @@ private:
     virtual ~EventListen();
 public:
    
-	void addDataPacketListener(int cmd, Object *target, EventHandler handler, string typeName = "");
+	void addDataPacketListener(int cmd, Object *target, EventHandler handler);
 	void removeDataPacketListener(int cmd, Object *target, EventHandler handler);
 	void removeAllDataPacketListener();
 

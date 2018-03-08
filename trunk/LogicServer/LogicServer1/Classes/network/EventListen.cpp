@@ -19,11 +19,8 @@ EventListen::~EventListen() {
 
 }
 
-void EventListen::addDataPacketListener(int cmd, Object *target, EventHandler handler, string typeName){
+void EventListen::addDataPacketListener(int cmd, Object *target, EventHandler handler){
 	EventDispatcher *p = EventDispatcher::getIns();
-	if (!typeName.empty()){
-		p->registerProto(cmd, typeName);
-	}
 	EventDispatcher::getIns()->addListener(cmd, target, handler);
 }
 

@@ -51,7 +51,7 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 	if (err == 0){
 		SERVER_PORT = sd["serverport"].asInt();
 		SERVER_IP = sd["serverip"].asString();
-		SERVER_CODE = sd["servercode"].asString();
+		SERVER_CODE = sd["servername"].asString();
 		ClientSocket::getIns()->connect(SERVER_IP.c_str(), SERVER_PORT);
 	}
 	else{
