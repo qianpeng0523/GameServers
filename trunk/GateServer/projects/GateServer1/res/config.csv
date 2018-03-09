@@ -1,0 +1,2 @@
+server_ip,server_port,sql_ip,sql_port,log,robot,roomcount
+192.168.50.151,5001,192.168.50.151,3306,1,1,200
