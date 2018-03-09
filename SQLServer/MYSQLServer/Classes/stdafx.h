@@ -49,9 +49,9 @@
 // #define MJ_TABLENAME_DETAIL_RECORDS "detail_records"
 #define DBPORT 3306
 
-#pragma comment(lib,"../MYSQLServer/Debug/libprotobuf.lib") 
-#pragma comment(lib,"../MYSQLServer/Debug/libprotoc.lib") 
-#pragma comment(lib, "../MYSQLServer//Debug/libcrypto.lib") 
+#pragma comment(lib,"../Debug/libprotobuf.lib") 
+#pragma comment(lib,"../Debug/libprotoc.lib") 
+
 
 using namespace std;
 #define REPLACESTRR "||||&***#@"
