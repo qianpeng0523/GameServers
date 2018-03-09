@@ -1,7 +1,7 @@
 ﻿#include "HttpEvent.h"
 #include "Common.h"
 #include "MD5.h"
-#include "curl/include/curl.h"
+#include "curl.h"
 #include "HttpLogic.h"
 
 
