@@ -21,7 +21,8 @@
 #include "CProtocol.h"
 #include "YMSocketData.h"
 #include "Poco/Thread.h"
-
+#include "LogicServer.h"
+#include "ccEvent.h"
 using namespace std;
 using namespace protocol;
 using namespace Poco;
@@ -38,7 +39,7 @@ static string SERVER_CODE = "wg1";
 #pragma comment(lib,"../../Debug/libMessagePack.lib")
 #endif
 
-#define sqlhttp "http://192.168.50.151:8080/"
+#define sqlhttp "http://192.168.1.103:8080/"
 #define REPLACESTRR "||||&***#@"
 #define REPLACESTRN "%^&*():"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"

@@ -20,6 +20,10 @@ public:
 
 	void HandleLogic(YMSocketData sd, char *&buff, int &sz);
 	void respondleLogic(YMSocketData sd);
+
+	string getServerName(){
+		return m_servername;
+	}
 private:
 	static HttpLogic *m_Ins;
 	string m_logicmnip;

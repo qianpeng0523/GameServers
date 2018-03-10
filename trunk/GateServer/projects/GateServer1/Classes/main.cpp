@@ -6,16 +6,15 @@
 #include "stdafx.h"
 #include "HttpLogic.h"
 #include "thread"
+#include "LibEvent.h"
 
-
-DWORD WINAPI threadClient(LPVOID lPVOID){
+DWORD WINAPI threadClient(int lPVOID){
 	HttpLogic::getIns()->requestManagerData();
 	return GetCurrentThreadId();
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	CreateThread(NULL, 0, &threadClient, NULL, 0, NULL);
 	thread t1(&threadClient, NULL);
 	t1.detach();
 	HttpLogic::getIns()->requestGateData();
