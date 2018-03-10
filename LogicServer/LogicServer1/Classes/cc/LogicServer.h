@@ -92,14 +92,14 @@ class CLogicLogin : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 cmd = 1 [default = 4096];
+  // optional uint32 cmd = 1 [default = 4096];
   inline bool has_cmd() const;
   inline void clear_cmd();
   static const int kCmdFieldNumber = 1;
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // required string servername = 2;
+  // optional string servername = 2;
   inline bool has_servername() const;
   inline void clear_servername();
   static const int kServernameFieldNumber = 2;
@@ -204,7 +204,7 @@ class SLogicLogin : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 cmd = 1 [default = 4096];
+  // optional uint32 cmd = 1 [default = 4096];
   inline bool has_cmd() const;
   inline void clear_cmd();
   static const int kCmdFieldNumber = 1;
@@ -247,7 +247,7 @@ class SLogicLogin : public ::google::protobuf::Message {
 
 // CLogicLogin
 
-// required uint32 cmd = 1 [default = 4096];
+// optional uint32 cmd = 1 [default = 4096];
 inline bool CLogicLogin::has_cmd() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -269,7 +269,7 @@ inline void CLogicLogin::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// required string servername = 2;
+// optional string servername = 2;
 inline bool CLogicLogin::has_servername() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -413,7 +413,7 @@ inline void CLogicLogin::set_allocated_seession(::std::string* seession) {
 
 // SLogicLogin
 
-// required uint32 cmd = 1 [default = 4096];
+// optional uint32 cmd = 1 [default = 4096];
 inline bool SLogicLogin::has_cmd() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
