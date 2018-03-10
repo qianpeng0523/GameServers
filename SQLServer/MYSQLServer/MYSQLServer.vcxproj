@@ -96,8 +96,8 @@
     <IncludePath>..\libevent\include;..\libevent\include\event2;..\protobuf;..\protobuf\src;D:\Program Files\mysql\include;..\libMessagePack\src;..\libMessagePack\;$(IncludePath)</IncludePath>
     <ReferencePath>..\libevent\lib;..\..\lib;..\..\bin;D:\Program Files\mysql\lib;..\curl\prebuilt\win32;$(ReferencePath)</ReferencePath>
     <SourcePath>..\MYSQLServer\res;$(SourcePath)</SourcePath>
-    <OutDir>..\Debug</OutDir>
-    <IntDir>..\Debug</IntDir>
+    <OutDir>../Debug</OutDir>
+    <IntDir>../Debug</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -110,15 +110,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;..\protobuf\vsprojects\Debug;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;..\protobuf\vsprojects\Debug;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\Debug\libMessagePack.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\Debug.win32\libMessagePack.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>../Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineTHUMB</TargetMachine>
     </Link>
   </ItemDefinitionGroup>

@@ -5,10 +5,7 @@
 #include <iostream>
 
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
-#include "iconv.h"
-#pragma comment(lib,"../Debug/libiconv.lib") 
-#endif
+
 
 class XXIconv
 {
