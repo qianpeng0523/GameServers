@@ -52,7 +52,10 @@
 #pragma comment(lib,"../Debug/libprotobuf.lib") 
 #pragma comment(lib,"../Debug/libprotoc.lib") 
 
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
+#include "iconv.h"
+#pragma comment(lib,"../Debug/libiconv.lib") 
+#endif
 using namespace std;
 #define REPLACESTRR "||||&***#@"
 #define REPLACESTRN "%^&*():"
