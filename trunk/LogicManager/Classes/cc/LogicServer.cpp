@@ -104,9 +104,9 @@ void protobuf_AddDesc_LogicServer_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021LogicServer.proto\022\010protocol\"F\n\013CLogicL"
-    "ogin\022\021\n\003cmd\030\001 \002(\r:\0044096\022\022\n\nservername\030\002 "
-    "\002(\t\022\020\n\010seession\030\003 \001(\t\"-\n\013SLogicLogin\022\021\n\003"
-    "cmd\030\001 \002(\r:\0044096\022\013\n\003err\030\002 \001(\r", 148);
+    "ogin\022\021\n\003cmd\030\001 \001(\r:\0044096\022\022\n\nservername\030\002 "
+    "\001(\t\022\020\n\010seession\030\003 \001(\t\"-\n\013SLogicLogin\022\021\n\003"
+    "cmd\030\001 \001(\r:\0044096\022\013\n\003err\030\002 \001(\r", 148);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "LogicServer.proto", &protobuf_RegisterTypes);
   CLogicLogin::default_instance_ = new CLogicLogin();
@@ -213,7 +213,7 @@ bool CLogicLogin::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 cmd = 1 [default = 4096];
+      // optional uint32 cmd = 1 [default = 4096];
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -228,7 +228,7 @@ bool CLogicLogin::MergePartialFromCodedStream(
         break;
       }
 
-      // required string servername = 2;
+      // optional string servername = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -280,12 +280,12 @@ bool CLogicLogin::MergePartialFromCodedStream(
 
 void CLogicLogin::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 cmd = 1 [default = 4096];
+  // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // required string servername = 2;
+  // optional string servername = 2;
   if (has_servername()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->servername().data(), this->servername().length(),
@@ -311,12 +311,12 @@ void CLogicLogin::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* CLogicLogin::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required uint32 cmd = 1 [default = 4096];
+  // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // required string servername = 2;
+  // optional string servername = 2;
   if (has_servername()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->servername().data(), this->servername().length(),
@@ -347,14 +347,14 @@ int CLogicLogin::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 cmd = 1 [default = 4096];
+    // optional uint32 cmd = 1 [default = 4096];
     if (has_cmd()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->cmd());
     }
 
-    // required string servername = 2;
+    // optional string servername = 2;
     if (has_servername()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -421,7 +421,6 @@ void CLogicLogin::CopyFrom(const CLogicLogin& from) {
 }
 
 bool CLogicLogin::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
   return true;
 }
@@ -519,7 +518,7 @@ bool SLogicLogin::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 cmd = 1 [default = 4096];
+      // optional uint32 cmd = 1 [default = 4096];
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -568,7 +567,7 @@ bool SLogicLogin::MergePartialFromCodedStream(
 
 void SLogicLogin::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 cmd = 1 [default = 4096];
+  // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
@@ -586,7 +585,7 @@ void SLogicLogin::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* SLogicLogin::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required uint32 cmd = 1 [default = 4096];
+  // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
@@ -607,7 +606,7 @@ int SLogicLogin::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 cmd = 1 [default = 4096];
+    // optional uint32 cmd = 1 [default = 4096];
     if (has_cmd()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -671,7 +670,6 @@ void SLogicLogin::CopyFrom(const SLogicLogin& from) {
 }
 
 bool SLogicLogin::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }
