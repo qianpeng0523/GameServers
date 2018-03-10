@@ -98,7 +98,7 @@ void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 void HttpEvent::init(){
 	//默认参数
 	char *httpd_option_listen = "0.0.0.0";
-	int httpd_option_port = 8081;
+	int httpd_option_port = 8080;
 	int httpd_option_timeout = 120; //in seconds
 
 	/* 使用libevent创建HTTP Server */

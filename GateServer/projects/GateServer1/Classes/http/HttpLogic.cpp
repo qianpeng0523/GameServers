@@ -67,7 +67,9 @@ void HttpLogic::GateDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
 	if (err == 0){
 		SERVER_PORT = sd["serverport"].asInt();
+		printf("\n/************************************************/\n");
 		std::cout << "socket start:" <<SERVER_PORT<< std::endl;
+		printf("/************************************************/\n");
 		LibEvent *clib = LibEvent::getIns();
 		clib->StartServer(SERVER_PORT, 2, 5000, 600, 600);
 		getchar();
@@ -99,7 +101,9 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 		m_logicmnip = sd["serverip"].asString();
 		m_logicmnport = sd["serverport"].asInt();
 		m_servername = sd["servername"].asString();
-		std::cout << "client socket start:ip:" << m_logicmnip .c_str()<<" port:"<< SERVER_PORT << std::endl;
+		printf("\n/************************************************/\n");
+		std::cout << "client socket start:ip:" << m_logicmnip.c_str() << " port:" << m_logicmnport << std::endl;
+		printf("/************************************************/\n");
 		ClientSocket::getIns()->connect(m_logicmnip.c_str(), m_logicmnport);
 	}
 	else{

@@ -1,4 +1,6 @@
 ﻿#include "ClientSocket.h"
+#include "LogicServerInfo.h"
+#include "HttpLogic.h"
 
 /**********消息头********
 0		服务器序列号
@@ -68,6 +70,7 @@ int ClientSocket::connect(const char* ip, unsigned short port) {
 		std::thread t1(&ClientSocket::threadHandler, this);//创建一个分支线程，回调到myThread函数里
 		t1.detach();
         m_isConnected = true;
+		LogicServerInfo::getIns()->SendCLogicLogin();
 	}
     return connectFlag;
 }
@@ -99,7 +102,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	memset(buffer, 0, HEADLEN + len);
 
 	//服务器编号
-	memcpy(buffer, SERVER_CODE.c_str(), 3);
+	memcpy(buffer, HttpLogic::getIns()->getServerName() .c_str(), 3);
 
 	//消息序列号
 	buffer[3] = m_stamp;
@@ -151,7 +154,7 @@ void *ClientSocket::threadHandler(void *arg) {
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
-			if (stamp == p->m_stamp + 1){
+			if (stamp == p->m_stamp){
 				p->DataIn(temp, len, cmd);
 			}
 			else{
