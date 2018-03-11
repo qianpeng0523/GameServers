@@ -39,6 +39,12 @@ void LogicServerInfo::HandlerCLogicLoginHand(ccEvent *event){
 	CLogicLogin cl;
 	cl.CopyFrom(*event->msg);
 	string servername = cl.servername();
+	if (!servername.empty()){
+		ClientData *data = LibEvent::getIns()->getClientData1(servername);
+		if (data&&data->_conn){
+			data->_conn->_servername = servername;
+		}
+	}
 	string seession = cl.seession();
 	if (/*event->m_servername.compare(servername) == 0 &&*/ seession.compare(LOGIC_TOKEN) == 0){
 		SendSLogicLogin(event->m_fd,0);
