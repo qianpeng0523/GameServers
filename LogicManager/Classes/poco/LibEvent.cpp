@@ -369,6 +369,17 @@ ClientData * LibEvent::getClientData(string sessionid){
 	return NULL;
 }
 
+ClientData * LibEvent::getClientData1(string servername){
+	map<int, ClientData *>::iterator itr = m_ClientDatas.begin();
+	for (itr; itr != m_ClientDatas.end(); itr++){
+		ClientData *data = itr->second;
+		if (data&&data->_conn&&data->_conn->_servername.compare(servername) == 0){
+			return data;
+		}
+	}
+	return NULL;
+}
+
 void LibEvent::eraseClientData(int fd){
 	if (m_ClientDatas.find(fd) != m_ClientDatas.end()){
 		ClientData *data = m_ClientDatas.at(fd);

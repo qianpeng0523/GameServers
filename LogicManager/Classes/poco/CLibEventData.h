@@ -66,7 +66,7 @@ struct _Conn
 	_Worker *owner;
 	_Conn *next;
 	int m_stamp;
-	
+	string _servername;
 };
 //工作线程封装对象.
 struct _Worker
