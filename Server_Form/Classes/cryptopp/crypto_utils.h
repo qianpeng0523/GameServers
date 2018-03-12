@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "aes.h"
-#include "md5.h"
+#include "md5_c.h"
 #include "libb64.h"
 #include "mathext.h"
 
