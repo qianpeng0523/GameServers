@@ -13,7 +13,7 @@ HttpLogic *HttpLogic::m_Ins = NULL;
 
 
 HttpLogic::HttpLogic(){
-	
+	this->scheduleUpdate(0.5, 1.0);
 }
 HttpLogic::~HttpLogic(){
 	
@@ -33,6 +33,9 @@ HttpLogic *HttpLogic::getIns(){
 	return m_Ins;
 }
 
+void HttpLogic::update(float dt){
+	printf("httplogic-update\n");
+}
 
 void HttpLogic::respondleLogic(YMSocketData sd){
 	int cmd = sd["cmd"].asInt();

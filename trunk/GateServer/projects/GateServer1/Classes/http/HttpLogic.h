@@ -24,6 +24,8 @@ public:
 	string getServerName(){
 		return m_servername;
 	}
+
+	void update(float dt);
 private:
 	static HttpLogic *m_Ins;
 	string m_logicmnip;
