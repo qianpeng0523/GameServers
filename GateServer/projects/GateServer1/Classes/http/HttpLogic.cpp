@@ -13,7 +13,7 @@ HttpLogic *HttpLogic::m_Ins = NULL;
 
 
 HttpLogic::HttpLogic(){
-	this->scheduleUpdate(0.5, 1.0);
+	//this->scheduleUpdate(0.5, 1.0);
 }
 HttpLogic::~HttpLogic(){
 	
