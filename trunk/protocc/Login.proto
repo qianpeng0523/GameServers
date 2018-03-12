@@ -1,0 +1,18 @@
+syntax = "proto2";
+package protocol;
+import "DBProto.proto";
+//CLogin
+message CLogin
+{
+	optional uint32 cmd 		= 1[default=0x4000];  	// 
+    optional string uid 		= 2;  					// 
+    optional string pwd  		= 3; 					//
+}
+
+//SLogicLogin
+message SLogin
+{
+	optional uint32 cmd 		= 1[default=0x4000];  	//
+	optional DBUserInfo info	= 2;
+    optional uint32 err  		= 3;					//
+}
