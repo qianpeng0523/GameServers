@@ -106,7 +106,6 @@ struct _ClientData
 	evutil_socket_t _fd;
 	_Conn *_conn;
 	string _sessionID;
-	string m_ip;
 };
 
 typedef struct _Server Server;
