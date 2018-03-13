@@ -108,6 +108,12 @@
     <ClCompile Include="Classes\proto\LogicServerInfo.cpp">
       <Filter>源文件\Classes\proto</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\proto\LoginInfo.cpp">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\Login.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -214,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="Classes\proto\LogicServerInfo.h">
       <Filter>源文件\Classes\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\proto\LoginInfo.h">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\Login.h">
+      <Filter>源文件\Classes\cc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

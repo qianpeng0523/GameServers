@@ -1,9 +1,10 @@
 ﻿#include "LibEvent.h"
-
+#include "LoginInfo.h"
 
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()
 {
+	LoginInfo::getIns();
 	m_stamp = 0;
 	ZeroMemory(&m_Server, sizeof(m_Server));
 	WSADATA WSAData;
@@ -277,6 +278,7 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	//记录连接的信息 fd关键
 	ClientData *data = new ClientData();
 	data->_fd = fd;
+	data->m_ip = ip;
 	data->_conn = pConn;
 	LibEvent *pLibEvent = LibEvent::getIns();
 	pLibEvent->inserClientData(fd, data);
@@ -369,6 +371,7 @@ void LibEvent::eraseClientData(int fd){
 		ClientData *data = m_ClientDatas.at(fd);
 		m_ClientDatas.erase(m_ClientDatas.find(fd));
 		if (data){
+			printf("close ip:%s\n",data->m_ip.c_str());
 			if (data->_conn){
 				resetConn(data->_conn);
 			}
@@ -384,6 +387,7 @@ void LibEvent::eraseClientData(string sesionid){
 		if (data&&data->_sessionID.compare(sesionid) == 0){
 			m_ClientDatas.erase(itr);
 			if (data){
+				printf("close ip:%s\n", data->m_ip.c_str());
 				if (data->_conn){
 					CloseConn(data->_conn, emFunClosed);
 				}
