@@ -18,6 +18,12 @@ public:
 	void requestManagerData();
 	void ManagerDataCall(YMSocketData sd);
 
+	void requestDBData(string uid,string pwd);
+	void DBDataCall(YMSocketData sd);
+
+	void requestRegister(YMSocketData &sd);
+	void RegisterCall(YMSocketData sd);
+
 	void HandleLogic(YMSocketData sd, char *&buff, int &sz);
 	void respondleLogic(YMSocketData sd);
 

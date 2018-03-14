@@ -36,6 +36,8 @@ void protobuf_ShutdownFile_Login_2eproto();
 
 class CLogin;
 class SLogin;
+class CRegister;
+class SRegister;
 
 // ===================================================================
 
@@ -252,6 +254,237 @@ class SLogin : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SLogin* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CRegister : public ::google::protobuf::Message {
+ public:
+  CRegister();
+  virtual ~CRegister();
+
+  CRegister(const CRegister& from);
+
+  inline CRegister& operator=(const CRegister& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CRegister& default_instance();
+
+  void Swap(CRegister* other);
+
+  // implements Message ----------------------------------------------
+
+  CRegister* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CRegister& from);
+  void MergeFrom(const CRegister& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 16385];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional string uid = 2;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 2;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
+  // optional string pwd = 3;
+  inline bool has_pwd() const;
+  inline void clear_pwd();
+  static const int kPwdFieldNumber = 3;
+  inline const ::std::string& pwd() const;
+  inline void set_pwd(const ::std::string& value);
+  inline void set_pwd(const char* value);
+  inline void set_pwd(const char* value, size_t size);
+  inline ::std::string* mutable_pwd();
+  inline ::std::string* release_pwd();
+  inline void set_allocated_pwd(::std::string* pwd);
+
+  // optional string uname = 4;
+  inline bool has_uname() const;
+  inline void clear_uname();
+  static const int kUnameFieldNumber = 4;
+  inline const ::std::string& uname() const;
+  inline void set_uname(const ::std::string& value);
+  inline void set_uname(const char* value);
+  inline void set_uname(const char* value, size_t size);
+  inline ::std::string* mutable_uname();
+  inline ::std::string* release_uname();
+  inline void set_allocated_uname(::std::string* uname);
+
+  // @@protoc_insertion_point(class_scope:protocol.CRegister)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_uid();
+  inline void clear_has_uid();
+  inline void set_has_pwd();
+  inline void clear_has_pwd();
+  inline void set_has_uname();
+  inline void clear_has_uname();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* uid_;
+  ::std::string* pwd_;
+  ::std::string* uname_;
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Login_2eproto();
+  friend void protobuf_AssignDesc_Login_2eproto();
+  friend void protobuf_ShutdownFile_Login_2eproto();
+
+  void InitAsDefaultInstance();
+  static CRegister* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SRegister : public ::google::protobuf::Message {
+ public:
+  SRegister();
+  virtual ~SRegister();
+
+  SRegister(const SRegister& from);
+
+  inline SRegister& operator=(const SRegister& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SRegister& default_instance();
+
+  void Swap(SRegister* other);
+
+  // implements Message ----------------------------------------------
+
+  SRegister* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SRegister& from);
+  void MergeFrom(const SRegister& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 16385];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional .protocol.DBUserInfo info = 2;
+  inline bool has_info() const;
+  inline void clear_info();
+  static const int kInfoFieldNumber = 2;
+  inline const ::protocol::DBUserInfo& info() const;
+  inline ::protocol::DBUserInfo* mutable_info();
+  inline ::protocol::DBUserInfo* release_info();
+  inline void set_allocated_info(::protocol::DBUserInfo* info);
+
+  // optional uint32 err = 3;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 3;
+  inline ::google::protobuf::uint32 err() const;
+  inline void set_err(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.SRegister)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_info();
+  inline void clear_has_info();
+  inline void set_has_err();
+  inline void clear_has_err();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::protocol::DBUserInfo* info_;
+  ::google::protobuf::uint32 cmd_;
+  ::google::protobuf::uint32 err_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Login_2eproto();
+  friend void protobuf_AssignDesc_Login_2eproto();
+  friend void protobuf_ShutdownFile_Login_2eproto();
+
+  void InitAsDefaultInstance();
+  static SRegister* default_instance_;
 };
 // ===================================================================
 
@@ -504,6 +737,328 @@ inline ::google::protobuf::uint32 SLogin::err() const {
   return err_;
 }
 inline void SLogin::set_err(::google::protobuf::uint32 value) {
+  set_has_err();
+  err_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// CRegister
+
+// optional uint32 cmd = 1 [default = 16385];
+inline bool CRegister::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CRegister::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CRegister::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CRegister::clear_cmd() {
+  cmd_ = 16385u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 CRegister::cmd() const {
+  return cmd_;
+}
+inline void CRegister::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional string uid = 2;
+inline bool CRegister::has_uid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CRegister::set_has_uid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CRegister::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CRegister::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CRegister::uid() const {
+  return *uid_;
+}
+inline void CRegister::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CRegister::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CRegister::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CRegister::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CRegister::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CRegister::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string pwd = 3;
+inline bool CRegister::has_pwd() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CRegister::set_has_pwd() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CRegister::clear_has_pwd() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CRegister::clear_pwd() {
+  if (pwd_ != &::google::protobuf::internal::kEmptyString) {
+    pwd_->clear();
+  }
+  clear_has_pwd();
+}
+inline const ::std::string& CRegister::pwd() const {
+  return *pwd_;
+}
+inline void CRegister::set_pwd(const ::std::string& value) {
+  set_has_pwd();
+  if (pwd_ == &::google::protobuf::internal::kEmptyString) {
+    pwd_ = new ::std::string;
+  }
+  pwd_->assign(value);
+}
+inline void CRegister::set_pwd(const char* value) {
+  set_has_pwd();
+  if (pwd_ == &::google::protobuf::internal::kEmptyString) {
+    pwd_ = new ::std::string;
+  }
+  pwd_->assign(value);
+}
+inline void CRegister::set_pwd(const char* value, size_t size) {
+  set_has_pwd();
+  if (pwd_ == &::google::protobuf::internal::kEmptyString) {
+    pwd_ = new ::std::string;
+  }
+  pwd_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CRegister::mutable_pwd() {
+  set_has_pwd();
+  if (pwd_ == &::google::protobuf::internal::kEmptyString) {
+    pwd_ = new ::std::string;
+  }
+  return pwd_;
+}
+inline ::std::string* CRegister::release_pwd() {
+  clear_has_pwd();
+  if (pwd_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = pwd_;
+    pwd_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CRegister::set_allocated_pwd(::std::string* pwd) {
+  if (pwd_ != &::google::protobuf::internal::kEmptyString) {
+    delete pwd_;
+  }
+  if (pwd) {
+    set_has_pwd();
+    pwd_ = pwd;
+  } else {
+    clear_has_pwd();
+    pwd_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string uname = 4;
+inline bool CRegister::has_uname() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void CRegister::set_has_uname() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void CRegister::clear_has_uname() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void CRegister::clear_uname() {
+  if (uname_ != &::google::protobuf::internal::kEmptyString) {
+    uname_->clear();
+  }
+  clear_has_uname();
+}
+inline const ::std::string& CRegister::uname() const {
+  return *uname_;
+}
+inline void CRegister::set_uname(const ::std::string& value) {
+  set_has_uname();
+  if (uname_ == &::google::protobuf::internal::kEmptyString) {
+    uname_ = new ::std::string;
+  }
+  uname_->assign(value);
+}
+inline void CRegister::set_uname(const char* value) {
+  set_has_uname();
+  if (uname_ == &::google::protobuf::internal::kEmptyString) {
+    uname_ = new ::std::string;
+  }
+  uname_->assign(value);
+}
+inline void CRegister::set_uname(const char* value, size_t size) {
+  set_has_uname();
+  if (uname_ == &::google::protobuf::internal::kEmptyString) {
+    uname_ = new ::std::string;
+  }
+  uname_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CRegister::mutable_uname() {
+  set_has_uname();
+  if (uname_ == &::google::protobuf::internal::kEmptyString) {
+    uname_ = new ::std::string;
+  }
+  return uname_;
+}
+inline ::std::string* CRegister::release_uname() {
+  clear_has_uname();
+  if (uname_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uname_;
+    uname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CRegister::set_allocated_uname(::std::string* uname) {
+  if (uname_ != &::google::protobuf::internal::kEmptyString) {
+    delete uname_;
+  }
+  if (uname) {
+    set_has_uname();
+    uname_ = uname;
+  } else {
+    clear_has_uname();
+    uname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// SRegister
+
+// optional uint32 cmd = 1 [default = 16385];
+inline bool SRegister::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SRegister::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SRegister::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SRegister::clear_cmd() {
+  cmd_ = 16385u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 SRegister::cmd() const {
+  return cmd_;
+}
+inline void SRegister::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional .protocol.DBUserInfo info = 2;
+inline bool SRegister::has_info() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SRegister::set_has_info() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SRegister::clear_has_info() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SRegister::clear_info() {
+  if (info_ != NULL) info_->::protocol::DBUserInfo::Clear();
+  clear_has_info();
+}
+inline const ::protocol::DBUserInfo& SRegister::info() const {
+  return info_ != NULL ? *info_ : *default_instance_->info_;
+}
+inline ::protocol::DBUserInfo* SRegister::mutable_info() {
+  set_has_info();
+  if (info_ == NULL) info_ = new ::protocol::DBUserInfo;
+  return info_;
+}
+inline ::protocol::DBUserInfo* SRegister::release_info() {
+  clear_has_info();
+  ::protocol::DBUserInfo* temp = info_;
+  info_ = NULL;
+  return temp;
+}
+inline void SRegister::set_allocated_info(::protocol::DBUserInfo* info) {
+  delete info_;
+  info_ = info;
+  if (info) {
+    set_has_info();
+  } else {
+    clear_has_info();
+  }
+}
+
+// optional uint32 err = 3;
+inline bool SRegister::has_err() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SRegister::set_has_err() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SRegister::clear_has_err() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SRegister::clear_err() {
+  err_ = 0u;
+  clear_has_err();
+}
+inline ::google::protobuf::uint32 SRegister::err() const {
+  return err_;
+}
+inline void SRegister::set_err(::google::protobuf::uint32 value) {
   set_has_err();
   err_ = value;
 }
