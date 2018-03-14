@@ -24,7 +24,7 @@ public:
 	bool start();
 	bool close();
 	int ExcuteQuery(char* sqlstr, vector<map<string, string>> &vecs, sqloptype type = select_sql);
-	int ExcuteQuery(char* sqlstr, map<string,string> &vecs,  int &effectrow, sqloptype type = select_sql);
+	int ExcuteQuery(char* sqlstr, map<string,string> &vecs, sqloptype type = select_sql);
 	
 	int ExcuteQuery1(char* sqlstr, vector< string> &vecs, sqloptype type = select_sql);
 

@@ -41,58 +41,92 @@ void DataBaseUserInfo::startAI(){
 }
 
 bool DataBaseUserInfo::insertDBData(YMSocketData sd, string tablename){
+	printf("ddd:%s",sd.getJsonString().c_str());
+	string sqlstr1 = "select * from "+tablename +" where ";
 	string sqlstr = "insert into ";
 	sqlstr += tablename;
 	sqlstr += "(";
 
-	vector<string >tablenames = getAllTables();
-	for (int i = 0; i < tablenames.size(); i++){
-		sqlstr += tablename.at(i);
-		if (i < tablenames.size()-1){
+	vector<string >conames = getTableColumnName(tablename);
+	for (int i = 0; i < conames.size(); i++){
+		sqlstr += conames.at(i);
+		if (i < conames.size() - 1){
 			sqlstr += ",";
 		}
 	}
 	sqlstr += ")";
 	sqlstr += " values(";
 	char buff[2048];
+	char buff1[2048];
 	string key;
 	string keyvalue;
-	vector<string >conames = getTableColumnName(tablename);
+	
 	int sz = conames.size();
 	for (int i = 0; i < sz; i++){
 		string coname = conames.at(i);
-		if (sd.isMember(coname)){
-			ColumnType type = getColumnType(tablename,coname);
-			if (type==String_Type){
-				sprintf(buff,"%s='%s' ",coname.c_str(),sd[coname].asString().c_str());
-			}
-			else if (type == Int_Type || type == Bool_Type){
-				sprintf(buff, "%s=%d ",coname.c_str(), sd[coname].asInt());
-			}
-			else if (type == Float_Type || type == Double_Type){
-				sprintf(buff, "%s=%g ", coname.c_str(), sd[coname].asInt());
-			}
-			sqlstr += buff;
-			if (i < sz - 1){
-				sqlstr += ",";
+		if (sd.isMember("data")){
+			if (sd["data"].isMember(coname)){
+				ColumnType type = getColumnType(tablename, coname);
+				if (type == String_Type){
+					sprintf(buff, " '%s' ",  sd["data"][coname].asString().c_str());
+					sprintf(buff1, "%s= '%s' ",coname.c_str(), sd["data"][coname].asString().c_str());
+				}
+				else if (type == Int_Type || type == Bool_Type){
+					sprintf(buff, "%d ",  sd["data"][coname].asInt());
+					sprintf(buff1, "%s=%d ",coname.c_str(), sd["data"][coname].asInt());
+				}
+				else if (type == Float_Type || type == Double_Type){
+					sprintf(buff, "%g ", sd["data"][coname].asInt());
+					sprintf(buff1, "%s=%g ",coname.c_str(), sd["data"][coname].asInt());
+				}
+				sqlstr += buff;
+				sqlstr1 += buff1;
+				if (i < sz - 1){
+					sqlstr += ",";
+					sqlstr1 += " and ";
+				}
+				else{
+					sqlstr += ")";
+				}
 			}
 		}
+		else{
+			if (sd.isMember(coname)){
+				ColumnType type = getColumnType(tablename, coname);
+				if (type == String_Type){
+					sprintf(buff, "%s='%s' ", coname.c_str(), sd[coname].asString().c_str());
+					sprintf(buff1, "%s= '%s' ", coname.c_str(), sd[coname].asString().c_str());
+				}
+				else if (type == Int_Type || type == Bool_Type){
+					sprintf(buff, "%s=%d ", coname.c_str(), sd[coname].asInt());
+					sprintf(buff1, "%s=%d ", coname.c_str(), sd[coname].asInt());
+				}
+				else if (type == Float_Type || type == Double_Type){
+					sprintf(buff, "%s=%g ", coname.c_str(), sd[coname].asInt());
+					sprintf(buff1, "%s=%g ", coname.c_str(), sd[coname].asInt());
+				}
+				sqlstr += buff;
+				sqlstr1 += buff1;
+				if (i < sz - 1){
+					sqlstr += ",";
+					sqlstr1 += " and ";
+				}
+				else{
+					sqlstr += ")";
+				}
+			}
+		}
+		
 	}
-	int erow = 0;
 	map<string,string> vec;
-	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec,erow, insert_sql);
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, insert_sql);
 	if (err == 0){
 		//更新数据
-		if (erow>0){
-			sqlstr = "select * from " + tablename + " limit ";
-			sprintf(buff,"%d,%d",erow-1,erow);
-			sqlstr += buff;
-			vector<map<string, string>> vec1;
-			err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec1, insert_sql);
-			if (err == 0){
-				for (int i = 0; i < vec1.size(); i++){
-					setDBData(vec1.at(i), tablename);
-				}
+		vector<map<string, string>> vec1;
+		err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr1.c_str(), vec1, select_sql);
+		if (err == 0){
+			for (int i = 0; i < vec1.size(); i++){
+				setDBData(vec1.at(i), tablename);
 			}
 		}
 	}
@@ -131,9 +165,11 @@ ColumnType DataBaseUserInfo::getColumnType(string tablename, string name){
 
 int DataBaseUserInfo::updateDBDataByKey(string tablename,std::map<string, string >updatedata, string key, string value){
 	string sqlstr = "update ";
+	string sqlstr1 = "select * from " + tablename + " where ";
 	sqlstr += tablename;
 	sqlstr += " set ";
 	char buff[255];
+	char buff1[255];
 	int ct = 0;
 	std::map<string, string>::iterator itr1 = updatedata.begin();
 	for (itr1; itr1 != updatedata.end(); itr1++){
@@ -145,16 +181,23 @@ int DataBaseUserInfo::updateDBDataByKey(string tablename,std::map<string, string
 			sqlstr += "'";
 			sqlstr += (char*)itr1->second.c_str();
 			sqlstr += "'";
+
+			sprintf(buff1, " %s=%s ",itr1->first.c_str(), itr1->second.c_str());
 		}
 		else if (type == Int_Type || type == Bool_Type){
 			sprintf(buff, "%d", atoi(itr1->second.c_str()));
 			sqlstr += buff;
+
+			sprintf(buff1, " %s=%d ", itr1->first.c_str(), atoi(itr1->second.c_str()));
 		}
 		else if (type == Float_Type || type == Double_Type){
 			sprintf(buff, "%g", atoi(itr1->second.c_str()));
 			sqlstr += buff;
-		}
 
+			sprintf(buff1, " %s=%g ", itr1->first.c_str(), atof(itr1->second.c_str()));
+		}
+		sqlstr1 += buff1;
+		sqlstr1 += " and ";
 		ct++;
 		if (ct != updatedata.size()){
 			sqlstr += ",";
@@ -169,30 +212,32 @@ int DataBaseUserInfo::updateDBDataByKey(string tablename,std::map<string, string
 		sqlstr += "'";
 		sqlstr += (char*)value.c_str();
 		sqlstr += "'";
+
+		sprintf(buff1, " %s=%s ", key.c_str(), itr1->second.c_str());
 	}
 	else if (type == Int_Type || type == Bool_Type){
 		sprintf(buff, "%d", atoi(value.c_str()));
 		sqlstr += buff;
+
+		sprintf(buff1, " %s=%d ", key.c_str(), atoi(itr1->second.c_str()));
 	}
 	else if (type == Float_Type || type == Double_Type){
 		sprintf(buff, "%g", atoi(value.c_str()));
 		sqlstr += buff;
+
+		sprintf(buff1, " %s=%g ", key.c_str(), atof(itr1->second.c_str()));
 	}
-	int erow = 0;
+	sqlstr1 += buff1;
 	map<string,string> vecs;
-	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vecs,erow, update_sql);
+	int err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vecs, update_sql);
 	if (err == 0){
 		//更新数据
-		if (erow > 0){
-			sqlstr = "select * from " + tablename + " limit ";
-			sprintf(buff, "%d,%d", erow - 1, erow);
-			sqlstr += buff;
-			vector<map<string, string>> vec1;
-			err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec1, insert_sql);
-			if (err == 0){
-				for (int i = 0; i < vec1.size(); i++){
-					setDBData(vec1.at(i), tablename);
-				}
+		
+		vector<map<string, string>> vec1;
+		err = SqlControl::getIns()->ExcuteQuery((char *)sqlstr1.c_str(), vec1, select_sql);
+		if (err == 0){
+			for (int i = 0; i < vec1.size(); i++){
+				setDBData(vec1.at(i), tablename);
 			}
 		}
 	}
@@ -365,28 +410,52 @@ string DataBaseUserInfo::getTablePrikey(string tablename){
 }
 
 std::vector<YMSocketData> DataBaseUserInfo::getDBData(string tablename, string coname, string covalue) {
-	string sqlstr = "select * from "; 
-	sqlstr += tablename;
-	sqlstr += " where " + coname + " = ";
-
-	ColumnType type = getColumnType(tablename, coname);
-	if (type == String_Type){
-		sqlstr += "'";
-		sqlstr += covalue;
-		sqlstr += "'";
-	}
-	else if (type == Int_Type || type == Bool_Type){
-		sqlstr += covalue;
-	}
-	else if (type == Float_Type || type == Double_Type){
-		sqlstr += covalue;
-	}
-
-	vector<map<string,string>> vec;
-	SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(),vec,select_sql);
 	std::vector<YMSocketData > msgs;
-	for (int i = 0; i < vec.size(); i++){
-		msgs.push_back(setDBData(vec.at(i), tablename));
+	ColumnType type = getColumnType(tablename, coname);
+	bool ist = false;
+	if (m_dbdatas.find(tablename) != m_dbdatas.end()){
+		map<string, YMSocketData> users = m_dbdatas.at(tablename);
+		char buff[100];
+		if (users.find(covalue) != users.end()){
+			YMSocketData sd1 = users.at(covalue);
+			if (type == String_Type){
+				sprintf(buff,"%s",sd1[coname].asString().c_str());
+			}
+			else if (type == Int_Type || type == Bool_Type){
+				sprintf(buff, "%d", sd1[coname].asInt());
+			}
+			else if (type == Float_Type || type == Double_Type){
+				sprintf(buff, "%g", sd1[coname].asDouble());
+			}
+			if (covalue.compare(buff) == 0){
+				msgs.push_back(sd1);
+			}
+			ist = true;
+		}
+	}
+	if(!ist){
+		string sqlstr = "select * from ";
+		sqlstr += tablename;
+		sqlstr += " where " + coname + " = ";
+
+		if (type == String_Type){
+			sqlstr += "'";
+			sqlstr += covalue;
+			sqlstr += "'";
+		}
+		else if (type == Int_Type || type == Bool_Type){
+			sqlstr += covalue;
+		}
+		else if (type == Float_Type || type == Double_Type){
+			sqlstr += covalue;
+		}
+
+		vector<map<string, string>> vec;
+		SqlControl::getIns()->ExcuteQuery((char *)sqlstr.c_str(), vec, select_sql);
+		
+		for (int i = 0; i < vec.size(); i++){
+			msgs.push_back(setDBData(vec.at(i), tablename));
+		}
 	}
 	return msgs;
 }

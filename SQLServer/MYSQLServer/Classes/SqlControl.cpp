@@ -94,7 +94,7 @@ bool SqlControl::close(){
 	}
 }
 
-int SqlControl::ExcuteQuery(char* sqlstr, map<string, string> &vecs, int &effectrow, sqloptype type){
+int SqlControl::ExcuteQuery(char* sqlstr, map<string, string> &vecs, sqloptype type){
 	printf("%s\n", sqlstr);
 	int rt;
 	rt = mysql_real_query(m_mysql, sqlstr, strlen(sqlstr));
@@ -107,8 +107,6 @@ int SqlControl::ExcuteQuery(char* sqlstr, map<string, string> &vecs, int &effect
 	{
 		printf("%s executed!!!\n", sqlstr);
 	}
-
-	effectrow=mysql_affected_rows(m_mysql);
 
 	MYSQL_RES *res;
 	res = mysql_store_result(m_mysql);//将结果保存在res结构体中

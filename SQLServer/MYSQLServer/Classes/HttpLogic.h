@@ -41,7 +41,8 @@ private:
 	
 	void getGateData(int cmd,char *&buff, int &sz);
 	void getLogicManagerData(int cmd,char *&buff, int &sz);
-	
+	void getDBData(YMSocketData sd, char *&buff, int &sz);
+	void insertDBData(YMSocketData sd, char *&buff, int &sz);
 private:
 	static HttpLogic *m_Ins;
 	SQLInfo *m_pSQLInfo;

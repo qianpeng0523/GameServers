@@ -81,6 +81,7 @@ HttpLogic *HttpLogic::getIns(){
 }
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
+	printf("sd:%s\n",sd.getJsonString().c_str());
 	int cmd = sd["cmd"].asInt();
 	if (cmd == 0x01){
 		SqlStart(sd,buff,sz);
@@ -111,6 +112,12 @@ void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	}
 	else if (cmd == 0x0B){
 		getGateData(cmd,buff, sz);
+	}
+	else if (cmd == 0x0C){
+		getDBData(sd, buff, sz);
+	}
+	else if (cmd == 0x10){
+		insertDBData(sd, buff, sz);
 	}
 }
 
@@ -338,4 +345,69 @@ void HttpLogic::getLogicManagerData(int cmd, char *&buff, int &sz){
 	sd["cmd"] = cmd;
 	sd["err"] = err;
 	sd.serializer(buff, &sz);
+}
+
+void HttpLogic::getDBData(YMSocketData sd, char *&buff, int &sz){
+	string uid=sd["userid"].asString();
+	string pass=sd["pwd"].asString();
+	int cmd = sd["cmd"].asInt();
+	vector<YMSocketData > vec = DataBaseUserInfo::getIns()->getDBData("userinfo","userid",uid);
+	for (int i = 0; i < vec.size(); i++){
+		YMSocketData sd1 = vec.at(i);
+		if (sd1.isMember("pwd")){
+			string spwd = sd1["pwd"].asString();
+			if (spwd.compare(pass) == 0){
+				YMSocketData sd2;
+				sd2["err"] = 0;
+				sd2["cmd"] = cmd;
+				sd2["data"] = sd1;
+				sd2.serializer(buff, &sz);
+				return;
+			}
+		}
+	}
+	YMSocketData sd2;
+	sd2["err"] = 1;
+	sd2["cmd"] = cmd;
+	sd2["data"]["userid"] = uid;
+	sd2["data"]["pwd"] = pass;
+	sd2.serializer(buff, &sz);
+}
+
+void HttpLogic::insertDBData(YMSocketData sd, char *&buff, int &sz){
+	string uid = sd["data"]["userid"].asString();
+	string pass = sd["data"]["pwd"].asString();
+	int cmd = sd["cmd"].asInt();
+
+	YMSocketData sd2;
+	sd2["cmd"] = cmd;
+	sd2["data"]["userid"] = uid;
+	sd2["data"]["pwd"] = pass;
+	std::vector<YMSocketData> vec = DataBaseUserInfo::getIns()->getDBData("userinfo", "userid", uid);
+	if (vec.empty()){
+		bool ist = DataBaseUserInfo::getIns()->insertDBData(sd, "userinfo");
+		if (ist){
+			std::vector<YMSocketData> vec = DataBaseUserInfo::getIns()->getDBData("userinfo", "userid", uid);
+			for (int i = 0; i < vec.size(); i++){
+				YMSocketData sd1 = vec.at(i);
+				if (sd1.isMember("pwd")){
+					string spwd = sd1["pwd"].asString();
+					if (spwd.compare(pass) == 0){
+						YMSocketData sd2;
+						sd2["err"] = 0;
+						sd2["cmd"] = cmd;
+						sd2["data"] = sd1;
+						sd2.serializer(buff, &sz);
+						return;
+					}
+				}
+			}
+		}
+		sd2["err"] = 1;//×¢²áÊ§°Ü
+	}
+	else{
+		sd2["err"] = 2;//ÓÃ»§´æÔÚ
+	}
+	
+	sd2.serializer(buff, &sz);
 }
