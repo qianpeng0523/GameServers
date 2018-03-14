@@ -16,3 +16,20 @@ message SLogin
 	optional DBUserInfo info	= 2;
     optional uint32 err  		= 3;					//
 }
+
+//CRegister
+message CRegister
+{
+	optional uint32 cmd 		= 1[default=0x4001];  	// 
+    optional string uid 		= 2;  					// 
+    optional string pwd  		= 3; 					//
+	optional string uname  		= 4; 					//
+}
+
+//SRegister
+message SRegister
+{
+	optional uint32 cmd 		= 1[default=0x4001];  	//
+	optional DBUserInfo info	= 2;
+    optional uint32 err  		= 3;					//
+}
