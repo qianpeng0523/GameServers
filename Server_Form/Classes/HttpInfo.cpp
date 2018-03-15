@@ -17,7 +17,7 @@
 USING_NS_CC;
 using namespace cocos2d_xx;
 
-#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+
 
 HttpInfo *HttpInfo::m_Ins = NULL;
 
@@ -46,43 +46,41 @@ HttpInfo *HttpInfo::getIns(){
 }
 
 
-int HttpInfo::aes_decrypt(char* in, int inlen, char* key, char* out)
+void HttpInfo::aes_decrypt(char* in, int inlen, char* out)
 {
-	if (!in || !key || !out) return 0;
+	if (!in || !out) return;
 	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
-	memcpy(iv, key, AES_BLOCK_SIZE);
+	memcpy(iv, DECKEY, AES_BLOCK_SIZE);
 
 	AES_KEY aes;
-	if (AES_set_encrypt_key((unsigned char*)key, 128, &aes) < 0)
+	if (AES_set_encrypt_key((unsigned char*)DECKEY, 128, &aes) < 0)
 	{
-		return 0;
+		return;
 	}
 
-	int num = 0, en_len = 0;
+	int num = 0;
 	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_DECRYPT);
-
-	return num;
+	inlen = inlen / AES_BLOCK_SIZE*AES_BLOCK_SIZE;
+	out[inlen + num] = '\0';
 
 }
 
-int HttpInfo::aes_encrypt(char* in, int inlen, char* key, char* out)
+void HttpInfo::aes_encrypt(char* in, int inlen, char* out)
 {
-	if (!in || !key || !out) return 0;
+	if (!in || !out) return;
 	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
-	memcpy(iv, key, AES_BLOCK_SIZE);
+	memcpy(iv, DECKEY, AES_BLOCK_SIZE);
 	AES_KEY aes;
-	if (AES_set_encrypt_key((unsigned char*)key, 128, &aes) < 0)
+	if (AES_set_encrypt_key((unsigned char*)DECKEY, 128, &aes) < 0)
 	{
-		return 0;
+		return;
 	}
-
-	int num = 0, en_len = 0;
+	int num = 0;
 	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_ENCRYPT);
-
-	return num;
+	inlen = inlen / AES_BLOCK_SIZE*AES_BLOCK_SIZE;
+	out[inlen + num] = '\0';
 
 }
-
 
 void HttpInfo::requestSQLStart(SQLInfo &info){
 	HttpInfo::getIns()->m_pSQLInfo->Copy(info);
@@ -99,11 +97,11 @@ void HttpInfo::requestSQLStart(SQLInfo &info){
 
 void HttpInfo::SQLStartCallBack(HttpClient* client, HttpResponse* response){
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
-	log("SQLStartCallBack:%s",str.c_str());
+	char* str = XXHttpRequest::getIns()->getdata(response, sz);
+	log("SQLStartCallBack:%s",str);
 	bool isc = true;
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器未开启");
 		isc = false;
 		p->ShowFindBar(false);
@@ -111,6 +109,7 @@ void HttpInfo::SQLStartCallBack(HttpClient* client, HttpResponse* response){
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
+		delete str;
 		log("sd:%s",sd.getJsonString().c_str());
 		bool isstart= sd.isMember("err");
 		if (isstart){
@@ -190,7 +189,7 @@ void HttpInfo::SQLStartCallBack(HttpClient* client, HttpResponse* response){
 }
 
 void HttpInfo::requestSQLClose(){
-	string url = "http://192.168.1.102:8080/";
+	string url = "http://192.168.1.101:8080/";
 	YMSocketData sd;
 	sd["cmd"] = 0x02;
 	
@@ -200,13 +199,14 @@ void HttpInfo::requestSQLClose(){
 
 void HttpInfo::SQLCloseCallBack(HttpClient* client, HttpResponse* response){
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	char* str= XXHttpRequest::getIns()->getdata(response, sz);
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器未开启");
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
+		delete str;
 		log("sd:%s", sd.getJsonString().c_str());
 		int err = sd["err"].asInt();
 		if (err == 0){
@@ -251,9 +251,9 @@ void HttpInfo::requestSQLExcute(string tablename, map<string, string> vec,string
 
 void HttpInfo::SQLExcuteCallBack(HttpClient* client, HttpResponse* response){
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	char*  str = XXHttpRequest::getIns()->getdata(response, sz);
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器未开启");
 		
 		p->StartStatus(true);
@@ -264,6 +264,7 @@ void HttpInfo::SQLExcuteCallBack(HttpClient* client, HttpResponse* response){
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
+		delete str;
 		log("sd:%s", sd.getJsonString().c_str());
 		int err = sd["err"].asInt();
 		if (err == 0){
@@ -289,15 +290,16 @@ void HttpInfo::requestSQLDB(string dbname){
 
 void HttpInfo::SQLDBCallBack(HttpClient* client, HttpResponse* response){
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	char*  str = XXHttpRequest::getIns()->getdata(response, sz);
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
 	bool isc = true;
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器未开启");
 		isc = false;
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
+		delete str;
 		log("sd:%s", sd.getJsonString().c_str());
 		int err = sd["err"].asInt();
 		char buff[100];
@@ -355,16 +357,16 @@ void HttpInfo::requestSQLConnect(){
 
 void HttpInfo::SQLConnectCallBack(HttpClient* client, HttpResponse* response){
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	char*  str = XXHttpRequest::getIns()->getdata(response, sz);
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
 	bool isc = true;
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器已关闭");
 		isc = false;
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
-		
+		delete str;
 		int err = sd["err"].asInt();
 		if (err == 0){
 			isc = true;
@@ -402,14 +404,15 @@ void HttpInfo::requestSQLColumns(string tablename){
 void HttpInfo::SQLLColumnsCallBack(HttpClient* client, HttpResponse* response){
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	char*  str = XXHttpRequest::getIns()->getdata(response, sz);
 	bool isc = true;
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器已关闭");
 		isc = false;
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
+		delete str;
 		log("sd:%s", sd.getJsonString().c_str());
 		int err = sd["err"].asInt();
 		string tablename = sd["tname"].asString();
@@ -442,14 +445,15 @@ void HttpInfo::requestSQLFindConnect(string tablename, string coname, string cov
 void HttpInfo::SQLLFindCallBack(HttpClient* client, HttpResponse* response){
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	char*  str = XXHttpRequest::getIns()->getdata(response, sz);
 	bool isc = true;
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器已关闭");
 		isc = false;
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
+		delete str;
 		log("sd:%s", sd.getJsonString().c_str());
 		int err = sd["err"].asInt();
 		if (err == 0){
@@ -492,14 +496,15 @@ void HttpInfo::requestSQLBackupConnect(string dbname){
 void HttpInfo::SQLBackupCallBack(HttpClient* client, HttpResponse* response){
 	LogoLayer *p = ServerControl::getIns()->getLogoLayer();
 	int sz = 0;
-	string str = XXHttpRequest::getIns()->getdata(response, sz);
+	char*  str = XXHttpRequest::getIns()->getdata(response, sz);
 	bool isc = true;
-	if (str.empty()){
+	if (!str){
 		LogoLayer::ShowPrintf("服务器已关闭");
 		isc = false;
 	}
 	else{
 		YMSocketData sd = getSocketDataByStr(str, sz);
+		delete str;
 		log("sd:%s", sd.getJsonString().c_str());
 		int err = sd["err"].asInt();
 		if (err == 0){
@@ -584,12 +589,12 @@ map<string, string> HttpInfo::setDBDataToVec(::google::protobuf::Message* msg, s
 	return vec;
 }
 
-YMSocketData HttpInfo::getSocketDataByStr(string str, int sz){
+YMSocketData HttpInfo::getSocketDataByStr(char* str, int sz){
 	YMSocketData sd;
-	if (str.empty()){
+	if (!str){
 		return sd;
 	}
-	sd.parse((char *)str.c_str(), sz);
+	sd.parse(str, sz);
 
 	return sd;
 }
@@ -847,24 +852,4 @@ void HttpInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Messa
 		sd["piao"] =piao ;
 		sd["laizi"] = laizi;
 	}
-}
-
-string HttpInfo::encryptStringFromString(string in, int sz){
-	char *out = new char[4096];
-	int num = aes_encrypt((char *)in.c_str(), sz, DECKEY, out);
-	out[sz + num] = '\0';
-	string ss = out;
-	int len = ss.length();
-	delete out;
-	return ss;
-}
-
-string HttpInfo::decryptStringFromString(string in, int sz){
-	char *out = new char[4096];
-	int nn = aes_decrypt((char *)in.c_str(), sz, DECKEY, out);
-	out[sz + nn] = '\0';
-	string ss = out;
-	int len = ss.length();
-	delete out;
-	return ss;
 }

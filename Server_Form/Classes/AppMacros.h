@@ -32,7 +32,7 @@ static cocos2d::Size largeResolutionSize = cocos2d::Size(1136, 640);
 #define MJ_TABLENAME_DETAIL_RECORDS "detail_records"
 #define MJ_TABLENAME_NOTICE "notice"
 #define MJ_TABLENAME_ROOM "room"
-
+#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 using namespace std;
 using namespace protocol;
 static string g_version = cocos2d::cocos2dVersion();

@@ -44,8 +44,8 @@ public:
 	void requestSQLBackupConnect(string dbname);
 	void SQLBackupCallBack(HttpClient* client, HttpResponse* response);
 
-	int aes_encrypt(char* in, int inlen, char* key, char* out);
-	int aes_decrypt(char* in, int inlen, char* key, char* out);
+	void aes_encrypt(char* in, int inlen,char* out);
+	void aes_decrypt(char* in, int inlen,char* out);
 	
 	vector<string> getDatabases(){
 		return m_dbs;
@@ -74,15 +74,13 @@ public:
 	void closeUpdate();
 private:
 	map<string, string> setDBDataToVec(::google::protobuf::Message* msg,string tname);
-	YMSocketData getSocketDataByStr(string str, int sz);
+	YMSocketData getSocketDataByStr(char* str, int sz);
 	string getDBDataString(::google::protobuf::Message *data,string tname);
 	void HttpSend(YMSocketData sd, SEL_HttpResponse respond);
 
 	::google::protobuf::Message * getDBDataFromSocketData(string tablename, CSJson::Value sd);
 	void setDBDataToSocketData(string tablename, ::google::protobuf::Message *user, YMSocketData &sd);
 
-	string encryptStringFromString(string in, int sz);
-	string decryptStringFromString(string in, int sz);
 public:
 	static HttpInfo *m_Ins;
 	bool m_isConnetServer;

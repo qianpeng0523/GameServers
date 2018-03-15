@@ -1,7 +1,7 @@
 ﻿#include "XXHttpRequest.h"
 #include "MD55.h"
 #include "YMSocketDataEvent.h"
-
+#include "HttpInfo.h"
 
 XXHttpRequest* XXHttpRequest::m_ins=NULL;
 bool XXHttpRequest::m_init=false;
@@ -46,8 +46,12 @@ void XXHttpRequest::postServerDataFromUrl(string url, YMSocketData sd, SEL_HttpR
 	int sz = 0;
 	sd.serializer(buff, &sz);
 	buff[sz] = '\0';
-	request->setRequestData(buff, sz);
 
+	char *data = new char[sz+1];
+	HttpInfo::getIns()->aes_encrypt(buff, sz,data);
+
+	request->setRequestData(data, sz);
+	delete data;
 	request->setTag("get test1");
 	//提交请求
 	HttpClient::getInstance()->send(request);
@@ -92,18 +96,25 @@ void XXHttpRequest::StringReplace(string &strBase, string strSrc, string strDes)
 	log("strBase:%s", strBase.c_str());
 }
 
-string XXHttpRequest::getdata(HttpResponse* response, int &psize){
-	string temp;
+char* XXHttpRequest::getdata(HttpResponse* response, int &psize){
+	
 	if (response){
 		vector< char> *vc = response->getResponseData();
 		psize = vc->size();
+		char* temp = new char[psize + 1];
 		unsigned char cc;
 		for (int i = 0; i < psize; i++){
 			cc = vc->at(i);
-			temp += cc;
+			temp[i] = cc;
 		}
+		temp[psize] = '\0';
+		char *out = new char[psize + 1];
+		HttpInfo::getIns()->aes_decrypt(temp, psize, out);
+		delete temp;
+		return out;
 	}
-	return temp;
+	
+	return "";
 }
 
 int XXHttpRequest::getDataSize(HttpResponse* response){

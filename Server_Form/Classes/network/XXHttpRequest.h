@@ -46,7 +46,7 @@ public:
 	static XXHttpRequest* getIns();
 	void postServerDataFromUrl(string url,YMSocketData sd, SEL_HttpResponse respond);
 	void getServerDataFromUrl(string url, YMSocketData sd, SEL_HttpResponse respond);
-	string getdata(HttpResponse* response,int &psize);
+	char* getdata(HttpResponse* response, int &psize);
 	
 	void StringReplace(string &strBase, string strSrc, string strDes);
 	string getRequstData(Dictionary *dict);
