@@ -90,6 +90,12 @@ void HttpLogic::requestManagerData(){
 	HttpEvent::getIns()->requestData(url,sd);
 }
 
+DWORD WINAPI threadClient(int lPVOID){
+	HttpLogic *p = HttpLogic::getIns();
+	ClientSocket::getIns()->connect(p->m_logicmnip.c_str(),p->m_logicmnport);
+	return GetCurrentThreadId();
+}
+
 void HttpLogic::ManagerDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
 	if (err == 0){
@@ -99,7 +105,8 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 		printf("\n/************************************************/\n");
 		std::cout << "client socket start:ip:" << m_logicmnip.c_str() << " port:" << m_logicmnport << std::endl;
 		printf("/************************************************/\n");
-		ClientSocket::getIns()->connect(m_logicmnip.c_str(), m_logicmnport);
+		thread t1(&threadClient, NULL);
+		t1.detach();
 	}
 	else{
 		printf("未获取到数据\n");

@@ -8,17 +8,13 @@
 #include "thread"
 #include "LibEvent.h"
 #include "Poco/Util/Timer.h"
-DWORD WINAPI threadClient(int lPVOID){
-	HttpLogic::getIns()->requestManagerData();
-	return GetCurrentThreadId();
-}
+
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	thread t1(&threadClient, NULL);
-	t1.detach();
 	
+	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
 	
 	getchar();

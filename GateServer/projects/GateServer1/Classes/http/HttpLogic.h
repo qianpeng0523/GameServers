@@ -32,10 +32,12 @@ public:
 	}
 
 	void update(float dt);
-private:
-	static HttpLogic *m_Ins;
+
 	string m_logicmnip;
 	int m_logicmnport;
+private:
+	static HttpLogic *m_Ins;
+	
 	string m_servername;
 public:
 	
