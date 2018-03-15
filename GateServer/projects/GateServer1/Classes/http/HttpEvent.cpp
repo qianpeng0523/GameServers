@@ -43,13 +43,18 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	evhttp_add_header(req->output_headers, "Connection", "close");
 	//输出的内容
 
-	//获取客户端请求的URI(使用evhttp_request_uri或直接req->uri)
-	const char *uri;
-	uri = evhttp_request_uri(req);
-	std::vector<string> vecs = Common::getStrings(uri, "/");
-	string str = uri;
-	str = str.substr(1, str.length());
-	HttpEvent::getIns()->EventDispath(req, str);
+	string ip = req->remote_host;
+	int port = req->remote_port;
+	printf("requset:%s:%d\n", ip.c_str(), port);
+
+	struct evbuffer *buffer = req->input_buffer;
+	int sz = EVBUFFER_LENGTH(buffer);
+
+	char *buff = (char *)EVBUFFER_DATA(buffer);
+	if (buff){
+		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(buff, sz);
+		HttpEvent::getIns()->SendMsg(sd, req);
+	}
 }
 
 
@@ -99,13 +104,6 @@ void HttpEvent::requestData(string url, YMSocketData sd){
 	curl_easy_cleanup(curl);
 }
 
-void HttpEvent::EventDispath(struct evhttp_request *&req, string uri){
-	YMSocketData sd = getSocketDataByStr(uri, uri.length());
-	//通过url分写逻辑
-	SendMsg(sd, req);
-	
-}
-
 void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 	struct evbuffer *buf;
 	buf = evbuffer_new();
@@ -113,9 +111,7 @@ void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 	int packSize = 0;
 	HttpLogic::getIns()->HandleLogic(sd, packBuffer, packSize);
 	evbuffer_add(buf, packBuffer, packSize);
-	if (req){
-		evhttp_send_reply(req, HTTP_OK, "OK", buf);
-	}
+	evhttp_send_reply(req, HTTP_OK, "OK", buf);
 	evbuffer_free(buf);
 	free(packBuffer);
 }
