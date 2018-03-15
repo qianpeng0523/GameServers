@@ -23,11 +23,9 @@ public:
 	SQLInfo *getSQLInfo(){
 		return m_pSQLInfo;
 	}
-	int aes_encrypt(char* in, int inlen, char* key, char* out);
-	int aes_decrypt(char* in, int inlen, char* key, char* out);
-	string encryptStringFromString(string in, int sz);
-	string decryptStringFromString(string in, int sz);
-
+	void aes_encrypt(char* in, int inlen, char* out);
+	void aes_decrypt(char* in, int inlen, char* out);
+	
 	void setGateUse(string name, bool isUse);
 private:
 	void SqlStart(YMSocketData sd, char *&buff, int &sz);

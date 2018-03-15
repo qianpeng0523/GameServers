@@ -22,9 +22,6 @@
     <Filter Include="源文件\Classes\db">
       <UniqueIdentifier>{f453705d-532d-4c04-bfbd-e54035b82079}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Classes\cc">
-      <UniqueIdentifier>{1f4cd657-03ad-4b76-be51-f27b49a0bb80}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\Classes\config">
       <UniqueIdentifier>{4ccbcd91-a344-403f-93d8-7b1cff9cf418}</UniqueIdentifier>
     </Filter>

@@ -36,24 +36,25 @@
 #define CC_UNUSED_PARAM(unusedparam) (void)unusedparam
 
 
-#define SQLSERVER_IP "192.168.1.102"
+#define SQLSERVER_IP "192.168.1.101"
 #define HTTP_H "http://"
 #define SQL_FIND_USERINFO HTTP_H+SQLSERVER_IP
 
 #define DBUSER "qpserver"
 #define DBPASSWD "3.1415926qp"
-#define DBIP "192.168.1.102"
+#define DBIP "192.168.1.101"
 #define DBNAME "majiang"
 // #define MJ_TABLENAME_USER "userinfo"
 // #define MJ_TABLENAME_RECORDS "records"
 // #define MJ_TABLENAME_DETAIL_RECORDS "detail_records"
 #define DBPORT 3306
-
-#pragma comment(lib,"../Debug/libprotobuf.lib") 
-#pragma comment(lib,"../Debug/libprotoc.lib") 
+#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 #include "iconv.h"
 #pragma comment(lib,"../Debug/libiconv.lib") 
+#pragma comment(lib,"../Debug/libprotobuf.lib") 
+#pragma comment(lib,"../Debug/libprotoc.lib") 
+#pragma comment(lib,"../Debug/libcrypto.lib")
 #endif
 using namespace std;

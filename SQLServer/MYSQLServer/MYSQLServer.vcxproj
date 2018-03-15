@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\Debug\libMessagePack.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\Debug\libMessagePack.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;..\Debug\libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineTHUMB</TargetMachine>

@@ -4,51 +4,48 @@
 #include "aes.h"
 #include "CSVDataInfo.h"
 
-#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+
 
 
 
 HttpLogic *HttpLogic::m_Ins = NULL;
 
 
-int HttpLogic::aes_decrypt(char* in, int inlen,char* key, char* out)
+void HttpLogic::aes_decrypt(char* in, int inlen, char* out)
 {
-	if (!in || !key || !out) return 0;
+	if (!in || !out) return;
 	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
-	memcpy(iv, key, AES_BLOCK_SIZE);
+	memcpy(iv, DECKEY, AES_BLOCK_SIZE);
 
 	AES_KEY aes;
-	if (AES_set_encrypt_key((unsigned char*)key, 128, &aes) < 0)
+	if (AES_set_encrypt_key((unsigned char*)DECKEY, 128, &aes) < 0)
 	{
-		return 0;
+		return ;
 	}
 	
-	int num = 0,en_len=0;
+	int num = 0;
 	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_DECRYPT);
+	inlen = inlen / AES_BLOCK_SIZE*AES_BLOCK_SIZE;
+	out[inlen+num] = '\0';
 	
-	return num;
-
 }
 
-int HttpLogic::aes_encrypt(char* in, int inlen, char* key, char* out)
+void HttpLogic::aes_encrypt(char* in, int inlen, char* out)
 {
-	if (!in || !key || !out) return 0;
+	if (!in || !out) return ;
 	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
-	memcpy(iv, key, AES_BLOCK_SIZE);
+	memcpy(iv, DECKEY, AES_BLOCK_SIZE);
 	AES_KEY aes;
-	if (AES_set_encrypt_key((unsigned char*)key, 128, &aes) < 0)
+	if (AES_set_encrypt_key((unsigned char*)DECKEY, 128, &aes) < 0)
 	{
-		return 0;
+		return ;
 	}
-	
-	int num = 0,en_len=0;
+	int num = 0;
 	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_ENCRYPT);
+	inlen = inlen / AES_BLOCK_SIZE*AES_BLOCK_SIZE;
+	out[inlen+num] = '\0';
 	
-	return num;
-
 }
-
-
 
 HttpLogic::HttpLogic(){
 	m_pSQLInfo = new SQLInfo();
@@ -247,26 +244,6 @@ void HttpLogic::SqlExcute(YMSocketData sd, char *&buff, int &sz){
 	sd1["err"] = err;
 	sd1["tname"] = tname;
 	sd1.serializer(buff, &sz);
-}
-
-string HttpLogic::encryptStringFromString(string in,int sz){
-	char *out = new char[4096];
-	int num = aes_encrypt((char *)in.c_str(), sz, DECKEY, out);
-	out[sz+num] = '\0';
-	string ss = out;
-	int len = ss.length();
-	delete out;
-	return ss;
-}
-
-string HttpLogic::decryptStringFromString(string in,int sz){
-	char *out = new char[4096];
-	int nn = aes_decrypt((char *)in.c_str(), sz, DECKEY, out);
-	out[sz + nn] = '\0';
-	string ss = out;
-	int len = ss.length();
-	delete out;
-	return ss;
 }
 
 void HttpLogic::SqlBackup(string dbname, char *&buff, int &sz){

@@ -74,8 +74,10 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	int sz = EVBUFFER_LENGTH(buffer);
 	
 	char *buff= (char *)EVBUFFER_DATA(buffer);
+	char *data = new char[sz+1];
+	HttpLogic::getIns()->aes_decrypt(buff,sz,data);
 	if (buff){
-		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(buff, sz);
+		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(data,sz);
 		HttpEvent::getIns()->SendMsg(sd, req);
 	}
 }
@@ -86,7 +88,10 @@ void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 	char *packBuffer = (char *)malloc(4096);
 	int packSize = 0;
 	HttpLogic::getIns()->HandleLogic(sd, packBuffer, packSize);
-	evbuffer_add(buf, packBuffer, packSize);
+	char *data = new char[packSize+1];
+	HttpLogic::getIns()->aes_encrypt(packBuffer,packSize,data);
+	evbuffer_add(buf, data, packSize);
+	delete data;
 	evhttp_send_reply(req, HTTP_OK, "OK", buf);
 	evbuffer_free(buf);
 	free(packBuffer);

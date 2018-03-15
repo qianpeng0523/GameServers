@@ -24,6 +24,7 @@ DWORD WINAPI ThreadHttp(LPVOID lPVOID){
 
 int main()
 {
+	
 	CSVDataInfo::getIns();
 	HttpLogic::getIns();
 	CreateThread(NULL, 0, ThreadHttp, NULL, 0, NULL);
