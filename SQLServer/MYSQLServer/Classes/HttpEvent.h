@@ -13,9 +13,9 @@ public:
 
 	static HttpEvent* getIns();
 	void init();
-	YMSocketData getSocketDataByStr(string str, int sz);
+	YMSocketData getSocketDataByStr(const char* str, int sz);
 
-	void EventDispath(struct evhttp_request *&req,string url);
+	void EventDispath(struct evhttp_request *&req,YMSocketData sd);
 	void SendMsg(YMSocketData &sd, struct evhttp_request *req=NULL);
 private:
 	static HttpEvent *m_ins;

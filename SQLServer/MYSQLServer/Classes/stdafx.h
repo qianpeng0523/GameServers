@@ -57,5 +57,3 @@
 #pragma comment(lib,"../Debug/libiconv.lib") 
 #endif
 using namespace std;
-#define REPLACESTRR "||||&***#@"
-#define REPLACESTRN "%^&*():"

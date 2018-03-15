@@ -66,19 +66,22 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	evhttp_add_header(req->output_headers, "Connection", "close");
 	//输出的内容
 	
-	//获取客户端请求的URI(使用evhttp_request_uri或直接req->uri)
-	const char *uri;
-	uri = evhttp_request_uri(req);
-	string str = uri;
-	str = str.substr(1,str.length());
-	str = Common::replace_all(str, REPLACESTRR,"\r" );
-	str = Common::replace_all(str, REPLACESTRN,"\n");
-	HttpEvent::getIns()->EventDispath(req, str);
+	string ip = req->remote_host;
+	int port = req->remote_port;
+	printf("requset:%s:%d\n",ip.c_str(),port);
+	
+	struct evbuffer *buffer = req->input_buffer;
+	int sz = EVBUFFER_LENGTH(buffer);
+	
+	char *buff= (char *)EVBUFFER_DATA(buffer);
+	if (buff){
+		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(buff, sz);
+		HttpEvent::getIns()->EventDispath(req, sd);
+	}
 }
 
-void HttpEvent::EventDispath(struct evhttp_request *&req, string uri){
+void HttpEvent::EventDispath(struct evhttp_request *&req, YMSocketData sd){
 	m_req = req;
-	YMSocketData sd = getSocketDataByStr(uri,uri.length());
 	//通过url分写逻辑
 	SendMsg(sd,req);
 	
@@ -136,12 +139,12 @@ void HttpEvent::init(){
 
 }
 
-YMSocketData HttpEvent::getSocketDataByStr(string str,int sz){
+YMSocketData HttpEvent::getSocketDataByStr(const char* buff, int sz){
 	YMSocketData sd;
-	if (str.empty()){
+	if (!buff){
 		return sd;
 	}
-	sd.parse((char *)str.c_str(), sz);
+	sd.parse((char *)buff, sz);
 
 	return sd;
 }
