@@ -22,7 +22,7 @@ public:
 	~HttpEvent();
 
 	static HttpEvent* getIns();
-	void requestData(string url);
+	void requestData(string url,YMSocketData sd);
 	void init();
 	
 	void EventDispath(struct evhttp_request *&req, string uri);

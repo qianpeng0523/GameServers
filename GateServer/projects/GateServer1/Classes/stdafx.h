@@ -23,6 +23,8 @@
 #include "Poco/Thread.h"
 #include "LogicServer.h"
 #include "ccEvent.h"
+#include "Login.h"
+#include "DBProto.h"
 using namespace std;
 using namespace protocol;
 using namespace Poco;
@@ -40,6 +42,4 @@ static string SERVER_CODE = "wg1";
 #endif
 
 #define sqlhttp "http://192.168.50.151:8080/"
-#define REPLACESTRR "||||&***#@"
-#define REPLACESTRN "%^&*():"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"

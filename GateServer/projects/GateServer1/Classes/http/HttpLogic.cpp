@@ -61,15 +61,8 @@ void HttpLogic::requestGateData(){
 	string url=sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0B;
-	char buff[4096];
-	int sz = 0;
-	sd.serializer(buff, &sz);
-	buff[sz] = '\0';
 	
-	url += buff;
-	url = Common::replace_all(url, "\r", REPLACESTRR);
-	url = Common::replace_all(url, "\n", REPLACESTRN);
-	HttpEvent::getIns()->requestData(url);
+	HttpEvent::getIns()->requestData(url,sd);
 }
 
 void HttpLogic::GateDataCall(YMSocketData sd){
@@ -93,15 +86,8 @@ void HttpLogic::requestManagerData(){
 	string url = sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0A;
-	char buff[4096];
-	int sz = 0;
-	sd.serializer(buff, &sz);
-	buff[sz] = '\0';
-
-	url += buff;
-	url = Common::replace_all(url, "\r", REPLACESTRR);
-	url = Common::replace_all(url, "\n", REPLACESTRN);
-	HttpEvent::getIns()->requestData(url);
+	
+	HttpEvent::getIns()->requestData(url,sd);
 }
 
 void HttpLogic::ManagerDataCall(YMSocketData sd){
@@ -126,15 +112,8 @@ void HttpLogic::requestDBData(string uid, string pwd){
 	sd["cmd"] = 0x0C;
 	sd["userid"] = uid;
 	sd["pwd"] = pwd;
-	char buff[4096];
-	int sz = 0;
-	sd.serializer(buff, &sz);
-	buff[sz] = '\0';
-
-	url += buff;
-	url = Common::replace_all(url, "\r", REPLACESTRR);
-	url = Common::replace_all(url, "\n", REPLACESTRN);
-	HttpEvent::getIns()->requestData(url);
+	
+	HttpEvent::getIns()->requestData(url,sd);
 }
 
 void HttpLogic::DBDataCall(YMSocketData sd){
@@ -152,16 +131,8 @@ void HttpLogic::DBDataCall(YMSocketData sd){
 void HttpLogic::requestRegister(YMSocketData &sd){
 	string url = sqlhttp;
 	sd["cmd"] = 0x10;
-	printf("ss:%s\n",sd.getJsonString().c_str());
-	char buff[4096];
-	int sz = 0;
-	sd.serializer(buff, &sz);
-	buff[sz] = '\0';
-
-	url += buff;
-	url = Common::replace_all(url, "\r", REPLACESTRR);
-	url = Common::replace_all(url, "\n", REPLACESTRN);
-	HttpEvent::getIns()->requestData(url);
+	
+	HttpEvent::getIns()->requestData(url,sd);
 }
 
 void HttpLogic::RegisterCall(YMSocketData sd){

@@ -53,7 +53,7 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 }
 
 
-void HttpEvent::requestData(string url){
+void HttpEvent::requestData(string url, YMSocketData sd){
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
@@ -62,15 +62,40 @@ void HttpEvent::requestData(string url){
 	}
 	//ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。
 	string content;
-	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, read_data);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &content);
 	//跟踪到的协议信息、libcurl版本、libcurl的客户代码、操作系统名称、版本、编译器名称、版本等等。
 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
-	curl_easy_perform(curl);
-	YMSocketData sd = getSocketDataByStr(content, content.length());
-	HttpLogic::getIns()->respondleLogic(sd);
+	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+	curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
+	curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "");
 
+	char buff[4096];
+	int sz = 0;
+	sd.serializer(buff, &sz);
+
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDS,buff);
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, sz);
+	CURLcode code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, 100);
+	if (code != CURLE_OK) {
+		printf("time out\n");
+	}
+	code = curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 100);
+	if (code != CURLE_OK) {
+		printf("connect time out\n");
+	}
+
+	curl_easy_perform(curl);
+	int responseCode = 0;
+	code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
+	if (code != CURLE_OK || !(responseCode >= 200 && responseCode < 300)) {
+		printf("Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(code));
+	}
+	else{
+		YMSocketData sd = getSocketDataByStr(content, content.length());
+		HttpLogic::getIns()->respondleLogic(sd);
+	}
 	curl_easy_cleanup(curl);
 }
 
