@@ -63,6 +63,4 @@ static string SERVER_CODE = "lm1";
 typedef void (Object::*Http_CallFun)(YMSocketData );
 
 #define sqlhttp "http://192.168.1.103:8080/"
-#define REPLACESTRR "||||&***#@"
-#define REPLACESTRN "%^&*():"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"

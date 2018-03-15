@@ -23,13 +23,12 @@ public:
 	~HttpEvent();
 
 	static HttpEvent* getIns();
-	void requestData(string url);
+	void requestData(string url, YMSocketData sd);
 	void init();
-	
-	void EventDispath(struct evhttp_request *&req, string uri);
-private:
 	void SendMsg(YMSocketData &sd, struct evhttp_request *req);
 	YMSocketData getSocketDataByStr(string str, int sz);
+private:
+	
 private:
 	static HttpEvent *m_ins;
 	
