@@ -84,6 +84,4 @@ static string SERVER_IP = "192.168.1.103";
 #endif
 
 #define sqlhttp "http://192.168.1.103:8080/"
-#define REPLACESTRR "||||&***#@"
-#define REPLACESTRN "%^&*():"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"

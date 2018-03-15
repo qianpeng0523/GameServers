@@ -35,15 +35,7 @@ void HttpLogic::requestManagerData(){
 	string url=sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0A;
-	char buff[4096];
-	int sz = 0;
-	sd.serializer(buff, &sz);
-	buff[sz] = '\0';
-	
-	url += buff;
-	url = Common::replace_all(url, "\r", REPLACESTRR);
-	url = Common::replace_all(url, "\n", REPLACESTRN);
-	HttpEvent::getIns()->requestData(url);
+	HttpEvent::getIns()->requestData(url,sd);
 }
 
 void HttpLogic::ManagerDataCall(YMSocketData sd){
