@@ -76,15 +76,8 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	char *buff= (char *)EVBUFFER_DATA(buffer);
 	if (buff){
 		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(buff, sz);
-		HttpEvent::getIns()->EventDispath(req, sd);
+		HttpEvent::getIns()->SendMsg(sd, req);
 	}
-}
-
-void HttpEvent::EventDispath(struct evhttp_request *&req, YMSocketData sd){
-	m_req = req;
-	//通过url分写逻辑
-	SendMsg(sd,req);
-	
 }
 
 void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
@@ -94,12 +87,7 @@ void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 	int packSize = 0;
 	HttpLogic::getIns()->HandleLogic(sd, packBuffer, packSize);
 	evbuffer_add(buf, packBuffer, packSize);
-	if (req){
-		evhttp_send_reply(req, HTTP_OK, "OK", buf);
-	}
-	else{
-		evhttp_send_reply(m_req, HTTP_OK, "OK", buf);
-	}
+	evhttp_send_reply(req, HTTP_OK, "OK", buf);
 	evbuffer_free(buf);
 	free(packBuffer);
 }

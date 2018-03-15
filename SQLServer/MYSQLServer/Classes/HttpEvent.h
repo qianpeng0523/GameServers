@@ -15,10 +15,8 @@ public:
 	void init();
 	YMSocketData getSocketDataByStr(const char* str, int sz);
 
-	void EventDispath(struct evhttp_request *&req,YMSocketData sd);
-	void SendMsg(YMSocketData &sd, struct evhttp_request *req=NULL);
+	void SendMsg(YMSocketData &sd, struct evhttp_request *req);
 private:
 	static HttpEvent *m_ins;
 	struct evhttp *m_httpd;
-	struct evhttp_request *m_req;
 };
