@@ -81,7 +81,9 @@ static string SERVER_IP = "192.168.1.103";
 #pragma comment(lib,"../Debug/libiconv.lib") 
 #pragma comment(lib,"../Debug/libprotobuf.lib")
 #pragma comment(lib,"../Debug/libMessagePack.lib")
+#pragma comment(lib,"../Debug/libcrypto.lib")
 #endif
 
-#define sqlhttp "http://192.168.1.103:8080/"
+#define sqlhttp "http://192.168.1.101:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
+#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
