@@ -52,8 +52,10 @@ HttpEvent* HttpEvent::getIns(){
 
 size_t read_data(void* buffer, size_t size, size_t nmemb, void *stream)
 {
-	string *content = (string *)stream;
-	content->append((char*)buffer, size * nmemb);
+	vector<char> *vec = (vector<char> *)stream;
+	for (int i = 0; i < size*nmemb; i++){
+		vec->push_back(((char*)buffer)[i]);
+	}
 	return size*nmemb;
 }
 
@@ -72,12 +74,12 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);
-	
 	char *buff= (char *)EVBUFFER_DATA(buffer);
-	char *data = new char[sz+1];
-	HttpLogic::getIns()->aes_decrypt(buff,sz,data);
 	if (buff){
-		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(data,sz);
+		char *out = new char[sz + 1];
+		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
+		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
+		delete out;
 		HttpEvent::getIns()->SendMsg(sd, req);
 	}
 }
