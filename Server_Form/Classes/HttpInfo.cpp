@@ -617,15 +617,8 @@ void HttpInfo::HttpSend(YMSocketData sd, SEL_HttpResponse respond){
 	string url = "http://";
 	url += info->_httpip + ":";
 	url += info->_httpport + "/";
-	log("url:%s",url.c_str());
-	char buff[4096];
-	int sz = 0;
-	sd.serializer(buff, &sz);
-	buff[sz] = '\0';
-
-	url += buff;
-
-	XXHttpRequest::getIns()->getServerDataFromUrl(url, respond);
+	
+	XXHttpRequest::getIns()->postServerDataFromUrl(url,sd, respond);
 }
 
 string HttpInfo::getDBDataString(::google::protobuf::Message *data, string tname){

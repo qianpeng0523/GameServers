@@ -44,8 +44,8 @@ public:
 	~XXHttpRequest();
 	bool init();
 	static XXHttpRequest* getIns();
-	void postServerDataFromUrl(string url, SEL_HttpResponse respond);
-	void getServerDataFromUrl(string url, SEL_HttpResponse respond);
+	void postServerDataFromUrl(string url,YMSocketData sd, SEL_HttpResponse respond);
+	void getServerDataFromUrl(string url, YMSocketData sd, SEL_HttpResponse respond);
 	string getdata(HttpResponse* response,int &psize);
 	
 	void StringReplace(string &strBase, string strSrc, string strDes);
