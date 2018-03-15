@@ -16,6 +16,9 @@ public:
 	void ManagerDataCall(YMSocketData sd);
 	void HandleLogic(YMSocketData sd, char *&buff, int &sz);
 	void respondleLogic(YMSocketData sd);
+
+	void aes_encrypt(char* in, int inlen, char* out);
+	void aes_decrypt(char* in, int inlen, char* out);
 private:
 	static HttpLogic *m_Ins;
 	

@@ -28,8 +28,10 @@ HttpEvent* HttpEvent::getIns(){
 
 size_t read_data(void* buffer, size_t size, size_t nmemb, void *stream)
 {
- 	string *content = (string *)stream;
- 	content->append((char*)buffer, size * nmemb);
+	vector<char> *vec = (vector<char> *)stream;
+	for (int i = 0; i < size*nmemb; i++){
+		vec->push_back(((char*)buffer)[i]);
+	}
 	return size*nmemb;
 }
 
@@ -52,11 +54,26 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 
 	char *buff = (char *)EVBUFFER_DATA(buffer);
 	if (buff){
-		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(buff, sz);
+		char *out = new char[sz + 1];
+		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
+		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
+		delete out;
 		HttpEvent::getIns()->SendMsg(sd, req);
 	}
 }
 
+char *HttpEvent::getData(vector<char> vec){
+	int sz = vec.size();
+	char *data = new char[sz + 1];
+	for (int i = 0; i < sz; i++){
+		data[i] = vec[i];
+	}
+	data[sz] = '\0';
+	char *out = new char[sz + 1];
+	HttpLogic::getIns()->aes_decrypt(data, sz, out);
+	delete data;
+	return out;
+}
 
 void HttpEvent::requestData(string url,YMSocketData sd){
 	CURL *curl = curl_easy_init();
@@ -66,10 +83,10 @@ void HttpEvent::requestData(string url,YMSocketData sd){
 		curl_easy_cleanup(curl);
 	}
 	//ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。
-	string content;
+	vector<char> vec;
 	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, read_data);
-	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &content);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &vec);
 	//跟踪到的协议信息、libcurl版本、libcurl的客户代码、操作系统名称、版本、编译器名称、版本等等。
 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
@@ -79,8 +96,9 @@ void HttpEvent::requestData(string url,YMSocketData sd){
 	char buff[4096];
 	int sz = 0;
 	sd.serializer(buff, &sz);
-
-	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, buff);
+	char *data = new char[sz + 1];
+	HttpLogic::getIns()->aes_encrypt(buff, sz, data);
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, sz);
 	CURLcode code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, 100);
 	if (code != CURLE_OK) {
@@ -93,12 +111,15 @@ void HttpEvent::requestData(string url,YMSocketData sd){
 
 	curl_easy_perform(curl);
 	int responseCode = 0;
+	delete data;
 	code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
 	if (code != CURLE_OK || !(responseCode >= 200 && responseCode < 300)) {
 		printf("Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(code));
 	}
 	else{
-		YMSocketData sd = getSocketDataByStr(content, content.length());
+		char *out = getData(vec);
+		YMSocketData sd = getSocketDataByStr(out, vec.size());
+		delete out;
 		HttpLogic::getIns()->respondleLogic(sd);
 	}
 	curl_easy_cleanup(curl);
@@ -110,7 +131,10 @@ void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 	char *packBuffer = (char *)malloc(4096);
 	int packSize = 0;
 	HttpLogic::getIns()->HandleLogic(sd, packBuffer, packSize);
-	evbuffer_add(buf, packBuffer, packSize);
+	char *out = new char[packSize];
+	HttpLogic::getIns()->aes_encrypt(packBuffer, packSize, out);
+	evbuffer_add(buf, out, packSize);
+	delete out;
 	if (req){
 		evhttp_send_reply(req, HTTP_OK, "OK", buf);
 	}
@@ -148,12 +172,12 @@ void HttpEvent::init(){
 	evhttp_free(httpd);
 }
 
-YMSocketData HttpEvent::getSocketDataByStr(string str, int sz){
+YMSocketData HttpEvent::getSocketDataByStr(char* str, int sz){
 	YMSocketData sd;
-	if (str.empty()){
+	if (!str){
 		return sd;
 	}
-	sd.parse((char *)str.c_str(), sz);
+	sd.parse(str, sz);
 
 	return sd;
 }

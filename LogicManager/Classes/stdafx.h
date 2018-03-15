@@ -56,11 +56,13 @@ static string SERVER_CODE = "lm1";
 #pragma comment(lib,"./Debug/libiconv.lib") 
 #pragma comment(lib,"./Debug/libprotobuf.lib")
 #pragma comment(lib,"./Debug/libMessagePack.lib")
+#pragma comment(lib,"./Debug/libcrypto.lib")
 #endif
 
 #define CC_HTTPFUNC_SELECTOR(_SELECTOR) static_cast<Http_CallFun>(&_SELECTOR)
 #define http_handler(_SELECTOR) CC_HTTPFUNC_SELECTOR(_SELECTOR)
 typedef void (Object::*Http_CallFun)(YMSocketData );
 
-#define sqlhttp "http://192.168.1.103:8080/"
+#define sqlhttp "http://192.168.1.101:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
+#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"

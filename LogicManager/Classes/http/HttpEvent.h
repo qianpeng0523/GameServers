@@ -26,7 +26,8 @@ public:
 	void requestData(string url, YMSocketData sd);
 	void init();
 	void SendMsg(YMSocketData &sd, struct evhttp_request *req);
-	YMSocketData getSocketDataByStr(string str, int sz);
+	YMSocketData getSocketDataByStr(char* str, int sz);
+	char *getData(vector<char> vec);
 private:
 	
 private:

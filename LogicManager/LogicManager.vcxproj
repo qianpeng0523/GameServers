@@ -57,7 +57,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;.\protobuf\src;.\Classes\proto;.\Classes\http;.\Classes\netjson;.\Classes\room;.\Classes\control;.\Classes\log;.\libevent\include;.\curl\include\win32\curl;.\libMessagePack;.\Classes\poco;.\poco\Foundation\include;.\poco\Net\include;.\poco\Util\include;.\poco\Data\include;.\poco\CppUnit\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;.\protobuf\src;.\Classes\proto;.\Classes\http;.\Classes\netjson;.\Classes\room;.\Classes\control;.\Classes\log;.\libevent\include;.\curl\include\win32\curl;.\libMessagePack;.\Classes\poco;.\poco\Foundation\include;.\poco\Net\include;.\poco\Util\include;.\poco\Data\include;.\poco\CppUnit\include\;.\Classes\cryptopp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
