@@ -19,6 +19,12 @@ std::string& Common::replace_all(std::string& str, const std::string& old_value,
 	}
 	return   str;
 }
+
+std::string&   Common::replace_all(char *str, const   std::string&   old_value, const   std::string&   new_value){
+	std::string ss=str;
+	return replace_all(ss, old_value, new_value);
+}
+
 std::string& Common::replace_all_distinct(std::string&   str, const   std::string&   old_value, const   std::string&   new_value)
 {
 	for (std::string::size_type pos(0); pos != std::string::npos; pos += new_value.length())   {

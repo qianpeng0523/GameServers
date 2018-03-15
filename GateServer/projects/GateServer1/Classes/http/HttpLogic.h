@@ -33,6 +33,9 @@ public:
 
 	void update(float dt);
 
+	void aes_encrypt(char* in, int inlen, char* out);
+	void aes_decrypt(char* in, int inlen, char* out);
+
 	string m_logicmnip;
 	int m_logicmnport;
 private:

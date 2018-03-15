@@ -24,10 +24,10 @@ public:
 	static HttpEvent* getIns();
 	void requestData(string url,YMSocketData sd);
 	void init();
-	YMSocketData getSocketDataByStr(string str, int sz);
+	YMSocketData getSocketDataByStr(char* str, int sz);
 	void SendMsg(YMSocketData &sd, struct evhttp_request *req);
 private:
-	
+	char *getData(vector<char> vec);
 	
 private:
 	static HttpEvent *m_ins;

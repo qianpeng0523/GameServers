@@ -5,11 +5,50 @@
 #include "Common.h"
 #include "ClientSocket.h"
 #include "LoginInfo.h"
-#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+#include "aes.h"
 
 
 
 HttpLogic *HttpLogic::m_Ins = NULL;
+
+
+
+void HttpLogic::aes_decrypt(char* in, int inlen, char* out)
+{
+	if (!in || !out) return;
+	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
+	memcpy(iv, DECKEY, AES_BLOCK_SIZE);
+
+	AES_KEY aes;
+	if (AES_set_encrypt_key((unsigned char*)DECKEY, 128, &aes) < 0)
+	{
+		return;
+	}
+
+	int num = 0;
+	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_DECRYPT);
+	inlen = inlen / AES_BLOCK_SIZE*AES_BLOCK_SIZE;
+	out[inlen + num] = '\0';
+
+}
+
+void HttpLogic::aes_encrypt(char* in, int inlen, char* out)
+{
+	if (!in || !out) return;
+	unsigned char *iv = new unsigned char[AES_BLOCK_SIZE];
+	memcpy(iv, DECKEY, AES_BLOCK_SIZE);
+	AES_KEY aes;
+	if (AES_set_encrypt_key((unsigned char*)DECKEY, 128, &aes) < 0)
+	{
+		return;
+	}
+	int num = 0;
+	AES_cfb128_encrypt((unsigned char*)in, (unsigned char*)out, inlen, &aes, iv, &num, AES_ENCRYPT);
+	inlen = inlen / AES_BLOCK_SIZE*AES_BLOCK_SIZE;
+	out[inlen + num] = '\0';
+
+}
+
 
 
 HttpLogic::HttpLogic(){
