@@ -2,6 +2,8 @@
 #include "ClientSocket.h"
 #include "EventListen.h"
 #include "EventDispatcher.h"
+#include "HttpLogic.h"
+
 LogicServerInfo *LogicServerInfo::m_shareLogicServerInfo=NULL;
 LogicServerInfo::LogicServerInfo()
 {
@@ -33,7 +35,7 @@ bool LogicServerInfo::init()
 void LogicServerInfo::SendCLogicLogin(){
 	CLogicLogin cl;
 	cl.set_seession(LOGIC_TOKEN);
-	cl.set_servername(SERVER_CODE);
+	cl.set_servername(HttpLogic::SERVER_CODE);
 	EventListen::getIns()->addDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogicLoginHand));
 	ClientSocket::getIns()->sendMsg(cl.cmd(),&cl);
 }

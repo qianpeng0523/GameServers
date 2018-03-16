@@ -1,5 +1,7 @@
 ﻿#include "ClientSocket.h"
 #include "LogicServerInfo.h"
+#include "HttpLogic.h"
+
 /**********消息头********
 0		服务器序列号
 1		stamp
@@ -101,7 +103,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	memset(buffer, 0, HEADLEN + len);
 
 	//服务器编号
-	memcpy(buffer, SERVER_CODE.c_str(), 3);
+	memcpy(buffer, HttpLogic::SERVER_CODE.c_str(), 3);
 
 	//消息序列号
 	buffer[3] = m_stamp;
@@ -116,18 +118,20 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 		buffer[6 + i] = *(ccmd + i);
 	}
 
-	string sm;
-	msg->SerializePartialToString(&sm);
-
+	char* sm=new char[len];
+	msg->SerializePartialToArray(sm,len);
+	char *out = new char[len+1];
+	HttpLogic::getIns()->aes_encrypt(sm, len, out);
+	delete sm;
 	for (int i = HEADLEN; i < HEADLEN + len; i++){
-		buffer[i] = sm[i - HEADLEN];
+		buffer[i] = out[i - HEADLEN];
 	}
-	
+	delete out;
 	printf("sendmsg:body:%s",msg->DebugString().c_str());
 	if (m_tcpSocket){
 		m_tcpSocket->Send(buffer, HEADLEN + len);
 	}
-	
+	delete buffer;
 }
 
 
@@ -153,11 +157,15 @@ void *ClientSocket::threadHandler(void *arg) {
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
-			if (stamp == p->m_stamp&&servercode==SERVER_CODE){
-				p->DataIn(temp, len, cmd);
+			if (stamp == p->m_stamp&&servercode == HttpLogic::SERVER_CODE){
+				char *out = new char[len+1];
+				HttpLogic::getIns()->aes_decrypt(temp, len, out);
+				delete temp;
+				p->DataIn(out, len, cmd);
 			}
 			else{
 				printf("数据不合法\n");
+				delete temp;
 			}
 
         } else{
