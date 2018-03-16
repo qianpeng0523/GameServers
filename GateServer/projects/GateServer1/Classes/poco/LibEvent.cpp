@@ -2,6 +2,7 @@
 #include "LogicServerInfo.h"
 #include "LoginInfo.h"
 #include "HttpLogic.h"
+
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()
 {
@@ -188,7 +189,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 		memset(buffer, 0, HEADLEN + len);
 
 		//服务器编号
-		memcpy(buffer, SERVER_CODE.c_str(),3);
+		memcpy(buffer, HttpLogic::SERVER_CODE.c_str(), 3);
 		
 		//消息序列号
 		buffer[3] = pdata->_conn->stamp;

@@ -8,7 +8,8 @@
 #include "aes.h"
 
 
-
+int HttpLogic::SERVER_PORT=0;
+string HttpLogic::SERVER_CODE="";
 HttpLogic *HttpLogic::m_Ins = NULL;
 
 

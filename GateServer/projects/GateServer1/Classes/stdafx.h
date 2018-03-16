@@ -30,8 +30,7 @@ using namespace protocol;
 using namespace Poco;
 
 
-static int SERVER_PORT = 5600;
-static string SERVER_CODE = "wg1";
+
 #define HEADLEN 10
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 

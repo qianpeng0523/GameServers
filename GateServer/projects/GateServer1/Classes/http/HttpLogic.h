@@ -43,7 +43,8 @@ private:
 	
 	string m_servername;
 public:
-	
+	static int SERVER_PORT;
+	static string SERVER_CODE;
 };
 
 #endif 
