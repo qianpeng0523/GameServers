@@ -1,6 +1,8 @@
 ﻿#include "LibEvent.h"
 #include "HttpEvent.h"
 #include "LogicServerInfo.h"
+#include "HttpLogic.h"
+
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()
 {
@@ -164,11 +166,15 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		char *buffer = new char[bodylen];
 		len = bufferevent_read(bev, buffer, bodylen);
 		if (len == bodylen&&c->m_stamp+1==stamp){
-			ccEvent *cce = new ccEvent(cmd, buffer, bodylen, c->fd);
+			char *out = new char[bodylen + 1];
+			HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
+			delete buffer;
+			ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd);
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{
 			printf("数据不合法！！！！！！！！\n");
+			delete buffer;
 		}
 	}
 	else{
@@ -201,13 +207,15 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 			buffer[6 + i] = *(ccmd + i);
 		}
 
-		string sm;
-		msg->SerializePartialToString(&sm);
-
+		char* sm=new char[len];
+		msg->SerializePartialToArray(sm,len);
+		char *out = new char[len+1];
+		HttpLogic::getIns()->aes_encrypt(sm, len, out);
+		delete sm;
 		for (int i = HEADLEN; i < HEADLEN + len; i++){
-			buffer[i] = sm[i - HEADLEN];
+			buffer[i] = out[i - HEADLEN];
 		}
-
+		delete out;
 		bufferevent_write(pdata->_conn->bufev, buffer, len + HEADLEN);
 
 		delete buffer;
