@@ -42,6 +42,6 @@ static string SERVER_CODE = "wg1";
 #pragma comment(lib,"../../Debug/libcrypto.lib")
 #endif
 
-#define sqlhttp "http://192.168.1.101:8080/"
+#define sqlhttp "http://192.168.50.151:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
