@@ -156,7 +156,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		LibEvent *pLibEvent = LibEvent::getIns();
 		Head *testhead = (Head*)headchar;
 		string serverdest = pLibEvent->getReq(testhead);
-		if (serverdest != SERVER_CODE){
+		if (serverdest != HttpLogic::SERVER_CODE){
 			printf("数据不合法！！！！！！！！\n");
 			return;
 		}
@@ -192,7 +192,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 		memset(buffer, 0, HEADLEN + len);
 
 		//服务器编号
-		memcpy(buffer, SERVER_CODE.c_str(),3);
+		memcpy(buffer, HttpLogic::SERVER_CODE.c_str(), 3);
 		
 		//消息序列号
 		buffer[3] = pdata->_conn->m_stamp;

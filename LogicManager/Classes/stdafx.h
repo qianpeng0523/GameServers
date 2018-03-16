@@ -48,8 +48,7 @@ enum ERR_CODE{
 };
 
 
-static int SERVER_PORT = 6000;
-static string SERVER_CODE = "lm1";
+
 #define HEADLEN 10
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 #include "iconv.h"
@@ -63,6 +62,6 @@ static string SERVER_CODE = "lm1";
 #define http_handler(_SELECTOR) CC_HTTPFUNC_SELECTOR(_SELECTOR)
 typedef void (Object::*Http_CallFun)(YMSocketData );
 
-#define sqlhttp "http://192.168.1.101:8080/"
+#define sqlhttp "http://192.168.50.151:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"

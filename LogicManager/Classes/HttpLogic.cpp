@@ -6,7 +6,8 @@
 #include "aes.h"
 
 
-
+int HttpLogic::SERVER_PORT = 0;
+string HttpLogic::SERVER_CODE = "";
 HttpLogic *HttpLogic::m_Ins = NULL;
 
 
@@ -42,8 +43,8 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
 	if (err == 0){
 		SERVER_PORT = sd["serverport"].asInt();
-		SERVER_CODE = sd["servername"].asString();
-		std::cout << "socket start:" <<SERVER_PORT<< std::endl;
+		HttpLogic::SERVER_CODE = sd["servername"].asString().c_str();
+		std::cout << "socket start:" << HttpLogic::SERVER_PORT << std::endl;
 		LibEvent *clib = LibEvent::getIns();
 		clib->StartServer(SERVER_PORT, 2, 5000, 600, 600);
 		getchar();

@@ -23,7 +23,8 @@ private:
 	static HttpLogic *m_Ins;
 	
 public:
-	
+	static int SERVER_PORT;
+	static string SERVER_CODE;
 };
 
 #endif 
