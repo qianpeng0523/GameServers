@@ -17,6 +17,11 @@ message DBUserInfo
 	optional uint32 picid		=11[default = 1];
 	optional string unionid		=12;
 	optional string picurl		=13;
+	optional string phone		=14;
+	optional uint32 win			=15[default = 0];
+	optional uint32 lose		=16[default = 0];
+	optional uint32 ping		=17[default = 0];
+	optional uint32 vip			=18[default = 0];
 }
 
 //DBRecords

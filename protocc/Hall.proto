@@ -1,3 +1,15 @@
 syntax = "proto2";
 package protocol;
 
+//Rank
+message Rank
+{
+    required uint32 id 		= 1;  // 
+    optional uint32 lv  	= 2;  //排行
+	optional string uid		= 3;
+	optional string uname	= 4;
+	optional uint32 number  = 5; //数据
+	optional uint32 type  	= 6; //类型 1表示金币 2表示胜局
+	optional string picurl	= 7;
+	optional uint32 picid	= 8;
+}
