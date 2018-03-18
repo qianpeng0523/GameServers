@@ -226,6 +226,46 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::std::string* release_picurl();
   inline void set_allocated_picurl(::std::string* picurl);
 
+  // optional string phone = 14;
+  inline bool has_phone() const;
+  inline void clear_phone();
+  static const int kPhoneFieldNumber = 14;
+  inline const ::std::string& phone() const;
+  inline void set_phone(const ::std::string& value);
+  inline void set_phone(const char* value);
+  inline void set_phone(const char* value, size_t size);
+  inline ::std::string* mutable_phone();
+  inline ::std::string* release_phone();
+  inline void set_allocated_phone(::std::string* phone);
+
+  // optional uint32 win = 15 [default = 0];
+  inline bool has_win() const;
+  inline void clear_win();
+  static const int kWinFieldNumber = 15;
+  inline ::google::protobuf::uint32 win() const;
+  inline void set_win(::google::protobuf::uint32 value);
+
+  // optional uint32 lose = 16 [default = 0];
+  inline bool has_lose() const;
+  inline void clear_lose();
+  static const int kLoseFieldNumber = 16;
+  inline ::google::protobuf::uint32 lose() const;
+  inline void set_lose(::google::protobuf::uint32 value);
+
+  // optional uint32 ping = 17 [default = 0];
+  inline bool has_ping() const;
+  inline void clear_ping();
+  static const int kPingFieldNumber = 17;
+  inline ::google::protobuf::uint32 ping() const;
+  inline void set_ping(::google::protobuf::uint32 value);
+
+  // optional uint32 vip = 18 [default = 0];
+  inline bool has_vip() const;
+  inline void clear_vip();
+  static const int kVipFieldNumber = 18;
+  inline ::google::protobuf::uint32 vip() const;
+  inline void set_vip(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.DBUserInfo)
  private:
   inline void set_has_userid();
@@ -254,6 +294,16 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline void clear_has_unionid();
   inline void set_has_picurl();
   inline void clear_has_picurl();
+  inline void set_has_phone();
+  inline void clear_has_phone();
+  inline void set_has_win();
+  inline void clear_has_win();
+  inline void set_has_lose();
+  inline void clear_has_lose();
+  inline void set_has_ping();
+  inline void clear_has_ping();
+  inline void set_has_vip();
+  inline void clear_has_vip();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -270,9 +320,14 @@ class DBUserInfo : public ::google::protobuf::Message {
   ::std::string* unionid_;
   ::std::string* picurl_;
   ::google::protobuf::uint32 picid_;
+  ::google::protobuf::uint32 win_;
+  ::std::string* phone_;
+  ::google::protobuf::uint32 lose_;
+  ::google::protobuf::uint32 ping_;
+  ::google::protobuf::uint32 vip_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(13 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(18 + 31) / 32];
 
   friend void  protobuf_AddDesc_DBProto_2eproto();
   friend void protobuf_AssignDesc_DBProto_2eproto();
@@ -1464,6 +1519,164 @@ inline void DBUserInfo::set_allocated_picurl(::std::string* picurl) {
     clear_has_picurl();
     picurl_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
+}
+
+// optional string phone = 14;
+inline bool DBUserInfo::has_phone() const {
+  return (_has_bits_[0] & 0x00002000u) != 0;
+}
+inline void DBUserInfo::set_has_phone() {
+  _has_bits_[0] |= 0x00002000u;
+}
+inline void DBUserInfo::clear_has_phone() {
+  _has_bits_[0] &= ~0x00002000u;
+}
+inline void DBUserInfo::clear_phone() {
+  if (phone_ != &::google::protobuf::internal::kEmptyString) {
+    phone_->clear();
+  }
+  clear_has_phone();
+}
+inline const ::std::string& DBUserInfo::phone() const {
+  return *phone_;
+}
+inline void DBUserInfo::set_phone(const ::std::string& value) {
+  set_has_phone();
+  if (phone_ == &::google::protobuf::internal::kEmptyString) {
+    phone_ = new ::std::string;
+  }
+  phone_->assign(value);
+}
+inline void DBUserInfo::set_phone(const char* value) {
+  set_has_phone();
+  if (phone_ == &::google::protobuf::internal::kEmptyString) {
+    phone_ = new ::std::string;
+  }
+  phone_->assign(value);
+}
+inline void DBUserInfo::set_phone(const char* value, size_t size) {
+  set_has_phone();
+  if (phone_ == &::google::protobuf::internal::kEmptyString) {
+    phone_ = new ::std::string;
+  }
+  phone_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* DBUserInfo::mutable_phone() {
+  set_has_phone();
+  if (phone_ == &::google::protobuf::internal::kEmptyString) {
+    phone_ = new ::std::string;
+  }
+  return phone_;
+}
+inline ::std::string* DBUserInfo::release_phone() {
+  clear_has_phone();
+  if (phone_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = phone_;
+    phone_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void DBUserInfo::set_allocated_phone(::std::string* phone) {
+  if (phone_ != &::google::protobuf::internal::kEmptyString) {
+    delete phone_;
+  }
+  if (phone) {
+    set_has_phone();
+    phone_ = phone;
+  } else {
+    clear_has_phone();
+    phone_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint32 win = 15 [default = 0];
+inline bool DBUserInfo::has_win() const {
+  return (_has_bits_[0] & 0x00004000u) != 0;
+}
+inline void DBUserInfo::set_has_win() {
+  _has_bits_[0] |= 0x00004000u;
+}
+inline void DBUserInfo::clear_has_win() {
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline void DBUserInfo::clear_win() {
+  win_ = 0u;
+  clear_has_win();
+}
+inline ::google::protobuf::uint32 DBUserInfo::win() const {
+  return win_;
+}
+inline void DBUserInfo::set_win(::google::protobuf::uint32 value) {
+  set_has_win();
+  win_ = value;
+}
+
+// optional uint32 lose = 16 [default = 0];
+inline bool DBUserInfo::has_lose() const {
+  return (_has_bits_[0] & 0x00008000u) != 0;
+}
+inline void DBUserInfo::set_has_lose() {
+  _has_bits_[0] |= 0x00008000u;
+}
+inline void DBUserInfo::clear_has_lose() {
+  _has_bits_[0] &= ~0x00008000u;
+}
+inline void DBUserInfo::clear_lose() {
+  lose_ = 0u;
+  clear_has_lose();
+}
+inline ::google::protobuf::uint32 DBUserInfo::lose() const {
+  return lose_;
+}
+inline void DBUserInfo::set_lose(::google::protobuf::uint32 value) {
+  set_has_lose();
+  lose_ = value;
+}
+
+// optional uint32 ping = 17 [default = 0];
+inline bool DBUserInfo::has_ping() const {
+  return (_has_bits_[0] & 0x00010000u) != 0;
+}
+inline void DBUserInfo::set_has_ping() {
+  _has_bits_[0] |= 0x00010000u;
+}
+inline void DBUserInfo::clear_has_ping() {
+  _has_bits_[0] &= ~0x00010000u;
+}
+inline void DBUserInfo::clear_ping() {
+  ping_ = 0u;
+  clear_has_ping();
+}
+inline ::google::protobuf::uint32 DBUserInfo::ping() const {
+  return ping_;
+}
+inline void DBUserInfo::set_ping(::google::protobuf::uint32 value) {
+  set_has_ping();
+  ping_ = value;
+}
+
+// optional uint32 vip = 18 [default = 0];
+inline bool DBUserInfo::has_vip() const {
+  return (_has_bits_[0] & 0x00020000u) != 0;
+}
+inline void DBUserInfo::set_has_vip() {
+  _has_bits_[0] |= 0x00020000u;
+}
+inline void DBUserInfo::clear_has_vip() {
+  _has_bits_[0] &= ~0x00020000u;
+}
+inline void DBUserInfo::clear_vip() {
+  vip_ = 0u;
+  clear_has_vip();
+}
+inline ::google::protobuf::uint32 DBUserInfo::vip() const {
+  return vip_;
+}
+inline void DBUserInfo::set_vip(::google::protobuf::uint32 value) {
+  set_has_vip();
+  vip_ = value;
 }
 
 // -------------------------------------------------------------------

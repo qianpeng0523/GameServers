@@ -42,6 +42,11 @@ void LoginInfo::SendSLogin(YMSocketData sd, int fd){
 	cl.set_err(err);
 	if (err == 0){
 		DBUserInfo *info = (DBUserInfo *)getDBDataFromSocketData("userinfo", sd["data"]);
+		ClientData *data = LibEvent::getIns()->getClientData(fd);
+		if (data){
+			string ip = data->_ip;
+			info->set_ip(ip);
+		}
 		cl.set_allocated_info(info);
 	}
 	LibEvent::getIns()->SendData(cl.cmd(),&cl,fd);
@@ -71,6 +76,11 @@ void LoginInfo::SendSRegister(YMSocketData sd, int fd){
 	cl.set_err(err);
 	if (err == 0){
 		DBUserInfo *info = (DBUserInfo *)getDBDataFromSocketData("userinfo", sd["data"]);
+		ClientData *data = LibEvent::getIns()->getClientData(fd);
+		if (data){
+			string ip = data->_ip;
+			info->set_ip(ip);
+		}
 		cl.set_allocated_info(info);
 	}
 	
@@ -152,8 +162,8 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 
 ::google::protobuf::Message * LoginInfo::getDBDataFromSocketData(string tablename, CSJson::Value sd){
 	if (tablename.compare("userinfo") == 0){
-		string uid, uname, add, code, token, unionid, picurl;
-		int sex, gold, diamond, card, picid;
+		string uid, uname, add, code, token, unionid, picurl,phone;
+		int sex, gold, diamond, card, picid,win,lose,ping,vip;
 		uid = sd["userid"].asString();
 		uname = sd["username"].asString();
 		sex = sd["sex"].asInt();
@@ -166,7 +176,11 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 		picid = sd["picid"].asInt();
 		unionid = sd["unionid"].asString();
 		picurl = sd["picurl"].asString();
-
+		phone = sd["phone"].asString();
+		win = sd["win"].asInt();
+		lose = sd["lose"].asInt();
+		ping = sd["ping"].asInt();
+		vip = sd["vip"].asInt();
 
 		DBUserInfo user;
 		::google::protobuf::Message *user1 = ccEvent::create_message(user.GetTypeName());
@@ -182,6 +196,11 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 		user.set_picid(picid);
 		user.set_unionid(unionid);
 		user.set_picurl(picurl);
+		user.set_phone(phone);
+		user.set_win(win);
+		user.set_lose(win);
+		user.set_ping(win);
+		user.set_vip(vip);
 		user1->CopyFrom(user);
 		return user1;
 	}
@@ -275,6 +294,11 @@ void LoginInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Mess
 		int picid = user.picid();
 		string unionid = user.unionid();
 		string picurl = user.picurl();
+		string phone = user.phone();
+		int win = user.win();
+		int lose = user.lose();
+		int ping = user.ping();
+		int vip = user.vip();
 		sd["userid"] = uid;
 		sd["username"] = uname;
 		sd["sex"] = sex;
@@ -287,7 +311,11 @@ void LoginInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Mess
 		sd["picid"] = picid;
 		sd["unionid"] = unionid;
 		sd["picurl"] = picurl;
-
+		sd["win"] = win;
+		sd["lose"] = lose;
+		sd["ping"] = ping;
+		sd["phone"] = phone;
+		sd["vip"] = vip;
 	}
 	else if (tablename.compare("records") == 0){
 		DBRecords record;

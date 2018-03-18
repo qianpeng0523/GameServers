@@ -46,7 +46,7 @@ void protobuf_AssignDesc_DBProto_2eproto() {
       "DBProto.proto");
   GOOGLE_CHECK(file != NULL);
   DBUserInfo_descriptor_ = file->message_type(0);
-  static const int DBUserInfo_offsets_[13] = {
+  static const int DBUserInfo_offsets_[18] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, userid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, username_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, sex_),
@@ -60,6 +60,11 @@ void protobuf_AssignDesc_DBProto_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, picid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, unionid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, picurl_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, phone_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, win_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, lose_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, ping_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, vip_),
   };
   DBUserInfo_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -193,21 +198,23 @@ void protobuf_AddDesc_DBProto_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rDBProto.proto\022\010protocol\"\343\001\n\nDBUserInfo"
+    "\n\rDBProto.proto\022\010protocol\"\264\002\n\nDBUserInfo"
     "\022\016\n\006userid\030\001 \002(\t\022\020\n\010username\030\002 \001(\t\022\016\n\003se"
     "x\030\003 \001(\r:\0011\022\n\n\002ip\030\004 \001(\t\022\017\n\007address\030\005 \001(\t\022"
     "\022\n\004gold\030\006 \001(\r:\0044000\022\021\n\006diamon\030\007 \001(\r:\0018\022\017"
     "\n\004card\030\010 \001(\r:\0011\022\014\n\004code\030\t \001(\t\022\r\n\005token\030\n"
     " \001(\t\022\020\n\005picid\030\013 \001(\r:\0011\022\017\n\007unionid\030\014 \001(\t\022"
-    "\016\n\006picurl\030\r \001(\t\"H\n\tDBRecords\022\n\n\002id\030\001 \002(\r"
-    "\022\016\n\006roomid\030\002 \001(\t\022\020\n\005rtype\030\003 \001(\r:\0011\022\r\n\005ct"
-    "ime\030\004 \001(\t\"W\n\017DBDetailRecords\022\n\n\002id\030\001 \002(\r"
-    "\022\014\n\004fkey\030\002 \001(\r\022\016\n\006userid\030\003 \001(\t\022\r\n\005score\030"
-    "\004 \001(\r\022\013\n\003win\030\005 \001(\r\"8\n\010DBNotice\022\n\n\002id\030\001 \002"
-    "(\r\022\017\n\007notice1\030\002 \001(\t\022\017\n\007notice2\030\003 \001(\t\"n\n\006"
-    "DBRoom\022\n\n\002id\030\001 \002(\r\022\r\n\005round\030\002 \001(\r\022\014\n\004ant"
-    "e\030\003 \001(\r\022\016\n\006remark\030\004 \001(\t\022\016\n\006number\030\005 \001(\r\022"
-    "\014\n\004piao\030\006 \001(\r\022\r\n\005laizi\030\007 \001(\r", 588);
+    "\016\n\006picurl\030\r \001(\t\022\r\n\005phone\030\016 \001(\t\022\016\n\003win\030\017 "
+    "\001(\r:\0010\022\017\n\004lose\030\020 \001(\r:\0010\022\017\n\004ping\030\021 \001(\r:\0010"
+    "\022\016\n\003vip\030\022 \001(\r:\0010\"H\n\tDBRecords\022\n\n\002id\030\001 \002("
+    "\r\022\016\n\006roomid\030\002 \001(\t\022\020\n\005rtype\030\003 \001(\r:\0011\022\r\n\005c"
+    "time\030\004 \001(\t\"W\n\017DBDetailRecords\022\n\n\002id\030\001 \002("
+    "\r\022\014\n\004fkey\030\002 \001(\r\022\016\n\006userid\030\003 \001(\t\022\r\n\005score"
+    "\030\004 \001(\r\022\013\n\003win\030\005 \001(\r\"8\n\010DBNotice\022\n\n\002id\030\001 "
+    "\002(\r\022\017\n\007notice1\030\002 \001(\t\022\017\n\007notice2\030\003 \001(\t\"n\n"
+    "\006DBRoom\022\n\n\002id\030\001 \002(\r\022\r\n\005round\030\002 \001(\r\022\014\n\004an"
+    "te\030\003 \001(\r\022\016\n\006remark\030\004 \001(\t\022\016\n\006number\030\005 \001(\r"
+    "\022\014\n\004piao\030\006 \001(\r\022\r\n\005laizi\030\007 \001(\r", 669);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "DBProto.proto", &protobuf_RegisterTypes);
   DBUserInfo::default_instance_ = new DBUserInfo();
@@ -246,6 +253,11 @@ const int DBUserInfo::kTokenFieldNumber;
 const int DBUserInfo::kPicidFieldNumber;
 const int DBUserInfo::kUnionidFieldNumber;
 const int DBUserInfo::kPicurlFieldNumber;
+const int DBUserInfo::kPhoneFieldNumber;
+const int DBUserInfo::kWinFieldNumber;
+const int DBUserInfo::kLoseFieldNumber;
+const int DBUserInfo::kPingFieldNumber;
+const int DBUserInfo::kVipFieldNumber;
 #endif  // !_MSC_VER
 
 DBUserInfo::DBUserInfo()
@@ -277,6 +289,11 @@ void DBUserInfo::SharedCtor() {
   picid_ = 1u;
   unionid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   picurl_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  phone_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  win_ = 0u;
+  lose_ = 0u;
+  ping_ = 0u;
+  vip_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -308,6 +325,9 @@ void DBUserInfo::SharedDtor() {
   }
   if (picurl_ != &::google::protobuf::internal::kEmptyString) {
     delete picurl_;
+  }
+  if (phone_ != &::google::protobuf::internal::kEmptyString) {
+    delete phone_;
   }
   if (this != default_instance_) {
   }
@@ -383,6 +403,17 @@ void DBUserInfo::Clear() {
         picurl_->clear();
       }
     }
+    if (has_phone()) {
+      if (phone_ != &::google::protobuf::internal::kEmptyString) {
+        phone_->clear();
+      }
+    }
+    win_ = 0u;
+    lose_ = 0u;
+  }
+  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+    ping_ = 0u;
+    vip_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -605,6 +636,87 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(114)) goto parse_phone;
+        break;
+      }
+
+      // optional string phone = 14;
+      case 14: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_phone:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_phone()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->phone().data(), this->phone().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(120)) goto parse_win;
+        break;
+      }
+
+      // optional uint32 win = 15 [default = 0];
+      case 15: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_win:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &win_)));
+          set_has_win();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(128)) goto parse_lose;
+        break;
+      }
+
+      // optional uint32 lose = 16 [default = 0];
+      case 16: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_lose:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &lose_)));
+          set_has_lose();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(136)) goto parse_ping;
+        break;
+      }
+
+      // optional uint32 ping = 17 [default = 0];
+      case 17: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_ping:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &ping_)));
+          set_has_ping();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(144)) goto parse_vip;
+        break;
+      }
+
+      // optional uint32 vip = 18 [default = 0];
+      case 18: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_vip:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &vip_)));
+          set_has_vip();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -724,6 +836,35 @@ void DBUserInfo::SerializeWithCachedSizes(
       13, this->picurl(), output);
   }
 
+  // optional string phone = 14;
+  if (has_phone()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->phone().data(), this->phone().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      14, this->phone(), output);
+  }
+
+  // optional uint32 win = 15 [default = 0];
+  if (has_win()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(15, this->win(), output);
+  }
+
+  // optional uint32 lose = 16 [default = 0];
+  if (has_lose()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(16, this->lose(), output);
+  }
+
+  // optional uint32 ping = 17 [default = 0];
+  if (has_ping()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(17, this->ping(), output);
+  }
+
+  // optional uint32 vip = 18 [default = 0];
+  if (has_vip()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(18, this->vip(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -837,6 +978,36 @@ void DBUserInfo::SerializeWithCachedSizes(
         13, this->picurl(), target);
   }
 
+  // optional string phone = 14;
+  if (has_phone()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->phone().data(), this->phone().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        14, this->phone(), target);
+  }
+
+  // optional uint32 win = 15 [default = 0];
+  if (has_win()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(15, this->win(), target);
+  }
+
+  // optional uint32 lose = 16 [default = 0];
+  if (has_lose()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(16, this->lose(), target);
+  }
+
+  // optional uint32 ping = 17 [default = 0];
+  if (has_ping()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(17, this->ping(), target);
+  }
+
+  // optional uint32 vip = 18 [default = 0];
+  if (has_vip()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(18, this->vip(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -941,6 +1112,43 @@ int DBUserInfo::ByteSize() const {
           this->picurl());
     }
 
+    // optional string phone = 14;
+    if (has_phone()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->phone());
+    }
+
+    // optional uint32 win = 15 [default = 0];
+    if (has_win()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->win());
+    }
+
+    // optional uint32 lose = 16 [default = 0];
+    if (has_lose()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->lose());
+    }
+
+  }
+  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+    // optional uint32 ping = 17 [default = 0];
+    if (has_ping()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->ping());
+    }
+
+    // optional uint32 vip = 18 [default = 0];
+    if (has_vip()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->vip());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -1009,6 +1217,23 @@ void DBUserInfo::MergeFrom(const DBUserInfo& from) {
     if (from.has_picurl()) {
       set_picurl(from.picurl());
     }
+    if (from.has_phone()) {
+      set_phone(from.phone());
+    }
+    if (from.has_win()) {
+      set_win(from.win());
+    }
+    if (from.has_lose()) {
+      set_lose(from.lose());
+    }
+  }
+  if (from._has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+    if (from.has_ping()) {
+      set_ping(from.ping());
+    }
+    if (from.has_vip()) {
+      set_vip(from.vip());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1046,6 +1271,11 @@ void DBUserInfo::Swap(DBUserInfo* other) {
     std::swap(picid_, other->picid_);
     std::swap(unionid_, other->unionid_);
     std::swap(picurl_, other->picurl_);
+    std::swap(phone_, other->phone_);
+    std::swap(win_, other->win_);
+    std::swap(lose_, other->lose_);
+    std::swap(ping_, other->ping_);
+    std::swap(vip_, other->vip_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
