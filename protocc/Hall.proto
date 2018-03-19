@@ -1,15 +1,130 @@
 syntax = "proto2";
 package protocol;
+import "Vo.proto";
 
-//Rank
-message Rank
+//CRank 排行榜
+message CRank
 {
-    required uint32 id 		= 1;  // 
-    optional uint32 lv  	= 2;  //排行
-	optional string uid		= 3;
-	optional string uname	= 4;
-	optional uint32 number  = 5; //数据
-	optional uint32 type  	= 6; //类型 1表示金币 2表示胜局
-	optional string picurl	= 7;
-	optional uint32 picid	= 8;
+    required uint32 	cmd 	= 1[default=0x5000];  // 
+    optional uint32 	type  	= 2;  	//类型 1表示财富榜 2表示本周局数榜
+	optional uint32 	index  	= 3;  	//1表示1-10条 2表示11-20条
+}
+
+message SRank
+{
+    required uint32 	cmd 	= 1[default=0x5000];  // 
+    optional uint32 	type  	= 2;  	//类型 1表示财富榜 2表示本周局数榜
+	repeated Rank 		list  	= 3;  	//返回排行榜
+	optional uint32 	err  	= 4;					//
+}
+
+//CShop 商城
+message CShop
+{
+    required uint32 	cmd 	= 1[default=0x5001];  // 
+    optional uint32 	type  	= 2;  	//类型 1表示房卡 2表示金币 3表示钻石
+}
+
+message SShop
+{
+    required uint32 	cmd 	= 1[default=0x5001];  // 
+    optional uint32 	type  	= 2;  	//类型 1表示房卡 2表示金币 3表示钻石
+	repeated ShopItem 	list  	= 3;  	//返回商城列表
+	optional uint32 	err  	= 4;					//
+}
+
+//CMail 邮件
+message CMail
+{
+    required uint32 	cmd 	= 1[default=0x5002];  //
+}
+
+message SMail
+{
+    required uint32 	cmd 	= 1[default=0x5002];  // 
+	repeated Mail 		list  	= 2;  	//返回邮件列表
+	optional uint32 	err  	= 3;					//
+}
+
+//CFriend 好友
+message CFriend
+{
+    required uint32 	cmd 	= 1[default=0x5003];  //
+}
+
+message SFriend
+{
+    required uint32 	cmd 	= 1[default=0x5003];  // 
+	repeated Friend 	list  	= 2;  	//返回好友列表
+	optional uint32 	err  	= 3;					//
+}
+
+//CFindFriend 查找好友
+message CFindFriend
+{
+    required uint32 	cmd 	= 1[default=0x5004];  //
+	optional string		uid		= 2;//玩家id
+	optional uint32		type	= 3;//1表示查找 2表示推荐
+}
+
+message SFindFriend
+{
+    required uint32 	cmd 	= 1[default=0x5004];  // 
+	optional Friend 	friend  = 2;  	//返回好友
+	optional uint32 	err  	= 3;					//
+}
+
+//CGiveFriend 赠送好友金币,每次赠送200
+message CGiveFriend
+{
+    required uint32 	cmd 	= 1[default=0x5005];  //
+	required string		uid		= 2;//玩家id
+}
+
+message SGiveFriend
+{
+    required uint32 	cmd 	= 1[default=0x5005];  // 
+	optional string 	uid  	= 2;  	//返回uid	
+	optional uint32 	err  	= 3;					//
+}
+
+//CAddFriend 添加好友
+message CAddFriend
+{
+    required uint32 	cmd 	= 1[default=0x5006];  //
+	required string		uid		= 2;//玩家id
+}
+
+message SAddFriend
+{
+    required uint32 	cmd 	= 1[default=0x5006];  // 
+	optional string 	uid  	= 2;  	//返回uid	
+	optional uint32 	err  	= 3;					//
+}
+
+//CAddFriendList 好友请求列表
+message CAddFriendList
+{
+    required uint32 	cmd 	= 1[default=0x5007];  //
+}
+
+message SAddFriendList
+{
+    required uint32 	cmd 	= 1[default=0x5007];  // 
+	repeated Friend 	list  	= 2;  	//返回列表	
+	optional uint32 	err  	= 3;					//
+}
+
+//CActive 活动
+message CActive
+{
+    required uint32 	cmd 	= 1[default=0x5008];  	//
+	required uint32 	type 	= 2;					//1表示精彩活动 2表示公告
+}
+
+message SActive
+{
+    required uint32 	cmd 	= 1[default=0x5008];  // 
+	repeated Active 	list  	= 2;  	//返回活动列表
+	optional uint32 	err  	= 3;					//
 }
