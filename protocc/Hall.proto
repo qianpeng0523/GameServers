@@ -158,3 +158,19 @@ message SReward
 	repeated Prop		reward	= 4;
 	optional uint32 	err  	= 5;					//
 }
+
+//CAgreeFriend 同意拒绝好友请求
+message CAgreeFriend
+{
+    required uint32 	cmd 	= 1[default=0x500B];  	//
+	optional bool 		agree  	= 2;					//
+	optional string 	userid  = 3;					//
+}
+
+message SAgreeFriend
+{
+    required uint32 	cmd 	= 1[default=0x500B];  	//
+	optional bool 		agree  	= 2;					//	
+	optional string 	userid  = 3;					//
+	optional uint32 	err  	= 4;					//
+}

@@ -47,6 +47,7 @@ message FriendNotice
 {
     required Mail 	notice 	= 1;  //id 
 	optional bool 	add 	= 2;  //是否是添加好友
+	optional string uid  	= 3;  //uid
 }
 
 // Friend
