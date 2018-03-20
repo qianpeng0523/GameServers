@@ -1,0 +1,82 @@
+syntax = "proto2";
+package protocol;
+import "DBProto.proto";
+//Rank
+message Rank
+{
+    optional uint32 lv  	= 1;  //排行
+	optional string uid		= 2;
+	optional string uname	= 3;
+	optional uint32 number  = 4; //数据
+	optional uint32 type  	= 5; //类型 1表示金币 2表示胜局
+	optional string picurl	= 6;
+	optional uint32 picid	= 7;
+}
+
+//Prop
+message Prop
+{
+    required uint32 id 		= 1;  //道具id 
+    optional string name  	= 2;  //道具名称
+	optional uint32 number 	= 3;  //道具数量
+}
+
+//ShopItem
+message ShopItem
+{
+    required uint32 id 		= 1;  	// 
+    optional Prop 	prop  	= 2;  	//
+	optional uint32 type	= 3;	//购买type
+	optional uint32 number	= 4;	//购买所需的数量
+	optional uint32 givenum	= 5;	//赠送的数量
+	optional bool	hot		= 6;
+}
+
+//Mail
+message Mail
+{
+    required uint32 id 		= 1;  //id 
+	optional uint32 type 	= 2;  //1表示普通邮件 2表示好友邮件
+    optional string title  	= 3;  //名称
+	optional string content = 4;  //内容
+	optional string time  	= 5;  //时间
+}
+
+//FriendNotice
+message FriendNotice
+{
+    required Mail 	notice 	= 1;  //id 
+	optional bool 	add 	= 2;  //是否是添加好友
+}
+
+// Friend
+message Friend
+{
+    optional DBUserInfo userinfo    = 1; 	//
+	optional bool 		online		= 2;	//是否在线
+	optional bool 		friend		= 3;	//是否是好友
+	optional uint32		acttype		= 4;	//活跃类型 1表示最近活跃 2表示一起玩过 3表示附近的人
+	optional uint32		time		= 5;	//多久前在线过
+}
+
+// Active
+message Active
+{
+	optional uint32		id			=1;
+	optional uint32		type		=2;//类型 1表示精彩活动 2表示公告
+	optional string		title		=3;//标题
+	optional string		url			=4;//活动地址
+}
+
+// Task
+message Task
+{
+	optional uint32		taskid		=1;
+	optional string		title		=2;//标题
+	optional string		content		=3;//活动内容
+	optional uint32		count		=4;//活动总次数
+	optional uint32		fcount		=5;//活动已完成次数
+	optional uint32		finish		=6;//0表示未完成 1表示已完成但未领取 2表示已完成已领取
+	repeated Prop		award		=7;//奖励
+	optional uint32		type		=8;//任务类型
+}
