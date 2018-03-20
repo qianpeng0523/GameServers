@@ -81,3 +81,23 @@ message Task
 	repeated Prop		award		=7;//奖励
 	optional uint32		type		=8;//任务类型
 }
+
+//ExAward 兑换的奖品
+message ExAward
+{
+	optional uint32		eid			=1;
+	optional string		title		=2;//标题
+	optional Prop		award		=3;//奖励
+	optional bool		can			=4;//是否可以兑换
+	optional uint32		pid			=5;//兑换物的id
+}
+
+//ExRecord 兑换奖品记录
+message ExRecord
+{
+	optional uint32		id			=1;
+	optional string		title		=2;//商品
+	optional string		orderid		=3;//订单号
+	optional string		time		=4;//兑换时间
+	optional uint32		status		=5;//兑换状态 0表示正在处理 1表示已兑换 2表示兑换失败
+}

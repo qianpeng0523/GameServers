@@ -174,3 +174,44 @@ message SAgreeFriend
 	optional string 	userid  = 3;					//
 	optional uint32 	err  	= 4;					//
 }
+
+//CExchangeReward 兑换奖品
+message CExchangeReward
+{
+    required uint32 	cmd 	= 1[default=0x500C];  	//
+}
+
+message SExchangeReward
+{
+    required uint32 	cmd 	= 1[default=0x500C];  	//
+	repeated ExAward	list	= 2;
+	optional uint32 	err  	= 3;					//
+}
+
+//CExchangeCode
+message CExchangeCode
+{
+    required uint32 	cmd 	= 1[default=0x500D];  	//
+	optional string 	excode  = 2;					//兑换码
+	optional string 	yzcode  = 3;					//验证码
+}
+
+message SExchangeCode
+{
+    required uint32 	cmd 	= 1[default=0x500D];  	//
+	optional bool		success	= 2;//是否兑换成功
+	optional uint32 	err  	= 3;					//
+}
+
+//CExchangeRecord 兑换记录
+message CExchangeRecord
+{
+    required uint32 	cmd 	= 1[default=0x500D];  	//
+}
+
+message SExchangeRecord
+{
+    required uint32 	cmd 	= 1[default=0x500D];  	//
+	repeated ExRecord	list	= 2;
+	optional uint32 	err  	= 3;					//
+}
