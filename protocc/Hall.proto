@@ -206,12 +206,12 @@ message SExchangeCode
 //CExchangeRecord 兑换记录
 message CExchangeRecord
 {
-    required uint32 	cmd 	= 1[default=0x500D];  	//
+    required uint32 	cmd 	= 1[default=0x500E];  	//
 }
 
 message SExchangeRecord
 {
-    required uint32 	cmd 	= 1[default=0x500D];  	//
+    required uint32 	cmd 	= 1[default=0x500E];  	//
 	repeated ExRecord	list	= 2;
 	optional uint32 	err  	= 3;					//
 }
