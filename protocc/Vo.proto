@@ -40,6 +40,8 @@ message Mail
     optional string title  	= 3;  //名称
 	optional string content = 4;  //内容
 	optional string time  	= 5;  //时间
+	repeated Prop	prop	= 6;  //奖励
+	optional uint32 get 	= 7;  //是否已经领取
 }
 
 //FriendNotice
@@ -100,4 +102,10 @@ message ExRecord
 	optional string		orderid		=3;//订单号
 	optional string		time		=4;//兑换时间
 	optional uint32		status		=5;//兑换状态 0表示正在处理 1表示已兑换 2表示兑换失败
+}
+
+message SignAward{
+	optional uint32		id			=1;
+	optional uint32		day			=2;
+	optional Prop 		reward  	=3;//奖励
 }

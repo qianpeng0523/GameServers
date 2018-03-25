@@ -2,6 +2,24 @@ syntax = "proto2";
 package protocol;
 import "Vo.proto";
 
+//CConfig 反馈
+message CConfig
+{
+    required uint32 	cmd 	= 1[default=0x4FFF];  	//
+}
+
+message SConfig
+{
+    required uint32 	cmd 	= 1[default=0x4FFF];  	//
+	optional bool 		mail  	= 2;					//
+	optional bool 		active  = 3;					//
+	optional bool 		firstbuy= 4;					//
+	optional bool 		task  	= 5;					//
+	optional bool 		free  	= 6;					//
+	optional bool 		friend  = 7;					//
+	optional uint32 	yqs  	= 8;					//
+}
+
 //CRank 排行榜
 message CRank
 {
@@ -175,7 +193,7 @@ message SAgreeFriend
 	optional uint32 	err  	= 4;					//
 }
 
-//CExchangeReward 兑换奖品
+//CExchangeReward 兑换奖品列表
 message CExchangeReward
 {
     required uint32 	cmd 	= 1[default=0x500C];  	//
@@ -215,3 +233,137 @@ message SExchangeRecord
 	repeated ExRecord	list	= 2;
 	optional uint32 	err  	= 3;					//
 }
+
+//CExchange 兑换奖品
+message CExchange
+{
+    required uint32 	cmd 	= 1[default=0x500F];  	//
+	optional uint32 	id  	= 2;					//
+}
+
+message SExchange
+{
+    required uint32 	cmd 	= 1[default=0x500F];  	//
+	optional uint32 	id  	= 2;					//
+	optional string 	code  	= 3;					//
+	optional uint32 	err  	= 4;					//
+}
+
+//CApplePay 苹果支付
+message CApplePay
+{
+    required uint32 	cmd 	= 1[default=0x5010];  	//
+	optional uint32 	id  	= 2;					//
+	optional string	 	receipt = 3;					//
+}
+
+message SApplePay
+{
+    required uint32 	cmd 	= 1[default=0x5010];  	//
+	optional uint32 	id  	= 2;					//
+	optional uint32 	err  	= 3;					//
+}
+
+//CWxpayOrder 微信下单
+message CWxpayOrder
+{
+    required uint32 	cmd 	= 1[default=0x5011];  	//
+	optional uint32 	id  	= 2;					//
+	optional string	 	body	= 3;					//
+}
+
+message SWxpayOrder
+{
+    required uint32 	cmd 	= 1[default=0x5011];  	//
+	optional string 	orderid = 2;					//
+	optional string 	payreq 	= 3;					//
+	optional uint32 	err  	= 4;					//
+}
+
+//CWxpayQuery 微信支付结果查询与通知
+message CWxpayQuery
+{
+    required uint32 	cmd 	= 1[default=0x5012];  	//
+	optional string 	transid = 2;					//
+}
+
+message SWxpayQuery
+{
+    required uint32 	cmd 	= 1[default=0x5012];  	//
+	optional string 	transid = 2;					//
+	optional uint32 	err  	= 3;					//
+}
+
+//CFirstBuy 首充
+message CFirstBuy
+{
+    required uint32 	cmd 	= 1[default=0x5013];  	//
+	optional uint32 	type 	= 2;					//1苹果支付 2微信支付 3支付宝支付
+}
+
+message SFirstBuy
+{
+    required uint32 	cmd 	= 1[default=0x5013];  	//
+	optional uint32 	id 		= 2;					//
+	optional string 	transid = 3;					//
+	optional uint32 	err  	= 4;					//
+}
+
+//CFeedBack 反馈
+message CFeedBack
+{
+    required uint32 	cmd 	= 1[default=0x5014];  	//
+	optional string 	uid 	= 2;					//
+	optional string 	uname 	= 3;					//
+	optional string 	content = 4;					//
+}
+
+message SFeedBack
+{
+    required uint32 	cmd 	= 1[default=0x5014];  	//
+	optional uint32 	err  	= 2;					//
+}
+
+//CSign 签到
+message CSign
+{
+    required uint32 	cmd 	= 1[default=0x5015];  	//
+}
+
+message SSign
+{
+    required uint32 	cmd 	= 1[default=0x5015];  	//
+	optional uint32 	index  	= 2;					//奖励index
+	optional uint32 	count  	= 3;					//签到次数
+	optional uint32 	err  	= 4;					//
+}
+
+//CSignList 签到列表
+message CSignList
+{
+    required uint32 	cmd 	= 1[default=0x5016];  	//
+}
+
+message SSignList
+{
+    required uint32 	cmd 	= 1[default=0x5016];  	//
+	optional uint32 	sign  	= 2;					//是否已经签到
+	optional uint32 	count  	= 3;					//签到次数
+	repeated SignAward 	reward  = 4;					//奖励
+	optional uint32 	err  	= 5;					//
+}
+
+//CMailAward 领取邮件奖励
+message CMailAward
+{
+    required uint32 	cmd 	= 1[default=0x5017];  	//
+	required uint32 	id 		= 2;
+}
+
+message SMailAward
+{
+    required uint32 	cmd 	= 1[default=0x5017];  	//
+	optional uint32 	id  	= 2;					//
+	optional uint32 	err  	= 3;					//
+}
+
