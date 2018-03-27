@@ -4,7 +4,7 @@
 #include <string>
 #include "stdio.h"
 #include <vector>
-
+#include "stdafx.h"
 class Common {
 public:
 	Common();
@@ -14,5 +14,11 @@ public:
 	static std::string&   replace_all_distinct(std::string&   str, const   std::string&   old_value, const   std::string&   new_value);//只替换一次
 	static std::vector<std::string> getStrings(std::string str,std::string findstr);
 	static bool isHave(std::vector<std::string> vecs, std::string value);
+	static string getTime(time_t tp);
+	static string getLocalTime();
+	static string getLocalTime1();
+	static string getLocalTimeDay();
+	static time_t getTime();
+	static int getTime(time_t ptimep, int type);//type 1年 2月 3日 4时 5分 6秒 
 };
 #endif // __Common_H__

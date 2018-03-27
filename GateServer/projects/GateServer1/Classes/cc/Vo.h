@@ -38,9 +38,13 @@ class Rank;
 class Prop;
 class ShopItem;
 class Mail;
+class FriendNotice;
 class Friend;
 class Active;
 class Task;
+class ExAward;
+class ExRecord;
+class SignAward;
 
 // ===================================================================
 
@@ -546,6 +550,25 @@ class Mail : public ::google::protobuf::Message {
   inline ::std::string* release_time();
   inline void set_allocated_time(::std::string* time);
 
+  // repeated .protocol.Prop prop = 6;
+  inline int prop_size() const;
+  inline void clear_prop();
+  static const int kPropFieldNumber = 6;
+  inline const ::protocol::Prop& prop(int index) const;
+  inline ::protocol::Prop* mutable_prop(int index);
+  inline ::protocol::Prop* add_prop();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::Prop >&
+      prop() const;
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::Prop >*
+      mutable_prop();
+
+  // optional uint32 get = 7;
+  inline bool has_get() const;
+  inline void clear_get();
+  static const int kGetFieldNumber = 7;
+  inline ::google::protobuf::uint32 get() const;
+  inline void set_get(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.Mail)
  private:
   inline void set_has_id();
@@ -558,6 +581,8 @@ class Mail : public ::google::protobuf::Message {
   inline void clear_has_content();
   inline void set_has_time();
   inline void clear_has_time();
+  inline void set_has_get();
+  inline void clear_has_get();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -566,9 +591,11 @@ class Mail : public ::google::protobuf::Message {
   ::std::string* title_;
   ::std::string* content_;
   ::std::string* time_;
+  ::google::protobuf::RepeatedPtrField< ::protocol::Prop > prop_;
+  ::google::protobuf::uint32 get_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
   friend void  protobuf_AddDesc_Vo_2eproto();
   friend void protobuf_AssignDesc_Vo_2eproto();
@@ -576,6 +603,115 @@ class Mail : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Mail* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FriendNotice : public ::google::protobuf::Message {
+ public:
+  FriendNotice();
+  virtual ~FriendNotice();
+
+  FriendNotice(const FriendNotice& from);
+
+  inline FriendNotice& operator=(const FriendNotice& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FriendNotice& default_instance();
+
+  void Swap(FriendNotice* other);
+
+  // implements Message ----------------------------------------------
+
+  FriendNotice* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FriendNotice& from);
+  void MergeFrom(const FriendNotice& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .protocol.Mail notice = 1;
+  inline bool has_notice() const;
+  inline void clear_notice();
+  static const int kNoticeFieldNumber = 1;
+  inline const ::protocol::Mail& notice() const;
+  inline ::protocol::Mail* mutable_notice();
+  inline ::protocol::Mail* release_notice();
+  inline void set_allocated_notice(::protocol::Mail* notice);
+
+  // optional bool add = 2;
+  inline bool has_add() const;
+  inline void clear_add();
+  static const int kAddFieldNumber = 2;
+  inline bool add() const;
+  inline void set_add(bool value);
+
+  // optional string uid = 3;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 3;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
+  // @@protoc_insertion_point(class_scope:protocol.FriendNotice)
+ private:
+  inline void set_has_notice();
+  inline void clear_has_notice();
+  inline void set_has_add();
+  inline void clear_has_add();
+  inline void set_has_uid();
+  inline void clear_has_uid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::protocol::Mail* notice_;
+  ::std::string* uid_;
+  bool add_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Vo_2eproto();
+  friend void protobuf_AssignDesc_Vo_2eproto();
+  friend void protobuf_ShutdownFile_Vo_2eproto();
+
+  void InitAsDefaultInstance();
+  static FriendNotice* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -931,14 +1067,24 @@ class Task : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 finish() const;
   inline void set_finish(::google::protobuf::uint32 value);
 
-  // optional .protocol.Prop award = 7;
-  inline bool has_award() const;
+  // repeated .protocol.Prop award = 7;
+  inline int award_size() const;
   inline void clear_award();
   static const int kAwardFieldNumber = 7;
-  inline const ::protocol::Prop& award() const;
-  inline ::protocol::Prop* mutable_award();
-  inline ::protocol::Prop* release_award();
-  inline void set_allocated_award(::protocol::Prop* award);
+  inline const ::protocol::Prop& award(int index) const;
+  inline ::protocol::Prop* mutable_award(int index);
+  inline ::protocol::Prop* add_award();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::Prop >&
+      award() const;
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::Prop >*
+      mutable_award();
+
+  // optional uint32 type = 8;
+  inline bool has_type() const;
+  inline void clear_type();
+  static const int kTypeFieldNumber = 8;
+  inline ::google::protobuf::uint32 type() const;
+  inline void set_type(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:protocol.Task)
  private:
@@ -954,8 +1100,8 @@ class Task : public ::google::protobuf::Message {
   inline void clear_has_fcount();
   inline void set_has_finish();
   inline void clear_has_finish();
-  inline void set_has_award();
-  inline void clear_has_award();
+  inline void set_has_type();
+  inline void clear_has_type();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -965,10 +1111,11 @@ class Task : public ::google::protobuf::Message {
   ::std::string* content_;
   ::google::protobuf::uint32 fcount_;
   ::google::protobuf::uint32 finish_;
-  ::protocol::Prop* award_;
+  ::google::protobuf::RepeatedPtrField< ::protocol::Prop > award_;
+  ::google::protobuf::uint32 type_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
 
   friend void  protobuf_AddDesc_Vo_2eproto();
   friend void protobuf_AssignDesc_Vo_2eproto();
@@ -976,6 +1123,376 @@ class Task : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Task* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ExAward : public ::google::protobuf::Message {
+ public:
+  ExAward();
+  virtual ~ExAward();
+
+  ExAward(const ExAward& from);
+
+  inline ExAward& operator=(const ExAward& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ExAward& default_instance();
+
+  void Swap(ExAward* other);
+
+  // implements Message ----------------------------------------------
+
+  ExAward* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ExAward& from);
+  void MergeFrom(const ExAward& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 eid = 1;
+  inline bool has_eid() const;
+  inline void clear_eid();
+  static const int kEidFieldNumber = 1;
+  inline ::google::protobuf::uint32 eid() const;
+  inline void set_eid(::google::protobuf::uint32 value);
+
+  // optional string title = 2;
+  inline bool has_title() const;
+  inline void clear_title();
+  static const int kTitleFieldNumber = 2;
+  inline const ::std::string& title() const;
+  inline void set_title(const ::std::string& value);
+  inline void set_title(const char* value);
+  inline void set_title(const char* value, size_t size);
+  inline ::std::string* mutable_title();
+  inline ::std::string* release_title();
+  inline void set_allocated_title(::std::string* title);
+
+  // optional .protocol.Prop award = 3;
+  inline bool has_award() const;
+  inline void clear_award();
+  static const int kAwardFieldNumber = 3;
+  inline const ::protocol::Prop& award() const;
+  inline ::protocol::Prop* mutable_award();
+  inline ::protocol::Prop* release_award();
+  inline void set_allocated_award(::protocol::Prop* award);
+
+  // optional bool can = 4;
+  inline bool has_can() const;
+  inline void clear_can();
+  static const int kCanFieldNumber = 4;
+  inline bool can() const;
+  inline void set_can(bool value);
+
+  // optional uint32 pid = 5;
+  inline bool has_pid() const;
+  inline void clear_pid();
+  static const int kPidFieldNumber = 5;
+  inline ::google::protobuf::uint32 pid() const;
+  inline void set_pid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.ExAward)
+ private:
+  inline void set_has_eid();
+  inline void clear_has_eid();
+  inline void set_has_title();
+  inline void clear_has_title();
+  inline void set_has_award();
+  inline void clear_has_award();
+  inline void set_has_can();
+  inline void clear_has_can();
+  inline void set_has_pid();
+  inline void clear_has_pid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* title_;
+  ::google::protobuf::uint32 eid_;
+  bool can_;
+  ::protocol::Prop* award_;
+  ::google::protobuf::uint32 pid_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Vo_2eproto();
+  friend void protobuf_AssignDesc_Vo_2eproto();
+  friend void protobuf_ShutdownFile_Vo_2eproto();
+
+  void InitAsDefaultInstance();
+  static ExAward* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ExRecord : public ::google::protobuf::Message {
+ public:
+  ExRecord();
+  virtual ~ExRecord();
+
+  ExRecord(const ExRecord& from);
+
+  inline ExRecord& operator=(const ExRecord& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ExRecord& default_instance();
+
+  void Swap(ExRecord* other);
+
+  // implements Message ----------------------------------------------
+
+  ExRecord* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ExRecord& from);
+  void MergeFrom(const ExRecord& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 id = 1;
+  inline bool has_id() const;
+  inline void clear_id();
+  static const int kIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 id() const;
+  inline void set_id(::google::protobuf::uint32 value);
+
+  // optional string title = 2;
+  inline bool has_title() const;
+  inline void clear_title();
+  static const int kTitleFieldNumber = 2;
+  inline const ::std::string& title() const;
+  inline void set_title(const ::std::string& value);
+  inline void set_title(const char* value);
+  inline void set_title(const char* value, size_t size);
+  inline ::std::string* mutable_title();
+  inline ::std::string* release_title();
+  inline void set_allocated_title(::std::string* title);
+
+  // optional string orderid = 3;
+  inline bool has_orderid() const;
+  inline void clear_orderid();
+  static const int kOrderidFieldNumber = 3;
+  inline const ::std::string& orderid() const;
+  inline void set_orderid(const ::std::string& value);
+  inline void set_orderid(const char* value);
+  inline void set_orderid(const char* value, size_t size);
+  inline ::std::string* mutable_orderid();
+  inline ::std::string* release_orderid();
+  inline void set_allocated_orderid(::std::string* orderid);
+
+  // optional string time = 4;
+  inline bool has_time() const;
+  inline void clear_time();
+  static const int kTimeFieldNumber = 4;
+  inline const ::std::string& time() const;
+  inline void set_time(const ::std::string& value);
+  inline void set_time(const char* value);
+  inline void set_time(const char* value, size_t size);
+  inline ::std::string* mutable_time();
+  inline ::std::string* release_time();
+  inline void set_allocated_time(::std::string* time);
+
+  // optional uint32 status = 5;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 5;
+  inline ::google::protobuf::uint32 status() const;
+  inline void set_status(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.ExRecord)
+ private:
+  inline void set_has_id();
+  inline void clear_has_id();
+  inline void set_has_title();
+  inline void clear_has_title();
+  inline void set_has_orderid();
+  inline void clear_has_orderid();
+  inline void set_has_time();
+  inline void clear_has_time();
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* title_;
+  ::std::string* orderid_;
+  ::google::protobuf::uint32 id_;
+  ::google::protobuf::uint32 status_;
+  ::std::string* time_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Vo_2eproto();
+  friend void protobuf_AssignDesc_Vo_2eproto();
+  friend void protobuf_ShutdownFile_Vo_2eproto();
+
+  void InitAsDefaultInstance();
+  static ExRecord* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SignAward : public ::google::protobuf::Message {
+ public:
+  SignAward();
+  virtual ~SignAward();
+
+  SignAward(const SignAward& from);
+
+  inline SignAward& operator=(const SignAward& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SignAward& default_instance();
+
+  void Swap(SignAward* other);
+
+  // implements Message ----------------------------------------------
+
+  SignAward* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SignAward& from);
+  void MergeFrom(const SignAward& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 id = 1;
+  inline bool has_id() const;
+  inline void clear_id();
+  static const int kIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 id() const;
+  inline void set_id(::google::protobuf::uint32 value);
+
+  // optional uint32 day = 2;
+  inline bool has_day() const;
+  inline void clear_day();
+  static const int kDayFieldNumber = 2;
+  inline ::google::protobuf::uint32 day() const;
+  inline void set_day(::google::protobuf::uint32 value);
+
+  // optional .protocol.Prop reward = 3;
+  inline bool has_reward() const;
+  inline void clear_reward();
+  static const int kRewardFieldNumber = 3;
+  inline const ::protocol::Prop& reward() const;
+  inline ::protocol::Prop* mutable_reward();
+  inline ::protocol::Prop* release_reward();
+  inline void set_allocated_reward(::protocol::Prop* reward);
+
+  // @@protoc_insertion_point(class_scope:protocol.SignAward)
+ private:
+  inline void set_has_id();
+  inline void clear_has_id();
+  inline void set_has_day();
+  inline void clear_has_day();
+  inline void set_has_reward();
+  inline void clear_has_reward();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 id_;
+  ::google::protobuf::uint32 day_;
+  ::protocol::Prop* reward_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Vo_2eproto();
+  friend void protobuf_AssignDesc_Vo_2eproto();
+  friend void protobuf_ShutdownFile_Vo_2eproto();
+
+  void InitAsDefaultInstance();
+  static SignAward* default_instance_;
 };
 // ===================================================================
 
@@ -1810,6 +2327,187 @@ inline void Mail::set_allocated_time(::std::string* time) {
   }
 }
 
+// repeated .protocol.Prop prop = 6;
+inline int Mail::prop_size() const {
+  return prop_.size();
+}
+inline void Mail::clear_prop() {
+  prop_.Clear();
+}
+inline const ::protocol::Prop& Mail::prop(int index) const {
+  return prop_.Get(index);
+}
+inline ::protocol::Prop* Mail::mutable_prop(int index) {
+  return prop_.Mutable(index);
+}
+inline ::protocol::Prop* Mail::add_prop() {
+  return prop_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::Prop >&
+Mail::prop() const {
+  return prop_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::protocol::Prop >*
+Mail::mutable_prop() {
+  return &prop_;
+}
+
+// optional uint32 get = 7;
+inline bool Mail::has_get() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void Mail::set_has_get() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void Mail::clear_has_get() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void Mail::clear_get() {
+  get_ = 0u;
+  clear_has_get();
+}
+inline ::google::protobuf::uint32 Mail::get() const {
+  return get_;
+}
+inline void Mail::set_get(::google::protobuf::uint32 value) {
+  set_has_get();
+  get_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// FriendNotice
+
+// required .protocol.Mail notice = 1;
+inline bool FriendNotice::has_notice() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void FriendNotice::set_has_notice() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void FriendNotice::clear_has_notice() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void FriendNotice::clear_notice() {
+  if (notice_ != NULL) notice_->::protocol::Mail::Clear();
+  clear_has_notice();
+}
+inline const ::protocol::Mail& FriendNotice::notice() const {
+  return notice_ != NULL ? *notice_ : *default_instance_->notice_;
+}
+inline ::protocol::Mail* FriendNotice::mutable_notice() {
+  set_has_notice();
+  if (notice_ == NULL) notice_ = new ::protocol::Mail;
+  return notice_;
+}
+inline ::protocol::Mail* FriendNotice::release_notice() {
+  clear_has_notice();
+  ::protocol::Mail* temp = notice_;
+  notice_ = NULL;
+  return temp;
+}
+inline void FriendNotice::set_allocated_notice(::protocol::Mail* notice) {
+  delete notice_;
+  notice_ = notice;
+  if (notice) {
+    set_has_notice();
+  } else {
+    clear_has_notice();
+  }
+}
+
+// optional bool add = 2;
+inline bool FriendNotice::has_add() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void FriendNotice::set_has_add() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void FriendNotice::clear_has_add() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void FriendNotice::clear_add() {
+  add_ = false;
+  clear_has_add();
+}
+inline bool FriendNotice::add() const {
+  return add_;
+}
+inline void FriendNotice::set_add(bool value) {
+  set_has_add();
+  add_ = value;
+}
+
+// optional string uid = 3;
+inline bool FriendNotice::has_uid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void FriendNotice::set_has_uid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void FriendNotice::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void FriendNotice::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& FriendNotice::uid() const {
+  return *uid_;
+}
+inline void FriendNotice::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void FriendNotice::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void FriendNotice::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* FriendNotice::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* FriendNotice::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void FriendNotice::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
 // -------------------------------------------------------------------
 
 // Friend
@@ -2360,41 +3058,572 @@ inline void Task::set_finish(::google::protobuf::uint32 value) {
   finish_ = value;
 }
 
-// optional .protocol.Prop award = 7;
-inline bool Task::has_award() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
-}
-inline void Task::set_has_award() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void Task::clear_has_award() {
-  _has_bits_[0] &= ~0x00000040u;
+// repeated .protocol.Prop award = 7;
+inline int Task::award_size() const {
+  return award_.size();
 }
 inline void Task::clear_award() {
+  award_.Clear();
+}
+inline const ::protocol::Prop& Task::award(int index) const {
+  return award_.Get(index);
+}
+inline ::protocol::Prop* Task::mutable_award(int index) {
+  return award_.Mutable(index);
+}
+inline ::protocol::Prop* Task::add_award() {
+  return award_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::Prop >&
+Task::award() const {
+  return award_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::protocol::Prop >*
+Task::mutable_award() {
+  return &award_;
+}
+
+// optional uint32 type = 8;
+inline bool Task::has_type() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void Task::set_has_type() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void Task::clear_has_type() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void Task::clear_type() {
+  type_ = 0u;
+  clear_has_type();
+}
+inline ::google::protobuf::uint32 Task::type() const {
+  return type_;
+}
+inline void Task::set_type(::google::protobuf::uint32 value) {
+  set_has_type();
+  type_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ExAward
+
+// optional uint32 eid = 1;
+inline bool ExAward::has_eid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ExAward::set_has_eid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ExAward::clear_has_eid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ExAward::clear_eid() {
+  eid_ = 0u;
+  clear_has_eid();
+}
+inline ::google::protobuf::uint32 ExAward::eid() const {
+  return eid_;
+}
+inline void ExAward::set_eid(::google::protobuf::uint32 value) {
+  set_has_eid();
+  eid_ = value;
+}
+
+// optional string title = 2;
+inline bool ExAward::has_title() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ExAward::set_has_title() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ExAward::clear_has_title() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ExAward::clear_title() {
+  if (title_ != &::google::protobuf::internal::kEmptyString) {
+    title_->clear();
+  }
+  clear_has_title();
+}
+inline const ::std::string& ExAward::title() const {
+  return *title_;
+}
+inline void ExAward::set_title(const ::std::string& value) {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  title_->assign(value);
+}
+inline void ExAward::set_title(const char* value) {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  title_->assign(value);
+}
+inline void ExAward::set_title(const char* value, size_t size) {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  title_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ExAward::mutable_title() {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  return title_;
+}
+inline ::std::string* ExAward::release_title() {
+  clear_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = title_;
+    title_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void ExAward::set_allocated_title(::std::string* title) {
+  if (title_ != &::google::protobuf::internal::kEmptyString) {
+    delete title_;
+  }
+  if (title) {
+    set_has_title();
+    title_ = title;
+  } else {
+    clear_has_title();
+    title_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional .protocol.Prop award = 3;
+inline bool ExAward::has_award() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ExAward::set_has_award() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ExAward::clear_has_award() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ExAward::clear_award() {
   if (award_ != NULL) award_->::protocol::Prop::Clear();
   clear_has_award();
 }
-inline const ::protocol::Prop& Task::award() const {
+inline const ::protocol::Prop& ExAward::award() const {
   return award_ != NULL ? *award_ : *default_instance_->award_;
 }
-inline ::protocol::Prop* Task::mutable_award() {
+inline ::protocol::Prop* ExAward::mutable_award() {
   set_has_award();
   if (award_ == NULL) award_ = new ::protocol::Prop;
   return award_;
 }
-inline ::protocol::Prop* Task::release_award() {
+inline ::protocol::Prop* ExAward::release_award() {
   clear_has_award();
   ::protocol::Prop* temp = award_;
   award_ = NULL;
   return temp;
 }
-inline void Task::set_allocated_award(::protocol::Prop* award) {
+inline void ExAward::set_allocated_award(::protocol::Prop* award) {
   delete award_;
   award_ = award;
   if (award) {
     set_has_award();
   } else {
     clear_has_award();
+  }
+}
+
+// optional bool can = 4;
+inline bool ExAward::has_can() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ExAward::set_has_can() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ExAward::clear_has_can() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ExAward::clear_can() {
+  can_ = false;
+  clear_has_can();
+}
+inline bool ExAward::can() const {
+  return can_;
+}
+inline void ExAward::set_can(bool value) {
+  set_has_can();
+  can_ = value;
+}
+
+// optional uint32 pid = 5;
+inline bool ExAward::has_pid() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ExAward::set_has_pid() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ExAward::clear_has_pid() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void ExAward::clear_pid() {
+  pid_ = 0u;
+  clear_has_pid();
+}
+inline ::google::protobuf::uint32 ExAward::pid() const {
+  return pid_;
+}
+inline void ExAward::set_pid(::google::protobuf::uint32 value) {
+  set_has_pid();
+  pid_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ExRecord
+
+// optional uint32 id = 1;
+inline bool ExRecord::has_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ExRecord::set_has_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ExRecord::clear_has_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ExRecord::clear_id() {
+  id_ = 0u;
+  clear_has_id();
+}
+inline ::google::protobuf::uint32 ExRecord::id() const {
+  return id_;
+}
+inline void ExRecord::set_id(::google::protobuf::uint32 value) {
+  set_has_id();
+  id_ = value;
+}
+
+// optional string title = 2;
+inline bool ExRecord::has_title() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ExRecord::set_has_title() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ExRecord::clear_has_title() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ExRecord::clear_title() {
+  if (title_ != &::google::protobuf::internal::kEmptyString) {
+    title_->clear();
+  }
+  clear_has_title();
+}
+inline const ::std::string& ExRecord::title() const {
+  return *title_;
+}
+inline void ExRecord::set_title(const ::std::string& value) {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  title_->assign(value);
+}
+inline void ExRecord::set_title(const char* value) {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  title_->assign(value);
+}
+inline void ExRecord::set_title(const char* value, size_t size) {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  title_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ExRecord::mutable_title() {
+  set_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    title_ = new ::std::string;
+  }
+  return title_;
+}
+inline ::std::string* ExRecord::release_title() {
+  clear_has_title();
+  if (title_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = title_;
+    title_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void ExRecord::set_allocated_title(::std::string* title) {
+  if (title_ != &::google::protobuf::internal::kEmptyString) {
+    delete title_;
+  }
+  if (title) {
+    set_has_title();
+    title_ = title;
+  } else {
+    clear_has_title();
+    title_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string orderid = 3;
+inline bool ExRecord::has_orderid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ExRecord::set_has_orderid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ExRecord::clear_has_orderid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ExRecord::clear_orderid() {
+  if (orderid_ != &::google::protobuf::internal::kEmptyString) {
+    orderid_->clear();
+  }
+  clear_has_orderid();
+}
+inline const ::std::string& ExRecord::orderid() const {
+  return *orderid_;
+}
+inline void ExRecord::set_orderid(const ::std::string& value) {
+  set_has_orderid();
+  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
+    orderid_ = new ::std::string;
+  }
+  orderid_->assign(value);
+}
+inline void ExRecord::set_orderid(const char* value) {
+  set_has_orderid();
+  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
+    orderid_ = new ::std::string;
+  }
+  orderid_->assign(value);
+}
+inline void ExRecord::set_orderid(const char* value, size_t size) {
+  set_has_orderid();
+  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
+    orderid_ = new ::std::string;
+  }
+  orderid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ExRecord::mutable_orderid() {
+  set_has_orderid();
+  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
+    orderid_ = new ::std::string;
+  }
+  return orderid_;
+}
+inline ::std::string* ExRecord::release_orderid() {
+  clear_has_orderid();
+  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = orderid_;
+    orderid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void ExRecord::set_allocated_orderid(::std::string* orderid) {
+  if (orderid_ != &::google::protobuf::internal::kEmptyString) {
+    delete orderid_;
+  }
+  if (orderid) {
+    set_has_orderid();
+    orderid_ = orderid;
+  } else {
+    clear_has_orderid();
+    orderid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string time = 4;
+inline bool ExRecord::has_time() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ExRecord::set_has_time() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ExRecord::clear_has_time() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ExRecord::clear_time() {
+  if (time_ != &::google::protobuf::internal::kEmptyString) {
+    time_->clear();
+  }
+  clear_has_time();
+}
+inline const ::std::string& ExRecord::time() const {
+  return *time_;
+}
+inline void ExRecord::set_time(const ::std::string& value) {
+  set_has_time();
+  if (time_ == &::google::protobuf::internal::kEmptyString) {
+    time_ = new ::std::string;
+  }
+  time_->assign(value);
+}
+inline void ExRecord::set_time(const char* value) {
+  set_has_time();
+  if (time_ == &::google::protobuf::internal::kEmptyString) {
+    time_ = new ::std::string;
+  }
+  time_->assign(value);
+}
+inline void ExRecord::set_time(const char* value, size_t size) {
+  set_has_time();
+  if (time_ == &::google::protobuf::internal::kEmptyString) {
+    time_ = new ::std::string;
+  }
+  time_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ExRecord::mutable_time() {
+  set_has_time();
+  if (time_ == &::google::protobuf::internal::kEmptyString) {
+    time_ = new ::std::string;
+  }
+  return time_;
+}
+inline ::std::string* ExRecord::release_time() {
+  clear_has_time();
+  if (time_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = time_;
+    time_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void ExRecord::set_allocated_time(::std::string* time) {
+  if (time_ != &::google::protobuf::internal::kEmptyString) {
+    delete time_;
+  }
+  if (time) {
+    set_has_time();
+    time_ = time;
+  } else {
+    clear_has_time();
+    time_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint32 status = 5;
+inline bool ExRecord::has_status() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ExRecord::set_has_status() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ExRecord::clear_has_status() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void ExRecord::clear_status() {
+  status_ = 0u;
+  clear_has_status();
+}
+inline ::google::protobuf::uint32 ExRecord::status() const {
+  return status_;
+}
+inline void ExRecord::set_status(::google::protobuf::uint32 value) {
+  set_has_status();
+  status_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// SignAward
+
+// optional uint32 id = 1;
+inline bool SignAward::has_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SignAward::set_has_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SignAward::clear_has_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SignAward::clear_id() {
+  id_ = 0u;
+  clear_has_id();
+}
+inline ::google::protobuf::uint32 SignAward::id() const {
+  return id_;
+}
+inline void SignAward::set_id(::google::protobuf::uint32 value) {
+  set_has_id();
+  id_ = value;
+}
+
+// optional uint32 day = 2;
+inline bool SignAward::has_day() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SignAward::set_has_day() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SignAward::clear_has_day() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SignAward::clear_day() {
+  day_ = 0u;
+  clear_has_day();
+}
+inline ::google::protobuf::uint32 SignAward::day() const {
+  return day_;
+}
+inline void SignAward::set_day(::google::protobuf::uint32 value) {
+  set_has_day();
+  day_ = value;
+}
+
+// optional .protocol.Prop reward = 3;
+inline bool SignAward::has_reward() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SignAward::set_has_reward() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SignAward::clear_has_reward() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SignAward::clear_reward() {
+  if (reward_ != NULL) reward_->::protocol::Prop::Clear();
+  clear_has_reward();
+}
+inline const ::protocol::Prop& SignAward::reward() const {
+  return reward_ != NULL ? *reward_ : *default_instance_->reward_;
+}
+inline ::protocol::Prop* SignAward::mutable_reward() {
+  set_has_reward();
+  if (reward_ == NULL) reward_ = new ::protocol::Prop;
+  return reward_;
+}
+inline ::protocol::Prop* SignAward::release_reward() {
+  clear_has_reward();
+  ::protocol::Prop* temp = reward_;
+  reward_ = NULL;
+  return temp;
+}
+inline void SignAward::set_allocated_reward(::protocol::Prop* reward) {
+  delete reward_;
+  reward_ = reward;
+  if (reward) {
+    set_has_reward();
+  } else {
+    clear_has_reward();
   }
 }
 

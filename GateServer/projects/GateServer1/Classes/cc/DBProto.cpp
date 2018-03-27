@@ -53,7 +53,7 @@ void protobuf_AssignDesc_DBProto_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, ip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, gold_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, diamon_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, diamond_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, card_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, code_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DBUserInfo, token_),
@@ -198,23 +198,23 @@ void protobuf_AddDesc_DBProto_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rDBProto.proto\022\010protocol\"\264\002\n\nDBUserInfo"
+    "\n\rDBProto.proto\022\010protocol\"\265\002\n\nDBUserInfo"
     "\022\016\n\006userid\030\001 \002(\t\022\020\n\010username\030\002 \001(\t\022\016\n\003se"
     "x\030\003 \001(\r:\0011\022\n\n\002ip\030\004 \001(\t\022\017\n\007address\030\005 \001(\t\022"
-    "\022\n\004gold\030\006 \001(\r:\0044000\022\021\n\006diamon\030\007 \001(\r:\0018\022\017"
-    "\n\004card\030\010 \001(\r:\0011\022\014\n\004code\030\t \001(\t\022\r\n\005token\030\n"
-    " \001(\t\022\020\n\005picid\030\013 \001(\r:\0011\022\017\n\007unionid\030\014 \001(\t\022"
-    "\016\n\006picurl\030\r \001(\t\022\r\n\005phone\030\016 \001(\t\022\016\n\003win\030\017 "
-    "\001(\r:\0010\022\017\n\004lose\030\020 \001(\r:\0010\022\017\n\004ping\030\021 \001(\r:\0010"
-    "\022\016\n\003vip\030\022 \001(\r:\0010\"H\n\tDBRecords\022\n\n\002id\030\001 \002("
-    "\r\022\016\n\006roomid\030\002 \001(\t\022\020\n\005rtype\030\003 \001(\r:\0011\022\r\n\005c"
-    "time\030\004 \001(\t\"W\n\017DBDetailRecords\022\n\n\002id\030\001 \002("
-    "\r\022\014\n\004fkey\030\002 \001(\r\022\016\n\006userid\030\003 \001(\t\022\r\n\005score"
-    "\030\004 \001(\r\022\013\n\003win\030\005 \001(\r\"8\n\010DBNotice\022\n\n\002id\030\001 "
-    "\002(\r\022\017\n\007notice1\030\002 \001(\t\022\017\n\007notice2\030\003 \001(\t\"n\n"
-    "\006DBRoom\022\n\n\002id\030\001 \002(\r\022\r\n\005round\030\002 \001(\r\022\014\n\004an"
-    "te\030\003 \001(\r\022\016\n\006remark\030\004 \001(\t\022\016\n\006number\030\005 \001(\r"
-    "\022\014\n\004piao\030\006 \001(\r\022\r\n\005laizi\030\007 \001(\r", 669);
+    "\022\n\004gold\030\006 \001(\r:\0044000\022\022\n\007diamond\030\007 \001(\r:\0018\022"
+    "\017\n\004card\030\010 \001(\r:\0011\022\014\n\004code\030\t \001(\t\022\r\n\005token\030"
+    "\n \001(\t\022\020\n\005picid\030\013 \001(\r:\0011\022\017\n\007unionid\030\014 \001(\t"
+    "\022\016\n\006picurl\030\r \001(\t\022\r\n\005phone\030\016 \001(\t\022\016\n\003win\030\017"
+    " \001(\r:\0010\022\017\n\004lose\030\020 \001(\r:\0010\022\017\n\004ping\030\021 \001(\r:\001"
+    "0\022\016\n\003vip\030\022 \001(\r:\0010\"H\n\tDBRecords\022\n\n\002id\030\001 \002"
+    "(\r\022\016\n\006roomid\030\002 \001(\t\022\020\n\005rtype\030\003 \001(\r:\0011\022\r\n\005"
+    "ctime\030\004 \001(\t\"W\n\017DBDetailRecords\022\n\n\002id\030\001 \002"
+    "(\r\022\014\n\004fkey\030\002 \001(\r\022\016\n\006userid\030\003 \001(\t\022\r\n\005scor"
+    "e\030\004 \001(\r\022\013\n\003win\030\005 \001(\r\"8\n\010DBNotice\022\n\n\002id\030\001"
+    " \002(\r\022\017\n\007notice1\030\002 \001(\t\022\017\n\007notice2\030\003 \001(\t\"n"
+    "\n\006DBRoom\022\n\n\002id\030\001 \002(\r\022\r\n\005round\030\002 \001(\r\022\014\n\004a"
+    "nte\030\003 \001(\r\022\016\n\006remark\030\004 \001(\t\022\016\n\006number\030\005 \001("
+    "\r\022\014\n\004piao\030\006 \001(\r\022\r\n\005laizi\030\007 \001(\r", 670);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "DBProto.proto", &protobuf_RegisterTypes);
   DBUserInfo::default_instance_ = new DBUserInfo();
@@ -246,7 +246,7 @@ const int DBUserInfo::kSexFieldNumber;
 const int DBUserInfo::kIpFieldNumber;
 const int DBUserInfo::kAddressFieldNumber;
 const int DBUserInfo::kGoldFieldNumber;
-const int DBUserInfo::kDiamonFieldNumber;
+const int DBUserInfo::kDiamondFieldNumber;
 const int DBUserInfo::kCardFieldNumber;
 const int DBUserInfo::kCodeFieldNumber;
 const int DBUserInfo::kTokenFieldNumber;
@@ -282,7 +282,7 @@ void DBUserInfo::SharedCtor() {
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   address_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   gold_ = 4000u;
-  diamon_ = 8u;
+  diamond_ = 8u;
   card_ = 1u;
   code_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
@@ -378,7 +378,7 @@ void DBUserInfo::Clear() {
       }
     }
     gold_ = 4000u;
-    diamon_ = 8u;
+    diamond_ = 8u;
     card_ = 1u;
   }
   if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
@@ -520,19 +520,19 @@ bool DBUserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(56)) goto parse_diamon;
+        if (input->ExpectTag(56)) goto parse_diamond;
         break;
       }
 
-      // optional uint32 diamon = 7 [default = 8];
+      // optional uint32 diamond = 7 [default = 8];
       case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_diamon:
+         parse_diamond:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &diamon_)));
-          set_has_diamon();
+                 input, &diamond_)));
+          set_has_diamond();
         } else {
           goto handle_uninterpreted;
         }
@@ -785,9 +785,9 @@ void DBUserInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->gold(), output);
   }
 
-  // optional uint32 diamon = 7 [default = 8];
-  if (has_diamon()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->diamon(), output);
+  // optional uint32 diamond = 7 [default = 8];
+  if (has_diamond()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->diamond(), output);
   }
 
   // optional uint32 card = 8 [default = 1];
@@ -923,9 +923,9 @@ void DBUserInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->gold(), target);
   }
 
-  // optional uint32 diamon = 7 [default = 8];
-  if (has_diamon()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->diamon(), target);
+  // optional uint32 diamond = 7 [default = 8];
+  if (has_diamond()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->diamond(), target);
   }
 
   // optional uint32 card = 8 [default = 1];
@@ -1061,11 +1061,11 @@ int DBUserInfo::ByteSize() const {
           this->gold());
     }
 
-    // optional uint32 diamon = 7 [default = 8];
-    if (has_diamon()) {
+    // optional uint32 diamond = 7 [default = 8];
+    if (has_diamond()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->diamon());
+          this->diamond());
     }
 
     // optional uint32 card = 8 [default = 1];
@@ -1194,8 +1194,8 @@ void DBUserInfo::MergeFrom(const DBUserInfo& from) {
     if (from.has_gold()) {
       set_gold(from.gold());
     }
-    if (from.has_diamon()) {
-      set_diamon(from.diamon());
+    if (from.has_diamond()) {
+      set_diamond(from.diamond());
     }
     if (from.has_card()) {
       set_card(from.card());
@@ -1264,7 +1264,7 @@ void DBUserInfo::Swap(DBUserInfo* other) {
     std::swap(ip_, other->ip_);
     std::swap(address_, other->address_);
     std::swap(gold_, other->gold_);
-    std::swap(diamon_, other->diamon_);
+    std::swap(diamond_, other->diamond_);
     std::swap(card_, other->card_);
     std::swap(code_, other->code_);
     std::swap(token_, other->token_);

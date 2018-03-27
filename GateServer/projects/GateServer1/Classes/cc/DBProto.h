@@ -157,12 +157,12 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 gold() const;
   inline void set_gold(::google::protobuf::uint32 value);
 
-  // optional uint32 diamon = 7 [default = 8];
-  inline bool has_diamon() const;
-  inline void clear_diamon();
-  static const int kDiamonFieldNumber = 7;
-  inline ::google::protobuf::uint32 diamon() const;
-  inline void set_diamon(::google::protobuf::uint32 value);
+  // optional uint32 diamond = 7 [default = 8];
+  inline bool has_diamond() const;
+  inline void clear_diamond();
+  static const int kDiamondFieldNumber = 7;
+  inline ::google::protobuf::uint32 diamond() const;
+  inline void set_diamond(::google::protobuf::uint32 value);
 
   // optional uint32 card = 8 [default = 1];
   inline bool has_card() const;
@@ -280,8 +280,8 @@ class DBUserInfo : public ::google::protobuf::Message {
   inline void clear_has_address();
   inline void set_has_gold();
   inline void clear_has_gold();
-  inline void set_has_diamon();
-  inline void clear_has_diamon();
+  inline void set_has_diamond();
+  inline void clear_has_diamond();
   inline void set_has_card();
   inline void clear_has_card();
   inline void set_has_code();
@@ -313,7 +313,7 @@ class DBUserInfo : public ::google::protobuf::Message {
   ::google::protobuf::uint32 sex_;
   ::google::protobuf::uint32 gold_;
   ::std::string* address_;
-  ::google::protobuf::uint32 diamon_;
+  ::google::protobuf::uint32 diamond_;
   ::google::protobuf::uint32 card_;
   ::std::string* code_;
   ::std::string* token_;
@@ -1175,26 +1175,26 @@ inline void DBUserInfo::set_gold(::google::protobuf::uint32 value) {
   gold_ = value;
 }
 
-// optional uint32 diamon = 7 [default = 8];
-inline bool DBUserInfo::has_diamon() const {
+// optional uint32 diamond = 7 [default = 8];
+inline bool DBUserInfo::has_diamond() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
-inline void DBUserInfo::set_has_diamon() {
+inline void DBUserInfo::set_has_diamond() {
   _has_bits_[0] |= 0x00000040u;
 }
-inline void DBUserInfo::clear_has_diamon() {
+inline void DBUserInfo::clear_has_diamond() {
   _has_bits_[0] &= ~0x00000040u;
 }
-inline void DBUserInfo::clear_diamon() {
-  diamon_ = 8u;
-  clear_has_diamon();
+inline void DBUserInfo::clear_diamond() {
+  diamond_ = 8u;
+  clear_has_diamond();
 }
-inline ::google::protobuf::uint32 DBUserInfo::diamon() const {
-  return diamon_;
+inline ::google::protobuf::uint32 DBUserInfo::diamond() const {
+  return diamond_;
 }
-inline void DBUserInfo::set_diamon(::google::protobuf::uint32 value) {
-  set_has_diamon();
-  diamon_ = value;
+inline void DBUserInfo::set_diamond(::google::protobuf::uint32 value) {
+  set_has_diamond();
+  diamond_ = value;
 }
 
 // optional uint32 card = 8 [default = 1];

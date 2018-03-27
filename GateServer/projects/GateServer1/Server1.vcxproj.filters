@@ -120,6 +120,9 @@
     <ClCompile Include="Classes\cc\Vo.cpp">
       <Filter>源文件\Classes\cc</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\proto\HallInfo.cpp">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="Classes\cc\Vo.h">
       <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\proto\HallInfo.h">
+      <Filter>源文件\Classes\proto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

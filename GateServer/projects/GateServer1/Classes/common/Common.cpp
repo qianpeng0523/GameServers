@@ -60,3 +60,90 @@ bool Common::isHave(std::vector<std::string> vecs, std::string value){
 	}
 	return false;
 }
+
+
+int Common::getTime(time_t ptimep, int type){
+	struct   tm  * tm;
+	tm = localtime(&ptimep);
+	int  year = tm->tm_year + 1900;
+	int  month = tm->tm_mon + 1;
+	int  day = tm->tm_mday;
+	int  hour = tm->tm_hour;
+	int  min = tm->tm_min;
+	int  second = tm->tm_sec;
+	if (type == 1){
+		return year;
+	}
+	else if (type == 2){
+		return month;
+	}
+	else if (type == 3){
+		return day;
+	}
+	else if (type == 4){
+		return hour;
+	}
+	else if (type == 5){
+		return min;
+	}
+	else if (type == 6){
+		return second;
+	}
+	return ptimep;
+}
+
+
+time_t Common::getTime(){
+	char buff[100];
+	time_t tt = time(NULL);//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	return tt;
+}
+
+string Common::getTime(time_t tp){
+	char buff[100];
+	time_t tt = tp;//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	sprintf(buff, "%d-%02d-%02d %02d:%02d",
+		t->tm_year + 1900,
+		t->tm_mon + 1,
+		t->tm_mday,
+		t->tm_hour,
+		t->tm_min);
+	return buff;
+}
+
+string Common::getLocalTime1(){
+	char buff[100];
+	time_t tt = time(NULL);//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	sprintf(buff, "%02d:%02d",
+		t->tm_hour,
+		t->tm_min);
+	return buff;
+}
+
+string Common::getLocalTime(){
+	char buff[100];
+	time_t tt = time(NULL);//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	sprintf(buff, "%d-%02d-%02d %02d:%02d",
+		t->tm_year + 1900,
+		t->tm_mon + 1,
+		t->tm_mday,
+		t->tm_hour,
+		t->tm_min);
+	return buff;
+}
+
+string Common::getLocalTimeDay(){
+	char buff[100];
+	time_t tt = time(NULL);//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	sprintf(buff, "%d-%02d-%02d",
+		t->tm_year + 1900,
+		t->tm_mon + 1,
+		t->tm_mday
+		);
+	return buff;
+}

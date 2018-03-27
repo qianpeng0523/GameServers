@@ -41,13 +41,15 @@ void LoginInfo::SendSLogin(YMSocketData sd, int fd){
 	int err = sd["err"].asInt();
 	cl.set_err(err);
 	if (err == 0){
-		DBUserInfo *info = (DBUserInfo *)getDBDataFromSocketData("userinfo", sd["data"]);
+		printf("sd:%s",sd.getJsonString().c_str());
+		SLogin *cl1= (SLogin *)getDBDataFromSocketDataVo(cl.GetTypeName(), sd);
 		ClientData *data = LibEvent::getIns()->getClientData(fd);
 		if (data){
 			string ip = data->_ip;
+			DBUserInfo *info = cl1->mutable_info();
 			info->set_ip(ip);
 		}
-		cl.set_allocated_info(info);
+		cl.CopyFrom(*cl1);
 	}
 	LibEvent::getIns()->SendData(cl.cmd(),&cl,fd);
 }
@@ -75,13 +77,14 @@ void LoginInfo::SendSRegister(YMSocketData sd, int fd){
 	int err = sd["err"].asInt();
 	cl.set_err(err);
 	if (err == 0){
-		DBUserInfo *info = (DBUserInfo *)getDBDataFromSocketData("userinfo", sd["data"]);
+		DBUserInfo *info = (DBUserInfo *)getDBDataFromSocketDataVo(cl.GetTypeName(), sd["data"]);
 		ClientData *data = LibEvent::getIns()->getClientData(fd);
 		if (data){
 			string ip = data->_ip;
+			DBUserInfo *info = cl1->mutable_info();
 			info->set_ip(ip);
 		}
-		cl.set_allocated_info(info);
+		cl.CopyFrom(*cl1);
 	}
 	
 	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
@@ -152,227 +155,286 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 
 
 
+::google::protobuf::Message * LoginInfo::getDBDataFromSocketDataVo(string tname, CSJson::Value sd){
+	::google::protobuf::Message *msg = ccEvent::create_message(tname);
+	::google::protobuf::Descriptor *des = (::google::protobuf::Descriptor *)msg->GetDescriptor();
+	::google::protobuf::Reflection *reflection = (::google::protobuf::Reflection *) msg->GetReflection();
+	int sz = des->field_count();
+	for (int i = 0; i < sz; i++){
+		::google::protobuf::FieldDescriptor *fd = (::google::protobuf::FieldDescriptor *)des->field(i);
+		string name = fd->name();
+		if (name.compare("cmd") == 0){
+			continue;
+		}
+		::google::protobuf::FieldDescriptor::Type type = fd->type();
+		int count = 0;
+		if (sd.isMember(name)){
+			count = sd[name].size();
+		}
+		else{
+			count = sd["data"].size();
+		}
+		int j = 0;
+		::google::protobuf::Message *msg1 = NULL;
+		switch (type)
+		{
+		case google::protobuf::FieldDescriptor::TYPE_DOUBLE:
+			if (sd.isMember(name)){
+				reflection->SetDouble(msg, fd, sd[name].asDouble());
+			}
+			else{
+				reflection->SetDouble(msg, fd, sd["data"].asDouble());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_FLOAT:
+			if (sd.isMember(name)){
+				reflection->SetFloat(msg, fd, sd[name].asFloat());
+			}
+			else{
+				reflection->SetFloat(msg, fd, sd["data"].asFloat());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_INT64:
+			if (sd.isMember(name)){
+				reflection->SetInt64(msg, fd, sd[name].asInt64());
+			}
+			else{
+				reflection->SetInt64(msg, fd, sd["data"].asInt64());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_UINT64:
+			if (sd.isMember(name)){
+				reflection->SetUInt64(msg, fd, sd[name].asUInt64());
+			}
+			else{
+				reflection->SetUInt64(msg, fd, sd["data"].asUInt64());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_INT32:
+			if (sd.isMember(name)){
+				reflection->SetInt32(msg, fd, sd[name].asInt());
+			}
+			else{
+				printf("%s:%d\n",name.c_str(),sd["data"].asInt());
+				reflection->SetInt32(msg, fd, sd["data"].asInt());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_FIXED64:
 
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_FIXED32:
 
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_BOOL:
+			if (sd.isMember(name)){
+				reflection->SetBool(msg, fd, sd[name].asBool());
+			}
+			else{
+				reflection->SetBool(msg, fd, sd["data"].asBool());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_STRING:
+			if (sd.isMember(name)){
+				reflection->SetString(msg, fd, sd[name].asString());
+			}
+			else{
+				printf("%s:%s\n", name.c_str(), sd["data"].asString().c_str());
+				reflection->SetString(msg, fd, sd["data"].asString());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_GROUP:
 
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_MESSAGE:
+			if (fd->is_repeated()){
+				for (j = 0; j < count; j++){
+					msg1=reflection->AddMessage(msg, fd);
+					if (sd.isMember(name)){
+						msg1->CopyFrom(*getDBDataFromSocketDataVo(fd->message_type()->full_name(), sd[name][j]));
+					}
+					else{
+						msg1->CopyFrom(*getDBDataFromSocketDataVo(fd->message_type()->full_name(), sd["data"][j]));
+					}
+				}
+			}
+			else{
+				msg1=reflection->MutableMessage(msg, fd);
+				if (sd.isMember(name)){
+					msg1->CopyFrom(*getDBDataFromSocketDataVo(fd->message_type()->full_name(), sd[name]));
+				}
+				else{
+					msg1->CopyFrom(*getDBDataFromSocketDataVo(fd->message_type()->full_name(), sd["data"]));
+				}
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_BYTES:
+			if (sd.isMember(name)){
+				reflection->SetString(msg, fd, sd[name].asString());
+			}
+			else{
+				reflection->SetString(msg, fd, sd["data"].asString());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_UINT32:
+			if (sd.isMember(name)){
+				reflection->SetUInt32(msg, fd, sd[name].asUInt());
+			}
+			else{
+				reflection->SetUInt32(msg, fd, sd["data"].asUInt());
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_ENUM:
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SFIXED32:
 
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SFIXED64:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SINT32:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SINT64:
+
+			break;
+
+		default:
+			break;
+		}
+	}
+	return msg;
+}
 
 
 
 
 ::google::protobuf::Message * LoginInfo::getDBDataFromSocketData(string tablename, CSJson::Value sd){
-	if (tablename.compare("userinfo") == 0){
-		string uid, uname, add, code, token, unionid, picurl,phone;
-		int sex, gold, diamond, card, picid,win,lose,ping,vip;
-		uid = sd["userid"].asString();
-		uname = sd["username"].asString();
-		sex = sd["sex"].asInt();
-		add = sd["address"].asString();
-		gold = sd["gold"].asInt();
-		diamond = sd["diamond"].asInt();
-		card = sd["card"].asInt();
-		code = sd["code"].asString();
-		token = sd["token"].asString();
-		picid = sd["picid"].asInt();
-		unionid = sd["unionid"].asString();
-		picurl = sd["picurl"].asString();
-		phone = sd["phone"].asString();
-		win = sd["win"].asInt();
-		lose = sd["lose"].asInt();
-		ping = sd["ping"].asInt();
-		vip = sd["vip"].asInt();
-
+	string protoname;
+	if (protoname.compare("userinfo")==0){
 		DBUserInfo user;
-		::google::protobuf::Message *user1 = ccEvent::create_message(user.GetTypeName());
-		user.set_userid(uid);
-		user.set_username(uname);
-		user.set_sex(sex);
-		user.set_address(add);
-		user.set_gold(gold);
-		user.set_diamon(diamond);
-		user.set_card(card);
-		user.set_code(code);
-		user.set_token(token);
-		user.set_picid(picid);
-		user.set_unionid(unionid);
-		user.set_picurl(picurl);
-		user.set_phone(phone);
-		user.set_win(win);
-		user.set_lose(win);
-		user.set_ping(win);
-		user.set_vip(vip);
-		user1->CopyFrom(user);
-		return user1;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("records") == 0){
-		DBRecords record;
-		::google::protobuf::Message *record1 = ccEvent::create_message(record.GetTypeName());
-
-		int id, rtype;
-		string rid, ctime;
-
-		id = sd["id"].asInt();
-		rtype = sd["rtype"].asInt();
-		rid = sd["roomid"].asString();
-		ctime = sd["ctime"].asString();
-
-		record.set_id(id);
-		record.set_rtype(rtype);
-		record.set_roomid(rid);
-		record.set_ctime(ctime);
-		record1->CopyFrom(record);
-		return record1;
+	else if (protoname.compare("records") == 0){
+		DBRecords user;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("detail_records") == 0){
-		DBDetailRecords de_record;
-		::google::protobuf::Message *de_record1 = ccEvent::create_message(de_record.GetTypeName());
-		int id, fkey, score, win;
-		string uid;
-
-		id = sd["id"].asInt();
-		fkey = sd["fkey"].asInt();
-		uid = sd["userid"].asString();
-		score = sd["score"].asInt();
-		win = sd["win"].asInt();
-
-		de_record.set_id(id);
-		de_record.set_fkey(fkey);
-		de_record.set_score(score);
-		de_record.set_userid(uid);
-		de_record.set_win(win);
-		de_record1->CopyFrom(de_record);
-		return de_record1;
+	else if (protoname.compare("detail_records") == 0){
+		DBDetailRecords user;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("notice") == 0){
-		DBNotice notice;
-		::google::protobuf::Message *noticemsg = ccEvent::create_message(notice.GetTypeName());
-		int id = sd["id"].asInt();
-		string notice1 = sd["notice1"].asString();
-		string notice2 = sd["notice2"].asString();
-		notice.set_id(id);
-		notice.set_notice1(notice1);
-		notice.set_notice2(notice2);
-		noticemsg->CopyFrom(notice);
-		return noticemsg;
+	else if (protoname.compare("room") == 0){
+		DBRoom user;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("room") == 0){
-		DBRoom room;
-		::google::protobuf::Message *room1 = ccEvent::create_message(room.GetTypeName());
-		int id = sd["id"].asInt();
-		int round = sd["round"].asInt();
-		int ante = sd["ante"].asInt();
-		string remark = sd["remark"].asString();
-		int number = sd["number"].asInt();
-		int piao = sd["piao"].asInt();
-		int laizi = sd["laizi"].asInt();
-		room.set_id(id);
-		room.set_round(round);
-		room.set_ante(ante);
-		room.set_remark(remark);
-		room.set_number(number);
-		room.set_piao(piao);
-		room.set_laizi(laizi);
-		room1->CopyFrom(room);
-		return room1;
+	
+	return getDBDataFromSocketDataVo(protoname, sd);
+}
+
+void LoginInfo::setDBDataToSocketDataVo(::google::protobuf::Message* data, CSJson::Value &sd){
+	::google::protobuf::Descriptor *des = (::google::protobuf::Descriptor *) data->GetDescriptor();
+	::google::protobuf::Reflection *reflection = (::google::protobuf::Reflection *) data->GetReflection();
+	int sz = des->field_count();
+	for (int i = 0; i < sz; i++){
+		::google::protobuf::FieldDescriptor *fd = (::google::protobuf::FieldDescriptor *)des->field(i);
+		string name = fd->name();
+		google::protobuf::Message* child;
+		int j = 0;
+		::google::protobuf::FieldDescriptor::Type type = fd->type();
+		switch (type)
+		{
+		case google::protobuf::FieldDescriptor::TYPE_DOUBLE:
+			sd[name] =reflection->GetDouble(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_FLOAT:
+			sd[name] =reflection->GetFloat(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_INT64:
+			sd[name] =reflection->GetInt32(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_UINT64:
+			sd[name] =reflection->GetInt64(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_INT32:
+			sd[name] =reflection->GetInt32(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_FIXED64:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_FIXED32:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_BOOL:
+			sd[name] =reflection->GetBool(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_STRING:
+			sd[name] =reflection->GetString(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_GROUP:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_MESSAGE:
+			if (fd->is_repeated()){
+				for (j = 0; j<reflection->FieldSize(*data,fd); j++){
+					
+					child = (google::protobuf::Message*)&(reflection->GetRepeatedMessage(*data, fd, j));
+					if (child){
+						setDBDataToSocketDataVo(child, sd[name][j]);
+					}
+					else{
+						break;
+					}
+				}
+			}
+			else{
+				child = reflection->MutableMessage(data,fd);
+				setDBDataToSocketDataVo(child, sd[name]);
+			}
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_BYTES:
+			sd[name] =reflection->GetString(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_UINT32:
+			sd[name] =reflection->GetUInt32(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_ENUM:
+			sd[name] =reflection->GetEnum(*data, fd);
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SFIXED32:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SFIXED64:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SINT32:
+
+			break;
+		case google::protobuf::FieldDescriptor::TYPE_SINT64:
+
+			break;
+
+		default:
+			break;
+		}
 	}
 }
 
-
 void LoginInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Message* data, YMSocketData &sd){
-	if (tablename.compare("userinfo") == 0){
+	string protoname;
+	if (protoname.compare("userinfo") == 0){
 		DBUserInfo user;
-		user.CopyFrom(*data);
-		string uid = user.userid();
-		string uname = user.username();
-		int sex = user.sex();
-		string add = user.address();
-		int gold = user.gold();
-		int diamond = user.diamon();
-		int card = user.card();
-		string code = user.code();
-		string token = user.token();
-		int picid = user.picid();
-		string unionid = user.unionid();
-		string picurl = user.picurl();
-		string phone = user.phone();
-		int win = user.win();
-		int lose = user.lose();
-		int ping = user.ping();
-		int vip = user.vip();
-		sd["userid"] = uid;
-		sd["username"] = uname;
-		sd["sex"] = sex;
-		sd["address"] = add;
-		sd["gold"] = gold;
-		sd["diamond"] = diamond;
-		sd["card"] = card;
-		sd["code"] = code;
-		sd["token"] = token;
-		sd["picid"] = picid;
-		sd["unionid"] = unionid;
-		sd["picurl"] = picurl;
-		sd["win"] = win;
-		sd["lose"] = lose;
-		sd["ping"] = ping;
-		sd["phone"] = phone;
-		sd["vip"] = vip;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("records") == 0){
-		DBRecords record;
-		record.CopyFrom(*data);
-		int id = record.id();
-		string rid = record.roomid();
-		int rtype = record.rtype();
-		string ctime = record.ctime();
-
-		sd["id"] = id;
-		sd["roomid"] = rid;
-		sd["rtype"] = rtype;
-		sd["ctime"] = ctime;
+	else if (protoname.compare("records") == 0){
+		DBRecords user;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("detail_records") == 0){
-		DBDetailRecords de_record;
-		de_record.CopyFrom(*data);
-		int id = de_record.id();
-		int fkey = de_record.fkey();
-		string uid = de_record.userid();
-		int score = de_record.score();
-		int win = de_record.win();
-
-		sd["id"] = id;
-		sd["fkey"] = fkey;
-		sd["userid"] = uid;
-		sd["score"] = score;
-		sd["win"] = win;
+	else if (protoname.compare("detail_records") == 0){
+		DBDetailRecords user;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("notice") == 0){
-		DBNotice notice;
-		notice.CopyFrom(*data);
-		int id = notice.id();
-		string notice1 = notice.notice1();
-		string notice2 = notice.notice2();
-
-		sd["notice1"] = notice1;
-		sd["notice2"] = notice2;
-
+	else if (protoname.compare("room") == 0){
+		DBRoom user;
+		protoname = user.GetTypeName();
 	}
-	else if (tablename.compare("room") == 0){
-		DBRoom room;
-		room.CopyFrom(*data);
-		int id = room.id();
-		int round = room.round();
-		int ante = room.ante();
-		string remark = room.remark();
-		int number = room.number();
-		int piao = room.piao();
-		int laizi = room.laizi();
-
-		sd["id"] = id;
-		sd["round"] = round;
-		sd["ante"] = ante;
-		sd["remark"] = remark;
-		sd["number"] = number;
-		sd["piao"] = piao;
-		sd["laizi"] = laizi;
-	}
+	setDBDataToSocketDataVo(data, sd);
 }

@@ -45,8 +45,8 @@
     <IncludePath>$(IncludePath)</IncludePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <SourcePath>.\res;$(SourcePath)</SourcePath>
-    <OutDir>..\..\..\Debug</OutDir>
-    <IntDir>..\..\..\Debug</IntDir>
+    <OutDir>..\..\Debug</OutDir>
+    <IntDir>..\..\Debug</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -114,6 +114,7 @@
     <ClCompile Include="Classes\network\TcpSocket.cpp" />
     <ClCompile Include="Classes\poco\LibEvent.cpp" />
     <ClCompile Include="Classes\poco\LibPOCO.cpp" />
+    <ClCompile Include="Classes\proto\HallInfo.cpp" />
     <ClCompile Include="Classes\proto\LogicServerInfo.cpp" />
     <ClCompile Include="Classes\proto\LoginInfo.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Classes\poco\CProtocol.h" />
     <ClInclude Include="Classes\poco\LibEvent.h" />
     <ClInclude Include="Classes\poco\LibPOCO.h" />
+    <ClInclude Include="Classes\proto\HallInfo.h" />
     <ClInclude Include="Classes\proto\LogicServerInfo.h" />
     <ClInclude Include="Classes\proto\LoginInfo.h" />
     <ClInclude Include="Classes\stdafx.h" />
