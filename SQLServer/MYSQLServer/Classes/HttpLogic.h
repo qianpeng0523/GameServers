@@ -26,7 +26,6 @@ public:
 	void aes_encrypt(char* in, int inlen, char* out);
 	void aes_decrypt(char* in, int inlen, char* out);
 	
-	void setGateUse(string name, bool isUse);
 private:
 	void SqlStart(YMSocketData sd, char *&buff, int &sz);
 	void SqlClose(char *&buff, int &sz);
@@ -37,14 +36,13 @@ private:
 	void SqlExcute(YMSocketData sd, char *&buff, int &sz);
 	void SqlBackup(string dbname, char *&buff, int &sz);
 	
-	void getGateData(int cmd,char *&buff, int &sz);
-	void getLogicManagerData(int cmd,char *&buff, int &sz);
+	void getGateData(YMSocketData sd, char *&buff, int &sz);
+	void getLogicManagerData(YMSocketData sd, char *&buff, int &sz);
 	void getDBData(YMSocketData sd, char *&buff, int &sz);
 	void insertDBData(YMSocketData sd, char *&buff, int &sz);
 private:
 	static HttpLogic *m_Ins;
 	SQLInfo *m_pSQLInfo;
-	map<string, bool> m_gateUse;
 public:
 	
 };
