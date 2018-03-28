@@ -260,10 +260,10 @@ void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 	GateData *data = NULL;
 	for (itr1; itr1 != maps.end(); itr1++){
 		GateData *data1 = (GateData *)itr1->second;
-		if (data->_type == type&&!data->_use){
-			sd["servername"] = data->_name;
-			sd["serverip"] = data->_ip;
-			sd["serverport"] = data->_port;
+		if (data1->_type == type&&!data1->_use){
+			sd["servername"] = data1->_name;
+			sd["serverip"] = data1->_ip;
+			sd["serverport"] = data1->_port;
 			data = data1;
 		}
 	}
@@ -285,10 +285,10 @@ void HttpLogic::getLogicManagerData(YMSocketData sd1, char *&buff, int &sz){
 	GateData *data = NULL;
 	for (itr1; itr1 != maps.end(); itr1++){
 		GateData *data1 = (GateData *)itr1->second;
-		if (data->_type == type&&!data->_use){
-			sd["servername"] = data->_name;
-			sd["serverip"] = data->_ip;
-			sd["serverport"] = data->_port;
+		if (data1->_type == type&&!data1->_use){
+			sd["servername"] = data1->_name;
+			sd["serverip"] = data1->_ip;
+			sd["serverport"] = data1->_port;
 			data = data1;
 			break;
 		}
