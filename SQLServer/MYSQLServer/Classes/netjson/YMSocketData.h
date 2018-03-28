@@ -3,7 +3,7 @@
 
 #include <map>
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "src/msgpack.hpp"
+#include "msgpack.hpp"
 
 #else
 #include "msgpack.hpp"
@@ -11,7 +11,6 @@
 
 #include "YMvalue.h"
 #include "YMreader.h"
-
 using namespace std;
 class YMSocketData : public CSJson::Value
 {

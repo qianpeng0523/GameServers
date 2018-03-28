@@ -36,13 +36,13 @@
 #define CC_UNUSED_PARAM(unusedparam) (void)unusedparam
 
 
-#define SQLSERVER_IP "192.168.1.101"
+#define SQLSERVER_IP "47.104.165.65"
 #define HTTP_H "http://"
 #define SQL_FIND_USERINFO HTTP_H+SQLSERVER_IP
 
 #define DBUSER "qpserver"
 #define DBPASSWD "3.1415926qp"
-#define DBIP "192.168.1.101"
+#define DBIP "47.104.165.65"
 #define DBNAME "majiang"
 // #define MJ_TABLENAME_USER "userinfo"
 // #define MJ_TABLENAME_RECORDS "records"
@@ -53,8 +53,6 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 #include "iconv.h"
 #pragma comment(lib,"../Debug/libiconv.lib") 
-#pragma comment(lib,"../Debug/libprotobuf.lib") 
-#pragma comment(lib,"../Debug/libprotoc.lib") 
-#pragma comment(lib,"../Debug/libcrypto.lib")
+
 #endif
 using namespace std;

@@ -94,13 +94,18 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\libevent\include;..\libevent\include\event2;..\protobuf;..\protobuf\src;D:\Program Files\mysql\include;..\libMessagePack\src;..\libMessagePack\;$(IncludePath)</IncludePath>
-    <ReferencePath>..\libevent\lib;..\..\lib;..\..\bin;D:\Program Files\mysql\lib;..\curl\prebuilt\win32;$(ReferencePath)</ReferencePath>
+    <ReferencePath>..\libevent\lib;D:\Program Files\mysql\lib;$(ReferencePath)</ReferencePath>
     <SourcePath>..\MYSQLServer\res;$(SourcePath)</SourcePath>
     <OutDir>../Debug</OutDir>
     <IntDir>../Debug</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
+    <SourcePath>..\MYSQLServer\res;$(SourcePath)</SourcePath>
+    <IncludePath>..\libevent\include\event2;..\libevent\include;$(IncludePath)</IncludePath>
+    <ReferencePath>D:\Program Files\mysql\lib;..\libevent\lib;$(ReferencePath)</ReferencePath>
+    <OutDir>../Release</OutDir>
+    <IntDir>../Release</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,13 +115,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;..\protobuf\vsprojects\Debug;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;..\protobuf\vsprojects\Debug;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\Debug\libMessagePack.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;..\Debug\libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\Debug\libMessagePack.lib;..\Debug\libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineTHUMB</TargetMachine>
@@ -130,14 +135,20 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>.\Classes;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;..\protobuf\src;.\Classes\config;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;.\Classes\cryptopp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;..\Release\libMessagePack.lib;ws2_32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
