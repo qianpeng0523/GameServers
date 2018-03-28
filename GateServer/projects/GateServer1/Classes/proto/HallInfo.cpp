@@ -1,5 +1,4 @@
 ﻿#include "HallInfo.h"
-#include "EventDispatcher.h"
 #include "XXIconv.h"
 #include "LoginInfo.h"
 #include "YMSocketData.h"
@@ -9,63 +8,64 @@
 HallInfo *HallInfo::m_shareHallInfo=NULL;
 HallInfo::HallInfo()
 {
-	EventDispatcher *pe = EventDispatcher::getIns();
 	CRank sl1;
-	pe->registerProto(sl1.cmd(), sl1.GetTypeName());
-	pe->addListener(sl1.cmd(), this, Event_Handler(HallInfo::HandlerCRankHand));
+	regist(sl1.cmd(), sl1.GetTypeName(), Event_Handler(HallInfo::HandlerCRankHand));
 	CShop sr2;
-	pe->registerProto(sr2.cmd(), sr2.GetTypeName());
-	pe->addListener(sr2.cmd(), this, Event_Handler(HallInfo::HandlerCShop));
+	regist(sr2.cmd(), sr2.GetTypeName(), Event_Handler(HallInfo::HandlerCShop));
 	CMail sl3;
-	pe->registerProto(sl3.cmd(), sl3.GetTypeName());
-	pe->addListener(sl3.cmd(), this, Event_Handler(HallInfo::HandlerCMail));
-
-	//EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCMailAward));
-
+	regist(sl3.cmd(), sl3.GetTypeName(), Event_Handler(HallInfo::HandlerCMail));
+	CMailAward s24;
+	regist(s24.cmd(), s24.GetTypeName(), Event_Handler(HallInfo::HandlerCMailAward));
 	CFriend sr4;
-	pe->registerProto(sr4.cmd(), sr4.GetTypeName());
+	regist(sr4.cmd(), sr4.GetTypeName(), Event_Handler(HallInfo::HandlerCFriend));
 	CFindFriend sl5;
-	pe->registerProto(sl5.cmd(), sl5.GetTypeName());
+	regist(sl5.cmd(), sl5.GetTypeName(), Event_Handler(HallInfo::HandlerCFindFriend));
 	CGiveFriend sr6;
-	pe->registerProto(sr6.cmd(), sr6.GetTypeName());
+	regist(sr6.cmd(), sr6.GetTypeName(), Event_Handler(HallInfo::HandlerCGiveFriend));
 	CAddFriend sl7;
-	pe->registerProto(sl7.cmd(), sl7.GetTypeName());
-	 CAddFriendList sr8;
-	pe->registerProto(sr8.cmd(), sr8.GetTypeName());
+	regist(sl7.cmd(), sl7.GetTypeName(), Event_Handler(HallInfo::HandlerCAddFriend));
+	CAddFriendList sr8;
+	regist(sr8.cmd(), sr8.GetTypeName(), Event_Handler(HallInfo::HandlerCAddFriendList));
 	CActive sl9;
-	pe->registerProto(sl9.cmd(), sl9.GetTypeName());
+	regist(sl9.cmd(), sl9.GetTypeName(), Event_Handler(HallInfo::HandlerCActive));
 	CTask sl10;
-	pe->registerProto(sl10.cmd(), sl10.GetTypeName());
+	regist(sl10.cmd(), sl10.GetTypeName(), Event_Handler(HallInfo::HandlerCTask));
 	CReward sl11;
-	pe->registerProto(sl11.cmd(), sl11.GetTypeName());
+	regist(sl11.cmd(), sl11.GetTypeName(), Event_Handler(HallInfo::HandlerCReward));
 	CAgreeFriend sl12;
-	pe->registerProto(sl12.cmd(), sl12.GetTypeName());
+	regist(sl12.cmd(), sl12.GetTypeName(), Event_Handler(HallInfo::HandlerCAgreeFriend));
 	CExchangeReward sl13;
-	pe->registerProto(sl13.cmd(), sl13.GetTypeName());
-	 CExchangeCode sl14;
-	pe->registerProto(sl14.cmd(), sl14.GetTypeName());
+	regist(sl13.cmd(), sl13.GetTypeName(), Event_Handler(HallInfo::HandlerCExchangeReward));
+	CExchangeCode sl14;
+	regist(sl14.cmd(), sl14.GetTypeName(), Event_Handler(HallInfo::HandlerCExchangeCode));
 	CExchangeRecord sl15;
-	pe->registerProto(sl15.cmd(), sl15.GetTypeName());
-	 CApplePay sl17;
-	pe->registerProto(sl17.cmd(), sl17.GetTypeName());
+	regist(sl15.cmd(), sl15.GetTypeName(), Event_Handler(HallInfo::HandlerCExchangeRecord));
+	CApplePay sl17;
+	regist(sl17.cmd(), sl17.GetTypeName(), Event_Handler(HallInfo::HandlerCApplePay));
 	CWxpayOrder sl18;
-	pe->registerProto(sl18.cmd(), sl18.GetTypeName());
+	regist(sl18.cmd(), sl18.GetTypeName(), Event_Handler(HallInfo::HandlerCWxpayOrder));
 	CWxpayQuery sl19;
-	pe->registerProto(sl19.cmd(), sl19.GetTypeName());
+	regist(sl19.cmd(), sl19.GetTypeName(), Event_Handler(HallInfo::HandlerCWxpayQuery));
 	CFirstBuy sl20;
-	pe->registerProto(sl20.cmd(), sl20.GetTypeName());
+	regist(sl20.cmd(), sl20.GetTypeName(), Event_Handler(HallInfo::HandlerCFirstBuy));
 	CFeedBack sl21;
-	pe->registerProto(sl21.cmd(), sl21.GetTypeName());
+	regist(sl21.cmd(), sl21.GetTypeName(), Event_Handler(HallInfo::HandlerCFeedBack));
 	CSign sl22;
-	pe->registerProto(sl22.cmd(), sl22.GetTypeName());
+	regist(sl22.cmd(), sl22.GetTypeName(), Event_Handler(HallInfo::HandlerCSign));
 	CSignList sl23;
-	pe->registerProto(sl23.cmd(), sl23.GetTypeName());
-	
-	pe->addListener(sl19.cmd(), this, Event_Handler(HallInfo::HandlerCWxpayQuery));
+	regist(sl23.cmd(), sl23.GetTypeName(), Event_Handler(HallInfo::HandlerCSignList));
+	CExchange sl24;
+	regist(sl24.cmd(), sl24.GetTypeName(), Event_Handler(HallInfo::HandlerCExchange));
 }
 
 HallInfo::~HallInfo(){
 	
+}
+
+void HallInfo::regist(int cmd, string name, EventHandler handler){
+	EventDispatcher *pe = EventDispatcher::getIns();
+	pe->registerProto(cmd,name);
+	pe->addListener(cmd, this, handler);
 }
 
 HallInfo* HallInfo::getIns(){
@@ -84,10 +84,10 @@ bool HallInfo::init()
 
 
 void HallInfo::SendSRank(YMSocketData sd, int fd){
-	SRank cl1;
-	cl1.set_type(1);
+	SRank cl;
+	SRank *cl1 = (SRank *)LoginInfo::getIns()->getDBDataFromSocketDataVo(cl.GetTypeName(),sd);
 	
-	LibEvent::getIns()->SendData(cl1.cmd(), &cl1,fd);
+	LibEvent::getIns()->SendData(cl1->cmd(), cl1,fd);
 
 	
 }
@@ -113,25 +113,40 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 		Rank *rk1 = cl1.add_list();
 		rk1->CopyFrom(rk);
 	}
+	YMSocketData sd;
+	LoginInfo::getIns()->setDBDataToSocketDataVo(&cl1, sd);
+	SendSRank(sd,event->m_fd);
 }
 
-void HallInfo::SendSShop(YMSocketData sd, int fd){
-	SShop cl;
-	
+void HallInfo::SendSShop(SShop cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCShop(ccEvent *event){
 	CShop cl;
 	cl.CopyFrom(*event->msg);
-	
+	int type = cl.type();
+
+	//逻辑
+	SShop sl;
+	for (int i = 0; i < 10; i++){
+		ShopItem *rk = sl.add_list();
+		rk->set_type(i + 1);
+		rk->set_number(6 * (i + 1));
+		rk->set_givenum(1000 * (i + 1));
+		rk->set_hot(i % 2 == 1);
+		Prop ppp;
+		Prop *pp = (Prop *)ccEvent::create_message(ppp.GetTypeName());
+		pp->set_id(i + 1);
+		int number = rk->number();
+		pp->set_number((i + 1) % 2 == 1 ? 10000 * number : 2 * number);
+		rk->set_allocated_prop(pp);
+	}
+	SendSShop(sl, event->m_fd);
 }
 
-void HallInfo::SendSMail(YMSocketData sd, int fd){
-	CMail cl;
-	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
-
-	
+void HallInfo::SendSMail(SMail sl, int fd){
+	LibEvent::getIns()->SendData(sl.cmd(), &sl,fd);
 }
 
 void HallInfo::HandlerCMail(ccEvent *event){
@@ -150,33 +165,32 @@ void HallInfo::HandlerCMail(ccEvent *event){
 		ml->set_time(Common::getLocalTime().c_str());
 		ml->set_type(1);
 	}
+	SendSMail(sl,event->m_fd);
 }
 
 
-void HallInfo::SendSMailAward(YMSocketData sd, int fd){
-	SMailAward cl;
-	
+void HallInfo::SendSMailAward(SMailAward cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCMailAward(ccEvent *event){
 	CMailAward cl;
 	cl.CopyFrom(*event->msg);
-	
-	
+	int id = cl.id();
+	//逻辑
+	SMailAward sma;
+	sma.set_err(0);
+	sma.set_id(id);
+	SendSMailAward(sma, event->m_fd);
 }
 
-void HallInfo::SendSFriend(YMSocketData sd, int fd){
-	SFriend cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFriend));
+void HallInfo::SendSFriend(SFriend cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
-
 }
 
 void HallInfo::HandlerCFriend(ccEvent *event){
 	CFriend cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFriend));
 	
 
 	SFriend sf;
@@ -191,12 +205,11 @@ void HallInfo::HandlerCFriend(ccEvent *event){
 		user->set_username(buff);
 		fri->set_allocated_userinfo(user);
 	}
+	SendSFriend(sf,event->m_fd);
 }
 
 
-void HallInfo::SendSFindFriend(YMSocketData sd, int fd){
-	SFindFriend cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFindFriend));
+void HallInfo::SendSFindFriend(SFindFriend cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 
 }
@@ -204,8 +217,7 @@ void HallInfo::SendSFindFriend(YMSocketData sd, int fd){
 void HallInfo::HandlerCFindFriend(ccEvent *event){
 	CFindFriend cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFindFriend));
-
+	
 	char buff[100];
 	SFindFriend fris;
 	for (int i = 0; i < 2; i++){
@@ -221,48 +233,43 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 		fri->set_allocated_userinfo(user);
 
 	}
+	SendSFindFriend(fris, event->m_fd);
 }
 
 
-void HallInfo::SendSGiveFriend(YMSocketData sd, int fd){
-	SGiveFriend cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCGiveFriend));
+void HallInfo::SendSGiveFriend(SGiveFriend cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCGiveFriend(ccEvent *event){
 	CGiveFriend cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCGiveFriend));
 	
+	SGiveFriend sl;
+	SendSGiveFriend(sl, event->m_fd);
 }
 
 
-void HallInfo::SendSAddFriend(YMSocketData sd, int fd){
-	SAddFriend cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCAddFriend));
+void HallInfo::SendSAddFriend(SAddFriend cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCAddFriend(ccEvent *event){
 	CAddFriend cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCAddFriend));
 	
+	SAddFriend sl;
+	SendSAddFriend(sl, event->m_fd);
 }
 
 
-void HallInfo::SendSAddFriendList(YMSocketData sd, int fd){
-	SAddFriendList cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCAddFriendList));
+void HallInfo::SendSAddFriendList(SAddFriendList cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
-
 }
 
 void HallInfo::HandlerCAddFriendList(ccEvent *event){
 	CAddFriendList cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCAddFriendList));
 	
 	char buff[100];
 	SAddFriendList fris;
@@ -282,25 +289,23 @@ void HallInfo::HandlerCAddFriendList(ccEvent *event){
 		ml->set_type(1);
 		fri->set_allocated_notice(ml);
 	}
+	SendSAddFriendList(fris,event->m_fd);
 }
 
 
-void HallInfo::SendSActive(YMSocketData sd, int fd){
-	SActive cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCActive));
+void HallInfo::SendSActive(SActive cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCActive(ccEvent *event){
 	CActive cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCActive));
 	
+	SActive sl;
+	SendSActive(sl, event->m_fd);
 }
 
-void HallInfo::SendSTask(YMSocketData sd, int fd){
-	STask cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCTask));
+void HallInfo::SendSTask(STask cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 
 }
@@ -308,7 +313,6 @@ void HallInfo::SendSTask(YMSocketData sd, int fd){
 void HallInfo::HandlerCTask(ccEvent *event){
 	STask cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCTask));
 	
 	char buff[50];
 	STask st;
@@ -334,39 +338,35 @@ void HallInfo::HandlerCTask(ccEvent *event){
 		prop->set_name(XXIconv::GBK2UTF("金币"));
 		prop->set_number((i + 1)*(i / 4 + 1) * 1500);
 	}
+	SendSTask(st, event->m_fd);
 }
 
-void HallInfo::SendSReward(YMSocketData sd, int fd){
-	SReward cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCReward));
+void HallInfo::SendSReward(SReward cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCReward(ccEvent *event){
 	CReward cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCReward));
-	
+
+	SReward sl;
+	SendSReward(sl,event->m_fd);
 }
 
-void HallInfo::SendSAgreeFriend(YMSocketData sd, int fd){
-	SAgreeFriend cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCAgreeFriend));
+void HallInfo::SendSAgreeFriend(SAgreeFriend cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 	CAgreeFriend cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCAgreeFriend));
 	
+	SAgreeFriend sl;
+	SendSAgreeFriend(sl, event->m_fd);
 }
 
-void HallInfo::SendSExchangeReward(YMSocketData sd, int fd){
-	SExchangeReward cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeReward));
+void HallInfo::SendSExchangeReward(SExchangeReward cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
-
 }
 
 void HallInfo::HandlerCExchangeReward(ccEvent *event){
@@ -395,24 +395,22 @@ void HallInfo::HandlerCExchangeReward(ccEvent *event){
 
 		ea->set_allocated_award(prop1);
 	}
+	SendSExchangeReward(se, event->m_fd);
 }
 
-void HallInfo::SendSExchangeCode(YMSocketData sd, int fd){
-	SExchangeCode cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeCode));
+void HallInfo::SendSExchangeCode(SExchangeCode cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCExchangeCode(ccEvent *event){
 	CExchangeCode cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeCode));
 	
+	SExchangeCode sl;
+	SendSExchangeCode(sl, event->m_fd);
 }
 
-void HallInfo::SendSExchangeRecord(YMSocketData sd, int fd){
-	SExchangeRecord cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeRecord));
+void HallInfo::SendSExchangeRecord(SExchangeRecord cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 
 }
@@ -435,79 +433,74 @@ void HallInfo::HandlerCExchangeRecord(ccEvent *event){
 		ea->set_status(i % 3);
 		ea->set_time(Common::getLocalTime());
 	}
+	SendSExchangeRecord(se, event->m_fd);
 }
 
-void HallInfo::SendSExchange(YMSocketData sd, int fd){
-	SExchange cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchange));
+void HallInfo::SendSExchange(SExchange cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCExchange(ccEvent *event){
 	CExchange cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchange));
 	
+	SExchange sl;
+	SendSExchange(sl, event->m_fd);
 }
 
-void HallInfo::SendSApplePay(YMSocketData sd, int fd){
-	SApplePay cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCApplePay));
+void HallInfo::SendSApplePay(SApplePay cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCApplePay(ccEvent *event){
 	CApplePay cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCApplePay));
 	
+	SApplePay sl;
+	SendSApplePay(sl, event->m_fd);
 }
 
 
-void HallInfo::SendSWxpayOrder(YMSocketData sd, int fd){
-	SWxpayOrder cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCWxpayOrder));
+void HallInfo::SendSWxpayOrder(SWxpayOrder cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCWxpayOrder(ccEvent *event){
 	CWxpayOrder cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCWxpayOrder));
 	
+	SWxpayOrder sl;
+	SendSWxpayOrder(sl, event->m_fd);
 }
 
 
-void HallInfo::SendSWxpayQuery(YMSocketData sd, int fd){
-	SWxpayQuery cl;
+void HallInfo::SendSWxpayQuery(SWxpayQuery cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCWxpayQuery(ccEvent *event){
 	CWxpayQuery cl;
 	cl.CopyFrom(*event->msg);
-	
+	SWxpayQuery sl;
+	SendSWxpayQuery(sl, event->m_fd);
 }
 
 
-void HallInfo::SendSFirstBuy(YMSocketData sd, int fd){
-	SFirstBuy cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFirstBuy));
+void HallInfo::SendSFirstBuy(SFirstBuy cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 }
 
 void HallInfo::HandlerCFirstBuy(ccEvent *event){
 	CFirstBuy cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFirstBuy));
 	
+	SFirstBuy sl;
+	SendSFirstBuy(sl, event->m_fd);
 }
 
 
 //反馈
-void HallInfo::SendSFeedBack(YMSocketData sd, int fd){
-	SFeedBack cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFeedBack));
+void HallInfo::SendSFeedBack(SFeedBack cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 
 }
@@ -515,30 +508,30 @@ void HallInfo::SendSFeedBack(YMSocketData sd, int fd){
 void HallInfo::HandlerCFeedBack(ccEvent *event){
 	CFeedBack cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCFeedBack));
+	
+
+	SFeedBack sl;
+	SendSFeedBack(sl, event->m_fd);
 }
 
 
 //签到
-void HallInfo::SendSSign(YMSocketData sd, int fd){
-	SSign cl;
-
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCSign));
+void HallInfo::SendSSign(SSign cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 
 }
 
 void HallInfo::HandlerCSign(ccEvent *event){
-	SSign cl;
+	CSign cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCSign));
+	
+	SSign sl;
+	SendSSign(sl, event->m_fd);
 	
 }
 
 
-void HallInfo::SendSSignList(YMSocketData sd, int fd){
-	SSignList cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCSignList));
+void HallInfo::SendSSignList(SSignList cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 
 }
@@ -563,4 +556,5 @@ void HallInfo::HandlerCSignList(ccEvent *event){
 		p->set_number(pid == 1 ? 500 * dd[i] : i / 2);
 		sa->set_allocated_reward(p);
 	}
+	SendSSignList(sl, event->m_fd);
 }

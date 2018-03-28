@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "ccEvent.h"
-
+#include "EventDispatcher.h"
 
 class HallInfo:public Object
 {
@@ -19,83 +19,84 @@ public:
 	void HandlerCRankHand(ccEvent *event);
 
 	//商城
-	void SendSShop(YMSocketData sd, int fd);
+	void SendSShop(SShop cl, int fd);
 	void HandlerCShop(ccEvent *event);
 
 	//邮件
-	void SendSMail(YMSocketData sd, int fd);
+	void SendSMail(SMail sl, int fd);
 	void HandlerCMail(ccEvent *event);
 
-	void SendSMailAward(YMSocketData sd, int fd);
+	void SendSMailAward(SMailAward cl, int fd);
 	void HandlerCMailAward(ccEvent *event);
 
 	//好友
-	void SendSFriend(YMSocketData sd, int fd);
+	void SendSFriend(SFriend cl, int fd);
 	void HandlerCFriend(ccEvent *event);
 
-	void SendSFindFriend(YMSocketData sd, int fd);
+	void SendSFindFriend(SFindFriend cl, int fd);
 	void HandlerCFindFriend(ccEvent *event);
 
-	void SendSGiveFriend(YMSocketData sd, int fd);
+	void SendSGiveFriend(SGiveFriend cl, int fd);
 	void HandlerCGiveFriend(ccEvent *event);
 
-	void SendSAddFriend(YMSocketData sd, int fd);
+	void SendSAddFriend(SAddFriend cl, int fd);
 	void HandlerCAddFriend(ccEvent *event);
 
-	void SendSAddFriendList(YMSocketData sd, int fd);
+	void SendSAddFriendList(SAddFriendList sd, int fd);
 	void HandlerCAddFriendList(ccEvent *event);
 
-	void SendSAgreeFriend(YMSocketData sd, int fd);
+	void SendSAgreeFriend(SAgreeFriend cl, int fd);
 	void HandlerCAgreeFriend(ccEvent *event);
 
 	//活动
-	void SendSActive(YMSocketData sd, int fd);
+	void SendSActive(SActive cl, int fd);
 	void HandlerCActive(ccEvent *event);
 
 	//任务
-	void SendSTask(YMSocketData sd, int fd);
+	void SendSTask(STask sd, int fd);
 	void HandlerCTask(ccEvent *event);
 
 	///////////兑换
-	void SendSReward(YMSocketData sd, int fd);
+	void SendSReward(SReward cl, int fd);
 	void HandlerCReward(ccEvent *event);
 
-	void SendSExchangeReward(YMSocketData sd, int fd);
+	void SendSExchangeReward(SExchangeReward cl, int fd);
 	void HandlerCExchangeReward(ccEvent *event);
 
-	void SendSExchangeCode(YMSocketData sd, int fd);
+	void SendSExchangeCode(SExchangeCode cl, int fd);
 	void HandlerCExchangeCode(ccEvent *event);
 
-	void SendSExchangeRecord(YMSocketData sd, int fd);
+	void SendSExchangeRecord(SExchangeRecord cl, int fd);
 	void HandlerCExchangeRecord(ccEvent *event);
 
-	void SendSExchange(YMSocketData sd, int fd);
+	void SendSExchange(SExchange cl, int fd);
 	void HandlerCExchange(ccEvent *event);
 
 	//////////支付
-	void SendSApplePay(YMSocketData sd, int fd);
+	void SendSApplePay(SApplePay cl, int fd);
 	void HandlerCApplePay(ccEvent *event);
 
-	void SendSWxpayOrder(YMSocketData sd, int fd);
+	void SendSWxpayOrder(SWxpayOrder cl, int fd);
 	void HandlerCWxpayOrder(ccEvent *event);
 
-	void SendSWxpayQuery(YMSocketData sd, int fd);
+	void SendSWxpayQuery(SWxpayQuery cl, int fd);
 	void HandlerCWxpayQuery(ccEvent *event);
 
-	void SendSFirstBuy(YMSocketData sd, int fd);
+	void SendSFirstBuy(SFirstBuy cl, int fd);
 	void HandlerCFirstBuy(ccEvent *event);
 
 	//反馈
-	void SendSFeedBack(YMSocketData sd, int fd);
+	void SendSFeedBack(SFeedBack cl, int fd);
 	void HandlerCFeedBack(ccEvent *event);
 
 	//签到
-	void SendSSign(YMSocketData sd, int fd);
+	void SendSSign(SSign cl, int fd);
 	void HandlerCSign(ccEvent *event);
 
-	void SendSSignList(YMSocketData sd, int fd);
+	void SendSSignList(SSignList cl, int fd);
 	void HandlerCSignList(ccEvent *event);
-
+private:
+	void regist(int cmd, string name, EventHandler handler);
 private:
 	static HallInfo *m_shareHallInfo;
 	

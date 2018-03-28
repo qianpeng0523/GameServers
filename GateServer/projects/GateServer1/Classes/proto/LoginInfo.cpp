@@ -77,7 +77,7 @@ void LoginInfo::SendSRegister(YMSocketData sd, int fd){
 	int err = sd["err"].asInt();
 	cl.set_err(err);
 	if (err == 0){
-		DBUserInfo *info = (DBUserInfo *)getDBDataFromSocketDataVo(cl.GetTypeName(), sd["data"]);
+		SRegister *cl1 = (SRegister *)getDBDataFromSocketDataVo(cl.GetTypeName(), sd["data"]);
 		ClientData *data = LibEvent::getIns()->getClientData(fd);
 		if (data){
 			string ip = data->_ip;
