@@ -49,7 +49,8 @@ void HttpLogic::aes_encrypt(char* in, int inlen, char* out)
 
 HttpLogic::HttpLogic(){
 	m_pSQLInfo = new SQLInfo();
-
+	CSVDataInfo::getIns()->openCSVFile("res/gateserver.csv", CSV_GATESERVER);
+	CSVDataInfo::getIns()->openCSVFile("res/logicmanager.csv", CSV_LOGOCMANAGER);
 	
 }
 HttpLogic::~HttpLogic(){
