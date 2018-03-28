@@ -100,10 +100,11 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 
 	//逻辑
 	SRank cl1;
+	cl1.set_type(type);
 	char buff1[30];
 	for (int i = 0; i < 10; i++){
 		Rank rk;
-		rk.set_lv(i * 10 + (i + 1));
+		rk.set_lv(i + 1);
 		rk.set_number(10000 * 1 + 1000 * i);
 		sprintf(buff1, "1%d%d0%02d", 1, index, i);
 		rk.set_uid(buff1);

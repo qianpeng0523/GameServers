@@ -9,7 +9,7 @@
 #include "LibEvent.h"
 #include "Poco/Util/Timer.h"
 #include "LoginInfo.h"
-
+#include "HallInfo.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -30,6 +30,7 @@ int _tmain(int argc, _TCHAR* argv[])
 // 	SSignList cl1;
 // 	SSignList *cl2 = (SSignList *)LoginInfo::getIns()->getDBDataFromSocketDataVo(cl1.GetTypeName(), sd);
 // 	printf("%s",cl2->DebugString().c_str());
+	HallInfo::getIns();
 	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
 	
