@@ -3,8 +3,10 @@
 
 
 #include "hiredis.h"
-#define NO_QFORKIMPL //这一行必须加才能正常使用
-#include "win32fixes.h"
+extern "C"
+{
+#include <win32fixes.h>
+}
 #include <string>
 using namespace std;
 

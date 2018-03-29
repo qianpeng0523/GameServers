@@ -23,8 +23,10 @@
     <ClCompile Include="Classes\netjson\json_reader.cpp" />
     <ClCompile Include="Classes\netjson\json_value.cpp" />
     <ClCompile Include="Classes\netjson\json_writer.cpp" />
+    <ClCompile Include="Classes\RedisManager.cpp" />
     <ClCompile Include="Classes\SqlControl.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
+    <ClCompile Include="Classes\win32fixes.c" />
     <ClCompile Include="Classes\XXIconv.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +36,7 @@
     <ClInclude Include="Classes\config\CSVDataInfo.h" />
     <ClInclude Include="Classes\config\Object.h" />
     <ClInclude Include="Classes\db\DataBaseUserinfo.h" />
+    <ClInclude Include="Classes\hiredis\hiredis.h" />
     <ClInclude Include="Classes\HttpEvent.h" />
     <ClInclude Include="Classes\HttpLogic.h" />
     <ClInclude Include="Classes\iconv.h" />
@@ -49,9 +52,11 @@
     <ClInclude Include="Classes\netjson\YMSocketDataEvent.h" />
     <ClInclude Include="Classes\netjson\YMvalue.h" />
     <ClInclude Include="Classes\netjson\YMwriter.h" />
+    <ClInclude Include="Classes\RedisManager.h" />
     <ClInclude Include="Classes\SqlControl.h" />
     <ClInclude Include="Classes\stdafx.h" />
     <ClInclude Include="Classes\targetver.h" />
+    <ClInclude Include="Classes\win32fixes.h" />
     <ClInclude Include="Classes\XXIconv.h" />
     <ClInclude Include="Classes\zlib\include\zconf.h" />
     <ClInclude Include="Classes\zlib\include\zlib.h" />
@@ -113,10 +118,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32 _DEBUG;_LIB _WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;..\protobuf\vsprojects\Debug;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;..\protobuf\vsprojects\Debug;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;.\Classes\hiredis;.\Classes\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions> /NODEFAULTLIB:libcmt.lib %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -31,6 +31,9 @@
     <Filter Include="源文件\Classes\zlib\include">
       <UniqueIdentifier>{433ddda5-9872-4429-b744-5ff6f1bc380a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes\hiredis">
+      <UniqueIdentifier>{d319edf0-08b4-4b01-a15b-5384abd16ded}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\HttpEvent.cpp">
@@ -76,6 +79,12 @@
       <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Common.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\RedisManager.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\win32fixes.c">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -159,6 +168,15 @@
       <Filter>源文件\Classes\zlib\include</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Common.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\RedisManager.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\hiredis\hiredis.h">
+      <Filter>源文件\Classes\hiredis</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\win32fixes.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>
