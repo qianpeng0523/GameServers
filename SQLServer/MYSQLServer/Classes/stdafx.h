@@ -4,7 +4,6 @@
 //
 
 #pragma once
-
 #include "targetver.h"
 #include <stdio.h>
 #include <tchar.h>
@@ -53,6 +52,6 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 #include "iconv.h"
 #pragma comment(lib,"../Debug/libiconv.lib") 
-
+#pragma comment(lib,"../Debug/hiredis.lib") 
 #endif
 using namespace std;

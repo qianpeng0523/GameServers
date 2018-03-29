@@ -265,6 +265,7 @@ void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 			sd["serverip"] = data1->_ip;
 			sd["serverport"] = data1->_port;
 			data = data1;
+			break;
 		}
 	}
 	if (!data){
