@@ -417,9 +417,8 @@ void HallInfo::SendSExchangeRecord(SExchangeRecord cl, int fd){
 }
 
 void HallInfo::HandlerCExchangeRecord(ccEvent *event){
-	SExchangeRecord cl;
+	CExchangeRecord cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeRecord));
 	
 	char buff[100];
 	int gold = /*LoginInfo::getIns()->getMyDBUserInfo().gold()*/0;

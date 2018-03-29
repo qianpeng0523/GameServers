@@ -101,7 +101,7 @@ void HttpLogic::requestGateData(){
 	string url=sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0B;
-	sd["type"] = 1;
+	sd["type"] = 2;
 	HttpEvent::getIns()->requestData(url,sd);
 }
 
@@ -118,7 +118,7 @@ void HttpLogic::GateDataCall(YMSocketData sd){
 		clib->StopServer();
 	}
 	else{
-		printf("未获取到数据\n");
+		printf("GateDataCall未获取到数据\n");
 	}
 }
 
@@ -126,7 +126,7 @@ void HttpLogic::requestManagerData(){
 	string url = sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0A;
-	sd["type"] = 1;
+	sd["type"] = 2;
 	HttpEvent::getIns()->requestData(url,sd);
 }
 
@@ -149,7 +149,7 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 		t1.detach();
 	}
 	else{
-		printf("未获取到数据\n");
+		printf("ManagerDataCall未获取到数据\n");
 	}
 }
 
@@ -193,4 +193,89 @@ void HttpLogic::RegisterCall(YMSocketData sd){
 	if (data&&data->_conn){
 		LoginInfo::getIns()->SendSRegister(sd, data->_conn->fd);
 	}
+}
+
+void HttpLogic::requestRank(int type, int index){
+	string url = sqlhttp;
+	YMSocketData sd;
+	sd["cmd"] = 0x11;
+	sd["type"] = type;
+	sd["index"] = index;
+	HttpEvent::getIns()->requestData(url, sd);
+}
+
+void HttpLogic::HandleRank(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestMail(string sessionid){
+
+}
+
+void HttpLogic::HandleMail(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestShop(int type){
+
+}
+
+void HttpLogic::HandleShop(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestFriends(string sessionid){
+
+}
+
+void HttpLogic::HandleFriends(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestFindFriend(string uid){
+
+}
+
+void HttpLogic::HandlerFindFriend(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestActive(){
+
+}
+
+void HttpLogic::HandlerActive(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestTask(){
+
+}
+
+void HttpLogic::HandlerTask(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestExchangeReward(){
+
+}
+
+void HttpLogic::HandlerExchangeReward(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestExchangeRecord(string uid){
+
+}
+
+void HttpLogic::HandlerExchangeRecord(YMSocketData sd, char *&buff, int &sz){
+
+}
+
+void HttpLogic::requestSignList(string uid){
+
+}
+
+void HttpLogic::HandlerSignList(YMSocketData sd, char *&buff, int &sz){
+
 }
