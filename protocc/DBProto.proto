@@ -10,7 +10,7 @@ message DBUserInfo
 	optional string ip			=4;
 	optional string address		=5;
 	optional uint32 gold		=6[default = 4000];
-	optional uint32 diamon		=7[default = 8];
+	optional uint32 diamond		=7[default = 8];
 	optional uint32 card		=8[default = 1];
 	optional string code		=9;
 	optional string token		=10;
