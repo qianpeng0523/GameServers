@@ -31,8 +31,8 @@
     <Filter Include="源文件\Classes\zlib\include">
       <UniqueIdentifier>{433ddda5-9872-4429-b744-5ff6f1bc380a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Classes\hiredis">
-      <UniqueIdentifier>{d319edf0-08b4-4b01-a15b-5384abd16ded}</UniqueIdentifier>
+    <Filter Include="源文件\Classes\cc">
+      <UniqueIdentifier>{1e81db2a-1c90-44d2-a5ba-95cd5ccfb1fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,10 +81,31 @@
     <ClCompile Include="Classes\Common.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\RedisManager.cpp">
+    <ClCompile Include="..\..\redis\src\win32fixes.c">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\win32fixes.c">
+    <ClCompile Include="..\..\redis\src\redis.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\DBProto.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\Hall.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\LogicServer.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\Login.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\Vo.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\ccEvent.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\EventDispatcher.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,13 +191,31 @@
     <ClInclude Include="Classes\Common.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\RedisManager.h">
+    <ClInclude Include="..\..\redis\src\win32fixes.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\hiredis\hiredis.h">
-      <Filter>源文件\Classes\hiredis</Filter>
+    <ClInclude Include="..\..\redis\src\redis.h">
+      <Filter>源文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\win32fixes.h">
+    <ClInclude Include="Classes\cc\DBProto.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\Hall.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\LogicServer.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\Login.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\Vo.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ccEvent.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\EventDispatcher.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>

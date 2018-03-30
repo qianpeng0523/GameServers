@@ -60,6 +60,7 @@ HttpLogic::~HttpLogic(){
 
 bool HttpLogic::init()
 {
+	
     return true;
 }
 

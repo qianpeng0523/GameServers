@@ -12,6 +12,7 @@
 #include "SqlControl.h"
 #include "CSVDataInfo.h"
 #include "HttpLogic.h"
+#include "redis.h"
 // 线程A 方法
 DWORD WINAPI ThreadHttp(LPVOID lPVOID){
 	HttpEvent::getIns()->init();
@@ -29,7 +30,17 @@ int main()
 	HttpLogic::getIns();
 	CreateThread(NULL, 0, ThreadHttp, NULL, 0, NULL);
 	
-	SqlControl::getIns();
+	WSADATA wsaData;
+	WSAStartup(MAKEWORD(2, 1), &wsaData);
+
+	redis::getIns()->initial("127.0.0.1", 6379, "3.1415926qp");
+	
+ 	DBUserInfo user;
+	user.set_card(1);
+	user.set_ip("192.168.1.1");
+	redis::getIns()->Hash(user.GetTypeName(),&user);
+	DBUserInfo *user1= (DBUserInfo *)redis::getIns()->getHash(user.GetTypeName());
+	//SqlControl::getIns();
 	
 	getchar();
 	
