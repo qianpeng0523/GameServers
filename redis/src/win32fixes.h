@@ -66,7 +66,7 @@ int replace_ftruncate(int fd, long long length);
 #define va_copy(d,s)  d = (s)
 #endif
 
-#define sleep(x) Sleep((x)*1000)
+#define sleep1(x) Sleep((x)*1000)
 
 #ifndef __RTL_GENRANDOM
 #define __RTL_GENRANDOM 1
