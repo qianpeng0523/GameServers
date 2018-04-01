@@ -54,14 +54,8 @@
     <ClCompile Include="Classes\netjson\json_writer.cpp">
       <Filter>源文件\Classes\netjson</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\SqlControl.cpp">
-      <Filter>源文件\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\XXIconv.cpp">
       <Filter>源文件\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\db\DataBaseUserinfo.cpp">
-      <Filter>源文件\Classes\db</Filter>
     </ClCompile>
     <ClCompile Include="Classes\config\CSVDataHelper.cpp">
       <Filter>源文件\Classes\config</Filter>
@@ -108,6 +102,12 @@
     <ClCompile Include="Classes\EventDispatcher.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Object.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\StatTimer.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\HttpEvent.h">
@@ -152,17 +152,11 @@
     <ClInclude Include="Classes\netjson\YMwriter.h">
       <Filter>源文件\Classes\netjson</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\SqlControl.h">
-      <Filter>源文件\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\XXIconv.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Classes\iconv.h">
       <Filter>源文件\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\db\DataBaseUserinfo.h">
-      <Filter>源文件\Classes\db</Filter>
     </ClInclude>
     <ClInclude Include="Classes\config\CSVBaseData.h">
       <Filter>源文件\Classes\config</Filter>
@@ -216,6 +210,12 @@
       <Filter>源文件\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Classes\EventDispatcher.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Object.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\StatTimer.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>

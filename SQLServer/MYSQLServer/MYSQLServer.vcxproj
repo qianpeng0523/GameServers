@@ -23,7 +23,6 @@
     <ClCompile Include="Classes\config\CSVDataHelper.cpp" />
     <ClCompile Include="Classes\config\CSVDataInfo.cpp" />
     <ClCompile Include="Classes\config\Object.cpp" />
-    <ClCompile Include="Classes\db\DataBaseUserinfo.cpp" />
     <ClCompile Include="Classes\EventDispatcher.cpp" />
     <ClCompile Include="Classes\HttpEvent.cpp" />
     <ClCompile Include="Classes\HttpLogic.cpp" />
@@ -32,7 +31,8 @@
     <ClCompile Include="Classes\netjson\json_reader.cpp" />
     <ClCompile Include="Classes\netjson\json_value.cpp" />
     <ClCompile Include="Classes\netjson\json_writer.cpp" />
-    <ClCompile Include="Classes\SqlControl.cpp" />
+    <ClCompile Include="Classes\Object.cpp" />
+    <ClCompile Include="Classes\StatTimer.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
     <ClCompile Include="Classes\XXIconv.cpp" />
   </ItemGroup>
@@ -50,7 +50,6 @@
     <ClInclude Include="Classes\config\CSVDataHelper.h" />
     <ClInclude Include="Classes\config\CSVDataInfo.h" />
     <ClInclude Include="Classes\config\Object.h" />
-    <ClInclude Include="Classes\db\DataBaseUserinfo.h" />
     <ClInclude Include="Classes\EventDispatcher.h" />
     <ClInclude Include="Classes\HttpEvent.h" />
     <ClInclude Include="Classes\HttpLogic.h" />
@@ -67,7 +66,8 @@
     <ClInclude Include="Classes\netjson\YMSocketDataEvent.h" />
     <ClInclude Include="Classes\netjson\YMvalue.h" />
     <ClInclude Include="Classes\netjson\YMwriter.h" />
-    <ClInclude Include="Classes\SqlControl.h" />
+    <ClInclude Include="Classes\Object.h" />
+    <ClInclude Include="Classes\StatTimer.h" />
     <ClInclude Include="Classes\stdafx.h" />
     <ClInclude Include="Classes\targetver.h" />
     <ClInclude Include="Classes\XXIconv.h" />
@@ -131,18 +131,18 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32 _DEBUG;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;..\..\redis\src;..\..\redis\deps\hiredis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;..\..\redis\src;..\..\redis\deps\hiredis;..\..\GateServer\poco\Foundation\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\Debug\libMessagePack.lib;..\Debug\libcrypto.lib;..\Debug\libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\GateServer\poco\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineTHUMB</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
