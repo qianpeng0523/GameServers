@@ -29,7 +29,8 @@ public:
 
 	bool List(std::string key, Message *msg);//typename+id(唯一):添加元素列表 比如战绩那些（id是房间号）
 	std::vector<Message *> getList(std::string key, string mesname);
-	bool setList(std::string key,Message *msg);
+	bool setList(std::string key,string keyname,string value,Message *msg);
+	void sortList(std::string key,string keyname,string value);
 
 	bool isConnect();
 private:

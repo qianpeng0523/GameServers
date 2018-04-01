@@ -259,6 +259,7 @@ bool redis::List(std::string key, Message *msg){
 	{
 		printf("set redis faliled\n");
 		ist = false;
+		return false;
 	}
 	if (ist&&( m_pReply->type == REDIS_REPLY_ERROR || m_pReply->str||m_pReply->integer==0)){
 		ist = false;
@@ -287,8 +288,78 @@ bool redis::List(std::string key, Message *msg){
 	return true;
 }
 
-bool redis::setList(std::string key, Message *msg){
-
+bool redis::setList(std::string key, string keyname, string value, Message *msg1){
+	vector<Message *>vec = redis::getIns()->getList(key,msg1->GetTypeName());
+	char buff[100];
+	for (int i = 0; i < vec.size(); i++){
+		Message *msg = vec.at(i);
+		::google::protobuf::Descriptor *des = (::google::protobuf::Descriptor *)msg->GetDescriptor();
+		::google::protobuf::Reflection *reflection = (::google::protobuf::Reflection *) msg->GetReflection();
+		int sz = des->field_count();
+		for (int j = 0; j < sz; j++){
+			::google::protobuf::FieldDescriptor *fd = (::google::protobuf::FieldDescriptor *)des->field(j);
+			string name = fd->name();
+			google::protobuf::FieldDescriptor::Type type = fd->type();
+			if (name.compare(keyname) == 0){
+				switch (type)
+				{
+				case google::protobuf::FieldDescriptor::TYPE_DOUBLE:
+					sprintf(buff, "%g", reflection->GetDouble(*msg, fd));
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_FLOAT:
+					sprintf(buff, "%g", reflection->GetFloat(*msg, fd));
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_INT64:
+					sprintf(buff, "%ld", reflection->GetInt64(*msg, fd));
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_UINT64:
+					sprintf(buff, "%ld", reflection->GetUInt64(*msg, fd));
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_INT32:
+					sprintf(buff, "%d", reflection->GetInt32(*msg, fd));
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_BOOL:
+					sprintf(buff, "%d", reflection->GetBool(*msg, fd));
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_STRING:
+					sprintf(buff, "%s", reflection->GetString(*msg, fd).c_str());
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_BYTES:
+					sprintf(buff, "%s", reflection->GetString(*msg, fd).c_str());
+					break;
+				case google::protobuf::FieldDescriptor::TYPE_UINT32:
+					sprintf(buff, "%ld", reflection->GetUInt32(*msg, fd));
+					break;
+				default:
+					break;
+				}
+				break;
+			}
+			if (value.compare(buff) == 0){
+				int sz = msg1->ByteSize();
+				char *buffer = new char[sz];
+				msg1->SerializePartialToArray(buffer, sz);
+				m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lset %s %d %s", (key + msg1->GetTypeName()).c_str(), i, buffer);
+				bool ist = true;
+				if (!m_pReply)
+				{
+					printf("set redis faliled\n");
+					ist = false;
+					return false;
+				}
+				if (ist && m_pReply->type == REDIS_REPLY_ERROR){
+					ist = false;
+					printf("set redis faliled\n");
+					freeReplyObject(m_pReply);
+					return false;
+				}
+				printf("set redis success\n");
+				freeReplyObject(m_pReply);
+				return ist;
+			}
+		}
+	}
+	return false;
 }
 
 std::vector<Message *> redis::getList(std::string key, string mesname){
