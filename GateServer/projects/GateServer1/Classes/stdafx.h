@@ -48,3 +48,5 @@ using namespace Poco;
 //#define sqlhttp "http://47.104.165.65:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+
+#define ZERO_STR '&'

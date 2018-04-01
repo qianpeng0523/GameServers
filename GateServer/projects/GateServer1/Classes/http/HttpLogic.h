@@ -20,6 +20,8 @@ public:
 	void requestManagerData();
 	void ManagerDataCall(YMSocketData sd);
 
+	void ChangeZero(char *&data, int sz);
+
 	string getServerName(){
 		return m_servername;
 	}

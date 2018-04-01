@@ -312,7 +312,7 @@ void HallInfo::SendSTask(STask cl, int fd){
 }
 
 void HallInfo::HandlerCTask(ccEvent *event){
-	STask cl;
+	CTask cl;
 	cl.CopyFrom(*event->msg);
 	
 	char buff[50];

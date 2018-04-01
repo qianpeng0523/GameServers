@@ -60,11 +60,20 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 		data->_sessionID = md5.toString();
 		string ip = data->_ip;
 		DBUserInfo *info = sl.mutable_info();
-		
-		Message *msg = redis::getIns()->getHash(info->GetTypeName()+uid,info->GetTypeName());
-		if (msg){
-			info->CopyFrom(*msg);
-			info->set_ip(ip);
+		char buff[100];
+		sprintf(buff,"pass%s",uid.c_str());
+		int len;
+		char* pass = redis::getIns()->get(buff,len);
+		if (pass&&data->_sessionID.compare(pass) == 0){
+			Message *msg = redis::getIns()->getHash(info->GetTypeName() + uid, info->GetTypeName());
+			if (msg){
+				info->CopyFrom(*msg);
+				info->set_ip(ip);
+			}
+			else{
+				sl.release_info();
+				sl.set_err(1);
+			}
 		}
 		else{
 			sl.release_info();
@@ -102,14 +111,19 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 		data->_sessionID = md5.toString();
 		
 		DBUserInfo *user = sl.mutable_info();
+		user->set_userid(uid);
+		user->set_username(uname);
+		
 		Message *msg = redis::getIns()->getHash(user->GetTypeName() + uid,user->GetTypeName());
 		if (msg){
 			sl.release_info();
 			sl.set_err(1);
 		}
 		else{
-			user->CopyFrom(*msg);
 			user->set_ip(data->_ip);
+			char buff[100];
+			sprintf(buff, "pass%s", uid.c_str());
+			redis::getIns()->set(buff, data->_sessionID);
 			bool ist = redis::getIns()->Hash(user->GetTypeName() + uid, user);
 			if (ist){
 				sl.set_err(0);
@@ -118,9 +132,15 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 				rk.set_uid(user->userid());
 				rk.set_number(gold);
 				rk.set_type(1);
-				redis::getIns()->List(rk.GetTypeName(), &rk);
+				sprintf(buff, "%s%d", rk.GetTypeName().c_str(),1);
+				redis::getIns()->List(buff, &rk);
 				uint32 day = 0;
-
+				Rank rk1;
+				rk1.set_uid(user->userid());
+				rk1.set_number(day);
+				rk1.set_type(2);
+				sprintf(buff, "%s%d", rk.GetTypeName().c_str(), 2);
+				redis::getIns()->List(buff, &rk1);
 			}
 			else{
 				sl.set_err(1);

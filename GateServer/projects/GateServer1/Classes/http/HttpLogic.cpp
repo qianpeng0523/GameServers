@@ -107,6 +107,10 @@ DWORD WINAPI threadClient1(int lPVOID){
 	return GetCurrentThreadId();
 }
 
+void HttpLogic::ChangeZero(char *&data, int sz){
+	
+}
+
 void HttpLogic::GateDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
 	if (err == 0){
@@ -126,7 +130,7 @@ void HttpLogic::requestManagerData(){
 	string url = sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0A;
-	sd["type"] = 0;
+	sd["type"] = 1;
 	HttpEvent::getIns()->requestData(url,sd);
 }
 
