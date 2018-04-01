@@ -79,8 +79,8 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 		case CSV_LOGOCMANAGER:
 			obj = new GateData();
 			((GateData *)obj)->_id = atoi(p->getData(j, 0));
-			((GateData *)obj)->_name = p->getData(j, 1);
-			((GateData *)obj)->_ip = p->getData(j, 2);
+			strcpy(((GateData *)obj)->_name , p->getData(j, 1));
+			strcpy(((GateData *)obj)->_ip, p->getData(j, 2));
 			((GateData *)obj)->_port =atoi(p->getData(j, 3));
 			((GateData *)obj)->_type = atoi(p->getData(j, 4));
 			vec.insert(make_pair(((GateData *)obj)->_id, ((GateData *)obj)));
