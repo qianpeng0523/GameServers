@@ -1,7 +1,7 @@
 ﻿#include "CSVDataHelper.h"
 #include <algorithm>
 #include "XXIconv.h"
-
+#include "Object.h"
 
 CSVDataHelper::CSVDataHelper()
 :m_seperator(",")
@@ -159,7 +159,7 @@ FILEDATA *CSVDataHelper::getFileByName(string filename){
 	nLen = fread(pchBuf, sizeof(unsigned char), nLen, fd);
 
 	pchBuf[nLen] = '\0'; //添加字符串结尾标志
-	//printf((char*)pchBuf);
+	//log::printf((char*)pchBuf);
 	FILEDATA *p = new FILEDATA();
 	p->_data = pchBuf;
 	p->_len = nLen;

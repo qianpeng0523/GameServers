@@ -12,15 +12,16 @@ public:
 	static LoginInfo* getIns();
 	bool init();
 public:
-	void SendSLogin(YMSocketData sd,int fd);
+	void SendSLogin(SLogin cl, int fd);
 	void HandlerCLoginHand(ccEvent *event);
-	void SendSRegister(YMSocketData sd, int fd);
+	void SendSRegister(SRegister sd, int fd);
 	void HandlerCRegister(ccEvent *event);
 	::google::protobuf::Message * getDBDataFromSocketData(string tablename, CSJson::Value sd);
 	void setDBDataToSocketData(string tablename, ::google::protobuf::Message* data, YMSocketData &sd);
 	void setDBDataToSocketDataVo(::google::protobuf::Message* data, CSJson::Value &sd);
 	::google::protobuf::Message *getDBDataFromSocketDataVo(string name,CSJson::Value sd);
 	
+	void Check(float dt);
 private:
 	static LoginInfo *m_shareLoginInfo;
 	

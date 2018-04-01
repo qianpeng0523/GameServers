@@ -123,6 +123,18 @@
     <ClCompile Include="Classes\proto\HallInfo.cpp">
       <Filter>源文件\Classes\proto</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\redis\src\redis.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\redis\src\win32fixes.c">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\ConfigData.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\common\StatTimer.cpp">
+      <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -244,6 +256,18 @@
     </ClInclude>
     <ClInclude Include="Classes\proto\HallInfo.h">
       <Filter>源文件\Classes\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\redis\src\redis.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\redis\src\win32fixes.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ConfigData.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\common\StatTimer.h">
+      <Filter>源文件\Classes\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

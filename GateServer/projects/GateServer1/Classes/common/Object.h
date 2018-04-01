@@ -2,19 +2,17 @@
 #define __Object_H__
 
 #include "stdio.h"
-#include "Poco/Util/Timer.h"
-class Object :public Poco::Util::TimerTask {
+
+class Object {
 public:
 	Object();
 	virtual ~Object();
 	virtual void update(float dt);
-	virtual void run();
-	void scheduleUpdate(float delay, float duration);
-	void unscheduleUpdate();
 
+	void retain();
+	void release();
 private:
-	bool m_ischedule;
-	Poco::Util::Timer *m_timer;
+	int m_retainCount;
 };
 
 

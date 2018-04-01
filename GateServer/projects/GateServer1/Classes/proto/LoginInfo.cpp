@@ -4,6 +4,7 @@
 #include "EventDispatcher.h"
 #include "LibEvent.h"
 #include "HttpLogic.h"
+#include "StatTimer.h"
 LoginInfo *LoginInfo::m_shareLoginInfo=NULL;
 LoginInfo::LoginInfo()
 {
@@ -16,10 +17,12 @@ LoginInfo::LoginInfo()
 	CRegister cl1;
 	pe->registerProto(cl1.cmd(), cl1.GetTypeName());
 	EventListen::getIns()->addDataPacketListener(cl1.cmd(), this, Event_Handler(LoginInfo::HandlerCRegister));
+
+	StatTimer::getIns()->scheduleSelector(this, schedule_selector(LoginInfo::Check), 8.0);
 }
 
 LoginInfo::~LoginInfo(){
-	
+	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(LoginInfo::Check));
 }
 
 LoginInfo* LoginInfo::getIns(){
@@ -36,21 +39,7 @@ bool LoginInfo::init()
     return true;
 }
 
-void LoginInfo::SendSLogin(YMSocketData sd, int fd){
-	SLogin cl;
-	int err = sd["err"].asInt();
-	cl.set_err(err);
-	if (err == 0){
-		printf("sd:%s",sd.getJsonString().c_str());
-		SLogin *cl1= (SLogin *)getDBDataFromSocketDataVo(cl.GetTypeName(), sd);
-		ClientData *data = LibEvent::getIns()->getClientData(fd);
-		if (data){
-			string ip = data->_ip;
-			DBUserInfo *info = cl1->mutable_info();
-			info->set_ip(ip);
-		}
-		cl.CopyFrom(*cl1);
-	}
+void LoginInfo::SendSLogin(SLogin cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(),&cl,fd);
 }
 
@@ -59,34 +48,40 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	string uid = cl.uid();
 	string pwd = cl.pwd();
+
+
+	SLogin sl;
+	sl.set_cmd(sl.cmd());
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
 		string seesion=uid+pwd+LOGIC_TOKEN;
 		MD5 md5;
 		md5.update(seesion);
 		data->_sessionID = md5.toString();
+		string ip = data->_ip;
+		DBUserInfo *info = sl.mutable_info();
+		
+		Message *msg = redis::getIns()->getHash(info->GetTypeName()+uid,info->GetTypeName());
+		if (msg){
+			info->CopyFrom(*msg);
+			info->set_ip(ip);
+		}
+		else{
+			sl.release_info();
+			sl.set_err(1);
+		}
+		
+	}
+	else{
+		sl.set_err(1);
 	}
 	printf("login:uid:%s,pwd:%s",uid.c_str(),pwd.c_str());
-	HttpLogic::getIns()->requestDBData(uid, pwd);
-	//SendSLogin(event->m_fd);
+	
+	SendSLogin(sl,event->m_fd);
 }
 
 
-void LoginInfo::SendSRegister(YMSocketData sd, int fd){
-	SRegister cl;
-	int err = sd["err"].asInt();
-	cl.set_err(err);
-	if (err == 0){
-		SRegister *cl1 = (SRegister *)getDBDataFromSocketDataVo(cl.GetTypeName(), sd["data"]);
-		ClientData *data = LibEvent::getIns()->getClientData(fd);
-		if (data){
-			string ip = data->_ip;
-			DBUserInfo *info = cl1->mutable_info();
-			info->set_ip(ip);
-		}
-		cl.CopyFrom(*cl1);
-	}
-	
+void LoginInfo::SendSRegister(SRegister cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
 }
 
@@ -97,27 +92,55 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 	string pwd = cl.pwd();
 	string uname = cl.uname();
 
+	SRegister sl;
+	sl.set_cmd(sl.cmd());
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
 		string seesion = uid + pwd + LOGIC_TOKEN;
 		MD5 md5;
 		md5.update(seesion);
 		data->_sessionID = md5.toString();
-	}
+		
+		DBUserInfo *user = sl.mutable_info();
+		Message *msg = redis::getIns()->getHash(user->GetTypeName() + uid,user->GetTypeName());
+		if (msg){
+			sl.release_info();
+			sl.set_err(1);
+		}
+		else{
+			user->CopyFrom(*msg);
+			user->set_ip(data->_ip);
+			bool ist = redis::getIns()->Hash(user->GetTypeName() + uid, user);
+			if (ist){
+				sl.set_err(0);
+				uint32 gold = user->gold();
+				Rank rk;
+				rk.set_uid(user->userid());
+				rk.set_number(gold);
+				rk.set_type(1);
+				redis::getIns()->List(rk.GetTypeName(), &rk);
+				uint32 day = 0;
 
-	DBUserInfo user;
-	user.set_userid(uid);
-	user.set_username(uname);
-	YMSocketData sd;
-	YMSocketData sd1;
-	setDBDataToSocketData("userinfo",&user,sd1);
-	sd1["pwd"] = pwd;
-	sd["data"] = sd1;
-	HttpLogic::getIns()->requestRegister(sd);
+			}
+			else{
+				sl.set_err(1);
+				sl.release_info();
+			}
+		}
+	}
+	else{
+		sl.set_err(1);
+	}
+	
+	SendSRegister(sl, event->m_fd);
 }
 
 
-
+void LoginInfo::Check(float dt){
+	if (!redis::getIns()->isConnect()){
+		redis::getIns()->reconnect();
+	}
+}
 
 
 

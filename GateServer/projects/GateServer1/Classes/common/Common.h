@@ -5,6 +5,7 @@
 #include "stdio.h"
 #include <vector>
 #include "stdafx.h"
+#include <time.h>
 class Common {
 public:
 	Common();

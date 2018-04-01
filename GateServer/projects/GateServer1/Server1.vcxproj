@@ -57,17 +57,18 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\..\protobuf\src;..\..\poco\Foundation\include;..\..\poco\Net\include;..\..\poco\Util\include;.\Classes\proto;..\..\poco\Data\include;..\..\poco\Data\MySQL\include;..\..\poco\Data\SQLite\include;..\..\poco\CppUnit\include\;.\Classes\sql;D:\Program Files\mysql\include;.\Classes\http;.\Classes\netjson;.\Classes\poco;.\Classes\room;.\Classes\control;.\Classes\log;..\..\libevent\include;..\..\libevent\include\event2;..\..\curl\include\win32\curl;..\..\libMessagePack;.\Classes\cryptopp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\..\protobuf\src;..\..\poco\Foundation\include;..\..\poco\Net\include;..\..\poco\Util\include;.\Classes\proto;..\..\poco\Data\include;..\..\poco\Data\MySQL\include;..\..\poco\Data\SQLite\include;..\..\poco\CppUnit\include\;.\Classes\sql;D:\Program Files\mysql\include;.\Classes\http;.\Classes\netjson;.\Classes\poco;.\Classes\room;.\Classes\control;.\Classes\log;..\..\libevent\include;..\..\libevent\include\event2;..\..\curl\include\win32\curl;..\..\libMessagePack;.\Classes\cryptopp;..\..\..\redis\src;..\..\..\redis\deps\hiredis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;D:\Program Files\mysql\lib\libmysql.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>..\..\Debug;..\..\poco\bin;..\..\poco\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\Debug;..\..\poco\bin;..\..\poco\lib;..\..\..\redis\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineTHUMB</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -90,6 +91,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\redis\src\redis.cpp" />
+    <ClCompile Include="..\..\..\redis\src\win32fixes.c" />
     <ClCompile Include="Classes\cc\DBProto.cpp" />
     <ClCompile Include="Classes\cc\Hall.cpp" />
     <ClCompile Include="Classes\cc\LogicServer.cpp" />
@@ -100,7 +103,9 @@
     <ClCompile Include="Classes\common\CSVDataInfo.cpp" />
     <ClCompile Include="Classes\common\MD5.cpp" />
     <ClCompile Include="Classes\common\Object.cpp" />
+    <ClCompile Include="Classes\common\StatTimer.cpp" />
     <ClCompile Include="Classes\common\XXIconv.cpp" />
+    <ClCompile Include="Classes\ConfigData.cpp" />
     <ClCompile Include="Classes\http\HttpEvent.cpp" />
     <ClCompile Include="Classes\http\HttpLogic.cpp" />
     <ClCompile Include="Classes\main.cpp" />
@@ -120,6 +125,8 @@
     <ClCompile Include="Classes\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\redis\src\redis.h" />
+    <ClInclude Include="..\..\..\redis\src\win32fixes.h" />
     <ClInclude Include="Classes\cc\DBProto.h" />
     <ClInclude Include="Classes\cc\Hall.h" />
     <ClInclude Include="Classes\cc\LogicServer.h" />
@@ -132,7 +139,9 @@
     <ClInclude Include="Classes\common\iconv.h" />
     <ClInclude Include="Classes\common\MD5.h" />
     <ClInclude Include="Classes\common\Object.h" />
+    <ClInclude Include="Classes\common\StatTimer.h" />
     <ClInclude Include="Classes\common\XXIconv.h" />
+    <ClInclude Include="Classes\ConfigData.h" />
     <ClInclude Include="Classes\http\HttpEvent.h" />
     <ClInclude Include="Classes\http\HttpLogic.h" />
     <ClInclude Include="Classes\netjson\json_batchallocator.h" />

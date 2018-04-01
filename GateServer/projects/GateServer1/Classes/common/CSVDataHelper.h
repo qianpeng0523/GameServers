@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 
+using namespace std;
+
 struct FILEDATA
 {
 	unsigned char *_data;

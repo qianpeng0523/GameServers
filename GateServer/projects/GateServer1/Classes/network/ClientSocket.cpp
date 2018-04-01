@@ -147,7 +147,7 @@ void *ClientSocket::threadHandler(void *arg) {
 	ClientSocket *p = ClientSocket::getIns();
     while (1) {
 		len = p->Recv(buff, HEADLEN, 0);
-        if (len > 0) {
+        if (len > 0){
 			Head *head = (Head*)buff;
 			string servercode = p->getReq(head);
 			int stamp = p->getStamp(head);
@@ -168,10 +168,10 @@ void *ClientSocket::threadHandler(void *arg) {
 				delete temp;
 			}
 
-        } else{
+        }else{
 			printf("%s", "==== connect break up ====");
             //服务端断开
-           p->close();
+            p->close();
 			//断开线程
             break;
         }
