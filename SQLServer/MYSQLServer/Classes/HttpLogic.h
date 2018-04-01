@@ -12,7 +12,7 @@ struct SQLInfo
 	string _db;
 };
 
-class HttpLogic
+class HttpLogic:public Object
 {
 public:
 	HttpLogic();
@@ -26,20 +26,15 @@ public:
 	void aes_encrypt(char* in, int inlen, char* out);
 	void aes_decrypt(char* in, int inlen, char* out);
 	
+	void update(float dt);
 private:
 	void SqlStart(YMSocketData sd, char *&buff, int &sz);
 	void SqlClose(char *&buff, int &sz);
-	void SelectDB(string dbname, char *&buff, int &sz);
 	void SqlConnect(char *&buff, int &sz);
-	void SqlColumns(string tname, char *&buff, int &sz);
-	void SqlFind(YMSocketData sd, char *&buff, int &sz);
-	void SqlExcute(YMSocketData sd, char *&buff, int &sz);
-	void SqlBackup(string dbname, char *&buff, int &sz);
-	
 	void getGateData(YMSocketData sd, char *&buff, int &sz);
 	void getLogicManagerData(YMSocketData sd, char *&buff, int &sz);
-	void getDBData(YMSocketData sd, char *&buff, int &sz);
-	void insertDBData(YMSocketData sd, char *&buff, int &sz);
+
+	void ZeroChange(char *&data,int sz);
 private:
 	static HttpLogic *m_Ins;
 	SQLInfo *m_pSQLInfo;

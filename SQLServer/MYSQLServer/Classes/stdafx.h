@@ -24,7 +24,7 @@
 #include "LogicServer.h"
 #include "DBProto.h"
 
-
+using namespace ::google::protobuf;
 using namespace protocol;
 #define CC_REPEAT_FOREVER (UINT_MAX -1)
 #define kRepeatForever CC_REPEAT_FOREVER
@@ -52,7 +52,7 @@ using namespace protocol;
 // #define MJ_TABLENAME_USER "userinfo"
 // #define MJ_TABLENAME_RECORDS "records"
 // #define MJ_TABLENAME_DETAIL_RECORDS "detail_records"
-#define DBPORT 3306
+#define DBPORT 6379
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
@@ -62,3 +62,4 @@ using namespace protocol;
 #pragma comment(lib,"../Debug/libprotobuf.lib")
 #endif
 using namespace std;
+#define ZERO_STR '&'
