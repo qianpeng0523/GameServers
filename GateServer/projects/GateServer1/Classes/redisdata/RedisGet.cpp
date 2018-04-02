@@ -38,7 +38,7 @@ UserBase *RedisGet::getUserBase(string uid){
 std::vector<Rank > RedisGet::getRank(int type, int index){
 	char buff[50];
 	Rank rk;
-	sprintf(buff,"%s%d",rk.GetTypeName(),type);
+	sprintf(buff,"%s%d",rk.GetTypeName().c_str(),type);
 	std::vector<Message *> vv = m_redis->getList(buff, rk.GetTypeName(), 10 * index, 10 * (index + 1));
 	std::vector<Rank > vecs;
 	for (int i = 0; i < vv.size();i++){

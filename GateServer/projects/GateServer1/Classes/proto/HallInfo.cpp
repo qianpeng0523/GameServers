@@ -8,6 +8,9 @@
 HallInfo *HallInfo::m_shareHallInfo=NULL;
 HallInfo::HallInfo()
 {
+	m_pRedisGet = RedisGet::getIns();
+	m_pRedisPut = RedisPut::getIns();
+
 	CRank sl1;
 	regist(sl1.cmd(), sl1.GetTypeName(), Event_Handler(HallInfo::HandlerCRankHand));
 	CShop sr2;
@@ -85,8 +88,6 @@ bool HallInfo::init()
 
 void HallInfo::SendSRank(SRank cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
-
-	
 }
 
 void HallInfo::HandlerCRankHand(ccEvent *event){
@@ -96,20 +97,23 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 	int index = cl.index();
 
 	//逻辑
-	SRank cl1;
-	cl1.set_type(type);
-	char buff1[30];
-	for (int i = 0; i < 10; i++){
-		Rank rk;
-		rk.set_lv(i + 1);
-		sprintf(buff1, "1%d%d0%02d", 1, index, i);
-		rk.set_uid(buff1);
-		rk.set_type(1);
-		Rank *rk1 = cl1.add_list();
-		rk1->CopyFrom(rk);
+	SRank sl;
+	sl.set_type(type);
+	vector<Rank> vec = m_pRedisGet->getRank(type,index);
+	for (int i = 0; i < vec.size();i++){
+		Rank rk = vec.at(i);
+		rk.set_lv(10*index+i+1);
+		rk.set_type(type);
+		UserBase *user = rk.mutable_info();
+		string uid = rk.uid();
+		UserBase *ub = m_pRedisGet->getUserBase(uid);
+		user->CopyFrom(*ub);
+		delete ub;
+		ub = NULL;
+		Rank *k= sl.add_list();
+		k->CopyFrom(rk);
 	}
-	
-	SendSRank(cl1,event->m_fd);
+	SendSRank(sl,event->m_fd);
 }
 
 void HallInfo::SendSShop(SShop cl, int fd){

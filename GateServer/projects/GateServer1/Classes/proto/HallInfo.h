@@ -5,7 +5,8 @@
 #include "stdafx.h"
 #include "ccEvent.h"
 #include "EventDispatcher.h"
-
+#include "RedisGet.h"
+#include "RedisPut.h"
 class HallInfo:public Object
 {
 public:
@@ -100,6 +101,8 @@ private:
 private:
 	static HallInfo *m_shareHallInfo;
 	
+	RedisGet *m_pRedisGet;
+	RedisPut *m_pRedisPut;
 };
 
 #endif 
