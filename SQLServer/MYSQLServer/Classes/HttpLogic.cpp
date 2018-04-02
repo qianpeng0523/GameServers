@@ -181,14 +181,6 @@ void HttpLogic::SqlClose(char *&buff, int &sz){
 	sd1.serializer(buff, &sz);
 }
 
-void HttpLogic::ZeroChange(char *&data, int sz){
-	for (int i = 0; i < sz;i++){
-		if (data[i] == ZERO_STR){
-			data[i] = '\0';
-		}
-	}
-}
-
 void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 	int type = sd1["type"].asInt();
 	int cmd = sd1["cmd"].asInt();
@@ -210,7 +202,7 @@ void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 	sprintf(buff1,"gate%d_%d",type,gtype);
 
 	char *dd = (char *)redis::getIns()->get(buff1,len);
-	ZeroChange(dd,len);
+	redis::getIns()->ChangeToZero(dd,len);
 	GateData *data = (GateData *)dd;
 	if (!data){
 		err = 1;
@@ -237,7 +229,7 @@ void HttpLogic::getLogicManagerData(YMSocketData sd1, char *&buff, int &sz){
 	char buff1[50];
 	sprintf(buff1, "logicmanager%d", type);
 	char *dd= redis::getIns()->get(buff1, len);
-	ZeroChange(dd, len);
+	redis::getIns()->ChangeToZero(dd, len);
 	GateData *data = (GateData *)dd;
 	if (!data){
 		err = 1;

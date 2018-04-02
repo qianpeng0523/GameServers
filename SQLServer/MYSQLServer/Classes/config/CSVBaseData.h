@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "XXIconv.h"
 #include "Common.h"
+#include "redis.h"
 
 namespace CSV{
 	struct RobotData :public Object{
@@ -58,11 +59,9 @@ namespace CSV{
 			for (int i = 0; i < 16; i++){
 				buffer[len+i] = _ip[i];
 			}
-			for (int i = 0; i < sz; i++){
-				if (buffer[i] == '\0'){
-					buffer[i] = ZERO_STR;
-				}
-			}
+
+			redis::getIns()->ZeroChange(buffer,sz);
+
 			return buffer;
 		}
 	};

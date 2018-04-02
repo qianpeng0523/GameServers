@@ -34,7 +34,6 @@ private:
 	void getGateData(YMSocketData sd, char *&buff, int &sz);
 	void getLogicManagerData(YMSocketData sd, char *&buff, int &sz);
 
-	void ZeroChange(char *&data,int sz);
 private:
 	static HttpLogic *m_Ins;
 	SQLInfo *m_pSQLInfo;
