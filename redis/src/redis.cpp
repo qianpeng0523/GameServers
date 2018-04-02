@@ -550,3 +550,19 @@ vector<string> redis::PushDataToRedis(std::string key, Message *msg){
 	
 	return vec;
 }
+
+void redis::ZeroChange(char *&data, int sz){
+	for (int i = 0; i < sz; i++){
+		if (data[i] == '\0'){
+			data[i] = ZERO_STR;
+		}
+	}
+}
+
+void redis::ChangeToZero(char *&data, int sz){
+	for (int i = 0; i < sz; i++){
+		if (data[i] == ZERO_STR){
+			data[i] = '\0';
+		}
+	}
+}

@@ -10,6 +10,7 @@
 #include "Login.h"
 #include "LogicServer.h"
 
+#define ZERO_STR '&'
 
 using namespace ::google::protobuf;
 using namespace protocol;
@@ -35,6 +36,8 @@ public:
 
 	bool isConnect();
 	void releaseMessages(vector<Message *>vecs);
+	void ZeroChange(char *&data, int sz);
+	void ChangeToZero(char *&data, int sz);
 private:
 	vector<string> PushDataToRedis(std::string key, Message *msg);
 	Message *PopDataFromRedis(std::string key, map<string, string>maps);
