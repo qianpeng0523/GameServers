@@ -3,6 +3,8 @@
 #define __LoginInfo__
 
 #include "stdafx.h"
+#include "RedisPut.h"
+#include "RedisGet.h"
 
 class LoginInfo:public Object
 {
@@ -16,15 +18,12 @@ public:
 	void HandlerCLoginHand(ccEvent *event);
 	void SendSRegister(SRegister sd, int fd);
 	void HandlerCRegister(ccEvent *event);
-	::google::protobuf::Message * getDBDataFromSocketData(string tablename, CSJson::Value sd);
-	void setDBDataToSocketData(string tablename, ::google::protobuf::Message* data, YMSocketData &sd);
-	void setDBDataToSocketDataVo(::google::protobuf::Message* data, CSJson::Value &sd);
-	::google::protobuf::Message *getDBDataFromSocketDataVo(string name,CSJson::Value sd);
 	
 	void Check(float dt);
 private:
 	static LoginInfo *m_shareLoginInfo;
-	
+	RedisPut *m_pRedisPut;
+	RedisGet *m_pRedisGet;
 };
 
 #endif 

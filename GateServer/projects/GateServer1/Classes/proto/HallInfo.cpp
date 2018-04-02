@@ -83,11 +83,8 @@ bool HallInfo::init()
 }
 
 
-void HallInfo::SendSRank(YMSocketData sd, int fd){
-	SRank cl;
-	SRank *cl1 = (SRank *)LoginInfo::getIns()->getDBDataFromSocketDataVo(cl.GetTypeName(),sd);
-	
-	LibEvent::getIns()->SendData(cl1->cmd(), cl1,fd);
+void HallInfo::SendSRank(SRank cl, int fd){
+	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
 
 	
 }
@@ -111,9 +108,8 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 		Rank *rk1 = cl1.add_list();
 		rk1->CopyFrom(rk);
 	}
-	YMSocketData sd;
-	LoginInfo::getIns()->setDBDataToSocketDataVo(&cl1, sd);
-	SendSRank(sd,event->m_fd);
+	
+	SendSRank(cl1,event->m_fd);
 }
 
 void HallInfo::SendSShop(SShop cl, int fd){

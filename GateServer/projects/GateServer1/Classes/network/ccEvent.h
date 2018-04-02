@@ -13,6 +13,7 @@ using namespace std;
 class ccEvent :public Object{
 public:
 	ccEvent(int pcmd, const char* data, int size, int fd);
+	~ccEvent();
 	int cmd;
 	::google::protobuf::Message* msg;
 private:

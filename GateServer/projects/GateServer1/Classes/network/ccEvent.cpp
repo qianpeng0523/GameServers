@@ -9,6 +9,13 @@ msg(NULL){
 	parse(data, size);
 }
 
+ccEvent::~ccEvent(){
+	if (msg){
+		delete msg;
+		msg = NULL;
+	}
+}
+
 void ccEvent::parse(const char* data, int size){
 
 	std::string type_name = EventDispatcher::getIns()->getProtoName(cmd);

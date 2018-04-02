@@ -15,7 +15,7 @@ public:
 	bool init();
 public:
 	//排行榜
-	void SendSRank(YMSocketData sd, int fd);
+	void SendSRank(SRank cl, int fd);
 	void HandlerCRankHand(ccEvent *event);
 
 	//商城

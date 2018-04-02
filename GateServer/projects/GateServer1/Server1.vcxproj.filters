@@ -37,6 +37,9 @@
     <Filter Include="源文件\Classes\http">
       <UniqueIdentifier>{1835ae49-3e5c-4e67-bafc-104b7f6faa06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes\redisdata">
+      <UniqueIdentifier>{4cc70221-211b-4273-a8d8-23075a55a52d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\stdafx.cpp">
@@ -131,6 +134,15 @@
     </ClCompile>
     <ClCompile Include="Classes\common\StatTimer.cpp">
       <Filter>源文件\Classes\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\redisdata\RedisGet.cpp">
+      <Filter>源文件\Classes\redisdata</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\redisdata\RedisModify.cpp">
+      <Filter>源文件\Classes\redisdata</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\redisdata\RedisPut.cpp">
+      <Filter>源文件\Classes\redisdata</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +274,15 @@
     </ClInclude>
     <ClInclude Include="Classes\common\StatTimer.h">
       <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\redisdata\RedisGet.h">
+      <Filter>源文件\Classes\redisdata</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\redisdata\RedisModify.h">
+      <Filter>源文件\Classes\redisdata</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\redisdata\RedisPut.h">
+      <Filter>源文件\Classes\redisdata</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
