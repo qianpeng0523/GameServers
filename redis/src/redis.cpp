@@ -131,14 +131,15 @@ void redis::release()
 	}
 }
 
-bool redis::set(std::string key, std::string value)
+bool redis::set(std::string key, char* value, int len)
 {
 	//设置key和value关系，插入redis
 	if (!this->m_pConnect){
 		reconnect();
 		return false;
 	}
-	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), value.c_str());
+	ZeroChange(value, len);
+	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), value);
 	if (!r)
 	{
 		printf("set redis faliled\n");
@@ -183,6 +184,7 @@ char* redis::get(std::string key, int &len)
 	len = m_pReply->len;
 	char* valuestr=new char[len+1];
 	strcpy(valuestr,m_pReply->str);
+	ChangeToZero(valuestr, len);
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
 
@@ -241,9 +243,10 @@ Message *redis::getHash(std::string key, string msgname){
 		redisReply *rpname = m_pReply->element[i];
 		redisReply *rpvalues = m_pReply->element[i+1];
 		string name = rpname->str;
-		string value = rpvalues->str;
-		if (value.compare("default") == 0){
-			value = "";
+		char* value = rpvalues->str;
+		int len = rpvalues->len;
+		if (strcmp(value,"default") == 0){
+			strcpy(value , "");
 		}
 		datas.insert(make_pair(name, value));
 	}
@@ -266,6 +269,7 @@ bool redis::List(std::string key, Message *msg){
 	int sz = msg->ByteSize();
 	char *buffer = new char[sz];
 	msg->SerializePartialToArray(buffer, sz);
+	ZeroChange(buffer,sz);
 	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "rpushx %s %s", key.c_str(), buffer);
 	bool ist = true;
 	if (!m_pReply)
@@ -352,6 +356,7 @@ bool redis::setList(std::string key, string keyname, string value, Message *msg1
 				int sz = msg1->ByteSize();
 				char *buffer = new char[sz];
 				msg1->SerializePartialToArray(buffer, sz);
+				ZeroChange(buffer, sz);
 				m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lset %s %d %s", (key + msg1->GetTypeName()).c_str(), i, buffer);
 				bool ist = true;
 				if (!m_pReply)
@@ -409,6 +414,7 @@ std::vector<Message *> redis::getList(std::string key, string mesname, int begin
 		redisReply *rpvalues = m_pReply->element[i];
 		char *value = rpvalues->str;
 		int len= rpvalues->len;
+		redis::getIns()->ChangeToZero(value, len);
 		msg->ParsePartialFromArray(value, len);
 		vec.push_back(msg);
 	}

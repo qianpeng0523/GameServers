@@ -22,7 +22,7 @@ public:
 	bool initial(std::string redisIp, int redisPort, std::string mypass);
 	bool reconnect();
 	void release();
-	bool set(std::string key, std::string value);
+	bool set(std::string key, char* value,int len);
 	char* get(std::string key,int &len);
 
 	bool Hash(std::string key,Message *msg);//比如配置那些（单独） 用户信息
