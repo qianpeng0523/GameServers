@@ -60,8 +60,6 @@ namespace CSV{
 				buffer[len+i] = _ip[i];
 			}
 
-			redis::getIns()->ZeroChange(buffer,sz);
-
 			return buffer;
 		}
 	};

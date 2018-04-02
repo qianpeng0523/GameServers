@@ -69,14 +69,10 @@ HttpLogic::HttpLogic(){
 		int len = 0;
 		char *v = redis::getIns()->get(buff,len);
 		if (!v){
-			redis::getIns()->set(buff, dd);
+			redis::getIns()->set(buff, dd,len);
 		}
 		else{
-			for (int i = 0; i < len; i++){
-				if (v[i] == ZERO_STR){
-					v[i] = '\0';
-				}
-			}
+			redis::getIns()->ChangeToZero(v,len);
 			GateData *data1 = (GateData *)v;
 			data1->DebugPrintf();
 			delete v;
@@ -93,14 +89,10 @@ HttpLogic::HttpLogic(){
 		int len = 0;
 		char *v = redis::getIns()->get(buff, len);
 		if (!v){
-			redis::getIns()->set(buff, dd);
+			redis::getIns()->set(buff, dd,len);
 		}
 		else{
-			for (int i = 0; i < len; i++){
-				if (v[i] == ZERO_STR){
-					v[i] = '\0';
-				}
-			}
+			redis::getIns()->ChangeToZero(v, len);
 			GateData *data1 = (GateData *)v;
 			data1->DebugPrintf();
 			delete v;
@@ -193,7 +185,7 @@ void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 	int gtype = -1;
 	if (gatetype == NULL){
 		gtype = 0;
-		redis::getIns()->set(buff1,"0");
+		redis::getIns()->set(buff1,"0",sizeof("0"));
 	}
 	else{
 		gtype = atoi(gatetype);
