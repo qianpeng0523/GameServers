@@ -59,7 +59,7 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 		md5.update(seesion);
 		data->_sessionID = md5.toString();
 		string ip = data->_ip;
-		DBUserInfo *info = sl.mutable_info();
+		UserBase *info = sl.mutable_info();
 		char buff[100];
 		sprintf(buff,"pass%s",uid.c_str());
 		int len;
@@ -110,7 +110,7 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 		md5.update(seesion);
 		data->_sessionID = md5.toString();
 		
-		DBUserInfo *user = sl.mutable_info();
+		UserBase *user = sl.mutable_info();
 		user->set_userid(uid);
 		user->set_username(uname);
 		
@@ -130,14 +130,12 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 				uint32 gold = user->gold();
 				Rank rk;
 				rk.set_uid(user->userid());
-				rk.set_number(gold);
 				rk.set_type(1);
 				sprintf(buff, "%s%d", rk.GetTypeName().c_str(),1);
 				redis::getIns()->List(buff, &rk);
 				uint32 day = 0;
 				Rank rk1;
 				rk1.set_uid(user->userid());
-				rk1.set_number(day);
 				rk1.set_type(2);
 				sprintf(buff, "%s%d", rk.GetTypeName().c_str(), 2);
 				redis::getIns()->List(buff, &rk1);
@@ -354,21 +352,10 @@ void LoginInfo::Check(float dt){
 ::google::protobuf::Message * LoginInfo::getDBDataFromSocketData(string tablename, CSJson::Value sd){
 	string protoname;
 	if (protoname.compare("userinfo")==0){
-		DBUserInfo user;
+		UserBase user;
 		protoname = user.GetTypeName();
 	}
-	else if (protoname.compare("records") == 0){
-		DBRecords user;
-		protoname = user.GetTypeName();
-	}
-	else if (protoname.compare("detail_records") == 0){
-		DBDetailRecords user;
-		protoname = user.GetTypeName();
-	}
-	else if (protoname.compare("room") == 0){
-		DBRoom user;
-		protoname = user.GetTypeName();
-	}
+	
 	
 	return getDBDataFromSocketDataVo(protoname, sd);
 }
@@ -464,20 +451,9 @@ void LoginInfo::setDBDataToSocketDataVo(::google::protobuf::Message* data, CSJso
 void LoginInfo::setDBDataToSocketData(string tablename, ::google::protobuf::Message* data, YMSocketData &sd){
 	string protoname;
 	if (protoname.compare("userinfo") == 0){
-		DBUserInfo user;
+		UserBase user;
 		protoname = user.GetTypeName();
 	}
-	else if (protoname.compare("records") == 0){
-		DBRecords user;
-		protoname = user.GetTypeName();
-	}
-	else if (protoname.compare("detail_records") == 0){
-		DBDetailRecords user;
-		protoname = user.GetTypeName();
-	}
-	else if (protoname.compare("room") == 0){
-		DBRoom user;
-		protoname = user.GetTypeName();
-	}
+	
 	setDBDataToSocketDataVo(data, sd);
 }

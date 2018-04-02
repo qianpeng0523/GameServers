@@ -87,9 +87,6 @@
     <ClCompile Include="Classes\common\CSVDataInfo.cpp">
       <Filter>源文件\Classes\common</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\cc\DBProto.cpp">
-      <Filter>源文件\Classes\cc</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\http\HttpEvent.cpp">
       <Filter>源文件\Classes\http</Filter>
     </ClCompile>
@@ -220,9 +217,6 @@
     </ClInclude>
     <ClInclude Include="Classes\common\CSVDataInfo.h">
       <Filter>源文件\Classes\common</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\cc\DBProto.h">
-      <Filter>源文件\Classes\cc</Filter>
     </ClInclude>
     <ClInclude Include="Classes\http\HttpEvent.h">
       <Filter>源文件\Classes\http</Filter>

@@ -93,7 +93,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\redis\src\redis.cpp" />
     <ClCompile Include="..\..\..\redis\src\win32fixes.c" />
-    <ClCompile Include="Classes\cc\DBProto.cpp" />
     <ClCompile Include="Classes\cc\Hall.cpp" />
     <ClCompile Include="Classes\cc\LogicServer.cpp" />
     <ClCompile Include="Classes\cc\Login.cpp" />
@@ -127,7 +126,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\redis\src\redis.h" />
     <ClInclude Include="..\..\..\redis\src\win32fixes.h" />
-    <ClInclude Include="Classes\cc\DBProto.h" />
     <ClInclude Include="Classes\cc\Hall.h" />
     <ClInclude Include="Classes\cc\LogicServer.h" />
     <ClInclude Include="Classes\cc\Login.h" />

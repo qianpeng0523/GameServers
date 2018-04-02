@@ -105,11 +105,8 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 	for (int i = 0; i < 10; i++){
 		Rank rk;
 		rk.set_lv(i + 1);
-		rk.set_number(10000 * 1 + 1000 * i);
 		sprintf(buff1, "1%d%d0%02d", 1, index, i);
 		rk.set_uid(buff1);
-		sprintf(buff1, "qp1%d%d0%02d", 1, index, i);
-		rk.set_uname(buff1);
 		rk.set_type(1);
 		Rank *rk1 = cl1.add_list();
 		rk1->CopyFrom(rk);
@@ -132,16 +129,13 @@ void HallInfo::HandlerCShop(ccEvent *event){
 	SShop sl;
 	for (int i = 0; i < 10; i++){
 		ShopItem *rk = sl.add_list();
-		rk->set_type(i + 1);
-		rk->set_number(6 * (i + 1));
-		rk->set_givenum(1000 * (i + 1));
 		rk->set_hot(i % 2 == 1);
-		Prop ppp;
-		Prop *pp = (Prop *)ccEvent::create_message(ppp.GetTypeName());
-		pp->set_id(i + 1);
-		int number = rk->number();
-		pp->set_number((i + 1) % 2 == 1 ? 10000 * number : 2 * number);
-		rk->set_allocated_prop(pp);
+		Reward *pp = rk->mutable_prop();
+		pp->set_rid(i + 1);
+		pp->set_number((i + 1) % 2 == 1 ? 10000 * i : 2 * i);
+		Prop *prop = pp->mutable_prop();
+		prop->set_id(1);
+		prop->set_name("gold");
 	}
 	SendSShop(sl, event->m_fd);
 }
@@ -158,13 +152,13 @@ void HallInfo::HandlerCMail(ccEvent *event){
 	char buff[100];
 	for (int i = 0; i < 8; i++){
 		Mail *ml = sl.add_list();
-		ml->set_id(i + 1);
+		ml->set_eid(i + 1);
 		sprintf(buff, XXIconv::GBK2UTF("邮件内容测试%d").c_str(), i + 1);
 		ml->set_content(buff);
 		sprintf(buff, XXIconv::GBK2UTF("邮件标题%d").c_str(), i + 1);
 		ml->set_title(buff);
 		ml->set_time(Common::getLocalTime().c_str());
-		ml->set_type(1);
+		ml->set_status(1);
 	}
 	SendSMail(sl,event->m_fd);
 }
@@ -200,11 +194,10 @@ void HallInfo::HandlerCFriend(ccEvent *event){
 		fri->set_acttype(i % 3 + 1);
 		fri->set_time(Common::getTime());
 		char buff[100];
-		DBUserInfo us;
-		DBUserInfo *user = (DBUserInfo *)ccEvent::create_message(us.GetTypeName());
+		UserBase *user = fri->mutable_info();
 		sprintf(buff, "10000%d", i);
 		user->set_username(buff);
-		fri->set_allocated_userinfo(user);
+		
 	}
 	SendSFriend(sf,event->m_fd);
 }
@@ -226,13 +219,10 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 		fri->set_acttype(i % 3 + 1);
 		fri->set_online(i % 2);
 		fri->set_time(Common::getTime());
-		DBUserInfo us;
-		DBUserInfo *user = (DBUserInfo *)ccEvent::create_message(us.GetTypeName());
+		UserBase *user = fri->mutable_info();
 		sprintf(buff, "10000%d", i);
 		user->set_username(buff);
 		user->set_userid(buff);
-		fri->set_allocated_userinfo(user);
-
 	}
 	SendSFindFriend(fris, event->m_fd);
 }
@@ -276,19 +266,14 @@ void HallInfo::HandlerCAddFriendList(ccEvent *event){
 	SAddFriendList fris;
 	for (int i = 0; i < 5; i++){
 		FriendNotice *fri = fris.add_list();
-		fri->set_add(i % 2);
+		fri->set_status(i % 2);
 		sprintf(buff, "1000%02d", i);
 		fri->set_uid(buff);
-		Mail ml1;
-		Mail *ml = (Mail *)ccEvent::create_message(ml1.GetTypeName());
-		ml->set_id(i + 1);
+		fri->set_nid(i + 1);
 		sprintf(buff, XXIconv::GBK2UTF("%s添加您为好友").c_str(), buff);
-		ml->set_content(buff);
-		sprintf(buff, XXIconv::GBK2UTF("邮件标题%d").c_str(), i + 1);
-		ml->set_title(buff);
-		ml->set_time(Common::getLocalTime().c_str());
-		ml->set_type(1);
-		fri->set_allocated_notice(ml);
+		fri->set_content(buff);
+		fri->set_time(Common::getLocalTime().c_str());
+		fri->set_status(1);
 	}
 	SendSAddFriendList(fris,event->m_fd);
 }
@@ -323,21 +308,25 @@ void HallInfo::HandlerCTask(ccEvent *event){
 		ts->set_title(buff);
 		ts->set_content(XXIconv::GBK2UTF("完成任务可获得大量金币"));
 		ts->set_taskid(i + 1);
+		Status *st = ts->mutable_status();
+
 		int count = 3 * (i % 4) + 1;
-		ts->set_count(count);
+		st->set_count(count);
 		int fcount = 2 * (i % 3) + 1;
-		ts->set_fcount(fcount);
+		st->set_fcount(fcount);
 		if (count <= fcount){
-			ts->set_finish(i % 2 + 1);
+			st->set_finished(i % 2 + 1);
 		}
 		else{
-			ts->set_finish(0);
+			st->set_finished(0);
 		}
 		ts->set_type(i / 4 + 1);
-		Prop *prop = ts->add_award();
+		Reward *reward = ts->add_rewardlist();
+		reward->set_rid(1);
+		Prop *prop = reward->mutable_prop();
 		prop->set_id(1);
-		prop->set_name(XXIconv::GBK2UTF("金币"));
-		prop->set_number((i + 1)*(i / 4 + 1) * 1500);
+		prop->set_name("gold");
+		reward->set_number((i + 1)*(i / 4 + 1) * 1500);
 	}
 	SendSTask(st, event->m_fd);
 }
@@ -377,24 +366,26 @@ void HallInfo::HandlerCExchangeReward(ccEvent *event){
 	
 
 	char buff[100];
-	int gold = /*LoginInfo::getIns()->getMyDBUserInfo().gold()*/0;
+	int gold = /*LoginInfo::getIns()->getMyUserBase().gold()*/0;
 	SExchangeReward se;
 	for (int i = 0; i < 8; i++){
 		ExAward *ea = se.add_list();
 		ea->set_eid(i + 1);
-		ea->set_pid(1);
-		int number = 28000 * i;
 		sprintf(buff, XXIconv::GBK2UTF("%d元红包").c_str(), i * 5 + 5);
 		ea->set_title(buff);
-		ea->set_can(gold >= number);
-		Prop prop;
-		prop.set_id(1);
-		prop.set_name(XXIconv::GBK2UTF("金币"));
-		prop.set_number(number);
-		Prop *prop1 = (Prop *)ccEvent::create_message(prop.GetTypeName());
-		prop1->CopyFrom(prop);
+		Reward *award = ea->mutable_award();
+		award->set_rid(1);
+		int number = 28000 * i;
+		award->set_number(number);
+		Prop *prop = award->mutable_prop();
+		prop->set_id(1);
+		
+		Reward *buy = ea->mutable_buy();
+		buy->set_rid(1);
+		buy->set_number(number);
+		Prop *prop1 = buy->mutable_prop();
+		prop1->set_id(1);
 
-		ea->set_allocated_award(prop1);
 	}
 	SendSExchangeReward(se, event->m_fd);
 }
@@ -421,13 +412,13 @@ void HallInfo::HandlerCExchangeRecord(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	
 	char buff[100];
-	int gold = /*LoginInfo::getIns()->getMyDBUserInfo().gold()*/0;
+	int gold = /*LoginInfo::getIns()->getMyUserBase().gold()*/0;
 	SExchangeRecord se;
 	for (int i = 0; i < 8; i++){
 		ExRecord *ea = se.add_list();
 		sprintf(buff, XXIconv::GBK2UTF("%d元红包").c_str(), i * 5 + 5);
 		ea->set_title(buff);
-		ea->set_id(i + 1);
+		ea->set_eid(i + 1);
 		sprintf(buff, "201803201%04d", i);
 		ea->set_orderid(buff);
 		ea->set_status(i % 3);
@@ -549,12 +540,12 @@ void HallInfo::HandlerCSignList(ccEvent *event){
 		SignAward *sa = sl.add_reward();
 		sa->set_id(i + 1);
 		sa->set_day(dd[i]);
-		Prop p1;
-		Prop *p = (Prop *)ccEvent::create_message(p1.GetTypeName());
+		Reward *award = sa->mutable_reward();
+		award->set_rid(1);
 		int pid = i % 2 + 1;
+		award->set_number(pid == 1 ? 500 * dd[i] : i / 2);
+		Prop *p = award->mutable_prop();
 		p->set_id(pid);
-		p->set_number(pid == 1 ? 500 * dd[i] : i / 2);
-		sa->set_allocated_reward(p);
 	}
 	SendSSignList(sl, event->m_fd);
 }
