@@ -59,6 +59,28 @@ HallInfo::HallInfo()
 	regist(sl23.cmd(), sl23.GetTypeName(), Event_Handler(HallInfo::HandlerCSignList));
 	CExchange sl24;
 	regist(sl24.cmd(), sl24.GetTypeName(), Event_Handler(HallInfo::HandlerCExchange));
+
+	vector<ShopItem >vec = m_pRedisGet->getShop();
+	if (vec.empty()){
+		for (int i = 0; i < 2; i++){
+			ShopItem item;
+			item.set_id((i+1)/2);
+			item.set_hot(1);
+
+			Reward *rd= item.mutable_prop();
+			rd->set_rid(i+1);
+			Prop *p1 = rd->mutable_prop();
+			p1->set_id(i % 2 + 1);
+			rd->set_number(item.id()==1?60000*rd->rid():1*rd->rid());
+
+			Reward *con = item.mutable_consume();
+			con->set_rid(i + 1);
+			Prop *p2 = con->mutable_prop();
+			p2->set_id(3);
+			con->set_number(6*item.id());
+			m_pRedisPut->PushShop(item);
+		}
+	}
 }
 
 HallInfo::~HallInfo(){

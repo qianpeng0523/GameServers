@@ -40,3 +40,7 @@ bool RedisPut::PushRank(Rank rk){
 bool RedisPut::PushPass(string uid, string pass){
 	return m_redis->set("pass" + uid, pass);
 }
+
+bool RedisPut::PushShop(ShopItem item){
+	return m_redis->List("shop",&item);
+}

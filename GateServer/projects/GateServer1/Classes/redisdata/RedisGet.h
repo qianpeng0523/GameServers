@@ -17,6 +17,8 @@ public:
 	char* getPass(string uid);
 	UserBase *getUserBase(string uid);
 	std::vector<Rank >getRank(int type,int index);
+
+	std::vector<ShopItem >getShop();
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;

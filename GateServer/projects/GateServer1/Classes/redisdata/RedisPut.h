@@ -18,6 +18,7 @@ public:
 	bool PushUserBase(UserBase ub);
 	bool PushRank(Rank rk);
 
+	bool PushShop(ShopItem item);
 private:
 	static RedisPut *m_ins;
 	redis *m_redis;

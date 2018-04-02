@@ -49,3 +49,16 @@ std::vector<Rank > RedisGet::getRank(int type, int index){
 	redis::getIns()->releaseMessages(vv);
 	return vecs;
 }
+
+std::vector<ShopItem > RedisGet::getShop(){
+	ShopItem si;
+	std::vector<Message *> vv = m_redis->getList("shop",si.GetTypeName());
+	std::vector<ShopItem > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		ShopItem rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
