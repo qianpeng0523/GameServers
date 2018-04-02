@@ -62,3 +62,138 @@ std::vector<ShopItem > RedisGet::getShop(){
 	redis::getIns()->releaseMessages(vv);
 	return vecs;
 }
+
+vector<Mail> RedisGet::getMail(string uid){
+	Mail si;
+	std::vector<Message *> vv = m_redis->getList("mail", si.GetTypeName());
+	std::vector<Mail > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		Mail rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+vector<char *> RedisGet::getFriend(string uid){
+	vector<int >lens;
+	return m_redis->getList(uid, lens);
+}
+
+vector<FriendNotice > RedisGet::getFriendNotice(string uid){
+	FriendNotice si;
+	std::vector<Message *> vv = m_redis->getList("friendnotice"+uid, si.GetTypeName());
+	std::vector<FriendNotice > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		FriendNotice rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+vector<Active > RedisGet::getActive(int type){
+	Active si;
+	std::vector<Message *> vv = m_redis->getList("active", si.GetTypeName());
+	std::vector<Active > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		Active rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+Status *RedisGet::getTaskStatus(string uid, int taskid){
+	char buff[30];
+	sprintf(buff,"task%s%d",uid.c_str(),taskid);
+	Status si1;
+	Status *si = (Status *)m_redis->getHash(buff, si1.GetTypeName());
+	return si;
+}
+
+vector<ExAward> RedisGet::getExAward(){
+	ExAward si;
+	std::vector<Message *> vv = m_redis->getList("exchangereward", si.GetTypeName());
+	std::vector<ExAward > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		ExAward rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+vector<Reward> RedisGet::getReward(){
+	Reward si;
+	std::vector<Message *> vv = m_redis->getList("reward", si.GetTypeName());
+	std::vector<Reward > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		Reward rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+Reward RedisGet::getReward(int rid){
+	vector<Reward> vec=getReward();
+	for (int i = 0; i < vec.size();i++){
+		Reward rd = vec.at(i);
+		if (rd.rid() == rid){
+			return rd;
+		}
+	}
+	Reward rd;
+	return rd;
+}
+
+vector<ExRecord> RedisGet::getExRecord(string uid){
+	ExRecord si;
+	std::vector<Message *> vv = m_redis->getList("exchangerecord"+uid, si.GetTypeName());
+	std::vector<ExRecord > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		ExRecord rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+int RedisGet::setExRecordStatus(string uid, int rid){
+	char buff[50];
+	sprintf(buff, "exchangestatus%s%d", uid.c_str(), rid);
+	int len = 0;
+	return atoi(m_redis->get(buff, len));
+}
+
+vector<SignAward> RedisGet::getSignAward(){
+	SignAward si;
+	std::vector<Message *> vv = m_redis->getList("sign", si.GetTypeName());
+	std::vector<SignAward > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		SignAward rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+int RedisGet::getSignStatus(string uid, int signid){
+	char buff[50];
+	sprintf(buff, "%s%d", uid.c_str(), signid);
+	int len = 0;
+	return atoi(m_redis->get(buff,len));
+}
+
+SConfig* RedisGet::getSConfig(string uid){
+	SConfig sc;
+	return (SConfig *)m_redis->getHash("config" + uid, sc.GetTypeName());
+}

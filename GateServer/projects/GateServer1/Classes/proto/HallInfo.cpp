@@ -64,7 +64,7 @@ HallInfo::HallInfo()
 	if (vec.empty()){
 		for (int i = 0; i < 2; i++){
 			ShopItem item;
-			item.set_id((i+1)/2);
+			item.set_id((i+1)/2+1);
 			item.set_hot(1);
 
 			Reward *rd= item.mutable_prop();
@@ -79,6 +79,12 @@ HallInfo::HallInfo()
 			p2->set_id(3);
 			con->set_number(6*item.id());
 			m_pRedisPut->PushShop(item);
+		}
+	}
+	else{
+		for (int i = 0; i < vec.size(); i++){
+			ShopItem item = vec.at(i);
+			printf("%s\n",item.DebugString().c_str());
 		}
 	}
 }
