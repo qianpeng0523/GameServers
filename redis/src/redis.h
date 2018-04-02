@@ -23,14 +23,17 @@ public:
 	bool reconnect();
 	void release();
 	bool set(std::string key, char* value,int len);
+	bool set(string key,int value);
 	char* get(std::string key,int &len);
 
 	bool Hash(std::string key,Message *msg);//比如配置那些（单独） 用户信息
 	Message *getHash(std::string key,string msgname);
 
 	bool List(std::string key, Message *msg);//typename+id(唯一):添加元素列表 比如战绩那些（id是房间号）
+	bool List(std::string key, char* value);
 	std::vector<Message *> getList(std::string key, string mesname);
 	std::vector<Message *> getList(std::string key, string mesname,int beginindex,int endindex);
+	vector<char *> getList(string key, vector<int> &lens,int beginindex=0, int endindex=-1);
 	bool setList(std::string key,string keyname,string value,Message *msg);
 	void sortList(std::string key,string keyname,string value);
 
