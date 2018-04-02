@@ -56,6 +56,19 @@ redis::~redis(){
 
 bool redis::isConnect(){
 	if (m_pConnect&& !m_pConnect->err) {
+		redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "ping");
+		if (!r)
+		{
+			return false;
+		}
+
+		//Ö´ÐÐÊ§°Ü
+		if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "PONG") == 0))
+		{
+			freeReplyObject(r);
+			return false;
+		}
+		freeReplyObject(r);
 		return true;
 	}
 	return false;
@@ -345,16 +358,19 @@ bool redis::setList(std::string key, string keyname, string value, Message *msg1
 				{
 					printf("set redis faliled\n");
 					ist = false;
+					releaseMessages(vec);
 					return false;
 				}
 				if (ist && m_pReply->type == REDIS_REPLY_ERROR){
 					ist = false;
 					printf("set redis faliled\n");
 					freeReplyObject(m_pReply);
+					releaseMessages(vec);
 					return false;
 				}
 				printf("set redis success\n");
 				freeReplyObject(m_pReply);
+				releaseMessages(vec);
 				return ist;
 			}
 		}
@@ -362,8 +378,16 @@ bool redis::setList(std::string key, string keyname, string value, Message *msg1
 	return false;
 }
 
-std::vector<Message *> redis::getList(std::string key, string mesname){
-	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lrange %s 0 -1", key.c_str());
+void redis::releaseMessages(vector<Message *>vecs){
+	for (int i = 0; i < vecs.size(); i++){
+		Message *msg = vecs.at(i);
+		delete msg;
+		msg = NULL;
+	}
+}
+
+std::vector<Message *> redis::getList(std::string key, string mesname, int beginindex, int endindex){
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lrange %s %d %d", key.c_str(),beginindex,endindex);
 	std::vector<Message *> vec;
 	if (!m_pReply)
 	{
@@ -393,6 +417,10 @@ std::vector<Message *> redis::getList(std::string key, string mesname){
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
 	return vec;
+}
+
+std::vector<Message *> redis::getList(std::string key, string mesname){
+	return getList(key,mesname,0,-1);
 }
 
 Message *redis::PopDataFromRedis(std::string key, map<string, string>maps){

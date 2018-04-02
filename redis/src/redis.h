@@ -9,7 +9,7 @@
 #include "Hall.h"
 #include "Login.h"
 #include "LogicServer.h"
-#include "DBProto.h"
+
 
 using namespace ::google::protobuf;
 using namespace protocol;
@@ -25,17 +25,21 @@ public:
 	char* get(std::string key,int &len);
 
 	bool Hash(std::string key,Message *msg);//比如配置那些（单独） 用户信息
-	Message * getHash(std::string key,string msgname);
+	Message *getHash(std::string key,string msgname);
 
 	bool List(std::string key, Message *msg);//typename+id(唯一):添加元素列表 比如战绩那些（id是房间号）
 	std::vector<Message *> getList(std::string key, string mesname);
+	std::vector<Message *> getList(std::string key, string mesname,int beginindex,int endindex);
 	bool setList(std::string key,string keyname,string value,Message *msg);
 	void sortList(std::string key,string keyname,string value);
 
 	bool isConnect();
+	void releaseMessages(vector<Message *>vecs);
 private:
 	vector<string> PushDataToRedis(std::string key, Message *msg);
 	Message *PopDataFromRedis(std::string key, map<string, string>maps);
+
+	
 private:
 	redisContext* m_pConnect;
 	redisReply* m_pReply;
