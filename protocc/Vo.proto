@@ -1,61 +1,91 @@
 syntax = "proto2";
 package protocol;
-import "DBProto.proto";
+
+//UserBase 
+message UserBase 
+{
+    optional string userid 		= 1;  // 
+    optional string username    = 2; //
+	optional uint32 sex			=3[default = 1];
+	optional string ip			=4;
+	optional string address		=5;
+	optional uint32 gold		=6[default = 4000];
+	optional uint32 diamond		=7[default = 8];
+	optional uint32 card		=8[default = 1];
+	optional uint32 picid		=9[default = 1];
+	optional string picurl		=10;
+	optional string phone		=11;
+	optional uint32 win			=12[default = 0];
+	optional uint32 lose		=13[default = 0];
+	optional uint32 ping		=14[default = 0];
+	optional uint32 vip			=15[default = 0];
+}
+
+message UserInfo
+{
+	optional UserBase 	info		=1;
+	optional uint32		online		=2;
+}
+
 //Rank
 message Rank
 {
     optional uint32 lv  	= 1;  //排行
 	optional string uid		= 2;
-	optional string uname	= 3;
-	optional uint32 number  = 4; //数据
-	optional uint32 type  	= 5; //类型 1表示金币 2表示胜局
-	optional string picurl	= 6;
-	optional uint32 picid	= 7;
+	optional uint32 type  	= 3; //类型 1表示金币 2表示胜局
+	optional UserBase info	= 4;
 }
 
 //Prop
 message Prop
 {
-    required uint32 id 		= 1;  //道具id 
+    optional uint32 id 		= 1;  //道具id 
     optional string name  	= 2;  //道具名称
+}
+
+//Reward
+message Reward
+{
+	optional uint32 rid		= 1;
+    optional Prop 	prop 	= 2;  //道具
 	optional uint32 number 	= 3;  //道具数量
 }
 
 //ShopItem
 message ShopItem
 {
-    required uint32 id 		= 1;  	// 
-    optional Prop 	prop  	= 2;  	//
-	optional uint32 type	= 3;	//购买type
-	optional uint32 number	= 4;	//购买所需的数量
-	optional uint32 givenum	= 5;	//赠送的数量
-	optional bool	hot		= 6;
+    optional uint32 id 		= 1;  	// 
+    optional Reward prop  	= 2;  	//
+	optional Reward consume = 3;  	//
+	optional Reward give 	= 4;  	//
+	optional bool	hot		= 5;
 }
 
 //Mail
 message Mail
 {
-    required uint32 id 		= 1;  //id 
-	optional uint32 type 	= 2;  //1表示普通邮件 2表示好友邮件
+    optional uint32 eid 	= 1;  //id 
     optional string title  	= 3;  //名称
 	optional string content = 4;  //内容
 	optional string time  	= 5;  //时间
-	repeated Prop	prop	= 6;  //奖励
-	optional uint32 get 	= 7;  //是否已经领取
+	repeated Reward	rewardlist	= 6;  //奖励
+	optional uint32 status 	= 7;  //是否已经领取
 }
 
 //FriendNotice
 message FriendNotice
 {
-    required Mail 	notice 	= 1;  //id 
-	optional bool 	add 	= 2;  //是否是添加好友
-	optional string uid  	= 3;  //uid
+    optional uint32 	nid 	= 1;  //id 
+	optional string 	content = 2;  //content
+	optional string 	uid  	= 3;  //uid
+	optional string 	time  	= 4;  //time
+	optional uint32 	status 	= 5;  //0只是通知 1加好友请求未响应 2加好友请求已同意 3加好友请求已拒绝 
 }
 
 // Friend
 message Friend
 {
-    optional DBUserInfo userinfo    = 1; 	//
+    optional UserBase 	info    = 1; 	//
 	optional bool 		online		= 2;	//是否在线
 	optional bool 		friend		= 3;	//是否是好友
 	optional uint32		acttype		= 4;	//活跃类型 1表示最近活跃 2表示一起玩过 3表示附近的人
@@ -67,8 +97,14 @@ message Active
 {
 	optional uint32		id			=1;
 	optional uint32		type		=2;//类型 1表示精彩活动 2表示公告
-	optional string		title		=3;//标题
-	optional string		url			=4;//活动地址
+	optional string		url			=3;//活动地址
+}
+
+message Status
+{
+	optional uint32		count		=1;
+	optional uint32		fcount		=2;
+	optional uint32		finished	=3;/0未完成 1已完成未领取 2已完成已领取
 }
 
 // Task
@@ -77,11 +113,9 @@ message Task
 	optional uint32		taskid		=1;
 	optional string		title		=2;//标题
 	optional string		content		=3;//活动内容
-	optional uint32		count		=4;//活动总次数
-	optional uint32		fcount		=5;//活动已完成次数
-	optional uint32		finish		=6;//0表示未完成 1表示已完成但未领取 2表示已完成已领取
-	repeated Prop		award		=7;//奖励
-	optional uint32		type		=8;//任务类型
+	optional uint32		type		=4;
+	repeated Reward		rewardlist	=5;  //奖励
+	optional Status		status		=6;
 }
 
 //ExAward 兑换的奖品
@@ -89,15 +123,14 @@ message ExAward
 {
 	optional uint32		eid			=1;
 	optional string		title		=2;//标题
-	optional Prop		award		=3;//奖励
-	optional bool		can			=4;//是否可以兑换
-	optional uint32		pid			=5;//兑换物的id
+	optional Reward		award		=3;//奖励
+	optional Reward		buy			=4;//需要什么兑换
 }
 
 //ExRecord 兑换奖品记录
 message ExRecord
 {
-	optional uint32		id			=1;
+	optional uint32		eid			=1;
 	optional string		title		=2;//商品
 	optional string		orderid		=3;//订单号
 	optional string		time		=4;//兑换时间
@@ -107,5 +140,5 @@ message ExRecord
 message SignAward{
 	optional uint32		id			=1;
 	optional uint32		day			=2;
-	optional Prop 		reward  	=3;//奖励
+	optional Reward 	reward  	=3;//奖励
 }

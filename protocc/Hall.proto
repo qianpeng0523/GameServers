@@ -164,16 +164,13 @@ message STask
 message CReward
 {
     required uint32 	cmd 	= 1[default=0x500A];  	//
-	optional uint32		type	= 2;//奖励种类
 	optional uint32		id		= 3;//奖励id
 }
 
 message SReward
 {
     required uint32 	cmd 	= 1[default=0x500A];  	//
-	optional uint32		type	= 2;//奖励种类
-	optional uint32		id		= 3;//奖励id
-	repeated Prop		reward	= 4;
+	repeated Reward		reward	= 4;
 	optional uint32 	err  	= 5;					//
 }
 
