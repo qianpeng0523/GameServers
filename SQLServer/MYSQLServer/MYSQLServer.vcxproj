@@ -14,7 +14,6 @@
     <ClCompile Include="..\..\redis\src\redis.cpp" />
     <ClCompile Include="..\..\redis\src\win32fixes.c" />
     <ClCompile Include="Classes\ccEvent.cpp" />
-    <ClCompile Include="Classes\cc\DBProto.cpp" />
     <ClCompile Include="Classes\cc\Hall.cpp" />
     <ClCompile Include="Classes\cc\LogicServer.cpp" />
     <ClCompile Include="Classes\cc\Login.cpp" />
@@ -32,6 +31,9 @@
     <ClCompile Include="Classes\netjson\json_value.cpp" />
     <ClCompile Include="Classes\netjson\json_writer.cpp" />
     <ClCompile Include="Classes\Object.cpp" />
+    <ClCompile Include="Classes\redisdata\RedisGet.cpp" />
+    <ClCompile Include="Classes\redisdata\RedisModify.cpp" />
+    <ClCompile Include="Classes\redisdata\RedisPut.cpp" />
     <ClCompile Include="Classes\StatTimer.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
     <ClCompile Include="Classes\XXIconv.cpp" />
@@ -40,7 +42,6 @@
     <ClInclude Include="..\..\redis\src\redis.h" />
     <ClInclude Include="..\..\redis\src\win32fixes.h" />
     <ClInclude Include="Classes\ccEvent.h" />
-    <ClInclude Include="Classes\cc\DBProto.h" />
     <ClInclude Include="Classes\cc\Hall.h" />
     <ClInclude Include="Classes\cc\LogicServer.h" />
     <ClInclude Include="Classes\cc\Login.h" />
@@ -67,6 +68,9 @@
     <ClInclude Include="Classes\netjson\YMvalue.h" />
     <ClInclude Include="Classes\netjson\YMwriter.h" />
     <ClInclude Include="Classes\Object.h" />
+    <ClInclude Include="Classes\redisdata\RedisGet.h" />
+    <ClInclude Include="Classes\redisdata\RedisModify.h" />
+    <ClInclude Include="Classes\redisdata\RedisPut.h" />
     <ClInclude Include="Classes\StatTimer.h" />
     <ClInclude Include="Classes\stdafx.h" />
     <ClInclude Include="Classes\targetver.h" />
@@ -133,7 +137,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;..\..\redis\src;..\..\redis\deps\hiredis;..\..\GateServer\poco\Foundation\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;.\Classes\proto;D:\Program Files\mysql\include;.\Classes\netjson;..\curl\include\win32\curl;.\Classes\db;.\Classes\cc;..\protobuf\src;.\Classes\config;.\Classes\cryptopp;.\Classes\zlib\include;..\libevent\include;..\libevent\include\event2;..\libMessagePack\src;..\..\redis\src;..\..\redis\deps\hiredis;..\..\GateServer\poco\Foundation\include;.\Classes\redisdata;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>

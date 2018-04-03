@@ -63,6 +63,72 @@ namespace CSV{
 			return buffer;
 		}
 	};
+	//奖励
+	struct CSVReward :public Object
+	{
+		int _rid;
+		int _pid;
+		int _pnumber;
+	};
+	//商城
+	struct CSVShopItem:public Object
+	{
+		int _sid;
+		int _rid;
+		int _conid;
+		int _giveid;
+		bool _hot;
+	};
+
+	//任务和免费
+	struct CSVTaskItem:public Object
+	{
+		int _tid;
+		string _title;
+		string _content;
+		int _count;
+		int _type;
+		vector<int > _rewardid;
+	};
+
+	struct CSVSignItem:public Object
+	{
+		int _id;
+		int _day;
+		int _rid;//rewardid
+	};
+	struct CSVSignZhuan :public Object
+	{
+		int _index;
+		int _rid;
+	};
+	struct CSVExchangeAward :public Object
+	{
+		int _eid;
+		string _title;
+		int _rid;
+		int _brid;
+	};
+	struct CSVActive :public Object
+	{
+		int _id;
+		int _type;
+		string _url;
+	};
+	struct CSVProp :public Object
+	{
+		int _pid;
+		string _name;
+	};
+	//任务和免费
+	struct CSVFree :public Object
+	{
+		int _tid;
+		string _title;
+		string _content;
+		int _count;
+		vector<int > _rewardid;
+	};
 }
 
 #endif 

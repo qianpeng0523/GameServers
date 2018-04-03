@@ -24,7 +24,7 @@
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/unknown_field_set.h>
-#include "DBProto.h"
+#include "Vo.h"
 // @@protoc_insertion_point(includes)
 
 namespace protocol {
@@ -214,14 +214,14 @@ class SLogin : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional .protocol.DBUserInfo info = 2;
+  // optional .protocol.UserBase info = 2;
   inline bool has_info() const;
   inline void clear_info();
   static const int kInfoFieldNumber = 2;
-  inline const ::protocol::DBUserInfo& info() const;
-  inline ::protocol::DBUserInfo* mutable_info();
-  inline ::protocol::DBUserInfo* release_info();
-  inline void set_allocated_info(::protocol::DBUserInfo* info);
+  inline const ::protocol::UserBase& info() const;
+  inline ::protocol::UserBase* mutable_info();
+  inline ::protocol::UserBase* release_info();
+  inline void set_allocated_info(::protocol::UserBase* info);
 
   // optional uint32 err = 3;
   inline bool has_err() const;
@@ -241,7 +241,7 @@ class SLogin : public ::google::protobuf::Message {
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::protocol::DBUserInfo* info_;
+  ::protocol::UserBase* info_;
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 err_;
 
@@ -445,14 +445,14 @@ class SRegister : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional .protocol.DBUserInfo info = 2;
+  // optional .protocol.UserBase info = 2;
   inline bool has_info() const;
   inline void clear_info();
   static const int kInfoFieldNumber = 2;
-  inline const ::protocol::DBUserInfo& info() const;
-  inline ::protocol::DBUserInfo* mutable_info();
-  inline ::protocol::DBUserInfo* release_info();
-  inline void set_allocated_info(::protocol::DBUserInfo* info);
+  inline const ::protocol::UserBase& info() const;
+  inline ::protocol::UserBase* mutable_info();
+  inline ::protocol::UserBase* release_info();
+  inline void set_allocated_info(::protocol::UserBase* info);
 
   // optional uint32 err = 3;
   inline bool has_err() const;
@@ -472,7 +472,7 @@ class SRegister : public ::google::protobuf::Message {
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::protocol::DBUserInfo* info_;
+  ::protocol::UserBase* info_;
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 err_;
 
@@ -681,7 +681,7 @@ inline void SLogin::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional .protocol.DBUserInfo info = 2;
+// optional .protocol.UserBase info = 2;
 inline bool SLogin::has_info() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -692,24 +692,24 @@ inline void SLogin::clear_has_info() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void SLogin::clear_info() {
-  if (info_ != NULL) info_->::protocol::DBUserInfo::Clear();
+  if (info_ != NULL) info_->::protocol::UserBase::Clear();
   clear_has_info();
 }
-inline const ::protocol::DBUserInfo& SLogin::info() const {
+inline const ::protocol::UserBase& SLogin::info() const {
   return info_ != NULL ? *info_ : *default_instance_->info_;
 }
-inline ::protocol::DBUserInfo* SLogin::mutable_info() {
+inline ::protocol::UserBase* SLogin::mutable_info() {
   set_has_info();
-  if (info_ == NULL) info_ = new ::protocol::DBUserInfo;
+  if (info_ == NULL) info_ = new ::protocol::UserBase;
   return info_;
 }
-inline ::protocol::DBUserInfo* SLogin::release_info() {
+inline ::protocol::UserBase* SLogin::release_info() {
   clear_has_info();
-  ::protocol::DBUserInfo* temp = info_;
+  ::protocol::UserBase* temp = info_;
   info_ = NULL;
   return temp;
 }
-inline void SLogin::set_allocated_info(::protocol::DBUserInfo* info) {
+inline void SLogin::set_allocated_info(::protocol::UserBase* info) {
   delete info_;
   info_ = info;
   if (info) {
@@ -1003,7 +1003,7 @@ inline void SRegister::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional .protocol.DBUserInfo info = 2;
+// optional .protocol.UserBase info = 2;
 inline bool SRegister::has_info() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1014,24 +1014,24 @@ inline void SRegister::clear_has_info() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void SRegister::clear_info() {
-  if (info_ != NULL) info_->::protocol::DBUserInfo::Clear();
+  if (info_ != NULL) info_->::protocol::UserBase::Clear();
   clear_has_info();
 }
-inline const ::protocol::DBUserInfo& SRegister::info() const {
+inline const ::protocol::UserBase& SRegister::info() const {
   return info_ != NULL ? *info_ : *default_instance_->info_;
 }
-inline ::protocol::DBUserInfo* SRegister::mutable_info() {
+inline ::protocol::UserBase* SRegister::mutable_info() {
   set_has_info();
-  if (info_ == NULL) info_ = new ::protocol::DBUserInfo;
+  if (info_ == NULL) info_ = new ::protocol::UserBase;
   return info_;
 }
-inline ::protocol::DBUserInfo* SRegister::release_info() {
+inline ::protocol::UserBase* SRegister::release_info() {
   clear_has_info();
-  ::protocol::DBUserInfo* temp = info_;
+  ::protocol::UserBase* temp = info_;
   info_ = NULL;
   return temp;
 }
-inline void SRegister::set_allocated_info(::protocol::DBUserInfo* info) {
+inline void SRegister::set_allocated_info(::protocol::UserBase* info) {
   delete info_;
   info_ = info;
   if (info) {

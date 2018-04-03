@@ -548,9 +548,8 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(STask));
   CReward_descriptor_ = file->message_type(22);
-  static const int CReward_offsets_[3] = {
+  static const int CReward_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CReward, cmd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CReward, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CReward, id_),
   };
   CReward_reflection_ =
@@ -565,10 +564,8 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CReward));
   SReward_descriptor_ = file->message_type(23);
-  static const int SReward_offsets_[5] = {
+  static const int SReward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, cmd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, reward_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, err_),
   };
@@ -1281,52 +1278,51 @@ void protobuf_AddDesc_Hall_2eproto() {
     "\00520488\022\036\n\004list\030\002 \003(\0132\020.protocol.Active\022\013"
     "\n\003err\030\003 \001(\r\"\033\n\005CTask\022\022\n\003cmd\030\001 \002(\r:\00520489"
     "\"F\n\005STask\022\022\n\003cmd\030\001 \002(\r:\00520489\022\034\n\004list\030\002 "
-    "\003(\0132\016.protocol.Task\022\013\n\003err\030\003 \001(\r\"7\n\007CRew"
-    "ard\022\022\n\003cmd\030\001 \002(\r:\00520490\022\014\n\004type\030\002 \001(\r\022\n\n"
-    "\002id\030\003 \001(\r\"d\n\007SReward\022\022\n\003cmd\030\001 \002(\r:\00520490"
-    "\022\014\n\004type\030\002 \001(\r\022\n\n\002id\030\003 \001(\r\022\036\n\006reward\030\004 \003"
-    "(\0132\016.protocol.Prop\022\013\n\003err\030\005 \001(\r\"A\n\014CAgre"
-    "eFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005agree\030\002 \001"
-    "(\010\022\016\n\006userid\030\003 \001(\t\"N\n\014SAgreeFriend\022\022\n\003cm"
-    "d\030\001 \002(\r:\00520491\022\r\n\005agree\030\002 \001(\010\022\016\n\006userid\030"
-    "\003 \001(\t\022\013\n\003err\030\004 \001(\r\"%\n\017CExchangeReward\022\022\n"
-    "\003cmd\030\001 \002(\r:\00520492\"S\n\017SExchangeReward\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021.protoco"
-    "l.ExAward\022\013\n\003err\030\003 \001(\r\"C\n\rCExchangeCode\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 \001(\t\022\016\n\006y"
-    "zcode\030\003 \001(\t\"A\n\rSExchangeCode\022\022\n\003cmd\030\001 \002("
-    "\r:\00520493\022\017\n\007success\030\002 \001(\010\022\013\n\003err\030\003 \001(\r\"%"
-    "\n\017CExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\"T\n"
-    "\017SExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\022 \n\004"
-    "list\030\002 \003(\0132\022.protocol.ExRecord\022\013\n\003err\030\003 "
-    "\001(\r\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n\n\002"
-    "id\030\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002(\r:\0052049"
-    "5\022\n\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003err\030\004 \001(\r"
-    "\"<\n\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030"
-    "\002 \001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApplePay\022\022\n\003c"
-    "md\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r"
-    "\";\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n\002i"
-    "d\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"O\n\013SWxpayOrder\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520497\022\017\n\007orderid\030\002 \001(\t\022\016\n\006pay"
-    "req\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"2\n\013CWxpayQuery\022\022\n"
-    "\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013SW"
-    "xpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid"
-    "\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cmd\030"
-    "\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r\"I\n\tSFirstBuy\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520499\022\n\n\002id\030\002 \001(\r\022\017\n\007trans"
-    "id\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"L\n\tCFeedBack\022\022\n\003cm"
-    "d\030\001 \002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003 \001"
-    "(\t\022\017\n\007content\030\004 \001(\t\",\n\tSFeedBack\022\022\n\003cmd\030"
-    "\001 \002(\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003cm"
-    "d\030\001 \002(\r:\00520501\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\00520"
-    "501\022\r\n\005index\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003err"
-    "\030\004 \001(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\""
-    "n\n\tSSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004sign"
-    "\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132\023."
-    "protocol.SignAward\022\013\n\003err\030\005 \001(\r\",\n\nCMail"
-    "Award\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \002(\r\"9\n"
-    "\nSMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 "
-    "\001(\r\022\013\n\003err\030\003 \001(\r", 3176);
+    "\003(\0132\016.protocol.Task\022\013\n\003err\030\003 \001(\r\")\n\007CRew"
+    "ard\022\022\n\003cmd\030\001 \002(\r:\00520490\022\n\n\002id\030\003 \001(\r\"L\n\007S"
+    "Reward\022\022\n\003cmd\030\001 \002(\r:\00520490\022 \n\006reward\030\004 \003"
+    "(\0132\020.protocol.Reward\022\013\n\003err\030\005 \001(\r\"A\n\014CAg"
+    "reeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005agree\030\002"
+    " \001(\010\022\016\n\006userid\030\003 \001(\t\"N\n\014SAgreeFriend\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520491\022\r\n\005agree\030\002 \001(\010\022\016\n\006useri"
+    "d\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"%\n\017CExchangeReward\022"
+    "\022\n\003cmd\030\001 \002(\r:\00520492\"S\n\017SExchangeReward\022\022"
+    "\n\003cmd\030\001 \002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021.proto"
+    "col.ExAward\022\013\n\003err\030\003 \001(\r\"C\n\rCExchangeCod"
+    "e\022\022\n\003cmd\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 \001(\t\022\016\n"
+    "\006yzcode\030\003 \001(\t\"A\n\rSExchangeCode\022\022\n\003cmd\030\001 "
+    "\002(\r:\00520493\022\017\n\007success\030\002 \001(\010\022\013\n\003err\030\003 \001(\r"
+    "\"%\n\017CExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\""
+    "T\n\017SExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\022 "
+    "\n\004list\030\002 \003(\0132\022.protocol.ExRecord\022\013\n\003err\030"
+    "\003 \001(\r\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n"
+    "\n\002id\030\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002(\r:\00520"
+    "495\022\n\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003err\030\004 \001"
+    "(\r\"<\n\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002i"
+    "d\030\002 \001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApplePay\022\022\n"
+    "\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001"
+    "(\r\";\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n"
+    "\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"O\n\013SWxpayOrder\022\022"
+    "\n\003cmd\030\001 \002(\r:\00520497\022\017\n\007orderid\030\002 \001(\t\022\016\n\006p"
+    "ayreq\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"2\n\013CWxpayQuery\022"
+    "\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013"
+    "SWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007trans"
+    "id\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cm"
+    "d\030\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r\"I\n\tSFirstBu"
+    "y\022\022\n\003cmd\030\001 \002(\r:\00520499\022\n\n\002id\030\002 \001(\r\022\017\n\007tra"
+    "nsid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"L\n\tCFeedBack\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003"
+    " \001(\t\022\017\n\007content\030\004 \001(\t\",\n\tSFeedBack\022\022\n\003cm"
+    "d\030\001 \002(\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520501\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20501\022\r\n\005index\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003e"
+    "rr\030\004 \001(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001 \002(\r:\0052050"
+    "2\"n\n\tSSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004si"
+    "gn\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132"
+    "\023.protocol.SignAward\022\013\n\003err\030\005 \001(\r\",\n\nCMa"
+    "ilAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \002(\r\""
+    "9\n\nSMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030"
+    "\002 \001(\r\022\013\n\003err\030\003 \001(\r", 3138);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Hall.proto", &protobuf_RegisterTypes);
   CConfig::default_instance_ = new CConfig();
@@ -3297,9 +3293,6 @@ void SShop::CopyFrom(const SShop& from) {
 bool SShop::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < list_size(); i++) {
-    if (!this->list(i).IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -3799,9 +3792,6 @@ void SMail::CopyFrom(const SMail& from) {
 bool SMail::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < list_size(); i++) {
-    if (!this->list(i).IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -4300,9 +4290,6 @@ void SFriend::CopyFrom(const SFriend& from) {
 bool SFriend::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < list_size(); i++) {
-    if (!this->list(i).IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -4898,9 +4885,6 @@ void SFindFriend::CopyFrom(const SFindFriend& from) {
 bool SFindFriend::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < list_size(); i++) {
-    if (!this->list(i).IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -6543,9 +6527,6 @@ void SAddFriendList::CopyFrom(const SAddFriendList& from) {
 bool SAddFriendList::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < list_size(); i++) {
-    if (!this->list(i).IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -7582,9 +7563,6 @@ void STask::CopyFrom(const STask& from) {
 bool STask::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < list_size(); i++) {
-    if (!this->list(i).IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -7612,7 +7590,6 @@ void STask::Swap(STask* other) {
 
 #ifndef _MSC_VER
 const int CReward::kCmdFieldNumber;
-const int CReward::kTypeFieldNumber;
 const int CReward::kIdFieldNumber;
 #endif  // !_MSC_VER
 
@@ -7633,7 +7610,6 @@ CReward::CReward(const CReward& from)
 void CReward::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 20490u;
-  type_ = 0u;
   id_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -7671,7 +7647,6 @@ CReward* CReward::New() const {
 void CReward::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 20490u;
-    type_ = 0u;
     id_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -7692,22 +7667,6 @@ bool CReward::MergePartialFromCodedStream(
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &cmd_)));
           set_has_cmd();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(16)) goto parse_type;
-        break;
-      }
-
-      // optional uint32 type = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_type:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &type_)));
-          set_has_type();
         } else {
           goto handle_uninterpreted;
         }
@@ -7754,11 +7713,6 @@ void CReward::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional uint32 type = 2;
-  if (has_type()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->type(), output);
-  }
-
   // optional uint32 id = 3;
   if (has_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->id(), output);
@@ -7775,11 +7729,6 @@ void CReward::SerializeWithCachedSizes(
   // required uint32 cmd = 1 [default = 20490];
   if (has_cmd()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
-  }
-
-  // optional uint32 type = 2;
-  if (has_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->type(), target);
   }
 
   // optional uint32 id = 3;
@@ -7803,13 +7752,6 @@ int CReward::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->cmd());
-    }
-
-    // optional uint32 type = 2;
-    if (has_type()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->type());
     }
 
     // optional uint32 id = 3;
@@ -7849,9 +7791,6 @@ void CReward::MergeFrom(const CReward& from) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
     }
-    if (from.has_type()) {
-      set_type(from.type());
-    }
     if (from.has_id()) {
       set_id(from.id());
     }
@@ -7880,7 +7819,6 @@ bool CReward::IsInitialized() const {
 void CReward::Swap(CReward* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
-    std::swap(type_, other->type_);
     std::swap(id_, other->id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -7901,8 +7839,6 @@ void CReward::Swap(CReward* other) {
 
 #ifndef _MSC_VER
 const int SReward::kCmdFieldNumber;
-const int SReward::kTypeFieldNumber;
-const int SReward::kIdFieldNumber;
 const int SReward::kRewardFieldNumber;
 const int SReward::kErrFieldNumber;
 #endif  // !_MSC_VER
@@ -7924,8 +7860,6 @@ SReward::SReward(const SReward& from)
 void SReward::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 20490u;
-  type_ = 0u;
-  id_ = 0u;
   err_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -7963,8 +7897,6 @@ SReward* SReward::New() const {
 void SReward::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 20490u;
-    type_ = 0u;
-    id_ = 0u;
     err_ = 0u;
   }
   reward_.Clear();
@@ -7989,43 +7921,11 @@ bool SReward::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(16)) goto parse_type;
-        break;
-      }
-
-      // optional uint32 type = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_type:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &type_)));
-          set_has_type();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(24)) goto parse_id;
-        break;
-      }
-
-      // optional uint32 id = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &id_)));
-          set_has_id();
-        } else {
-          goto handle_uninterpreted;
-        }
         if (input->ExpectTag(34)) goto parse_reward;
         break;
       }
 
-      // repeated .protocol.Prop reward = 4;
+      // repeated .protocol.Reward reward = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -8079,17 +7979,7 @@ void SReward::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional uint32 type = 2;
-  if (has_type()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->type(), output);
-  }
-
-  // optional uint32 id = 3;
-  if (has_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->id(), output);
-  }
-
-  // repeated .protocol.Prop reward = 4;
+  // repeated .protocol.Reward reward = 4;
   for (int i = 0; i < this->reward_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, this->reward(i), output);
@@ -8113,17 +8003,7 @@ void SReward::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // optional uint32 type = 2;
-  if (has_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->type(), target);
-  }
-
-  // optional uint32 id = 3;
-  if (has_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->id(), target);
-  }
-
-  // repeated .protocol.Prop reward = 4;
+  // repeated .protocol.Reward reward = 4;
   for (int i = 0; i < this->reward_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -8153,20 +8033,6 @@ int SReward::ByteSize() const {
           this->cmd());
     }
 
-    // optional uint32 type = 2;
-    if (has_type()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->type());
-    }
-
-    // optional uint32 id = 3;
-    if (has_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->id());
-    }
-
     // optional uint32 err = 5;
     if (has_err()) {
       total_size += 1 +
@@ -8175,7 +8041,7 @@ int SReward::ByteSize() const {
     }
 
   }
-  // repeated .protocol.Prop reward = 4;
+  // repeated .protocol.Reward reward = 4;
   total_size += 1 * this->reward_size();
   for (int i = 0; i < this->reward_size(); i++) {
     total_size +=
@@ -8213,12 +8079,6 @@ void SReward::MergeFrom(const SReward& from) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
     }
-    if (from.has_type()) {
-      set_type(from.type());
-    }
-    if (from.has_id()) {
-      set_id(from.id());
-    }
     if (from.has_err()) {
       set_err(from.err());
     }
@@ -8241,17 +8101,12 @@ void SReward::CopyFrom(const SReward& from) {
 bool SReward::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < reward_size(); i++) {
-    if (!this->reward(i).IsInitialized()) return false;
-  }
   return true;
 }
 
 void SReward::Swap(SReward* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
-    std::swap(type_, other->type_);
-    std::swap(id_, other->id_);
     reward_.Swap(&other->reward_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
@@ -9392,9 +9247,6 @@ void SExchangeReward::CopyFrom(const SExchangeReward& from) {
 bool SExchangeReward::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < list_size(); i++) {
-    if (!this->list(i).IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -15272,9 +15124,6 @@ void SSignList::CopyFrom(const SSignList& from) {
 bool SSignList::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < reward_size(); i++) {
-    if (!this->reward(i).IsInitialized()) return false;
-  }
   return true;
 }
 

@@ -152,17 +152,16 @@ void protobuf_AddDesc_Login_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::protocol::protobuf_AddDesc_DBProto_2eproto();
+  ::protocol::protobuf_AddDesc_Vo_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\013Login.proto\022\010protocol\032\rDBProto.proto\"6"
-    "\n\006CLogin\022\022\n\003cmd\030\001 \001(\r:\00516384\022\013\n\003uid\030\002 \001("
-    "\t\022\013\n\003pwd\030\003 \001(\t\"M\n\006SLogin\022\022\n\003cmd\030\001 \001(\r:\0051"
-    "6384\022\"\n\004info\030\002 \001(\0132\024.protocol.DBUserInfo"
-    "\022\013\n\003err\030\003 \001(\r\"H\n\tCRegister\022\022\n\003cmd\030\001 \001(\r:"
-    "\00516385\022\013\n\003uid\030\002 \001(\t\022\013\n\003pwd\030\003 \001(\t\022\r\n\005unam"
-    "e\030\004 \001(\t\"P\n\tSRegister\022\022\n\003cmd\030\001 \001(\r:\00516385"
-    "\022\"\n\004info\030\002 \001(\0132\024.protocol.DBUserInfo\022\013\n\003"
-    "err\030\003 \001(\r", 329);
+    "\n\013Login.proto\022\010protocol\032\010Vo.proto\"6\n\006CLo"
+    "gin\022\022\n\003cmd\030\001 \001(\r:\00516384\022\013\n\003uid\030\002 \001(\t\022\013\n\003"
+    "pwd\030\003 \001(\t\"K\n\006SLogin\022\022\n\003cmd\030\001 \001(\r:\00516384\022"
+    " \n\004info\030\002 \001(\0132\022.protocol.UserBase\022\013\n\003err"
+    "\030\003 \001(\r\"H\n\tCRegister\022\022\n\003cmd\030\001 \001(\r:\00516385\022"
+    "\013\n\003uid\030\002 \001(\t\022\013\n\003pwd\030\003 \001(\t\022\r\n\005uname\030\004 \001(\t"
+    "\"N\n\tSRegister\022\022\n\003cmd\030\001 \001(\r:\00516385\022 \n\004inf"
+    "o\030\002 \001(\0132\022.protocol.UserBase\022\013\n\003err\030\003 \001(\r", 320);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Login.proto", &protobuf_RegisterTypes);
   CLogin::default_instance_ = new CLogin();
@@ -519,7 +518,7 @@ SLogin::SLogin()
 }
 
 void SLogin::InitAsDefaultInstance() {
-  info_ = const_cast< ::protocol::DBUserInfo*>(&::protocol::DBUserInfo::default_instance());
+  info_ = const_cast< ::protocol::UserBase*>(&::protocol::UserBase::default_instance());
 }
 
 SLogin::SLogin(const SLogin& from)
@@ -571,7 +570,7 @@ void SLogin::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 16384u;
     if (has_info()) {
-      if (info_ != NULL) info_->::protocol::DBUserInfo::Clear();
+      if (info_ != NULL) info_->::protocol::UserBase::Clear();
     }
     err_ = 0u;
   }
@@ -600,7 +599,7 @@ bool SLogin::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .protocol.DBUserInfo info = 2;
+      // optional .protocol.UserBase info = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -653,7 +652,7 @@ void SLogin::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional .protocol.DBUserInfo info = 2;
+  // optional .protocol.UserBase info = 2;
   if (has_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->info(), output);
@@ -677,7 +676,7 @@ void SLogin::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // optional .protocol.DBUserInfo info = 2;
+  // optional .protocol.UserBase info = 2;
   if (has_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -707,7 +706,7 @@ int SLogin::ByteSize() const {
           this->cmd());
     }
 
-    // optional .protocol.DBUserInfo info = 2;
+    // optional .protocol.UserBase info = 2;
     if (has_info()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -752,7 +751,7 @@ void SLogin::MergeFrom(const SLogin& from) {
       set_cmd(from.cmd());
     }
     if (from.has_info()) {
-      mutable_info()->::protocol::DBUserInfo::MergeFrom(from.info());
+      mutable_info()->::protocol::UserBase::MergeFrom(from.info());
     }
     if (from.has_err()) {
       set_err(from.err());
@@ -775,9 +774,6 @@ void SLogin::CopyFrom(const SLogin& from) {
 
 bool SLogin::IsInitialized() const {
 
-  if (has_info()) {
-    if (!this->info().IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -1194,7 +1190,7 @@ SRegister::SRegister()
 }
 
 void SRegister::InitAsDefaultInstance() {
-  info_ = const_cast< ::protocol::DBUserInfo*>(&::protocol::DBUserInfo::default_instance());
+  info_ = const_cast< ::protocol::UserBase*>(&::protocol::UserBase::default_instance());
 }
 
 SRegister::SRegister(const SRegister& from)
@@ -1246,7 +1242,7 @@ void SRegister::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 16385u;
     if (has_info()) {
-      if (info_ != NULL) info_->::protocol::DBUserInfo::Clear();
+      if (info_ != NULL) info_->::protocol::UserBase::Clear();
     }
     err_ = 0u;
   }
@@ -1275,7 +1271,7 @@ bool SRegister::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .protocol.DBUserInfo info = 2;
+      // optional .protocol.UserBase info = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -1328,7 +1324,7 @@ void SRegister::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional .protocol.DBUserInfo info = 2;
+  // optional .protocol.UserBase info = 2;
   if (has_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->info(), output);
@@ -1352,7 +1348,7 @@ void SRegister::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // optional .protocol.DBUserInfo info = 2;
+  // optional .protocol.UserBase info = 2;
   if (has_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -1382,7 +1378,7 @@ int SRegister::ByteSize() const {
           this->cmd());
     }
 
-    // optional .protocol.DBUserInfo info = 2;
+    // optional .protocol.UserBase info = 2;
     if (has_info()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -1427,7 +1423,7 @@ void SRegister::MergeFrom(const SRegister& from) {
       set_cmd(from.cmd());
     }
     if (from.has_info()) {
-      mutable_info()->::protocol::DBUserInfo::MergeFrom(from.info());
+      mutable_info()->::protocol::UserBase::MergeFrom(from.info());
     }
     if (from.has_err()) {
       set_err(from.err());
@@ -1450,9 +1446,6 @@ void SRegister::CopyFrom(const SRegister& from) {
 
 bool SRegister::IsInitialized() const {
 
-  if (has_info()) {
-    if (!this->info().IsInitialized()) return false;
-  }
   return true;
 }
 

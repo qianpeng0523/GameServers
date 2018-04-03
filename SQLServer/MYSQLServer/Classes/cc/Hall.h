@@ -2371,13 +2371,6 @@ class CReward : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional uint32 type = 2;
-  inline bool has_type() const;
-  inline void clear_type();
-  static const int kTypeFieldNumber = 2;
-  inline ::google::protobuf::uint32 type() const;
-  inline void set_type(::google::protobuf::uint32 value);
-
   // optional uint32 id = 3;
   inline bool has_id() const;
   inline void clear_id();
@@ -2389,19 +2382,16 @@ class CReward : public ::google::protobuf::Message {
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
-  inline void set_has_type();
-  inline void clear_has_type();
   inline void set_has_id();
   inline void clear_has_id();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 cmd_;
-  ::google::protobuf::uint32 type_;
   ::google::protobuf::uint32 id_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -2473,30 +2463,16 @@ class SReward : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional uint32 type = 2;
-  inline bool has_type() const;
-  inline void clear_type();
-  static const int kTypeFieldNumber = 2;
-  inline ::google::protobuf::uint32 type() const;
-  inline void set_type(::google::protobuf::uint32 value);
-
-  // optional uint32 id = 3;
-  inline bool has_id() const;
-  inline void clear_id();
-  static const int kIdFieldNumber = 3;
-  inline ::google::protobuf::uint32 id() const;
-  inline void set_id(::google::protobuf::uint32 value);
-
-  // repeated .protocol.Prop reward = 4;
+  // repeated .protocol.Reward reward = 4;
   inline int reward_size() const;
   inline void clear_reward();
   static const int kRewardFieldNumber = 4;
-  inline const ::protocol::Prop& reward(int index) const;
-  inline ::protocol::Prop* mutable_reward(int index);
-  inline ::protocol::Prop* add_reward();
-  inline const ::google::protobuf::RepeatedPtrField< ::protocol::Prop >&
+  inline const ::protocol::Reward& reward(int index) const;
+  inline ::protocol::Reward* mutable_reward(int index);
+  inline ::protocol::Reward* add_reward();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
       reward() const;
-  inline ::google::protobuf::RepeatedPtrField< ::protocol::Prop >*
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
       mutable_reward();
 
   // optional uint32 err = 5;
@@ -2510,23 +2486,17 @@ class SReward : public ::google::protobuf::Message {
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
-  inline void set_has_type();
-  inline void clear_has_type();
-  inline void set_has_id();
-  inline void clear_has_id();
   inline void set_has_err();
   inline void clear_has_err();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
+  ::google::protobuf::RepeatedPtrField< ::protocol::Reward > reward_;
   ::google::protobuf::uint32 cmd_;
-  ::google::protobuf::uint32 type_;
-  ::google::protobuf::RepeatedPtrField< ::protocol::Prop > reward_;
-  ::google::protobuf::uint32 id_;
   ::google::protobuf::uint32 err_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -6900,37 +6870,15 @@ inline void CReward::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional uint32 type = 2;
-inline bool CReward::has_type() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void CReward::set_has_type() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void CReward::clear_has_type() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void CReward::clear_type() {
-  type_ = 0u;
-  clear_has_type();
-}
-inline ::google::protobuf::uint32 CReward::type() const {
-  return type_;
-}
-inline void CReward::set_type(::google::protobuf::uint32 value) {
-  set_has_type();
-  type_ = value;
-}
-
 // optional uint32 id = 3;
 inline bool CReward::has_id() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000002u) != 0;
 }
 inline void CReward::set_has_id() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000002u;
 }
 inline void CReward::clear_has_id() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void CReward::clear_id() {
   id_ = 0u;
@@ -6970,84 +6918,40 @@ inline void SReward::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional uint32 type = 2;
-inline bool SReward::has_type() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void SReward::set_has_type() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void SReward::clear_has_type() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void SReward::clear_type() {
-  type_ = 0u;
-  clear_has_type();
-}
-inline ::google::protobuf::uint32 SReward::type() const {
-  return type_;
-}
-inline void SReward::set_type(::google::protobuf::uint32 value) {
-  set_has_type();
-  type_ = value;
-}
-
-// optional uint32 id = 3;
-inline bool SReward::has_id() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void SReward::set_has_id() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void SReward::clear_has_id() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void SReward::clear_id() {
-  id_ = 0u;
-  clear_has_id();
-}
-inline ::google::protobuf::uint32 SReward::id() const {
-  return id_;
-}
-inline void SReward::set_id(::google::protobuf::uint32 value) {
-  set_has_id();
-  id_ = value;
-}
-
-// repeated .protocol.Prop reward = 4;
+// repeated .protocol.Reward reward = 4;
 inline int SReward::reward_size() const {
   return reward_.size();
 }
 inline void SReward::clear_reward() {
   reward_.Clear();
 }
-inline const ::protocol::Prop& SReward::reward(int index) const {
+inline const ::protocol::Reward& SReward::reward(int index) const {
   return reward_.Get(index);
 }
-inline ::protocol::Prop* SReward::mutable_reward(int index) {
+inline ::protocol::Reward* SReward::mutable_reward(int index) {
   return reward_.Mutable(index);
 }
-inline ::protocol::Prop* SReward::add_reward() {
+inline ::protocol::Reward* SReward::add_reward() {
   return reward_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::protocol::Prop >&
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
 SReward::reward() const {
   return reward_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::protocol::Prop >*
+inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
 SReward::mutable_reward() {
   return &reward_;
 }
 
 // optional uint32 err = 5;
 inline bool SReward::has_err() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void SReward::set_has_err() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void SReward::clear_has_err() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void SReward::clear_err() {
   err_ = 0u;
