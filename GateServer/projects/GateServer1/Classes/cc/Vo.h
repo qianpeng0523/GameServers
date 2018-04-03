@@ -48,6 +48,7 @@ class Task;
 class ExAward;
 class ExRecord;
 class SignAward;
+class SignZhuan;
 
 // ===================================================================
 
@@ -1431,19 +1432,12 @@ class Status : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 fcount() const;
   inline void set_fcount(::google::protobuf::uint32 value);
 
-  // optional bool finished = 3;
+  // optional uint32 finished = 3;
   inline bool has_finished() const;
   inline void clear_finished();
   static const int kFinishedFieldNumber = 3;
-  inline bool finished() const;
-  inline void set_finished(bool value);
-
-  // optional uint32 give = 4;
-  inline bool has_give() const;
-  inline void clear_give();
-  static const int kGiveFieldNumber = 4;
-  inline ::google::protobuf::uint32 give() const;
-  inline void set_give(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint32 finished() const;
+  inline void set_finished(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:protocol.Status)
  private:
@@ -1453,18 +1447,15 @@ class Status : public ::google::protobuf::Message {
   inline void clear_has_fcount();
   inline void set_has_finished();
   inline void clear_has_finished();
-  inline void set_has_give();
-  inline void clear_has_give();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 count_;
   ::google::protobuf::uint32 fcount_;
-  bool finished_;
-  ::google::protobuf::uint32 give_;
+  ::google::protobuf::uint32 finished_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_Vo_2eproto();
   friend void protobuf_AssignDesc_Vo_2eproto();
@@ -1981,6 +1972,100 @@ class SignAward : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SignAward* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SignZhuan : public ::google::protobuf::Message {
+ public:
+  SignZhuan();
+  virtual ~SignZhuan();
+
+  SignZhuan(const SignZhuan& from);
+
+  inline SignZhuan& operator=(const SignZhuan& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SignZhuan& default_instance();
+
+  void Swap(SignZhuan* other);
+
+  // implements Message ----------------------------------------------
+
+  SignZhuan* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SignZhuan& from);
+  void MergeFrom(const SignZhuan& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 index = 1;
+  inline bool has_index() const;
+  inline void clear_index();
+  static const int kIndexFieldNumber = 1;
+  inline ::google::protobuf::uint32 index() const;
+  inline void set_index(::google::protobuf::uint32 value);
+
+  // optional .protocol.Reward reward = 2;
+  inline bool has_reward() const;
+  inline void clear_reward();
+  static const int kRewardFieldNumber = 2;
+  inline const ::protocol::Reward& reward() const;
+  inline ::protocol::Reward* mutable_reward();
+  inline ::protocol::Reward* release_reward();
+  inline void set_allocated_reward(::protocol::Reward* reward);
+
+  // @@protoc_insertion_point(class_scope:protocol.SignZhuan)
+ private:
+  inline void set_has_index();
+  inline void clear_has_index();
+  inline void set_has_reward();
+  inline void clear_has_reward();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::protocol::Reward* reward_;
+  ::google::protobuf::uint32 index_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Vo_2eproto();
+  friend void protobuf_AssignDesc_Vo_2eproto();
+  friend void protobuf_ShutdownFile_Vo_2eproto();
+
+  void InitAsDefaultInstance();
+  static SignZhuan* default_instance_;
 };
 // ===================================================================
 
@@ -4008,7 +4093,7 @@ inline void Status::set_fcount(::google::protobuf::uint32 value) {
   fcount_ = value;
 }
 
-// optional bool finished = 3;
+// optional uint32 finished = 3;
 inline bool Status::has_finished() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -4019,37 +4104,15 @@ inline void Status::clear_has_finished() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void Status::clear_finished() {
-  finished_ = false;
+  finished_ = 0u;
   clear_has_finished();
 }
-inline bool Status::finished() const {
+inline ::google::protobuf::uint32 Status::finished() const {
   return finished_;
 }
-inline void Status::set_finished(bool value) {
+inline void Status::set_finished(::google::protobuf::uint32 value) {
   set_has_finished();
   finished_ = value;
-}
-
-// optional uint32 give = 4;
-inline bool Status::has_give() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void Status::set_has_give() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void Status::clear_has_give() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void Status::clear_give() {
-  give_ = 0u;
-  clear_has_give();
-}
-inline ::google::protobuf::uint32 Status::give() const {
-  return give_;
-}
-inline void Status::set_give(::google::protobuf::uint32 value) {
-  set_has_give();
-  give_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -4810,6 +4873,70 @@ inline ::protocol::Reward* SignAward::release_reward() {
   return temp;
 }
 inline void SignAward::set_allocated_reward(::protocol::Reward* reward) {
+  delete reward_;
+  reward_ = reward;
+  if (reward) {
+    set_has_reward();
+  } else {
+    clear_has_reward();
+  }
+}
+
+// -------------------------------------------------------------------
+
+// SignZhuan
+
+// optional uint32 index = 1;
+inline bool SignZhuan::has_index() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SignZhuan::set_has_index() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SignZhuan::clear_has_index() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SignZhuan::clear_index() {
+  index_ = 0u;
+  clear_has_index();
+}
+inline ::google::protobuf::uint32 SignZhuan::index() const {
+  return index_;
+}
+inline void SignZhuan::set_index(::google::protobuf::uint32 value) {
+  set_has_index();
+  index_ = value;
+}
+
+// optional .protocol.Reward reward = 2;
+inline bool SignZhuan::has_reward() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SignZhuan::set_has_reward() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SignZhuan::clear_has_reward() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SignZhuan::clear_reward() {
+  if (reward_ != NULL) reward_->::protocol::Reward::Clear();
+  clear_has_reward();
+}
+inline const ::protocol::Reward& SignZhuan::reward() const {
+  return reward_ != NULL ? *reward_ : *default_instance_->reward_;
+}
+inline ::protocol::Reward* SignZhuan::mutable_reward() {
+  set_has_reward();
+  if (reward_ == NULL) reward_ = new ::protocol::Reward;
+  return reward_;
+}
+inline ::protocol::Reward* SignZhuan::release_reward() {
+  clear_has_reward();
+  ::protocol::Reward* temp = reward_;
+  reward_ = NULL;
+  return temp;
+}
+inline void SignZhuan::set_allocated_reward(::protocol::Reward* reward) {
   delete reward_;
   reward_ = reward;
   if (reward) {

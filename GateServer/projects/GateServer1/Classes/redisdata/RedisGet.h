@@ -23,6 +23,7 @@ public:
 	vector<char *> getFriend(string uid);
 	vector<FriendNotice > getFriendNotice(string uid);
 	vector<Active > getActive(int type);
+	vector<Task > getTask();
 	Status *getTaskStatus(string uid, int taskid);//需要删除
 	vector<ExAward> getExAward();
 	vector<Reward> getReward();
@@ -32,6 +33,9 @@ public:
 	vector<SignAward> getSignAward();
 	int getSignStatus(string uid,int signid);
 	SConfig *getSConfig(string uid);
+	vector<SignZhuan> getSignZhuan();
+	vector<Prop > getProp();
+	vector<Task > getFree();
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;

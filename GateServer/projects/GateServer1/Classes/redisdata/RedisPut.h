@@ -31,6 +31,10 @@ public:
 	bool setExRecordStatus(string uid,int rid,int status);
 	bool PushSignAward(SignAward sa);
 	bool setSignStatus(string uid,int signid,int times);
+	bool setSConfig(string uid, SConfig sc);
+	bool PushSignZhuan(SignZhuan sz);
+	bool PushProp(Prop p);
+	bool PushFree(Task task);
 private:
 	static RedisPut *m_ins;
 	redis *m_redis;

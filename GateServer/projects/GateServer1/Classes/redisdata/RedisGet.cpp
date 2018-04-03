@@ -1,5 +1,7 @@
 ﻿
 #include "RedisGet.h"
+#include "RedisPut.h"
+#include "CSVDataInfo.h"
 
 RedisGet *RedisGet::m_ins=NULL;
 RedisGet::RedisGet(){
@@ -16,7 +18,6 @@ RedisGet::~RedisGet(){
 RedisGet *RedisGet::getIns(){
 	if (!m_ins){
 		m_ins = new RedisGet();
-		m_ins->init();
 	}
 	return m_ins;
 }
@@ -96,10 +97,25 @@ vector<FriendNotice > RedisGet::getFriendNotice(string uid){
 
 vector<Active > RedisGet::getActive(int type){
 	Active si;
-	std::vector<Message *> vv = m_redis->getList("active", si.GetTypeName());
+	char buff[100];
+	sprintf(buff, "active%d", type);
+	std::vector<Message *> vv = m_redis->getList(buff, si.GetTypeName());
 	std::vector<Active > vecs;
 	for (int i = 0; i < vv.size(); i++){
 		Active rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+vector<Task > RedisGet::getTask(){
+	Task si;
+	std::vector<Message *> vv = m_redis->getList("task", si.GetTypeName());
+	std::vector<Task > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		Task rkk;
 		rkk.CopyFrom(*vv.at(i));
 		vecs.push_back(rkk);
 	}
@@ -196,4 +212,43 @@ int RedisGet::getSignStatus(string uid, int signid){
 SConfig* RedisGet::getSConfig(string uid){
 	SConfig sc;
 	return (SConfig *)m_redis->getHash("config" + uid, sc.GetTypeName());
+}
+
+vector<SignZhuan> RedisGet::getSignZhuan(){
+	SignZhuan si;
+	std::vector<Message *> vv = m_redis->getList("signzhuan", si.GetTypeName());
+	std::vector<SignZhuan > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		SignZhuan rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+vector<Prop > RedisGet::getProp(){
+	Prop si;
+	std::vector<Message *> vv = m_redis->getList("prop", si.GetTypeName());
+	std::vector<Prop > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		Prop rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
+}
+
+vector<Task > RedisGet::getFree(){
+	Task si;
+	std::vector<Message *> vv = m_redis->getList("free", si.GetTypeName());
+	std::vector<Task > vecs;
+	for (int i = 0; i < vv.size(); i++){
+		Task rkk;
+		rkk.CopyFrom(*vv.at(i));
+		vecs.push_back(rkk);
+	}
+	redis::getIns()->releaseMessages(vv);
+	return vecs;
 }

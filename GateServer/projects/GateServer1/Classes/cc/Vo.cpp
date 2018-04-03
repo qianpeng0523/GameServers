@@ -65,6 +65,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* SignAward_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SignAward_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SignZhuan_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SignZhuan_reflection_ = NULL;
 
 }  // namespace
 
@@ -266,11 +269,10 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Active));
   Status_descriptor_ = file->message_type(10);
-  static const int Status_offsets_[4] = {
+  static const int Status_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, count_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, fcount_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, finished_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, give_),
   };
   Status_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -357,6 +359,22 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SignAward));
+  SignZhuan_descriptor_ = file->message_type(15);
+  static const int SignZhuan_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignZhuan, index_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignZhuan, reward_),
+  };
+  SignZhuan_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      SignZhuan_descriptor_,
+      SignZhuan::default_instance_,
+      SignZhuan_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignZhuan, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignZhuan, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(SignZhuan));
 }
 
 namespace {
@@ -399,6 +417,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
     ExRecord_descriptor_, &ExRecord::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     SignAward_descriptor_, &SignAward::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    SignZhuan_descriptor_, &SignZhuan::default_instance());
 }
 
 }  // namespace
@@ -434,6 +454,8 @@ void protobuf_ShutdownFile_Vo_2eproto() {
   delete ExRecord_reflection_;
   delete SignAward::default_instance_;
   delete SignAward_reflection_;
+  delete SignZhuan::default_instance_;
+  delete SignZhuan_reflection_;
 }
 
 void protobuf_AddDesc_Vo_2eproto() {
@@ -468,19 +490,20 @@ void protobuf_AddDesc_Vo_2eproto() {
     "\006Friend\022 \n\004info\030\001 \001(\0132\022.protocol.UserBas"
     "e\022\016\n\006online\030\002 \001(\010\022\016\n\006friend\030\003 \001(\010\022\017\n\007act"
     "type\030\004 \001(\r\022\014\n\004time\030\005 \001(\r\"/\n\006Active\022\n\n\002id"
-    "\030\001 \001(\r\022\014\n\004type\030\002 \001(\r\022\013\n\003url\030\003 \001(\t\"G\n\006Sta"
+    "\030\001 \001(\r\022\014\n\004type\030\002 \001(\r\022\013\n\003url\030\003 \001(\t\"9\n\006Sta"
     "tus\022\r\n\005count\030\001 \001(\r\022\016\n\006fcount\030\002 \001(\r\022\020\n\010fi"
-    "nished\030\003 \001(\010\022\014\n\004give\030\004 \001(\r\"\214\001\n\004Task\022\016\n\006t"
-    "askid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007content\030\003 "
-    "\001(\t\022\014\n\004type\030\004 \001(\r\022$\n\nrewardlist\030\005 \003(\0132\020."
-    "protocol.Reward\022 \n\006status\030\006 \001(\0132\020.protoc"
-    "ol.Status\"e\n\007ExAward\022\013\n\003eid\030\001 \001(\r\022\r\n\005tit"
-    "le\030\002 \001(\t\022\037\n\005award\030\003 \001(\0132\020.protocol.Rewar"
-    "d\022\035\n\003buy\030\004 \001(\0132\020.protocol.Reward\"U\n\010ExRe"
-    "cord\022\013\n\003eid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007orde"
-    "rid\030\003 \001(\t\022\014\n\004time\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\""
-    "F\n\tSignAward\022\n\n\002id\030\001 \001(\r\022\013\n\003day\030\002 \001(\r\022 \n"
-    "\006reward\030\003 \001(\0132\020.protocol.Reward", 1511);
+    "nished\030\003 \001(\r\"\214\001\n\004Task\022\016\n\006taskid\030\001 \001(\r\022\r\n"
+    "\005title\030\002 \001(\t\022\017\n\007content\030\003 \001(\t\022\014\n\004type\030\004 "
+    "\001(\r\022$\n\nrewardlist\030\005 \003(\0132\020.protocol.Rewar"
+    "d\022 \n\006status\030\006 \001(\0132\020.protocol.Status\"e\n\007E"
+    "xAward\022\013\n\003eid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\037\n\005aw"
+    "ard\030\003 \001(\0132\020.protocol.Reward\022\035\n\003buy\030\004 \001(\013"
+    "2\020.protocol.Reward\"U\n\010ExRecord\022\013\n\003eid\030\001 "
+    "\001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007orderid\030\003 \001(\t\022\014\n\004t"
+    "ime\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\"F\n\tSignAward\022\n"
+    "\n\002id\030\001 \001(\r\022\013\n\003day\030\002 \001(\r\022 \n\006reward\030\003 \001(\0132"
+    "\020.protocol.Reward\"<\n\tSignZhuan\022\r\n\005index\030"
+    "\001 \001(\r\022 \n\006reward\030\002 \001(\0132\020.protocol.Reward", 1559);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Vo.proto", &protobuf_RegisterTypes);
   UserBase::default_instance_ = new UserBase();
@@ -498,6 +521,7 @@ void protobuf_AddDesc_Vo_2eproto() {
   ExAward::default_instance_ = new ExAward();
   ExRecord::default_instance_ = new ExRecord();
   SignAward::default_instance_ = new SignAward();
+  SignZhuan::default_instance_ = new SignZhuan();
   UserBase::default_instance_->InitAsDefaultInstance();
   UserInfo::default_instance_->InitAsDefaultInstance();
   Rank::default_instance_->InitAsDefaultInstance();
@@ -513,6 +537,7 @@ void protobuf_AddDesc_Vo_2eproto() {
   ExAward::default_instance_->InitAsDefaultInstance();
   ExRecord::default_instance_->InitAsDefaultInstance();
   SignAward::default_instance_->InitAsDefaultInstance();
+  SignZhuan::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Vo_2eproto);
 }
 
@@ -4499,7 +4524,6 @@ void Active::Swap(Active* other) {
 const int Status::kCountFieldNumber;
 const int Status::kFcountFieldNumber;
 const int Status::kFinishedFieldNumber;
-const int Status::kGiveFieldNumber;
 #endif  // !_MSC_VER
 
 Status::Status()
@@ -4520,8 +4544,7 @@ void Status::SharedCtor() {
   _cached_size_ = 0;
   count_ = 0u;
   fcount_ = 0u;
-  finished_ = false;
-  give_ = 0u;
+  finished_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -4559,8 +4582,7 @@ void Status::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     count_ = 0u;
     fcount_ = 0u;
-    finished_ = false;
-    give_ = 0u;
+    finished_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -4603,31 +4625,15 @@ bool Status::MergePartialFromCodedStream(
         break;
       }
 
-      // optional bool finished = 3;
+      // optional uint32 finished = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_finished:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &finished_)));
           set_has_finished();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(32)) goto parse_give;
-        break;
-      }
-
-      // optional uint32 give = 4;
-      case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_give:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &give_)));
-          set_has_give();
         } else {
           goto handle_uninterpreted;
         }
@@ -4663,14 +4669,9 @@ void Status::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->fcount(), output);
   }
 
-  // optional bool finished = 3;
+  // optional uint32 finished = 3;
   if (has_finished()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->finished(), output);
-  }
-
-  // optional uint32 give = 4;
-  if (has_give()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->give(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->finished(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -4691,14 +4692,9 @@ void Status::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->fcount(), target);
   }
 
-  // optional bool finished = 3;
+  // optional uint32 finished = 3;
   if (has_finished()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->finished(), target);
-  }
-
-  // optional uint32 give = 4;
-  if (has_give()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->give(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->finished(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -4726,16 +4722,11 @@ int Status::ByteSize() const {
           this->fcount());
     }
 
-    // optional bool finished = 3;
+    // optional uint32 finished = 3;
     if (has_finished()) {
-      total_size += 1 + 1;
-    }
-
-    // optional uint32 give = 4;
-    if (has_give()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->give());
+          this->finished());
     }
 
   }
@@ -4774,9 +4765,6 @@ void Status::MergeFrom(const Status& from) {
     if (from.has_finished()) {
       set_finished(from.finished());
     }
-    if (from.has_give()) {
-      set_give(from.give());
-    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -4803,7 +4791,6 @@ void Status::Swap(Status* other) {
     std::swap(count_, other->count_);
     std::swap(fcount_, other->fcount_);
     std::swap(finished_, other->finished_);
-    std::swap(give_, other->give_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -6329,6 +6316,259 @@ void SignAward::Swap(SignAward* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = SignAward_descriptor_;
   metadata.reflection = SignAward_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int SignZhuan::kIndexFieldNumber;
+const int SignZhuan::kRewardFieldNumber;
+#endif  // !_MSC_VER
+
+SignZhuan::SignZhuan()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void SignZhuan::InitAsDefaultInstance() {
+  reward_ = const_cast< ::protocol::Reward*>(&::protocol::Reward::default_instance());
+}
+
+SignZhuan::SignZhuan(const SignZhuan& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void SignZhuan::SharedCtor() {
+  _cached_size_ = 0;
+  index_ = 0u;
+  reward_ = NULL;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+SignZhuan::~SignZhuan() {
+  SharedDtor();
+}
+
+void SignZhuan::SharedDtor() {
+  if (this != default_instance_) {
+    delete reward_;
+  }
+}
+
+void SignZhuan::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SignZhuan::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SignZhuan_descriptor_;
+}
+
+const SignZhuan& SignZhuan::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Vo_2eproto();
+  return *default_instance_;
+}
+
+SignZhuan* SignZhuan::default_instance_ = NULL;
+
+SignZhuan* SignZhuan::New() const {
+  return new SignZhuan;
+}
+
+void SignZhuan::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    index_ = 0u;
+    if (has_reward()) {
+      if (reward_ != NULL) reward_->::protocol::Reward::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SignZhuan::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 index = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &index_)));
+          set_has_index();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_reward;
+        break;
+      }
+
+      // optional .protocol.Reward reward = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_reward:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_reward()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void SignZhuan::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 index = 1;
+  if (has_index()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->index(), output);
+  }
+
+  // optional .protocol.Reward reward = 2;
+  if (has_reward()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->reward(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* SignZhuan::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 index = 1;
+  if (has_index()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->index(), target);
+  }
+
+  // optional .protocol.Reward reward = 2;
+  if (has_reward()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->reward(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int SignZhuan::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 index = 1;
+    if (has_index()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->index());
+    }
+
+    // optional .protocol.Reward reward = 2;
+    if (has_reward()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->reward());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SignZhuan::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SignZhuan* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SignZhuan*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SignZhuan::MergeFrom(const SignZhuan& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_index()) {
+      set_index(from.index());
+    }
+    if (from.has_reward()) {
+      mutable_reward()->::protocol::Reward::MergeFrom(from.reward());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SignZhuan::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SignZhuan::CopyFrom(const SignZhuan& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SignZhuan::IsInitialized() const {
+
+  return true;
+}
+
+void SignZhuan::Swap(SignZhuan* other) {
+  if (other != this) {
+    std::swap(index_, other->index_);
+    std::swap(reward_, other->reward_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata SignZhuan::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SignZhuan_descriptor_;
+  metadata.reflection = SignZhuan_reflection_;
   return metadata;
 }
 

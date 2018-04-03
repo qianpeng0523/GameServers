@@ -105,3 +105,19 @@ bool RedisPut::setSignStatus(string uid, int signid, int times){
 	sprintf(buff,"%s%d",uid.c_str(),signid);
 	return m_redis->set(buff, times);
 }
+
+bool RedisPut::setSConfig(string uid, SConfig sc){
+	return m_redis->Hash("config" + uid, &sc);
+}
+
+bool RedisPut::PushSignZhuan(SignZhuan sz){
+	return m_redis->List("signzhuan", &sz);
+}
+
+bool RedisPut::PushProp(Prop p){
+	return m_redis->List("prop", &p);
+}
+
+bool RedisPut::PushFree(Task task){
+	return m_redis->List("free", &task);
+}
