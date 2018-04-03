@@ -11,6 +11,7 @@
 #include "CSVDataInfo.h"
 #include "HttpLogic.h"
 #include "redis.h"
+#include "RedisGet.h"
 // 线程A 方法
 DWORD WINAPI ThreadHttp(LPVOID lPVOID){
 	HttpEvent::getIns()->init();
@@ -23,11 +24,11 @@ DWORD WINAPI ThreadHttp(LPVOID lPVOID){
 
 int main()
 {
-	
+	CSVDataInfo::getIns();
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 1), &wsaData);
 	redis::getIns()->initial("47.104.165.65", 6379, "3.1415926qp");
-	CSVDataInfo::getIns();
+	RedisGet::getIns()->init();
 	HttpLogic::getIns();
 	CreateThread(NULL, 0, ThreadHttp, NULL, 0, NULL);
 	
