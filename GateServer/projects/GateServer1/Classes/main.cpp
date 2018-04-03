@@ -13,15 +13,17 @@
 #include "ClientSocket.h"
 #include "LoginInfo.h"
 #include "StatTimer.h"
+#include "RedisGet.h"
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	StatTimer::getIns();
-
+	CSVDataInfo::getIns();
 	LoginInfo::getIns();
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 1), &wsaData);
 	redis::getIns()->initial("47.104.165.65", 6379, "3.1415926qp");
-	CSVDataInfo::getIns();
+	RedisGet::getIns()->init();
 	HallInfo::getIns();
 
 	HttpLogic::getIns()->requestManagerData();

@@ -39,6 +39,16 @@ public:
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;
+	vector<Prop> m_pProps;
+	vector<Reward> m_pRewards;
+	vector<ShopItem> m_pShopItems;
+	vector<Task> m_tasks;
+	vector<SignZhuan> m_pSignZhuans;
+	vector<SignAward> m_pSignAwards;
+	vector<ExAward> m_pExAwards;
+	vector<Active> m_pActives;
+	vector<Task> m_pFrees;
+	map<int,vector<Rank >> m_pRanks;
 };
 
 
