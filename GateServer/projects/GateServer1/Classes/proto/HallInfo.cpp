@@ -149,16 +149,13 @@ void HallInfo::HandlerCMail(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	
 	SMail sl;
-	char buff[100];
-	for (int i = 0; i < 8; i++){
-		Mail *ml = sl.add_list();
-		ml->set_eid(i + 1);
-		sprintf(buff, XXIconv::GBK2UTF("邮件内容测试%d").c_str(), i + 1);
-		ml->set_content(buff);
-		sprintf(buff, XXIconv::GBK2UTF("邮件标题%d").c_str(), i + 1);
-		ml->set_title(buff);
-		ml->set_time(Common::getLocalTime().c_str());
-		ml->set_status(1);
+	ClientData *dd = LibEvent::getIns()->getClientData(event->m_fd);
+	vector<Mail> vec = m_pRedisGet->getMail(dd->_uid);
+	int sz = vec.size();
+	for (int i = 0; i < sz; i++){
+		Mail m = vec.at(i);
+		Mail *m1= sl.add_list();
+		m1->CopyFrom(m);
 	}
 	SendSMail(sl,event->m_fd);
 }
@@ -189,15 +186,16 @@ void HallInfo::HandlerCFriend(ccEvent *event){
 	
 
 	SFriend sf;
-	for (int i = 0; i < 7; i++){
+	ClientData *dd = LibEvent::getIns()->getClientData(event->m_fd);
+	vector<char *> uids = m_pRedisGet->getFriend(dd->_uid);
+	for (int i = 0; i < uids.size(); i++){
 		Friend *fri = sf.add_list();
 		fri->set_acttype(i % 3 + 1);
 		fri->set_time(Common::getTime());
 		char buff[100];
 		UserBase *user = fri->mutable_info();
-		sprintf(buff, "10000%d", i);
-		user->set_username(buff);
-		
+		UserBase *u = m_pRedisGet->getUserBase(uids.at(i));
+		user->CopyFrom(*u);
 	}
 	SendSFriend(sf,event->m_fd);
 }

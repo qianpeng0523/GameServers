@@ -109,6 +109,7 @@ struct _ClientData
 	_Conn *_conn;
 	string _sessionID;
 	string _ip;
+	string _uid;
 };
 
 typedef struct _Server Server;

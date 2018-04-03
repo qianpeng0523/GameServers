@@ -60,6 +60,7 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 		MD5 md5;
 		md5.update(seesion);
 		data->_sessionID = md5.toString();
+		data->_uid = uid;
 		string ip = data->_ip;
 		int len;
 		char* pass = m_pRedisGet->getPass(uid);
@@ -112,7 +113,7 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 		MD5 md5;
 		md5.update(seesion);
 		data->_sessionID = md5.toString();
-		
+		data->_uid = uid;
 		UserBase *user =m_pRedisGet->getUserBase(uid);
 		if (user){
 			delete user;
