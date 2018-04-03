@@ -72,6 +72,26 @@ std::vector<ShopItem > RedisGet::getShop(){
 		for (int i = 0; i < vv.size(); i++){
 			ShopItem rkk;
 			rkk.CopyFrom(*vv.at(i));
+
+			int rid = rkk.prop().rid();
+			Reward *rd = rkk.mutable_prop();
+			Reward rd1 = getReward(rid);
+			rd->CopyFrom(rd1);
+
+			int conid = rkk.consume().rid();
+			if (conid>0){
+				Reward *r = rkk.mutable_consume();
+				Reward r1 = getReward(conid);
+				r->CopyFrom(r1);
+			}
+
+			int giveid = rkk.give().rid();
+			if (giveid > 0){
+				Reward *r = rkk.mutable_give();
+				Reward r1 = getReward(giveid);
+				r->CopyFrom(r1);
+			}
+
 			vecs.push_back(rkk);
 		}
 		redis::getIns()->releaseMessages(vv);
@@ -89,6 +109,19 @@ vector<Mail> RedisGet::getMail(string uid){
 	for (int i = 0; i < vv.size(); i++){
 		Mail rkk;
 		rkk.CopyFrom(*vv.at(i));
+		vector<int >ids;
+		for (int j = 0; j < rkk.rewardlist_size(); j++){
+			int id = rkk.rewardlist(j).rid();
+			ids.push_back(id);
+		}
+		rkk.clear_rewardlist();
+		for (int j = 0; j < ids.size(); j++){
+			Reward *rd = rkk.add_rewardlist();
+			int rid = ids.at(j);
+			Reward rd1 = getReward(rid);
+			rd->CopyFrom(rd1);
+		}
+
 		vecs.push_back(rkk);
 	}
 	redis::getIns()->releaseMessages(vv);
@@ -141,6 +174,20 @@ vector<Task > RedisGet::getTask(){
 		for (int i = 0; i < vv.size(); i++){
 			Task rkk;
 			rkk.CopyFrom(*vv.at(i));
+
+			vector<int >ids;
+			for (int j = 0; j < rkk.rewardlist_size(); j++){
+				int id = rkk.rewardlist(j).rid();
+				ids.push_back(id);
+			}
+			rkk.clear_rewardlist();
+			for (int j = 0; j < ids.size(); j++){
+				Reward *rd = rkk.add_rewardlist();
+				int rid = ids.at(j);
+				Reward rd1 = getReward(rid);
+				rd->CopyFrom(rd1);
+			}
+
 			vecs.push_back(rkk);
 		}
 		redis::getIns()->releaseMessages(vv);
@@ -167,6 +214,17 @@ vector<ExAward> RedisGet::getExAward(){
 		for (int i = 0; i < vv.size(); i++){
 			ExAward rkk;
 			rkk.CopyFrom(*vv.at(i));
+
+			int rid = rkk.award().rid();
+			Reward *rd = rkk.mutable_award();
+			Reward rd1 = getReward(rid);
+			rd->CopyFrom(rd1);
+
+			rid = rkk.buy().rid();
+			Reward *r = rkk.mutable_buy();
+			Reward r1 = getReward(rid);
+			r->CopyFrom(r1);
+
 			vecs.push_back(rkk);
 		}
 		redis::getIns()->releaseMessages(vv);
@@ -177,15 +235,19 @@ vector<ExAward> RedisGet::getExAward(){
 	}
 }
 
-vector<Reward> RedisGet::getReward(){
+map<int, Reward> RedisGet::getReward(){
 	if (m_pRewards.empty()){
 		Reward si;
 		std::vector<Message *> vv = m_redis->getList("reward", si.GetTypeName());
-		std::vector<Reward > vecs;
+		map<int, Reward> vecs;
 		for (int i = 0; i < vv.size(); i++){
 			Reward rkk;
 			rkk.CopyFrom(*vv.at(i));
-			vecs.push_back(rkk);
+			int pid = rkk.prop().id();
+			Prop *pp = rkk.mutable_prop();
+			Prop p = getProp(pid);
+			pp->CopyFrom(p);
+			vecs.insert(make_pair(rkk.rid(),rkk));
 		}
 		redis::getIns()->releaseMessages(vv);
 		return vecs;
@@ -196,12 +258,9 @@ vector<Reward> RedisGet::getReward(){
 }
 
 Reward RedisGet::getReward(int rid){
-	vector<Reward> vec=getReward();
-	for (int i = 0; i < vec.size();i++){
-		Reward rd = vec.at(i);
-		if (rd.rid() == rid){
-			return rd;
-		}
+	map<int, Reward> vec = getReward();
+	if (vec.find(rid) != vec.end()){
+		return vec.at(rid);
 	}
 	Reward rd;
 	return rd;
@@ -235,6 +294,12 @@ vector<SignAward> RedisGet::getSignAward(){
 		for (int i = 0; i < vv.size(); i++){
 			SignAward rkk;
 			rkk.CopyFrom(*vv.at(i));
+
+			int rid = rkk.reward().rid();
+			Reward *rd = rkk.mutable_reward();
+			Reward rd1 = getReward(rid);
+			rd->CopyFrom(rd1);
+
 			vecs.push_back(rkk);
 		}
 		redis::getIns()->releaseMessages(vv);
@@ -265,6 +330,11 @@ vector<SignZhuan> RedisGet::getSignZhuan(){
 		for (int i = 0; i < vv.size(); i++){
 			SignZhuan rkk;
 			rkk.CopyFrom(*vv.at(i));
+			int rid = rkk.reward().rid();
+			Reward *rd = rkk.mutable_reward();
+			Reward rd1 = getReward(rid);
+			rd->CopyFrom(rd1);
+
 			vecs.push_back(rkk);
 		}
 		redis::getIns()->releaseMessages(vv);
@@ -275,15 +345,15 @@ vector<SignZhuan> RedisGet::getSignZhuan(){
 	}
 }
 
-vector<Prop > RedisGet::getProp(){
+map<int, Prop > RedisGet::getProp(){
 	if (m_pProps.empty()){
 		Prop si;
 		std::vector<Message *> vv = m_redis->getList("prop", si.GetTypeName());
-		std::vector<Prop > vecs;
+		map<int, Prop > vecs;
 		for (int i = 0; i < vv.size(); i++){
 			Prop rkk;
 			rkk.CopyFrom(*vv.at(i));
-			vecs.push_back(rkk);
+			vecs.insert(make_pair(rkk.id(),rkk));
 		}
 		redis::getIns()->releaseMessages(vv);
 		return vecs;
@@ -291,6 +361,15 @@ vector<Prop > RedisGet::getProp(){
 	else{
 		return m_pProps;
 	}
+}
+
+Prop RedisGet::getProp(int id){
+	map<int, Prop > vec = getProp();
+	if (vec.find(id) != vec.end()){
+		return vec.at(id);
+	}
+	Prop p;
+	return p;
 }
 
 vector<Task > RedisGet::getFree(){
@@ -301,6 +380,20 @@ vector<Task > RedisGet::getFree(){
 		for (int i = 0; i < vv.size(); i++){
 			Task rkk;
 			rkk.CopyFrom(*vv.at(i));
+
+			vector<int >ids;
+			for (int j = 0; j < rkk.rewardlist_size(); j++){
+				int id = rkk.rewardlist(j).rid();
+				ids.push_back(id);
+			}
+			rkk.clear_rewardlist();
+			for (int j = 0; j < ids.size(); j++){
+				Reward *rd = rkk.add_rewardlist();
+				int rid = ids.at(j);
+				Reward rd1 = getReward(rid);
+				rd->CopyFrom(rd1);
+			}
+
 			vecs.push_back(rkk);
 		}
 		redis::getIns()->releaseMessages(vv);

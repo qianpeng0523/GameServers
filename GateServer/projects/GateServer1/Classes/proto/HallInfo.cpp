@@ -127,15 +127,15 @@ void HallInfo::HandlerCShop(ccEvent *event){
 
 	//逻辑
 	SShop sl;
-	for (int i = 0; i < 10; i++){
-		ShopItem *rk = sl.add_list();
-		rk->set_hot(i % 2 == 1);
-		Reward *pp = rk->mutable_prop();
-		pp->set_rid(i + 1);
-		pp->set_number((i + 1) % 2 == 1 ? 10000 * i : 2 * i);
-		Prop *prop = pp->mutable_prop();
-		prop->set_id(1);
-		prop->set_name("gold");
+	sl.set_type(type);
+	vector<ShopItem> vec = m_pRedisGet->getShop();
+	for (int i = 0; i < vec.size(); i++){
+		ShopItem p = vec.at(i);
+		int pid = p.prop().prop().id();
+		if (pid == type){
+			ShopItem *pp = sl.add_list();
+			pp->CopyFrom(p);
+		}
 	}
 	SendSShop(sl, event->m_fd);
 }

@@ -8,7 +8,6 @@ LibEvent::LibEvent()
 {
 	LogicServerInfo::getIns();
 	LoginInfo::getIns();
-	m_stamp = 0;
 	ZeroMemory(&m_Server, sizeof(m_Server));
 	WSADATA WSAData;
 	WSAStartup(0x0201, &WSAData);
@@ -117,7 +116,6 @@ bool LibEvent::StartServer(int port, short workernum, unsigned int connnum, int 
 
 void LibEvent::StopServer()
 {
-	m_stamp = 0;
 	if (m_Server.bStart)
 	{
 		struct timeval delay = { 2, 0 };
@@ -163,7 +161,8 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		int stamp = pLibEvent->getStamp(testhead);
 		char *buffer = new char[bodylen];
 		len = bufferevent_read(bev, buffer, bodylen);
-		if (len == bodylen&&c->stamp+1==stamp){
+		c->m_recvstamp = (c->m_recvstamp+1)%256;
+		if (len == bodylen&&c->m_recvstamp==stamp){
 			char* out = new char[len+1];
 			HttpLogic::getIns()->aes_decrypt(buffer, len, out);
 			delete buffer;
@@ -183,7 +182,8 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_socket_t fd){
 	ClientData *pdata = getClientData(fd);
 	if (pdata&&pdata->_conn){
-		pdata->_conn->stamp = (pdata->_conn->stamp + 1) % 256;
+		pdata->_conn->m_sendstamp = (pdata->_conn->m_sendstamp + 1) % 256;
+		printf("stamp:%d\n", pdata->_conn->m_sendstamp);
 		int len = msg->ByteSize();
 		char *buffer = new char[HEADLEN + len];
 		memset(buffer, 0, HEADLEN + len);
@@ -192,7 +192,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 		memcpy(buffer, HttpLogic::SERVER_CODE.c_str(), 3);
 		
 		//消息序列号
-		buffer[3] = pdata->_conn->stamp;
+		buffer[3] = pdata->_conn->m_sendstamp;
 		//bodylen
 		char * clen = (char *)&len;
 		for (int i = 0; i < 2; i++){
@@ -232,7 +232,8 @@ void LibEvent::resetConn(Conn *pConn){
 	if (pConn&&pConn->fd>0){
 		bufferevent_disable(pConn->bufev, EV_READ | EV_WRITE);
 		evutil_closesocket(pConn->fd);
-		pConn->stamp = 0;
+		pConn->m_sendstamp = 0;
+		pConn->m_recvstamp = 0;
 		pConn->owner->PutFreeConn(pConn);
 	}
 }

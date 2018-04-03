@@ -54,7 +54,8 @@ struct _Conn
 		index=-1;
 		owner=NULL;
 		next=NULL;
-		stamp = 0;
+		m_sendstamp = 0;
+		m_recvstamp = 0;
 	}
 	~_Conn()
 	{
@@ -65,7 +66,8 @@ struct _Conn
 	int index;
 	_Worker *owner;
 	_Conn *next;
-	int stamp;
+	int m_sendstamp;
+	int m_recvstamp;
 	
 };
 //工作线程封装对象.

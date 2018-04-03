@@ -53,6 +53,5 @@ private:
 	void resetConn(Conn *pConn);
 private:
 	map<int ,ClientData *>m_ClientDatas;
-	int m_stamp;
 	static LibEvent *m_ins;
 };

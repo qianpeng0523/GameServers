@@ -26,7 +26,7 @@ public:
 	vector<Task > getTask();
 	Status *getTaskStatus(string uid, int taskid);//需要删除
 	vector<ExAward> getExAward();
-	vector<Reward> getReward();
+	map<int,Reward> getReward();
 	Reward getReward(int rid);
 	vector<ExRecord> getExRecord(string uid);
 	int setExRecordStatus(string uid, int rid);
@@ -34,13 +34,14 @@ public:
 	int getSignStatus(string uid,int signid);
 	SConfig *getSConfig(string uid);
 	vector<SignZhuan> getSignZhuan();
-	vector<Prop > getProp();
+	map<int,Prop > getProp();
+	Prop getProp(int id);
 	vector<Task > getFree();
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;
-	vector<Prop> m_pProps;
-	vector<Reward> m_pRewards;
+	map<int, Prop > m_pProps;
+	map<int, Reward> m_pRewards;
 	vector<ShopItem> m_pShopItems;
 	vector<Task> m_tasks;
 	vector<SignZhuan> m_pSignZhuans;
