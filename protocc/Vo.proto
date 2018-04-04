@@ -104,7 +104,7 @@ message Status
 {
 	optional uint32		count		=1;
 	optional uint32		fcount		=2;
-	optional uint32		finished	=3;/0未完成 1已完成未领取 2已完成已领取
+	optional uint32		finished	=3;//0未完成 1已完成未领取 2已完成已领取
 }
 
 // Task
@@ -141,4 +141,9 @@ message SignAward{
 	optional uint32		id			=1;
 	optional uint32		day			=2;
 	optional Reward 	reward  	=3;//奖励
+}
+
+message SignZhuan{
+	optional uint32		index		=1;
+	optional Reward 	reward  	=2;//奖励
 }
