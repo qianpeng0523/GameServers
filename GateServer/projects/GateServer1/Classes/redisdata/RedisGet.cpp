@@ -102,10 +102,11 @@ std::vector<ShopItem > RedisGet::getShop(){
 	}
 }
 
-vector<Mail> RedisGet::getMail(string uid){
+map<string, Mail> RedisGet::getMail(string uid){
 	Mail si;
-	std::vector<Message *> vv = m_redis->getList("mail", si.GetTypeName());
-	std::vector<Mail > vecs;
+	std::vector<Message *> vv = m_redis->getList("mail"+uid, si.GetTypeName());
+	map<string, Mail> vecs;
+	char buff[50];
 	for (int i = 0; i < vv.size(); i++){
 		Mail rkk;
 		rkk.CopyFrom(*vv.at(i));
@@ -121,11 +122,29 @@ vector<Mail> RedisGet::getMail(string uid){
 			Reward rd1 = getReward(rid);
 			rd->CopyFrom(rd1);
 		}
-
-		vecs.push_back(rkk);
+		sprintf(buff,"%s%d",uid.c_str(),rkk.eid());
+		vecs.insert(make_pair(buff,rkk));
 	}
 	redis::getIns()->releaseMessages(vv);
 	return vecs;
+}
+
+Mail RedisGet::getMail(string uid, int eid){
+	map<string, Mail> vec=getMail(uid);
+	char buff[50];
+	sprintf(buff, "%s%d", uid.c_str(), eid);
+	if (vec.find(buff) != vec.end()){
+		return vec.at(buff);
+	}
+	Mail mail;
+	return	mail;
+}
+
+int RedisGet::getMailStatus(string uid, int mid){
+	char buff[50];
+	sprintf(buff,"mail%s%d",uid.c_str(),mid);
+	int len = 0;
+	return atoi(m_redis->get(buff,len));
 }
 
 vector<char *> RedisGet::getFriend(string uid){

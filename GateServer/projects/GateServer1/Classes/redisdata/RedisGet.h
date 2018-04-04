@@ -19,7 +19,9 @@ public:
 	std::vector<Rank >getRank(int type,int index);
 
 	std::vector<ShopItem >getShop();
-	vector<Mail> getMail(string uid);
+	map<string,Mail> getMail(string uid);
+	Mail getMail(string uid, int eid);
+	int getMailStatus(string uid, int mid);
 	vector<char *> getFriend(string uid);
 	vector<FriendNotice > getFriendNotice(string uid);
 	vector<Active > getActive(int type);

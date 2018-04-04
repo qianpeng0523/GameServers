@@ -47,7 +47,8 @@ public:
 	TcpSocket *m_tcpSocket;
 	string m_ip;
 	unsigned short m_port;
-	int m_stamp;
+	int m_sendstamp;
+	int m_recvstamp;
 };
 
 #endif

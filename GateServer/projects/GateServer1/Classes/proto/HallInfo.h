@@ -98,6 +98,7 @@ public:
 	void HandlerCSignList(ccEvent *event);
 private:
 	void regist(int cmd, string name, EventHandler handler);
+	void resetUserData(Reward rd,string uid);
 private:
 	static HallInfo *m_shareHallInfo;
 	

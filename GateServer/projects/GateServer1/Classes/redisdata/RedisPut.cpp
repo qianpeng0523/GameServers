@@ -34,6 +34,16 @@ bool RedisPut::PushUserBase(UserBase ub){
 	return m_redis->Hash(ub.GetTypeName() + uid, &ub);
 }
 
+bool RedisPut::setUserBase(string uid,string key, string value){
+	UserBase ub;
+	return m_redis->Hash(ub.GetTypeName() + uid,key, value);
+}
+
+bool RedisPut::addUserBase(string uid, string key, int value){
+	UserBase ub;
+	return m_redis->addHash(ub.GetTypeName() + uid, key, value);
+}
+
 bool RedisPut::PushRank(Rank rk){
 	int type = rk.type();
 	char buff[50];
@@ -51,6 +61,12 @@ bool RedisPut::PushShop(ShopItem item){
 
 bool RedisPut::PushMail(string uid, Mail mail){
 	return m_redis->List("mail"+uid,&mail);
+}
+
+bool RedisPut::setMailStatus(string uid, int mid, int status){
+	char buff[50];
+	sprintf(buff,"mailstatus%s%d",uid.c_str(),mid);
+	return m_redis->set(buff,status);
 }
 
 bool RedisPut::PushFriend(string uid, string friuid){

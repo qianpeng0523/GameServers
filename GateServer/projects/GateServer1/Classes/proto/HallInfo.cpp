@@ -149,11 +149,11 @@ void HallInfo::HandlerCMail(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	
 	SMail sl;
-	ClientData *dd = LibEvent::getIns()->getClientData(event->m_fd);
-	vector<Mail> vec = m_pRedisGet->getMail(dd->_uid);
-	int sz = vec.size();
-	for (int i = 0; i < sz; i++){
-		Mail m = vec.at(i);
+	string uid = LibEvent::getIns()->getUID(event->m_fd);
+	map<string,Mail> vec = m_pRedisGet->getMail(uid);
+	map<string, Mail>::iterator itr = vec.begin();
+	for (itr; itr != vec.end();itr++){
+		Mail m = itr->second;
 		Mail *m1= sl.add_list();
 		m1->CopyFrom(m);
 	}
@@ -168,12 +168,53 @@ void HallInfo::SendSMailAward(SMailAward cl, int fd){
 void HallInfo::HandlerCMailAward(ccEvent *event){
 	CMailAward cl;
 	cl.CopyFrom(*event->msg);
-	int id = cl.id();
+	int mid = cl.id();
 	//逻辑
 	SMailAward sma;
-	sma.set_err(0);
-	sma.set_id(id);
+	string uid = LibEvent::getIns()->getUID(event->m_fd);
+	Mail mail= m_pRedisGet->getMail(uid,mid);
+	if (mail.eid() > 0){
+		sma.set_err(0);
+		int status = m_pRedisGet->getMailStatus(uid,mid);
+		//status 0表示无奖励 1表示有奖励未领取 2表示有奖励已经领取
+		if (status == 1){
+			m_pRedisPut->setMailStatus(uid, mid, 2);
+			//给玩家奖励
+			int sz = mail.rewardlist_size();
+			for (int i = 0; i < sz;i++){
+				Reward rd = mail.rewardlist(i);
+				resetUserData(rd, uid);
+			}
+			//推送金币那些协议
+		}
+		else{
+			sma.set_err(1);
+		}
+	}
+	else{
+		sma.set_err(1);
+	}
+	
+	sma.set_id(mid);
 	SendSMailAward(sma, event->m_fd);
+}
+
+void HallInfo::resetUserData(Reward rd, string uid){
+	int number = rd.number();
+	Prop p = rd.prop();
+	int pid = p.id();
+	if (pid == 1){
+		//金币
+		m_pRedisPut->addUserBase(uid,"gold",number);
+	}
+	else if (pid == 3){
+		//房卡
+		m_pRedisPut->addUserBase(uid, "card", number);
+	}
+	else if (pid == 2){
+		//钻石
+		m_pRedisPut->addUserBase(uid, "diamond", number);
+	}
 }
 
 void HallInfo::SendSFriend(SFriend cl, int fd){
@@ -210,17 +251,23 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 	CFindFriend cl;
 	cl.CopyFrom(*event->msg);
 	
+	string uid = cl.uid();
+	int type = cl.type();
 	char buff[100];
 	SFindFriend fris;
-	for (int i = 0; i < 2; i++){
-		Friend *fri = fris.add_list();
-		fri->set_acttype(i % 3 + 1);
-		fri->set_online(i % 2);
-		fri->set_time(Common::getTime());
-		UserBase *user = fri->mutable_info();
-		sprintf(buff, "10000%d", i);
-		user->set_username(buff);
-		user->set_userid(buff);
+	fris.set_err(0);
+	if (type == 1){
+		UserBase *fir = m_pRedisGet->getUserBase(uid);
+		if (fir){
+			Friend *fri = fris.add_list();
+			fri->set_acttype(1);
+			fri->set_online(1);
+			fri->set_time(Common::getTime());
+			fri->set_allocated_info(fir);
+		}
+	}
+	else if (type == 2){
+		
 	}
 	SendSFindFriend(fris, event->m_fd);
 }

@@ -14,9 +14,13 @@
 #include "LoginInfo.h"
 #include "StatTimer.h"
 #include "RedisGet.h"
+#include "ConfigData.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	ConfigData::getIns();
+
+
 	StatTimer::getIns();
 	CSVDataInfo::getIns();
 	LoginInfo::getIns();

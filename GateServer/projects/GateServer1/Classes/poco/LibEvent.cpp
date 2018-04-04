@@ -406,3 +406,11 @@ void LibEvent::eraseClientData(string sesionid){
 		}
 	}
 }
+
+string LibEvent::getUID(int fd){
+	ClientData *data = getClientData(fd);
+	if (data){
+		return data->_uid;
+	}
+	return "";
+}

@@ -17,9 +17,12 @@ public:
 	bool PushConfig(string uid,SConfig scf);
 	bool PushPass(string uid,string pass);
 	bool PushUserBase(UserBase ub);
+	bool setUserBase(string uid, string key, string value);
+	bool addUserBase(string uid, string key, int value);
 	bool PushRank(Rank rk);
 	bool PushShop(ShopItem item);
 	bool PushMail(string uid,Mail mail);
+	bool setMailStatus(string uid,int mid,int status);
 	bool PushFriend(string uid,string friuid);
 	bool PushFriendNotice(string uid, FriendNotice fn);
 	bool PushActive(Active at);
