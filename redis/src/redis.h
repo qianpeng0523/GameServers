@@ -27,6 +27,8 @@ public:
 	char* get(std::string key,int &len);
 
 	bool Hash(std::string key,Message *msg);//比如配置那些（单独） 用户信息
+	bool Hash(std::string key,std::string name,std::string value);
+	bool addHash(std::string key,std::string name,int value);
 	Message *getHash(std::string key,string msgname);
 
 	bool List(std::string key, Message *msg);//typename+id(唯一):添加元素列表 比如战绩那些（id是房间号）

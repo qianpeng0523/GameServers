@@ -246,6 +246,48 @@ bool redis::Hash(std::string key, Message *msg){
 	return true;
 }
 
+bool redis::Hash(std::string key, std::string name, std::string value){
+	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, ("hset "+key+" "+name+" "+value).c_str());
+	if (!r)
+	{
+		printf("set redis faliled\n");
+		return false;
+	}
+
+	//Ö´ĞĞÊ§°Ü
+	if (r->type == REDIS_REPLY_ERROR || r->str)
+	{
+		printf("set redis faliled\n");
+		freeReplyObject(r);
+		return false;
+	}
+	printf("set redis success\n");
+	freeReplyObject(r);
+	return true;
+}
+
+bool redis::addHash(std::string key, std::string name, int value){
+	char buff[300];
+	sprintf(buff,"hincrby %s %s %d",key,name,value);
+	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, buff);
+	if (!r)
+	{
+		printf("set redis faliled\n");
+		return false;
+	}
+
+	//Ö´ĞĞÊ§°Ü
+	if (r->type == REDIS_REPLY_ERROR || r->str)
+	{
+		printf("set redis faliled\n");
+		freeReplyObject(r);
+		return false;
+	}
+	printf("set redis success\n");
+	freeReplyObject(r);
+	return true;
+}
+
 Message *redis::getHash(std::string key, string msgname){
 	Message *msg;
 	map<string, string>datas;
