@@ -114,6 +114,7 @@ private:
 	HuTypeEnum isFit(vector<int>p, bool isbao, HuItem &item);
 	map<int, vector<int>> getKindCard(int *temppai);
 	void setLiankeBao();
+	void setTing();
 	void test();
 private:
 	

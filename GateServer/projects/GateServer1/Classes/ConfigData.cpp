@@ -1024,3 +1024,9 @@ void ConfigData::setLiankeBao(){
 	}
 	printf("\n");
 }
+
+void ConfigData::setTing(){
+	for (int i = 0; i < g_kind;i++){
+		int v = g_all_mjkind[i];
+	}
+}
