@@ -4,15 +4,46 @@
 
 using namespace std;
 
-#define CARDNUMBER 136
+#define CARDNUMBER 120
+
+enum HuTypeEnum
+{
+	None=0,
+	PI,//屁胡
+	QINGYISE,//清一色
+	QIDUI,//七对
+	PENGPENG,//碰碰胡
+	QYSQD,//清一色七对
+	QYSPENG,//清一色碰碰胡
+	
+};
+
+enum HeiOrYing
+{
+	HEI,
+	RUAN,
+};
+
+struct HuItem
+{
+	HuTypeEnum	_hutype;
+	HeiOrYing	_hy;
+	bool		_ka;//卡牌或者单调
+	bool		_menqing;//门清
+	bool		_gangkai;
+	bool		_qianggang;
+	int			_pao;
+};
 
 static int g_all_mjkind[] = {
 	0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
 	0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19,
 	0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29,
 	0x31, 0x32, 0x33, 0x34,
-	0x41, 0x42, 0x43
+	0x35, 0x36, 0x37
 };
+
+#define g_kind (sizeof(g_all_mjkind)/sizeof(int))
 
 static int g_all_mj[] = {
 	g_all_mjkind[0], g_all_mjkind[0], g_all_mjkind[0], g_all_mjkind[0],
@@ -49,7 +80,7 @@ static int g_all_mj[] = {
 	g_all_mjkind[28], g_all_mjkind[28], g_all_mjkind[28], g_all_mjkind[28],
 	g_all_mjkind[29], g_all_mjkind[29], g_all_mjkind[29], g_all_mjkind[29],
 	g_all_mjkind[30], g_all_mjkind[30], g_all_mjkind[30], g_all_mjkind[30],
-
+	
 	g_all_mjkind[31], g_all_mjkind[31], g_all_mjkind[31], g_all_mjkind[31],
 	g_all_mjkind[32], g_all_mjkind[32], g_all_mjkind[32], g_all_mjkind[32],
 	g_all_mjkind[33], g_all_mjkind[33], g_all_mjkind[33], g_all_mjkind[33],
@@ -63,26 +94,37 @@ public:
 	
 	static ConfigData *getIns();
 	void init();
-
-	bool isHu(int *p,int len);
-	bool isDui(int *p,int index1,int index2);
-	bool is3Same(int *p, int index1, int index2,int index3);
-	bool is3Lian(int *p, int index1, int index2, int index3);
-	bool is7Dui(int *dui7, int len);
-	bool isQing(int *p, int len);
-
 	void quickSort(int *&s, int l, int r);
-	void setZero(int *&a,int index);
-	void copy(int *&a,int *b,int len);//将b复制到a
-
 	int getMJ();
 	int getMJ(int index);
 	void initMJ();
+	
+	void setKezi();
+	void setFengKezi(int jj);
+	void setFengKeTo(int len,map<string ,int> maps);
+	void setShunzi();
+	void init3P(int index, int kenum);
+	void init3L(int shunnum, int index, vector<int>ww);
+
+	HuItem isHu(int *pai, bool ispengqing);
+	HuItem isHu(int *pai, bool ispengqing, int bao);
 private:
+	void setValueZero(int *a, int v, int len);
+	HuTypeEnum isFit(int *p, int len, bool isbao, HuItem &item);
+	HuTypeEnum isFit(vector<int>p, bool isbao, HuItem &item);
+	map<int, vector<int>> getKindCard(int *temppai);
+	void setLiankeBao();
+	void test();
+private:
+	
 	static ConfigData *m_ins;
 	vector<int >m_cards;
 	int m_index;
-	map<int, vector<vector<int>>>m_hus;
+	vector<vector<int>>m_kezi;
+	vector<vector<int>>m_fengkezi;
+	vector<vector<int>>m_shunzi;
+	map<int, map<string, int>>m_lianke;
+	map<int, map<string, int>>m_liankebao;
 };
 
 

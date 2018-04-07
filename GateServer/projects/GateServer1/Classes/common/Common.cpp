@@ -9,6 +9,13 @@ Common::~Common() {
 
 }
 
+byte*	Common::replace(byte *&str, int beginpos, int len, byte b){
+	for (int i = beginpos; i < beginpos + len;i++){
+		str[i] = b;
+	}
+	return str;
+}
+
 std::string& Common::replace_all(std::string& str, const std::string& old_value, const std::string& new_value)
 {
 	while (true)   {
@@ -92,6 +99,19 @@ int Common::getTime(time_t ptimep, int type){
 	return ptimep;
 }
 
+int64_t Common::getCurrentTime()      //直接调用这个函数就行了，返回值最好是int64_t，long long应该也可以  
+{
+#define EPOCHFILETIME   (116444736000000000UL)
+	FILETIME ft;
+	LARGE_INTEGER li;
+	int64_t tt = 0;
+	GetSystemTimeAsFileTime(&ft);
+	li.LowPart = ft.dwLowDateTime;
+	li.HighPart = ft.dwHighDateTime;
+	// 从1970年1月1日0:0:0:000到现在的微秒数(UTC时间)
+	tt = (li.QuadPart - EPOCHFILETIME) / 10;
+	return tt;
+}
 
 time_t Common::getTime(){
 	char buff[100];

@@ -50,3 +50,4 @@ using namespace Poco;
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 
 #define ZERO_STR '&'
+//#define FENG_LIAN 0

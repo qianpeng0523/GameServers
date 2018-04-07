@@ -40,6 +40,9 @@
     <Filter Include="源文件\Classes\redisdata">
       <UniqueIdentifier>{4cc70221-211b-4273-a8d8-23075a55a52d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes\algorithm">
+      <UniqueIdentifier>{832a8426-ed9b-40bb-8cef-468a16477d14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\stdafx.cpp">
