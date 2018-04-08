@@ -14,6 +14,7 @@
 
 #include "Object.h"
 #include <map>
+#include <set>
 #include <string.h>
 #include <xstring>
 #include "MD5.h"

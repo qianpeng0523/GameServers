@@ -101,7 +101,7 @@ public:
 	
 	void setKezi();
 	void setFengKezi(int jj);
-	void setFengKeTo(int len,map<string ,int> maps);
+	void setFengKeTo(int len, map<string, int> maps);
 	void setShunzi();
 	void init3P(int index, int kenum);
 	void init3L(int shunnum, int index, vector<int>ww);
@@ -109,12 +109,11 @@ public:
 	HuItem isHu(int *pai, bool ispengqing);
 	HuItem isHu(int *pai, bool ispengqing, int bao);
 private:
-	void setValueZero(int *a, int v, int len);
-	HuTypeEnum isFit(int *p, int len, bool isbao, HuItem &item);
-	HuTypeEnum isFit(vector<int>p, bool isbao, HuItem &item);
+	void setValueZero(int *a, int v, int len,int &baocount);
+	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item);
 	map<int, vector<int>> getKindCard(int *temppai);
-	void setLiankeBao();
-	void setTing();
+	void setLiankeBao(int i);
+	vector<int> isTing(int *pai,int bao);
 	void test();
 private:
 	

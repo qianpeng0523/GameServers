@@ -21,11 +21,11 @@ namespace CSV{
 		bool _use;
 		int _type;
 	};
-	struct CSVHuItem:public Object
+	/*struct CSVHuItem :public Object
 	{
 		string _key;
 		int _value;
-	};
+	};*/
 }
 
 #endif 

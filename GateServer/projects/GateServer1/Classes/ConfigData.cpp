@@ -58,25 +58,24 @@ void ConfigData::initMJ(){
 }
 
 void ConfigData::init(){
-	
-#ifdef FENG_LIAN
-
-#else
-	for (int i = 0x31; i <= 0x37; i++){
-		vector<int >vec;
-		for (int j = 0; j < 3; j++){
-			vec.push_back(i);
-		}
-		m_fengkezi.push_back(vec);
-	}
-	for (int i = 1; i <= 4; i++){
-		setFengKezi(i);
-	}
-#endif
 	int64_t t = Common::getCurrentTime();
 	FILE *fp = fopen("./res/ke5.csv", "r");
 	char buff[200];
 	if (fp == NULL){
+#ifdef FENG_LIAN
+
+#else
+		for (int i = 0x31; i <= 0x37; i++){
+			vector<int >vec;
+			for (int j = 0; j < 3; j++){
+				vec.push_back(i);
+			}
+			m_fengkezi.push_back(vec);
+		}
+		for (int i = 1; i <= 4; i++){
+			setFengKezi(i);
+		}
+#endif
 		setKezi();
 		setShunzi();
 		for (int i = 1; i <= 4; i++){
@@ -96,8 +95,7 @@ void ConfigData::init(){
 			map<string, int>::iterator itr1 = vec.begin();
 			for (itr1; itr1 != vec.end(); itr1++){
 				string key = itr1->first;
-				int nn = itr1->second;
-				sprintf(buff, "%s,%d\n", key.c_str(), nn);
+				sprintf(buff, "%s\n", key.c_str());
 				fprintf(fp, buff);
 			}
 			fclose(fp);
@@ -110,47 +108,43 @@ void ConfigData::init(){
 		for (int i = 0; i < 8; i++){
 			sprintf(buff,"./res/ke%s.csv",vv[i].c_str());
 			pp->openCSVFile(buff, ct[i]);
-			std::map<int, Object *> vec5 = pp->getDatas(ct[i]);
-			map<string, int> maps;
-			for (int j = 0; j < vec5.size(); j++){
-				CSVHuItem *item = (CSVHuItem *)vec5.at(j);
-				maps.insert(make_pair(item->_key, item->_value));
-			}
-			m_lianke.insert(make_pair(atoi(vv[i].c_str()), maps));
-			pp->eraseData(ct[i]);
+			map<string, int> vec5 = pp->getDatasHuItem(ct[i]);
+			int len = atoi(vv[i].c_str());
+			m_lianke.insert(make_pair(len, vec5));
 		}
 	}
 	
 	
 	int64_t t1 = Common::getCurrentTime();
-	int tt = t1-t;
-	printf("**********use time:%dus***********\n",tt);
+	int64_t tt = t1 - t;
+	printf("**********use time:%gs***********\n", tt / 1000.0 / 1000);
 
-	FILE *fp1 = fopen("./res/baoke5.csv", "r");
+	FILE *fp1 = fopen("./res/baoke501.csv", "r");
 	if (fp1 == NULL){
-		setLiankeBao();
+		for (int i = 1; i <= 4; i++){
+			setLiankeBao(i);
+		}
 	}
 	else{
 		CSVDataInfo *pp = CSVDataInfo::getIns();
 		string vv[] = { "5", "52", "8", "82", "11", "112", "14", "142" };
-		CSVSTRUCT ct[] = { CSV_BAOHU5, CSV_BAOHU52, CSV_BAOHU8, CSV_BAOHU82, CSV_BAOHU11, CSV_BAOHU112, CSV_BAOHU14, CSV_BAOHU142};
+		string vr[] = { "01", "02", "03", "04" };
+		//CSVSTRUCT ct[] = { CSV_BAOHU51, CSV_BAOHU52, CSV_BAOHU8, CSV_BAOHU82, CSV_BAOHU11, CSV_BAOHU112, CSV_BAOHU14, CSV_BAOHU142};
 		for (int i = 0; i < 8; i++){
-			sprintf(buff, "./res/baoke%s.csv", vv[i].c_str());
-			pp->openCSVFile(buff, ct[i]);
-			std::map<int, Object *> vec5 = pp->getDatas(ct[i]);
-			map<string, int> maps;
-			for (int j = 0; j < vec5.size(); j++){
-				CSVHuItem *item = (CSVHuItem *)vec5.at(j);
-				maps.insert(make_pair(item->_key, item->_value));
+			for (int j = 0; j < 4; j++){
+				sprintf(buff, "./res/baoke%s%s.csv", vv[i].c_str(),vr[j].c_str());
+				CSVSTRUCT type = (CSVSTRUCT)(CSV_BAOHU51 + i * 4 + j);
+				printf("type:%d\n",type);
+				pp->openCSVFile(buff, type);
+				map<string, int> vec5 = pp->getDatasHuItem(type);
+				m_liankebao.insert(make_pair(atoi((vv[i]+vr[j]).c_str()), vec5));
 			}
-			m_liankebao.insert(make_pair(atoi(vv[i].c_str()), maps));
-			pp->eraseData(ct[i]);
 		}
 	}
 	
-	time_t t2 = Common::getCurrentTime();
+	int64_t t2 = Common::getCurrentTime();
 	tt = t2 - t1;
-	printf("******111use time:%dus******\n", tt);
+	printf("******111use time:%gs******\n", tt / 1000.0 / 1000);
 
 
 
@@ -163,19 +157,19 @@ void ConfigData::test(){
 	int index = 0;
 	int a[4][14] = { { 1, 2, 3, 5, 5 }, { 1, 1, 1, 17, 17, 17, 17, 3 }, { 22, 22 }, {1,23,2,3,4,5,6,7,17,18,19,33,34,35} };
 	while (index < 10000){
-		int64_t t = Common::getCurrentTime();
-		HuItem item = isHu(a[index%4], true,1);
+		//int64_t t = Common::getCurrentTime();
+ 		HuItem item = isHu(a[index%4], true,1);
 		if (item._hutype != None){
-			//printf("--------------success:%d\n", item._hutype);
+			printf("[%d].--------------success:%d\n",index, item._hutype);
 		}
-		int64_t t1 = Common::getCurrentTime();
-		int tt = t1 - t;
-		printf("isfit.use time:%d\n", tt);
+		//int64_t t1 = Common::getCurrentTime();
+		//int64_t tt = t1 - t;
+		//printf("[%d].isfit.use time:%gms\n",index, tt / 1000.0);
 		index++;
 	}
 	int64_t t1 = Common::getCurrentTime();
-	int tt = t1 - ttt;
-	printf("******111use time:%dus******\n", tt);
+	int64_t tt = t1 - ttt;
+	printf("******111use time:%gs******\n", tt/1000.0/1000);
 	printf("1111\n");
 }
 
@@ -239,7 +233,7 @@ void ConfigData::setFengKezi(int jj){
 								for (int mm = 0; mm < vvvvv.size(); mm++){
 									sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
 								}
-								maps.insert(make_pair(buff, 1));
+								maps.insert(make_pair(buff,0));
 							}
 						}
 						else{
@@ -256,7 +250,7 @@ void ConfigData::setFengKezi(int jj){
 							for (int mm = 0; mm < vvvvv.size(); mm++){
 								sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
 							}
-							maps.insert(make_pair(buff, 1));
+							maps.insert(make_pair(buff, 0));
 						}
 					}
 				}
@@ -272,7 +266,7 @@ void ConfigData::setFengKezi(int jj){
 					for (int mm = 0; mm < vvvvv.size(); mm++){
 						sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
 					}
-					maps.insert(make_pair(buff, 1));
+					maps.insert(make_pair(buff, 0));
 				}
 			}
 		}
@@ -282,10 +276,10 @@ void ConfigData::setFengKezi(int jj){
 			for (int mm = 0; mm < vec.size(); mm++){
 				sprintf(buff + mm * 2, "%02X", vec.at(mm));
 			}
-			maps.insert(make_pair(buff, 1));
+			maps.insert(make_pair(buff, 0));
 		}
 	}
-	setFengKeTo(len, maps);
+	setFengKeTo(len*10+2, maps);
 }
 
 void ConfigData::setShunzi(){
@@ -377,7 +371,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 		co = co*10+2;
 	}
 	int szsz = m_shunzi.size();
-	map<string, int> maps;
+	map<string,int> maps;
 	if (shunnum > 0){
 		for (int i = 0; i < szsz; i++){
 			if (shunnum>1){
@@ -404,7 +398,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 									for (int mm = 0; mm < vvvvv.size(); mm++){
 										sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
 									}
-									maps.insert(make_pair(buff, 1));
+									maps.insert(make_pair(buff, 0));
 								}
 							}
 							else{
@@ -424,7 +418,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 								for (int mm = 0; mm < vvvvv.size(); mm++){
 									sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
 								}
-								maps.insert(make_pair(buff, 1));
+								maps.insert(make_pair(buff, 0));
 							}
 						}
 					}
@@ -443,7 +437,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 						for (int mm = 0; mm < vvvvv.size(); mm++){
 							sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
 						}
-						maps.insert(make_pair(buff, 1));
+						maps.insert(make_pair(buff, 0));
 					}
 				}
 			}
@@ -460,20 +454,16 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 				for (int mm = 0; mm < vvvvv.size(); mm++){
 					sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
 				}
-				maps.insert(make_pair(buff, 1));
+				maps.insert(make_pair(buff, 0));
 			}
 		}
 	}
 	else{
-		vector<int>vvvvv;
-		for (int jj = 0; jj < ww.size(); jj++){
-			vvvvv.push_back(ww.at(jj));
+		sort(ww.begin(), ww.end(), compare);
+		for (int mm = 0; mm < ww.size(); mm++){
+			sprintf(buff + mm * 2, "%02X", ww.at(mm));
 		}
-		sort(vvvvv.begin(), vvvvv.end(), compare);
-		for (int mm = 0; mm < vvvvv.size(); mm++){
-			sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
-		}
-		maps.insert(make_pair(buff, 1));
+		maps.insert(make_pair(buff, 0));
 	}
 	
 	setFengKeTo(co,maps);
@@ -487,7 +477,8 @@ void ConfigData::setFengKeTo(int len, map<string, int> maps){
 		map<string, int>mp = m_lianke.at(len);
 		map<string, int>::iterator itr = maps.begin();
 		for (itr; itr != maps.end(); itr++){
-			mp.insert(make_pair(itr->first, itr->second));
+			mp.insert(make_pair(itr->first,itr->second));
+			
 		}
 		m_lianke.at(len) = mp;
 	}
@@ -544,15 +535,16 @@ HuItem ConfigData::isHu(int *pai,bool ispengqing){
 			int temppai[14] = { 0 };
 			memcpy(temppai,pai,sizeof(int)*14);
 			int v = itr1->first;
-			setValueZero(temppai,v,2);
+			int baocount = 0;
+			setValueZero(temppai,v,2,baocount);
 			map<int, vector<int>> kindcards = getKindCard(temppai);
 			map<int, vector<int>>::iterator itr = kindcards.begin();
 			int ii = 0;
 			HuTypeEnum lasttype = None;
 			for (itr; itr != kindcards.end();itr++){
 				vector<int> vec = itr->second;
-				sort(vec.begin(), vec.end(), compare);
-				HuTypeEnum type = isFit(vec, false,huitem);
+				//sort(vec.begin(), vec.end(), compare);
+				HuTypeEnum type = isFit(vec, 0,huitem);
 				if (ii > 0){
 					if (lasttype != type){
 						lasttype = PI;
@@ -614,7 +606,7 @@ map<int, vector<int>> ConfigData::getKindCard(int *temppai){
 #endif
 				}
 				else{
-					vv.push_back(v);
+					vv.push_back(v % 16);
 				}
 				kindcards.at(kind) = vv;
 			}
@@ -624,6 +616,7 @@ map<int, vector<int>> ConfigData::getKindCard(int *temppai){
 }
 
 HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
+	quickSort(pai, 0, 13);
 	int64_t t = Common::getCurrentTime();
 	HuItem huitem = isHu(pai, ispengqing);
 	if (huitem._hutype != None){
@@ -695,7 +688,7 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 			huitem._hy = RUAN;
 			return huitem;
 		}
-		if (baocount > 0&&dui.size()==0){
+		if (baocount > 0){
 			for (int i = 0; i < 14; i++){
 				int v = temppai[i];
 				if (v>0){
@@ -703,20 +696,24 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 				}
 			}
 		}
+		
 		map<int, int>::iterator itr1 = dui.begin();
 		for (itr1; itr1 != dui.end(); itr1++){
 			int temppai1[14] = { 0 };
 			memcpy(temppai1, temppai, sizeof(int)* 14);
 			int v = itr1->first;
-			setValueZero(temppai1, v, 2);
+			int baocount1 = baocount;
+			setValueZero(temppai1, v, 2,baocount1);
 			map<int, vector<int>> kindcards = getKindCard(temppai1);
 			map<int, vector<int>>::iterator itr = kindcards.begin();
 			int ii = 0;
 			HuTypeEnum lasttype = None;
 			for (itr; itr != kindcards.end(); itr++){
 				vector<int> vec = itr->second;
-				sort(vec.begin(),vec.end(),compare);
-				HuTypeEnum type = isFit(vec, true, huitem);
+				//sort(vec.begin(),vec.end(),compare);
+
+				HuTypeEnum type = isFit(vec, baocount1, huitem);
+				
 				if (ii > 0){
 					if (lasttype != type){
 						lasttype = PI;
@@ -735,7 +732,7 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 				}
 				ii++;
 			}
-
+			
 			if (lasttype == PI){
 				huitem._hutype = isq ? QINGYISE : PI;
 				return huitem;
@@ -750,7 +747,7 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 	return huitem;
 }
 
-HuTypeEnum ConfigData::isFit(vector<int>p, bool isbao, HuItem &item){
+HuTypeEnum ConfigData::isFit(vector<int>p, int baocount, HuItem &item){
 	char buff[200];
 	int len = p.size();
 	if (len == 1){
@@ -792,142 +789,49 @@ HuTypeEnum ConfigData::isFit(vector<int>p, bool isbao, HuItem &item){
 	else if (len == 13){
 		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6), p.at(7), p.at(8), p.at(9), p.at(10), p.at(11), p.at(12));
 	}
-	int l = len / 3 + (len % 3 == 0 ? 0 : 1);
-	len = l * 3 + 2;
-	int co = len * 10 + 2;
-	if (!isbao){
-		item._hy = HEI;
-		if (m_lianke.find(co) != m_lianke.end()){
-			map<string, int> maps = m_lianke.at(co);
-			if (maps.find(buff) != maps.end()){
-				return PENGPENG;
-			}
-		}
-		if (m_lianke.find(len) != m_lianke.end()){
-			map<string, int> maps = m_lianke.at(len);
-			if (maps.find(buff) != maps.end()){
-				return PI;
-			}
+	int l = (len / 3 + (len % 3 == 0 ? 0 : 1)) * 3 + 2;
+	int co = l * 10 + 2;//碰碰胡
+	int baoco1 = l * 100 + baocount;
+	int baoco2 = co * 100 + baocount;//碰碰胡
+	map<int, map<string, int>>::iterator itr1 = m_lianke.find(co);
+	if (itr1 != m_lianke.end()){
+		map<string, int> maps = itr1->second;
+		if (maps.find(buff) != maps.end()){
+			item._hy = HEI;
+			return PENGPENG;
 		}
 	}
-	else{
-		if (m_liankebao.find(co) != m_liankebao.end()){
-			map<string, int> maps = m_liankebao.at(co);
+	itr1 = m_lianke.find(l);
+	if (itr1 != m_lianke.end()){
+		map<string, int> maps = itr1->second;
+		if (maps.find(buff) != maps.end()){
+			item._hy = HEI;
+			return PI;
+		}
+	}
+
+	if (baocount>0){
+		itr1 = m_liankebao.find(baoco1);
+		if (itr1 != m_liankebao.end()){
+			map<string, int> maps =itr1->second;
 			if (maps.find(buff) != maps.end()){
-				if (strlen(buff) / 2 == len - 2){
-					item._hy = HEI;
-				}
-				else{
-					item._hy = RUAN;
-				}
-				return PENGPENG;
+				item._hy = RUAN;
+				return PI;
 			}
 		}
-		if (m_liankebao.find(len) != m_liankebao.end()){
-			map<string, int> maps = m_liankebao.at(len);
+		itr1 = m_liankebao.find(baoco2);
+		if (itr1 != m_liankebao.end()){
+			map<string, int> maps = itr1->second;
 			if (maps.find(buff) != maps.end()){
-				if (strlen(buff) / 2 == len - 2){
-					item._hy = HEI;
-				}
-				else{
-					item._hy = RUAN;
-				}
-				return PI;
+				item._hy = RUAN;
+				return PENGPENG;
 			}
 		}
 	}
 	return None;
 }
 
-HuTypeEnum ConfigData::isFit(int *p, int len,bool isbao,HuItem &item){
-	char buff[200];
-	if (len == 1){
-		sprintf(buff, "%02X", p[0]);
-	}
-	else if (len == 2){
-		sprintf(buff, "%02X%02X", p[0], p[1]);
-	}
-	else if (len == 3){
-		sprintf(buff, "%02X%02X%02X", p[0], p[1], p[2]);
-	}
-	else if (len == 4){
-		sprintf(buff, "%02X%02X%02X%02X", p[0], p[1], p[2], p[3]);
-	}
-	else if (len == 5){
-		sprintf(buff, "%02X%02X%02X%02X%02X", p[0], p[1], p[2], p[3], p[4]);
-	}
-	else if (len == 6){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X", p[0], p[1], p[2], p[3], p[4], p[5]);
-	}
-	else if (len == 7){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X", p[0], p[1], p[2], p[3], p[4], p[5], p[6]);
-	}
-	else if (len == 8){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
-	}
-	else if (len == 9){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]);
-	}
-	else if (len == 10){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
-	}
-	else if (len == 11){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X%02X", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10]);
-	}
-	else if (len == 12){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X%02X%02X", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11]);
-	}
-	else if (len == 13){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X%02X%02X", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12]);
-	}
-	int l = len / 3 + (len % 3 == 0 ? 0 : 1);
-	len = l*3+2;
-	int co = len*10+2;
-	if (!isbao){
-		item._hy = HEI;
-		if (m_lianke.find(co) != m_lianke.end()){
-			map<string, int> maps = m_lianke.at(co);
-			if (maps.find(buff) != maps.end()){
-				return PENGPENG;
-			}
-		}
-		if (m_lianke.find(len) != m_lianke.end()){
-			map<string, int> maps = m_lianke.at(len);
-			if (maps.find(buff) != maps.end()){
-				return PI;
-			}
-		}
-	}
-	else{
-		if (m_liankebao.find(co) != m_liankebao.end()){
-			map<string, int> maps = m_liankebao.at(co);
-			if (maps.find(buff) != maps.end()){
-				if (strlen(buff) / 2 == len - 2){
-					item._hy = HEI;
-				}
-				else{
-					item._hy = RUAN;
-				}
-				return PENGPENG;
-			}
-		}
-		if (m_liankebao.find(len) != m_liankebao.end()){
-			map<string, int> maps = m_liankebao.at(len);
-			if (maps.find(buff) != maps.end()){
-				if (strlen(buff)/2 == len-2){
-					item._hy = HEI;
-				}
-				else{
-					item._hy = RUAN;
-				}
-				return PI;
-			}
-		}
-	}
-	return None;
-}
-
-void ConfigData::setValueZero(int *a, int v,int len){
+void ConfigData::setValueZero(int *a, int v, int len, int &baocount){
 	int index = 0;
 	for (int i = 0; i < 14; i++){
 		if (a[i] == v){
@@ -938,74 +842,73 @@ void ConfigData::setValueZero(int *a, int v,int len){
 			}
 		}
 	}
+	baocount -=(2 - index);
 }
 
-void ConfigData::setLiankeBao(){
+void ConfigData::setLiankeBao(int i){
 	map<int, map<string, int>>::iterator itr = m_lianke.begin();
 	for (itr; itr != m_lianke.end();itr++){
-		int keykey = itr->first;
+		int keykey = itr->first*100+i;
 		map<string, int>maps1;
 		map<string, int> maps = itr->second;
 		map<string, int>::iterator itr1 = maps.begin();
 		for (itr1; itr1 != maps.end();itr1++){
 			string key = itr1->first;
 			int len = key.length();
-			for (int i = 0; i <= 4; i++){
-				if (i >= 1){
-					for (int j = 0; j < len; j += 2){
-						if (i >= 2){
-							for (int k = j + 2; k < len; k += 2){
-								if (i >= 3){
-									for (int m = k + 2; m < len; m += 2){
-										if (i >= 4){
-											for (int n = m + 2; n < len; n += 2){
-												string kkey = key;
-												kkey.replace(j, 2, "  ");
-												kkey.replace(k, 2, "  ");
-												kkey.replace(m, 2, "  ");
-												kkey.replace(n, 2, "  ");
-												Common::replace_all(kkey, "  ", "");
-
-												maps1.insert(make_pair(kkey, 1));
-
-											}
-										}
-										else{
+			if (i >= 1){
+				for (int j = 0; j < len; j += 2){
+					if (i >= 2){
+						for (int k = j + 2; k < len; k += 2){
+							if (i >= 3){
+								for (int m = k + 2; m < len; m += 2){
+									if (i >= 4){
+										for (int n = m + 2; n < len; n += 2){
 											string kkey = key;
 											kkey.replace(j, 2, "  ");
 											kkey.replace(k, 2, "  ");
 											kkey.replace(m, 2, "  ");
+											kkey.replace(n, 2, "  ");
 											Common::replace_all(kkey, "  ", "");
-											maps1.insert(make_pair(kkey, 1));
+
+											maps1.insert(make_pair(kkey, 0));
+
 										}
 									}
-								}
-								else{
-									string kkey = key;
-									kkey.replace(j, 2, "  ");
-									kkey.replace(k, 2, "  ");
-									Common::replace_all(kkey, "  ", "");
-									maps1.insert(make_pair(kkey, 1));
+									else{
+										string kkey = key;
+										kkey.replace(j, 2, "  ");
+										kkey.replace(k, 2, "  ");
+										kkey.replace(m, 2, "  ");
+										Common::replace_all(kkey, "  ", "");
+										maps1.insert(make_pair(kkey, 0));
+									}
 								}
 							}
-						}
-						else{
-							string kkey = key;
-							kkey.replace(j, 2, "  ");
-							Common::replace_all(kkey, "  ", "");
-							maps1.insert(make_pair(kkey, 1));
+							else{
+								string kkey = key;
+								kkey.replace(j, 2, "  ");
+								kkey.replace(k, 2, "  ");
+								Common::replace_all(kkey, "  ", "");
+								maps1.insert(make_pair(kkey, 0));
+							}
 						}
 					}
+					else{
+						string kkey = key;
+						kkey.replace(j, 2, "  ");
+						Common::replace_all(kkey, "  ", "");
+						maps1.insert(make_pair(kkey, 0));
+					}
 				}
-				else{
-					maps1.insert(make_pair(key, 1));
-				}
+			}
+			else{
+				maps1.insert(make_pair(key, 0));
 			}
 		}
 		m_liankebao.insert(make_pair(keykey, maps1));
 		printf("*********%d**********\n", keykey);
 	}
-	map<int, map<string, int>>::iterator itr2 = m_liankebao.begin();
+	map<int, map<string,int>>::iterator itr2 = m_liankebao.begin();
 	char buff[200];
 	for (itr2; itr2 != m_liankebao.end(); itr2++){
 		int sr = itr2->first;
@@ -1016,8 +919,7 @@ void ConfigData::setLiankeBao(){
 		map<string, int>::iterator itr1 = vec.begin();
 		for (itr1; itr1 != vec.end(); itr1++){
 			string key = itr1->first;
-			int nn = itr1->second;
-			sprintf(buff, "%s,%d\n", key.c_str(), nn);
+			sprintf(buff, "%s\n", key.c_str());
 			fprintf(fp, buff);
 		}
 		fclose(fp);
@@ -1025,9 +927,21 @@ void ConfigData::setLiankeBao(){
 	printf("\n");
 }
 
-void ConfigData::setTing(){
+vector<int> ConfigData::isTing(int *pai, int bao){
+	quickSort(pai, 0, 13);
+	bool ismenqing = true;
+	for (int i = 0; i < 14; i++){
+		if (pai[i] == 0){
+			ismenqing = false;
+			break;
+		}
+	}
+	vector<int> vec;
 	for (int i = 0; i < g_kind;i++){
 		int v = g_all_mjkind[i];
-
+		if (isHu(pai, ismenqing, bao)){
+			vec.push_back(v);
+		}
 	}
+	return vec;
 }

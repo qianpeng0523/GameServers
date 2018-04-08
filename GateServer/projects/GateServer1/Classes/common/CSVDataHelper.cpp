@@ -3,22 +3,24 @@
 #include "XXIconv.h"
 #include "Object.h"
 
+
 CSVDataHelper::CSVDataHelper()
-:m_seperator(",")
-, m_colLength(0)
+ :m_seperator(",")
+ , m_colLength(0)
 {
 
 }
 
 CSVDataHelper::~CSVDataHelper()
 {
-
+	m_objecs.clear();
 }
 
 #pragma region reselove the content begin...
 
-bool CSVDataHelper::openAndResolveFile(const char *fileName)
+bool CSVDataHelper::openAndResolveFile(const char *fileName, CSVSTRUCT csv)
 {
+	m_csvtype = csv;
 	std::string pathKey = fileName;
 	unsigned char* pBuffer = NULL;
 	int bufferSize = 0;
@@ -34,6 +36,7 @@ bool CSVDataHelper::openAndResolveFile(const char *fileName)
 	for (unsigned int i = 0; i < m_row.size(); ++i) {
 		std::vector<std::string> fieldVector;
 		fieldSplit(fieldVector, m_row[i]);
+		setDataToObejct(fieldVector,i);
 		data.push_back(fieldVector);
 		m_colLength = max(m_colLength, (int)fieldVector.size());
 	}
@@ -41,6 +44,19 @@ bool CSVDataHelper::openAndResolveFile(const char *fileName)
 	return true;
 }
 
+void CSVDataHelper::setDataToObejct(std::vector<std::string> fieldVector,int index){
+	if (m_csvtype >= CSV_HU5&&m_csvtype <= CSV_BAOHU1424){
+		string key;
+		if (!fieldVector.empty()){
+			key = fieldVector.at(0);
+		}
+		m_objecs.insert(make_pair(key,0));
+	}
+}
+
+map<string, int> CSVDataHelper::getDataHuItems(){
+	return m_objecs;
+}
 
 void CSVDataHelper::rowSplit(std::vector<std::string> &rows, const std::string &content, const char &rowSeperator)
 {

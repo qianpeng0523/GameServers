@@ -15,11 +15,16 @@
 #include "StatTimer.h"
 #include "RedisGet.h"
 #include "ConfigData.h"
+#include "Common.h"
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ConfigData::getIns();
+	
+	double double a = 343434353535363636373737;
+	
 
+	ConfigData::getIns();
 
 	StatTimer::getIns();
 	CSVDataInfo::getIns();
