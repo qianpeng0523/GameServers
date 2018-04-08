@@ -121,7 +121,6 @@ private:
 	vector<int >m_cards;
 	int m_index;
 	vector<vector<int>>m_kezi;
-	vector<vector<int>>m_fengkezi;
 	vector<vector<int>>m_shunzi;
 	map<int, map<string, int>>m_lianke;
 	map<int, map<string, int>>m_liankebao;

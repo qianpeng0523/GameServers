@@ -70,7 +70,7 @@ void ConfigData::init(){
 			for (int j = 0; j < 3; j++){
 				vec.push_back(i);
 			}
-			m_fengkezi.push_back(vec);
+			m_kezi.push_back(vec);
 		}
 		for (int i = 1; i <= 4; i++){
 			setFengKezi(i);
@@ -208,7 +208,7 @@ void ConfigData::setKezi(){
 
 void ConfigData::setFengKezi(int jj){
 	map<string, int> maps;
-	int sz = m_fengkezi.size();
+	int sz = m_kezi.size();
 	char buff[200];
 	int len = jj * 3 + 2;
 	for (int i = 0; i < sz; i++){
@@ -218,10 +218,10 @@ void ConfigData::setFengKezi(int jj){
 					for (int k = j + 1; k < sz; k++){
 						if (jj>3){
 							for (int m = k + 1; m < sz; m++){
-								vector<int >vec = m_fengkezi.at(i);
-								vector<int >vec1 = m_fengkezi.at(j);
-								vector<int >vec2 = m_fengkezi.at(k);
-								vector<int >vec3 = m_fengkezi.at(m);
+								vector<int >vec = m_kezi.at(i);
+								vector<int >vec1 = m_kezi.at(j);
+								vector<int >vec2 = m_kezi.at(k);
+								vector<int >vec3 = m_kezi.at(m);
 								vector<int>vvvvv;
 								for (int kk = 0; kk < vec.size(); kk++){
 									vvvvv.push_back(vec.at(kk));
@@ -231,15 +231,15 @@ void ConfigData::setFengKezi(int jj){
 								}
 								sort(vvvvv.begin(), vvvvv.end(), compare);
 								for (int mm = 0; mm < vvvvv.size(); mm++){
-									sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
+									sprintf(buff + mm , "%c",48+ vvvvv.at(mm));
 								}
 								maps.insert(make_pair(buff,0));
 							}
 						}
 						else{
-							vector<int >vec = m_fengkezi.at(i);
-							vector<int >vec1 = m_fengkezi.at(j);
-							vector<int >vec2 = m_fengkezi.at(k);
+							vector<int >vec = m_kezi.at(i);
+							vector<int >vec1 = m_kezi.at(j);
+							vector<int >vec2 = m_kezi.at(k);
 							vector<int>vvvvv;
 							for (int kk = 0; kk < vec.size(); kk++){
 								vvvvv.push_back(vec.at(kk));
@@ -248,15 +248,15 @@ void ConfigData::setFengKezi(int jj){
 							}
 							sort(vvvvv.begin(), vvvvv.end(), compare);
 							for (int mm = 0; mm < vvvvv.size(); mm++){
-								sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
+								sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 							}
 							maps.insert(make_pair(buff, 0));
 						}
 					}
 				}
 				else{
-					vector<int >vec = m_fengkezi.at(i);
-					vector<int >vec1 = m_fengkezi.at(j);
+					vector<int >vec = m_kezi.at(i);
+					vector<int >vec1 = m_kezi.at(j);
 					vector<int>vvvvv;
 					for (int kk = 0; kk < vec.size(); kk++){
 						vvvvv.push_back(vec.at(kk));
@@ -264,17 +264,17 @@ void ConfigData::setFengKezi(int jj){
 					}
 					sort(vvvvv.begin(), vvvvv.end(), compare);
 					for (int mm = 0; mm < vvvvv.size(); mm++){
-						sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
+						sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 					}
 					maps.insert(make_pair(buff, 0));
 				}
 			}
 		}
 		else{
-			vector<int >vec = m_fengkezi.at(i);
+			vector<int >vec = m_kezi.at(i);
 			sort(vec.begin(), vec.end(), compare);
 			for (int mm = 0; mm < vec.size(); mm++){
-				sprintf(buff + mm * 2, "%02X", vec.at(mm));
+				sprintf(buff + mm, "%c", 48 + vec.at(mm));
 			}
 			maps.insert(make_pair(buff, 0));
 		}
