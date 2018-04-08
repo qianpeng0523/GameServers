@@ -396,7 +396,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 									}
 									sort(vvvvv.begin(), vvvvv.end(), compare);
 									for (int mm = 0; mm < vvvvv.size(); mm++){
-										sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
+										sprintf(buff + mm, "%c", 48+vvvvv.at(mm));
 									}
 									maps.insert(make_pair(buff, 0));
 								}
@@ -416,7 +416,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 								}
 								sort(vvvvv.begin(), vvvvv.end(), compare);
 								for (int mm = 0; mm < vvvvv.size(); mm++){
-									sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
+									sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 								}
 								maps.insert(make_pair(buff, 0));
 							}
@@ -435,7 +435,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 						}
 						sort(vvvvv.begin(), vvvvv.end(), compare);
 						for (int mm = 0; mm < vvvvv.size(); mm++){
-							sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
+							sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 						}
 						maps.insert(make_pair(buff, 0));
 					}
@@ -452,7 +452,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 				}
 				sort(vvvvv.begin(), vvvvv.end(), compare);
 				for (int mm = 0; mm < vvvvv.size(); mm++){
-					sprintf(buff + mm * 2, "%02X", vvvvv.at(mm));
+					sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 				}
 				maps.insert(make_pair(buff, 0));
 			}
@@ -461,7 +461,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 	else{
 		sort(ww.begin(), ww.end(), compare);
 		for (int mm = 0; mm < ww.size(); mm++){
-			sprintf(buff + mm * 2, "%02X", ww.at(mm));
+			sprintf(buff + mm, "%c", 48 + ww.at(mm));
 		}
 		maps.insert(make_pair(buff, 0));
 	}
@@ -750,44 +750,8 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 HuTypeEnum ConfigData::isFit(vector<int>p, int baocount, HuItem &item){
 	char buff[200];
 	int len = p.size();
-	if (len == 1){
-		sprintf(buff, "%02X", p.at(0));
-	}
-	else if (len == 2){
-		sprintf(buff, "%02X%02X", p.at(0), p.at(1));
-	}
-	else if (len == 3){
-		sprintf(buff, "%02X%02X%02X", p.at(0), p.at(1), p.at(2));
-	}
-	else if (len == 4){
-		sprintf(buff, "%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3));
-	}
-	else if (len == 5){
-		sprintf(buff, "%02X%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4));
-	}
-	else if (len == 6){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5));
-	}
-	else if (len == 7){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6));
-	}
-	else if (len == 8){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6), p.at(7));
-	}
-	else if (len == 9){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6), p.at(7), p.at(8));
-	}
-	else if (len == 10){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6), p.at(7), p.at(8), p.at(9));
-	}
-	else if (len == 11){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6), p.at(7), p.at(8), p.at(9), p.at(10));
-	}
-	else if (len == 12){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6), p.at(7), p.at(8), p.at(9), p.at(10), p.at(11));
-	}
-	else if (len == 13){
-		sprintf(buff, "%02X%02X%02X%02X02X%02X%02X%02X%02X%02X%02X%02X", p.at(0), p.at(1), p.at(2), p.at(3), p.at(4), p.at(5), p.at(6), p.at(7), p.at(8), p.at(9), p.at(10), p.at(11), p.at(12));
+	for (int i = 0; i < len; i++){
+		sprintf(buff+i,"%c",48+p.at(i));
 	}
 	int l = (len / 3 + (len % 3 == 0 ? 0 : 1)) * 3 + 2;
 	int co = l * 10 + 2;//碰碰胡
@@ -856,19 +820,19 @@ void ConfigData::setLiankeBao(int i){
 			string key = itr1->first;
 			int len = key.length();
 			if (i >= 1){
-				for (int j = 0; j < len; j += 2){
+				for (int j = 0; j < len; j++){
 					if (i >= 2){
-						for (int k = j + 2; k < len; k += 2){
+						for (int k = j + 1; k < len; k++){
 							if (i >= 3){
-								for (int m = k + 2; m < len; m += 2){
+								for (int m = k + 1; m < len; m++){
 									if (i >= 4){
-										for (int n = m + 2; n < len; n += 2){
+										for (int n = m + 1; n < len; n++){
 											string kkey = key;
-											kkey.replace(j, 2, "  ");
-											kkey.replace(k, 2, "  ");
-											kkey.replace(m, 2, "  ");
-											kkey.replace(n, 2, "  ");
-											Common::replace_all(kkey, "  ", "");
+											kkey.replace(j, 1, " ");
+											kkey.replace(k, 1, " ");
+											kkey.replace(m, 1, " ");
+											kkey.replace(n, 1, " ");
+											Common::replace_all(kkey, " ", "");
 
 											maps1.insert(make_pair(kkey, 0));
 
@@ -876,27 +840,27 @@ void ConfigData::setLiankeBao(int i){
 									}
 									else{
 										string kkey = key;
-										kkey.replace(j, 2, "  ");
-										kkey.replace(k, 2, "  ");
-										kkey.replace(m, 2, "  ");
-										Common::replace_all(kkey, "  ", "");
+										kkey.replace(j, 1, " ");
+										kkey.replace(k, 1, " ");
+										kkey.replace(m, 1, " ");
+										Common::replace_all(kkey, " ", "");
 										maps1.insert(make_pair(kkey, 0));
 									}
 								}
 							}
 							else{
 								string kkey = key;
-								kkey.replace(j, 2, "  ");
-								kkey.replace(k, 2, "  ");
-								Common::replace_all(kkey, "  ", "");
+								kkey.replace(j, 1, " ");
+								kkey.replace(k, 1, " ");
+								Common::replace_all(kkey, " ", "");
 								maps1.insert(make_pair(kkey, 0));
 							}
 						}
 					}
 					else{
 						string kkey = key;
-						kkey.replace(j, 2, "  ");
-						Common::replace_all(kkey, "  ", "");
+						kkey.replace(j, 1, " ");
+						Common::replace_all(kkey, " ", "");
 						maps1.insert(make_pair(kkey, 0));
 					}
 				}
@@ -939,7 +903,7 @@ vector<int> ConfigData::isTing(int *pai, int bao){
 	vector<int> vec;
 	for (int i = 0; i < g_kind;i++){
 		int v = g_all_mjkind[i];
-		if (isHu(pai, ismenqing, bao)){
+		if (isHu(pai, ismenqing, bao)._hutype!=None){
 			vec.push_back(v);
 		}
 	}

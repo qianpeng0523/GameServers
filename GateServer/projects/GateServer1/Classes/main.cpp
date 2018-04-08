@@ -20,9 +20,11 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	
-	double double a = 343434353535363636373737;
-	
+
+	for (int i = 0; i < 34; i++){
+		printf("%c", 48 + g_all_mjkind[i]);
+	}
+
 
 	ConfigData::getIns();
 
