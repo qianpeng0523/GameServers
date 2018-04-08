@@ -124,6 +124,7 @@ private:
 	vector<vector<int>>m_shunzi;
 	map<int, map<string, int>>m_lianke;
 	map<int, map<string, int>>m_liankebao;
+	redis *m_predis;
 };
 
 

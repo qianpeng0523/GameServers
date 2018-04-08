@@ -20,14 +20,6 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-
-	for (int i = 0; i < 34; i++){
-		printf("%c", 48 + g_all_mjkind[i]);
-	}
-
-
-	ConfigData::getIns();
-
 	StatTimer::getIns();
 	CSVDataInfo::getIns();
 	LoginInfo::getIns();
@@ -35,6 +27,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	WSAStartup(MAKEWORD(2, 1), &wsaData);
 	redis::getIns()->initial("47.104.165.65", 6379, "3.1415926qp");
 	RedisGet::getIns()->init();
+
+	ConfigData::getIns();
+
 	HallInfo::getIns();
 
 	HttpLogic::getIns()->requestManagerData();

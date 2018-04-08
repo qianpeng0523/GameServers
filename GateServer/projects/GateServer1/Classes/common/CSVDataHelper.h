@@ -84,12 +84,6 @@ private:
 	void rowSplit(std::vector<std::string> &rows, const std::string &content, const char &rowSeperator);
 	void fieldSplit(std::vector<std::string> &fields, std::string line);
 
-	//获取带引号的字段
-	int getFieldWithQuoted(const std::string &line, std::string& field, int index);
-
-	//获取无引号的字段
-	int getFieldNoQuoted(const std::string &line, std::string &field, int index);
-
 	void setDataToObejct(std::vector<std::string> fieldVector, int index);
 private:
 	map<string,int> m_objecs;

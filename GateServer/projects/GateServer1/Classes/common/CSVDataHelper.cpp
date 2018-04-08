@@ -37,10 +37,10 @@ bool CSVDataHelper::openAndResolveFile(const char *fileName, CSVSTRUCT csv)
 		std::vector<std::string> fieldVector;
 		fieldSplit(fieldVector, m_row[i]);
 		setDataToObejct(fieldVector,i);
-		data.push_back(fieldVector);
-		m_colLength = max(m_colLength, (int)fieldVector.size());
+		//data.push_back(fieldVector);
+		//m_colLength = max(m_colLength, (int)fieldVector.size());
 	}
-
+	delete pBuffer;
 	return true;
 }
 
@@ -76,65 +76,14 @@ void CSVDataHelper::fieldSplit(std::vector<std::string> &fields, std::string lin
 		line = line.substr(0, line.length() - 1);
 	}
 
-	std::string field;
-	unsigned int i = 0, j = 0;
-	while (j < line.length()) {
-		if (line[i] == '"') {
-			//有引号
-			j = getFieldWithQuoted(line, field, i);
-		}
-		else {
-			j = getFieldNoQuoted(line, field, i);
-		}
-
-		fields.push_back(field);
-		i = j + 1; //解析下一个field， ＋1为了跳过当前的分隔符
+	std::string field=line;
+	int index = field.find(",");
+	while (index!=-1) {
+		fields.push_back(field.substr(0, index));
+		field = field.substr(index,field.length());
+		index = field.find(",");
 	}
-}
-
-int CSVDataHelper::getFieldWithQuoted(const std::string &line, std::string &field, int i)
-{
-	unsigned int j = 0;
-	field = std::string();
-	if (line[i] != '"') {
-		//不是引号起始，有问题
-		printf( "start char is not quote when call");
-		return -1;
-	}
-
-	for (j = i + 1; j < line.length() - 1; ++j) {
-		if (line[j] != '"') {
-			//当前char不为引号，则是field内容(包括逗号)
-			field += line[j];
-		}
-		else {
-			//遇到field结束时的引号，可以返回
-			return j;
-			break;
-		}
-	}
-
-	if (j == line.length()) {
-		//没有找到成对的结束引号
-		
-		printf("resoleve the line error: no pair quote, line:%s, field:%s, start index:%d", line.c_str(), field.c_str(), i);
-	}
-
-	return j;
-}
-
-int CSVDataHelper::getFieldNoQuoted(const std::string &line, std::string &field, int index)
-{
-	unsigned int j = 0;
-	//找到下一个分隔符位置
-	j = line.find_first_of(m_seperator, index);
-	if (j > line.length()) {
-		j = line.length();
-	}
-
-	field = std::string(line, index, j - index);
-
-	return j;
+	fields.push_back(field);
 }
 
 #pragma region end.
@@ -179,7 +128,7 @@ FILEDATA *CSVDataHelper::getFileByName(string filename){
 	FILEDATA *p = new FILEDATA();
 	p->_data = pchBuf;
 	p->_len = nLen;
-
+	fclose(fd);
 	//delete pchBuf;
 	return p;
 }

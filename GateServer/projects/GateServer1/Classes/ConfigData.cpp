@@ -59,9 +59,11 @@ void ConfigData::initMJ(){
 
 void ConfigData::init(){
 	int64_t t = Common::getCurrentTime();
-	FILE *fp = fopen("./res/ke5.csv", "r");
+	int len = 0;
+	m_predis = redis::getIns();
+	map<string,int>vv= m_predis->getList("ke5");
 	char buff[200];
-	if (fp == NULL){
+	if (vv.size()==0){
 #ifdef FENG_LIAN
 
 #else
@@ -88,62 +90,43 @@ void ConfigData::init(){
 		
 		for (itr; itr != m_lianke.end(); itr++){
 			int sr = itr->first;
-			sprintf(buff, "./res/ke%d.csv", sr);
-			FILE *fp = fopen(buff, "w+");
-			fseek(fp, 0L, SEEK_END);
+			sprintf(buff, "ke%d", sr);
+			
 			map<string, int> vec = itr->second;
-			map<string, int>::iterator itr1 = vec.begin();
-			for (itr1; itr1 != vec.end(); itr1++){
-				string key = itr1->first;
-				sprintf(buff, "%s\n", key.c_str());
-				fprintf(fp, buff);
+			map<string, int>::iterator itr = vec.begin();
+			for (itr; itr != vec.end(); itr++){
+				m_predis->List(buff, (char *)itr->first.c_str());
 			}
-			fclose(fp);
+			printf("******%s***********\n",buff);
 		}
-	}
-	else{
-		CSVDataInfo *pp = CSVDataInfo::getIns();
-		string vv[] = {"5","52","8","82","11","112","14","142"};
-		CSVSTRUCT ct[] = { CSV_HU5, CSV_HU52, CSV_HU8, CSV_HU82, CSV_HU11, CSV_HU112, CSV_HU14, CSV_HU142 };
-		for (int i = 0; i < 8; i++){
-			sprintf(buff,"./res/ke%s.csv",vv[i].c_str());
-			pp->openCSVFile(buff, ct[i]);
-			map<string, int> vec5 = pp->getDatasHuItem(ct[i]);
-			int len = atoi(vv[i].c_str());
-			m_lianke.insert(make_pair(len, vec5));
-		}
-	}
-	
-	
-	int64_t t1 = Common::getCurrentTime();
-	int64_t tt = t1 - t;
-	printf("**********use time:%gs***********\n", tt / 1000.0 / 1000);
 
-	FILE *fp1 = fopen("./res/baoke501.csv", "r");
-	if (fp1 == NULL){
 		for (int i = 1; i <= 4; i++){
 			setLiankeBao(i);
 		}
 	}
 	else{
-		CSVDataInfo *pp = CSVDataInfo::getIns();
-		string vv[] = { "5", "52", "8", "82", "11", "112", "14", "142" };
+		string vv[] = {"5","52","8","82","11","112","14","142"};
+		CSVSTRUCT ct[] = { CSV_HU5, CSV_HU52, CSV_HU8, CSV_HU82, CSV_HU11, CSV_HU112, CSV_HU14, CSV_HU142 };
 		string vr[] = { "01", "02", "03", "04" };
-		//CSVSTRUCT ct[] = { CSV_BAOHU51, CSV_BAOHU52, CSV_BAOHU8, CSV_BAOHU82, CSV_BAOHU11, CSV_BAOHU112, CSV_BAOHU14, CSV_BAOHU142};
 		for (int i = 0; i < 8; i++){
+			sprintf(buff,"ke%s",vv[i].c_str());
+			printf("type:%d\n", ct[i]);
+			map<string, int> vec5 = m_predis->getList(buff);
+			int len = atoi(vv[i].c_str());
+			m_lianke.insert(make_pair(len, vec5));
+
 			for (int j = 0; j < 4; j++){
-				sprintf(buff, "./res/baoke%s%s.csv", vv[i].c_str(),vr[j].c_str());
+				sprintf(buff, "baoke%s%s", vv[i].c_str(), vr[j].c_str());
 				CSVSTRUCT type = (CSVSTRUCT)(CSV_BAOHU51 + i * 4 + j);
-				printf("type:%d\n",type);
-				pp->openCSVFile(buff, type);
-				map<string, int> vec5 = pp->getDatasHuItem(type);
-				m_liankebao.insert(make_pair(atoi((vv[i]+vr[j]).c_str()), vec5));
+				map<string, int> vec5 = m_predis->getIns()->getList(buff);
+				m_liankebao.insert(make_pair(atoi((vv[i] + vr[j]).c_str()), vec5));
+				printf("type:%d\n", type);
 			}
 		}
+
 	}
-	
 	int64_t t2 = Common::getCurrentTime();
-	tt = t2 - t1;
+	uint64_t tt = t2 - t;
 	printf("******111use time:%gs******\n", tt / 1000.0 / 1000);
 
 
@@ -157,14 +140,10 @@ void ConfigData::test(){
 	int index = 0;
 	int a[4][14] = { { 1, 2, 3, 5, 5 }, { 1, 1, 1, 17, 17, 17, 17, 3 }, { 22, 22 }, {1,23,2,3,4,5,6,7,17,18,19,33,34,35} };
 	while (index < 10000){
-		//int64_t t = Common::getCurrentTime();
  		HuItem item = isHu(a[index%4], true,1);
 		if (item._hutype != None){
 			printf("[%d].--------------success:%d\n",index, item._hutype);
 		}
-		//int64_t t1 = Common::getCurrentTime();
-		//int64_t tt = t1 - t;
-		//printf("[%d].isfit.use time:%gms\n",index, tt / 1000.0);
 		index++;
 	}
 	int64_t t1 = Common::getCurrentTime();
@@ -360,7 +339,11 @@ void ConfigData::init3P(int index, int kenum){
 		vector<int >vec;
 		init3L(shunnum, index, vec);
 	}
-	
+	int co = index * 3 + 2;
+	if (shunnum == 0){
+		co = co * 10 + 2;
+	}
+	printf("*********%d**********\n", co);
 	
 }
 
@@ -876,17 +859,13 @@ void ConfigData::setLiankeBao(int i){
 	char buff[200];
 	for (itr2; itr2 != m_liankebao.end(); itr2++){
 		int sr = itr2->first;
-		sprintf(buff, "./res/baoke%d.csv", sr);
-		FILE *fp = fopen(buff, "w+");
-		fseek(fp, 0L, SEEK_END);
+		sprintf(buff, "baoke%d.csv", sr);
+		
 		map<string, int> vec = itr2->second;
-		map<string, int>::iterator itr1 = vec.begin();
-		for (itr1; itr1 != vec.end(); itr1++){
-			string key = itr1->first;
-			sprintf(buff, "%s\n", key.c_str());
-			fprintf(fp, buff);
+		map<string, int>::iterator itr = vec.begin();
+		for (itr; itr != vec.end(); itr++){
+			m_predis->List(buff, (char *)itr->first.c_str());
 		}
-		fclose(fp);
 	}
 	printf("\n");
 }
