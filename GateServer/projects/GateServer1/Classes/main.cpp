@@ -14,12 +14,15 @@
 #include "LoginInfo.h"
 #include "StatTimer.h"
 #include "RedisGet.h"
-#include "ConfigData.h"
+#include "ConfigData1.h"
 #include "Common.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+
+	ConfigData1::getIns();
+
 	StatTimer::getIns();
 	CSVDataInfo::getIns();
 	LoginInfo::getIns();
@@ -28,7 +31,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	redis::getIns()->initial("47.104.165.65", 6379, "3.1415926qp");
 	RedisGet::getIns()->init();
 
-	ConfigData::getIns();
+	
 	LoginInfo::getIns()->openCheckUpdate(true);
 	HallInfo::getIns();
 
