@@ -93,7 +93,7 @@ public:
 	
 	static ConfigData *getIns();
 	void init();
-	void quickSort(int *&s, int l, int r);
+	void quickSort(int *s, int l, int r);
 	int getMJ();
 	int getMJ(int index);
 	void initMJ();
@@ -114,6 +114,7 @@ private:
 	map<int, vector<int>> getKindCard(int *temppai);
 	void setLiankeBao(int i);
 	vector<int> isTing(int *pai,int bao);
+	map<int, vector<int>>chuTing(int *pai,int bao);
 	void test();
 private:
 	

@@ -127,7 +127,7 @@ void ConfigData::init(){
 		string vr[] = { "01", "02", "03", "04" };
 		for (int i = 0; i < 8; i++){
 			sprintf(buff,"ke%s",vv[i].c_str());
-			printf("type:%d\n", ct[i]);
+			printf("*********type:%d********\n", ct[i]);
 			map<string, int> vec = m_predis->getList(buff);
 			int len = atoi(vv[i].c_str());
 			m_lianke.insert(make_pair(len, vec));
@@ -137,44 +137,76 @@ void ConfigData::init(){
 				CSVSTRUCT type = (CSVSTRUCT)(CSV_BAOHU51 + i * 4 + j);
 				map<string, int> vec5 = m_predis->getIns()->getList(buff);
 				m_liankebao.insert(make_pair(atoi((vv[i] + vr[j]).c_str()), vec5));
-				printf("type:%d\n", type);
+				printf("**********type:%d**********\n", type);
 			}
 		}
 
 	}
 	int64_t t2 = Common::getCurrentTime();
 	uint64_t tt = t2 - t;
-	printf("******111use time:%gs******\n", tt / 1000.0 / 1000);
+	printf("******use time:%gs******\n", tt / 1000.0 / 1000);
 
 
 
 	test();
 	
 }
-
+#define  TESTCOUNT 50
 void ConfigData::test(){
-	int64_t ttt = Common::getCurrentTime();
+	int a[TESTCOUNT][14] = { 0 };
+	int b[TESTCOUNT][14] = { 0 };
 	int index = 0;
-	int a[4][14] = { { 1, 2, 3, 5 }, { 1, 1, 1, 17, 17, 17, 17}, { 22, 22 }, {1,23,2,3,4,5,6,7,17,18,19,34,35} };
-	while (index < 4){
-//  	HuItem item = isHu(a[index%4], true,1);
-// 		if (item._hutype != None){
-// 			printf("[%d].--------------success:%d\n",index, item._hutype);
-// 		}
-		vector<int> vec=isTing(a[index%4],1);
-		for (int i = 0; i < vec.size();i++){
-			printf("%d ",vec.at(i));
+	while (index < TESTCOUNT){
+		//胡牌和出牌听牌测试
+		for (int i = 2; i <= 14;i+=3){
+			initMJ();
+			for (int j = 0; j < i; j++){
+				a[index][j] = getMJ();
+			}
 		}
-		printf("\n");
+		//听牌随机牌测试
+		for (int i = 1; i <= 13; i += 3){
+			initMJ();
+			for (int j = 0; j < i; j++){
+				b[index][j] = getMJ();
+			}
+		}
+
+		index++;
+	}
+	int64_t ttt = Common::getCurrentTime();
+	index = 0;
+	while (index < TESTCOUNT){
+		map<int,vector<int>> vec=chuTing(a[index],1);
 		index++;
 	}
 	int64_t t1 = Common::getCurrentTime();
 	int64_t tt = t1 - ttt;
-	printf("******111use time:%gs******\n", tt/1000.0/1000);
+	printf("******1.use time:%gs******\n", tt/1000.0/1000);
+
+	index = 0;
+	while (index < TESTCOUNT){
+		vector<int> vec = isTing(b[index], 1);
+		index++;
+	}
+	int64_t t2 = Common::getCurrentTime();
+	tt = t2 - t1;
+	printf("******2.use time:%gs******\n", tt / 1000.0 / 1000);
+
+	index = 0;
+	while (index < TESTCOUNT){
+		isHu(a[index], false);
+		index++;
+	}
+	int64_t t3 = Common::getCurrentTime();
+	tt = t3 - t2;
+	printf("******3.use time:%gs******\n", tt / 1000.0 / 1000);
+
+
 	printf("1111\n");
 }
 
-void ConfigData::quickSort(int *&s, int l, int r)
+void ConfigData::quickSort(int *s, int l, int r)
 {
 	if (l < r)
 	{
@@ -884,7 +916,6 @@ void ConfigData::setLiankeBao(int i){
 			}
 		}
 		m_liankebao.insert(make_pair(keykey, maps1));
-		printf("*********%d**********\n", keykey);
 	}
 	map<int, map<string,int>>::iterator itr2 = m_liankebao.begin();
 	char buff[200];
@@ -903,7 +934,9 @@ void ConfigData::setLiankeBao(int i){
 		for (itr; itr != vec.end(); itr++){
 			m_predis->List(buff, (char *)itr->first.c_str());
 		}
+		printf("*********%s**********\n", buff);
 	}
+	
 	printf("\n");
 }
 
@@ -925,14 +958,44 @@ vector<int> ConfigData::isTing(int *pai, int bao){
 	
 	for (int i = 0; i < g_kind;i++){
 		int v = g_all_mjkind[i];
-		int *tp = new int[14];
+		int tp[14];
 		memcpy(tp,pai,sizeof(int)*14);
 		tp[index] = v;
 		quickSort(tp, 0, 13);
 		if (isHu(tp, false, bao)._hutype != None){
 			vec.push_back(v);
 		}
-		delete tp;
 	}
 	return vec;
+}
+
+map<int, vector<int>>ConfigData::chuTing(int *pai, int bao){
+	map<int, vector<int>> datas;
+	int count = 0;
+	for (int i = 0; i < 14; i++){
+		if (pai[i] > 0){
+			count++;
+		}
+	}
+	quickSort(pai, 0, 13);
+	if (count == 2 || count == 5 || count == 8 || count == 11 || count == 14){
+		for (int i = 13; i >= 0; i--){
+			int v = pai[i];
+			if (v == 0){
+				break;
+			}
+			else{
+				if (datas.find(v) == datas.end()){
+					int temp[14];
+					memcpy(temp, pai, sizeof(int)* 14);
+					temp[i] = 0;
+					vector<int>ting = isTing(temp, bao);
+					if (!ting.empty()){
+						datas.insert(make_pair(v, ting));
+					}
+				}
+			}
+		}
+	}
+	return datas;
 }
