@@ -999,3 +999,18 @@ map<int, vector<int>>ConfigData::chuTing(int *pai, int bao){
 	}
 	return datas;
 }
+
+PaoItem ConfigData::getHandOtherPao(int *a, int zhua, bool isgang){
+	PaoItem pi;
+	//是否门清
+
+	//是否卡、单
+
+	//红中 白板炮数
+
+	//是否杠胡
+
+	//
+
+	return pi;
+}

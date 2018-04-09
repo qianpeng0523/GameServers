@@ -23,15 +23,42 @@ enum HeiOrYing
 	RUAN,
 };
 
+enum HUTYPE{
+	ZIMO_TYPE,//自摸
+	PAO_TYPE,//放炮
+	PAOGANG_TYPE,//抢杠
+	ZIMOGANG_TYPE//杠上开花
+};
+
+enum OTHERHANDPAO{
+	MENQING_PAO,//门清
+	KA_DU_PAO,//卡独
+	GANGHU_PAO,//杠胡
+	HONGBAN_PAO,//红中白板
+	KE_PAO,//除去红中白板
+};
+
+enum PENGPAO{
+	GANG_PAO,
+	PENG_PAO,
+};
+
+enum FAPAO{
+	FA_PAO,
+};
+
 struct HuItem
 {
 	HuTypeEnum	_hutype;
 	HeiOrYing	_hy;
-	bool		_ka;//卡牌或者单调
-	bool		_menqing;//门清
-	bool		_gangkai;
-	bool		_qianggang;
-	int			_pao;
+};
+
+struct PaoItem
+{
+	HUTYPE _hu;
+	map<OTHERHANDPAO, int> _handpao;
+	map<PENGPAO, int> _pengpao;
+	FAPAO _fapao;
 };
 
 static int g_all_mjkind[] = {
@@ -108,6 +135,8 @@ public:
 	HuItem isHu(int *pai, bool ispengqing);
 	HuItem isHu(int *pai, bool ispengqing, int bao);
 	string getRedisLastIndex(string key);
+
+	PaoItem getHandOtherPao(int *a, int zhua, bool isgang);
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
 	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item);
@@ -116,6 +145,7 @@ private:
 	vector<int> isTing(int *pai,int bao);
 	map<int, vector<int>>chuTing(int *pai,int bao);
 	void test();
+
 private:
 	
 	static ConfigData *m_ins;
