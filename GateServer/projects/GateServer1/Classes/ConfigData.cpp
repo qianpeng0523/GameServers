@@ -57,13 +57,24 @@ void ConfigData::initMJ(){
 	random_shuffle(m_cards.begin(), m_cards.end());
 }
 
+string ConfigData::getRedisLastIndex(string key){
+	char *dd = m_predis->getLastList(key);
+	if (dd == NULL){
+		return "";
+	}
+	string tt = dd;
+	printf("tt:%s,dd:%s",tt.c_str(),dd);
+	delete dd;
+	return tt;
+}
+
 void ConfigData::init(){
 	int64_t t = Common::getCurrentTime();
 	int len = 0;
 	m_predis = redis::getIns();
-	map<string,int>vv= m_predis->getList("ke5");
+	string vv= m_predis->getLastList("baoke14204");
 	char buff[200];
-	if (vv.size()==0){
+	if (vv.compare("eefffggg")!=0){
 #ifdef FENG_LIAN
 
 #else
@@ -91,11 +102,17 @@ void ConfigData::init(){
 		for (itr; itr != m_lianke.end(); itr++){
 			int sr = itr->first;
 			sprintf(buff, "ke%d", sr);
-			
+			string kk= getRedisLastIndex(buff);
 			map<string, int> vec = itr->second;
-			map<string, int>::iterator itr = vec.begin();
-			for (itr; itr != vec.end(); itr++){
-				m_predis->List(buff, (char *)itr->first.c_str());
+			map<string, int>::iterator itr1=vec.find(kk);
+			if (itr1 == vec.end()){
+				itr1 = vec.begin();
+			}
+			else{
+				itr1++;
+			}
+			for (itr1; itr1 != vec.end(); itr1++){
+				m_predis->List(buff, (char *)itr1->first.c_str());
 			}
 			printf("******%s***********\n",buff);
 		}
@@ -111,9 +128,9 @@ void ConfigData::init(){
 		for (int i = 0; i < 8; i++){
 			sprintf(buff,"ke%s",vv[i].c_str());
 			printf("type:%d\n", ct[i]);
-			map<string, int> vec5 = m_predis->getList(buff);
+			map<string, int> vec = m_predis->getList(buff);
 			int len = atoi(vv[i].c_str());
-			m_lianke.insert(make_pair(len, vec5));
+			m_lianke.insert(make_pair(len, vec));
 
 			for (int j = 0; j < 4; j++){
 				sprintf(buff, "baoke%s%s", vv[i].c_str(), vr[j].c_str());
@@ -138,12 +155,17 @@ void ConfigData::init(){
 void ConfigData::test(){
 	int64_t ttt = Common::getCurrentTime();
 	int index = 0;
-	int a[4][14] = { { 1, 2, 3, 5, 5 }, { 1, 1, 1, 17, 17, 17, 17, 3 }, { 22, 22 }, {1,23,2,3,4,5,6,7,17,18,19,33,34,35} };
-	while (index < 10000){
- 		HuItem item = isHu(a[index%4], true,1);
-		if (item._hutype != None){
-			printf("[%d].--------------success:%d\n",index, item._hutype);
+	int a[4][14] = { { 1, 2, 3, 5 }, { 1, 1, 1, 17, 17, 17, 17}, { 22, 22 }, {1,23,2,3,4,5,6,7,17,18,19,34,35} };
+	while (index < 4){
+//  	HuItem item = isHu(a[index%4], true,1);
+// 		if (item._hutype != None){
+// 			printf("[%d].--------------success:%d\n",index, item._hutype);
+// 		}
+		vector<int> vec=isTing(a[index%4],1);
+		for (int i = 0; i < vec.size();i++){
+			printf("%d ",vec.at(i));
 		}
+		printf("\n");
 		index++;
 	}
 	int64_t t1 = Common::getCurrentTime();
@@ -529,10 +551,10 @@ HuItem ConfigData::isHu(int *pai,bool ispengqing){
 				//sort(vec.begin(), vec.end(), compare);
 				HuTypeEnum type = isFit(vec, 0,huitem);
 				if (ii > 0){
-					if (lasttype != type){
-						lasttype = PI;
+					if (type>None&& type > lasttype){
+						lasttype = type;
 					}
-					else{
+					else if (type == None){
 						lasttype = type;
 					}
 				}
@@ -635,7 +657,9 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 			}
 		}
 	}
-
+	if (baocount == 0){
+		return huitem;
+	}
 	//统计对子数
 	int duicount = 0;
 	map<int, int>dui;
@@ -672,10 +696,17 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 			return huitem;
 		}
 		if (baocount > 0){
-			for (int i = 0; i < 14; i++){
-				int v = temppai[i];
-				if (v>0){
-					dui.insert(make_pair(v, 1));
+			if (baocount == 1){
+				for (int i = 0; i < 14; i++){
+					int v = temppai[i];
+					if (v>0){
+						dui.insert(make_pair(v, 1));
+					}
+				}
+			}
+			else{
+				for (int i = 0; i < g_kind; i++){
+					dui.insert(make_pair(g_all_mjkind[i], 1));
 				}
 			}
 		}
@@ -698,10 +729,10 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 				HuTypeEnum type = isFit(vec, baocount1, huitem);
 				
 				if (ii > 0){
-					if (lasttype != type){
-						lasttype = PI;
+					if (type > None&& type > lasttype){
+						lasttype = type;
 					}
-					else{
+					else if (type == None){
 						lasttype = type;
 					}
 				}
@@ -859,10 +890,16 @@ void ConfigData::setLiankeBao(int i){
 	char buff[200];
 	for (itr2; itr2 != m_liankebao.end(); itr2++){
 		int sr = itr2->first;
-		sprintf(buff, "baoke%d.csv", sr);
-		
+		sprintf(buff, "baoke%d", sr);
+		string kk = getRedisLastIndex(buff);
 		map<string, int> vec = itr2->second;
-		map<string, int>::iterator itr = vec.begin();
+		map<string, int>::iterator itr = vec.find(kk);
+		if (itr == vec.end()){
+			itr = vec.begin();
+		}
+		else{
+			itr++;
+		}
 		for (itr; itr != vec.end(); itr++){
 			m_predis->List(buff, (char *)itr->first.c_str());
 		}
@@ -871,20 +908,31 @@ void ConfigData::setLiankeBao(int i){
 }
 
 vector<int> ConfigData::isTing(int *pai, int bao){
-	quickSort(pai, 0, 13);
-	bool ismenqing = true;
+	int count = 0;
+	int index = -1;
 	for (int i = 0; i < 14; i++){
 		if (pai[i] == 0){
-			ismenqing = false;
-			break;
+			index = i;
+		}
+		else{
+			count++;
 		}
 	}
 	vector<int> vec;
+	if (count == 2 || count == 5 || count == 8 || count == 11 || count == 14){
+		return vec;
+	}
+	
 	for (int i = 0; i < g_kind;i++){
 		int v = g_all_mjkind[i];
-		if (isHu(pai, ismenqing, bao)._hutype!=None){
+		int *tp = new int[14];
+		memcpy(tp,pai,sizeof(int)*14);
+		tp[index] = v;
+		quickSort(tp, 0, 13);
+		if (isHu(tp, false, bao)._hutype != None){
 			vec.push_back(v);
 		}
+		delete tp;
 	}
 	return vec;
 }

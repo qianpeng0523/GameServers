@@ -20,6 +20,7 @@ public:
 	void HandlerCRegister(ccEvent *event);
 	
 	void Check(float dt);
+	void openCheckUpdate(bool isopen);
 private:
 	static LoginInfo *m_shareLoginInfo;
 	RedisPut *m_pRedisPut;

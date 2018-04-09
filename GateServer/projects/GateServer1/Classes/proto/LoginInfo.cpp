@@ -20,11 +20,11 @@ LoginInfo::LoginInfo()
 	pe->registerProto(cl1.cmd(), cl1.GetTypeName());
 	EventListen::getIns()->addDataPacketListener(cl1.cmd(), this, Event_Handler(LoginInfo::HandlerCRegister));
 
-	StatTimer::getIns()->scheduleSelector(this, schedule_selector(LoginInfo::Check), 8.0);
+	
 }
 
 LoginInfo::~LoginInfo(){
-	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(LoginInfo::Check));
+	openCheckUpdate(false);
 }
 
 LoginInfo* LoginInfo::getIns(){
@@ -155,5 +155,14 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 void LoginInfo::Check(float dt){
 	if (!redis::getIns()->isConnect()){
 		redis::getIns()->reconnect();
+	}
+}
+
+void LoginInfo::openCheckUpdate(bool isopen){
+	if (isopen){
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(LoginInfo::Check), 8.0);
+	}
+	else{
+		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(LoginInfo::Check));
 	}
 }

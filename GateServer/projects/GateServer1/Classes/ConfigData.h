@@ -10,12 +10,11 @@ enum HuTypeEnum
 {
 	None=0,
 	PI,//屁胡
-	QINGYISE,//清一色
-	QIDUI,//七对
 	PENGPENG,//碰碰胡
-	QYSQD,//清一色七对
+	QIDUI,//七对
+	QINGYISE,//清一色
 	QYSPENG,//清一色碰碰胡
-	
+	QYSQD,//清一色七对
 };
 
 enum HeiOrYing
@@ -108,6 +107,7 @@ public:
 
 	HuItem isHu(int *pai, bool ispengqing);
 	HuItem isHu(int *pai, bool ispengqing, int bao);
+	string getRedisLastIndex(string key);
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
 	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item);

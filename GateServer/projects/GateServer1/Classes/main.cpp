@@ -29,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	RedisGet::getIns()->init();
 
 	ConfigData::getIns();
-
+	LoginInfo::getIns()->openCheckUpdate(true);
 	HallInfo::getIns();
 
 	HttpLogic::getIns()->requestManagerData();
