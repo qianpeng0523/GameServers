@@ -1000,17 +1000,97 @@ map<int, vector<int>>ConfigData::chuTing(int *pai, int bao){
 	return datas;
 }
 
-PaoItem ConfigData::getHandOtherPao(int *a, int zhua, bool isgang){
+PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao, int baoniang, int zhua, bool isgang){
 	PaoItem pi;
-	//是否门清
+	//fa
+	if (facount >0&&facount<3){
+		pi._fapao = facount;
+	}
+	else if (facount >= 3){
+		if (baoniang == 0x36){
+			pi._fapao = 10;
+		}
+		else{
+			if (facount == 3){
+				pi._fapao = 3;
+			}
+			else{
+				pi._fapao = 10;
+			}
+		}
+	}
+	//hutype
+	int hutypepao = 0;
+	HUTYPE hutype;
+	if (isgang){
+		hutypepao = 5;
+		if (zhua){
+			hutype = ZIMOGANG_TYPE;
+		}
+		else{
+			hutype = PAOGANG_TYPE;
+		}
+	}
+	else{
+		if (zhua){
+			hutype = ZIMO_TYPE;
+			hutypepao = 1;
+		}
+		else{
+			hutype = PAO_TYPE;
+		}
+	}
+	pi._hu.insert(make_pair(hutype,hutypepao));
+	
+	
+	//pengpao
+	int ppp[3] = {0};
+	for (int i = 0; i < 4; i++){
+		int v = peng[i];
+		PENGPAO pp = ptype[i];
+		if (v>0){
+			if (baoniang == v){
+				if (v == 0x35 || v == 0x37){
+					if (pp == MGANG_PAO){
+						ppp[pp + 1] += 3;
+					}
+					else if (pp==AGANG_PAO){
+						ppp[pp + 1] += 4;
+					}
+				}
+				else{
+					if (pp == MGANG_PAO){
+						ppp[pp + 1] += 1;
+					}
+					else if (pp == AGANG_PAO){
+						ppp[pp + 1] += 2;
+					}
+				}
+			}
+			else{
+				if (v == 0x35 || v == 0x37){
+					if (pp == MGANG_PAO){
+						ppp[pp + 1] += 3;
+					}
+					else if (pp == AGANG_PAO){
+						ppp[pp + 1] += 4;
+					}
+					else if (pp == PENG_PAO){
+						ppp[pp + 1] += 1;
+					}
+				}
+				else{
+					if (pp == MGANG_PAO){
+						ppp[pp + 1] += 1;
+					}
+					else if (pp == AGANG_PAO){
+						ppp[pp + 1] += 2;
+					}
+				}
+			}
+		}
+	}
 
-	//是否卡、单
-
-	//红中 白板炮数
-
-	//是否杠胡
-
-	//
-
+	//handpao
 	return pi;
 }

@@ -39,12 +39,10 @@ enum OTHERHANDPAO{
 };
 
 enum PENGPAO{
-	GANG_PAO,
+	NONE_PAO,
+	MGANG_PAO,
+	AGANG_PAO,
 	PENG_PAO,
-};
-
-enum FAPAO{
-	FA_PAO,
 };
 
 struct HuItem
@@ -55,10 +53,10 @@ struct HuItem
 
 struct PaoItem
 {
-	HUTYPE _hu;
+	map<HUTYPE,int> _hu;
 	map<OTHERHANDPAO, int> _handpao;
 	map<PENGPAO, int> _pengpao;
-	FAPAO _fapao;
+	int _fapao;
 };
 
 static int g_all_mjkind[] = {
@@ -136,7 +134,7 @@ public:
 	HuItem isHu(int *pai, bool ispengqing, int bao);
 	string getRedisLastIndex(string key);
 
-	PaoItem getHandOtherPao(int *a, int zhua, bool isgang);
+	PaoItem getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao,int baoniang, int zhua, bool isgang);//peng
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
 	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item);
