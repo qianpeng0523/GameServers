@@ -38,6 +38,9 @@
 #include "ae.h"
 #include "ccEvent.h"
 #include "HttpLogic.h"
+
+#include "Common.h"
+
 redis *redis::m_ins = NULL;
 redis *redis::getIns(){
 	if (!m_ins){
@@ -112,7 +115,7 @@ bool redis::initial(std::string redisIp,int redisPort,std::string mypass)
 	m_pass = mypass;
 	freeReplyObject(this->m_pReply);
 	m_pReply = NULL;
-	printf("redis auth success\n");
+	//printf("redis auth success\n");
 	return true;
 }
 
@@ -153,7 +156,7 @@ bool redis::set(std::string key, char* value, int len)
 		freeReplyObject(r);
 		return false;
 	}
-	printf("set redis success\n");
+	//printf("set redis success\n");
 	freeReplyObject(r);
 	return true;
 }
@@ -179,7 +182,7 @@ bool redis::set(string key, int value){
 		freeReplyObject(r);
 		return false;
 	}
-	printf("set redis success\n");
+	//printf("set redis success\n");
 	freeReplyObject(r);
 	return true;
 }
@@ -206,7 +209,7 @@ char* redis::get(std::string key, int &len)
 		m_pReply = NULL;
 		return NULL;
 	}
-	printf("get redis success\n");
+	//printf("get redis success\n");
 	len = m_pReply->len;
 	char* valuestr=new char[len+1];
 	strcpy(valuestr,m_pReply->str);
@@ -239,7 +242,7 @@ bool redis::Hash(std::string key, Message *msg){
 			freeReplyObject(r);
 			return false;
 		}
-		printf("set redis success\n");
+		//printf("set redis success\n");
 		freeReplyObject(r);
 
 	}
@@ -261,7 +264,7 @@ bool redis::Hash(std::string key, std::string name, std::string value){
 		freeReplyObject(r);
 		return false;
 	}
-	printf("set redis success\n");
+	//printf("set redis success\n");
 	freeReplyObject(r);
 	return true;
 }
@@ -283,7 +286,7 @@ bool redis::addHash(std::string key, std::string name, int value){
 		freeReplyObject(r);
 		return false;
 	}
-	printf("set redis success\n");
+	//printf("set redis success\n");
 	freeReplyObject(r);
 	return true;
 }
@@ -334,34 +337,19 @@ Message *redis::getHash(std::string key, string msgname){
 }
 
 bool redis::List(std::string key, char* value){
-	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "rpushx %s %s", key.c_str(), value);
-	bool ist = true;
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "rpush %s %s", key.c_str(), value);
 	if (!m_pReply)
 	{
 		printf("set redis faliled\n");
-		ist = false;
 		return false;
 	}
-	if (ist && (m_pReply->type == REDIS_REPLY_ERROR || m_pReply->str || m_pReply->integer == 0)){
-		ist = false;
+
+	//执行失败
+	if (m_pReply->type == REDIS_REPLY_ERROR || m_pReply->str)
+	{
 		printf("set redis faliled\n");
 		freeReplyObject(m_pReply);
-	}
-	if (!ist){
-		m_pReply = (redisReply*)redisCommand(this->m_pConnect, "rpush %s %s", key.c_str(), value);
-		if (!m_pReply)
-		{
-			printf("set redis faliled\n");
-			return false;
-		}
-
-		//执行失败
-		if (m_pReply->type == REDIS_REPLY_ERROR || m_pReply->str)
-		{
-			printf("set redis faliled\n");
-			freeReplyObject(m_pReply);
-			return false;
-		}
+		return false;
 	}
 	printf("set redis success\n");
 	freeReplyObject(m_pReply);
@@ -375,6 +363,57 @@ bool redis::List(std::string key, Message *msg){
 	msg->SerializePartialToArray(buffer, sz);
 	ZeroChange(buffer,sz);
 	return List(key, buffer);
+}
+
+bool redis::List(string key, map<string, int>vec){
+	string tt ;
+	map<string, int>::iterator itr = vec.begin();
+	for (itr; itr != vec.end();itr++){
+		tt += itr->first+" ";
+	}
+	return List(key,(char *)tt.c_str());
+}
+
+map<string, int> redis::getList(string key){
+	int64_t t = Common::getCurrentTime();
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lrange %s %d %d", key.c_str(), 0, -1);
+	map<string, int> vec;
+	if (!m_pReply)
+	{
+		reconnect();
+		printf("get value failed\n");
+		return vec;
+	}
+	//get成功返回结果为 REDIS_REPLY_STRING 
+	if (m_pReply->type == REDIS_REPLY_ERROR)
+	{
+		printf("get redis faliled\n");
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return vec;
+	}
+
+	
+	int sz = m_pReply->elements;
+	for (int i = 0; i < sz; i+=2){
+		redisReply *rpvalues = m_pReply->element[i];
+		string value = rpvalues->str;
+		int len = rpvalues->len;
+		vec.insert(make_pair(value,len));
+		if (i + 1 < sz){
+			rpvalues = m_pReply->element[i + 1];
+			value = rpvalues->str;
+			len = rpvalues->len;
+			vec.insert(make_pair(value, len));
+		}
+	}
+	int64_t t2 = Common::getCurrentTime();
+	int64_t tt = t2 - t;
+	printf("******%d line data use time:%gs******\n", sz,tt / 1000.0 / 1000);
+	//printf("get redis success\n");
+	freeReplyObject(m_pReply);
+	m_pReply = NULL;
+	return vec;
 }
 
 bool redis::setList(std::string key, string keyname, string value, Message *msg1){
@@ -445,7 +484,7 @@ bool redis::setList(std::string key, string keyname, string value, Message *msg1
 					releaseMessages(vec);
 					return false;
 				}
-				printf("set redis success\n");
+				//printf("set redis success\n");
 				freeReplyObject(m_pReply);
 				releaseMessages(vec);
 				return ist;
@@ -490,7 +529,7 @@ vector<char *> redis::getList(string key, vector<int> &lens, int beginindex, int
 		lens.push_back(len);
 	}
 
-	printf("get redis success\n");
+	//printf("get redis success\n");
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
 	return vec;
@@ -524,7 +563,7 @@ std::vector<Message *> redis::getList(std::string key, string mesname, int begin
 		vec.push_back(msg);
 	}
 	
-	printf("get redis success\n");
+	//printf("get redis success\n");
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
 	return vec;
@@ -676,4 +715,41 @@ void redis::ChangeToZero(char *&data, int sz){
 			data[i] = '\0';
 		}
 	}
+}
+
+char *redis::getLastList(string key){
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lindex %s -1", key.c_str());
+	if (!m_pReply)
+	{
+		reconnect();
+		printf("get value failed\n");
+		return NULL;
+	}
+	//get成功返回结果为 REDIS_REPLY_STRING 
+	if (m_pReply->type == REDIS_REPLY_ERROR)
+	{
+		printf("get redis faliled\n");
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return NULL;
+	}
+	//printf("get redis success\n");
+	char *value = m_pReply->str;
+	if (value){
+		int len = m_pReply->len;
+		char* valuestr = new char[len + 1];
+		memset(valuestr, 0, len + 1);
+		strcpy(valuestr, value);
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return valuestr;
+	}
+	
+	freeReplyObject(m_pReply);
+	m_pReply = NULL;
+	return value;
+}
+
+bool redis::getList(string key, map<string, int> &vec){
+	return true;
 }

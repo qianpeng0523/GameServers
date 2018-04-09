@@ -33,6 +33,10 @@ public:
 
 	bool List(std::string key, Message *msg);//typename+id(唯一):添加元素列表 比如战绩那些（id是房间号）
 	bool List(std::string key, char* value);
+	bool List(string key,map<string,int>vec);
+
+	map<string, int> getList(string key);
+	bool getList(string key, map<string, int> &vec);
 	std::vector<Message *> getList(std::string key, string mesname);
 	std::vector<Message *> getList(std::string key, string mesname,int beginindex,int endindex);
 	vector<char *> getList(string key, vector<int> &lens,int beginindex=0, int endindex=-1);
@@ -43,6 +47,8 @@ public:
 	void releaseMessages(vector<Message *>vecs);
 	void ZeroChange(char *&data, int sz);
 	void ChangeToZero(char *&data, int sz);
+
+	char *getLastList(string key);
 private:
 	vector<string> PushDataToRedis(std::string key, Message *msg);
 	Message *PopDataFromRedis(std::string key, map<string, string>maps);
