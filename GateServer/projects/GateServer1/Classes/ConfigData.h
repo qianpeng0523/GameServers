@@ -133,7 +133,7 @@ public:
 	HuItem isHu(int *pai, bool ispengqing);
 	HuItem isHu(int *pai, bool ispengqing, int bao);
 	uint64 getRedisLastIndex(string key);
-	PaoItem getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao,int baoniang, int zhua, bool isgang);//peng
+	PaoItem getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao, int baoniang, int zhua, bool isgang, HuTypeEnum hu);//peng
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
 	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item,int kind);
