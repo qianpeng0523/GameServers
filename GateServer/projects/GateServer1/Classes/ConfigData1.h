@@ -126,6 +126,7 @@ public:
 	void setShunzi();
 	map<int, vector<int>> getKindCard(int *temppai);
 	HuItem isHu(int *pai);
+	HuItem isHu(int *pai, int bao);
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
 	vector<int> isTing(int *pai,int bao);
@@ -133,7 +134,13 @@ private:
 	PaoItem getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao, int baoniang, int zhua, bool isgang);
 	void test();
 	HuTypeEnum isFit(vector<int> p);
-	void Fit(vector<int>p, vector<vector<vector<int>>> &vecs);
+	HuTypeEnum isFit1(int index, map<string, vector<int>>&vec, vector<int>&p);
+	HuTypeEnum isFit2(int index, map<string, vector<int>>&vec, vector<int>&p);
+	HuTypeEnum isFit3(int index, map<string, vector<int>>&vec, vector<int>&p);
+	HuTypeEnum isFit4(int index, map<string, vector<int>>&vec, vector<int>&p);
+	HuTypeEnum eraseVec(vector<int>&p, vector<int>ep);
+	vector<int> copyVec(vector<int> p);
+	void setTemp(vector<int>&tp,int v1,int v2=0,int v3=0,int v4=0);
 private:
 	static ConfigData1 *m_ins;
 	map<string,bool>m_kezi;

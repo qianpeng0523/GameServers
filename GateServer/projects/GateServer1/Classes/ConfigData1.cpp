@@ -39,8 +39,9 @@ ConfigData1 *ConfigData1::getIns(){
 void ConfigData1::init(){
 	setKezi();
 	setShunzi();
-	int a[14] = {1,2,3,2,3,4,5,6,7,8,9,7};
+	int a[14] = {1,1,1,1,2,2,2,2,3,3,3,3,4,4};
 	isHu(a);
+	printf("11111\n");
 // 	int64_t t = Common::getCurrentTime();
 // 	
 // 	int64_t t3 = Common::getCurrentTime();
@@ -104,6 +105,32 @@ void ConfigData1::setShunzi(){
 	}
 }
 
+HuItem ConfigData1::isHu(int *pai, int bao){
+	int temp[14] = {0};
+	memcpy(temp,pai,sizeof(int )*14):
+	HuItem item;
+	item = isHu(temp);
+	if (item._hutype == None || item._hutype == PI){
+		int baocount = 4;
+		setValueZero(temp, bao, 4, baocount);
+		for (int i = 1; i < baocount; i++){
+			memcpy(temp, pai, sizeof(int)* 14);
+			for (int j = 0; j < g_kind; j++){
+				int v = g_all_mjkind[j];
+				
+				
+			}
+		}
+	}
+	else{
+		return item;
+	}
+}
+
+void ConfigData1::setTemp(vector<int>&tp, int v1, int v2 , int v3, int v4 ){
+
+}
+
 HuItem ConfigData1::isHu(int *pai){
 	HuItem item;
 	item._hutype = None;
@@ -123,6 +150,15 @@ HuItem ConfigData1::isHu(int *pai){
 			}
 		}
 	}
+	int duicount = 0;
+	map<int, int>::iterator itr = duis.begin();
+	for (itr; itr != duis.end();itr++){
+		duicount += (itr->second/2);
+	}
+	if (duicount == 7){
+		item._hutype = QIDUI;
+		return item;
+	}
 	int bb = 0;
 	map<int, int>::iterator itr = duis.begin();
 	for (itr; itr != duis.end();itr++){
@@ -133,11 +169,29 @@ HuItem ConfigData1::isHu(int *pai){
 			quickSort(temp,0,13);
 
 			HuTypeEnum lasttype = None;
-			map<int, vector<int>> vec = getKindCard(pai);
+			map<int, vector<int>> vec = getKindCard(temp);
 			map<int, vector<int>>::iterator itr1 = vec.begin();
 			for (itr1; itr1 != vec.end();itr1++){
 				vector<int> kindcards = itr1->second;
-				isFit(kindcards);
+				HuTypeEnum type = isFit(kindcards);
+				if (type == None){
+					return item;
+				}
+				else if (type==PI){
+					lasttype = type;
+				}
+				else if (type==PENGPENG){
+					if (lasttype == PI){
+						lasttype = PI;
+					}
+					else{
+						lasttype = PENGPENG;
+					}
+				}
+			}
+			if (lasttype != None){
+				item._hutype= lasttype;
+				return item;
 			}
 		}
 	}
@@ -150,87 +204,180 @@ HuTypeEnum ConfigData1::isFit(vector<int> p){
 	if (sz%3!=0){
 		return type;
 	}
-	vector<vector<vector<int>>> vecs;
-	Fit(p, vecs);
-	printf("111\n");
-// 	char buff[100];
-// 	for (int i = 0; i < 4; i++){
-// 		sprintf(buff, "%c%c%c", 48 + tp[i][0], 48 + tp[i][1], 48 + tp[i][2]);
-// 		if (m_kezi.find(buff) == m_kezi.end()){
-// 			type = PENGPENG;
-// 		}
-// 	}
+	char buff[100];
+	//碰碰
+	{
+		map<string, vector<int>> vec1;
+		for (int i = 0; i < sz; i++){
+			int v1 = p.at(i);
+			for (int j = i + 1; j < sz; j++){
+				int v2 = p.at(j);
+				for (int k = j + 1; k < sz; k++){
+					int v3 = p.at(k);
+					if ((v1 == v2&&v2 == v3)){
+						vector<int>vec;
+						vec.push_back(v1);
+						vec.push_back(v2);
+						vec.push_back(v3);
+						sprintf(buff, "%c%c%c", 48 + v1, 48 + v2, 48 + v3);
+						vec1.insert(make_pair(buff, vec));
+					}
+
+				}
+			}
+		}
+		for (int i = 0; i < vec1.size(); i++){
+			vector<int>tp = copyVec(p);
+			type = isFit1(i, vec1, tp);
+			if (type != None){
+				return type;
+			}
+		}
+	}
+	//pi
+	{
+		map<string, vector<int>> vec1;
+		for (int i = 0; i < sz; i++){
+			int v1 = p.at(i);
+			for (int j = i + 1; j < sz; j++){
+				int v2 = p.at(j);
+				for (int k = j + 1; k < sz; k++){
+					int v3 = p.at(k);
+					if ((v1 == v2&&v2 == v3)||(v1 + 1 == v2&&v2 + 1 == v3)){
+						vector<int>vec;
+						vec.push_back(v1);
+						vec.push_back(v2);
+						vec.push_back(v3);
+						sprintf(buff, "%c%c%c", 48 + v1, 48 + v2, 48 + v3);
+						vec1.insert(make_pair(buff, vec));
+					}
+
+				}
+			}
+		}
+		for (int i = 0; i < vec1.size(); i++){
+			vector<int>tp = copyVec(p);
+			type = isFit1(i, vec1, tp);
+			if (type != None){
+				return type;
+			}
+		}
+		
+	}
+	return None;
 }
 
-void ConfigData1::Fit(vector<int>p, vector<vector<vector<int>>> &vecs){
-	int sz = p.size();
-	if (sz == 0){
-		return;
+HuTypeEnum ConfigData1::isFit1(int index, map<string, vector<int>>&vec, vector<int>&p){
+	HuTypeEnum type=None;
+	map<string, vector<int>>::iterator  itr = vec.begin();
+	int i = 0;
+	for (itr; itr != vec.end(); itr++){
+		vector<int>bv = itr->second;
+		type = eraseVec(p, bv);
+		if (type != None){
+			type = isFit2(i, vec, p);
+			if (type != None){
+				return type;
+			}
+		}
+		i++;
 	}
-	char buff[100];
-	vector<vector<int>> vec1;
-	for (int i = 0; i < sz; i++){
-		int v1 = p.at(i);
-		for (int j = i + 1; j < sz; j++){
-			int v2 = p.at(j);
-			for (int k = j + 1; k < sz; k++){
-				int v3 = p.at(k);
-				if ((v1 == v2&&v2 == v3)||(v1+1==v2&&v2+1==v3)){
-					vector<int>vec;
-					vec.push_back(v1);
-					vec.push_back(v2);
-					vec.push_back(v3);
-					vec1.push_back(vec);
-				}
-				
+	return type;
+}
+
+HuTypeEnum ConfigData1::isFit2(int index, map<string, vector<int>>&vec, vector<int>&p){
+	HuTypeEnum type=None;
+	map<string, vector<int>>::iterator  itr = vec.begin();
+	int i = 0;
+	for (itr; itr != vec.end();itr++){
+		vector<int>bv = itr->second;
+		type = eraseVec(p, bv);
+		if (type != None){
+			type = isFit3(i, vec, p);
+			if (type != None){
+				return type;
 			}
+		}
+		
+		i++;
+	}
+	return type;
+}
+
+HuTypeEnum ConfigData1::isFit3(int index, map<string, vector<int>>&vec, vector<int>&p){
+	HuTypeEnum type=None;
+	map<string, vector<int>>::iterator  itr = vec.begin();
+	int i = 0;
+	for (itr; itr != vec.end(); itr++){
+		vector<int>bv = itr->second;
+		type = eraseVec(p, bv);
+		if (type != None){
+			type = isFit4(i,vec,p);
+			if (type != None){
+				return type;
+			}
+		}
+		i++;
+	}
+	return type;
+}
+
+HuTypeEnum ConfigData1::isFit4(int index, map<string, vector<int>>&vec, vector<int>&p){
+	HuTypeEnum type;
+	map<string, vector<int>>::iterator  itr = vec.begin();
+	for (itr; itr != vec.end(); itr++){
+		vector<int>bv = itr->second;
+		type = eraseVec(p, bv);
+		if (type!=None){
+			return type;
 		}
 	}
-	for (int i = 0; i < vec1.size();i++){
-		vector<int> temp;
-		for (int k = 0; k < p.size(); k++){
-			temp.push_back(p.at(k));
+	return None;
+}
+
+vector<int> ConfigData1::copyVec(vector<int> p){
+	vector<int>tp;
+	for (int i = 0; i < p.size(); i++){
+		tp.push_back(p.at(i));
+	}
+	return tp;
+}
+
+HuTypeEnum ConfigData1::eraseVec(vector<int>&p, vector<int>ep){
+	HuTypeEnum type = None;
+	vector<int>tp = copyVec(p);
+	vector<int>::iterator itr = tp.begin();
+	int v1 = ep.at(0);
+	int v2 = ep.at(1);
+	int v3 = ep.at(2);
+	if (v1 == v2&&v2 == v3){
+		type = PENGPENG;
+	}
+	else{
+		type = PI;
+	}
+	for (itr; itr != tp.end();){
+		int v = *itr;
+		if (v == v1){
+			v1 = 0;
+			itr= tp.erase(itr);
 		}
-		vector<int> vec=vec1.at(i);
-		int v1 = vec.at(0);
-		int v2 = vec.at(1);
-		int v3 = vec.at(2);
-		//printf("[%d %d %d %d]:\n", i+index1,i+index2,i+index3,i+index4);
-		for (auto itr=temp.begin(); itr != temp.end();){
-			int v = *itr;
-			if (v1 == v){
-				v1 = 0;
-				itr= temp.erase(itr);
-				
-			}
-			else if (v2 == v){
-				v2 = 0;
-				itr = temp.erase(itr);
-				
-			}
-			else if (v3 == v){
-				v3 = 0;
-				itr = temp.erase(itr);
-				
-			}
-			else{
-				itr++;
-			}
-			
-		}
-		vector<vector<int>> pvec;
-		if (vecs.size() <i){
-			pvec = vecs.at(i);
-			pvec.push_back(vec);
-			vecs.at(i) = pvec;
-			Fit(temp, vecs);
+		else if (v == v2){
+			v2 = 0;
+			itr = tp.erase(itr);
+		}else if (v == v3){
+			v3 = 0;
+			itr = tp.erase(itr);
 		}
 		else{
-			pvec.push_back(vec);
-			vecs.push_back(pvec);
-			Fit(temp, vecs);
+			itr++;
 		}
 	}
+	if (v1 == v2 &&v2== v3 &&v3== 0){
+		p = tp;
+		return type;
+	}
+	return None;
 }
 
 map<int, vector<int>> ConfigData1::getKindCard(int *temppai){
@@ -284,7 +431,7 @@ void ConfigData1::setValueZero(int *a, int v, int len, int &baocount){
 			}
 		}
 	}
-	baocount -=(2 - index);
+	baocount = index;
 }
 
 vector<int> ConfigData1::isTing(int *pai, int bao){
