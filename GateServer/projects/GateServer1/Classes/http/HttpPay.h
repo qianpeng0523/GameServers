@@ -11,6 +11,7 @@ public:
     virtual bool init();
 	static HttpPay *getIns();
 	
+	void requestOrder(string xml);
 public:
 	
 private:

@@ -23,6 +23,7 @@ public:
 
 	static HttpEvent* getIns();
 	void requestData(string url,YMSocketData sd);
+	void requestData(string url, string content);
 	void init();
 	YMSocketData getSocketDataByStr(char* str, int sz);
 	void SendMsg(YMSocketData &sd, struct evhttp_request *req);
