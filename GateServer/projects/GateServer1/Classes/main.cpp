@@ -28,7 +28,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	redis::getIns()->initial("47.104.165.65", 6379, "3.1415926qp");
 	RedisGet::getIns()->init();
 
-	ConfigData::getIns();
+	//ConfigData::getIns();
 	
 	LoginInfo::getIns()->openCheckUpdate(true);
 	HallInfo::getIns();
