@@ -144,6 +144,9 @@
     <ClCompile Include="Classes\redisdata\RedisPut.cpp">
       <Filter>源文件\Classes\redisdata</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\http\HttpPay.cpp">
+      <Filter>源文件\Classes\http</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -283,6 +286,9 @@
     </ClInclude>
     <ClInclude Include="Classes\redisdata\RedisPut.h">
       <Filter>源文件\Classes\redisdata</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\http\HttpPay.h">
+      <Filter>源文件\Classes\http</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
