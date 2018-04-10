@@ -110,6 +110,32 @@ static int g_all_mj[] = {
 	g_all_mjkind[33], g_all_mjkind[33], g_all_mjkind[33], g_all_mjkind[33],
 };
 
+struct PaoNeed
+{
+	PaoNeed(){
+		memset(_handcards,0,sizeof(int)*14);
+		memset(_peng, 0, sizeof(int)* 4);
+		memset(_ptype, 0, sizeof(PENGPAO)* 4);
+		_facount = 0;
+		_bao = 0;
+		_baoniang = 0;
+		_zhua = false;
+		_isgang = false;
+		_hu = None;
+		_hucard = 0;
+	}
+	int _handcards[14];
+	int _peng[4];
+	PENGPAO _ptype[4];
+	int _facount;
+	int _bao;
+	int _baoniang;
+	bool _zhua;
+	bool _isgang;
+	HuTypeEnum _hu;
+	int _hucard;
+};
+
 class ConfigData 
 {
 public:
@@ -133,7 +159,7 @@ public:
 	HuItem isHu(int *pai, bool ispengqing);
 	HuItem isHu(int *pai, bool ispengqing, int bao);
 	uint64 getRedisLastIndex(string key);
-	PaoItem getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao, int baoniang, int zhua, bool isgang, HuTypeEnum hu);//peng
+	PaoItem getHandOtherPao(PaoNeed pn);//peng
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
 	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item,int kind);

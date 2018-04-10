@@ -965,18 +965,18 @@ map<int, vector<int>>ConfigData::chuTing(int *pai, int bao){
 	return datas;
 }
 
-PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao, int baoniang, int zhua, bool isgang, HuTypeEnum hu){
+PaoItem ConfigData::getHandOtherPao(PaoNeed pn){
 	PaoItem pi;
 	//fa
-	if (facount >0&&facount<3){
-		pi._fapao = facount;
+	if (pn._facount >0 && pn._facount<3){
+		pi._fapao = pn._facount;
 	}
-	else if (facount >= 3){
-		if (baoniang == 0x36){
+	else if (pn._facount >= 3){
+		if (pn._baoniang == 0x36){
 			pi._fapao = 10;
 		}
 		else{
-			if (facount == 3){
+			if (pn._facount == 3){
 				pi._fapao = 3;
 			}
 			else{
@@ -987,9 +987,9 @@ PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facou
 	//hutype
 	int hutypepao = 0;
 	HUTYPE hutype;
-	if (isgang){
+	if (pn._isgang){
 		hutypepao = 5;
-		if (zhua){
+		if (pn._zhua){
 			hutype = ZIMOGANG_TYPE;
 		}
 		else{
@@ -997,7 +997,7 @@ PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facou
 		}
 	}
 	else{
-		if (zhua){
+		if (pn._zhua){
 			hutype = ZIMO_TYPE;
 			hutypepao = 1;
 		}
@@ -1011,10 +1011,10 @@ PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facou
 	//pengpao
 	int ppp[3] = {0};
 	for (int i = 0; i < 4; i++){
-		int v = peng[i];
-		PENGPAO pp = ptype[i];
+		int v = pn._peng[i];
+		PENGPAO pp = pn._ptype[i];
 		if (v>0){
-			if (baoniang == v){
+			if (pn._baoniang == v){
 				if (v == 0x35 || v == 0x37){
 					if (pp == MGANG_PAO){
 						ppp[pp + 1] += 3;
@@ -1057,9 +1057,10 @@ PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facou
 	}
 
 	//handpao
+	int count = 0;
 	map<int, int>maps;
 	for (int i = 0; i < 14; i++){
-		int v = a[i];
+		int v = pn._handcards[i];
 		if (v>0){
 			if (maps.find(v) == maps.end()){
 				maps.insert(make_pair(v, 1));
@@ -1067,13 +1068,28 @@ PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facou
 			else{
 				maps.at(v)++;
 			}
+			count++;
+		}
+	}
+	if (count == 14){
+		pi._handpao.insert(make_pair(MENQING_PAO, 1));
+	}
+	else{
+		bool ist = true;
+		for (int i = 0; i < 4; i++){
+			if (pn._ptype[i] != AGANG_PAO){
+				ist = false;
+			}
+		}
+		if (ist){
+			pi._handpao.insert(make_pair(MENQING_PAO, 1));
 		}
 	}
 	map<int, int>::iterator itr = maps.begin();
 	for (itr; itr != maps.end(); itr++){
 		int count = itr->second;
 		int v = itr->second;
-		if (count == 4&&hu==QIDUI){
+		if (count == 4 && pn._hu == QIDUI){
 			if (v == 0x35 || v == 0x37){
 				if (pi._handpao.find(HONGBAN_PAO) != pi._handpao.end()){
 					pi._handpao.at(HONGBAN_PAO) += 3;
@@ -1094,14 +1110,26 @@ PaoItem ConfigData::getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facou
 		else if (count==3){
 			if (v == 0x35 || v == 0x37){
 				if (pi._handpao.find(HONGBAN_PAO) != pi._handpao.end()){
-					pi._handpao.at(HONGBAN_PAO) += 2;
+					pi._handpao.at(HONGBAN_PAO) +=(pn._hucard==v?1: 2);
 				}
 				else{
-					pi._handpao.insert(make_pair(HONGBAN_PAO, 2));
+					pi._handpao.insert(make_pair(HONGBAN_PAO, (pn._hucard == v ? 1 : 2)));
 				}
 			}
 		}
 	}
-	//还有卡独 中白胡 
+	//还有卡独
+	int temp[14];
+	memcpy(temp, pn._handcards, sizeof(int)* 14);
+	for (int i = 0; i < 14; i++){
+		if (temp[i] == pn._hucard){
+			temp[i] = 0;
+		}
+	}
+	vector<int> vec = isTing(temp, pn._bao);
+	if (vec.size()==1&&vec.at(0)==pn._hucard){
+		//卡 独
+		pi._handpao.insert(make_pair(KA_DU_PAO, 1));
+	}
 	return pi;
 }
