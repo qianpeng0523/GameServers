@@ -57,38 +57,25 @@ void ConfigData::initMJ(){
 	random_shuffle(m_cards.begin(), m_cards.end());
 }
 
-string ConfigData::getRedisLastIndex(string key){
+uint64 ConfigData::getRedisLastIndex(string key){
 	char *dd = m_predis->getLastList(key);
 	if (dd == NULL){
-		return "";
+		return 0;
 	}
 	string tt = dd;
 	printf("tt:%s,dd:%s",tt.c_str(),dd);
 	delete dd;
-	return tt;
+	return atoi(tt.c_str());
 }
 
 void ConfigData::init(){
 	int64_t t = Common::getCurrentTime();
 	int len = 0;
 	m_predis = redis::getIns();
-	string vv= m_predis->getLastList("baoke14204");
+	char* vv= m_predis->getLastList("baoke14204");
 	char buff[200];
-	if (vv.compare("eefffggg")!=0){
-#ifdef FENG_LIAN
-
-#else
-		for (int i = 0x31; i <= 0x37; i++){
-			vector<int >vec;
-			for (int j = 0; j < 3; j++){
-				vec.push_back(i);
-			}
-			m_kezi.push_back(vec);
-		}
-		for (int i = 1; i <= 4; i++){
-			setFengKezi(i);
-		}
-#endif
+	char buff1[200];
+	if (!vv){
 		setKezi();
 		setShunzi();
 		for (int i = 1; i <= 4; i++){
@@ -97,14 +84,14 @@ void ConfigData::init(){
 			}
 		}
 
-		map<int, map<string, int>>::iterator itr = m_lianke.begin();
+		map<int, map<uint64, int>>::iterator itr = m_lianke.begin();
 		
 		for (itr; itr != m_lianke.end(); itr++){
 			int sr = itr->first;
 			sprintf(buff, "ke%d", sr);
-			string kk= getRedisLastIndex(buff);
-			map<string, int> vec = itr->second;
-			map<string, int>::iterator itr1=vec.find(kk);
+			uint64 kk = getRedisLastIndex(buff);
+			map<uint64, int> vec = itr->second;
+			map<uint64, int>::iterator itr1 = vec.find(kk);
 			if (itr1 == vec.end()){
 				itr1 = vec.begin();
 			}
@@ -112,7 +99,8 @@ void ConfigData::init(){
 				itr1++;
 			}
 			for (itr1; itr1 != vec.end(); itr1++){
-				m_predis->List(buff, (char *)itr1->first.c_str());
+				sprintf(buff1,"%ld",itr1->first);
+				m_predis->List(buff, buff1);
 			}
 			printf("******%s***********\n",buff);
 		}
@@ -120,6 +108,7 @@ void ConfigData::init(){
 		for (int i = 1; i <= 4; i++){
 			setLiankeBao(i);
 		}
+		printf("______\n");
 	}
 	else{
 		string vv[] = {"5","52","8","82","11","112","14","142"};
@@ -128,15 +117,18 @@ void ConfigData::init(){
 		for (int i = 0; i < 8; i++){
 			sprintf(buff,"ke%s",vv[i].c_str());
 			printf("*********type:%d********\n", ct[i]);
-			map<string, int> vec = m_predis->getList(buff);
-			int len = atoi(vv[i].c_str());
-			m_lianke.insert(make_pair(len, vec));
-
+			map<uint64, int> vec = m_predis->getList(buff);
+			if (!vec.empty()){
+				int len = atoi(vv[i].c_str());
+				m_lianke.insert(make_pair(len, vec));
+			}
 			for (int j = 0; j < 4; j++){
 				sprintf(buff, "baoke%s%s", vv[i].c_str(), vr[j].c_str());
 				CSVSTRUCT type = (CSVSTRUCT)(CSV_BAOHU51 + i * 4 + j);
-				map<string, int> vec5 = m_predis->getIns()->getList(buff);
-				m_liankebao.insert(make_pair(atoi((vv[i] + vr[j]).c_str()), vec5));
+				map<uint64, int> vec5 = m_predis->getIns()->getList(buff);
+				if (!vec5.empty()){
+					m_liankebao.insert(make_pair(atoi((vv[i] + vr[j]).c_str()), vec5));
+				}
 				printf("**********type:%d**********\n", type);
 			}
 		}
@@ -153,9 +145,13 @@ void ConfigData::init(){
 }
 #define  TESTCOUNT 50
 void ConfigData::test(){
+	int ta[14] = {1,2,3,4,5,6,7,0x35,0x36,0x37,0x37};
+	HuItem ii = isHu(ta,false,1);
+
 	int a[TESTCOUNT][14] = { 0 };
 	int b[TESTCOUNT][14] = { 0 };
 	int index = 0;
+	int64_t t = Common::getCurrentTime();
 	while (index < TESTCOUNT){
 		//胡牌和出牌听牌测试
 		for (int i = 2; i <= 14;i+=3){
@@ -175,14 +171,18 @@ void ConfigData::test(){
 		index++;
 	}
 	int64_t ttt = Common::getCurrentTime();
+	int64_t tt = ttt - t;
+	printf("******rand.use time:%gs******\n", tt / 1000.0 / 1000);
+
+
 	index = 0;
 	while (index < TESTCOUNT){
-		map<int,vector<int>> vec=chuTing(a[index],1);
+		isHu(a[index], false,1);
 		index++;
 	}
-	int64_t t1 = Common::getCurrentTime();
-	int64_t tt = t1 - ttt;
-	printf("******1.use time:%gs******\n", tt/1000.0/1000);
+	int64_t t3 = Common::getCurrentTime();
+	tt = t3 - ttt;
+	printf("******Hu.use time:%gs******\n", tt / 1000.0 / 1000);
 
 	index = 0;
 	while (index < TESTCOUNT){
@@ -190,17 +190,21 @@ void ConfigData::test(){
 		index++;
 	}
 	int64_t t2 = Common::getCurrentTime();
-	tt = t2 - t1;
-	printf("******2.use time:%gs******\n", tt / 1000.0 / 1000);
+	tt = t2 - t3;
+	printf("******Ting.use time:%gs******\n", tt / 1000.0 / 1000);
 
 	index = 0;
 	while (index < TESTCOUNT){
-		isHu(a[index], false);
+		map<int,vector<int>> vec=chuTing(a[index],1);
 		index++;
 	}
-	int64_t t3 = Common::getCurrentTime();
-	tt = t3 - t2;
-	printf("******3.use time:%gs******\n", tt / 1000.0 / 1000);
+	int64_t t1 = Common::getCurrentTime();
+	tt = t1 - t2;
+	printf("******ChuTing.use time:%gs******\n", tt/1000.0/1000);
+
+	
+
+	
 
 
 	printf("1111\n");
@@ -237,82 +241,6 @@ void ConfigData::setKezi(){
 		}
 		m_kezi.push_back(vec);
 	}
-}
-
-void ConfigData::setFengKezi(int jj){
-	map<string, int> maps;
-	int sz = m_kezi.size();
-	char buff[200];
-	int len = jj * 3 + 2;
-	for (int i = 0; i < sz; i++){
-		if (jj>1){
-			for (int j = i + 1; j < sz; j++){
-				if (jj>2){
-					for (int k = j + 1; k < sz; k++){
-						if (jj>3){
-							for (int m = k + 1; m < sz; m++){
-								vector<int >vec = m_kezi.at(i);
-								vector<int >vec1 = m_kezi.at(j);
-								vector<int >vec2 = m_kezi.at(k);
-								vector<int >vec3 = m_kezi.at(m);
-								vector<int>vvvvv;
-								for (int kk = 0; kk < vec.size(); kk++){
-									vvvvv.push_back(vec.at(kk));
-									vvvvv.push_back(vec1.at(kk));
-									vvvvv.push_back(vec2.at(kk));
-									vvvvv.push_back(vec3.at(kk));
-								}
-								sort(vvvvv.begin(), vvvvv.end(), compare);
-								for (int mm = 0; mm < vvvvv.size(); mm++){
-									sprintf(buff + mm , "%c",48+ vvvvv.at(mm));
-								}
-								maps.insert(make_pair(buff,0));
-							}
-						}
-						else{
-							vector<int >vec = m_kezi.at(i);
-							vector<int >vec1 = m_kezi.at(j);
-							vector<int >vec2 = m_kezi.at(k);
-							vector<int>vvvvv;
-							for (int kk = 0; kk < vec.size(); kk++){
-								vvvvv.push_back(vec.at(kk));
-								vvvvv.push_back(vec1.at(kk));
-								vvvvv.push_back(vec2.at(kk));
-							}
-							sort(vvvvv.begin(), vvvvv.end(), compare);
-							for (int mm = 0; mm < vvvvv.size(); mm++){
-								sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
-							}
-							maps.insert(make_pair(buff, 0));
-						}
-					}
-				}
-				else{
-					vector<int >vec = m_kezi.at(i);
-					vector<int >vec1 = m_kezi.at(j);
-					vector<int>vvvvv;
-					for (int kk = 0; kk < vec.size(); kk++){
-						vvvvv.push_back(vec.at(kk));
-						vvvvv.push_back(vec1.at(kk));
-					}
-					sort(vvvvv.begin(), vvvvv.end(), compare);
-					for (int mm = 0; mm < vvvvv.size(); mm++){
-						sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
-					}
-					maps.insert(make_pair(buff, 0));
-				}
-			}
-		}
-		else{
-			vector<int >vec = m_kezi.at(i);
-			sort(vec.begin(), vec.end(), compare);
-			for (int mm = 0; mm < vec.size(); mm++){
-				sprintf(buff + mm, "%c", 48 + vec.at(mm));
-			}
-			maps.insert(make_pair(buff, 0));
-		}
-	}
-	setFengKeTo(len*10+2, maps);
 }
 
 void ConfigData::setShunzi(){
@@ -407,8 +335,9 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 	if (shunnum == 0){
 		co = co*10+2;
 	}
+	
 	int szsz = m_shunzi.size();
-	map<string,int> maps;
+	map<uint64,int> maps;
 	if (shunnum > 0){
 		for (int i = 0; i < szsz; i++){
 			if (shunnum>1){
@@ -435,7 +364,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 									for (int mm = 0; mm < vvvvv.size(); mm++){
 										sprintf(buff + mm, "%c", 48+vvvvv.at(mm));
 									}
-									maps.insert(make_pair(buff, 0));
+									maps.insert(make_pair(atoll(buff), 0));
 								}
 							}
 							else{
@@ -455,7 +384,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 								for (int mm = 0; mm < vvvvv.size(); mm++){
 									sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 								}
-								maps.insert(make_pair(buff, 0));
+								maps.insert(make_pair(atoll(buff), 0));
 							}
 						}
 					}
@@ -474,7 +403,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 						for (int mm = 0; mm < vvvvv.size(); mm++){
 							sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 						}
-						maps.insert(make_pair(buff, 0));
+						maps.insert(make_pair(atoll(buff), 0));
 					}
 				}
 			}
@@ -491,28 +420,30 @@ void ConfigData::init3L(int shunnum, int index, vector<int>ww){
 				for (int mm = 0; mm < vvvvv.size(); mm++){
 					sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
 				}
-				maps.insert(make_pair(buff, 0));
+				maps.insert(make_pair(atoll(buff), 0));
 			}
 		}
 	}
 	else{
-		sort(ww.begin(), ww.end(), compare);
-		for (int mm = 0; mm < ww.size(); mm++){
-			sprintf(buff + mm, "%c", 48 + ww.at(mm));
+		if (!ww.empty()){
+			sort(ww.begin(), ww.end(), compare);
+			for (int mm = 0; mm < ww.size(); mm++){
+				sprintf(buff + mm, "%c", 48 + ww.at(mm));
+			}
+			maps.insert(make_pair(atoll(buff), 0));
 		}
-		maps.insert(make_pair(buff, 0));
 	}
 	
 	setFengKeTo(co,maps);
 }
 
-void ConfigData::setFengKeTo(int len, map<string, int> maps){
+void ConfigData::setFengKeTo(int len, map<uint64, int> maps){
 	if (m_lianke.find(len) == m_lianke.end()){
 		m_lianke.insert(make_pair(len, maps));
 	}
 	else{
-		map<string, int>mp = m_lianke.at(len);
-		map<string, int>::iterator itr = maps.begin();
+		map<uint64, int>mp = m_lianke.at(len);
+		map<uint64, int>::iterator itr = maps.begin();
 		for (itr; itr != maps.end(); itr++){
 			mp.insert(make_pair(itr->first,itr->second));
 			
@@ -581,7 +512,7 @@ HuItem ConfigData::isHu(int *pai,bool ispengqing){
 			for (itr; itr != kindcards.end();itr++){
 				vector<int> vec = itr->second;
 				//sort(vec.begin(), vec.end(), compare);
-				HuTypeEnum type = isFit(vec, 0,huitem);
+				HuTypeEnum type = isFit(vec, 0,huitem,itr->first);
 				if (ii > 0){
 					if (type>None&& type > lasttype){
 						lasttype = type;
@@ -621,30 +552,12 @@ map<int, vector<int>> ConfigData::getKindCard(int *temppai){
 			int kind = v / 16;
 			if (kindcards.find(kind) == kindcards.end()){
 				vector<int >vv;
-				if (kind == 3){
-#ifdef FENG_LIAN
-					vv.push_back(v % 16);
-#else
-					vv.push_back(v);
-#endif
-				}
-				else{
-					vv.push_back(v % 16);
-				}
+				vv.push_back(v % 16);
 				kindcards.insert(make_pair(kind, vv));
 			}
 			else{
 				vector<int >vv = kindcards.at(kind);
-				if (kind == 3){
-#ifdef FENG_LIAN
-					vv.push_back(v % 16);
-#else
-					vv.push_back(v);
-#endif
-				}
-				else{
-					vv.push_back(v % 16);
-				}
+				vv.push_back(v % 16);
 				kindcards.at(kind) = vv;
 			}
 		}
@@ -757,8 +670,7 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 			for (itr; itr != kindcards.end(); itr++){
 				vector<int> vec = itr->second;
 				//sort(vec.begin(),vec.end(),compare);
-
-				HuTypeEnum type = isFit(vec, baocount1, huitem);
+				HuTypeEnum type = isFit(vec, baocount1, huitem, itr->first);
 				
 				if (ii > 0){
 					if (type > None&& type > lasttype){
@@ -793,9 +705,13 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 	return huitem;
 }
 
-HuTypeEnum ConfigData::isFit(vector<int>p, int baocount, HuItem &item){
+HuTypeEnum ConfigData::isFit(vector<int>p, int baocount, HuItem &item, int kind){
 	char buff[200];
 	int len = p.size();
+	if (len == 0){
+		item._hy = HEI;
+		return PENGPENG;
+	}
 	for (int i = 0; i < len; i++){
 		sprintf(buff+i,"%c",48+p.at(i));
 	}
@@ -803,38 +719,46 @@ HuTypeEnum ConfigData::isFit(vector<int>p, int baocount, HuItem &item){
 	int co = l * 10 + 2;//碰碰胡
 	int baoco1 = l * 100 + baocount;
 	int baoco2 = co * 100 + baocount;//碰碰胡
-	map<int, map<string, int>>::iterator itr1 = m_lianke.find(co);
+	map<int, map<uint64, int>>::iterator itr1 = m_lianke.find(co);
 	if (itr1 != m_lianke.end()){
-		map<string, int> maps = itr1->second;
-		if (maps.find(buff) != maps.end()){
+		map<uint64, int> maps = itr1->second;
+		if (maps.find(atoll(buff)) != maps.end()){
 			item._hy = HEI;
 			return PENGPENG;
 		}
 	}
-	itr1 = m_lianke.find(l);
-	if (itr1 != m_lianke.end()){
-		map<string, int> maps = itr1->second;
-		if (maps.find(buff) != maps.end()){
-			item._hy = HEI;
-			return PI;
+
+	if (baocount > 0){
+		itr1 = m_liankebao.find(baoco2);
+		if (itr1 != m_liankebao.end()){
+			map<uint64, int> maps = itr1->second;
+			if (maps.find(atoll(buff)) != maps.end()){
+				item._hy = RUAN;
+				return PENGPENG;
+			}
 		}
 	}
 
-	if (baocount>0){
-		itr1 = m_liankebao.find(baoco1);
-		if (itr1 != m_liankebao.end()){
-			map<string, int> maps =itr1->second;
-			if (maps.find(buff) != maps.end()){
-				item._hy = RUAN;
+	if (kind < 3){
+		itr1 = m_lianke.find(l);
+		if (itr1 != m_lianke.end()){
+			map<uint64, int> maps = itr1->second;
+			if (maps.find(atoll(buff)) != maps.end()){
+				item._hy = HEI;
 				return PI;
 			}
 		}
-		itr1 = m_liankebao.find(baoco2);
-		if (itr1 != m_liankebao.end()){
-			map<string, int> maps = itr1->second;
-			if (maps.find(buff) != maps.end()){
-				item._hy = RUAN;
-				return PENGPENG;
+	}
+	
+	if (baocount > 0){
+		if (kind < 3){
+			itr1 = m_liankebao.find(baoco1);
+			if (itr1 != m_liankebao.end()){
+				map<uint64, int> maps = itr1->second;
+				if (maps.find(atoll(buff)) != maps.end()){
+					item._hy = RUAN;
+					return PI;
+				}
 			}
 		}
 	}
@@ -856,15 +780,17 @@ void ConfigData::setValueZero(int *a, int v, int len, int &baocount){
 }
 
 void ConfigData::setLiankeBao(int i){
-	map<int, map<string, int>>::iterator itr = m_lianke.begin();
+	char buff[200];
+	map<int, map<uint64, int>>::iterator itr = m_lianke.begin();
 	for (itr; itr != m_lianke.end();itr++){
 		int keykey = itr->first*100+i;
-		map<string, int>maps1;
-		map<string, int> maps = itr->second;
-		map<string, int>::iterator itr1 = maps.begin();
+		map<uint64, int>maps1;
+		map<uint64, int> maps = itr->second;
+		map<uint64, int>::iterator itr1 = maps.begin();
 		for (itr1; itr1 != maps.end();itr1++){
-			string key = itr1->first;
-			int len = key.length();
+			uint64 key = itr1->first;
+			sprintf(buff,"%ld",key);
+			int len = strlen(buff);
 			if (i >= 1){
 				for (int j = 0; j < len; j++){
 					if (i >= 2){
@@ -873,58 +799,64 @@ void ConfigData::setLiankeBao(int i){
 								for (int m = k + 1; m < len; m++){
 									if (i >= 4){
 										for (int n = m + 1; n < len; n++){
-											string kkey = key;
+											string kkey = buff;
 											kkey.replace(j, 1, " ");
 											kkey.replace(k, 1, " ");
 											kkey.replace(m, 1, " ");
 											kkey.replace(n, 1, " ");
 											Common::replace_all(kkey, " ", "");
-
-											maps1.insert(make_pair(kkey, 0));
+											if (!kkey.empty()){
+												maps1.insert(make_pair(atoll(kkey.c_str()), 0));
+											}
 
 										}
 									}
 									else{
-										string kkey = key;
+										string kkey = buff;
 										kkey.replace(j, 1, " ");
 										kkey.replace(k, 1, " ");
 										kkey.replace(m, 1, " ");
 										Common::replace_all(kkey, " ", "");
-										maps1.insert(make_pair(kkey, 0));
+										if (!kkey.empty()){
+											maps1.insert(make_pair(atoll(kkey.c_str()), 0));
+										}
 									}
 								}
 							}
 							else{
-								string kkey = key;
+								string kkey = buff;
 								kkey.replace(j, 1, " ");
 								kkey.replace(k, 1, " ");
 								Common::replace_all(kkey, " ", "");
-								maps1.insert(make_pair(kkey, 0));
+								if (!kkey.empty()){
+									maps1.insert(make_pair(atoll(kkey.c_str()), 0));
+								}
 							}
 						}
 					}
 					else{
-						string kkey = key;
+						string kkey = buff;
 						kkey.replace(j, 1, " ");
 						Common::replace_all(kkey, " ", "");
-						maps1.insert(make_pair(kkey, 0));
+						if (!kkey.empty()){
+							maps1.insert(make_pair(atoll(kkey.c_str()), 0));
+						}
 					}
 				}
 			}
-			else{
-				maps1.insert(make_pair(key, 0));
-			}
 		}
-		m_liankebao.insert(make_pair(keykey, maps1));
+		if (!maps1.empty()){
+			m_liankebao.insert(make_pair(keykey, maps1));
+		}
 	}
-	map<int, map<string,int>>::iterator itr2 = m_liankebao.begin();
-	char buff[200];
+	map<int, map<uint64,int>>::iterator itr2 = m_liankebao.begin();
+	char buff1[200];
 	for (itr2; itr2 != m_liankebao.end(); itr2++){
 		int sr = itr2->first;
 		sprintf(buff, "baoke%d", sr);
-		string kk = getRedisLastIndex(buff);
-		map<string, int> vec = itr2->second;
-		map<string, int>::iterator itr = vec.find(kk);
+		uint64 kk = getRedisLastIndex(buff);
+		map<uint64, int> vec = itr2->second;
+		map<uint64, int>::iterator itr = vec.find(kk);
 		if (itr == vec.end()){
 			itr = vec.begin();
 		}
@@ -932,7 +864,8 @@ void ConfigData::setLiankeBao(int i){
 			itr++;
 		}
 		for (itr; itr != vec.end(); itr++){
-			m_predis->List(buff, (char *)itr->first.c_str());
+			sprintf(buff1,"%ld",itr->first);
+			m_predis->List(buff, buff1);
 		}
 		printf("*********%s**********\n", buff);
 	}
@@ -960,7 +893,23 @@ vector<int> ConfigData::isTing(int *pai, int bao){
 		int v = g_all_mjkind[i];
 		int tp[14];
 		memcpy(tp,pai,sizeof(int)*14);
-		tp[index] = v;
+		if (v >= 0x31 && v <= 0x34){
+#ifdef DONGXINANBEI
+			tp[index] = v;
+#else
+			continue;
+#endif
+		}
+		if (v >= 0x35 && v <= 0x37){
+#ifdef ZHONGFABAI
+			tp[index] = v;
+#else
+			continue;
+#endif
+		}
+		else{
+			tp[index] = v;
+		}
 		quickSort(tp, 0, 13);
 		if (isHu(tp, false, bao)._hutype != None){
 			vec.push_back(v);
@@ -972,26 +921,42 @@ vector<int> ConfigData::isTing(int *pai, int bao){
 map<int, vector<int>>ConfigData::chuTing(int *pai, int bao){
 	map<int, vector<int>> datas;
 	int count = 0;
+	map<int, int>maps;
+	map<int, int>pos;
 	for (int i = 0; i < 14; i++){
-		if (pai[i] > 0){
+		int v = pai[i];
+		if (v > 0){
 			count++;
+			if (maps.find(v) != maps.end()){
+				maps.at(v)++;
+			}
+			else{
+				maps.insert(make_pair(v,1));
+			}
+			if (pos.find(v) == pos.end()){
+				pos.insert(make_pair(v,i));
+			}
 		}
 	}
 	quickSort(pai, 0, 13);
 	if (count == 2 || count == 5 || count == 8 || count == 11 || count == 14){
-		for (int i = 13; i >= 0; i--){
-			int v = pai[i];
+
+		map<int, int>::iterator itr= maps.begin();
+		for (itr; itr != maps.end();itr++){
+			int v = itr->first;
 			if (v == 0){
 				break;
 			}
 			else{
-				if (datas.find(v) == datas.end()){
-					int temp[14];
-					memcpy(temp, pai, sizeof(int)* 14);
-					temp[i] = 0;
-					vector<int>ting = isTing(temp, bao);
-					if (!ting.empty()){
-						datas.insert(make_pair(v, ting));
+				if (itr->second < 4){
+					if (datas.find(v) == datas.end()){
+						int temp[14];
+						memcpy(temp, pai, sizeof(int)* 14);
+						temp[pos.at(v)] = 0;
+						vector<int>ting = isTing(temp, bao);
+						if (!ting.empty()){
+							datas.insert(make_pair(v, ting));
+						}
 					}
 				}
 			}

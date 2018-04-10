@@ -124,20 +124,19 @@ public:
 	void initMJ();
 	
 	void setKezi();
-	void setFengKezi(int jj);
-	void setFengKeTo(int len, map<string, int> maps);
+	
+	void setFengKeTo(int len, map<uint64, int> maps);
 	void setShunzi();
 	void init3P(int index, int kenum);
 	void init3L(int shunnum, int index, vector<int>ww);
 
 	HuItem isHu(int *pai, bool ispengqing);
 	HuItem isHu(int *pai, bool ispengqing, int bao);
-	string getRedisLastIndex(string key);
-
+	uint64 getRedisLastIndex(string key);
 	PaoItem getHandOtherPao(int *a, int *peng, PENGPAO *ptype, int facount, int bao,int baoniang, int zhua, bool isgang);//peng
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
-	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item);
+	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item,int kind);
 	map<int, vector<int>> getKindCard(int *temppai);
 	void setLiankeBao(int i);
 	vector<int> isTing(int *pai,int bao);
@@ -151,8 +150,8 @@ private:
 	int m_index;
 	vector<vector<int>>m_kezi;
 	vector<vector<int>>m_shunzi;
-	map<int, map<string, int>>m_lianke;
-	map<int, map<string, int>>m_liankebao;
+	map<int, map<uint64, int>>m_lianke;
+	map<int, map<uint64, int>>m_liankebao;
 	redis *m_predis;
 };
 

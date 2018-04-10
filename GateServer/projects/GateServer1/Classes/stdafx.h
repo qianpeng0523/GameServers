@@ -34,7 +34,7 @@ using namespace protocol;
 using namespace Poco;
 
 #define HEADLEN 10
-
+#define ZHONGFABAI
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 #include "iconv.h"
 #pragma comment(lib,"../../Debug/libiconv.lib") 
