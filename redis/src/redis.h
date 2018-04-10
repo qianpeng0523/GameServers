@@ -35,7 +35,7 @@ public:
 	bool List(std::string key, char* value);
 	bool List(string key,map<string,int>vec);
 
-	map<string, int> getList(string key);
+	map<uint64, int> getList(string key);
 	bool getList(string key, map<string, int> &vec);
 	std::vector<Message *> getList(std::string key, string mesname);
 	std::vector<Message *> getList(std::string key, string mesname,int beginindex,int endindex);

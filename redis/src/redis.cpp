@@ -39,8 +39,6 @@
 #include "ccEvent.h"
 #include "HttpLogic.h"
 
-#include "Common.h"
-
 redis *redis::m_ins = NULL;
 redis *redis::getIns(){
 	if (!m_ins){
@@ -374,10 +372,9 @@ bool redis::List(string key, map<string, int>vec){
 	return List(key,(char *)tt.c_str());
 }
 
-map<string, int> redis::getList(string key){
-	int64_t t = Common::getCurrentTime();
+map<uint64, int> redis::getList(string key){
 	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lrange %s %d %d", key.c_str(), 0, -1);
-	map<string, int> vec;
+	map<uint64, int> vec;
 	if (!m_pReply)
 	{
 		reconnect();
@@ -399,17 +396,14 @@ map<string, int> redis::getList(string key){
 		redisReply *rpvalues = m_pReply->element[i];
 		string value = rpvalues->str;
 		int len = rpvalues->len;
-		vec.insert(make_pair(value,len));
+		vec.insert(make_pair(atoll(value.c_str()),len));
 		if (i + 1 < sz){
 			rpvalues = m_pReply->element[i + 1];
 			value = rpvalues->str;
 			len = rpvalues->len;
-			vec.insert(make_pair(value, len));
+			vec.insert(make_pair(atoll(value.c_str()), len));
 		}
 	}
-	int64_t t2 = Common::getCurrentTime();
-	int64_t tt = t2 - t;
-	printf("******%d line data use time:%gs******\n", sz,tt / 1000.0 / 1000);
 	//printf("get redis success\n");
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
