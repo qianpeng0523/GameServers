@@ -3,8 +3,8 @@
 #include "MD5.h"
 #include "curl/include/curl.h"
 #include "HttpLogic.h"
-
-
+#include "XmlConfig.h"
+#include "HttpPay.h"
 
 HttpEvent *HttpEvent::m_ins = NULL;
 
@@ -35,13 +35,6 @@ size_t read_data(void* buffer, size_t size, size_t nmemb, void *stream)
 	return size*nmemb;
 }
 
-size_t read_data1(void* buffer, size_t size, size_t nmemb, void *stream)
-{
-	string *result= (string *)stream;
-	result->append((char *)buffer);
-	return size*nmemb;
-}
-
 
 //处理模块
 void httpd_handler(struct evhttp_request *req, void *arg) {
@@ -61,11 +54,19 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 
 	char *buff = (char *)EVBUFFER_DATA(buffer);
 	if (buff){
-		char *out = new char[sz+1];
-		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
-		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
-		delete out;
-		HttpEvent::getIns()->SendMsg(sd, req);
+		string result = buff;
+		if (result.find("return_code") != -1){
+			map<string, string>maps = XmlConfig::getIns()->parseXmlData(result);
+			map<string, string> map1;//没有用
+			HttpPay::getIns()->respond(maps, maps);
+		}
+		else{
+			char *out = new char[sz + 1];
+			HttpLogic::getIns()->aes_decrypt(buff, sz, out);
+			YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
+			delete out;
+			HttpEvent::getIns()->SendMsg(sd, req);
+		}
 	}
 }
 
@@ -82,7 +83,25 @@ char *HttpEvent::getData(vector<char> vec){
 	return out;
 }
 
-void HttpEvent::requestData(string url, string content){
+string GBKToUTF8(const std::string& strGBK)
+{
+	string strOutUTF8 = "";
+	WCHAR * str1;
+	int n = MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, NULL, 0);
+	str1 = new WCHAR[n];
+	MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, str1, n);
+	n = WideCharToMultiByte(CP_UTF8, 0, str1, -1, NULL, 0, NULL, NULL);
+	char * str2 = new char[n];
+	WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);
+	strOutUTF8 = str2;
+	delete[]str1;
+	str1 = NULL;
+	delete[]str2;
+	str2 = NULL;
+	return strOutUTF8;
+}
+
+void HttpEvent::requestData(string url, string content, size_t(*func)(void*, size_t, size_t, void *), map<string, string> ordermap){
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
@@ -91,17 +110,23 @@ void HttpEvent::requestData(string url, string content){
 	}
 	//ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。
 	string result;
+	struct curl_slist *head = NULL;
+	head = curl_slist_append(head, "Content-Type:text/plain;charset=UTF-8");
+	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, head);
+	curl_easy_setopt(curl, CURLOPT_HEADER, 0);
 	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
-	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, read_data1);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, func);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &result);
 	//跟踪到的协议信息、libcurl版本、libcurl的客户代码、操作系统名称、版本、编译器名称、版本等等。
-	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
-	curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "");
+	curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "gzip, deflate");
 	
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content.c_str());
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content.length());
+	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
 	CURLcode code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10000);
 	if (code != CURLE_OK) {
 		printf("time out\n");
@@ -118,8 +143,14 @@ void HttpEvent::requestData(string url, string content){
 		printf("Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(code));
 	}
 	else{
-		printf("result:%s\n",result.c_str());
+		FILE *fp = fopen("./res/test.xml","w+");
+		fprintf(fp,result.c_str());
+		fclose(fp);
+		map<string, string> maps = XmlConfig::getIns()->parseXmlData(result);
+		HttpPay::getIns()->respond(maps,ordermap);
+		//printf("result:\n%s\n",result.c_str());
 	}
+	curl_slist_free_all(head);//记得要释放  
 	curl_easy_cleanup(curl);
 }
 

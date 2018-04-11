@@ -1,5 +1,14 @@
 #include "Common.h"
-
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include <ws2tcpip.h>
+#else
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include<netdb.h>
+#include <netinet/in.h>
+#endif
 	
 Common::Common(){
 
@@ -120,6 +129,19 @@ time_t Common::getTime(){
 	return tt;
 }
 
+string Common::getTimeStr(time_t tp){
+	char buff[100];
+	time_t tt = tp;//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	sprintf(buff, "%04d%02d%02d%02d%02d",
+		t->tm_year + 1900,
+		t->tm_mon + 1,
+		t->tm_mday,
+		t->tm_hour,
+		t->tm_min);
+	return buff;
+}
+
 string Common::getTime(time_t tp){
 	char buff[100];
 	time_t tt = tp;//这句返回的只是一个时间cuo
@@ -166,4 +188,32 @@ string Common::getLocalTimeDay(){
 		t->tm_mday
 		);
 	return buff;
+}
+
+string Common::getLocalTimeDay1(){
+	char buff[100];
+	time_t tt = time(NULL);//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	sprintf(buff, "%04d%02d%02d",
+		t->tm_year + 1900,
+		t->tm_mon + 1,
+		t->tm_mday
+		);
+	return buff;
+}
+
+string Common::getHostNameIp(string hostname, unsigned int &port){
+
+	hostent *phost = gethostbyname(hostname.c_str());
+	in_addr addr;
+	for (int i = 0;; i++)
+	{
+		char *p = phost->h_addr_list[i];
+		if (p == NULL)
+			break;
+		memcpy(&addr.S_un.S_addr, p, phost->h_length);
+		char* ip = inet_ntoa(addr);
+		return ip;
+	}
+	return "";
 }

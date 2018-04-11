@@ -16,7 +16,7 @@
 #include "RedisGet.h"
 #include "ConfigData.h"
 #include "Common.h"
-
+#include "HttpPay.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -36,6 +36,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
 	
+	HttpPay::getIns()->test();
+
 	getchar();
 	return 0;
 }

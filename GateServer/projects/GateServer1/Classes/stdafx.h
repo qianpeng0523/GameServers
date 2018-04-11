@@ -52,3 +52,12 @@ using namespace Poco;
 
 #define ZERO_STR '&'
 //#define FENG_LIAN 0
+
+
+/*******微信支付定义********/
+#define APPID "wxd5d25d59ae13ac95"
+#define MCHID "1501106141"
+#define INITNONCEID "18880000"
+#define NOTIFYURL "http://27.46.6.74/8082"
+#define TRADETYPE "APP"
+#define INITNO "00000000"
