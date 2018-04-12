@@ -371,6 +371,37 @@ bool redis::List(string key, map<string, int>vec){
 	}
 	return List(key,(char *)tt.c_str());
 }
+/*
+
+Lrem key-name count value——根据count值从列表中删除与value相等的项，
+(1)count>0，从左到右删除最多count个与value相等的项
+(2)count<0，从右到左删除最多count个与value相等的项
+(3)count=0，删除所有与value相等的项
+
+**/
+int redis::eraseList(string key, string value){
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, " lrem  %s %d %s", key.c_str(), 0,value.c_str());
+	if (!m_pReply)
+	{
+		reconnect();
+		printf("get value failed\n");
+		return 0;
+	}
+	//get成功返回结果为 REDIS_REPLY_STRING 
+	if (m_pReply->type == REDIS_REPLY_ERROR)
+	{
+		printf("get redis faliled\n");
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return 0;
+	}
+
+	//printf("get redis success\n");
+	int integer = m_pReply->integer;
+	freeReplyObject(m_pReply);
+	m_pReply = NULL;
+	return integer;
+}
 
 map<uint64, int> redis::getList(string key){
 	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lrange %s %d %d", key.c_str(), 0, -1);
@@ -518,8 +549,11 @@ vector<char *> redis::getList(string key, vector<int> &lens, int beginindex, int
 		redisReply *rpvalues = m_pReply->element[i];
 		char *value = rpvalues->str;
 		int len = rpvalues->len;
-		redis::getIns()->ChangeToZero(value, len);
-		vec.push_back(value);
+		char *nn = new char[len+1];
+		memset(nn,0,len+1);
+		memcpy(nn,value,len);
+		redis::getIns()->ChangeToZero(nn, len);
+		vec.push_back(nn);
 		lens.push_back(len);
 	}
 

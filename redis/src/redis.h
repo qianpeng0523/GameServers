@@ -34,6 +34,7 @@ public:
 	bool List(std::string key, Message *msg);//typename+id(唯一):添加元素列表 比如战绩那些（id是房间号）
 	bool List(std::string key, char* value);
 	bool List(string key,map<string,int>vec);
+	int eraseList(string key, string value);//删除与value值相同的项
 
 	map<uint64, int> getList(string key);
 	bool getList(string key, map<string, int> &vec);
@@ -49,9 +50,10 @@ public:
 	void ChangeToZero(char *&data, int sz);
 
 	char *getLastList(string key);
+	Message *PopDataFromRedis(std::string key, map<string, string>maps);
 private:
 	vector<string> PushDataToRedis(std::string key, Message *msg);
-	Message *PopDataFromRedis(std::string key, map<string, string>maps);
+	
 
 	
 private:
