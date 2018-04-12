@@ -17,6 +17,7 @@
 #include "ConfigData.h"
 #include "Common.h"
 #include "HttpPay.h"
+#include "HttpWXLogin.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -35,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
-	
+	HttpWXLogin::getIns()->requestAccessToken("123456",NULL);
 	HttpPay::getIns()/*->test()*/;
 
 	getchar();

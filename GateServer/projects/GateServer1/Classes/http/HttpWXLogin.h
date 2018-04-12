@@ -11,7 +11,8 @@ public:
     virtual bool init();
 	static HttpWXLogin *getIns();
 	
-	void requestAccessToken(string code);
+	void requestAccessToken(string code, struct evhttp_request *req);
+	void respondAccessToken(string result, struct evhttp_request *req,int fd);
 public:
 	
 private:

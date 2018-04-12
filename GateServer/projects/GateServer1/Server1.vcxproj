@@ -128,10 +128,6 @@
     <ClCompile Include="Classes\redisdata\RedisModify.cpp" />
     <ClCompile Include="Classes\redisdata\RedisPut.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
-    <ClCompile Include="Classes\tinyxml\tinystr.cpp" />
-    <ClCompile Include="Classes\tinyxml\tinyxml.cpp" />
-    <ClCompile Include="Classes\tinyxml\tinyxmlerror.cpp" />
-    <ClCompile Include="Classes\tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\redis\src\redis.h" />
@@ -183,8 +179,6 @@
     <ClInclude Include="Classes\redisdata\RedisPut.h" />
     <ClInclude Include="Classes\stdafx.h" />
     <ClInclude Include="Classes\targetver.h" />
-    <ClInclude Include="Classes\tinyxml\tinystr.h" />
-    <ClInclude Include="Classes\tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Classes\netjson\json_internalarray.inl" />
