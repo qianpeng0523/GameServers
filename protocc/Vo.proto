@@ -147,3 +147,15 @@ message SignZhuan{
 	optional uint32		index		=1;
 	optional Reward 	reward  	=2;//奖励
 }
+
+message PayRecord{
+	optional string userid = 1;
+	optional string attach = 2;
+	optional string out_trade_no = 3;
+	optional string time_start = 4;
+	optional string time_expire = 5;
+	optional string prepay_id = 6;
+	optional string body = 7;
+	optional string total_fee = 8;
+	optional string spbill_create_ip = 9;
+}

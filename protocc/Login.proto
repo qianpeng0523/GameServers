@@ -33,3 +33,17 @@ message SRegister
 	optional UserBase 	info		= 2;
     optional uint32 	err  		= 3;					//
 }
+
+message CWXLogin{
+	optional uint32 cmd 			= 1[default=0x4002];  	// 
+	optional string code			= 2;
+	optional string token			= 3;
+}
+
+//SWXLogin
+message SWXLogin
+{
+	optional uint32 	cmd 		= 1[default=0x4002];  	//
+	optional UserBase 	info		= 2;
+    optional uint32 	err  		= 3;					//
+}
