@@ -3905,17 +3905,17 @@ class SWxpayOrder : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional string orderid = 2;
-  inline bool has_orderid() const;
-  inline void clear_orderid();
-  static const int kOrderidFieldNumber = 2;
-  inline const ::std::string& orderid() const;
-  inline void set_orderid(const ::std::string& value);
-  inline void set_orderid(const char* value);
-  inline void set_orderid(const char* value, size_t size);
-  inline ::std::string* mutable_orderid();
-  inline ::std::string* release_orderid();
-  inline void set_allocated_orderid(::std::string* orderid);
+  // optional string noncestr = 2;
+  inline bool has_noncestr() const;
+  inline void clear_noncestr();
+  static const int kNoncestrFieldNumber = 2;
+  inline const ::std::string& noncestr() const;
+  inline void set_noncestr(const ::std::string& value);
+  inline void set_noncestr(const char* value);
+  inline void set_noncestr(const char* value, size_t size);
+  inline ::std::string* mutable_noncestr();
+  inline ::std::string* release_noncestr();
+  inline void set_allocated_noncestr(::std::string* noncestr);
 
   // optional string payreq = 3;
   inline bool has_payreq() const;
@@ -3929,10 +3929,34 @@ class SWxpayOrder : public ::google::protobuf::Message {
   inline ::std::string* release_payreq();
   inline void set_allocated_payreq(::std::string* payreq);
 
-  // optional uint32 err = 4;
+  // optional string timestamp = 4;
+  inline bool has_timestamp() const;
+  inline void clear_timestamp();
+  static const int kTimestampFieldNumber = 4;
+  inline const ::std::string& timestamp() const;
+  inline void set_timestamp(const ::std::string& value);
+  inline void set_timestamp(const char* value);
+  inline void set_timestamp(const char* value, size_t size);
+  inline ::std::string* mutable_timestamp();
+  inline ::std::string* release_timestamp();
+  inline void set_allocated_timestamp(::std::string* timestamp);
+
+  // optional string sign = 5;
+  inline bool has_sign() const;
+  inline void clear_sign();
+  static const int kSignFieldNumber = 5;
+  inline const ::std::string& sign() const;
+  inline void set_sign(const ::std::string& value);
+  inline void set_sign(const char* value);
+  inline void set_sign(const char* value, size_t size);
+  inline ::std::string* mutable_sign();
+  inline ::std::string* release_sign();
+  inline void set_allocated_sign(::std::string* sign);
+
+  // optional uint32 err = 6;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 4;
+  static const int kErrFieldNumber = 6;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -3940,22 +3964,28 @@ class SWxpayOrder : public ::google::protobuf::Message {
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
-  inline void set_has_orderid();
-  inline void clear_has_orderid();
+  inline void set_has_noncestr();
+  inline void clear_has_noncestr();
   inline void set_has_payreq();
   inline void clear_has_payreq();
+  inline void set_has_timestamp();
+  inline void clear_has_timestamp();
+  inline void set_has_sign();
+  inline void clear_has_sign();
   inline void set_has_err();
   inline void clear_has_err();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::std::string* orderid_;
+  ::std::string* noncestr_;
+  ::std::string* payreq_;
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 err_;
-  ::std::string* payreq_;
+  ::std::string* timestamp_;
+  ::std::string* sign_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -8177,73 +8207,73 @@ inline void SWxpayOrder::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional string orderid = 2;
-inline bool SWxpayOrder::has_orderid() const {
+// optional string noncestr = 2;
+inline bool SWxpayOrder::has_noncestr() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void SWxpayOrder::set_has_orderid() {
+inline void SWxpayOrder::set_has_noncestr() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void SWxpayOrder::clear_has_orderid() {
+inline void SWxpayOrder::clear_has_noncestr() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void SWxpayOrder::clear_orderid() {
-  if (orderid_ != &::google::protobuf::internal::kEmptyString) {
-    orderid_->clear();
+inline void SWxpayOrder::clear_noncestr() {
+  if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+    noncestr_->clear();
   }
-  clear_has_orderid();
+  clear_has_noncestr();
 }
-inline const ::std::string& SWxpayOrder::orderid() const {
-  return *orderid_;
+inline const ::std::string& SWxpayOrder::noncestr() const {
+  return *noncestr_;
 }
-inline void SWxpayOrder::set_orderid(const ::std::string& value) {
-  set_has_orderid();
-  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
-    orderid_ = new ::std::string;
+inline void SWxpayOrder::set_noncestr(const ::std::string& value) {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  orderid_->assign(value);
+  noncestr_->assign(value);
 }
-inline void SWxpayOrder::set_orderid(const char* value) {
-  set_has_orderid();
-  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
-    orderid_ = new ::std::string;
+inline void SWxpayOrder::set_noncestr(const char* value) {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  orderid_->assign(value);
+  noncestr_->assign(value);
 }
-inline void SWxpayOrder::set_orderid(const char* value, size_t size) {
-  set_has_orderid();
-  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
-    orderid_ = new ::std::string;
+inline void SWxpayOrder::set_noncestr(const char* value, size_t size) {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  orderid_->assign(reinterpret_cast<const char*>(value), size);
+  noncestr_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* SWxpayOrder::mutable_orderid() {
-  set_has_orderid();
-  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
-    orderid_ = new ::std::string;
+inline ::std::string* SWxpayOrder::mutable_noncestr() {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  return orderid_;
+  return noncestr_;
 }
-inline ::std::string* SWxpayOrder::release_orderid() {
-  clear_has_orderid();
-  if (orderid_ == &::google::protobuf::internal::kEmptyString) {
+inline ::std::string* SWxpayOrder::release_noncestr() {
+  clear_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
   } else {
-    ::std::string* temp = orderid_;
-    orderid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    ::std::string* temp = noncestr_;
+    noncestr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
     return temp;
   }
 }
-inline void SWxpayOrder::set_allocated_orderid(::std::string* orderid) {
-  if (orderid_ != &::google::protobuf::internal::kEmptyString) {
-    delete orderid_;
+inline void SWxpayOrder::set_allocated_noncestr(::std::string* noncestr) {
+  if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+    delete noncestr_;
   }
-  if (orderid) {
-    set_has_orderid();
-    orderid_ = orderid;
+  if (noncestr) {
+    set_has_noncestr();
+    noncestr_ = noncestr;
   } else {
-    clear_has_orderid();
-    orderid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    clear_has_noncestr();
+    noncestr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 
@@ -8317,15 +8347,155 @@ inline void SWxpayOrder::set_allocated_payreq(::std::string* payreq) {
   }
 }
 
-// optional uint32 err = 4;
-inline bool SWxpayOrder::has_err() const {
+// optional string timestamp = 4;
+inline bool SWxpayOrder::has_timestamp() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void SWxpayOrder::set_has_err() {
+inline void SWxpayOrder::set_has_timestamp() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void SWxpayOrder::clear_has_err() {
+inline void SWxpayOrder::clear_has_timestamp() {
   _has_bits_[0] &= ~0x00000008u;
+}
+inline void SWxpayOrder::clear_timestamp() {
+  if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+    timestamp_->clear();
+  }
+  clear_has_timestamp();
+}
+inline const ::std::string& SWxpayOrder::timestamp() const {
+  return *timestamp_;
+}
+inline void SWxpayOrder::set_timestamp(const ::std::string& value) {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  timestamp_->assign(value);
+}
+inline void SWxpayOrder::set_timestamp(const char* value) {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  timestamp_->assign(value);
+}
+inline void SWxpayOrder::set_timestamp(const char* value, size_t size) {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  timestamp_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SWxpayOrder::mutable_timestamp() {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  return timestamp_;
+}
+inline ::std::string* SWxpayOrder::release_timestamp() {
+  clear_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = timestamp_;
+    timestamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SWxpayOrder::set_allocated_timestamp(::std::string* timestamp) {
+  if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+    delete timestamp_;
+  }
+  if (timestamp) {
+    set_has_timestamp();
+    timestamp_ = timestamp;
+  } else {
+    clear_has_timestamp();
+    timestamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string sign = 5;
+inline bool SWxpayOrder::has_sign() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void SWxpayOrder::set_has_sign() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void SWxpayOrder::clear_has_sign() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void SWxpayOrder::clear_sign() {
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    sign_->clear();
+  }
+  clear_has_sign();
+}
+inline const ::std::string& SWxpayOrder::sign() const {
+  return *sign_;
+}
+inline void SWxpayOrder::set_sign(const ::std::string& value) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(value);
+}
+inline void SWxpayOrder::set_sign(const char* value) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(value);
+}
+inline void SWxpayOrder::set_sign(const char* value, size_t size) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SWxpayOrder::mutable_sign() {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  return sign_;
+}
+inline ::std::string* SWxpayOrder::release_sign() {
+  clear_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = sign_;
+    sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SWxpayOrder::set_allocated_sign(::std::string* sign) {
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    delete sign_;
+  }
+  if (sign) {
+    set_has_sign();
+    sign_ = sign;
+  } else {
+    clear_has_sign();
+    sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint32 err = 6;
+inline bool SWxpayOrder::has_err() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void SWxpayOrder::set_has_err() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void SWxpayOrder::clear_has_err() {
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void SWxpayOrder::clear_err() {
   err_ = 0u;

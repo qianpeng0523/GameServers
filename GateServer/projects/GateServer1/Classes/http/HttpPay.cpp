@@ -187,13 +187,13 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 	}
 }
 
-void HttpPay::requestCheck(string xml){
+bool HttpPay::requestCheck(string xml){
 	string url = "https://api.mch.weixin.qq.com/pay/orderquery";
 	string content= HttpEvent::getIns()->requestData(url, xml.c_str(), read_data1);
-	respondCheck(content);
+	return respondCheck(content);
 }
 
-void HttpPay::respondCheck(string content){
+bool HttpPay::respondCheck(string content){
 	map<string, string>maps = XmlConfig::getIns()->parseXmlData(content);
 	for (auto itr = maps.begin(); itr != maps.end(); itr++){
 		printf("%s:%s\n", itr->first.c_str(), itr->second.c_str());
@@ -213,6 +213,7 @@ void HttpPay::respondCheck(string content){
 			}
 			else if (itr->second.compare("SUCCESS") == 0){
 				respondResult(content);
+				return true;
 			}
 		}
 		//等待支付结果
@@ -221,9 +222,10 @@ void HttpPay::respondCheck(string content){
 		//格式错误，签名错误不管
 		printf("%s\n",XXIconv::GBK2UTF("格式错误或签名错误").c_str());
 	}
+	return false;
 }
 
-void HttpPay::requestOrder(string uid, string shopid, int price, string body, string ip){
+SWxpayOrder HttpPay::requestOrder(string uid, string shopid, int price, string body, string ip){
 	map<string, string> valuemap;
 	valuemap.insert(make_pair("appid", APPID));
 	valuemap.insert(make_pair("body", body));
@@ -249,10 +251,11 @@ void HttpPay::requestOrder(string uid, string shopid, int price, string body, st
 	string url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 	valuemap.insert(make_pair("userid",uid));
 	string content= HttpEvent::getIns()->requestData(url, xml.c_str(), read_data1);
-	respondOrder(content, valuemap);
+	return respondOrder(content, valuemap);
 }
 
-void HttpPay::respondOrder(string content, map<string, string> ordermap){
+SWxpayOrder HttpPay::respondOrder(string content, map<string, string> ordermap){
+	SWxpayOrder swo;
 	map<string, string>maps = XmlConfig::getIns()->parseXmlData(content);
 	for (auto itr = maps.begin(); itr != maps.end(); itr++){
 		printf("%s:%s\n", itr->first.c_str(), itr->second.c_str());
@@ -289,11 +292,25 @@ void HttpPay::respondOrder(string content, map<string, string> ordermap){
 			string out_trade_no = ordermap.find("out_trade_no")->second;
 			m_pRedis->List("out_trade_no", (char *)out_trade_no.c_str());
 			//定时3分钟查询一次
+			string prepay_id = ordermap.find("prepay_id")->second;
+			string nonce_str = ordermap.find("nonce_str")->second;
+			string sign = ordermap.find("sign")->second;
+			string time_start = ordermap.find("time_start")->second;
+			swo.set_payreq(prepay_id);
+			swo.set_noncestr(nonce_str);
+			swo.set_sign(sign);
+			swo.set_timestamp(time_start);
+
+			return swo;
 		}
 		else{
 			//下单失败,返回客户端信息
+			swo.set_err(1);
+			return swo;
 		}
 	}
+	swo.set_err(1);
+	return swo;
 }
 
 void HttpPay::test(){

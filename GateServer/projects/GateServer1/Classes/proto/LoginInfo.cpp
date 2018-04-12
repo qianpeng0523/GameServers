@@ -5,6 +5,8 @@
 #include "LibEvent.h"
 #include "HttpLogic.h"
 #include "StatTimer.h"
+#include "HttpWXLogin.h"
+
 LoginInfo *LoginInfo::m_shareLoginInfo=NULL;
 LoginInfo::LoginInfo()
 {
@@ -20,7 +22,9 @@ LoginInfo::LoginInfo()
 	pe->registerProto(cl1.cmd(), cl1.GetTypeName());
 	EventListen::getIns()->addDataPacketListener(cl1.cmd(), this, Event_Handler(LoginInfo::HandlerCRegister));
 
-	
+	CWXLogin cl2;
+	pe->registerProto(cl2.cmd(), cl2.GetTypeName());
+	EventListen::getIns()->addDataPacketListener(cl2.cmd(), this, Event_Handler(LoginInfo::HandlerCWXLogin));
 }
 
 LoginInfo::~LoginInfo(){
@@ -167,10 +171,24 @@ void LoginInfo::openCheckUpdate(bool isopen){
 	}
 }
 
-void LoginInfo::SendCWXLogin(){
-
+void LoginInfo::SendSWXLogin(SWXLogin sl, int fd){
+	LibEvent::getIns()->SendData(sl.cmd(), &sl, fd);
 }
 
-void LoginInfo::HandlerSWXLogin(string code, string access_token){
+void LoginInfo::HandlerCWXLogin(ccEvent *event){
+	CWXLogin cl;
+	cl.CopyFrom(*event->msg);
+	string code = cl.code();
+	string token = cl.token();
 
+	SWXLogin sl;
+	UserBase ub = HttpWXLogin::getIns()->requestWXLogin(code,token);
+	if (ub.userid().empty()){
+		sl.set_err(1);
+	}
+	else{
+		UserBase *ub1= sl.mutable_info();
+		ub1->CopyFrom(ub);
+	}
+	SendSWXLogin(sl, event->m_fd);
 }

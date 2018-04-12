@@ -4,7 +4,8 @@
 #include "YMSocketData.h"
 #include "LibEvent.h"
 #include "Common.h"
-
+#include "HttpPay.h"
+#include "XmlConfig.h"
 HallInfo *HallInfo::m_shareHallInfo=NULL;
 HallInfo::HallInfo()
 {
@@ -504,8 +505,20 @@ void HallInfo::SendSWxpayOrder(SWxpayOrder cl, int fd){
 void HallInfo::HandlerCWxpayOrder(ccEvent *event){
 	CWxpayOrder cl;
 	cl.CopyFrom(*event->msg);
-	
 	SWxpayOrder sl;
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		int id = cl.id();
+		string body = cl.body();
+		string uid = data->_uid;
+		char buff[50];
+		sprintf(buff,"%d",id);
+		ShopItem sp = m_pRedisGet->getShop(id);
+		int price= sp.consume().number();
+		
+		sl = HttpPay::getIns()->requestOrder(uid, buff, price, body, data->_ip);
+	}
+	
 	SendSWxpayOrder(sl, event->m_fd);
 }
 
@@ -517,7 +530,21 @@ void HallInfo::SendSWxpayQuery(SWxpayQuery cl, int fd){
 void HallInfo::HandlerCWxpayQuery(ccEvent *event){
 	CWxpayQuery cl;
 	cl.CopyFrom(*event->msg);
+
+	string id = cl.transid();
+
+	map<string, string> valuemap;
+	valuemap.insert(make_pair("appid", APPID));
+	valuemap.insert(make_pair("mch_id", MCHID));
+	valuemap.insert(make_pair("nonce_str", HttpPay::getIns()->getNonceId()));
+	valuemap.insert(make_pair("transaction_id", id));
+	string sign = HttpPay::getIns()->createSign(valuemap);
+	valuemap.insert(make_pair("sign", sign));
+	string xml = XmlConfig::getIns()->setXmlData(valuemap);
+	HttpPay::getIns()->requestCheck(xml);
+
 	SWxpayQuery sl;
+	sl.set_transid(id);
 	SendSWxpayQuery(sl, event->m_fd);
 }
 

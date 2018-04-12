@@ -11,13 +11,13 @@ public:
     virtual bool init();
 	static HttpPay *getIns();
 	
-	void requestOrder(string uid,string shopid,int price, string body, string ip);
-	void respondOrder(string content, map<string, string> ordermap);
+	SWxpayOrder requestOrder(string uid, string shopid, int price, string body, string ip);
+	SWxpayOrder respondOrder(string content, map<string, string> ordermap);
 
 	void respondResult(string content,struct evhttp_request *req=NULL);
 
-	void requestCheck(string xml);
-	void respondCheck(string content);
+	bool requestCheck(string xml);
+	bool respondCheck(string content);
 public:
 	void test();
 	void update(float dt);

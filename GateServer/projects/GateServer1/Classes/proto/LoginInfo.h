@@ -22,8 +22,8 @@ public:
 	void Check(float dt);
 	void openCheckUpdate(bool isopen);
 
-	void SendCWXLogin();
-	void HandlerSWXLogin(string code, string access_token);
+	void SendSWXLogin(SWXLogin sl, int fd);
+	void HandlerCWXLogin(ccEvent *event);
 
 
 private:

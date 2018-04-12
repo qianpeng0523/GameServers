@@ -799,10 +799,12 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CWxpayOrder));
   SWxpayOrder_descriptor_ = file->message_type(37);
-  static const int SWxpayOrder_offsets_[4] = {
+  static const int SWxpayOrder_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, cmd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, orderid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, noncestr_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, payreq_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, timestamp_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, sign_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, err_),
   };
   SWxpayOrder_reflection_ =
@@ -1302,27 +1304,28 @@ void protobuf_AddDesc_Hall_2eproto() {
     "d\030\002 \001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApplePay\022\022\n"
     "\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001"
     "(\r\";\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n"
-    "\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"O\n\013SWxpayOrder\022\022"
-    "\n\003cmd\030\001 \002(\r:\00520497\022\017\n\007orderid\030\002 \001(\t\022\016\n\006p"
-    "ayreq\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"2\n\013CWxpayQuery\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013"
-    "SWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007trans"
-    "id\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cm"
-    "d\030\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r\"I\n\tSFirstBu"
-    "y\022\022\n\003cmd\030\001 \002(\r:\00520499\022\n\n\002id\030\002 \001(\r\022\017\n\007tra"
-    "nsid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"L\n\tCFeedBack\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003"
-    " \001(\t\022\017\n\007content\030\004 \001(\t\",\n\tSFeedBack\022\022\n\003cm"
-    "d\030\001 \002(\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520501\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\005"
-    "20501\022\r\n\005index\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003e"
-    "rr\030\004 \001(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001 \002(\r:\0052050"
-    "2\"n\n\tSSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004si"
-    "gn\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132"
-    "\023.protocol.SignAward\022\013\n\003err\030\005 \001(\r\",\n\nCMa"
-    "ilAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \002(\r\""
-    "9\n\nSMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030"
-    "\002 \001(\r\022\013\n\003err\030\003 \001(\r", 3138);
+    "\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"q\n\013SWxpayOrder\022\022"
+    "\n\003cmd\030\001 \002(\r:\00520497\022\020\n\010noncestr\030\002 \001(\t\022\016\n\006"
+    "payreq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n\004sign\030"
+    "\005 \001(\t\022\013\n\003err\030\006 \001(\r\"2\n\013CWxpayQuery\022\022\n\003cmd"
+    "\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013SWxpay"
+    "Query\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001"
+    "(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cmd\030\001 \002("
+    "\r:\00520499\022\014\n\004type\030\002 \001(\r\"I\n\tSFirstBuy\022\022\n\003c"
+    "md\030\001 \002(\r:\00520499\022\n\n\002id\030\002 \001(\r\022\017\n\007transid\030\003"
+    " \001(\t\022\013\n\003err\030\004 \001(\r\"L\n\tCFeedBack\022\022\n\003cmd\030\001 "
+    "\002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003 \001(\t\022\017"
+    "\n\007content\030\004 \001(\t\",\n\tSFeedBack\022\022\n\003cmd\030\001 \002("
+    "\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003cmd\030\001 "
+    "\002(\r:\00520501\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\00520501\022"
+    "\r\n\005index\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003err\030\004 \001"
+    "(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\"n\n\tS"
+    "SignList\022\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004sign\030\002 \001"
+    "(\r\022\r\n\005count\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132\023.prot"
+    "ocol.SignAward\022\013\n\003err\030\005 \001(\r\",\n\nCMailAwar"
+    "d\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \002(\r\"9\n\nSMa"
+    "ilAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \001(\r\022"
+    "\013\n\003err\030\003 \001(\r", 3172);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Hall.proto", &protobuf_RegisterTypes);
   CConfig::default_instance_ = new CConfig();
@@ -11878,8 +11881,10 @@ void CWxpayOrder::Swap(CWxpayOrder* other) {
 
 #ifndef _MSC_VER
 const int SWxpayOrder::kCmdFieldNumber;
-const int SWxpayOrder::kOrderidFieldNumber;
+const int SWxpayOrder::kNoncestrFieldNumber;
 const int SWxpayOrder::kPayreqFieldNumber;
+const int SWxpayOrder::kTimestampFieldNumber;
+const int SWxpayOrder::kSignFieldNumber;
 const int SWxpayOrder::kErrFieldNumber;
 #endif  // !_MSC_VER
 
@@ -11900,8 +11905,10 @@ SWxpayOrder::SWxpayOrder(const SWxpayOrder& from)
 void SWxpayOrder::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 20497u;
-  orderid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  noncestr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   payreq_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  timestamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   err_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -11911,11 +11918,17 @@ SWxpayOrder::~SWxpayOrder() {
 }
 
 void SWxpayOrder::SharedDtor() {
-  if (orderid_ != &::google::protobuf::internal::kEmptyString) {
-    delete orderid_;
+  if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+    delete noncestr_;
   }
   if (payreq_ != &::google::protobuf::internal::kEmptyString) {
     delete payreq_;
+  }
+  if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+    delete timestamp_;
+  }
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    delete sign_;
   }
   if (this != default_instance_) {
   }
@@ -11945,14 +11958,24 @@ SWxpayOrder* SWxpayOrder::New() const {
 void SWxpayOrder::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 20497u;
-    if (has_orderid()) {
-      if (orderid_ != &::google::protobuf::internal::kEmptyString) {
-        orderid_->clear();
+    if (has_noncestr()) {
+      if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+        noncestr_->clear();
       }
     }
     if (has_payreq()) {
       if (payreq_ != &::google::protobuf::internal::kEmptyString) {
         payreq_->clear();
+      }
+    }
+    if (has_timestamp()) {
+      if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+        timestamp_->clear();
+      }
+    }
+    if (has_sign()) {
+      if (sign_ != &::google::protobuf::internal::kEmptyString) {
+        sign_->clear();
       }
     }
     err_ = 0u;
@@ -11978,19 +12001,19 @@ bool SWxpayOrder::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_orderid;
+        if (input->ExpectTag(18)) goto parse_noncestr;
         break;
       }
 
-      // optional string orderid = 2;
+      // optional string noncestr = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_orderid:
+         parse_noncestr:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_orderid()));
+                input, this->mutable_noncestr()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->orderid().data(), this->orderid().length(),
+            this->noncestr().data(), this->noncestr().length(),
             ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
@@ -12012,12 +12035,46 @@ bool SWxpayOrder::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(32)) goto parse_err;
+        if (input->ExpectTag(34)) goto parse_timestamp;
         break;
       }
 
-      // optional uint32 err = 4;
+      // optional string timestamp = 4;
       case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_timestamp:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_timestamp()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->timestamp().data(), this->timestamp().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(42)) goto parse_sign;
+        break;
+      }
+
+      // optional string sign = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_sign:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_sign()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->sign().data(), this->sign().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 6;
+      case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_err:
@@ -12055,13 +12112,13 @@ void SWxpayOrder::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional string orderid = 2;
-  if (has_orderid()) {
+  // optional string noncestr = 2;
+  if (has_noncestr()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->orderid().data(), this->orderid().length(),
+      this->noncestr().data(), this->noncestr().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->orderid(), output);
+      2, this->noncestr(), output);
   }
 
   // optional string payreq = 3;
@@ -12073,9 +12130,27 @@ void SWxpayOrder::SerializeWithCachedSizes(
       3, this->payreq(), output);
   }
 
-  // optional uint32 err = 4;
+  // optional string timestamp = 4;
+  if (has_timestamp()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->timestamp().data(), this->timestamp().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      4, this->timestamp(), output);
+  }
+
+  // optional string sign = 5;
+  if (has_sign()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->sign().data(), this->sign().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      5, this->sign(), output);
+  }
+
+  // optional uint32 err = 6;
   if (has_err()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->err(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->err(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -12091,14 +12166,14 @@ void SWxpayOrder::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // optional string orderid = 2;
-  if (has_orderid()) {
+  // optional string noncestr = 2;
+  if (has_noncestr()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->orderid().data(), this->orderid().length(),
+      this->noncestr().data(), this->noncestr().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->orderid(), target);
+        2, this->noncestr(), target);
   }
 
   // optional string payreq = 3;
@@ -12111,9 +12186,29 @@ void SWxpayOrder::SerializeWithCachedSizes(
         3, this->payreq(), target);
   }
 
-  // optional uint32 err = 4;
+  // optional string timestamp = 4;
+  if (has_timestamp()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->timestamp().data(), this->timestamp().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->timestamp(), target);
+  }
+
+  // optional string sign = 5;
+  if (has_sign()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->sign().data(), this->sign().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->sign(), target);
+  }
+
+  // optional uint32 err = 6;
   if (has_err()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->err(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->err(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -12134,11 +12229,11 @@ int SWxpayOrder::ByteSize() const {
           this->cmd());
     }
 
-    // optional string orderid = 2;
-    if (has_orderid()) {
+    // optional string noncestr = 2;
+    if (has_noncestr()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->orderid());
+          this->noncestr());
     }
 
     // optional string payreq = 3;
@@ -12148,7 +12243,21 @@ int SWxpayOrder::ByteSize() const {
           this->payreq());
     }
 
-    // optional uint32 err = 4;
+    // optional string timestamp = 4;
+    if (has_timestamp()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->timestamp());
+    }
+
+    // optional string sign = 5;
+    if (has_sign()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->sign());
+    }
+
+    // optional uint32 err = 6;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -12185,11 +12294,17 @@ void SWxpayOrder::MergeFrom(const SWxpayOrder& from) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
     }
-    if (from.has_orderid()) {
-      set_orderid(from.orderid());
+    if (from.has_noncestr()) {
+      set_noncestr(from.noncestr());
     }
     if (from.has_payreq()) {
       set_payreq(from.payreq());
+    }
+    if (from.has_timestamp()) {
+      set_timestamp(from.timestamp());
+    }
+    if (from.has_sign()) {
+      set_sign(from.sign());
     }
     if (from.has_err()) {
       set_err(from.err());
@@ -12219,8 +12334,10 @@ bool SWxpayOrder::IsInitialized() const {
 void SWxpayOrder::Swap(SWxpayOrder* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
-    std::swap(orderid_, other->orderid_);
+    std::swap(noncestr_, other->noncestr_);
     std::swap(payreq_, other->payreq_);
+    std::swap(timestamp_, other->timestamp_);
+    std::swap(sign_, other->sign_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

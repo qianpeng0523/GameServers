@@ -38,6 +38,8 @@ class CLogin;
 class SLogin;
 class CRegister;
 class SRegister;
+class CWXLogin;
+class SWXLogin;
 
 // ===================================================================
 
@@ -485,6 +487,222 @@ class SRegister : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SRegister* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CWXLogin : public ::google::protobuf::Message {
+ public:
+  CWXLogin();
+  virtual ~CWXLogin();
+
+  CWXLogin(const CWXLogin& from);
+
+  inline CWXLogin& operator=(const CWXLogin& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CWXLogin& default_instance();
+
+  void Swap(CWXLogin* other);
+
+  // implements Message ----------------------------------------------
+
+  CWXLogin* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CWXLogin& from);
+  void MergeFrom(const CWXLogin& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 16386];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional string code = 2;
+  inline bool has_code() const;
+  inline void clear_code();
+  static const int kCodeFieldNumber = 2;
+  inline const ::std::string& code() const;
+  inline void set_code(const ::std::string& value);
+  inline void set_code(const char* value);
+  inline void set_code(const char* value, size_t size);
+  inline ::std::string* mutable_code();
+  inline ::std::string* release_code();
+  inline void set_allocated_code(::std::string* code);
+
+  // optional string token = 3;
+  inline bool has_token() const;
+  inline void clear_token();
+  static const int kTokenFieldNumber = 3;
+  inline const ::std::string& token() const;
+  inline void set_token(const ::std::string& value);
+  inline void set_token(const char* value);
+  inline void set_token(const char* value, size_t size);
+  inline ::std::string* mutable_token();
+  inline ::std::string* release_token();
+  inline void set_allocated_token(::std::string* token);
+
+  // @@protoc_insertion_point(class_scope:protocol.CWXLogin)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_code();
+  inline void clear_has_code();
+  inline void set_has_token();
+  inline void clear_has_token();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* code_;
+  ::std::string* token_;
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Login_2eproto();
+  friend void protobuf_AssignDesc_Login_2eproto();
+  friend void protobuf_ShutdownFile_Login_2eproto();
+
+  void InitAsDefaultInstance();
+  static CWXLogin* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SWXLogin : public ::google::protobuf::Message {
+ public:
+  SWXLogin();
+  virtual ~SWXLogin();
+
+  SWXLogin(const SWXLogin& from);
+
+  inline SWXLogin& operator=(const SWXLogin& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SWXLogin& default_instance();
+
+  void Swap(SWXLogin* other);
+
+  // implements Message ----------------------------------------------
+
+  SWXLogin* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SWXLogin& from);
+  void MergeFrom(const SWXLogin& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 16386];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional .protocol.UserBase info = 2;
+  inline bool has_info() const;
+  inline void clear_info();
+  static const int kInfoFieldNumber = 2;
+  inline const ::protocol::UserBase& info() const;
+  inline ::protocol::UserBase* mutable_info();
+  inline ::protocol::UserBase* release_info();
+  inline void set_allocated_info(::protocol::UserBase* info);
+
+  // optional uint32 err = 3;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 3;
+  inline ::google::protobuf::uint32 err() const;
+  inline void set_err(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.SWXLogin)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_info();
+  inline void clear_has_info();
+  inline void set_has_err();
+  inline void clear_has_err();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::protocol::UserBase* info_;
+  ::google::protobuf::uint32 cmd_;
+  ::google::protobuf::uint32 err_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Login_2eproto();
+  friend void protobuf_AssignDesc_Login_2eproto();
+  friend void protobuf_ShutdownFile_Login_2eproto();
+
+  void InitAsDefaultInstance();
+  static SWXLogin* default_instance_;
 };
 // ===================================================================
 
@@ -1059,6 +1277,258 @@ inline ::google::protobuf::uint32 SRegister::err() const {
   return err_;
 }
 inline void SRegister::set_err(::google::protobuf::uint32 value) {
+  set_has_err();
+  err_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// CWXLogin
+
+// optional uint32 cmd = 1 [default = 16386];
+inline bool CWXLogin::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CWXLogin::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CWXLogin::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CWXLogin::clear_cmd() {
+  cmd_ = 16386u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 CWXLogin::cmd() const {
+  return cmd_;
+}
+inline void CWXLogin::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional string code = 2;
+inline bool CWXLogin::has_code() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CWXLogin::set_has_code() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CWXLogin::clear_has_code() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CWXLogin::clear_code() {
+  if (code_ != &::google::protobuf::internal::kEmptyString) {
+    code_->clear();
+  }
+  clear_has_code();
+}
+inline const ::std::string& CWXLogin::code() const {
+  return *code_;
+}
+inline void CWXLogin::set_code(const ::std::string& value) {
+  set_has_code();
+  if (code_ == &::google::protobuf::internal::kEmptyString) {
+    code_ = new ::std::string;
+  }
+  code_->assign(value);
+}
+inline void CWXLogin::set_code(const char* value) {
+  set_has_code();
+  if (code_ == &::google::protobuf::internal::kEmptyString) {
+    code_ = new ::std::string;
+  }
+  code_->assign(value);
+}
+inline void CWXLogin::set_code(const char* value, size_t size) {
+  set_has_code();
+  if (code_ == &::google::protobuf::internal::kEmptyString) {
+    code_ = new ::std::string;
+  }
+  code_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CWXLogin::mutable_code() {
+  set_has_code();
+  if (code_ == &::google::protobuf::internal::kEmptyString) {
+    code_ = new ::std::string;
+  }
+  return code_;
+}
+inline ::std::string* CWXLogin::release_code() {
+  clear_has_code();
+  if (code_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = code_;
+    code_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CWXLogin::set_allocated_code(::std::string* code) {
+  if (code_ != &::google::protobuf::internal::kEmptyString) {
+    delete code_;
+  }
+  if (code) {
+    set_has_code();
+    code_ = code;
+  } else {
+    clear_has_code();
+    code_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string token = 3;
+inline bool CWXLogin::has_token() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CWXLogin::set_has_token() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CWXLogin::clear_has_token() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CWXLogin::clear_token() {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    token_->clear();
+  }
+  clear_has_token();
+}
+inline const ::std::string& CWXLogin::token() const {
+  return *token_;
+}
+inline void CWXLogin::set_token(const ::std::string& value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void CWXLogin::set_token(const char* value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void CWXLogin::set_token(const char* value, size_t size) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CWXLogin::mutable_token() {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  return token_;
+}
+inline ::std::string* CWXLogin::release_token() {
+  clear_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = token_;
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CWXLogin::set_allocated_token(::std::string* token) {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    delete token_;
+  }
+  if (token) {
+    set_has_token();
+    token_ = token;
+  } else {
+    clear_has_token();
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// SWXLogin
+
+// optional uint32 cmd = 1 [default = 16386];
+inline bool SWXLogin::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SWXLogin::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SWXLogin::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SWXLogin::clear_cmd() {
+  cmd_ = 16386u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 SWXLogin::cmd() const {
+  return cmd_;
+}
+inline void SWXLogin::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional .protocol.UserBase info = 2;
+inline bool SWXLogin::has_info() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SWXLogin::set_has_info() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SWXLogin::clear_has_info() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SWXLogin::clear_info() {
+  if (info_ != NULL) info_->::protocol::UserBase::Clear();
+  clear_has_info();
+}
+inline const ::protocol::UserBase& SWXLogin::info() const {
+  return info_ != NULL ? *info_ : *default_instance_->info_;
+}
+inline ::protocol::UserBase* SWXLogin::mutable_info() {
+  set_has_info();
+  if (info_ == NULL) info_ = new ::protocol::UserBase;
+  return info_;
+}
+inline ::protocol::UserBase* SWXLogin::release_info() {
+  clear_has_info();
+  ::protocol::UserBase* temp = info_;
+  info_ = NULL;
+  return temp;
+}
+inline void SWXLogin::set_allocated_info(::protocol::UserBase* info) {
+  delete info_;
+  info_ = info;
+  if (info) {
+    set_has_info();
+  } else {
+    clear_has_info();
+  }
+}
+
+// optional uint32 err = 3;
+inline bool SWXLogin::has_err() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SWXLogin::set_has_err() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SWXLogin::clear_has_err() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SWXLogin::clear_err() {
+  err_ = 0u;
+  clear_has_err();
+}
+inline ::google::protobuf::uint32 SWXLogin::err() const {
+  return err_;
+}
+inline void SWXLogin::set_err(::google::protobuf::uint32 value) {
   set_has_err();
   err_ = value;
 }
