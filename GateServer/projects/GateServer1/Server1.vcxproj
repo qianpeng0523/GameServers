@@ -59,7 +59,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\..\protobuf\src;..\..\poco\Foundation\include;..\..\poco\Net\include;..\..\poco\Util\include;.\Classes\proto;..\..\poco\Data\include;..\..\poco\Data\MySQL\include;..\..\poco\Data\SQLite\include;..\..\poco\CppUnit\include\;.\Classes\sql;D:\Program Files\mysql\include;.\Classes\http;.\Classes\netjson;.\Classes\poco;.\Classes\room;.\Classes\control;.\Classes\log;..\..\libevent\include;..\..\libevent\include\event2;..\..\curl\include\win32\curl;..\..\libMessagePack;.\Classes\cryptopp;..\..\..\redis\src;..\..\..\redis\deps\hiredis;.\Classes\redisdata;.\Classes\algorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\..\protobuf\src;..\..\poco\Foundation\include;..\..\poco\Net\include;..\..\poco\Util\include;.\Classes\proto;..\..\poco\Data\include;..\..\poco\Data\MySQL\include;..\..\poco\Data\SQLite\include;..\..\poco\CppUnit\include\;.\Classes\sql;D:\Program Files\mysql\include;.\Classes\http;.\Classes\netjson;.\Classes\poco;.\Classes\room;.\Classes\control;.\Classes\log;..\..\libevent\include;..\..\libevent\include\event2;..\..\curl\include\win32\curl;..\..\libMessagePack;.\Classes\cryptopp;..\..\..\redis\src;..\..\..\redis\deps\hiredis;.\Classes\redisdata;.\Classes\algorithm;.\Classes\tinyxml;.\Classes\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -105,9 +105,11 @@
     <ClCompile Include="Classes\common\StatTimer.cpp" />
     <ClCompile Include="Classes\common\XXIconv.cpp" />
     <ClCompile Include="Classes\ConfigData.cpp" />
+    <ClCompile Include="Classes\config\XmlConfig.cpp" />
     <ClCompile Include="Classes\http\HttpEvent.cpp" />
     <ClCompile Include="Classes\http\HttpLogic.cpp" />
     <ClCompile Include="Classes\http\HttpPay.cpp" />
+    <ClCompile Include="Classes\http\HttpWXLogin.cpp" />
     <ClCompile Include="Classes\main.cpp" />
     <ClCompile Include="Classes\netjson\json_reader.cpp" />
     <ClCompile Include="Classes\netjson\json_value.cpp" />
@@ -126,6 +128,10 @@
     <ClCompile Include="Classes\redisdata\RedisModify.cpp" />
     <ClCompile Include="Classes\redisdata\RedisPut.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
+    <ClCompile Include="Classes\tinyxml\tinystr.cpp" />
+    <ClCompile Include="Classes\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="Classes\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="Classes\tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\redis\src\redis.h" />
@@ -144,9 +150,11 @@
     <ClInclude Include="Classes\common\StatTimer.h" />
     <ClInclude Include="Classes\common\XXIconv.h" />
     <ClInclude Include="Classes\ConfigData.h" />
+    <ClInclude Include="Classes\config\XmlConfig.h" />
     <ClInclude Include="Classes\http\HttpEvent.h" />
     <ClInclude Include="Classes\http\HttpLogic.h" />
     <ClInclude Include="Classes\http\HttpPay.h" />
+    <ClInclude Include="Classes\http\HttpWXLogin.h" />
     <ClInclude Include="Classes\netjson\json_batchallocator.h" />
     <ClInclude Include="Classes\netjson\json_lib.h" />
     <ClInclude Include="Classes\netjson\json_tool.h" />
@@ -175,6 +183,8 @@
     <ClInclude Include="Classes\redisdata\RedisPut.h" />
     <ClInclude Include="Classes\stdafx.h" />
     <ClInclude Include="Classes\targetver.h" />
+    <ClInclude Include="Classes\tinyxml\tinystr.h" />
+    <ClInclude Include="Classes\tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Classes\netjson\json_internalarray.inl" />

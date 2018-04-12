@@ -39,6 +39,8 @@ public:
 	map<int,Prop > getProp();
 	Prop getProp(int id);
 	vector<Task > getFree();
+
+	ShopItem getShop(int shopid);
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;

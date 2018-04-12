@@ -166,3 +166,11 @@ void LoginInfo::openCheckUpdate(bool isopen){
 		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(LoginInfo::Check));
 	}
 }
+
+void LoginInfo::SendCWXLogin(){
+
+}
+
+void LoginInfo::HandlerSWXLogin(string code, string access_token){
+
+}

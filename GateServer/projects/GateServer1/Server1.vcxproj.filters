@@ -40,6 +40,12 @@
     <Filter Include="源文件\Classes\redisdata">
       <UniqueIdentifier>{4cc70221-211b-4273-a8d8-23075a55a52d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes\tinyxml">
+      <UniqueIdentifier>{8d24ec48-ed86-42dd-b4c7-b5909b5ecc8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\config">
+      <UniqueIdentifier>{e1fd9bf1-1499-43d0-8ead-057cf69b081b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\stdafx.cpp">
@@ -145,6 +151,24 @@
       <Filter>源文件\Classes\redisdata</Filter>
     </ClCompile>
     <ClCompile Include="Classes\http\HttpPay.cpp">
+      <Filter>源文件\Classes\http</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\tinyxml\tinystr.cpp">
+      <Filter>源文件\Classes\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\tinyxml\tinyxml.cpp">
+      <Filter>源文件\Classes\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\tinyxml\tinyxmlerror.cpp">
+      <Filter>源文件\Classes\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\tinyxml\tinyxmlparser.cpp">
+      <Filter>源文件\Classes\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\config\XmlConfig.cpp">
+      <Filter>源文件\Classes\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\http\HttpWXLogin.cpp">
       <Filter>源文件\Classes\http</Filter>
     </ClCompile>
   </ItemGroup>
@@ -288,6 +312,18 @@
       <Filter>源文件\Classes\redisdata</Filter>
     </ClInclude>
     <ClInclude Include="Classes\http\HttpPay.h">
+      <Filter>源文件\Classes\http</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\tinyxml\tinystr.h">
+      <Filter>源文件\Classes\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\tinyxml\tinyxml.h">
+      <Filter>源文件\Classes\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\config\XmlConfig.h">
+      <Filter>源文件\Classes\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\http\HttpWXLogin.h">
       <Filter>源文件\Classes\http</Filter>
     </ClInclude>
   </ItemGroup>

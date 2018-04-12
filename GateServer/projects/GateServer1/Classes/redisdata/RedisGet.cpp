@@ -102,6 +102,18 @@ std::vector<ShopItem > RedisGet::getShop(){
 	}
 }
 
+ShopItem RedisGet::getShop(int shopid){
+	auto itr = m_pShopItems.begin();
+	for (itr; itr != m_pShopItems.end(); itr++){
+		ShopItem si = *itr;
+		if (si.id() == shopid){
+			return si;
+		}
+	}
+	ShopItem si;
+	return si;
+}
+
 map<string, Mail> RedisGet::getMail(string uid){
 	Mail si;
 	std::vector<Message *> vv = m_redis->getList("mail"+uid, si.GetTypeName());

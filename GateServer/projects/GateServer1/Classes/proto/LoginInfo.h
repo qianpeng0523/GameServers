@@ -21,6 +21,11 @@ public:
 	
 	void Check(float dt);
 	void openCheckUpdate(bool isopen);
+
+	void SendCWXLogin();
+	void HandlerSWXLogin(string code, string access_token);
+
+
 private:
 	static LoginInfo *m_shareLoginInfo;
 	RedisPut *m_pRedisPut;

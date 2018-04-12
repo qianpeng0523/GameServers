@@ -49,6 +49,7 @@ class ExAward;
 class ExRecord;
 class SignAward;
 class SignZhuan;
+class PayRecord;
 
 // ===================================================================
 
@@ -2066,6 +2067,213 @@ class SignZhuan : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SignZhuan* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PayRecord : public ::google::protobuf::Message {
+ public:
+  PayRecord();
+  virtual ~PayRecord();
+
+  PayRecord(const PayRecord& from);
+
+  inline PayRecord& operator=(const PayRecord& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PayRecord& default_instance();
+
+  void Swap(PayRecord* other);
+
+  // implements Message ----------------------------------------------
+
+  PayRecord* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PayRecord& from);
+  void MergeFrom(const PayRecord& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string userid = 1;
+  inline bool has_userid() const;
+  inline void clear_userid();
+  static const int kUseridFieldNumber = 1;
+  inline const ::std::string& userid() const;
+  inline void set_userid(const ::std::string& value);
+  inline void set_userid(const char* value);
+  inline void set_userid(const char* value, size_t size);
+  inline ::std::string* mutable_userid();
+  inline ::std::string* release_userid();
+  inline void set_allocated_userid(::std::string* userid);
+
+  // optional string attach = 2;
+  inline bool has_attach() const;
+  inline void clear_attach();
+  static const int kAttachFieldNumber = 2;
+  inline const ::std::string& attach() const;
+  inline void set_attach(const ::std::string& value);
+  inline void set_attach(const char* value);
+  inline void set_attach(const char* value, size_t size);
+  inline ::std::string* mutable_attach();
+  inline ::std::string* release_attach();
+  inline void set_allocated_attach(::std::string* attach);
+
+  // optional string out_trade_no = 3;
+  inline bool has_out_trade_no() const;
+  inline void clear_out_trade_no();
+  static const int kOutTradeNoFieldNumber = 3;
+  inline const ::std::string& out_trade_no() const;
+  inline void set_out_trade_no(const ::std::string& value);
+  inline void set_out_trade_no(const char* value);
+  inline void set_out_trade_no(const char* value, size_t size);
+  inline ::std::string* mutable_out_trade_no();
+  inline ::std::string* release_out_trade_no();
+  inline void set_allocated_out_trade_no(::std::string* out_trade_no);
+
+  // optional string time_start = 4;
+  inline bool has_time_start() const;
+  inline void clear_time_start();
+  static const int kTimeStartFieldNumber = 4;
+  inline const ::std::string& time_start() const;
+  inline void set_time_start(const ::std::string& value);
+  inline void set_time_start(const char* value);
+  inline void set_time_start(const char* value, size_t size);
+  inline ::std::string* mutable_time_start();
+  inline ::std::string* release_time_start();
+  inline void set_allocated_time_start(::std::string* time_start);
+
+  // optional string time_expire = 5;
+  inline bool has_time_expire() const;
+  inline void clear_time_expire();
+  static const int kTimeExpireFieldNumber = 5;
+  inline const ::std::string& time_expire() const;
+  inline void set_time_expire(const ::std::string& value);
+  inline void set_time_expire(const char* value);
+  inline void set_time_expire(const char* value, size_t size);
+  inline ::std::string* mutable_time_expire();
+  inline ::std::string* release_time_expire();
+  inline void set_allocated_time_expire(::std::string* time_expire);
+
+  // optional string prepay_id = 6;
+  inline bool has_prepay_id() const;
+  inline void clear_prepay_id();
+  static const int kPrepayIdFieldNumber = 6;
+  inline const ::std::string& prepay_id() const;
+  inline void set_prepay_id(const ::std::string& value);
+  inline void set_prepay_id(const char* value);
+  inline void set_prepay_id(const char* value, size_t size);
+  inline ::std::string* mutable_prepay_id();
+  inline ::std::string* release_prepay_id();
+  inline void set_allocated_prepay_id(::std::string* prepay_id);
+
+  // optional string body = 7;
+  inline bool has_body() const;
+  inline void clear_body();
+  static const int kBodyFieldNumber = 7;
+  inline const ::std::string& body() const;
+  inline void set_body(const ::std::string& value);
+  inline void set_body(const char* value);
+  inline void set_body(const char* value, size_t size);
+  inline ::std::string* mutable_body();
+  inline ::std::string* release_body();
+  inline void set_allocated_body(::std::string* body);
+
+  // optional string total_fee = 8;
+  inline bool has_total_fee() const;
+  inline void clear_total_fee();
+  static const int kTotalFeeFieldNumber = 8;
+  inline const ::std::string& total_fee() const;
+  inline void set_total_fee(const ::std::string& value);
+  inline void set_total_fee(const char* value);
+  inline void set_total_fee(const char* value, size_t size);
+  inline ::std::string* mutable_total_fee();
+  inline ::std::string* release_total_fee();
+  inline void set_allocated_total_fee(::std::string* total_fee);
+
+  // optional string spbill_create_ip = 9;
+  inline bool has_spbill_create_ip() const;
+  inline void clear_spbill_create_ip();
+  static const int kSpbillCreateIpFieldNumber = 9;
+  inline const ::std::string& spbill_create_ip() const;
+  inline void set_spbill_create_ip(const ::std::string& value);
+  inline void set_spbill_create_ip(const char* value);
+  inline void set_spbill_create_ip(const char* value, size_t size);
+  inline ::std::string* mutable_spbill_create_ip();
+  inline ::std::string* release_spbill_create_ip();
+  inline void set_allocated_spbill_create_ip(::std::string* spbill_create_ip);
+
+  // @@protoc_insertion_point(class_scope:protocol.PayRecord)
+ private:
+  inline void set_has_userid();
+  inline void clear_has_userid();
+  inline void set_has_attach();
+  inline void clear_has_attach();
+  inline void set_has_out_trade_no();
+  inline void clear_has_out_trade_no();
+  inline void set_has_time_start();
+  inline void clear_has_time_start();
+  inline void set_has_time_expire();
+  inline void clear_has_time_expire();
+  inline void set_has_prepay_id();
+  inline void clear_has_prepay_id();
+  inline void set_has_body();
+  inline void clear_has_body();
+  inline void set_has_total_fee();
+  inline void clear_has_total_fee();
+  inline void set_has_spbill_create_ip();
+  inline void clear_has_spbill_create_ip();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* userid_;
+  ::std::string* attach_;
+  ::std::string* out_trade_no_;
+  ::std::string* time_start_;
+  ::std::string* time_expire_;
+  ::std::string* prepay_id_;
+  ::std::string* body_;
+  ::std::string* total_fee_;
+  ::std::string* spbill_create_ip_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(9 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Vo_2eproto();
+  friend void protobuf_AssignDesc_Vo_2eproto();
+  friend void protobuf_ShutdownFile_Vo_2eproto();
+
+  void InitAsDefaultInstance();
+  static PayRecord* default_instance_;
 };
 // ===================================================================
 
@@ -4943,6 +5151,640 @@ inline void SignZhuan::set_allocated_reward(::protocol::Reward* reward) {
     set_has_reward();
   } else {
     clear_has_reward();
+  }
+}
+
+// -------------------------------------------------------------------
+
+// PayRecord
+
+// optional string userid = 1;
+inline bool PayRecord::has_userid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PayRecord::set_has_userid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PayRecord::clear_has_userid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PayRecord::clear_userid() {
+  if (userid_ != &::google::protobuf::internal::kEmptyString) {
+    userid_->clear();
+  }
+  clear_has_userid();
+}
+inline const ::std::string& PayRecord::userid() const {
+  return *userid_;
+}
+inline void PayRecord::set_userid(const ::std::string& value) {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  userid_->assign(value);
+}
+inline void PayRecord::set_userid(const char* value) {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  userid_->assign(value);
+}
+inline void PayRecord::set_userid(const char* value, size_t size) {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  userid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_userid() {
+  set_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    userid_ = new ::std::string;
+  }
+  return userid_;
+}
+inline ::std::string* PayRecord::release_userid() {
+  clear_has_userid();
+  if (userid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = userid_;
+    userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_userid(::std::string* userid) {
+  if (userid_ != &::google::protobuf::internal::kEmptyString) {
+    delete userid_;
+  }
+  if (userid) {
+    set_has_userid();
+    userid_ = userid;
+  } else {
+    clear_has_userid();
+    userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string attach = 2;
+inline bool PayRecord::has_attach() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void PayRecord::set_has_attach() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void PayRecord::clear_has_attach() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void PayRecord::clear_attach() {
+  if (attach_ != &::google::protobuf::internal::kEmptyString) {
+    attach_->clear();
+  }
+  clear_has_attach();
+}
+inline const ::std::string& PayRecord::attach() const {
+  return *attach_;
+}
+inline void PayRecord::set_attach(const ::std::string& value) {
+  set_has_attach();
+  if (attach_ == &::google::protobuf::internal::kEmptyString) {
+    attach_ = new ::std::string;
+  }
+  attach_->assign(value);
+}
+inline void PayRecord::set_attach(const char* value) {
+  set_has_attach();
+  if (attach_ == &::google::protobuf::internal::kEmptyString) {
+    attach_ = new ::std::string;
+  }
+  attach_->assign(value);
+}
+inline void PayRecord::set_attach(const char* value, size_t size) {
+  set_has_attach();
+  if (attach_ == &::google::protobuf::internal::kEmptyString) {
+    attach_ = new ::std::string;
+  }
+  attach_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_attach() {
+  set_has_attach();
+  if (attach_ == &::google::protobuf::internal::kEmptyString) {
+    attach_ = new ::std::string;
+  }
+  return attach_;
+}
+inline ::std::string* PayRecord::release_attach() {
+  clear_has_attach();
+  if (attach_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = attach_;
+    attach_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_attach(::std::string* attach) {
+  if (attach_ != &::google::protobuf::internal::kEmptyString) {
+    delete attach_;
+  }
+  if (attach) {
+    set_has_attach();
+    attach_ = attach;
+  } else {
+    clear_has_attach();
+    attach_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string out_trade_no = 3;
+inline bool PayRecord::has_out_trade_no() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PayRecord::set_has_out_trade_no() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PayRecord::clear_has_out_trade_no() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PayRecord::clear_out_trade_no() {
+  if (out_trade_no_ != &::google::protobuf::internal::kEmptyString) {
+    out_trade_no_->clear();
+  }
+  clear_has_out_trade_no();
+}
+inline const ::std::string& PayRecord::out_trade_no() const {
+  return *out_trade_no_;
+}
+inline void PayRecord::set_out_trade_no(const ::std::string& value) {
+  set_has_out_trade_no();
+  if (out_trade_no_ == &::google::protobuf::internal::kEmptyString) {
+    out_trade_no_ = new ::std::string;
+  }
+  out_trade_no_->assign(value);
+}
+inline void PayRecord::set_out_trade_no(const char* value) {
+  set_has_out_trade_no();
+  if (out_trade_no_ == &::google::protobuf::internal::kEmptyString) {
+    out_trade_no_ = new ::std::string;
+  }
+  out_trade_no_->assign(value);
+}
+inline void PayRecord::set_out_trade_no(const char* value, size_t size) {
+  set_has_out_trade_no();
+  if (out_trade_no_ == &::google::protobuf::internal::kEmptyString) {
+    out_trade_no_ = new ::std::string;
+  }
+  out_trade_no_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_out_trade_no() {
+  set_has_out_trade_no();
+  if (out_trade_no_ == &::google::protobuf::internal::kEmptyString) {
+    out_trade_no_ = new ::std::string;
+  }
+  return out_trade_no_;
+}
+inline ::std::string* PayRecord::release_out_trade_no() {
+  clear_has_out_trade_no();
+  if (out_trade_no_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = out_trade_no_;
+    out_trade_no_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_out_trade_no(::std::string* out_trade_no) {
+  if (out_trade_no_ != &::google::protobuf::internal::kEmptyString) {
+    delete out_trade_no_;
+  }
+  if (out_trade_no) {
+    set_has_out_trade_no();
+    out_trade_no_ = out_trade_no;
+  } else {
+    clear_has_out_trade_no();
+    out_trade_no_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string time_start = 4;
+inline bool PayRecord::has_time_start() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void PayRecord::set_has_time_start() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void PayRecord::clear_has_time_start() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void PayRecord::clear_time_start() {
+  if (time_start_ != &::google::protobuf::internal::kEmptyString) {
+    time_start_->clear();
+  }
+  clear_has_time_start();
+}
+inline const ::std::string& PayRecord::time_start() const {
+  return *time_start_;
+}
+inline void PayRecord::set_time_start(const ::std::string& value) {
+  set_has_time_start();
+  if (time_start_ == &::google::protobuf::internal::kEmptyString) {
+    time_start_ = new ::std::string;
+  }
+  time_start_->assign(value);
+}
+inline void PayRecord::set_time_start(const char* value) {
+  set_has_time_start();
+  if (time_start_ == &::google::protobuf::internal::kEmptyString) {
+    time_start_ = new ::std::string;
+  }
+  time_start_->assign(value);
+}
+inline void PayRecord::set_time_start(const char* value, size_t size) {
+  set_has_time_start();
+  if (time_start_ == &::google::protobuf::internal::kEmptyString) {
+    time_start_ = new ::std::string;
+  }
+  time_start_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_time_start() {
+  set_has_time_start();
+  if (time_start_ == &::google::protobuf::internal::kEmptyString) {
+    time_start_ = new ::std::string;
+  }
+  return time_start_;
+}
+inline ::std::string* PayRecord::release_time_start() {
+  clear_has_time_start();
+  if (time_start_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = time_start_;
+    time_start_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_time_start(::std::string* time_start) {
+  if (time_start_ != &::google::protobuf::internal::kEmptyString) {
+    delete time_start_;
+  }
+  if (time_start) {
+    set_has_time_start();
+    time_start_ = time_start;
+  } else {
+    clear_has_time_start();
+    time_start_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string time_expire = 5;
+inline bool PayRecord::has_time_expire() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void PayRecord::set_has_time_expire() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void PayRecord::clear_has_time_expire() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void PayRecord::clear_time_expire() {
+  if (time_expire_ != &::google::protobuf::internal::kEmptyString) {
+    time_expire_->clear();
+  }
+  clear_has_time_expire();
+}
+inline const ::std::string& PayRecord::time_expire() const {
+  return *time_expire_;
+}
+inline void PayRecord::set_time_expire(const ::std::string& value) {
+  set_has_time_expire();
+  if (time_expire_ == &::google::protobuf::internal::kEmptyString) {
+    time_expire_ = new ::std::string;
+  }
+  time_expire_->assign(value);
+}
+inline void PayRecord::set_time_expire(const char* value) {
+  set_has_time_expire();
+  if (time_expire_ == &::google::protobuf::internal::kEmptyString) {
+    time_expire_ = new ::std::string;
+  }
+  time_expire_->assign(value);
+}
+inline void PayRecord::set_time_expire(const char* value, size_t size) {
+  set_has_time_expire();
+  if (time_expire_ == &::google::protobuf::internal::kEmptyString) {
+    time_expire_ = new ::std::string;
+  }
+  time_expire_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_time_expire() {
+  set_has_time_expire();
+  if (time_expire_ == &::google::protobuf::internal::kEmptyString) {
+    time_expire_ = new ::std::string;
+  }
+  return time_expire_;
+}
+inline ::std::string* PayRecord::release_time_expire() {
+  clear_has_time_expire();
+  if (time_expire_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = time_expire_;
+    time_expire_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_time_expire(::std::string* time_expire) {
+  if (time_expire_ != &::google::protobuf::internal::kEmptyString) {
+    delete time_expire_;
+  }
+  if (time_expire) {
+    set_has_time_expire();
+    time_expire_ = time_expire;
+  } else {
+    clear_has_time_expire();
+    time_expire_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string prepay_id = 6;
+inline bool PayRecord::has_prepay_id() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void PayRecord::set_has_prepay_id() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void PayRecord::clear_has_prepay_id() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void PayRecord::clear_prepay_id() {
+  if (prepay_id_ != &::google::protobuf::internal::kEmptyString) {
+    prepay_id_->clear();
+  }
+  clear_has_prepay_id();
+}
+inline const ::std::string& PayRecord::prepay_id() const {
+  return *prepay_id_;
+}
+inline void PayRecord::set_prepay_id(const ::std::string& value) {
+  set_has_prepay_id();
+  if (prepay_id_ == &::google::protobuf::internal::kEmptyString) {
+    prepay_id_ = new ::std::string;
+  }
+  prepay_id_->assign(value);
+}
+inline void PayRecord::set_prepay_id(const char* value) {
+  set_has_prepay_id();
+  if (prepay_id_ == &::google::protobuf::internal::kEmptyString) {
+    prepay_id_ = new ::std::string;
+  }
+  prepay_id_->assign(value);
+}
+inline void PayRecord::set_prepay_id(const char* value, size_t size) {
+  set_has_prepay_id();
+  if (prepay_id_ == &::google::protobuf::internal::kEmptyString) {
+    prepay_id_ = new ::std::string;
+  }
+  prepay_id_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_prepay_id() {
+  set_has_prepay_id();
+  if (prepay_id_ == &::google::protobuf::internal::kEmptyString) {
+    prepay_id_ = new ::std::string;
+  }
+  return prepay_id_;
+}
+inline ::std::string* PayRecord::release_prepay_id() {
+  clear_has_prepay_id();
+  if (prepay_id_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = prepay_id_;
+    prepay_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_prepay_id(::std::string* prepay_id) {
+  if (prepay_id_ != &::google::protobuf::internal::kEmptyString) {
+    delete prepay_id_;
+  }
+  if (prepay_id) {
+    set_has_prepay_id();
+    prepay_id_ = prepay_id;
+  } else {
+    clear_has_prepay_id();
+    prepay_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string body = 7;
+inline bool PayRecord::has_body() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void PayRecord::set_has_body() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void PayRecord::clear_has_body() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void PayRecord::clear_body() {
+  if (body_ != &::google::protobuf::internal::kEmptyString) {
+    body_->clear();
+  }
+  clear_has_body();
+}
+inline const ::std::string& PayRecord::body() const {
+  return *body_;
+}
+inline void PayRecord::set_body(const ::std::string& value) {
+  set_has_body();
+  if (body_ == &::google::protobuf::internal::kEmptyString) {
+    body_ = new ::std::string;
+  }
+  body_->assign(value);
+}
+inline void PayRecord::set_body(const char* value) {
+  set_has_body();
+  if (body_ == &::google::protobuf::internal::kEmptyString) {
+    body_ = new ::std::string;
+  }
+  body_->assign(value);
+}
+inline void PayRecord::set_body(const char* value, size_t size) {
+  set_has_body();
+  if (body_ == &::google::protobuf::internal::kEmptyString) {
+    body_ = new ::std::string;
+  }
+  body_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_body() {
+  set_has_body();
+  if (body_ == &::google::protobuf::internal::kEmptyString) {
+    body_ = new ::std::string;
+  }
+  return body_;
+}
+inline ::std::string* PayRecord::release_body() {
+  clear_has_body();
+  if (body_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = body_;
+    body_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_body(::std::string* body) {
+  if (body_ != &::google::protobuf::internal::kEmptyString) {
+    delete body_;
+  }
+  if (body) {
+    set_has_body();
+    body_ = body;
+  } else {
+    clear_has_body();
+    body_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string total_fee = 8;
+inline bool PayRecord::has_total_fee() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void PayRecord::set_has_total_fee() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void PayRecord::clear_has_total_fee() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void PayRecord::clear_total_fee() {
+  if (total_fee_ != &::google::protobuf::internal::kEmptyString) {
+    total_fee_->clear();
+  }
+  clear_has_total_fee();
+}
+inline const ::std::string& PayRecord::total_fee() const {
+  return *total_fee_;
+}
+inline void PayRecord::set_total_fee(const ::std::string& value) {
+  set_has_total_fee();
+  if (total_fee_ == &::google::protobuf::internal::kEmptyString) {
+    total_fee_ = new ::std::string;
+  }
+  total_fee_->assign(value);
+}
+inline void PayRecord::set_total_fee(const char* value) {
+  set_has_total_fee();
+  if (total_fee_ == &::google::protobuf::internal::kEmptyString) {
+    total_fee_ = new ::std::string;
+  }
+  total_fee_->assign(value);
+}
+inline void PayRecord::set_total_fee(const char* value, size_t size) {
+  set_has_total_fee();
+  if (total_fee_ == &::google::protobuf::internal::kEmptyString) {
+    total_fee_ = new ::std::string;
+  }
+  total_fee_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_total_fee() {
+  set_has_total_fee();
+  if (total_fee_ == &::google::protobuf::internal::kEmptyString) {
+    total_fee_ = new ::std::string;
+  }
+  return total_fee_;
+}
+inline ::std::string* PayRecord::release_total_fee() {
+  clear_has_total_fee();
+  if (total_fee_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = total_fee_;
+    total_fee_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_total_fee(::std::string* total_fee) {
+  if (total_fee_ != &::google::protobuf::internal::kEmptyString) {
+    delete total_fee_;
+  }
+  if (total_fee) {
+    set_has_total_fee();
+    total_fee_ = total_fee;
+  } else {
+    clear_has_total_fee();
+    total_fee_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string spbill_create_ip = 9;
+inline bool PayRecord::has_spbill_create_ip() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void PayRecord::set_has_spbill_create_ip() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void PayRecord::clear_has_spbill_create_ip() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void PayRecord::clear_spbill_create_ip() {
+  if (spbill_create_ip_ != &::google::protobuf::internal::kEmptyString) {
+    spbill_create_ip_->clear();
+  }
+  clear_has_spbill_create_ip();
+}
+inline const ::std::string& PayRecord::spbill_create_ip() const {
+  return *spbill_create_ip_;
+}
+inline void PayRecord::set_spbill_create_ip(const ::std::string& value) {
+  set_has_spbill_create_ip();
+  if (spbill_create_ip_ == &::google::protobuf::internal::kEmptyString) {
+    spbill_create_ip_ = new ::std::string;
+  }
+  spbill_create_ip_->assign(value);
+}
+inline void PayRecord::set_spbill_create_ip(const char* value) {
+  set_has_spbill_create_ip();
+  if (spbill_create_ip_ == &::google::protobuf::internal::kEmptyString) {
+    spbill_create_ip_ = new ::std::string;
+  }
+  spbill_create_ip_->assign(value);
+}
+inline void PayRecord::set_spbill_create_ip(const char* value, size_t size) {
+  set_has_spbill_create_ip();
+  if (spbill_create_ip_ == &::google::protobuf::internal::kEmptyString) {
+    spbill_create_ip_ = new ::std::string;
+  }
+  spbill_create_ip_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PayRecord::mutable_spbill_create_ip() {
+  set_has_spbill_create_ip();
+  if (spbill_create_ip_ == &::google::protobuf::internal::kEmptyString) {
+    spbill_create_ip_ = new ::std::string;
+  }
+  return spbill_create_ip_;
+}
+inline ::std::string* PayRecord::release_spbill_create_ip() {
+  clear_has_spbill_create_ip();
+  if (spbill_create_ip_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = spbill_create_ip_;
+    spbill_create_ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PayRecord::set_allocated_spbill_create_ip(::std::string* spbill_create_ip) {
+  if (spbill_create_ip_ != &::google::protobuf::internal::kEmptyString) {
+    delete spbill_create_ip_;
+  }
+  if (spbill_create_ip) {
+    set_has_spbill_create_ip();
+    spbill_create_ip_ = spbill_create_ip;
+  } else {
+    clear_has_spbill_create_ip();
+    spbill_create_ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 

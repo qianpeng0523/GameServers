@@ -61,3 +61,4 @@ using namespace Poco;
 #define NOTIFYURL "http://27.46.6.74/8082"
 #define TRADETYPE "APP"
 #define INITNO "00000000"
+#define APPSECRET "42eded380f7f410e1556a1a94cfaa096"

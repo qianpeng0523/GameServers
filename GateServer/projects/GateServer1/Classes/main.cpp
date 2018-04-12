@@ -27,7 +27,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	WSAStartup(MAKEWORD(2, 1), &wsaData);
 	redis::getIns()->initial("47.104.165.65", 6379, "3.1415926qp");
 	RedisGet::getIns()->init();
-
+	
 	//ConfigData::getIns();
 	
 	LoginInfo::getIns()->openCheckUpdate(true);
@@ -36,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
 	
-	HttpPay::getIns()->test();
+	HttpPay::getIns()/*->test()*/;
 
 	getchar();
 	return 0;

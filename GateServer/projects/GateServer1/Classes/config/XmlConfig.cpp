@@ -1,4 +1,4 @@
-﻿#include "XmlConfig.h"
+#include "XmlConfig.h"
 #include "HttpEvent.h"
 #include "Common.h"
 XmlConfig *XmlConfig::m_Ins = NULL;
@@ -26,13 +26,28 @@ XmlConfig *XmlConfig::getIns(){
 	return m_Ins;
 }
 
-string XmlConfig::setXmlData(map<string, string> valuemap){
+string XmlConfig::setXmlData1(map<string, string> valuemap){
 	//string xml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?>\n";
 	string xml = "<xml>\n";
 	for (auto itr = valuemap.begin(); itr != valuemap.end();itr++){
 		string name = itr->first;
 		string value = itr->second;
 		xml += "<"+name+">";
+		xml += value;
+		xml += "</" + name + ">\n";
+	}
+	xml += "</xml>\n";
+	printf("%s\n", xml.c_str());
+	return XXIconv::GBK2UTF(xml.c_str());
+}
+
+string XmlConfig::setXmlData(map<string, string> valuemap){
+	//string xml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?>\n";
+	string xml = "<xml>\n";
+	for (auto itr = valuemap.begin(); itr != valuemap.end(); itr++){
+		string name = itr->first;
+		string value = itr->second;
+		xml += "<" + name + ">";
 		xml += value;
 		xml += "</" + name + ">\n";
 	}

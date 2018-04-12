@@ -56,9 +56,7 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	if (buff){
 		string result = buff;
 		if (result.find("return_code") != -1){
-			map<string, string>maps = XmlConfig::getIns()->parseXmlData(result);
-			map<string, string> map1;//没有用
-			HttpPay::getIns()->respond(maps, maps);
+			HttpPay::getIns()->respondResult(result, req);
 		}
 		else{
 			char *out = new char[sz + 1];
@@ -101,7 +99,7 @@ string GBKToUTF8(const std::string& strGBK)
 	return strOutUTF8;
 }
 
-void HttpEvent::requestData(string url, string content, size_t(*func)(void*, size_t, size_t, void *), map<string, string> ordermap){
+string HttpEvent::requestData(string url, string content, size_t(*func)(void*, size_t, size_t, void *)){
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
@@ -124,8 +122,10 @@ void HttpEvent::requestData(string url, string content, size_t(*func)(void*, siz
 	curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "gzip, deflate");
 	
 	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
-	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content.c_str());
-	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content.length());
+	if (!content.empty()){
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content.length());
+	}
 	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
 	CURLcode code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10000);
 	if (code != CURLE_OK) {
@@ -145,13 +145,15 @@ void HttpEvent::requestData(string url, string content, size_t(*func)(void*, siz
 	else{
 		FILE *fp = fopen("./res/test.xml","w+");
 		fprintf(fp,result.c_str());
+		fseek(fp, 0, SEEK_END);
 		fclose(fp);
-		map<string, string> maps = XmlConfig::getIns()->parseXmlData(result);
-		HttpPay::getIns()->respond(maps,ordermap);
+// 		map<string, string> maps = XmlConfig::getIns()->parseXmlData(result);
+// 		HttpPay::getIns()->respond(maps,ordermap);
 		//printf("result:\n%s\n",result.c_str());
 	}
 	curl_slist_free_all(head);//记得要释放  
 	curl_easy_cleanup(curl);
+	return result;
 }
 
 void HttpEvent::requestData(string url, YMSocketData sd){
@@ -218,6 +220,14 @@ void HttpEvent::SendMsg(YMSocketData &sd, struct evhttp_request *req){
 	evbuffer_free(buf);
 	delete out;
 	free(packBuffer);
+}
+
+void HttpEvent::SendMsg(string content, struct evhttp_request *req){
+	struct evbuffer *buf;
+	buf = evbuffer_new();
+	evbuffer_add(buf, content.c_str(), content.length());
+	evhttp_send_reply(req, HTTP_OK, "OK", buf);
+	evbuffer_free(buf);
 }
 
 void HttpEvent::init(){
