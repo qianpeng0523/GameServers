@@ -140,6 +140,7 @@ bool redis::set(std::string key, char* value, int len)
 		return false;
 	}
 	ZeroChange(value, len);
+	printf("*************************************%s\n",value);
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), value);
 	if (!r)
 	{
