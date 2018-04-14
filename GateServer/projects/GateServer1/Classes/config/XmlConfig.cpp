@@ -60,25 +60,25 @@ map<string, string> XmlConfig::parseXmlData(string content){
 	Common::replace_all(content, "\n", "");
 	string tt = "<![CDATA[";
 	string t2 = "]]>";
+	Common::replace_all(content, tt, "");
+	Common::replace_all(content, t2, "");
 	string temp = content;
 	int index = temp.find("<xml>");
 	temp = temp.substr(index + 5, temp.length());
 	map<string, string> mm;
 	while (index != -1){
 		index=temp.find(">");
-		string name = temp.substr(1,index-1);
-		temp = temp.substr(index+1, temp.length());
-		index = temp.find(tt);
 		if (index == -1){
 			break;
 		}
-		temp= temp.substr(index + tt.length(), temp.length());
-		index = temp.find(t2);
+		string name = temp.substr(1,index-1);
+		temp = temp.substr(index+1, temp.length());
+		index = temp.find("</");
 		if (index == -1){
 			break;
 		}
 		string value = temp.substr(0,index);
-		temp = temp.substr(index+1 + t2.length() + name.length()+2,temp.length());
+		temp = temp.substr(index+1 +  name.length()+2,temp.length());
 		if (index == -1){
 			break;
 		}

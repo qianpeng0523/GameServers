@@ -20,12 +20,6 @@ namespace protocol {
 
 namespace {
 
-const ::google::protobuf::Descriptor* CConfig_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CConfig_reflection_ = NULL;
-const ::google::protobuf::Descriptor* SConfig_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  SConfig_reflection_ = NULL;
 const ::google::protobuf::Descriptor* CRank_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   CRank_reflection_ = NULL;
@@ -180,44 +174,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "Hall.proto");
   GOOGLE_CHECK(file != NULL);
-  CConfig_descriptor_ = file->message_type(0);
-  static const int CConfig_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CConfig, cmd_),
-  };
-  CConfig_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      CConfig_descriptor_,
-      CConfig::default_instance_,
-      CConfig_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CConfig, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CConfig, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(CConfig));
-  SConfig_descriptor_ = file->message_type(1);
-  static const int SConfig_offsets_[8] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, cmd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, mail_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, active_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, firstbuy_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, task_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, free_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, friend__),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, yqs_),
-  };
-  SConfig_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      SConfig_descriptor_,
-      SConfig::default_instance_,
-      SConfig_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(SConfig));
-  CRank_descriptor_ = file->message_type(2);
+  CRank_descriptor_ = file->message_type(0);
   static const int CRank_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CRank, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CRank, type_),
@@ -234,7 +191,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CRank));
-  SRank_descriptor_ = file->message_type(3);
+  SRank_descriptor_ = file->message_type(1);
   static const int SRank_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SRank, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SRank, type_),
@@ -252,7 +209,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SRank));
-  CShop_descriptor_ = file->message_type(4);
+  CShop_descriptor_ = file->message_type(2);
   static const int CShop_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CShop, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CShop, type_),
@@ -268,7 +225,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CShop));
-  SShop_descriptor_ = file->message_type(5);
+  SShop_descriptor_ = file->message_type(3);
   static const int SShop_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SShop, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SShop, type_),
@@ -286,7 +243,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SShop));
-  CMail_descriptor_ = file->message_type(6);
+  CMail_descriptor_ = file->message_type(4);
   static const int CMail_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CMail, cmd_),
   };
@@ -301,7 +258,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CMail));
-  SMail_descriptor_ = file->message_type(7);
+  SMail_descriptor_ = file->message_type(5);
   static const int SMail_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SMail, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SMail, list_),
@@ -318,7 +275,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SMail));
-  CFriend_descriptor_ = file->message_type(8);
+  CFriend_descriptor_ = file->message_type(6);
   static const int CFriend_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriend, cmd_),
   };
@@ -333,7 +290,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFriend));
-  SFriend_descriptor_ = file->message_type(9);
+  SFriend_descriptor_ = file->message_type(7);
   static const int SFriend_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriend, list_),
@@ -350,7 +307,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SFriend));
-  CFindFriend_descriptor_ = file->message_type(10);
+  CFindFriend_descriptor_ = file->message_type(8);
   static const int CFindFriend_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFindFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFindFriend, uid_),
@@ -367,10 +324,11 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFindFriend));
-  SFindFriend_descriptor_ = file->message_type(11);
-  static const int SFindFriend_offsets_[3] = {
+  SFindFriend_descriptor_ = file->message_type(9);
+  static const int SFindFriend_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFindFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFindFriend, list_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFindFriend, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFindFriend, err_),
   };
   SFindFriend_reflection_ =
@@ -384,7 +342,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SFindFriend));
-  CGiveFriend_descriptor_ = file->message_type(12);
+  CGiveFriend_descriptor_ = file->message_type(10);
   static const int CGiveFriend_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CGiveFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CGiveFriend, uid_),
@@ -400,7 +358,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CGiveFriend));
-  SGiveFriend_descriptor_ = file->message_type(13);
+  SGiveFriend_descriptor_ = file->message_type(11);
   static const int SGiveFriend_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SGiveFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SGiveFriend, uid_),
@@ -417,7 +375,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SGiveFriend));
-  CAddFriend_descriptor_ = file->message_type(14);
+  CAddFriend_descriptor_ = file->message_type(12);
   static const int CAddFriend_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAddFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAddFriend, uid_),
@@ -433,7 +391,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CAddFriend));
-  SAddFriend_descriptor_ = file->message_type(15);
+  SAddFriend_descriptor_ = file->message_type(13);
   static const int SAddFriend_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAddFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAddFriend, uid_),
@@ -450,7 +408,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SAddFriend));
-  CAddFriendList_descriptor_ = file->message_type(16);
+  CAddFriendList_descriptor_ = file->message_type(14);
   static const int CAddFriendList_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAddFriendList, cmd_),
   };
@@ -465,7 +423,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CAddFriendList));
-  SAddFriendList_descriptor_ = file->message_type(17);
+  SAddFriendList_descriptor_ = file->message_type(15);
   static const int SAddFriendList_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAddFriendList, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAddFriendList, list_),
@@ -482,7 +440,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SAddFriendList));
-  CActive_descriptor_ = file->message_type(18);
+  CActive_descriptor_ = file->message_type(16);
   static const int CActive_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CActive, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CActive, type_),
@@ -498,7 +456,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CActive));
-  SActive_descriptor_ = file->message_type(19);
+  SActive_descriptor_ = file->message_type(17);
   static const int SActive_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SActive, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SActive, list_),
@@ -515,7 +473,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SActive));
-  CTask_descriptor_ = file->message_type(20);
+  CTask_descriptor_ = file->message_type(18);
   static const int CTask_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CTask, cmd_),
   };
@@ -530,7 +488,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CTask));
-  STask_descriptor_ = file->message_type(21);
+  STask_descriptor_ = file->message_type(19);
   static const int STask_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(STask, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(STask, list_),
@@ -547,7 +505,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(STask));
-  CReward_descriptor_ = file->message_type(22);
+  CReward_descriptor_ = file->message_type(20);
   static const int CReward_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CReward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CReward, id_),
@@ -563,7 +521,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CReward));
-  SReward_descriptor_ = file->message_type(23);
+  SReward_descriptor_ = file->message_type(21);
   static const int SReward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, reward_),
@@ -580,7 +538,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SReward));
-  CAgreeFriend_descriptor_ = file->message_type(24);
+  CAgreeFriend_descriptor_ = file->message_type(22);
   static const int CAgreeFriend_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, agree_),
@@ -597,7 +555,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CAgreeFriend));
-  SAgreeFriend_descriptor_ = file->message_type(25);
+  SAgreeFriend_descriptor_ = file->message_type(23);
   static const int SAgreeFriend_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAgreeFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAgreeFriend, agree_),
@@ -615,7 +573,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SAgreeFriend));
-  CExchangeReward_descriptor_ = file->message_type(26);
+  CExchangeReward_descriptor_ = file->message_type(24);
   static const int CExchangeReward_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeReward, cmd_),
   };
@@ -630,7 +588,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchangeReward));
-  SExchangeReward_descriptor_ = file->message_type(27);
+  SExchangeReward_descriptor_ = file->message_type(25);
   static const int SExchangeReward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeReward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeReward, list_),
@@ -647,7 +605,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchangeReward));
-  CExchangeCode_descriptor_ = file->message_type(28);
+  CExchangeCode_descriptor_ = file->message_type(26);
   static const int CExchangeCode_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeCode, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeCode, excode_),
@@ -664,7 +622,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchangeCode));
-  SExchangeCode_descriptor_ = file->message_type(29);
+  SExchangeCode_descriptor_ = file->message_type(27);
   static const int SExchangeCode_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, success_),
@@ -681,7 +639,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchangeCode));
-  CExchangeRecord_descriptor_ = file->message_type(30);
+  CExchangeRecord_descriptor_ = file->message_type(28);
   static const int CExchangeRecord_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeRecord, cmd_),
   };
@@ -696,7 +654,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchangeRecord));
-  SExchangeRecord_descriptor_ = file->message_type(31);
+  SExchangeRecord_descriptor_ = file->message_type(29);
   static const int SExchangeRecord_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeRecord, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeRecord, list_),
@@ -713,7 +671,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchangeRecord));
-  CExchange_descriptor_ = file->message_type(32);
+  CExchange_descriptor_ = file->message_type(30);
   static const int CExchange_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchange, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchange, id_),
@@ -729,7 +687,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchange));
-  SExchange_descriptor_ = file->message_type(33);
+  SExchange_descriptor_ = file->message_type(31);
   static const int SExchange_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchange, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchange, id_),
@@ -747,7 +705,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchange));
-  CApplePay_descriptor_ = file->message_type(34);
+  CApplePay_descriptor_ = file->message_type(32);
   static const int CApplePay_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CApplePay, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CApplePay, id_),
@@ -764,7 +722,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CApplePay));
-  SApplePay_descriptor_ = file->message_type(35);
+  SApplePay_descriptor_ = file->message_type(33);
   static const int SApplePay_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SApplePay, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SApplePay, id_),
@@ -781,7 +739,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SApplePay));
-  CWxpayOrder_descriptor_ = file->message_type(36);
+  CWxpayOrder_descriptor_ = file->message_type(34);
   static const int CWxpayOrder_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayOrder, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayOrder, id_),
@@ -798,7 +756,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CWxpayOrder));
-  SWxpayOrder_descriptor_ = file->message_type(37);
+  SWxpayOrder_descriptor_ = file->message_type(35);
   static const int SWxpayOrder_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, noncestr_),
@@ -818,7 +776,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SWxpayOrder));
-  CWxpayQuery_descriptor_ = file->message_type(38);
+  CWxpayQuery_descriptor_ = file->message_type(36);
   static const int CWxpayQuery_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayQuery, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayQuery, transid_),
@@ -834,7 +792,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CWxpayQuery));
-  SWxpayQuery_descriptor_ = file->message_type(39);
+  SWxpayQuery_descriptor_ = file->message_type(37);
   static const int SWxpayQuery_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayQuery, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayQuery, transid_),
@@ -851,7 +809,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SWxpayQuery));
-  CFirstBuy_descriptor_ = file->message_type(40);
+  CFirstBuy_descriptor_ = file->message_type(38);
   static const int CFirstBuy_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirstBuy, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirstBuy, type_),
@@ -867,7 +825,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFirstBuy));
-  SFirstBuy_descriptor_ = file->message_type(41);
+  SFirstBuy_descriptor_ = file->message_type(39);
   static const int SFirstBuy_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, id_),
@@ -885,7 +843,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SFirstBuy));
-  CFeedBack_descriptor_ = file->message_type(42);
+  CFeedBack_descriptor_ = file->message_type(40);
   static const int CFeedBack_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFeedBack, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFeedBack, uid_),
@@ -903,7 +861,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFeedBack));
-  SFeedBack_descriptor_ = file->message_type(43);
+  SFeedBack_descriptor_ = file->message_type(41);
   static const int SFeedBack_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFeedBack, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFeedBack, err_),
@@ -919,7 +877,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SFeedBack));
-  CSign_descriptor_ = file->message_type(44);
+  CSign_descriptor_ = file->message_type(42);
   static const int CSign_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CSign, cmd_),
   };
@@ -934,7 +892,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CSign));
-  SSign_descriptor_ = file->message_type(45);
+  SSign_descriptor_ = file->message_type(43);
   static const int SSign_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSign, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSign, index_),
@@ -952,7 +910,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSign));
-  CSignList_descriptor_ = file->message_type(46);
+  CSignList_descriptor_ = file->message_type(44);
   static const int CSignList_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CSignList, cmd_),
   };
@@ -967,7 +925,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CSignList));
-  SSignList_descriptor_ = file->message_type(47);
+  SSignList_descriptor_ = file->message_type(45);
   static const int SSignList_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, sign_),
@@ -986,7 +944,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSignList));
-  CMailAward_descriptor_ = file->message_type(48);
+  CMailAward_descriptor_ = file->message_type(46);
   static const int CMailAward_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CMailAward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CMailAward, id_),
@@ -1002,7 +960,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CMailAward));
-  SMailAward_descriptor_ = file->message_type(49);
+  SMailAward_descriptor_ = file->message_type(47);
   static const int SMailAward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SMailAward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SMailAward, id_),
@@ -1031,10 +989,6 @@ inline void protobuf_AssignDescriptorsOnce() {
 
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    CConfig_descriptor_, &CConfig::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    SConfig_descriptor_, &SConfig::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     CRank_descriptor_, &CRank::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -1136,10 +1090,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
 }  // namespace
 
 void protobuf_ShutdownFile_Hall_2eproto() {
-  delete CConfig::default_instance_;
-  delete CConfig_reflection_;
-  delete SConfig::default_instance_;
-  delete SConfig_reflection_;
   delete CRank::default_instance_;
   delete CRank_reflection_;
   delete SRank::default_instance_;
@@ -1246,90 +1196,84 @@ void protobuf_AddDesc_Hall_2eproto() {
 
   ::protocol::protobuf_AddDesc_Vo_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\nHall.proto\022\010protocol\032\010Vo.proto\"\035\n\007CCon"
-    "fig\022\022\n\003cmd\030\001 \002(\r:\00520479\"\206\001\n\007SConfig\022\022\n\003c"
-    "md\030\001 \002(\r:\00520479\022\014\n\004mail\030\002 \001(\010\022\016\n\006active\030"
-    "\003 \001(\010\022\020\n\010firstbuy\030\004 \001(\010\022\014\n\004task\030\005 \001(\010\022\014\n"
-    "\004free\030\006 \001(\010\022\016\n\006friend\030\007 \001(\010\022\013\n\003yqs\030\010 \001(\r"
-    "\"8\n\005CRank\022\022\n\003cmd\030\001 \002(\r:\00520480\022\014\n\004type\030\002 "
-    "\001(\r\022\r\n\005index\030\003 \001(\r\"T\n\005SRank\022\022\n\003cmd\030\001 \002(\r"
-    ":\00520480\022\014\n\004type\030\002 \001(\r\022\034\n\004list\030\003 \003(\0132\016.pr"
-    "otocol.Rank\022\013\n\003err\030\004 \001(\r\")\n\005CShop\022\022\n\003cmd"
-    "\030\001 \002(\r:\00520481\022\014\n\004type\030\002 \001(\r\"X\n\005SShop\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520481\022\014\n\004type\030\002 \001(\r\022 \n\004list\030\003"
-    " \003(\0132\022.protocol.ShopItem\022\013\n\003err\030\004 \001(\r\"\033\n"
-    "\005CMail\022\022\n\003cmd\030\001 \002(\r:\00520482\"F\n\005SMail\022\022\n\003c"
-    "md\030\001 \002(\r:\00520482\022\034\n\004list\030\002 \003(\0132\016.protocol"
-    ".Mail\022\013\n\003err\030\003 \001(\r\"\035\n\007CFriend\022\022\n\003cmd\030\001 \002"
-    "(\r:\00520483\"J\n\007SFriend\022\022\n\003cmd\030\001 \002(\r:\00520483"
-    "\022\036\n\004list\030\002 \003(\0132\020.protocol.Friend\022\013\n\003err\030"
-    "\003 \001(\r\"<\n\013CFindFriend\022\022\n\003cmd\030\001 \002(\r:\00520484"
-    "\022\013\n\003uid\030\002 \001(\t\022\014\n\004type\030\003 \001(\r\"N\n\013SFindFrie"
-    "nd\022\022\n\003cmd\030\001 \002(\r:\00520484\022\036\n\004list\030\002 \003(\0132\020.p"
-    "rotocol.Friend\022\013\n\003err\030\003 \001(\r\".\n\013CGiveFrie"
-    "nd\022\022\n\003cmd\030\001 \002(\r:\00520485\022\013\n\003uid\030\002 \002(\t\";\n\013S"
-    "GiveFriend\022\022\n\003cmd\030\001 \002(\r:\00520485\022\013\n\003uid\030\002 "
-    "\001(\t\022\013\n\003err\030\003 \001(\r\"-\n\nCAddFriend\022\022\n\003cmd\030\001 "
-    "\002(\r:\00520486\022\013\n\003uid\030\002 \002(\t\":\n\nSAddFriend\022\022\n"
-    "\003cmd\030\001 \002(\r:\00520486\022\013\n\003uid\030\002 \001(\t\022\013\n\003err\030\003 "
-    "\001(\r\"$\n\016CAddFriendList\022\022\n\003cmd\030\001 \002(\r:\0052048"
-    "7\"W\n\016SAddFriendList\022\022\n\003cmd\030\001 \002(\r:\00520487\022"
-    "$\n\004list\030\002 \003(\0132\026.protocol.FriendNotice\022\013\n"
-    "\003err\030\003 \001(\r\"+\n\007CActive\022\022\n\003cmd\030\001 \002(\r:\0052048"
-    "8\022\014\n\004type\030\002 \002(\r\"J\n\007SActive\022\022\n\003cmd\030\001 \002(\r:"
-    "\00520488\022\036\n\004list\030\002 \003(\0132\020.protocol.Active\022\013"
-    "\n\003err\030\003 \001(\r\"\033\n\005CTask\022\022\n\003cmd\030\001 \002(\r:\00520489"
-    "\"F\n\005STask\022\022\n\003cmd\030\001 \002(\r:\00520489\022\034\n\004list\030\002 "
-    "\003(\0132\016.protocol.Task\022\013\n\003err\030\003 \001(\r\")\n\007CRew"
-    "ard\022\022\n\003cmd\030\001 \002(\r:\00520490\022\n\n\002id\030\003 \001(\r\"L\n\007S"
-    "Reward\022\022\n\003cmd\030\001 \002(\r:\00520490\022 \n\006reward\030\004 \003"
-    "(\0132\020.protocol.Reward\022\013\n\003err\030\005 \001(\r\"A\n\014CAg"
-    "reeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005agree\030\002"
-    " \001(\010\022\016\n\006userid\030\003 \001(\t\"N\n\014SAgreeFriend\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520491\022\r\n\005agree\030\002 \001(\010\022\016\n\006useri"
-    "d\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"%\n\017CExchangeReward\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520492\"S\n\017SExchangeReward\022\022"
-    "\n\003cmd\030\001 \002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021.proto"
-    "col.ExAward\022\013\n\003err\030\003 \001(\r\"C\n\rCExchangeCod"
-    "e\022\022\n\003cmd\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 \001(\t\022\016\n"
-    "\006yzcode\030\003 \001(\t\"A\n\rSExchangeCode\022\022\n\003cmd\030\001 "
-    "\002(\r:\00520493\022\017\n\007success\030\002 \001(\010\022\013\n\003err\030\003 \001(\r"
-    "\"%\n\017CExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\""
-    "T\n\017SExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\022 "
-    "\n\004list\030\002 \003(\0132\022.protocol.ExRecord\022\013\n\003err\030"
-    "\003 \001(\r\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n"
-    "\n\002id\030\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002(\r:\00520"
-    "495\022\n\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003err\030\004 \001"
-    "(\r\"<\n\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002i"
-    "d\030\002 \001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApplePay\022\022\n"
-    "\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001"
-    "(\r\";\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n"
-    "\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"q\n\013SWxpayOrder\022\022"
-    "\n\003cmd\030\001 \002(\r:\00520497\022\020\n\010noncestr\030\002 \001(\t\022\016\n\006"
-    "payreq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n\004sign\030"
-    "\005 \001(\t\022\013\n\003err\030\006 \001(\r\"2\n\013CWxpayQuery\022\022\n\003cmd"
-    "\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013SWxpay"
-    "Query\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001"
-    "(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cmd\030\001 \002("
-    "\r:\00520499\022\014\n\004type\030\002 \001(\r\"I\n\tSFirstBuy\022\022\n\003c"
-    "md\030\001 \002(\r:\00520499\022\n\n\002id\030\002 \001(\r\022\017\n\007transid\030\003"
-    " \001(\t\022\013\n\003err\030\004 \001(\r\"L\n\tCFeedBack\022\022\n\003cmd\030\001 "
-    "\002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003 \001(\t\022\017"
-    "\n\007content\030\004 \001(\t\",\n\tSFeedBack\022\022\n\003cmd\030\001 \002("
-    "\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003cmd\030\001 "
-    "\002(\r:\00520501\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\00520501\022"
-    "\r\n\005index\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003err\030\004 \001"
-    "(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\"n\n\tS"
-    "SignList\022\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004sign\030\002 \001"
-    "(\r\022\r\n\005count\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132\023.prot"
-    "ocol.SignAward\022\013\n\003err\030\005 \001(\r\",\n\nCMailAwar"
-    "d\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \002(\r\"9\n\nSMa"
-    "ilAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \001(\r\022"
-    "\013\n\003err\030\003 \001(\r", 3172);
+    "\n\nHall.proto\022\010protocol\032\010Vo.proto\"8\n\005CRan"
+    "k\022\022\n\003cmd\030\001 \002(\r:\00520480\022\014\n\004type\030\002 \001(\r\022\r\n\005i"
+    "ndex\030\003 \001(\r\"T\n\005SRank\022\022\n\003cmd\030\001 \002(\r:\00520480\022"
+    "\014\n\004type\030\002 \001(\r\022\034\n\004list\030\003 \003(\0132\016.protocol.R"
+    "ank\022\013\n\003err\030\004 \001(\r\")\n\005CShop\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20481\022\014\n\004type\030\002 \001(\r\"X\n\005SShop\022\022\n\003cmd\030\001 \002("
+    "\r:\00520481\022\014\n\004type\030\002 \001(\r\022 \n\004list\030\003 \003(\0132\022.p"
+    "rotocol.ShopItem\022\013\n\003err\030\004 \001(\r\"\033\n\005CMail\022\022"
+    "\n\003cmd\030\001 \002(\r:\00520482\"F\n\005SMail\022\022\n\003cmd\030\001 \002(\r"
+    ":\00520482\022\034\n\004list\030\002 \003(\0132\016.protocol.Mail\022\013\n"
+    "\003err\030\003 \001(\r\"\035\n\007CFriend\022\022\n\003cmd\030\001 \002(\r:\0052048"
+    "3\"J\n\007SFriend\022\022\n\003cmd\030\001 \002(\r:\00520483\022\036\n\004list"
+    "\030\002 \003(\0132\020.protocol.Friend\022\013\n\003err\030\003 \001(\r\"<\n"
+    "\013CFindFriend\022\022\n\003cmd\030\001 \002(\r:\00520484\022\013\n\003uid\030"
+    "\002 \001(\t\022\014\n\004type\030\003 \001(\r\"\\\n\013SFindFriend\022\022\n\003cm"
+    "d\030\001 \002(\r:\00520484\022\036\n\004list\030\002 \003(\0132\020.protocol."
+    "Friend\022\014\n\004type\030\003 \001(\r\022\013\n\003err\030\004 \001(\r\".\n\013CGi"
+    "veFriend\022\022\n\003cmd\030\001 \002(\r:\00520485\022\013\n\003uid\030\002 \002("
+    "\t\";\n\013SGiveFriend\022\022\n\003cmd\030\001 \002(\r:\00520485\022\013\n\003"
+    "uid\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\nCAddFriend\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520486\022\013\n\003uid\030\002 \002(\t\":\n\nSAddFri"
+    "end\022\022\n\003cmd\030\001 \002(\r:\00520486\022\013\n\003uid\030\002 \001(\t\022\013\n\003"
+    "err\030\003 \001(\r\"$\n\016CAddFriendList\022\022\n\003cmd\030\001 \002(\r"
+    ":\00520487\"W\n\016SAddFriendList\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20487\022$\n\004list\030\002 \003(\0132\026.protocol.FriendNot"
+    "ice\022\013\n\003err\030\003 \001(\r\"+\n\007CActive\022\022\n\003cmd\030\001 \002(\r"
+    ":\00520488\022\014\n\004type\030\002 \002(\r\"J\n\007SActive\022\022\n\003cmd\030"
+    "\001 \002(\r:\00520488\022\036\n\004list\030\002 \003(\0132\020.protocol.Ac"
+    "tive\022\013\n\003err\030\003 \001(\r\"\033\n\005CTask\022\022\n\003cmd\030\001 \002(\r:"
+    "\00520489\"F\n\005STask\022\022\n\003cmd\030\001 \002(\r:\00520489\022\034\n\004l"
+    "ist\030\002 \003(\0132\016.protocol.Task\022\013\n\003err\030\003 \001(\r\")"
+    "\n\007CReward\022\022\n\003cmd\030\001 \002(\r:\00520490\022\n\n\002id\030\003 \001("
+    "\r\"L\n\007SReward\022\022\n\003cmd\030\001 \002(\r:\00520490\022 \n\006rewa"
+    "rd\030\004 \003(\0132\020.protocol.Reward\022\013\n\003err\030\005 \001(\r\""
+    "A\n\014CAgreeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005a"
+    "gree\030\002 \001(\010\022\016\n\006userid\030\003 \001(\t\"N\n\014SAgreeFrie"
+    "nd\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005agree\030\002 \001(\010\022\016\n"
+    "\006userid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"%\n\017CExchangeR"
+    "eward\022\022\n\003cmd\030\001 \002(\r:\00520492\"S\n\017SExchangeRe"
+    "ward\022\022\n\003cmd\030\001 \002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021"
+    ".protocol.ExAward\022\013\n\003err\030\003 \001(\r\"C\n\rCExcha"
+    "ngeCode\022\022\n\003cmd\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 "
+    "\001(\t\022\016\n\006yzcode\030\003 \001(\t\"A\n\rSExchangeCode\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520493\022\017\n\007success\030\002 \001(\010\022\013\n\003err"
+    "\030\003 \001(\r\"%\n\017CExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20494\"T\n\017SExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\0052"
+    "0494\022 \n\004list\030\002 \003(\0132\022.protocol.ExRecord\022\013"
+    "\n\003err\030\003 \001(\r\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\0052"
+    "0495\022\n\n\002id\030\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002"
+    "(\r:\00520495\022\n\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003e"
+    "rr\030\004 \001(\r\"<\n\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\0052049"
+    "6\022\n\n\002id\030\002 \001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApple"
+    "Pay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003e"
+    "rr\030\003 \001(\r\";\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520"
+    "497\022\n\n\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"q\n\013SWxpayO"
+    "rder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\020\n\010noncestr\030\002 \001"
+    "(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n"
+    "\004sign\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"2\n\013CWxpayQuery\022"
+    "\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013"
+    "SWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007trans"
+    "id\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cm"
+    "d\030\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r\"I\n\tSFirstBu"
+    "y\022\022\n\003cmd\030\001 \002(\r:\00520499\022\n\n\002id\030\002 \001(\r\022\017\n\007tra"
+    "nsid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"L\n\tCFeedBack\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003"
+    " \001(\t\022\017\n\007content\030\004 \001(\t\",\n\tSFeedBack\022\022\n\003cm"
+    "d\030\001 \002(\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520501\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20501\022\r\n\005index\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003e"
+    "rr\030\004 \001(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001 \002(\r:\0052050"
+    "2\"n\n\tSSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004si"
+    "gn\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132"
+    "\023.protocol.SignAward\022\013\n\003err\030\005 \001(\r\",\n\nCMa"
+    "ilAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \002(\r\""
+    "9\n\nSMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030"
+    "\002 \001(\r\022\013\n\003err\030\003 \001(\r", 3018);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Hall.proto", &protobuf_RegisterTypes);
-  CConfig::default_instance_ = new CConfig();
-  SConfig::default_instance_ = new SConfig();
   CRank::default_instance_ = new CRank();
   SRank::default_instance_ = new SRank();
   CShop::default_instance_ = new CShop();
@@ -1378,8 +1322,6 @@ void protobuf_AddDesc_Hall_2eproto() {
   SSignList::default_instance_ = new SSignList();
   CMailAward::default_instance_ = new CMailAward();
   SMailAward::default_instance_ = new SMailAward();
-  CConfig::default_instance_->InitAsDefaultInstance();
-  SConfig::default_instance_->InitAsDefaultInstance();
   CRank::default_instance_->InitAsDefaultInstance();
   SRank::default_instance_->InitAsDefaultInstance();
   CShop::default_instance_->InitAsDefaultInstance();
@@ -1437,692 +1379,6 @@ struct StaticDescriptorInitializer_Hall_2eproto {
     protobuf_AddDesc_Hall_2eproto();
   }
 } static_descriptor_initializer_Hall_2eproto_;
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int CConfig::kCmdFieldNumber;
-#endif  // !_MSC_VER
-
-CConfig::CConfig()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void CConfig::InitAsDefaultInstance() {
-}
-
-CConfig::CConfig(const CConfig& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void CConfig::SharedCtor() {
-  _cached_size_ = 0;
-  cmd_ = 20479u;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-CConfig::~CConfig() {
-  SharedDtor();
-}
-
-void CConfig::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void CConfig::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* CConfig::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CConfig_descriptor_;
-}
-
-const CConfig& CConfig::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
-  return *default_instance_;
-}
-
-CConfig* CConfig::default_instance_ = NULL;
-
-CConfig* CConfig::New() const {
-  return new CConfig;
-}
-
-void CConfig::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    cmd_ = 20479u;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool CConfig::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 cmd = 1 [default = 20479];
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &cmd_)));
-          set_has_cmd();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void CConfig::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 cmd = 1 [default = 20479];
-  if (has_cmd()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
-  }
-
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* CConfig::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required uint32 cmd = 1 [default = 20479];
-  if (has_cmd()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int CConfig::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 cmd = 1 [default = 20479];
-    if (has_cmd()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->cmd());
-    }
-
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void CConfig::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const CConfig* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const CConfig*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void CConfig::MergeFrom(const CConfig& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_cmd()) {
-      set_cmd(from.cmd());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void CConfig::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void CConfig::CopyFrom(const CConfig& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool CConfig::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
-  return true;
-}
-
-void CConfig::Swap(CConfig* other) {
-  if (other != this) {
-    std::swap(cmd_, other->cmd_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata CConfig::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CConfig_descriptor_;
-  metadata.reflection = CConfig_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int SConfig::kCmdFieldNumber;
-const int SConfig::kMailFieldNumber;
-const int SConfig::kActiveFieldNumber;
-const int SConfig::kFirstbuyFieldNumber;
-const int SConfig::kTaskFieldNumber;
-const int SConfig::kFreeFieldNumber;
-const int SConfig::kFriendFieldNumber;
-const int SConfig::kYqsFieldNumber;
-#endif  // !_MSC_VER
-
-SConfig::SConfig()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void SConfig::InitAsDefaultInstance() {
-}
-
-SConfig::SConfig(const SConfig& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void SConfig::SharedCtor() {
-  _cached_size_ = 0;
-  cmd_ = 20479u;
-  mail_ = false;
-  active_ = false;
-  firstbuy_ = false;
-  task_ = false;
-  free_ = false;
-  friend__ = false;
-  yqs_ = 0u;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-SConfig::~SConfig() {
-  SharedDtor();
-}
-
-void SConfig::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void SConfig::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* SConfig::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return SConfig_descriptor_;
-}
-
-const SConfig& SConfig::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
-  return *default_instance_;
-}
-
-SConfig* SConfig::default_instance_ = NULL;
-
-SConfig* SConfig::New() const {
-  return new SConfig;
-}
-
-void SConfig::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    cmd_ = 20479u;
-    mail_ = false;
-    active_ = false;
-    firstbuy_ = false;
-    task_ = false;
-    free_ = false;
-    friend__ = false;
-    yqs_ = 0u;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool SConfig::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 cmd = 1 [default = 20479];
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &cmd_)));
-          set_has_cmd();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(16)) goto parse_mail;
-        break;
-      }
-
-      // optional bool mail = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_mail:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &mail_)));
-          set_has_mail();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(24)) goto parse_active;
-        break;
-      }
-
-      // optional bool active = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_active:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &active_)));
-          set_has_active();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(32)) goto parse_firstbuy;
-        break;
-      }
-
-      // optional bool firstbuy = 4;
-      case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_firstbuy:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &firstbuy_)));
-          set_has_firstbuy();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(40)) goto parse_task;
-        break;
-      }
-
-      // optional bool task = 5;
-      case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_task:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &task_)));
-          set_has_task();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(48)) goto parse_free;
-        break;
-      }
-
-      // optional bool free = 6;
-      case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_free:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &free_)));
-          set_has_free();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(56)) goto parse_friend;
-        break;
-      }
-
-      // optional bool friend = 7;
-      case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_friend:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &friend__)));
-          set_has_friend_();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(64)) goto parse_yqs;
-        break;
-      }
-
-      // optional uint32 yqs = 8;
-      case 8: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_yqs:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &yqs_)));
-          set_has_yqs();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void SConfig::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 cmd = 1 [default = 20479];
-  if (has_cmd()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
-  }
-
-  // optional bool mail = 2;
-  if (has_mail()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->mail(), output);
-  }
-
-  // optional bool active = 3;
-  if (has_active()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->active(), output);
-  }
-
-  // optional bool firstbuy = 4;
-  if (has_firstbuy()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->firstbuy(), output);
-  }
-
-  // optional bool task = 5;
-  if (has_task()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->task(), output);
-  }
-
-  // optional bool free = 6;
-  if (has_free()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->free(), output);
-  }
-
-  // optional bool friend = 7;
-  if (has_friend_()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->friend_(), output);
-  }
-
-  // optional uint32 yqs = 8;
-  if (has_yqs()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->yqs(), output);
-  }
-
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* SConfig::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required uint32 cmd = 1 [default = 20479];
-  if (has_cmd()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
-  }
-
-  // optional bool mail = 2;
-  if (has_mail()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->mail(), target);
-  }
-
-  // optional bool active = 3;
-  if (has_active()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->active(), target);
-  }
-
-  // optional bool firstbuy = 4;
-  if (has_firstbuy()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->firstbuy(), target);
-  }
-
-  // optional bool task = 5;
-  if (has_task()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->task(), target);
-  }
-
-  // optional bool free = 6;
-  if (has_free()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->free(), target);
-  }
-
-  // optional bool friend = 7;
-  if (has_friend_()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->friend_(), target);
-  }
-
-  // optional uint32 yqs = 8;
-  if (has_yqs()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->yqs(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int SConfig::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 cmd = 1 [default = 20479];
-    if (has_cmd()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->cmd());
-    }
-
-    // optional bool mail = 2;
-    if (has_mail()) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool active = 3;
-    if (has_active()) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool firstbuy = 4;
-    if (has_firstbuy()) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool task = 5;
-    if (has_task()) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool free = 6;
-    if (has_free()) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool friend = 7;
-    if (has_friend_()) {
-      total_size += 1 + 1;
-    }
-
-    // optional uint32 yqs = 8;
-    if (has_yqs()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->yqs());
-    }
-
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void SConfig::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const SConfig* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const SConfig*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void SConfig::MergeFrom(const SConfig& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_cmd()) {
-      set_cmd(from.cmd());
-    }
-    if (from.has_mail()) {
-      set_mail(from.mail());
-    }
-    if (from.has_active()) {
-      set_active(from.active());
-    }
-    if (from.has_firstbuy()) {
-      set_firstbuy(from.firstbuy());
-    }
-    if (from.has_task()) {
-      set_task(from.task());
-    }
-    if (from.has_free()) {
-      set_free(from.free());
-    }
-    if (from.has_friend_()) {
-      set_friend_(from.friend_());
-    }
-    if (from.has_yqs()) {
-      set_yqs(from.yqs());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void SConfig::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void SConfig::CopyFrom(const SConfig& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool SConfig::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
-  return true;
-}
-
-void SConfig::Swap(SConfig* other) {
-  if (other != this) {
-    std::swap(cmd_, other->cmd_);
-    std::swap(mail_, other->mail_);
-    std::swap(active_, other->active_);
-    std::swap(firstbuy_, other->firstbuy_);
-    std::swap(task_, other->task_);
-    std::swap(free_, other->free_);
-    std::swap(friend__, other->friend__);
-    std::swap(yqs_, other->yqs_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata SConfig::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = SConfig_descriptor_;
-  metadata.reflection = SConfig_reflection_;
-  return metadata;
-}
-
 
 // ===================================================================
 
@@ -4627,6 +3883,7 @@ void CFindFriend::Swap(CFindFriend* other) {
 #ifndef _MSC_VER
 const int SFindFriend::kCmdFieldNumber;
 const int SFindFriend::kListFieldNumber;
+const int SFindFriend::kTypeFieldNumber;
 const int SFindFriend::kErrFieldNumber;
 #endif  // !_MSC_VER
 
@@ -4647,6 +3904,7 @@ SFindFriend::SFindFriend(const SFindFriend& from)
 void SFindFriend::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 20484u;
+  type_ = 0u;
   err_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -4684,6 +3942,7 @@ SFindFriend* SFindFriend::New() const {
 void SFindFriend::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 20484u;
+    type_ = 0u;
     err_ = 0u;
   }
   list_.Clear();
@@ -4723,12 +3982,28 @@ bool SFindFriend::MergePartialFromCodedStream(
           goto handle_uninterpreted;
         }
         if (input->ExpectTag(18)) goto parse_list;
-        if (input->ExpectTag(24)) goto parse_err;
+        if (input->ExpectTag(24)) goto parse_type;
         break;
       }
 
-      // optional uint32 err = 3;
+      // optional uint32 type = 3;
       case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_type:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &type_)));
+          set_has_type();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_err:
@@ -4772,9 +4047,14 @@ void SFindFriend::SerializeWithCachedSizes(
       2, this->list(i), output);
   }
 
-  // optional uint32 err = 3;
+  // optional uint32 type = 3;
+  if (has_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->type(), output);
+  }
+
+  // optional uint32 err = 4;
   if (has_err()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->err(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->err(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -4797,9 +4077,14 @@ void SFindFriend::SerializeWithCachedSizes(
         2, this->list(i), target);
   }
 
-  // optional uint32 err = 3;
+  // optional uint32 type = 3;
+  if (has_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->type(), target);
+  }
+
+  // optional uint32 err = 4;
   if (has_err()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->err(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->err(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -4820,7 +4105,14 @@ int SFindFriend::ByteSize() const {
           this->cmd());
     }
 
-    // optional uint32 err = 3;
+    // optional uint32 type = 3;
+    if (has_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->type());
+    }
+
+    // optional uint32 err = 4;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -4866,6 +4158,9 @@ void SFindFriend::MergeFrom(const SFindFriend& from) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
     }
+    if (from.has_type()) {
+      set_type(from.type());
+    }
     if (from.has_err()) {
       set_err(from.err());
     }
@@ -4895,6 +4190,7 @@ void SFindFriend::Swap(SFindFriend* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
     list_.Swap(&other->list_);
+    std::swap(type_, other->type_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

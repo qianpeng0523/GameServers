@@ -34,8 +34,6 @@ void  protobuf_AddDesc_Hall_2eproto();
 void protobuf_AssignDesc_Hall_2eproto();
 void protobuf_ShutdownFile_Hall_2eproto();
 
-class CConfig;
-class SConfig;
 class CRank;
 class SRank;
 class CShop;
@@ -86,240 +84,6 @@ class CMailAward;
 class SMailAward;
 
 // ===================================================================
-
-class CConfig : public ::google::protobuf::Message {
- public:
-  CConfig();
-  virtual ~CConfig();
-
-  CConfig(const CConfig& from);
-
-  inline CConfig& operator=(const CConfig& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const CConfig& default_instance();
-
-  void Swap(CConfig* other);
-
-  // implements Message ----------------------------------------------
-
-  CConfig* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const CConfig& from);
-  void MergeFrom(const CConfig& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 cmd = 1 [default = 20479];
-  inline bool has_cmd() const;
-  inline void clear_cmd();
-  static const int kCmdFieldNumber = 1;
-  inline ::google::protobuf::uint32 cmd() const;
-  inline void set_cmd(::google::protobuf::uint32 value);
-
-  // @@protoc_insertion_point(class_scope:protocol.CConfig)
- private:
-  inline void set_has_cmd();
-  inline void clear_has_cmd();
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  ::google::protobuf::uint32 cmd_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
-
-  friend void  protobuf_AddDesc_Hall_2eproto();
-  friend void protobuf_AssignDesc_Hall_2eproto();
-  friend void protobuf_ShutdownFile_Hall_2eproto();
-
-  void InitAsDefaultInstance();
-  static CConfig* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class SConfig : public ::google::protobuf::Message {
- public:
-  SConfig();
-  virtual ~SConfig();
-
-  SConfig(const SConfig& from);
-
-  inline SConfig& operator=(const SConfig& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SConfig& default_instance();
-
-  void Swap(SConfig* other);
-
-  // implements Message ----------------------------------------------
-
-  SConfig* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SConfig& from);
-  void MergeFrom(const SConfig& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 cmd = 1 [default = 20479];
-  inline bool has_cmd() const;
-  inline void clear_cmd();
-  static const int kCmdFieldNumber = 1;
-  inline ::google::protobuf::uint32 cmd() const;
-  inline void set_cmd(::google::protobuf::uint32 value);
-
-  // optional bool mail = 2;
-  inline bool has_mail() const;
-  inline void clear_mail();
-  static const int kMailFieldNumber = 2;
-  inline bool mail() const;
-  inline void set_mail(bool value);
-
-  // optional bool active = 3;
-  inline bool has_active() const;
-  inline void clear_active();
-  static const int kActiveFieldNumber = 3;
-  inline bool active() const;
-  inline void set_active(bool value);
-
-  // optional bool firstbuy = 4;
-  inline bool has_firstbuy() const;
-  inline void clear_firstbuy();
-  static const int kFirstbuyFieldNumber = 4;
-  inline bool firstbuy() const;
-  inline void set_firstbuy(bool value);
-
-  // optional bool task = 5;
-  inline bool has_task() const;
-  inline void clear_task();
-  static const int kTaskFieldNumber = 5;
-  inline bool task() const;
-  inline void set_task(bool value);
-
-  // optional bool free = 6;
-  inline bool has_free() const;
-  inline void clear_free();
-  static const int kFreeFieldNumber = 6;
-  inline bool free() const;
-  inline void set_free(bool value);
-
-  // optional bool friend = 7;
-  inline bool has_friend_() const;
-  inline void clear_friend_();
-  static const int kFriendFieldNumber = 7;
-  inline bool friend_() const;
-  inline void set_friend_(bool value);
-
-  // optional uint32 yqs = 8;
-  inline bool has_yqs() const;
-  inline void clear_yqs();
-  static const int kYqsFieldNumber = 8;
-  inline ::google::protobuf::uint32 yqs() const;
-  inline void set_yqs(::google::protobuf::uint32 value);
-
-  // @@protoc_insertion_point(class_scope:protocol.SConfig)
- private:
-  inline void set_has_cmd();
-  inline void clear_has_cmd();
-  inline void set_has_mail();
-  inline void clear_has_mail();
-  inline void set_has_active();
-  inline void clear_has_active();
-  inline void set_has_firstbuy();
-  inline void clear_has_firstbuy();
-  inline void set_has_task();
-  inline void clear_has_task();
-  inline void set_has_free();
-  inline void clear_has_free();
-  inline void set_has_friend_();
-  inline void clear_has_friend_();
-  inline void set_has_yqs();
-  inline void clear_has_yqs();
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  ::google::protobuf::uint32 cmd_;
-  bool mail_;
-  bool active_;
-  bool firstbuy_;
-  bool task_;
-  bool free_;
-  bool friend__;
-  ::google::protobuf::uint32 yqs_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
-
-  friend void  protobuf_AddDesc_Hall_2eproto();
-  friend void protobuf_AssignDesc_Hall_2eproto();
-  friend void protobuf_ShutdownFile_Hall_2eproto();
-
-  void InitAsDefaultInstance();
-  static SConfig* default_instance_;
-};
-// -------------------------------------------------------------------
 
 class CRank : public ::google::protobuf::Message {
  public:
@@ -1299,10 +1063,17 @@ class SFindFriend : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedPtrField< ::protocol::Friend >*
       mutable_list();
 
-  // optional uint32 err = 3;
+  // optional uint32 type = 3;
+  inline bool has_type() const;
+  inline void clear_type();
+  static const int kTypeFieldNumber = 3;
+  inline ::google::protobuf::uint32 type() const;
+  inline void set_type(::google::protobuf::uint32 value);
+
+  // optional uint32 err = 4;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 3;
+  static const int kErrFieldNumber = 4;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -1310,6 +1081,8 @@ class SFindFriend : public ::google::protobuf::Message {
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
+  inline void set_has_type();
+  inline void clear_has_type();
   inline void set_has_err();
   inline void clear_has_err();
 
@@ -1317,10 +1090,11 @@ class SFindFriend : public ::google::protobuf::Message {
 
   ::google::protobuf::RepeatedPtrField< ::protocol::Friend > list_;
   ::google::protobuf::uint32 cmd_;
+  ::google::protobuf::uint32 type_;
   ::google::protobuf::uint32 err_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -5226,212 +5000,6 @@ class SMailAward : public ::google::protobuf::Message {
 
 // ===================================================================
 
-// CConfig
-
-// required uint32 cmd = 1 [default = 20479];
-inline bool CConfig::has_cmd() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void CConfig::set_has_cmd() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void CConfig::clear_has_cmd() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void CConfig::clear_cmd() {
-  cmd_ = 20479u;
-  clear_has_cmd();
-}
-inline ::google::protobuf::uint32 CConfig::cmd() const {
-  return cmd_;
-}
-inline void CConfig::set_cmd(::google::protobuf::uint32 value) {
-  set_has_cmd();
-  cmd_ = value;
-}
-
-// -------------------------------------------------------------------
-
-// SConfig
-
-// required uint32 cmd = 1 [default = 20479];
-inline bool SConfig::has_cmd() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void SConfig::set_has_cmd() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void SConfig::clear_has_cmd() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void SConfig::clear_cmd() {
-  cmd_ = 20479u;
-  clear_has_cmd();
-}
-inline ::google::protobuf::uint32 SConfig::cmd() const {
-  return cmd_;
-}
-inline void SConfig::set_cmd(::google::protobuf::uint32 value) {
-  set_has_cmd();
-  cmd_ = value;
-}
-
-// optional bool mail = 2;
-inline bool SConfig::has_mail() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void SConfig::set_has_mail() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void SConfig::clear_has_mail() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void SConfig::clear_mail() {
-  mail_ = false;
-  clear_has_mail();
-}
-inline bool SConfig::mail() const {
-  return mail_;
-}
-inline void SConfig::set_mail(bool value) {
-  set_has_mail();
-  mail_ = value;
-}
-
-// optional bool active = 3;
-inline bool SConfig::has_active() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void SConfig::set_has_active() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void SConfig::clear_has_active() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void SConfig::clear_active() {
-  active_ = false;
-  clear_has_active();
-}
-inline bool SConfig::active() const {
-  return active_;
-}
-inline void SConfig::set_active(bool value) {
-  set_has_active();
-  active_ = value;
-}
-
-// optional bool firstbuy = 4;
-inline bool SConfig::has_firstbuy() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void SConfig::set_has_firstbuy() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void SConfig::clear_has_firstbuy() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void SConfig::clear_firstbuy() {
-  firstbuy_ = false;
-  clear_has_firstbuy();
-}
-inline bool SConfig::firstbuy() const {
-  return firstbuy_;
-}
-inline void SConfig::set_firstbuy(bool value) {
-  set_has_firstbuy();
-  firstbuy_ = value;
-}
-
-// optional bool task = 5;
-inline bool SConfig::has_task() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void SConfig::set_has_task() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void SConfig::clear_has_task() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void SConfig::clear_task() {
-  task_ = false;
-  clear_has_task();
-}
-inline bool SConfig::task() const {
-  return task_;
-}
-inline void SConfig::set_task(bool value) {
-  set_has_task();
-  task_ = value;
-}
-
-// optional bool free = 6;
-inline bool SConfig::has_free() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void SConfig::set_has_free() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void SConfig::clear_has_free() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void SConfig::clear_free() {
-  free_ = false;
-  clear_has_free();
-}
-inline bool SConfig::free() const {
-  return free_;
-}
-inline void SConfig::set_free(bool value) {
-  set_has_free();
-  free_ = value;
-}
-
-// optional bool friend = 7;
-inline bool SConfig::has_friend_() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
-}
-inline void SConfig::set_has_friend_() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void SConfig::clear_has_friend_() {
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline void SConfig::clear_friend_() {
-  friend__ = false;
-  clear_has_friend_();
-}
-inline bool SConfig::friend_() const {
-  return friend__;
-}
-inline void SConfig::set_friend_(bool value) {
-  set_has_friend_();
-  friend__ = value;
-}
-
-// optional uint32 yqs = 8;
-inline bool SConfig::has_yqs() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
-}
-inline void SConfig::set_has_yqs() {
-  _has_bits_[0] |= 0x00000080u;
-}
-inline void SConfig::clear_has_yqs() {
-  _has_bits_[0] &= ~0x00000080u;
-}
-inline void SConfig::clear_yqs() {
-  yqs_ = 0u;
-  clear_has_yqs();
-}
-inline ::google::protobuf::uint32 SConfig::yqs() const {
-  return yqs_;
-}
-inline void SConfig::set_yqs(::google::protobuf::uint32 value) {
-  set_has_yqs();
-  yqs_ = value;
-}
-
-// -------------------------------------------------------------------
-
 // CRank
 
 // required uint32 cmd = 1 [default = 20480];
@@ -6105,15 +5673,37 @@ SFindFriend::mutable_list() {
   return &list_;
 }
 
-// optional uint32 err = 3;
-inline bool SFindFriend::has_err() const {
+// optional uint32 type = 3;
+inline bool SFindFriend::has_type() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void SFindFriend::set_has_err() {
+inline void SFindFriend::set_has_type() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void SFindFriend::clear_has_err() {
+inline void SFindFriend::clear_has_type() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void SFindFriend::clear_type() {
+  type_ = 0u;
+  clear_has_type();
+}
+inline ::google::protobuf::uint32 SFindFriend::type() const {
+  return type_;
+}
+inline void SFindFriend::set_type(::google::protobuf::uint32 value) {
+  set_has_type();
+  type_ = value;
+}
+
+// optional uint32 err = 4;
+inline bool SFindFriend::has_err() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void SFindFriend::set_has_err() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void SFindFriend::clear_has_err() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void SFindFriend::clear_err() {
   err_ = 0u;

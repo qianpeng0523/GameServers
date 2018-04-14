@@ -25,7 +25,7 @@
 #include "LogicServer.h"
 #include "ccEvent.h"
 #include "Login.h"
-
+#include "ConfigProto.h"
 #include "Hall.h"
 #include "redis.h"
 
@@ -46,7 +46,7 @@ using namespace Poco;
 
 //#define sqlhttp "http://192.168.50.151:8080/"
 //#define sqlhttp "http://192.168.1.101:8080/"
-#define sqlhttp "http://47.104.165.65:8080/"
+#define sqlhttp "http://lesharecs.com:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 
@@ -58,7 +58,7 @@ using namespace Poco;
 #define APPID "wxd5d25d59ae13ac95"
 #define MCHID "1501106141"
 #define INITNONCEID "18880000"
-#define NOTIFYURL "http://27.46.6.74/8082"
+#define NOTIFYURL "http://lesharecs.com:8082"
 #define TRADETYPE "APP"
 #define INITNO "00000000"
 #define APPSECRET "42eded380f7f410e1556a1a94cfaa096"

@@ -36,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
-	HttpWXLogin::getIns()->requestAccessToken("123456");
+	HttpWXLogin::getIns();
 	HttpPay::getIns()/*->test()*/;
 
 	getchar();

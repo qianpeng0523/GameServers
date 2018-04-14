@@ -13,13 +13,13 @@ public:
     virtual bool init();
 	static HttpWXLogin *getIns();
 	
-	UserBase requestWXLogin(string code,string token);
+	UserBase requestWXLogin(string code,string &token);
 public:
-	UserBase requestAccessToken(string code);
-	UserBase respondAccessToken(string result);
+	UserBase requestAccessToken(string code, string &token);
+	UserBase respondAccessToken(string result, string &token);
 
-	UserBase requestRefreshToken(string refreshtoken);
-	UserBase respondRefreshToken(string result);
+	UserBase requestRefreshToken(string refreshtoken, string &token);
+	UserBase respondRefreshToken(string result, string &token);
 
 	UserBase requestUserinfo(string acctoken, string openid);
 	UserBase respondUserinfo(string result);

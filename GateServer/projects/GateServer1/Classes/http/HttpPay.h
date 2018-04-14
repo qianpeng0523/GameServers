@@ -18,6 +18,8 @@ public:
 
 	bool requestCheck(string xml);
 	bool respondCheck(string content);
+
+	bool requestCheckKH(string transaction_id, bool traid=false);
 public:
 	void test();
 	void update(float dt);
@@ -27,6 +29,7 @@ public:
 	string getNonceId();
 	void checkPay();
 	
+	void NoticePushCurrency(Reward rd,string uid);
 private:
 	static HttpPay *m_Ins;
 	bool m_isopen;

@@ -672,10 +672,22 @@ class SWXLogin : public ::google::protobuf::Message {
   inline ::protocol::UserBase* release_info();
   inline void set_allocated_info(::protocol::UserBase* info);
 
-  // optional uint32 err = 3;
+  // optional string token = 3;
+  inline bool has_token() const;
+  inline void clear_token();
+  static const int kTokenFieldNumber = 3;
+  inline const ::std::string& token() const;
+  inline void set_token(const ::std::string& value);
+  inline void set_token(const char* value);
+  inline void set_token(const char* value, size_t size);
+  inline ::std::string* mutable_token();
+  inline ::std::string* release_token();
+  inline void set_allocated_token(::std::string* token);
+
+  // optional uint32 err = 4;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 3;
+  static const int kErrFieldNumber = 4;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -685,6 +697,8 @@ class SWXLogin : public ::google::protobuf::Message {
   inline void clear_has_cmd();
   inline void set_has_info();
   inline void clear_has_info();
+  inline void set_has_token();
+  inline void clear_has_token();
   inline void set_has_err();
   inline void clear_has_err();
 
@@ -693,9 +707,10 @@ class SWXLogin : public ::google::protobuf::Message {
   ::protocol::UserBase* info_;
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 err_;
+  ::std::string* token_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
   friend void  protobuf_AddDesc_Login_2eproto();
   friend void protobuf_AssignDesc_Login_2eproto();
@@ -1511,15 +1526,85 @@ inline void SWXLogin::set_allocated_info(::protocol::UserBase* info) {
   }
 }
 
-// optional uint32 err = 3;
-inline bool SWXLogin::has_err() const {
+// optional string token = 3;
+inline bool SWXLogin::has_token() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void SWXLogin::set_has_err() {
+inline void SWXLogin::set_has_token() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void SWXLogin::clear_has_err() {
+inline void SWXLogin::clear_has_token() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void SWXLogin::clear_token() {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    token_->clear();
+  }
+  clear_has_token();
+}
+inline const ::std::string& SWXLogin::token() const {
+  return *token_;
+}
+inline void SWXLogin::set_token(const ::std::string& value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void SWXLogin::set_token(const char* value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void SWXLogin::set_token(const char* value, size_t size) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SWXLogin::mutable_token() {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  return token_;
+}
+inline ::std::string* SWXLogin::release_token() {
+  clear_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = token_;
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SWXLogin::set_allocated_token(::std::string* token) {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    delete token_;
+  }
+  if (token) {
+    set_has_token();
+    token_ = token;
+  } else {
+    clear_has_token();
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint32 err = 4;
+inline bool SWXLogin::has_err() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void SWXLogin::set_has_err() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void SWXLogin::clear_has_err() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void SWXLogin::clear_err() {
   err_ = 0u;

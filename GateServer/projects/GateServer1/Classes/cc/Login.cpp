@@ -135,9 +135,10 @@ void protobuf_AssignDesc_Login_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CWXLogin));
   SWXLogin_descriptor_ = file->message_type(5);
-  static const int SWXLogin_offsets_[3] = {
+  static const int SWXLogin_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWXLogin, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWXLogin, info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWXLogin, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWXLogin, err_),
   };
   SWXLogin_reflection_ =
@@ -211,9 +212,9 @@ void protobuf_AddDesc_Login_2eproto() {
     "\"N\n\tSRegister\022\022\n\003cmd\030\001 \001(\r:\00516385\022 \n\004inf"
     "o\030\002 \001(\0132\022.protocol.UserBase\022\013\n\003err\030\003 \001(\r"
     "\";\n\010CWXLogin\022\022\n\003cmd\030\001 \001(\r:\00516386\022\014\n\004code"
-    "\030\002 \001(\t\022\r\n\005token\030\003 \001(\t\"M\n\010SWXLogin\022\022\n\003cmd"
+    "\030\002 \001(\t\022\r\n\005token\030\003 \001(\t\"\\\n\010SWXLogin\022\022\n\003cmd"
     "\030\001 \001(\r:\00516386\022 \n\004info\030\002 \001(\0132\022.protocol.U"
-    "serBase\022\013\n\003err\030\003 \001(\r", 460);
+    "serBase\022\r\n\005token\030\003 \001(\t\022\013\n\003err\030\004 \001(\r", 475);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Login.proto", &protobuf_RegisterTypes);
   CLogin::default_instance_ = new CLogin();
@@ -1852,6 +1853,7 @@ void CWXLogin::Swap(CWXLogin* other) {
 #ifndef _MSC_VER
 const int SWXLogin::kCmdFieldNumber;
 const int SWXLogin::kInfoFieldNumber;
+const int SWXLogin::kTokenFieldNumber;
 const int SWXLogin::kErrFieldNumber;
 #endif  // !_MSC_VER
 
@@ -1874,6 +1876,7 @@ void SWXLogin::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 16386u;
   info_ = NULL;
+  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   err_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -1883,6 +1886,9 @@ SWXLogin::~SWXLogin() {
 }
 
 void SWXLogin::SharedDtor() {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    delete token_;
+  }
   if (this != default_instance_) {
     delete info_;
   }
@@ -1914,6 +1920,11 @@ void SWXLogin::Clear() {
     cmd_ = 16386u;
     if (has_info()) {
       if (info_ != NULL) info_->::protocol::UserBase::Clear();
+    }
+    if (has_token()) {
+      if (token_ != &::google::protobuf::internal::kEmptyString) {
+        token_->clear();
+      }
     }
     err_ = 0u;
   }
@@ -1952,12 +1963,29 @@ bool SWXLogin::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(24)) goto parse_err;
+        if (input->ExpectTag(26)) goto parse_token;
         break;
       }
 
-      // optional uint32 err = 3;
+      // optional string token = 3;
       case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_token:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_token()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->token().data(), this->token().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_err:
@@ -2001,9 +2029,18 @@ void SWXLogin::SerializeWithCachedSizes(
       2, this->info(), output);
   }
 
-  // optional uint32 err = 3;
+  // optional string token = 3;
+  if (has_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->token().data(), this->token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      3, this->token(), output);
+  }
+
+  // optional uint32 err = 4;
   if (has_err()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->err(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->err(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -2026,9 +2063,19 @@ void SWXLogin::SerializeWithCachedSizes(
         2, this->info(), target);
   }
 
-  // optional uint32 err = 3;
+  // optional string token = 3;
+  if (has_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->token().data(), this->token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->token(), target);
+  }
+
+  // optional uint32 err = 4;
   if (has_err()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->err(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->err(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -2056,7 +2103,14 @@ int SWXLogin::ByteSize() const {
           this->info());
     }
 
-    // optional uint32 err = 3;
+    // optional string token = 3;
+    if (has_token()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->token());
+    }
+
+    // optional uint32 err = 4;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -2096,6 +2150,9 @@ void SWXLogin::MergeFrom(const SWXLogin& from) {
     if (from.has_info()) {
       mutable_info()->::protocol::UserBase::MergeFrom(from.info());
     }
+    if (from.has_token()) {
+      set_token(from.token());
+    }
     if (from.has_err()) {
       set_err(from.err());
     }
@@ -2124,6 +2181,7 @@ void SWXLogin::Swap(SWXLogin* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
     std::swap(info_, other->info_);
+    std::swap(token_, other->token_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

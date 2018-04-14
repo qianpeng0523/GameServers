@@ -31,6 +31,7 @@ public:
 
 	ClientData * getClientData(int fd);
 	ClientData * getClientData(string sessionid);
+	ClientData * getClientDataByUID(string uid);
 	string getUID(int fd);
 private:
 	static void DoError(struct bufferevent *bev, short error, void *ctx);

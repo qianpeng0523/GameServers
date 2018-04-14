@@ -10,6 +10,7 @@ HttpWXLogin *HttpWXLogin::m_Ins = NULL;
 HttpWXLogin::HttpWXLogin(){
 	m_pRedis = redis::getIns();
 	m_pRedisGet = RedisGet::getIns();
+	m_pRedisPut = RedisPut::getIns();
 	int len = 0;
 	char *index1 = m_pRedis->get("userid_index",len);
 	if (!index1){
@@ -35,12 +36,12 @@ HttpWXLogin *HttpWXLogin::getIns(){
 	return m_Ins;
 }
 
-UserBase HttpWXLogin::requestWXLogin(string code, string token){
+UserBase HttpWXLogin::requestWXLogin(string code, string &token){
 	if (!token.empty()){
-		return respondRefreshToken(token);
+		return requestRefreshToken(token,token);
 	}
 	else if(!code.empty()){
-		return requestAccessToken(code);
+		return requestAccessToken(code,token);
 	}
 	else{
 		UserBase ub;
@@ -55,12 +56,12 @@ size_t Code_Access_Token(void* buffer, size_t size, size_t nmemb, void *stream)
 	return size*nmemb;
 }
 
-UserBase HttpWXLogin::requestAccessToken(string code){
+UserBase HttpWXLogin::requestAccessToken(string code, string &token){
 	//通过code获取AccessToken
 	char buff[500];
 	sprintf(buff, "https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code", APPID, APPSECRET,code.c_str());
 	string content= HttpEvent::getIns()->requestData(buff, "", Code_Access_Token);
-	return respondAccessToken(content);
+	return respondAccessToken(content,token);
 }
 /******
 1.通过code获取access_token发送给客户端（https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code）
@@ -78,65 +79,59 @@ UserBase HttpWXLogin::requestAccessToken(string code){
 
 
 
-UserBase HttpWXLogin::respondAccessToken(string result){
+UserBase HttpWXLogin::respondAccessToken(string result, string &token){
 	//获取的是json
 	YMSocketData sd(result);
 	printf("sd:%s\n",sd.getJsonString().c_str());
-	if (sd.isMember("errcode")==0){
-		string errcode = sd["errcode"].asString();
-		if (errcode.compare("0") == 0){
-			//请求成功
-			string access_token = sd["access_token"].asString();
-			string refresh_token = sd["refresh_token"].asString();
-			//获取到了access_token和refresh_token
-			string openid = sd["openid"].asString();//需要和access_token与uid绑定起来
-			int len = 0;
-			UserBase ub;
-			char *u = m_pRedis->get("openid"+openid,len);
-			if (!u){
-				//获取userinfo
-				ub= requestUserinfo(access_token,openid);
-			}
-			else{
-				UserBase *ub1 = m_pRedisGet->getUserBase(u);
-				ub.CopyFrom(*ub1);
-				
-			}
-			return ub;
+	if (!sd.isMember("errcode")){
+		//请求成功
+		string access_token = sd["access_token"].asString();
+		string refresh_token = sd["refresh_token"].asString();
+		token = refresh_token;
+		//获取到了access_token和refresh_token
+		string openid = sd["openid"].asString();//需要和access_token与uid绑定起来
+		int len = 0;
+		UserBase ub;
+		char *u = m_pRedis->get("openid"+openid,len);
+		if (!u){
+			//获取userinfo
+			ub= requestUserinfo(access_token,openid);
 		}
 		else{
-			string errmsg = sd["errmsg"].asString();
-			printf("%s\n",errmsg.c_str());
+			UserBase *ub1 = m_pRedisGet->getUserBase(u);
+			ub.CopyFrom(*ub1);
+				
 		}
+		return ub;
+	}
+	else{
+		string errmsg = sd["errmsg"].asString();
+		printf("%s\n", errmsg.c_str());
 	}
 	UserBase ub;
 	return ub;
 }
 
-UserBase HttpWXLogin::requestRefreshToken(string refreshtoken){
+UserBase HttpWXLogin::requestRefreshToken(string refreshtoken, string &token){
 	char buff[300];
 	sprintf(buff, "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%s&grant_type=refresh_token&refresh_token=%s", APPID, refreshtoken.c_str());
 	string result = HttpEvent::getIns()->requestData(buff, "", Code_Access_Token);
-	return respondRefreshToken(result);
+	return respondRefreshToken(result,token);
 }
 
-UserBase HttpWXLogin::respondRefreshToken(string result){
+UserBase HttpWXLogin::respondRefreshToken(string result, string &token){
 	UserBase ub;
 	YMSocketData sd(result);
 	printf("sd:%s\n", sd.getJsonString().c_str());
-	if (sd.isMember("errcode") == 0){
-		string errcode = sd["errcode"].asString();
-		if (errcode.compare("0") == 0){
-			string openid = sd["openid"].asString();
-			int len = 0;
-			char *u = m_pRedis->get("openid" + openid, len);
-			if (u){
-				UserBase *ub1 = m_pRedisGet->getUserBase(u);
-				ub.CopyFrom(*ub1);
-				return ub;
-			}
-		}
-		else{
+	if (!sd.isMember("errcode")){
+		string refresh_token = sd["refresh_token"].asString();
+		token = refresh_token;
+		string openid = sd["openid"].asString();
+		int len = 0;
+		char *u = m_pRedis->get("openid" + openid, len);
+		if (u){
+			UserBase *ub1 = m_pRedisGet->getUserBase(u);
+			ub.CopyFrom(*ub1);
 			return ub;
 		}
 	}
@@ -147,7 +142,7 @@ UserBase HttpWXLogin::respondRefreshToken(string result){
 
 UserBase HttpWXLogin::requestUserinfo(string acctoken, string openid){
 	char buff[300];
-	sprintf(buff,"https://api.weixin.qq.com/sns/auth?access_token=%s&openid=%s",acctoken.c_str(),openid.c_str());
+	sprintf(buff,"https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s",acctoken.c_str(),openid.c_str());
 	string result = HttpEvent::getIns()->requestData(buff, "", Code_Access_Token);
 	return respondUserinfo(result);
 }
@@ -155,32 +150,40 @@ UserBase HttpWXLogin::requestUserinfo(string acctoken, string openid){
 UserBase HttpWXLogin::respondUserinfo(string result){
 	YMSocketData sd(result);
 	printf("sd:%s\n", sd.getJsonString().c_str());
-	if (sd.isMember("errcode") == 0){
-		string errcode = sd["errcode"].asString();
-		if (errcode.compare("0") == 0){
-			string openid = sd["openid"].asString();
-			int len = 0;
-			char* u = m_pRedis->get("userid_index", len);
-			char buff[50];
-			sprintf(buff,"%d",atoi(u)+1);
-			string uid = "wx";
-			m_pRedis->set("userid_index",buff,len);
-			m_pRedis->set("openid"+openid,(char*)uid.c_str(),len);
-			uid += u;
-			string nickname = sd["nickname"].asString();
-			int sex = atoi(sd["sex"].asString().c_str());
-			string photo = sd["headimgurl"].asString();
-			string city = sd["city"].asString();
-			string province = sd["province"].asString();
-			UserBase ub;
-			ub.set_userid(uid);
-			ub.set_username(nickname);
-			ub.set_picurl(photo);
-			ub.set_sex(sex);
-			ub.set_address(province+city);
-			m_pRedisPut->PushUserBase(ub);
-			return ub;
-		}
+	if (!sd.isMember("errcode")){
+		string openid = sd["openid"].asString();
+		int len = 0;
+		char* u = m_pRedis->get("userid_index", len);
+		char buff[50];
+		sprintf(buff, "%d", atoi(u) + 1);
+		string uid = "wx";
+		m_pRedis->set("userid_index", buff, len);
+		uid += u;
+		m_pRedis->set("openid" + openid, (char*)uid.c_str(), len);
+		
+		string nickname = sd["nickname"].asString();
+		int sex = sd["sex"].asInt();
+		string photo = sd["headimgurl"].asString();
+		string city = sd["city"].asString();
+		string province = sd["province"].asString();
+		UserBase ub;
+		ub.set_userid(uid);
+		ub.set_username(nickname);
+		ub.set_picurl(photo);
+		ub.set_sex(sex);
+		ub.set_address(province + city);
+		m_pRedisPut->PushUserBase(ub);
+
+		uint32 gold = ub.gold();
+		Rank rk;
+		rk.set_uid(ub.userid());
+		m_pRedisPut->PushRank(rk);
+		Rank rk1;
+		rk1.set_uid(ub.userid());
+		m_pRedisPut->PushRank(rk1);
+
+
+		return ub;
 	}
 	UserBase ub;
 	return ub;

@@ -6,6 +6,9 @@
 #include "StatTimer.h"
 #include "RedisGet.h"
 #include "LibEvent.h"
+#include "RedisPut.h"
+#include "ConfigInfo.h"
+
 HttpPay *HttpPay::m_Ins = NULL;
 // 
 // string prepay_id = maps.at("prepay_id");
@@ -60,7 +63,8 @@ void HttpPay::update(float dt){
 		m_pRedis->set("nonceid", INITNONCEID, strlen(INITNONCEID));
 		m_pRedis->set("outtradeno", INITNO, strlen(INITNO));
 	}
-	if (m_count % 360 == 0){
+	if (m_count % 30 == 0){
+		m_count = 0;
 		checkPay();
 	}
 	m_count++;
@@ -122,6 +126,41 @@ size_t read_data1(void* buffer, size_t size, size_t nmemb, void *stream)
 	return size*nmemb;
 }
 
+void HttpPay::NoticePushCurrency(Reward rd, string uid){
+	ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
+	if (!data){
+		return;
+	}
+	Prop prop = rd.prop();
+	SPushCurrency spc;
+	int pid = prop.id();
+	int number = rd.number();
+	UserBase *ub = RedisGet::getIns()->getUserBase(uid);
+	spc.set_gold(ub->gold());
+	spc.set_diamond(ub->diamond());
+	spc.set_card(ub->card());
+	if (pid == 1){
+		spc.set_cgold(number);
+		int gd = ub->gold() + number;
+		ub->set_gold(gd);
+		spc.set_gold(gd);
+	}
+	else if (pid == 2){
+		spc.set_cdiamond(number);
+		int dia = ub->diamond() + number;
+		ub->set_diamond(dia);
+		spc.set_diamond(dia);
+	}
+	else if (pid == 3){
+		spc.set_ccard(number);
+		int cd = ub->card() + number;
+		ub->set_card(cd);
+		spc.set_card(cd);
+	}
+	RedisPut::getIns()->PushUserBase(*ub);
+	ConfigInfo::getIns()->SendSPushCurrency(spc, data->_fd);
+}
+
 void HttpPay::respondResult(string content, struct evhttp_request *req){
 	map<string, string>maps = XmlConfig::getIns()->parseXmlData(content);
 	for (auto itr = maps.begin(); itr != maps.end(); itr++){
@@ -135,7 +174,14 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 		string openid = maps.find("openid")->second;
 		string sign = maps.find("sign")->second;//回调给微信验证
 		//通过openid获取uid
-		string uid;
+		int len = 0;
+		char *u = m_pRedis->get("openid" + openid, len);
+		if (!u){
+			//获取userinfo
+			return;
+		}
+		string uid=u;
+		
 		string con;
 		map<string, string>tt;
 		auto itr = maps.find("out_trade_no");
@@ -150,10 +196,13 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 				if (len > 0){
 					maps.erase(maps.find("sign"));
 					string nowsign = createSign(maps);
-					if (nowsign.compare("sign") == 0){
+					if (nowsign.compare(sign) == 0){
 						//out_trade_no查询是否下发购买的商品
 						tt.insert(make_pair("return_code", "SUCCESS"));
 						tt.insert(make_pair("return_msg", "OK"));
+
+						Reward rew = si.prop();
+						NoticePushCurrency(rew,uid);
 					}
 					else{
 						tt.insert(make_pair("return_code", "FAIL"));
@@ -194,6 +243,7 @@ bool HttpPay::requestCheck(string xml){
 }
 
 bool HttpPay::respondCheck(string content){
+	//printf("%s\n",content.c_str());
 	map<string, string>maps = XmlConfig::getIns()->parseXmlData(content);
 	for (auto itr = maps.begin(); itr != maps.end(); itr++){
 		printf("%s:%s\n", itr->first.c_str(), itr->second.c_str());
@@ -207,12 +257,17 @@ bool HttpPay::respondCheck(string content){
 		auto itr = maps.find("trade_state");
 		if (itr != maps.end()){
 			string statusstr = itr->second;
-			if (statusstr.compare("NOTPAY") == 0 || statusstr.compare("CLOSED") == 0
+			if (statusstr.compare("CLOSED") == 0
 				|| statusstr.compare("REVOKED") == 0 || statusstr.compare("PAYERROR") == 0){
 				m_pRedis->eraseList("out_trade_no", out_trade_no);
 			}
 			else if (itr->second.compare("SUCCESS") == 0){
 				respondResult(content);
+				return true;
+			}
+			else if (itr->second.compare("REFUND") == 0){
+				//退款
+				m_pRedis->eraseList("out_trade_no", out_trade_no);
 				return true;
 			}
 		}
@@ -261,7 +316,7 @@ SWxpayOrder HttpPay::respondOrder(string content, map<string, string> ordermap){
 		printf("%s:%s\n", itr->first.c_str(), itr->second.c_str());
 	}
 	string uid = ordermap.find("userid")->second;
-	ClientData *data = LibEvent::getIns()->getClientData(uid);
+	ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
 	if (data){
 		int fd = data->_fd;
 		string returncode = maps.find("return_code")->second;
@@ -292,15 +347,25 @@ SWxpayOrder HttpPay::respondOrder(string content, map<string, string> ordermap){
 			string out_trade_no = ordermap.find("out_trade_no")->second;
 			m_pRedis->List("out_trade_no", (char *)out_trade_no.c_str());
 			//定时3分钟查询一次
-			string prepay_id = ordermap.find("prepay_id")->second;
-			string nonce_str = ordermap.find("nonce_str")->second;
-			string sign = ordermap.find("sign")->second;
-			string time_start = ordermap.find("time_start")->second;
+			string prepay_id = maps.find("prepay_id")->second;
+			string nonce_str = maps.find("nonce_str")->second;
+			
+			char buff[30];
+			sprintf(buff, "%ld", Common::getTime());
+			string timestamp =buff;
 			swo.set_payreq(prepay_id);
 			swo.set_noncestr(nonce_str);
+			swo.set_timestamp(timestamp);
+			map<string, string> kehumap;
+			kehumap.insert(make_pair("prepayid", prepay_id));
+			kehumap.insert(make_pair("noncestr", nonce_str));
+			kehumap.insert(make_pair("timestamp", timestamp));
+			kehumap.insert(make_pair("package", "Sign=WXPay"));
+			kehumap.insert(make_pair("appid", APPID));
+			kehumap.insert(make_pair("partnerid", MCHID));
+			string sign=createSign(kehumap);
 			swo.set_sign(sign);
-			swo.set_timestamp(time_start);
-
+			
 			return swo;
 		}
 		else{
@@ -342,16 +407,19 @@ void HttpPay::checkPay(){
 	for (int i = 0; i < vecs.size();i++){
 		char* out1 = vecs.at(i);
 		string out = out1;
-		printf("out:%s", XXIconv::GBK2UTF(out.c_str()).c_str());
-		map<string, string> valuemap;
-		valuemap.insert(make_pair("appid", APPID));
-		valuemap.insert(make_pair("mch_id", MCHID));
-		valuemap.insert(make_pair("nonce_str", getNonceId()));
-		valuemap.insert(make_pair("out_trade_no", XXIconv::GBK2UTF(out.c_str())));
-		string sign = createSign(valuemap);
-		valuemap.insert(make_pair("sign", sign));
-		string xml = XmlConfig::getIns()->setXmlData(valuemap);
-		requestCheck(xml);
+		requestCheckKH(XXIconv::GBK2UTF(out.c_str()));
 		delete out1;
 	}
+}
+
+bool HttpPay::requestCheckKH(string transaction_id, bool traid){
+	map<string, string> valuemap;
+	valuemap.insert(make_pair("appid", APPID));
+	valuemap.insert(make_pair("mch_id", MCHID));
+	valuemap.insert(make_pair("nonce_str", getNonceId()));
+	valuemap.insert(make_pair(traid?"transaction_id":"out_trade_no", transaction_id));
+	string sign = createSign(valuemap);
+	valuemap.insert(make_pair("sign", sign));
+	string xml = XmlConfig::getIns()->setXmlData(valuemap);
+	return requestCheck(xml);
 }

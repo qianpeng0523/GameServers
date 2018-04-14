@@ -108,9 +108,11 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 		UserBase *user = rk.mutable_info();
 		string uid = rk.uid();
 		UserBase *ub = m_pRedisGet->getUserBase(uid);
-		user->CopyFrom(*ub);
-		delete ub;
-		ub = NULL;
+		if (ub){
+			user->CopyFrom(*ub);
+			delete ub;
+			ub = NULL;
+		}
 		Rank *k= sl.add_list();
 		k->CopyFrom(rk);
 	}
@@ -256,6 +258,7 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 	int type = cl.type();
 	char buff[100];
 	SFindFriend fris;
+	fris.set_type(type);
 	fris.set_err(0);
 	if (type == 1){
 		UserBase *fir = m_pRedisGet->getUserBase(uid);
@@ -533,15 +536,7 @@ void HallInfo::HandlerCWxpayQuery(ccEvent *event){
 
 	string id = cl.transid();
 
-	map<string, string> valuemap;
-	valuemap.insert(make_pair("appid", APPID));
-	valuemap.insert(make_pair("mch_id", MCHID));
-	valuemap.insert(make_pair("nonce_str", HttpPay::getIns()->getNonceId()));
-	valuemap.insert(make_pair("transaction_id", id));
-	string sign = HttpPay::getIns()->createSign(valuemap);
-	valuemap.insert(make_pair("sign", sign));
-	string xml = XmlConfig::getIns()->setXmlData(valuemap);
-	HttpPay::getIns()->requestCheck(xml);
+	HttpPay::getIns()->requestCheckKH(id,true);
 
 	SWxpayQuery sl;
 	sl.set_transid(id);

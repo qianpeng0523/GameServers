@@ -129,7 +129,9 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 			user->set_userid(uid);
 			user->set_username(uname);
 			user->set_ip(data->_ip);
-			
+			int sex = rand()%2;
+			user->set_sex(sex);
+			user->set_picid(sex);
 			m_pRedisPut->PushPass(uid, data->_sessionID);
 			bool ist = m_pRedisPut->PushUserBase(*user);
 			if (ist){
@@ -182,13 +184,21 @@ void LoginInfo::HandlerCWXLogin(ccEvent *event){
 	string token = cl.token();
 
 	SWXLogin sl;
+	sl.set_cmd(sl.cmd());
 	UserBase ub = HttpWXLogin::getIns()->requestWXLogin(code,token);
 	if (ub.userid().empty()){
 		sl.set_err(1);
 	}
 	else{
+		sl.set_token(token);
 		UserBase *ub1= sl.mutable_info();
 		ub1->CopyFrom(ub);
+		ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+		if (data){
+			string uid = ub1->userid();
+			data->_sessionID = uid + token + LOGIC_TOKEN;
+			data->_uid = uid;
+		}
 	}
 	SendSWXLogin(sl, event->m_fd);
 }

@@ -156,6 +156,12 @@
     <ClCompile Include="Classes\http\HttpWXLogin.cpp">
       <Filter>源文件\Classes\http</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\cc\ConfigProto.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\proto\ConfigInfo.cpp">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -304,6 +310,12 @@
     </ClInclude>
     <ClInclude Include="Classes\http\HttpWXLogin.h">
       <Filter>源文件\Classes\http</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\ConfigProto.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\proto\ConfigInfo.h">
+      <Filter>源文件\Classes\proto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

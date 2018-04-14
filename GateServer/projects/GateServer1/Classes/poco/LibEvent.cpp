@@ -180,6 +180,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 }
 
 void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_socket_t fd){
+	printf("%s\n",msg->DebugString().c_str());
 	ClientData *pdata = getClientData(fd);
 	if (pdata&&pdata->_conn){
 		pdata->_conn->m_sendstamp = (pdata->_conn->m_sendstamp + 1) % 256;
@@ -212,9 +213,9 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 		for (int i = HEADLEN; i < HEADLEN + len; i++){
 			buffer[i] = out[i - HEADLEN];
 		}
-		;
+		
 		bufferevent_write(pdata->_conn->bufev, buffer, len + HEADLEN);
-
+		delete out;
 		delete buffer;
 	}
 }
@@ -405,6 +406,17 @@ void LibEvent::eraseClientData(string sesionid){
 			return;
 		}
 	}
+}
+
+ClientData *LibEvent::getClientDataByUID(string uid){
+	map<int, ClientData *>::iterator itr = m_ClientDatas.begin();
+	for (itr; itr != m_ClientDatas.end(); itr++){
+		ClientData *data = itr->second;
+		if (data&&data->_uid.compare(uid) == 0){
+			return data;
+		}
+	}
+	return NULL;
 }
 
 string LibEvent::getUID(int fd){
