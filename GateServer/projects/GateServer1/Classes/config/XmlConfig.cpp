@@ -88,3 +88,17 @@ map<string, string> XmlConfig::parseXmlData(string content){
 	
 	return mm;
 }
+
+string XmlConfig::setJsonData(map<string, string> valuemap){
+	string signA;
+	for (auto itr = valuemap.begin(); itr != valuemap.end(); itr++){
+		string name = itr->first;
+		string value = itr->second;
+		if (itr != valuemap.begin()){
+			signA += "&";
+		}
+		signA += name + "=" + value;
+	}
+	printf("%s\n", signA.c_str());
+	return signA;
+}

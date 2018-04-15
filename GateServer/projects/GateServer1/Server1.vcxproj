@@ -59,7 +59,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\..\protobuf\src;..\..\poco\Foundation\include;..\..\poco\Net\include;..\..\poco\Util\include;.\Classes\proto;..\..\poco\Data\include;..\..\poco\Data\MySQL\include;..\..\poco\Data\SQLite\include;..\..\poco\CppUnit\include\;.\Classes\sql;D:\Program Files\mysql\include;.\Classes\http;.\Classes\netjson;.\Classes\poco;.\Classes\room;.\Classes\control;.\Classes\log;..\..\libevent\include;..\..\libevent\include\event2;..\..\curl\include\win32\curl;..\..\libMessagePack;.\Classes\cryptopp;..\..\..\redis\src;..\..\..\redis\deps\hiredis;.\Classes\redisdata;.\Classes\algorithm;.\Classes\tinyxml;.\Classes\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\..\protobuf\src;..\..\poco\Foundation\include;..\..\poco\Net\include;..\..\poco\Util\include;.\Classes\proto;..\..\poco\Data\include;..\..\poco\Data\MySQL\include;..\..\poco\Data\SQLite\include;..\..\poco\CppUnit\include\;.\Classes\sql;D:\Program Files\mysql\include;.\Classes\http;.\Classes\netjson;.\Classes\poco;.\Classes\room;.\Classes\control;.\Classes\log;..\..\libevent\include;..\..\libevent\include\event2;..\..\curl\include\win32\curl;..\..\libMessagePack;.\Classes\cryptopp;..\..\..\redis\src;..\..\..\redis\deps\hiredis;.\Classes\redisdata;.\Classes\algorithm;.\Classes\tinyxml;.\Classes\config;..\..\curl\include\win32\;.\Classes\openapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -107,6 +107,7 @@
     <ClCompile Include="Classes\common\XXIconv.cpp" />
     <ClCompile Include="Classes\ConfigData.cpp" />
     <ClCompile Include="Classes\config\XmlConfig.cpp" />
+    <ClCompile Include="Classes\http\HttpAliPay.cpp" />
     <ClCompile Include="Classes\http\HttpEvent.cpp" />
     <ClCompile Include="Classes\http\HttpLogic.cpp" />
     <ClCompile Include="Classes\http\HttpPay.cpp" />
@@ -120,6 +121,11 @@
     <ClCompile Include="Classes\network\EventDispatcher.cpp" />
     <ClCompile Include="Classes\network\EventListen.cpp" />
     <ClCompile Include="Classes\network\TcpSocket.cpp" />
+    <ClCompile Include="Classes\openapi\http\http_client.cpp" />
+    <ClCompile Include="Classes\openapi\json\cJSON.c" />
+    <ClCompile Include="Classes\openapi\json\json_type.cpp" />
+    <ClCompile Include="Classes\openapi\json\json_util.cpp" />
+    <ClCompile Include="Classes\openapi\openapi_client.cpp" />
     <ClCompile Include="Classes\poco\LibEvent.cpp" />
     <ClCompile Include="Classes\poco\LibPOCO.cpp" />
     <ClCompile Include="Classes\proto\ConfigInfo.cpp" />
@@ -150,6 +156,7 @@
     <ClInclude Include="Classes\common\XXIconv.h" />
     <ClInclude Include="Classes\ConfigData.h" />
     <ClInclude Include="Classes\config\XmlConfig.h" />
+    <ClInclude Include="Classes\http\HttpAliPay.h" />
     <ClInclude Include="Classes\http\HttpEvent.h" />
     <ClInclude Include="Classes\http\HttpLogic.h" />
     <ClInclude Include="Classes\http\HttpPay.h" />
@@ -170,6 +177,11 @@
     <ClInclude Include="Classes\network\EventDispatcher.h" />
     <ClInclude Include="Classes\network\EventListen.h" />
     <ClInclude Include="Classes\network\TcpSocket.h" />
+    <ClInclude Include="Classes\openapi\http\http_client.h" />
+    <ClInclude Include="Classes\openapi\json\cJSON.h" />
+    <ClInclude Include="Classes\openapi\json\json_type.h" />
+    <ClInclude Include="Classes\openapi\json\json_util.h" />
+    <ClInclude Include="Classes\openapi\openapi_client.h" />
     <ClInclude Include="Classes\poco\CLibEventData.h" />
     <ClInclude Include="Classes\poco\CProtocol.h" />
     <ClInclude Include="Classes\poco\LibEvent.h" />

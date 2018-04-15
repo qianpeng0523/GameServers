@@ -43,6 +43,15 @@
     <Filter Include="源文件\Classes\config">
       <UniqueIdentifier>{e1fd9bf1-1499-43d0-8ead-057cf69b081b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes\openapi">
+      <UniqueIdentifier>{85e7abc2-531d-4b86-8906-9fab364e5ce5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\openapi\http">
+      <UniqueIdentifier>{2cdaebe9-cd4d-4354-a0c6-88cfa12b1c6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Classes\openapi\json">
+      <UniqueIdentifier>{9c7ec146-3ee8-4a56-b351-84a40cf848f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\stdafx.cpp">
@@ -161,6 +170,24 @@
     </ClCompile>
     <ClCompile Include="Classes\proto\ConfigInfo.cpp">
       <Filter>源文件\Classes\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\http\HttpAliPay.cpp">
+      <Filter>源文件\Classes\http</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\openapi\http\http_client.cpp">
+      <Filter>源文件\Classes\openapi\http</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\openapi\json\cJSON.c">
+      <Filter>源文件\Classes\openapi\json</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\openapi\json\json_type.cpp">
+      <Filter>源文件\Classes\openapi\json</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\openapi\json\json_util.cpp">
+      <Filter>源文件\Classes\openapi\json</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\openapi\openapi_client.cpp">
+      <Filter>源文件\Classes\openapi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +343,24 @@
     </ClInclude>
     <ClInclude Include="Classes\proto\ConfigInfo.h">
       <Filter>源文件\Classes\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\http\HttpAliPay.h">
+      <Filter>源文件\Classes\http</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\http\http_client.h">
+      <Filter>源文件\Classes\openapi\http</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\json\cJSON.h">
+      <Filter>源文件\Classes\openapi\json</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\json\json_type.h">
+      <Filter>源文件\Classes\openapi\json</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\json\json_util.h">
+      <Filter>源文件\Classes\openapi\json</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openapi_client.h">
+      <Filter>源文件\Classes\openapi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

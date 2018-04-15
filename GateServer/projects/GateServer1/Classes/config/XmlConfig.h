@@ -13,6 +13,8 @@ public:
 	string setXmlData1(map<string, string> valuemap);
 	string setXmlData(map<string,string> valuemap);
 	map<string, string> parseXmlData(string content);
+
+	string setJsonData(map<string,string> valuemap);
 public:
 	
 private:

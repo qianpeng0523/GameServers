@@ -18,9 +18,25 @@
 #include "Common.h"
 #include "HttpPay.h"
 #include "HttpWXLogin.h"
+#include "openapi_client.h"
+#include "HttpAliPay.h"
+JsonMap getPrecreateContent() {
+
+	JsonMap contentMap;
+	contentMap.insert(JsonMap::value_type(JsonType("out_trade_no"), JsonType("20160606121212")));
+	contentMap.insert(JsonMap::value_type(JsonType("total_amount"), JsonType(0.01)));
+	contentMap.insert(JsonMap::value_type(JsonType("subject"), JsonType(XXIconv::GBK2UTF("ºÃ¶«Î÷").c_str())));
+
+	return contentMap;
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+
+ 	//OpenapiClient oc(ALIAPPID, ALIPRIKEY,ALIPAYURL,CHARSET,ALIPUBKEY);
+ 	//JsonMap mm= oc.invoke("alipay.trade.precreate", getPrecreateContent());
+	//HttpAliPay::getIns()->requestOrder("100001","1",1,"test 1","");
+
 	StatTimer::getIns();
 	CSVDataInfo::getIns();
 	LoginInfo::getIns();
