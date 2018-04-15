@@ -2,23 +2,6 @@ syntax = "proto2";
 package protocol;
 import "Vo.proto";
 
-//CConfig 反馈
-message CConfig
-{
-    required uint32 	cmd 	= 1[default=0x4FFF];  	//
-}
-
-message SConfig
-{
-    required uint32 	cmd 	= 1[default=0x4FFF];  	//
-	optional bool 		mail  	= 2;					//
-	optional bool 		active  = 3;					//
-	optional bool 		firstbuy= 4;					//
-	optional bool 		task  	= 5;					//
-	optional bool 		free  	= 6;					//
-	optional bool 		friend  = 7;					//
-	optional uint32 	yqs  	= 8;					//
-}
 
 //CRank 排行榜
 message CRank
@@ -89,7 +72,8 @@ message SFindFriend
 {
     required uint32 	cmd 	= 1[default=0x5004];  // 
 	repeated Friend 	list  	= 2;  	//返回好友
-	optional uint32 	err  	= 3;					//
+	optional uint32		type	= 3;
+	optional uint32 	err  	= 4;					//
 }
 
 //CGiveFriend 赠送好友金币,每次赠送200
