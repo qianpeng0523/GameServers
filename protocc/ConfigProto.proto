@@ -1,0 +1,35 @@
+syntax = "proto2";
+package protocol;
+import "Vo.proto";
+
+//CConfig 反馈
+message CConfig
+{
+    required uint32 	cmd 	= 1[default=0x4FFF];  	//
+}
+
+message SConfig
+{
+    required uint32 	cmd 	= 1[default=0x4FFF];  	//
+	optional bool 		mail  	= 2;					//
+	optional bool 		active  = 3;					//
+	optional bool 		firstbuy= 4;					//
+	optional bool 		task  	= 5;					//
+	optional bool 		free  	= 6;					//
+	optional bool 		friend  = 7;					//
+	optional uint32 	yqs  	= 8;					//
+}
+
+
+//SPushCurrency
+message SPushCurrency
+{
+	optional uint32 	cmd 		= 1[default=0x6000];  	//
+	optional uint32 	diamond		= 2;
+	optional uint32 	card		= 3;
+	optional uint32 	gold		= 4;
+	optional uint32 	cdiamond	= 5;//钻石的改变量
+	optional uint32 	ccard		= 6;//房卡的改变量
+	optional uint32 	cgold		= 7;//金币的改变量
+    optional uint32 	err  		= 8;					//
+}

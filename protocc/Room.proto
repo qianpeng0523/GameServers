@@ -1,0 +1,22 @@
+syntax = "proto2";
+package protocol;
+import "Vo.proto";
+
+//CConfig 反馈
+message CEnterRoom
+{
+    optional uint32 	cmd 	= 1[default=0x7000];  	//
+	optional 
+}
+
+message SEnterRoom
+{
+    required uint32 	cmd 	= 1[default=0x7000];  	//
+	optional bool 		mail  	= 2;					//
+	optional bool 		active  = 3;					//
+	optional bool 		firstbuy= 4;					//
+	optional bool 		task  	= 5;					//
+	optional bool 		free  	= 6;					//
+	optional bool 		friend  = 7;					//
+	optional uint32 	yqs  	= 8;					//
+}
