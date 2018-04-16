@@ -263,6 +263,24 @@ message SWxpayOrder
 	optional uint32 	err  		= 6;					//
 }
 
+//CAliPayOrder 支付宝下单
+message CAliPayOrder
+{
+    required uint32 	cmd 	= 1[default=0x5018];  	//
+	optional uint32 	id  	= 2;					//
+	optional string	 	body	= 3;					//
+}
+
+message SAliPayOrder
+{
+    required uint32 	cmd 		= 1[default=0x5018];  	//
+	optional string 	orderinfo 	= 2;					//
+	optional string 	appid 		= 3;					//
+	optional string 	timestamp 	= 4;					//
+	optional string 	privatekey 	= 5;					//
+	optional uint32 	err  		= 6;					//
+}
+
 //CWxpayQuery 微信支付结果查询与通知
 message CWxpayQuery
 {

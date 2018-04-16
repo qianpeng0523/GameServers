@@ -45,5 +45,6 @@ message SWXLogin
 {
 	optional uint32 	cmd 		= 1[default=0x4002];  	//
 	optional UserBase 	info		= 2;
-    optional uint32 	err  		= 3;					//
+	optional string		token		= 3;
+    optional uint32 	err  		= 4;					//
 }

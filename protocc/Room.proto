@@ -5,8 +5,7 @@ import "Vo.proto";
 //CConfig 反馈
 message CEnterRoom
 {
-    optional uint32 	cmd 	= 1[default=0x7000];  	//
-	optional 
+    optional uint32 	cmd 	= 1[default=0x7000];  	// 
 }
 
 message SEnterRoom
