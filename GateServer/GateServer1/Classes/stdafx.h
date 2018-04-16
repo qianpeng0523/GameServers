@@ -1,0 +1,74 @@
+// stdafx.h : 标准系统包含文件的包含文件，
+// 或是经常使用但不常更改的
+// 特定于项目的包含文件
+//
+
+#pragma once
+
+#include "targetver.h"
+#include <stdio.h>
+#include <tchar.h>
+#include<algorithm>
+#include<vector>
+#include<iostream>
+
+#include "Object.h"
+#include <map>
+#include <set>
+#include <string.h>
+#include <xstring>
+#include "MD5.h"
+#include "XXIconv.h"
+#include "CProtocol.h"
+#include "YMSocketData.h"
+#include "Poco/Thread.h"
+#include "LogicServer.h"
+#include "ccEvent.h"
+#include "Login.h"
+#include "ConfigProto.h"
+#include "Hall.h"
+#include "redis.h"
+
+using namespace std;
+using namespace protocol;
+using namespace Poco;
+
+#define HEADLEN 10
+#define ZHONGFABAI
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
+#include "iconv.h"
+#pragma comment(lib,"../../Debug/libiconv.lib") 
+#pragma comment(lib,"../../Debug/libprotobuf.lib")
+#pragma comment(lib,"../../Debug/libMessagePack.lib")
+#pragma comment(lib,"../../Debug/libcrypto.lib")
+#pragma comment(lib,"../../../redis/Debug/hiredis.lib")
+#endif
+
+//#define sqlhttp "http://192.168.50.151:8080/"
+//#define sqlhttp "http://192.168.1.101:8080/"
+#define sqlhttp "http://lesharecs.com:8080/"
+#define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
+#define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+
+#define ZERO_STR '&'
+//#define FENG_LIAN 0
+
+
+/*******微信支付定义********/
+#define APPID "wxd5d25d59ae13ac95"
+#define MCHID "1501106141"
+#define INITNONCEID "18880000"
+#define NOTIFYURL "http://lesharecs.com:8082"
+#define TRADETYPE "APP"
+#define INITNO "00000000"
+#define APPSECRET "42eded380f7f410e1556a1a94cfaa096"
+
+/***********支付宝支付**************/
+//#define ALIAPPID "2017112900248589"
+#define ALIAPPID "2016091500519796"
+#define ALIPRIKEY "MIIEowIBAAKCAQEAuya9g8UZu1yVvULELwTS9ExjhTDICqR50kYPxmlnhD+3xI4GS1S0rBRd+bCPAcn4sAh4oVW1h2mBE0twS9mnjjqHExjZ+NcDxlL3yub/F8I4upfWuK623Oiy58tXV3gDN3bAajryPSobZ7iqOmQtQH01D95E57nmYtB/vjuwYD2R2UtNI21YTN/R+EmWLoBIv6HIXDfh0hHOJhbgfB4iSbwmjA1507X59HswUEh/tV3Qoc9yQX8P2U/SAoBD2wy3nn/Q8jJCavksqbcIZ0PQ5Dl3tEp/xjkG9pmXoGtT5xsHGt66RqXQuhGlUfP5H6NX7Q1tfuvV4U1pZaZDhvDH4QIDAQABAoIBAE2OjWUJDlPV13v6KkDt99ojue5dO9klNhLM1Aa+cZadrTM4RCV9se3J9vPdljYAlB2nNQ5u7W5za3kqfxv/0+8eFBH274Wu3TKX+XZNahNXepjhCau5Q7CiglmKq+RkqLiYbr7XNMHiLD88iNbv4szh1laAHwAEyxPSIc4dAEexJdZDkxV7S4qw4XJ0cSKnvEUFdBQ9yYhB14usouGFf5RZNVO6/Pt7b+17IsJrzFx3Y2aP9vFgdTZeL0b+59Nuf30SKouzc+0FwOOPUhk9OyV+K+dJso98p0MykBSfdacVlWTwymYVNZw6VTxfl+kxi+CiuBhh8a6D7wwQ0peMQV0CgYEA8snc74D1I4vX4UlkBeRTAJdmsi//FBu31JX+p0mxDEeuf7m/DFbAZq6Z9Xiok2i4HLsunYhX9uj+Hj/Exu4Se+sWn/SUQLKnVlV9qN7Uz4dfFBVJr9hXVTkWEYubRIn1DIbeaY0iY1pM9CAuQ0s5s1Tiu18PDld7RDqIK1pqu3cCgYEAxVXUb7QmK+5zZ4XPWbjNIzznklDQlSzGnteqEPcm6wbrTApg5VgoBOw1vaj9OS9AAdXWTyUCpqtYdsXel40HBmaokNg724pS7nTfq155untj5qNG4ubnhZv6URFgaCHuoml9BIuOWGzrCFvyGprVornxn8L/UzVGBdYkxXBMPWcCgYAlzE2ML/x6Izxhw4ZB8JEHh4qidRx2KfaNryhtLOjWa5Z8JhPbPOpJUid/8t/zyxrWxkF0nxRqyU0+sljVS50vE6N7FZ27ENVCeJ7OmppxELc5rjLBoKHAD9oisyRiIEQ5Rgn8Ts+qvhU68IOjUGPUSoPd/eefKPl03tPyQ+pX8wKBgGTzlr0ahRieYQ2Jx9zXjKJFSxZwH3ThNi8Wl1schR1hKch52r4ZTkfOa2O+auTxRiZqNbvBbEzFhXklms0fCYP9yqhm5qBWcDyrL62kpFOBQkdAKkhz5edVN0Z3xEEhcspFev5zQnv8JHTfTMjNgxM/WtvnTuVLcKoVtjQHUglrAoGBAIs7FxgJuRGQmfwpGg8VGKyJWh9VP/uKpBDfRE+Z7t+oZnYZULctU4zNVD1IiHru5H3fgG6qR+p5OMjlA/7iSnvd58AZs8MJVjEENMrpKiHLWVQ44k18lLsnGvF3cnFQDC1FGiNHA3LJae4JaVJzab7vFziBOsbnxlFMVWoZQlf2"
+//#define ALIPUBKEY "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlQStQeveZy9x87UEx35kZas6sew/tQw3xFtEsE9GiQAnza6GBRZElior8xL+uVTG21TfMbEW2DJDEYEB2od7qg9X4sRnp4/8gTM+eUHWwU5Ydt8Kj98EOnVGKvi/iAPsYMoyJUn98ElHO3ZcSvUMCy/hYi/XzVntP6YyCd0DhB7mtdIFQEjQt/bGWjM+vDUKFA+lAzQs1FM5+kzZM4uye93dmNsnrwD5trs24JZJVhngTPeblO8YkhAxeAVP7bnu9ge1zjLpX5WcLH4D39cXqdA0C7bz7cseXJc+KxwbBIWiWBhxKVY9prW0e+vxCLUjpXXEJhb4SpUubhaT0dFiIwIDAQAB"
+#define ALIPUBKEY "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmrORx+2IxzCVjpcUCvd6hMwihur9/d/lQAUwJ/RNvOQZFEya5nOHt2VC0KFfIH7pylPAlXEfFwSrbHR2X1Tc2qI692RE1qcdabI/aCDU2GXVgl87MapvJNwIiYjq481n25lkljCmXRMy9Zi9Grt8W3WPE+cguiKscjvAoGfmtPXfilvZOeObWlQwWCGlCzpAVG+uqIT2vB9odNMRdvHiqMnP+TQIZxAHwxweEgmV1KTfd19+B2n+i8tyTXFjveYcNfbRrLnuaO0zc6sx9Qw84mzV7rEQsoyw5HfeYuND8c9qA6+obbHrJrizRzAWF74IiYzrrHaIAvOTUOBvkc+7uQIDAQAB"
+//#define ALIPAYURL "https://openapi.alipay.com/gateway.do"
+#define ALIPAYURL "https://openapi.alipaydev.com/gateway.do"
+#define CHARSET "utf-8"
