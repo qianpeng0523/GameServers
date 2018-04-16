@@ -59,7 +59,9 @@ HttpLogic::HttpLogic(){
 
 	std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_GATESERVER);
 	std::map<int, Object *>::iterator itr = maps.begin();
-	int index[2] = { 0 ,0};
+	int co = maps.size() / 3;
+	int *index = new int[co];
+	memset(index ,0,sizeof(int)*co);
 	char buff[50];
 	for (itr; itr != maps.end(); itr++){
 		GateData *data = (GateData *)itr->second;
@@ -69,7 +71,7 @@ HttpLogic::HttpLogic(){
 		int len = 0;
 		char *v = redis::getIns()->get(buff,len);
 		if (!v){
-			redis::getIns()->set(buff, dd,len);
+			redis::getIns()->set(buff, dd,sizeof(*data));
 		}
 		else{
 			redis::getIns()->ChangeToZero(v,len);
@@ -79,7 +81,7 @@ HttpLogic::HttpLogic(){
 		}
 		index[type-1]++;
 	}
-
+	delete index;
 	std::map<int, Object *> maps1 = CSVDataInfo::getIns()->getDatas(CSV_LOGOCMANAGER);
 	std::map<int, Object *>::iterator itr1 = maps1.begin();
 	for (itr1; itr1 != maps1.end(); itr1++){
@@ -89,7 +91,7 @@ HttpLogic::HttpLogic(){
 		int len = 0;
 		char *v = redis::getIns()->get(buff, len);
 		if (!v){
-			redis::getIns()->set(buff, dd,len);
+			redis::getIns()->set(buff, dd, sizeof(*data));
 		}
 		else{
 			redis::getIns()->ChangeToZero(v, len);
@@ -185,7 +187,7 @@ void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 	int gtype = -1;
 	if (gatetype == NULL){
 		gtype = 0;
-		redis::getIns()->set(buff1,"0",sizeof("0"));
+		redis::getIns()->set(buff1,"0",sizeof("0")-1);
 	}
 	else{
 		gtype = atoi(gatetype);

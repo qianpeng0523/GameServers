@@ -5,3 +5,6 @@ id,name,ip,port,type
 3,gt1,192.168.50.151,5601,2
 4,gt2,192.168.50.151,5602,2
 5,gt3,192.168.50.151,5603,2
+6,gt1,www.lesharecs.com,5601,3
+7,gt2,www.lesharecs.com,5602,3
+8,gt3,www.lesharecs.com,5603,3

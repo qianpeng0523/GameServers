@@ -16,7 +16,7 @@ namespace CSV{
 		GateData(){
 			_type = 0;
 			memset(_name,0,8);
-			memset(_ip, 0, 16);
+			memset(_ip, 0, 48);
 		}
 		~GateData(){
 
@@ -25,7 +25,7 @@ namespace CSV{
 		int _port;
 		int _type;
 		char _name[8];
-		char _ip[16];
+		char _ip[48];
 		void DebugPrintf(){
 			printf("%d %d %d %s %s\n",_id,_port,_type,_name,_ip);
 		}
@@ -56,7 +56,7 @@ namespace CSV{
 				buffer[len+i] = _name[i];
 			}
 			len += 8;
-			for (int i = 0; i < 16; i++){
+			for (int i = 0; i < 48; i++){
 				buffer[len+i] = _ip[i];
 			}
 
