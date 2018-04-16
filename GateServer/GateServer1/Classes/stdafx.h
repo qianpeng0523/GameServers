@@ -58,7 +58,7 @@ using namespace Poco;
 #define APPID "wxd5d25d59ae13ac95"
 #define MCHID "1501106141"
 #define INITNONCEID "18880000"
-#define NOTIFYURL "http://lesharecs.com:8082"
+#define NOTIFYURL "http://lesharecs.com:8082/wxpaycallback"
 #define TRADETYPE "APP"
 #define INITNO "00000000"
 #define APPSECRET "42eded380f7f410e1556a1a94cfaa096"

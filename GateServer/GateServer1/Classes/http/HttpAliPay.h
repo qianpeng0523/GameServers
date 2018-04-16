@@ -27,7 +27,8 @@ public:
 	
 	SAliPayOrder requestOrder(string uid, string shopid, float price, string body, string ip);
 
-	
+	void update(float dt);
+	void openUpdate(bool isopen);
 private:
 	static string base64Encode(const unsigned char *bytes, int len);
 	static bool base64Decode(const string &str, unsigned char *bytes, int &len);
@@ -40,6 +41,7 @@ private:
 
 	string setPrivateKey(string &key);
 	string setPubKey(string &key);
+	string getOutTradeNo();
 private:
 	static HttpAliPay *m_Ins;
 	redis *m_pRedis;
@@ -47,6 +49,9 @@ private:
 	RedisPut *m_pRedisPut;
 	string m_aliprivatekey;
 	string m_alipubkey;
+	bool m_isopen;
+	string m_lasttime;
+	int m_count;
 };
 
 #endif 

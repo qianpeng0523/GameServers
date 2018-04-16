@@ -9,11 +9,26 @@
 HttpAliPay *HttpAliPay::m_Ins = NULL;
 
 HttpAliPay::HttpAliPay(){
+	m_count = 0;
 	m_pRedis = redis::getIns();
 	m_pRedisGet = RedisGet::getIns();
 	m_pRedisPut = RedisPut::getIns();
 	m_aliprivatekey = ALIPRIKEY;
 	m_alipubkey = ALIPUBKEY;
+	m_isopen = false;
+	int len = 0;
+	char *dd = redis::getIns()->get("notime", len);
+	if (dd){
+		m_lasttime = Common::getLocalTimeDay();
+		if (m_lasttime.compare(dd) != 0){
+			m_pRedis->set("notime", (char *)m_lasttime.c_str(), m_lasttime.length());
+		}
+	}
+	else{
+		m_lasttime = Common::getLocalTimeDay();
+		m_pRedis->set("notime", (char *)m_lasttime.c_str(), m_lasttime.length());
+	}
+	openUpdate(true);
 	
 }
 HttpAliPay::~HttpAliPay(){
@@ -35,6 +50,23 @@ HttpAliPay *HttpAliPay::getIns(){
 	return m_Ins;
 }
 
+string HttpAliPay::getOutTradeNo(){
+	string time = Common::getLocalTimeDay1() + "YLHD";
+	int len = 0;
+	char buff[50];
+	char *dd = m_pRedis->get("aliouttradeno", len);
+	if (!dd){
+		time += INITNO;
+		m_pRedis->set("aliouttradeno", INITNO, strlen(INITNO));
+	}
+	else{
+		sprintf(buff, "%08d", atoi(dd) + 1);
+		time += buff;
+		m_pRedis->set("aliouttradeno", buff, strlen(buff));
+	}
+	return time;
+}
+
 size_t read_data2(void* buffer, size_t size, size_t nmemb, void *stream)
 {
 	string *result = (string *)stream;
@@ -48,9 +80,9 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 	strftime(tmp, sizeof(tmp), "%Y-%m-%d %X", localtime(&t));
 
 	JsonMap contentMap;
-	contentMap.insert(JsonMap::value_type(JsonType("out_trade_no"), JsonType("20160606121212")));
+	contentMap.insert(JsonMap::value_type(JsonType("out_trade_no"), JsonType(XXIconv::GBK2UTF(getOutTradeNo().c_str()).c_str())));
 	contentMap.insert(JsonMap::value_type(JsonType("total_amount"), JsonType(price)));
-	contentMap.insert(JsonMap::value_type(JsonType("subject"), HttpEvent::getIns()->GBKToUTF8(body.c_str())));
+	contentMap.insert(JsonMap::value_type(JsonType("subject"), body.c_str()));
 	string content = JsonUtil::objectToString(contentMap);
 
 	map<string,string> requestPairs;
@@ -74,6 +106,9 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 
 	string responseContent = analyzeResponse(responseStr);
 	
+	//记录下单记录
+
+
 	//传给客户端
 	contentMap.insert(JsonMap::value_type(JsonType("product_code"), JsonType("QUICK_MSECURITY_PAY")));
 	contentMap.insert(JsonMap::value_type(JsonType("timeout_express"), JsonType("30m")));
@@ -87,7 +122,7 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 	spo.set_appid(ALIAPPID);
 	spo.set_timestamp(tmp);
 	spo.set_orderinfo(con);
-	spo.set_privatekey(m_aliprivatekey);
+	spo.set_privatekey(ALIPRIKEY);
 	return spo;
 }
 
@@ -262,3 +297,28 @@ bool HttpAliPay::base64Decode(const string &str, unsigned char *bytes, int &len)
 	return len > 0;
 }
 
+
+void HttpAliPay::update(float dt){
+	string time = Common::getLocalTimeDay();
+	if (time.compare(m_lasttime) != 0){
+		m_lasttime = time;
+		m_pRedis->set("nonceid", INITNONCEID, strlen(INITNONCEID));
+		m_pRedis->set("outtradeno", INITNO, strlen(INITNO));
+	}
+// 	if (m_count % 30 == 0){
+// 		m_count = 0;
+// 		checkPay();
+// 	}
+//	m_count++;
+}
+
+void HttpAliPay::openUpdate(bool isopen){
+	if (isopen&&!m_isopen){
+		m_isopen = true;
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(HttpAliPay::update), 0.5);
+	}
+	else if (!isopen&&m_isopen){
+		m_isopen = false;
+		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(HttpAliPay::update));
+	}
+}

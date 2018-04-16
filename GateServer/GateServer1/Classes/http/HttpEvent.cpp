@@ -54,17 +54,11 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 
 	char *buff = (char *)EVBUFFER_DATA(buffer);
 	if (buff){
-		string result = buff;
-		if (result.find("return_code") != -1){
-			HttpPay::getIns()->respondResult(result, req);
-		}
-		else{
-			char *out = new char[sz + 1];
-			HttpLogic::getIns()->aes_decrypt(buff, sz, out);
-			YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
-			delete out;
-			HttpEvent::getIns()->SendMsg(sd, req);
-		}
+		char *out = new char[sz + 1];
+		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
+		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
+		delete out;
+		HttpEvent::getIns()->SendMsg(sd, req);
 	}
 }
 
@@ -230,6 +224,56 @@ void HttpEvent::SendMsg(string content, struct evhttp_request *req){
 	evbuffer_free(buf);
 }
 
+//处理模块
+void httpd_ALIPayhandler(struct evhttp_request *req, void *arg) {
+
+	//HTTP header
+	evhttp_add_header(req->output_headers, "Server", MYHTTPD_SIGNATURE);
+	evhttp_add_header(req->output_headers, "Content-Type", "text/plain; charset=UTF-8");
+	evhttp_add_header(req->output_headers, "Connection", "close");
+	//输出的内容
+
+	string ip = req->remote_host;
+	int port = req->remote_port;
+	printf("requset:%s:%d\n", ip.c_str(), port);
+
+	struct evbuffer *buffer = req->input_buffer;
+	int sz = EVBUFFER_LENGTH(buffer);
+
+	char *buff = (char *)EVBUFFER_DATA(buffer);
+	if (buff){
+		string result = buff;
+// 		char *out = new char[sz + 1];
+// 		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
+// 		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
+// 		delete out;
+// 		HttpEvent::getIns()->SendMsg(sd, req);
+	}
+}
+
+//处理模块
+void httpd_WXPayhandler(struct evhttp_request *req, void *arg) {
+
+	//HTTP header
+	evhttp_add_header(req->output_headers, "Server", MYHTTPD_SIGNATURE);
+	evhttp_add_header(req->output_headers, "Content-Type", "text/plain; charset=UTF-8");
+	evhttp_add_header(req->output_headers, "Connection", "close");
+	//输出的内容
+
+	string ip = req->remote_host;
+	int port = req->remote_port;
+	printf("requset:%s:%d\n", ip.c_str(), port);
+
+	struct evbuffer *buffer = req->input_buffer;
+	int sz = EVBUFFER_LENGTH(buffer);
+
+	char *buff = (char *)EVBUFFER_DATA(buffer);
+	if (buff){
+		string result = buff;
+		HttpPay::getIns()->respondResult(result, req);
+	}
+}
+
 void HttpEvent::init(){
 	//默认参数
 	char *httpd_option_listen = "0.0.0.0";
@@ -252,7 +296,8 @@ void HttpEvent::init(){
 	//如果大厅是短连接，则需要短连接带上token
 
 	//也可以为特定的URI指定callback
-	//evhttp_set_cb(httpd, "/", specific_handler, NULL);
+	evhttp_set_cb(httpd, "/alipaycallback", httpd_ALIPayhandler, NULL);
+	evhttp_set_cb(httpd, "/wxpaycallback", httpd_WXPayhandler, NULL);
 
 	//循环处理events
 	event_dispatch();
@@ -269,3 +314,4 @@ YMSocketData HttpEvent::getSocketDataByStr(char* str, int sz){
 
 	return sd;
 }
+

@@ -22,11 +22,8 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	string ll = "MIICXwIBAAKBgQDImwRJSCy+uHzxS0PIFzBg2xz/JRCV1jXe1iUiUfmESgo5KTyY";
-	int len = ll.length();
- 	//OpenapiClient oc(ALIAPPID, ALIPRIKEY,ALIPAYURL,CHARSET,ALIPUBKEY);
- 	//JsonMap mm= oc.invoke("alipay.trade.precreate", getPrecreateContent());
-	HttpAliPay::getIns()->requestOrder("100001","1",1,"test 1","");
+	
+	//HttpAliPay::getIns()->requestOrder("100001","1",1,"test 1","");
 
 	StatTimer::getIns();
 	CSVDataInfo::getIns();
