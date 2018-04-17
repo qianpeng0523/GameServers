@@ -25,7 +25,7 @@ public:
     virtual bool init();
 	static HttpAliPay *getIns();
 	
-	SAliPayOrder requestOrder(string uid, string shopid, float price, string body, string ip);
+	SAliPayOrder requestOrder(string uid, string shopid, float price, string body, string ip,int type);
 	void respondResult(string content, struct evhttp_request *req = NULL);
 
 	void update(float dt);
@@ -43,6 +43,7 @@ private:
 	string setPrivateKey(string &key);
 	string setPubKey(string &key);
 	string getOutTradeNo();
+	void checkPay();
 private:
 	static HttpAliPay *m_Ins;
 	redis *m_pRedis;

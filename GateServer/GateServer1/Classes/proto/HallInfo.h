@@ -89,6 +89,9 @@ public:
 	void SendSAliPayOrder(SAliPayOrder cpo,int fd);
 	void HandlerCAliPayOrder(ccEvent *event);
 
+	void SendSAliPayResult(SAliPayResult sp,int fd);
+	void HandlerCAliPayResult(ccEvent *event);
+
 	//反馈
 	void SendSFeedBack(SFeedBack cl, int fd);
 	void HandlerCFeedBack(ccEvent *event);

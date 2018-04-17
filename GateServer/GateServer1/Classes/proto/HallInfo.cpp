@@ -65,6 +65,9 @@ HallInfo::HallInfo()
 
 	CAliPayOrder sl25;
 	regist(sl25.cmd(), sl25.GetTypeName(), Event_Handler(HallInfo::HandlerCAliPayOrder));
+
+	CAliPayResult sl26;
+	regist(sl26.cmd(), sl26.GetTypeName(), Event_Handler(HallInfo::HandlerCAliPayResult));
 }
 
 HallInfo::~HallInfo(){
@@ -575,15 +578,34 @@ void HallInfo::HandlerCAliPayOrder(ccEvent *event){
 		int id = cl.id();
 		string body = cl.body();
 		string uid = data->_uid;
+		int type = cl.type();
 		char buff[50];
 		sprintf(buff, "%d", id);
 		ShopItem sp = m_pRedisGet->getShop(id);
 		int price = sp.consume().number();
 
-		sl = HttpAliPay::getIns()->requestOrder(uid, buff, price, body, data->_ip);
+		sl = HttpAliPay::getIns()->requestOrder(uid, buff, price, body, data->_ip,type);
 	}
 
 	SendSAliPayOrder(sl, event->m_fd);
+}
+
+void HallInfo::SendSAliPayResult(SAliPayResult sp, int fd){
+	LibEvent::getIns()->SendData(sp.cmd(), &sp, fd);
+}
+
+void HallInfo::HandlerCAliPayResult(ccEvent *event){
+	CAliPayResult cl;
+	cl.CopyFrom(*event->msg);
+
+	SAliPayResult sl;
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string content = cl.content();
+		HttpAliPay::getIns()->respondResult(content);
+	}
+
+	SendSAliPayResult(sl, event->m_fd);
 }
 
 //反馈

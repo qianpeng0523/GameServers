@@ -41,6 +41,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
 	HttpWXLogin::getIns();
+	HttpAliPay::getIns();
 	HttpPay::getIns()/*->test()*/;
 
 	getchar();

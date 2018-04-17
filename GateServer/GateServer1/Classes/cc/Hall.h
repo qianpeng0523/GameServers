@@ -72,6 +72,8 @@ class CWxpayOrder;
 class SWxpayOrder;
 class CAliPayOrder;
 class SAliPayOrder;
+class CAliPayResult;
+class SAliPayResult;
 class CWxpayQuery;
 class SWxpayQuery;
 class CFirstBuy;
@@ -3852,6 +3854,13 @@ class CAliPayOrder : public ::google::protobuf::Message {
   inline ::std::string* release_body();
   inline void set_allocated_body(::std::string* body);
 
+  // optional uint32 type = 4;
+  inline bool has_type() const;
+  inline void clear_type();
+  static const int kTypeFieldNumber = 4;
+  inline ::google::protobuf::uint32 type() const;
+  inline void set_type(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.CAliPayOrder)
  private:
   inline void set_has_cmd();
@@ -3860,15 +3869,18 @@ class CAliPayOrder : public ::google::protobuf::Message {
   inline void clear_has_id();
   inline void set_has_body();
   inline void clear_has_body();
+  inline void set_has_type();
+  inline void clear_has_type();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 id_;
   ::std::string* body_;
+  ::google::protobuf::uint32 type_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -4028,6 +4040,195 @@ class SAliPayOrder : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SAliPayOrder* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CAliPayResult : public ::google::protobuf::Message {
+ public:
+  CAliPayResult();
+  virtual ~CAliPayResult();
+
+  CAliPayResult(const CAliPayResult& from);
+
+  inline CAliPayResult& operator=(const CAliPayResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CAliPayResult& default_instance();
+
+  void Swap(CAliPayResult* other);
+
+  // implements Message ----------------------------------------------
+
+  CAliPayResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CAliPayResult& from);
+  void MergeFrom(const CAliPayResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 cmd = 1 [default = 20505];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional string content = 2;
+  inline bool has_content() const;
+  inline void clear_content();
+  static const int kContentFieldNumber = 2;
+  inline const ::std::string& content() const;
+  inline void set_content(const ::std::string& value);
+  inline void set_content(const char* value);
+  inline void set_content(const char* value, size_t size);
+  inline ::std::string* mutable_content();
+  inline ::std::string* release_content();
+  inline void set_allocated_content(::std::string* content);
+
+  // @@protoc_insertion_point(class_scope:protocol.CAliPayResult)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_content();
+  inline void clear_has_content();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* content_;
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static CAliPayResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SAliPayResult : public ::google::protobuf::Message {
+ public:
+  SAliPayResult();
+  virtual ~SAliPayResult();
+
+  SAliPayResult(const SAliPayResult& from);
+
+  inline SAliPayResult& operator=(const SAliPayResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SAliPayResult& default_instance();
+
+  void Swap(SAliPayResult* other);
+
+  // implements Message ----------------------------------------------
+
+  SAliPayResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SAliPayResult& from);
+  void MergeFrom(const SAliPayResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 cmd = 1 [default = 20505];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional uint32 err = 6;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 6;
+  inline ::google::protobuf::uint32 err() const;
+  inline void set_err(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.SAliPayResult)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_err();
+  inline void clear_has_err();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 cmd_;
+  ::google::protobuf::uint32 err_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static SAliPayResult* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -8478,6 +8679,28 @@ inline void CAliPayOrder::set_allocated_body(::std::string* body) {
   }
 }
 
+// optional uint32 type = 4;
+inline bool CAliPayOrder::has_type() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void CAliPayOrder::set_has_type() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void CAliPayOrder::clear_has_type() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void CAliPayOrder::clear_type() {
+  type_ = 0u;
+  clear_has_type();
+}
+inline ::google::protobuf::uint32 CAliPayOrder::type() const {
+  return type_;
+}
+inline void CAliPayOrder::set_type(::google::protobuf::uint32 value) {
+  set_has_type();
+  type_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // SAliPayOrder
@@ -8802,6 +9025,150 @@ inline ::google::protobuf::uint32 SAliPayOrder::err() const {
   return err_;
 }
 inline void SAliPayOrder::set_err(::google::protobuf::uint32 value) {
+  set_has_err();
+  err_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// CAliPayResult
+
+// required uint32 cmd = 1 [default = 20505];
+inline bool CAliPayResult::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CAliPayResult::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CAliPayResult::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CAliPayResult::clear_cmd() {
+  cmd_ = 20505u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 CAliPayResult::cmd() const {
+  return cmd_;
+}
+inline void CAliPayResult::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional string content = 2;
+inline bool CAliPayResult::has_content() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CAliPayResult::set_has_content() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CAliPayResult::clear_has_content() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CAliPayResult::clear_content() {
+  if (content_ != &::google::protobuf::internal::kEmptyString) {
+    content_->clear();
+  }
+  clear_has_content();
+}
+inline const ::std::string& CAliPayResult::content() const {
+  return *content_;
+}
+inline void CAliPayResult::set_content(const ::std::string& value) {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  content_->assign(value);
+}
+inline void CAliPayResult::set_content(const char* value) {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  content_->assign(value);
+}
+inline void CAliPayResult::set_content(const char* value, size_t size) {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  content_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CAliPayResult::mutable_content() {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  return content_;
+}
+inline ::std::string* CAliPayResult::release_content() {
+  clear_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = content_;
+    content_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CAliPayResult::set_allocated_content(::std::string* content) {
+  if (content_ != &::google::protobuf::internal::kEmptyString) {
+    delete content_;
+  }
+  if (content) {
+    set_has_content();
+    content_ = content;
+  } else {
+    clear_has_content();
+    content_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// SAliPayResult
+
+// required uint32 cmd = 1 [default = 20505];
+inline bool SAliPayResult::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SAliPayResult::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SAliPayResult::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SAliPayResult::clear_cmd() {
+  cmd_ = 20505u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 SAliPayResult::cmd() const {
+  return cmd_;
+}
+inline void SAliPayResult::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional uint32 err = 6;
+inline bool SAliPayResult::has_err() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SAliPayResult::set_has_err() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SAliPayResult::clear_has_err() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SAliPayResult::clear_err() {
+  err_ = 0u;
+  clear_has_err();
+}
+inline ::google::protobuf::uint32 SAliPayResult::err() const {
+  return err_;
+}
+inline void SAliPayResult::set_err(::google::protobuf::uint32 value) {
   set_has_err();
   err_ = value;
 }

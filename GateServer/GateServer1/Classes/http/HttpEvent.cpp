@@ -199,6 +199,7 @@ void HttpEvent::requestData(string url, YMSocketData sd){
 		delete out;
 		HttpLogic::getIns()->respondleLogic(sd);
 	}
+	
 	curl_easy_cleanup(curl);
 }
 
@@ -236,7 +237,7 @@ void httpd_ALIPayhandler(struct evhttp_request *req, void *arg) {
 
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("slipay respond:%s:%d\n", ip.c_str(), port);
+	printf("alipay respond:%s:%d\n", ip.c_str(), port);
 
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);
@@ -244,6 +245,7 @@ void httpd_ALIPayhandler(struct evhttp_request *req, void *arg) {
 	char *buff = (char *)EVBUFFER_DATA(buffer);
 	if (buff){
 		HttpAliPay::getIns()->respondResult(buff);
+		HttpEvent::getIns()->SendMsg("1111", req);
 	}
 }
 
