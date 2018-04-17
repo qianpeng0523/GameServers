@@ -26,6 +26,7 @@ public:
 	static HttpAliPay *getIns();
 	
 	SAliPayOrder requestOrder(string uid, string shopid, float price, string body, string ip);
+	void respondResult(string content, struct evhttp_request *req = NULL);
 
 	void update(float dt);
 	void openUpdate(bool isopen);

@@ -5,6 +5,7 @@
 #include "HttpLogic.h"
 #include "XmlConfig.h"
 #include "HttpPay.h"
+#include "HttpAliPay.h"
 
 HttpEvent *HttpEvent::m_ins = NULL;
 
@@ -235,19 +236,14 @@ void httpd_ALIPayhandler(struct evhttp_request *req, void *arg) {
 
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("requset:%s:%d\n", ip.c_str(), port);
+	printf("slipay respond:%s:%d\n", ip.c_str(), port);
 
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);
 
 	char *buff = (char *)EVBUFFER_DATA(buffer);
 	if (buff){
-		string result = buff;
-// 		char *out = new char[sz + 1];
-// 		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
-// 		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
-// 		delete out;
-// 		HttpEvent::getIns()->SendMsg(sd, req);
+		HttpAliPay::getIns()->respondResult(buff);
 	}
 }
 
@@ -262,7 +258,7 @@ void httpd_WXPayhandler(struct evhttp_request *req, void *arg) {
 
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("requset:%s:%d\n", ip.c_str(), port);
+	printf("weixin respond:%s:%d\n", ip.c_str(), port);
 
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);

@@ -4,8 +4,8 @@
 #include "redis.h"
 #include "Common.h"
 #include "StatTimer.h"
-
-
+#include "LibEvent.h"
+#include "HttpPay.h"
 HttpAliPay *HttpAliPay::m_Ins = NULL;
 
 HttpAliPay::HttpAliPay(){
@@ -74,13 +74,57 @@ size_t read_data2(void* buffer, size_t size, size_t nmemb, void *stream)
 	return size*nmemb;
 }
 
+void HttpAliPay::respondResult(string content, struct evhttp_request *req ){
+	
+	YMSocketData sd(content);
+	string resultStatus = sd["resultStatus"].asString();
+	if (resultStatus.compare("9000") == 0){
+		CSJson::Value result = sd["result"];
+		string sign = result["sign"].asString();
+		string sign_type = result["sign_type"].asString();
+		CSJson::Value response = result["alipay_trade_app_pay_response"];
+		string code = response["code"].asString();
+		string out_trade_no = response["out_trade_no"].asString();
+		string trade_no = response["trade_no"].asString();
+		string total_amount = response["total_amount"].asString();
+		string seller_id = response["seller_id"].asString();
+		string app_id = response["app_id"].asString();
+		//通过out_trade_no获取uid，并发送货物给用户
+		if (app_id.compare(ALIAPPID) == 0){
+			int len = 0;
+			char *dd = m_pRedis->get("trade" + out_trade_no, len);
+			if (dd){
+				m_pRedis->delKey("trade" + out_trade_no);
+				if (req){
+					HttpEvent::getIns()->SendMsg("success", req);
+				}
+				string uid = dd;
+				ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
+				if (data){
+					int fd = data->_fd;
+					dd = m_pRedis->get("shop" + out_trade_no, len);
+					if (dd){
+						m_pRedis->delKey("shop" + out_trade_no);
+						string shopid = dd;
+						ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+						if (si.consume().number() == atoi(total_amount.c_str())){
+							Reward rew = si.prop();
+							HttpPay::getIns()->NoticePushCurrency(rew, uid);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, string body, string ip){
 	time_t t = time(0);
 	char tmp[64];
 	strftime(tmp, sizeof(tmp), "%Y-%m-%d %X", localtime(&t));
-
+	string outtradeno = XXIconv::GBK2UTF(getOutTradeNo().c_str());
 	JsonMap contentMap;
-	contentMap.insert(JsonMap::value_type(JsonType("out_trade_no"), JsonType(XXIconv::GBK2UTF(getOutTradeNo().c_str()).c_str())));
+	contentMap.insert(JsonMap::value_type(JsonType("out_trade_no"), JsonType(outtradeno.c_str())));
 	contentMap.insert(JsonMap::value_type(JsonType("total_amount"), JsonType(price)));
 	contentMap.insert(JsonMap::value_type(JsonType("subject"), body.c_str()));
 	string content = JsonUtil::objectToString(contentMap);
@@ -106,8 +150,23 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 
 	string responseContent = analyzeResponse(responseStr);
 	
+	//记录订单
+	m_pRedis->List("aliout_trade_no", (char *)outtradeno.c_str());
+	m_pRedis->set("trade" + outtradeno, (char *)uid.c_str(), uid.length());
+	m_pRedis->set("shop" + outtradeno, (char *)shopid.c_str(), shopid.length());
 	//记录下单记录
+	PayRecord pr;
+	pr.set_userid(uid);
+	pr.set_attach(shopid);
+	pr.set_body(body);
+	pr.set_out_trade_no(outtradeno);
+	pr.set_time_start(tmp);
+	pr.set_spbill_create_ip(ip);
+	char buff[30];
+	sprintf(buff, "%g", price * 100);
+	pr.set_total_fee(buff);
 
+	m_pRedis->List(pr.GetTypeName(), &pr);
 
 	//传给客户端
 	contentMap.insert(JsonMap::value_type(JsonType("product_code"), JsonType("QUICK_MSECURITY_PAY")));

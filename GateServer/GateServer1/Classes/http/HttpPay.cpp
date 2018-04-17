@@ -18,7 +18,7 @@ HttpPay *HttpPay::m_Ins = NULL;
 // string starttime = ordermap.at("time_start");
 // string endtime = ordermap.at("time_expire");
 
-string payrecord[] = {"prepay_id","attach","out_trade_no","userid","time_start","time_expire","body","total_fee","spbill_create_ip"};
+string HttpPay::payrecord[9] = { "prepay_id", "attach", "out_trade_no", "userid", "time_start", "time_expire", "body", "total_fee", "spbill_create_ip" };
 
 HttpPay::HttpPay(){
 	m_count = 0;

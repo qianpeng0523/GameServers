@@ -30,6 +30,7 @@ public:
 	void checkPay();
 	
 	void NoticePushCurrency(Reward rd,string uid);
+	static string payrecord[9];
 private:
 	static HttpPay *m_Ins;
 	bool m_isopen;
