@@ -269,6 +269,7 @@ message CAliPayOrder
     required uint32 	cmd 	= 1[default=0x5018];  	//
 	optional uint32 	id  	= 2;					//
 	optional string	 	body	= 3;					//
+	optional uint32 	type  	= 4;					//1java 2非java
 }
 
 message SAliPayOrder
@@ -278,6 +279,19 @@ message SAliPayOrder
 	optional string 	appid 		= 3;					//
 	optional string 	timestamp 	= 4;					//
 	optional string 	privatekey 	= 5;					//
+	optional uint32 	err  		= 6;					//
+}
+
+//CAliPayOrder 支付宝支付成功通知
+message CAliPayResult
+{
+    required uint32 	cmd 	= 1[default=0x5019];  	//
+	optional string	 	content	= 2;					//
+}
+
+message SAliPayResult
+{
+    required uint32 	cmd 		= 1[default=0x5019];  	//
 	optional uint32 	err  		= 6;					//
 }
 
