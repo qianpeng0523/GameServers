@@ -25,6 +25,7 @@ public:
 	bool set(std::string key, char* value,int len);
 	bool set(string key,int value);
 	char* get(std::string key,int &len);
+	bool delKey(std::string key);
 
 	bool Hash(std::string key,Message *msg);//比如配置那些（单独） 用户信息
 	bool Hash(std::string key,std::string name,std::string value);

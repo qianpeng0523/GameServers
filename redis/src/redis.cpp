@@ -132,6 +132,32 @@ void redis::release()
 	}
 }
 
+bool redis::delKey(std::string key){
+	//设置key和value关系，插入redis
+	if (!this->m_pConnect){
+		reconnect();
+		return false;
+	}
+	
+	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "del %s", key.c_str());
+	if (!r)
+	{
+		printf("set redis faliled\n");
+		return false;
+	}
+
+	//执行失败
+	if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "OK") == 0))
+	{
+		printf("set redis faliled\n");
+		freeReplyObject(r);
+		return false;
+	}
+	//printf("set redis success\n");
+	freeReplyObject(r);
+	return true;
+}
+
 bool redis::set(std::string key, char* value, int len)
 {
 	//设置key和value关系，插入redis
