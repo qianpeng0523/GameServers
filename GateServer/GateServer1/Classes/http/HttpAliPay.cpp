@@ -92,6 +92,7 @@ void HttpAliPay::respondResult(string content, struct evhttp_request *req ){
 			m_pRedis->eraseList("aliout_trade_no", out_trade_no);
 			m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
 			m_pRedis->delKey("trade" + out_trade_no);
+			m_pRedis->delKey("tradetimeend" + out_trade_no);
 			if (req){
 				HttpEvent::getIns()->SendMsg("success", req);
 			}
@@ -117,8 +118,8 @@ void HttpAliPay::respondResult(string content, struct evhttp_request *req ){
 
 void HttpAliPay::respondQueryResult(string content){
 	YMSocketData sd(content);
-
-	CSJson::Value response = sd["alipay_trade_query_response"];
+	printf("%s\n",sd.getJsonString().c_str());
+	CSJson::Value response = sd;
 	string out_trade_no = response["out_trade_no"].asString();
 	string trade_no = response["trade_no"].asString();
 	string total_amount = response["total_amount"].asString();
@@ -150,6 +151,7 @@ void HttpAliPay::respondQueryResult(string content){
 		m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
 		m_pRedis->delKey("trade" + out_trade_no);
 		m_pRedis->delKey("shop" + out_trade_no);
+		m_pRedis->delKey("tradetimeend" + out_trade_no);
 	}
 }
 
@@ -432,9 +434,10 @@ void HttpAliPay::checkPay(){
 				string tradetime = m_pRedis->get("tradetimeend"+out,len);
 				time_t timeend = atol(tradetime.c_str());
 				if (timeend < Common::getTime()){
+					m_pRedis->eraseList("aliout_trade_no", out);
+					m_pRedis->delKey("aliout_trade_no_hash" + out);
 					m_pRedis->delKey("trade" + out);
 					m_pRedis->delKey("shop" + out);
-					m_pRedis->eraseList("aliout_trade_no", out);
 					m_pRedis->delKey("tradetimeend" + out);
 					requestCloseOrder(mp);
 				}
@@ -444,9 +447,10 @@ void HttpAliPay::checkPay(){
 			}
 		}
 		else{
+			m_pRedis->eraseList("aliout_trade_no", out);
+			m_pRedis->delKey("aliout_trade_no_hash" + out);
 			m_pRedis->delKey("trade" + out);
 			m_pRedis->delKey("shop" + out);
-			m_pRedis->eraseList("aliout_trade_no", out);
 			m_pRedis->delKey("tradetimeend" + out);
 		}
 		delete out1;
