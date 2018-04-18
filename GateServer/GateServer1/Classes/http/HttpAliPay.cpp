@@ -75,48 +75,82 @@ size_t read_data2(void* buffer, size_t size, size_t nmemb, void *stream)
 }
 
 void HttpAliPay::respondResult(string content, struct evhttp_request *req ){
-	
 	YMSocketData sd(content);
-	string resultStatus = sd["resultStatus"].asString();
-	if (resultStatus.compare("9000") == 0){
-		CSJson::Value result = sd["result"];
-		string sign = result["sign"].asString();
-		string sign_type = result["sign_type"].asString();
-		CSJson::Value response = result["alipay_trade_app_pay_response"];
-		string code = response["code"].asString();
-		string out_trade_no = response["out_trade_no"].asString();
-		string trade_no = response["trade_no"].asString();
-		string total_amount = response["total_amount"].asString();
-		string seller_id = response["seller_id"].asString();
-		string app_id = response["app_id"].asString();
-		//通过out_trade_no获取uid，并发送货物给用户
-		if (app_id.compare(ALIAPPID) == 0){
-			int len = 0;
-			char *dd = m_pRedis->get("trade" + out_trade_no, len);
-			if (dd){
-				m_pRedis->delKey("trade" + out_trade_no);
-				if (req){
-					HttpEvent::getIns()->SendMsg("success", req);
-				}
-				string uid = dd;
-				ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
-				if (data){
-					int fd = data->_fd;
-					dd = m_pRedis->get("shop" + out_trade_no, len);
-					if (dd){
-						m_pRedis->delKey("shop" + out_trade_no);
-						string shopid = dd;
-						ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
-						if (si.consume().number() == atoi(total_amount.c_str())){
-							Reward rew = si.prop();
-							HttpPay::getIns()->NoticePushCurrency(rew, uid);
-						}
+	
+	CSJson::Value response = sd["alipay_trade_app_pay_response"];
+	string code = response["code"].asString();
+	string out_trade_no = response["out_trade_no"].asString();
+	string trade_no = response["trade_no"].asString();
+	string total_amount = response["total_amount"].asString();
+	string seller_id = response["seller_id"].asString();
+	string app_id = response["app_id"].asString();
+	//通过out_trade_no获取uid，并发送货物给用户
+	if (app_id.compare(ALIAPPID) == 0){
+		int len = 0;
+		char *dd = m_pRedis->get("trade" + out_trade_no, len);
+		if (dd){
+			m_pRedis->eraseList("aliout_trade_no", out_trade_no);
+			m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
+			m_pRedis->delKey("trade" + out_trade_no);
+			if (req){
+				HttpEvent::getIns()->SendMsg("success", req);
+			}
+			string uid = dd;
+			ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
+			if (data){
+				int fd = data->_fd;
+				dd = m_pRedis->get("shop" + out_trade_no, len);
+				if (dd){
+					m_pRedis->delKey("shop" + out_trade_no);
+					string shopid = dd;
+					ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+					if (si.consume().number() == atoi(total_amount.c_str())){
+						Reward rew = si.prop();
+						HttpPay::getIns()->NoticePushCurrency(rew, uid);
 					}
 				}
 			}
 		}
 	}
 	
+}
+
+void HttpAliPay::respondQueryResult(string content){
+	YMSocketData sd(content);
+
+	CSJson::Value response = sd["alipay_trade_query_response"];
+	string out_trade_no = response["out_trade_no"].asString();
+	string trade_no = response["trade_no"].asString();
+	string total_amount = response["total_amount"].asString();
+	int len = 0;
+	char *dd = m_pRedis->get("trade" + out_trade_no, len);
+	if (dd){
+		m_pRedis->eraseList("aliout_trade_no", out_trade_no);
+		m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
+		m_pRedis->delKey("trade" + out_trade_no);
+		m_pRedis->delKey("tradetimeend" + out_trade_no);
+		string uid = dd;
+		ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
+		if (data){
+			int fd = data->_fd;
+			dd = m_pRedis->get("shop" + out_trade_no, len);
+			if (dd){
+				m_pRedis->delKey("shop" + out_trade_no);
+				string shopid = dd;
+				ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+				if (si.consume().number() == atoi(total_amount.c_str())){
+					Reward rew = si.prop();
+					HttpPay::getIns()->NoticePushCurrency(rew, uid);
+				}
+			}
+		}
+	}
+	else{
+		m_pRedis->eraseList("aliout_trade_no", out_trade_no);
+		m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
+		m_pRedis->delKey("trade" + out_trade_no);
+		m_pRedis->delKey("shop" + out_trade_no);
+	}
 }
 
 SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, string body, string ip, int type){
@@ -138,6 +172,7 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 	requestPairs.insert(make_pair("sign_type", "RSA2"));
 	requestPairs.insert(make_pair("timestamp", tmp));
 	requestPairs.insert(make_pair("version", "1.0"));
+	requestPairs.insert(make_pair("notify_url", "http://www.lesharecs.com/alipaycallback"));
 	
 	string signA = XXIconv::GBK2UTF(XmlConfig::getIns()->setJsonData(requestPairs).c_str());
 	
@@ -154,14 +189,10 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 	//记录订单
 	m_pRedis->List("aliout_trade_no", (char *)outtradeno.c_str());
 	m_pRedis->set("trade" + outtradeno, (char *)uid.c_str(), uid.length());
+	m_pRedis->set("tradetimeend" + outtradeno, Common::getTime()+2*60);
 	m_pRedis->set("shop" + outtradeno, (char *)shopid.c_str(), shopid.length());
 	for (auto itr = requestPairs.begin(); itr != requestPairs.end(); itr++){
-		if (itr->first.compare("timestamp") == 0){
-			m_pRedis->Hash("aliout_trade_no_hash" + outtradeno, "tm", itr->second);
-		}
-		else{
-			m_pRedis->Hash("aliout_trade_no_hash" + outtradeno, itr->first, itr->second);
-		}
+		m_pRedis->Hash("aliout_trade_no_hash" + outtradeno, itr->first, itr->second);
 	}
 	//记录下单记录
 	PayRecord pr;
@@ -190,7 +221,7 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 	spo.set_appid(ALIAPPID);
 	spo.set_timestamp(tmp);
 	spo.set_orderinfo(con);
-	spo.set_privatekey(type==1?ALIPRIKEY:ALIPRIKEY_0);
+	spo.set_privatekey(type==1?ALIPRIKEY_0:ALIPRIKEY);
 	return spo;
 }
 
@@ -382,32 +413,60 @@ void HttpAliPay::checkPay(){
 		string out = out1;
 		map<string,string>mp= m_pRedis->getHash("aliout_trade_no_hash" + out);
 		if (!mp.empty()){
-			HttpClient httpClient;
-			if (mp.find("tm") != mp.end()){
-				string tt = mp.at("tm");
-				mp.erase(mp.find("tm"));
-				mp.insert(make_pair("timestamp",tt));
+			if (mp.find("method") != mp.end()){
+				mp.at("method")="alipay.trade.query";
 			}
+			mp.erase(mp.find("sign"));
+			string signA = XXIconv::GBK2UTF(XmlConfig::getIns()->setJsonData(mp).c_str());
+			string sign = rsaSign(signA, m_aliprivatekey);
+			mp.insert(make_pair("sign", sign));
+			HttpClient httpClient;
 			string responseStr = httpClient.sendSyncRequest(ALIPAYURL, mp);
 			DebugLog("Response:%s", responseStr.c_str());
 			string responseContent = analyzeResponse(responseStr);
 			YMSocketData sd(responseContent);
-			if (sd["resultStatus"].asString().compare("1000") != 0 && sd["resultStatus"].asString().compare("9000") != 0){
-				m_pRedis->delKey("trade" + out);
-				m_pRedis->delKey("shop" + out);
-				m_pRedis->eraseList("aliout_trade_no", out);
+			string code=sd["code"].asString();
+			
+			if (code.compare("40004")==0){
+				int len = 0;
+				string tradetime = m_pRedis->get("tradetimeend"+out,len);
+				time_t timeend = atol(tradetime.c_str());
+				if (timeend < Common::getTime()){
+					m_pRedis->delKey("trade" + out);
+					m_pRedis->delKey("shop" + out);
+					m_pRedis->eraseList("aliout_trade_no", out);
+					m_pRedis->delKey("tradetimeend" + out);
+					requestCloseOrder(mp);
+				}
 			}
-			else{
-				respondResult(responseContent);
+			else if(code.compare("10000")==0){
+				respondQueryResult(responseContent);
 			}
 		}
 		else{
 			m_pRedis->delKey("trade" + out);
 			m_pRedis->delKey("shop" + out);
 			m_pRedis->eraseList("aliout_trade_no", out);
+			m_pRedis->delKey("tradetimeend" + out);
 		}
 		delete out1;
 	}
+}
+
+void HttpAliPay::requestCloseOrder(map<string, string>mp){
+	if (mp.find("method") != mp.end()){
+		mp.at("method") = "alipay.trade.close";
+	}
+	mp.erase(mp.find("sign"));
+	string signA = XXIconv::GBK2UTF(XmlConfig::getIns()->setJsonData(mp).c_str());
+	string sign = rsaSign(signA, m_aliprivatekey);
+	mp.insert(make_pair("sign", sign));
+	HttpClient httpClient;
+	string responseStr = httpClient.sendSyncRequest(ALIPAYURL, mp);
+	DebugLog("Response:%s", responseStr.c_str());
+	string responseContent = analyzeResponse(responseStr);
+	DebugLog("[Response responseContent]:%s", responseStr.c_str());
+	m_pRedis->delKey("tradetimeend" + mp.find("out_trade_no")->second);
 }
 
 void HttpAliPay::openUpdate(bool isopen){

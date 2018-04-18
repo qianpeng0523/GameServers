@@ -73,3 +73,5 @@ using namespace Poco;
 //#define ALIPAYURL "https://openapi.alipay.com/gateway.do"
 #define ALIPAYURL "https://openapi.alipaydev.com/gateway.do"
 #define CHARSET "utf-8"
+
+#define KONGGE "^"

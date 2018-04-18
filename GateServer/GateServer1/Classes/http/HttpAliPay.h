@@ -27,6 +27,9 @@ public:
 	
 	SAliPayOrder requestOrder(string uid, string shopid, float price, string body, string ip,int type);
 	void respondResult(string content, struct evhttp_request *req = NULL);
+	void respondQueryResult(string content);
+
+	void requestCloseOrder(map<string,string>mp);
 
 	void update(float dt);
 	void openUpdate(bool isopen);

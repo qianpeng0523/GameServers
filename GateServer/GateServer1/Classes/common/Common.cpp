@@ -38,7 +38,9 @@ std::string& Common::replace_all(std::string& str, const std::string& old_value,
 
 std::string&   Common::replace_all(char *str, const   std::string&   old_value, const   std::string&   new_value){
 	std::string ss=str;
-	return replace_all(ss, old_value, new_value);
+	replace_all(ss, old_value, new_value);
+	memcpy(str,ss.c_str(),ss.length());
+	return ss;
 }
 
 std::string& Common::replace_all_distinct(std::string&   str, const   std::string&   old_value, const   std::string&   new_value)
