@@ -1,6 +1,6 @@
 #include "redis.h"
 #include "fmacros.h"
-
+#include "Common.h"
 #ifndef _WIN32
 #include <unistd.h>
 #endif
@@ -275,6 +275,7 @@ bool redis::Hash(std::string key, Message *msg){
 }
 
 bool redis::Hash(std::string key, std::string name, std::string value){
+	Common::replace_all(value, " ", KONGGE);
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, ("hset "+key+" "+name+" "+value).c_str());
 	if (!r)
 	{
@@ -359,6 +360,42 @@ Message *redis::getHash(std::string key, string msgname){
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
 	return msg;
+}
+
+map<string, string> redis::getHash(std::string key){
+	map<string, string>datas;
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "hgetall %s", key.c_str());
+	if (!m_pReply)
+	{
+		reconnect();
+		printf("datas value failed\n");
+		return datas;
+	}
+	//get成功返回结果为 REDIS_REPLY_STRING 
+	if (m_pReply->type == REDIS_REPLY_ERROR)
+	{
+		printf("get redis faliled\n");
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return datas;
+	}
+	int sz = m_pReply->elements;
+	for (int i = 0; i < sz; i += 2){
+		redisReply *rpname = m_pReply->element[i];
+		redisReply *rpvalues = m_pReply->element[i + 1];
+		string name = rpname->str;
+		char* value = rpvalues->str;
+		Common::replace_all(value, KONGGE, " ");
+		int len = rpvalues->len;
+		if (strcmp(value, "default") == 0){
+			strcpy(value, "");
+		}
+		datas.insert(make_pair(name, value));
+	}
+	printf("get redis success\n");
+	freeReplyObject(m_pReply);
+	m_pReply = NULL;
+	return datas;
 }
 
 bool redis::List(std::string key, char* value){

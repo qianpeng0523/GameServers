@@ -31,6 +31,7 @@ public:
 	bool Hash(std::string key,std::string name,std::string value);
 	bool addHash(std::string key,std::string name,int value);
 	Message *getHash(std::string key,string msgname);
+	map<string, string> getHash(std::string key);
 
 	bool List(std::string key, Message *msg);//typename+id(唯一):添加元素列表 比如战绩那些（id是房间号）
 	bool List(std::string key, char* value);
