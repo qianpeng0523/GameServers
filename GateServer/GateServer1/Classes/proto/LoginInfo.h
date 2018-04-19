@@ -25,7 +25,8 @@ public:
 	void SendSWXLogin(SWXLogin sl, int fd);
 	void HandlerCWXLogin(ccEvent *event);
 
-
+	void SendSPing(SPing sp,int fd);
+	void HandlerCPing(ccEvent *event);
 private:
 	static LoginInfo *m_shareLoginInfo;
 	RedisPut *m_pRedisPut;

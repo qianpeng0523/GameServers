@@ -53,6 +53,8 @@ private:
 	void eraseClientData(int fd);
 	void eraseClientData(string seesionid);
 	void resetConn(Conn *pConn);
+
+	
 private:
 	map<int ,ClientData *>m_ClientDatas;
 	static LibEvent *m_ins;

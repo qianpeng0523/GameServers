@@ -266,6 +266,7 @@ void LibEvent::DoError(struct bufferevent *bev, short error, void *ctx)
 
 void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, struct sockaddr *sa, int socklen, void *user_data)
 {
+	LibEvent::getIns()->eraseClientData(fd);
 	//此处为监听线程的event.不做处理.
 	Server *pServer = (Server *)user_data;
 	//主线程处做任务分发.

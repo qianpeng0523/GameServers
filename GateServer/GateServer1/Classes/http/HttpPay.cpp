@@ -270,6 +270,17 @@ bool HttpPay::respondCheck(string content){
 				m_pRedis->eraseList("out_trade_no", out_trade_no);
 				return true;
 			}
+			else if (itr->second.compare("NOTPAY") == 0){
+				//退款
+				time_t t= Common::getTime();
+				int len = 0;
+				char* tend= m_pRedis->get("wxout_trade_noendtime" + out_trade_no,len);
+				if (!tend||(tend&& atol(tend) >= t)){
+					m_pRedis->delKey("wxout_trade_noendtime" + out_trade_no);
+					m_pRedis->eraseList("out_trade_no", out_trade_no);
+				}
+				return true;
+			}
 		}
 		//等待支付结果
 	}
@@ -346,6 +357,7 @@ SWxpayOrder HttpPay::respondOrder(string content, map<string, string> ordermap){
 			//string status = XXIconv::GBK2UTF("下单成功，等待支付");
 			string out_trade_no = ordermap.find("out_trade_no")->second;
 			m_pRedis->List("out_trade_no", (char *)out_trade_no.c_str());
+			m_pRedis->set("wxout_trade_noendtime" + out_trade_no, Common::getTime() + 2 * 60);
 			//定时3分钟查询一次
 			string prepay_id = maps.find("prepay_id")->second;
 			string nonce_str = maps.find("nonce_str")->second;
