@@ -54,7 +54,8 @@ struct _Conn
 		index=-1;
 		owner=NULL;
 		next=NULL;
-		m_stamp = 0;
+		m_sendstamp = 0;
+		m_recvstamp = 0;
 	}
 	~_Conn()
 	{
@@ -65,7 +66,8 @@ struct _Conn
 	int index;
 	_Worker *owner;
 	_Conn *next;
-	int m_stamp;
+	int m_sendstamp;
+	int m_recvstamp;
 	string _servername;
 };
 //工作线程封装对象.
@@ -108,6 +110,7 @@ struct _ClientData
 	_Conn *_conn;
 	string _sessionID;
 	string m_ip;
+	
 };
 
 typedef struct _Server Server;

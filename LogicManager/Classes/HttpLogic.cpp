@@ -36,17 +36,18 @@ void HttpLogic::requestManagerData(){
 	string url=sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0A;
+	sd["type"] = 3;
 	HttpEvent::getIns()->requestData(url,sd);
 }
 
 void HttpLogic::ManagerDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
 	if (err == 0){
-		SERVER_PORT = sd["serverport"].asInt();
-		HttpLogic::SERVER_CODE = sd["servername"].asString().c_str();
+		HttpLogic::SERVER_PORT = sd["port"].asInt();
+		HttpLogic::SERVER_CODE = sd["name"].asString().c_str();
 		std::cout << "socket start:" << HttpLogic::SERVER_PORT << std::endl;
 		LibEvent *clib = LibEvent::getIns();
-		clib->StartServer(SERVER_PORT, 2, 5000, 600, 600);
+		clib->StartServer(HttpLogic::SERVER_PORT, 2, 5000, 600, 600);
 		getchar();
 		clib->StopServer();
 	}
