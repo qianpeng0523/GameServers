@@ -63,7 +63,7 @@ void HttpPay::update(float dt){
 		m_pRedis->set("nonceid", INITNONCEID, strlen(INITNONCEID));
 		m_pRedis->set("outtradeno", INITNO, strlen(INITNO));
 	}
-	if (m_count % 30 == 0){
+	if (m_count % 120 == 0){
 		m_count = 0;
 		checkPay();
 	}
@@ -276,6 +276,7 @@ bool HttpPay::respondCheck(string content){
 				int len = 0;
 				char* tend= m_pRedis->get("wxout_trade_noendtime" + out_trade_no,len);
 				if (!tend||(tend&& atol(tend) >= t)){
+					closeOrder(out_trade_no);
 					m_pRedis->delKey("wxout_trade_noendtime" + out_trade_no);
 					m_pRedis->eraseList("out_trade_no", out_trade_no);
 				}
@@ -304,7 +305,7 @@ SWxpayOrder HttpPay::requestOrder(string uid, string shopid, int price, string b
 
 	time_t time = Common::getTime();
 	string starttime = Common::getTimeStr(time);
-	string endtime = Common::getTimeStr(time+2*60);
+	string endtime = Common::getTimeStr(time+10*60);
 	valuemap.insert(make_pair("time_start", starttime));
 	valuemap.insert(make_pair("time_expire", endtime));
 	char buff[30];
@@ -434,4 +435,24 @@ bool HttpPay::requestCheckKH(string transaction_id, bool traid){
 	valuemap.insert(make_pair("sign", sign));
 	string xml = XmlConfig::getIns()->setXmlData(valuemap);
 	return requestCheck(xml);
+}
+
+bool HttpPay::closeOrder(string out_trade_no){
+	map<string, string> valuemap;
+	valuemap.insert(make_pair("appid", APPID));
+	valuemap.insert(make_pair("mch_id", MCHID));
+	valuemap.insert(make_pair("nonce_str", getNonceId()));
+	valuemap.insert(make_pair("out_trade_no", out_trade_no));
+	string sign = createSign(valuemap);
+	valuemap.insert(make_pair("sign", sign));
+	string xml = XmlConfig::getIns()->setXmlData(valuemap);
+	string url = "https://api.mch.weixin.qq.com/pay/closeorder";
+	string content = HttpEvent::getIns()->requestData(url, xml.c_str(), read_data1);
+	map<string, string> vec = XmlConfig::getIns()->parseXmlData(content);
+	printf("closeOrder:%s\n", content.c_str());
+	string code ;
+	if (vec.find("return_code") != vec.end()){
+		code = vec.at("return_code");
+	}
+	return code.compare("SUCCESS")==0;
 }

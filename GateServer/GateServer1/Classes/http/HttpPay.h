@@ -15,6 +15,7 @@ public:
 	SWxpayOrder respondOrder(string content, map<string, string> ordermap);
 
 	void respondResult(string content,struct evhttp_request *req=NULL);
+	bool closeOrder(string out_trade_no);
 
 	bool requestCheck(string xml);
 	bool respondCheck(string content);

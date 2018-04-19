@@ -1,1 +1,11 @@
-{"openid":"oXlWd0XUddJ9ooT6rHHVGzKsmxUo","access_token":"8_ssG1VzUWY_jdKlWPyRQ0jva6gjYopinq0gmYVnSEqbffQyJQMPzKYYezDwOwJmfVyOVd1v_wa31tZDvz3lnMgcxEKJWp6d8g-tuas_RxVFs","expires_in":7200,"refresh_token":"8_ssG1VzUWY_jdKlWPyRQ0jj7paG_hE7Rh5KTXmoXM92d2trDhfgGH-Dmt7dPKe6Jy-waWCtRg4t6_L0I3WrZTtUs-q8FIMbDIGVlYnNEzrLM","scope":"snsapi_base,snsapi_userinfo,"}
+<xml><return_code><![CDATA[SUCCESS]]></return_code>
+<return_msg><![CDATA[OK]]></return_msg>
+<appid><![CDATA[wxd5d25d59ae13ac95]]></appid>
+<mch_id><![CDATA[1501106141]]></mch_id>
+<nonce_str><![CDATA[sKNSNACAwMl8mIDx]]></nonce_str>
+<sign><![CDATA[6EA5E6D97C46C91337FE38063BDCD2F9]]></sign>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<out_trade_no><![CDATA[20180418YLHD00000002]]></out_trade_no>
+<trade_state><![CDATA[NOTPAY]]></trade_state>
+<trade_state_desc><![CDATA[订单未支付]]></trade_state_desc>
+</xml>
