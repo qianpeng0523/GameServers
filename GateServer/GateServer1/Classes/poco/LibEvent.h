@@ -8,6 +8,7 @@
 #include "CSVDataInfo.h"
 #include "CLibEventData.h"
 
+
 class LibEvent :public Object
 {
 public:
@@ -33,6 +34,7 @@ public:
 	ClientData * getClientData(string sessionid);
 	ClientData * getClientDataByUID(string uid);
 	string getUID(int fd);
+	void eraseClientData(int fd);
 private:
 	static void DoError(struct bufferevent *bev, short error, void *ctx);
 	void CloseConn(Conn *pConn, int nFunID);
@@ -50,7 +52,7 @@ private:
 	
 	void inserClientData(int fd,ClientData *data);
 	
-	void eraseClientData(int fd);
+	
 	void eraseClientData(string seesionid);
 	void resetConn(Conn *pConn);
 

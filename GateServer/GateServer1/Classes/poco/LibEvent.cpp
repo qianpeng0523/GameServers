@@ -2,7 +2,7 @@
 #include "LogicServerInfo.h"
 #include "LoginInfo.h"
 #include "HttpLogic.h"
-
+#include "Common.h"
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()
 {
@@ -154,6 +154,10 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 	size_t len = bufferevent_read(bev, headchar, 10);
 	if (len >= 0){
 		LibEvent *pLibEvent = LibEvent::getIns();
+		ClientData *data = pLibEvent->getClientData(c->fd);
+		if (data){
+			data->m_lasttime = Common::getTime();
+		}
 		Head *testhead = (Head*)headchar;
 		string serverdest = pLibEvent->getReq(testhead);
 		int cmd = pLibEvent->getCMD(testhead);
@@ -266,7 +270,6 @@ void LibEvent::DoError(struct bufferevent *bev, short error, void *ctx)
 
 void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, struct sockaddr *sa, int socklen, void *user_data)
 {
-	LibEvent::getIns()->eraseClientData(fd);
 	//此处为监听线程的event.不做处理.
 	Server *pServer = (Server *)user_data;
 	//主线程处做任务分发.
@@ -291,6 +294,7 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	data->_fd = fd;
 	data->_ip = ip;
 	data->_conn = pConn;
+	data->m_lasttime = Common::getTime();
 	LibEvent *pLibEvent = LibEvent::getIns();
 	pLibEvent->inserClientData(fd, data);
 	bufferevent_enable(pConn->bufev, EV_READ | EV_WRITE);

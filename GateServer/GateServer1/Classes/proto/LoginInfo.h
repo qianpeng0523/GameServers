@@ -27,6 +27,9 @@ public:
 
 	void SendSPing(SPing sp,int fd);
 	void HandlerCPing(ccEvent *event);
+
+public:
+	void eraseClientData(int fd);
 private:
 	static LoginInfo *m_shareLoginInfo;
 	RedisPut *m_pRedisPut;

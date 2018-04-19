@@ -217,3 +217,7 @@ void LoginInfo::HandlerCPing(ccEvent *event){
 	SPing sp;
 	SendSPing(sp, event->m_fd);
 }
+
+void LoginInfo::eraseClientData(int fd){
+	LibEvent::getIns()->eraseClientData(fd);
+}
