@@ -451,8 +451,8 @@ bool HttpPay::closeOrder(string out_trade_no){
 	map<string, string> vec = XmlConfig::getIns()->parseXmlData(content);
 	printf("closeOrder:%s\n", content.c_str());
 	string code ;
-	if (vec.find("return_code") != vec.end()){
-		code = vec.at("return_code");
+	if (vec.find("result_code") != vec.end()){
+		code = vec.at("result_code");
 	}
 	return code.compare("SUCCESS")==0;
 }
