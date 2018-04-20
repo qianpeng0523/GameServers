@@ -106,6 +106,7 @@ struct _ClientData:public Object
 	_ClientData(){
 		_fd = 0;
 		_conn = NULL;
+		m_lasttime = 0;
 		StatTimer::getIns()->scheduleSelector(this, schedule_selector(_ClientData::update), 1.0);
 	}
 	~_ClientData(){
@@ -113,7 +114,7 @@ struct _ClientData:public Object
 	}
 	void update(float dt){
 		time_t tt = Common::getTime();
-		if (tt - m_lasttime > 2 * 60){
+		if (m_lasttime>0&&tt - m_lasttime > 2 * 60){
 			LoginInfo::getIns()->eraseClientData(_fd);
 		}
 	}
