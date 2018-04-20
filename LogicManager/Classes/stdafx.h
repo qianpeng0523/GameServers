@@ -65,3 +65,4 @@ typedef void (Object::*Http_CallFun)(YMSocketData );
 #define sqlhttp "http://www.lesharecs.com:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+#define MAXSTAMP 128

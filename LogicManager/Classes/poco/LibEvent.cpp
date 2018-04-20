@@ -165,7 +165,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		int stamp = pLibEvent->getStamp(testhead);
 		char *buffer = new char[bodylen];
 		len = bufferevent_read(bev, buffer, bodylen);
-		c->m_recvstamp = (c->m_recvstamp + 1) % 256;
+		c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
 		if (len == bodylen&&c->m_recvstamp == stamp){
 			char *out = new char[bodylen + 1];
 			HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
@@ -187,7 +187,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_socket_t fd){
 	ClientData *pdata = getClientData(fd);
 	if (pdata&&pdata->_conn){
-		pdata->_conn->m_sendstamp = (pdata->_conn->m_sendstamp + 1) % 256;
+		pdata->_conn->m_sendstamp = (pdata->_conn->m_sendstamp + 1) % MAXSTAMP;
 		int len = msg->ByteSize();
 		char *buffer = new char[HEADLEN + len];
 		memset(buffer, 0, HEADLEN + len);
