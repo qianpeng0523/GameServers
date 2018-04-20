@@ -97,6 +97,8 @@
     <ClCompile Include="Classes\cc\Hall.cpp" />
     <ClCompile Include="Classes\cc\LogicServer.cpp" />
     <ClCompile Include="Classes\cc\Login.cpp" />
+    <ClCompile Include="Classes\cc\Room.cpp" />
+    <ClCompile Include="Classes\cc\RoomLogic.cpp" />
     <ClCompile Include="Classes\cc\Vo.cpp" />
     <ClCompile Include="Classes\common\Common.cpp" />
     <ClCompile Include="Classes\common\CSVDataHelper.cpp" />
@@ -143,6 +145,8 @@
     <ClInclude Include="Classes\cc\Hall.h" />
     <ClInclude Include="Classes\cc\LogicServer.h" />
     <ClInclude Include="Classes\cc\Login.h" />
+    <ClInclude Include="Classes\cc\Room.h" />
+    <ClInclude Include="Classes\cc\RoomLogic.h" />
     <ClInclude Include="Classes\cc\Vo.h" />
     <ClInclude Include="Classes\common\Common.h" />
     <ClInclude Include="Classes\common\CSVBaseData.h" />

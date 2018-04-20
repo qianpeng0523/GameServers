@@ -186,6 +186,12 @@
     <ClCompile Include="..\..\redis\src\win32fixes.c">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\cc\Room.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\RoomLogic.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -355,6 +361,12 @@
     </ClInclude>
     <ClInclude Include="..\..\redis\src\win32fixes.h">
       <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\Room.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\RoomLogic.h">
+      <Filter>源文件\Classes\cc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

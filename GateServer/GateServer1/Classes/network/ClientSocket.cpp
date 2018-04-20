@@ -99,7 +99,7 @@ int ClientSocket::GetError() {
 }
 
 void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
-	m_sendstamp = (m_sendstamp + 1) % 256;
+	m_sendstamp = (m_sendstamp + 1) % MAXSTAMP;
 	int len = msg->ByteSize();
 	char *buffer = new char[HEADLEN + len];
 	memset(buffer, 0, HEADLEN + len);
@@ -161,7 +161,7 @@ void *ClientSocket::threadHandler(void *arg) {
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
 
-			p->m_recvstamp = (p->m_recvstamp+1)%256;
+			p->m_recvstamp = (p->m_recvstamp + 1) % MAXSTAMP;
 			if (stamp == p->m_recvstamp){
 				char *out = new char[len+1];
 				HttpLogic::getIns()->aes_decrypt(temp, len, out);

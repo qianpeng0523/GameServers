@@ -75,3 +75,4 @@ using namespace Poco;
 #define CHARSET "utf-8"
 
 #define KONGGE "^"
+#define MAXSTAMP 128
