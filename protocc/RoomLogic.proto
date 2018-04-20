@@ -1,0 +1,174 @@
+syntax = "proto2";
+package protocol;
+import "Vo.proto";
+import "Room.proto";
+
+//-------------打牌逻辑--------------------//
+//选庄
+message SSelectZhuang{
+	optional uint32 	cmd 			= 1[default=0x8009];  	//
+	optional uint32 	zhuang 			= 2;
+	optional string 	zuid 			= 3;
+	optional bytes 		zdice 			= 4;
+}
+
+//打骰子
+message CDice{
+	optional uint32 	cmd 			= 1[default=0x800A];  	//
+}
+
+message SDice{
+	optional uint32 	cmd 			= 1[default=0x800A];  	//
+	optional bytes 		dice 			= 2;
+	optional uint32 	err 			= 3;  					//
+}
+
+//庄的手牌
+message SZhuangCard{
+	optional uint32 		cmd 			= 1[default=0x800B];  	//
+	optional bytes			cards			= 2;
+	optional uint32			hu				= 3;
+	repeated CPGCardData	gang			= 4;//暗杠
+	optional TingCard		ting			= 5;//听牌
+}
+//闲家的手牌
+message SCard{
+	optional uint32 	cmd 			= 1[default=0x800B];  	//
+	optional bytes		cards			= 2;
+}
+
+//出牌
+message CDiscard{
+	optional uint32 	cmd 			= 1[default=0x800C];  	//
+	optional uint32 	card 			= 2;
+}
+
+message SDiscard{
+	optional uint32 		cmd 			= 1[default=0x800C];  	//
+	optional uint32 		card 			= 2;
+	optional uint32			position		= 3;//位置
+	optional uint32			uid				= 4;
+	repeated CPGCardData	cpg				= 5;
+	optional uint32			hu				= 6;
+	optional bytes			ting			= 7;//出牌的人才会给
+	optional uint32 		err 			= 8;  					//
+}
+
+//自己抓牌
+message SDraw{
+	optional uint32 		cmd 			= 1[default=0x800D];  	//
+	optional uint32 		card 			= 2;
+	repeated CPGCardData	cpg				= 3;
+	optional uint32			hu				= 4;
+	optional bytes			ting			= 5;
+	optional bool			gang			= 6;//是否是杠抓
+}
+//其他人抓牌
+message SOtherDraw{
+	optional uint32 		cmd 			= 1[default=0x800E];  	//
+	optional uint32 		card 			= 2;
+	optional uint32			pos				= 3;
+	optional string			uid				= 4;
+}
+
+message CChi{
+	optional uint32 		cmd 			= 1[default=0x8010];  	//
+	optional bytes 			card 			= 2;
+}
+
+message SChi{
+	optional uint32 		cmd 			= 1[default=0x8010];  	//
+	optional bytes 			card 			= 2;
+	optional uint32			pos				= 3;
+	optional string			uid				= 4;
+	optional uint32 		err 			= 5;  					//
+}
+
+message CPeng{
+	optional uint32 		cmd 			= 1[default=0x8011];  	//
+	optional uint32 		card 			= 2;
+}
+
+message SPeng{
+	optional uint32 		cmd 			= 1[default=0x8011];  	//
+	optional uint32 		card 			= 2;
+	optional uint32			pos				= 3;
+	optional string			uid				= 4;
+	optional uint32 		err 			= 5;  					//
+}
+
+message CMingGang{
+	optional uint32 		cmd 			= 1[default=0x8012];  	//
+	optional uint32 		card 			= 2;
+	optional uint32			type			= 3;
+}
+
+message SMingGang{
+	optional uint32 		cmd 			= 1[default=0x8012];  	//
+	optional uint32 		card 			= 2;
+	optional uint32			pos				= 3;
+	optional string			uid				= 4;
+	optional uint32			type			= 5;
+	optional uint32			hu				= 6;
+	optional uint32 		err 			= 7;  					//
+}
+
+message CAnGang{
+	optional uint32 		cmd 			= 1[default=0x8013];  	//
+	optional uint32 		card 			= 2;
+	optional uint32			type			= 3;
+}
+
+message SAnGang{
+	optional uint32 		cmd 			= 1[default=0x8013];  	//
+	optional uint32 		card 			= 2;
+	optional uint32			pos				= 3;
+	optional string			uid				= 4;
+	optional uint32			type			= 5;
+	optional uint32 		err 			= 6;  					//
+}
+
+//发
+message SFa{
+	optional uint32 		cmd 			= 1[default=0x8014];
+	optional uint32			pos				= 2;
+	optional string			uid				= 3;
+}
+//胡
+message CHu{
+	optional uint32 		cmd 			= 1[default=0x8015];
+}
+
+message SHu{
+	optional uint32 		cmd 			= 1[default=0x8015];
+	optional uint32			pos				= 2;
+	optional string			uid				= 3;
+	optional uint32			hu				= 4;//胡牌掩码
+	optional uint32 		err 			= 5;  					//
+}
+//单局结算
+message SGameover{
+	optional uint32 		cmd 			= 1[default=0x8016];
+	optional uint32			hu				= 2;//胡牌掩码
+	optional string			huuid			= 3;
+	optional string			beiuid			= 4;
+	optional uint32			pao				= 5;
+	optional uint32			score			= 6;
+	repeated UserOver		info			= 7;
+}
+//结束
+message SRoundOver{
+	optional uint32 		cmd 			= 1[default=0x8017];
+	optional uint32 		round			= 2;
+	optional uint32 		ante			= 3;
+	optional string			uid				= 4;//房主
+	optional string			time			= 5;
+	repeated UserRound		info			= 6;
+}
+//很久没出牌等操作解散房间提示
+message SDissolveTip{
+	optional uint32 		cmd 			= 1[default=0x8018];
+	optional uint32 		time 			= 2;
+	optional uint32			pos				= 3;
+	optional string			uid				= 4;
+}

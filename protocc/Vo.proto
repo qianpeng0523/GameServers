@@ -159,3 +159,61 @@ message PayRecord{
 	optional string total_fee = 8;
 	optional string spbill_create_ip = 9;
 }
+
+message RoomData{
+	optional uint32 	type 	= 1;					//1.积分 2.金币
+	optional uint32 	ante 	= 2;					//
+	optional uint32 	round 	= 3;					//
+	optional uint32 	bao 	= 4;					//0无宝 1有宝不可打 2有宝可打
+	optional uint32 	bang 	= 5;					//
+	optional string		roomid	= 6;
+	optional string		roomtype= 7;					//1私人场 2金币场 3比赛场
+}
+
+message CPGCardData{
+	optional uint32 type		= 1;					//1吃 2碰 3明杠 4暗杠 5明杠（宝娘） 6暗杠（宝娘）
+	optional bytes  cards		= 2;
+	optional uint32	index		= 3;					//位置
+	optional uint32	bei			= 4;					//谁出的
+}
+
+message RoomUser{
+	optional string userid 		= 1;
+	optional string username 	= 2;
+	optional uint32 picid 		= 3;
+	optional string picurl 		= 4;
+	optional uint32 sex 		= 5;
+	optional string ip			= 6;
+	optional uint32 gold		= 7;
+	optional uint32 score		= 8;
+	optional uint32 win			= 9;
+	optional uint32 lose		= 10;
+	optional uint32 ping		= 11;
+	optional uint32 vip			= 12;
+	repeated CPGCardData cpgcard= 13;
+	optional uint32 position	= 14;
+	optional bytes  cards		= 15;//手牌
+	optional bytes  outcards	= 16;//出的牌
+	optional uint32 fa			= 17;
+	optional uint32	piao		= 18;
+}
+
+message TingCard{
+	optional uint32	card		= 1;
+	optional bytes	ting		= 2;
+}
+
+message UserOver{
+	optional string userid 		= 1;
+	optional uint32 position	= 2;
+	optional uint32 score		= 3;
+	optional uint32 total		= 4;
+	optional bytes  cards		= 5;//手牌
+}
+
+message UserRound{
+	optional string 		userid 		= 1;
+	optional uint32 		total		= 2;
+	optional string			pao			= 3;//炮手
+	optional string			win			= 4;//最大赢家
+}

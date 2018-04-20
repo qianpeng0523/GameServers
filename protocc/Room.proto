@@ -2,20 +2,142 @@ syntax = "proto2";
 package protocol;
 import "Vo.proto";
 
-//CConfig 反馈
-message CEnterRoom
+//创建房间
+message CHMMJCreateRoom
 {
-    optional uint32 	cmd 	= 1[default=0x7000];  	// 
+    optional uint32 	cmd 			= 1[default=0x7000];  	//
+	optional uint32 	type 			= 2;					//1.积分 2.金币
+	optional uint32 	ante 			= 3;					//
+	optional uint32 	round 			= 4;					//
+	optional uint32 	bao 			= 5;					//0无宝 1有宝不可打 2有宝可打
+	optional uint32 	bang 			= 6;					//
 }
 
-message SEnterRoom
+message SHMMJCreateRoom
 {
-    required uint32 	cmd 	= 1[default=0x7000];  	//
-	optional bool 		mail  	= 2;					//
-	optional bool 		active  = 3;					//
-	optional bool 		firstbuy= 4;					//
-	optional bool 		task  	= 5;					//
-	optional bool 		free  	= 6;					//
-	optional bool 		friend  = 7;					//
-	optional uint32 	yqs  	= 8;					//
+    optional uint32 	cmd 			= 1[default=0x7000];  	//
+	optional RoomData	roomdata		= 2;
+	optional RoomUser   roomuser 		= 3;
+	optional uint32 	err				= 4;
+}
+
+//进入房间
+message CHMMJEnterRoom
+{
+    optional uint32 	cmd 			= 1[default=0x7001];  	//
+	optional string 	roomid 			= 2;					//房间号
+	optional uint32 	rtype 			= 3;					//1私人场 2金币场 3比赛场
+}
+
+message SHMMJEnterRoom
+{
+    optional uint32 	cmd 			= 1[default=0x7001];  	//
+	optional RoomData	roomdata		= 2;
+	repeated RoomUser   roomusers 		= 3;
+	repeated SVote		sv				= 4;
+	optional uint32 	err				= 5;
+}
+
+//其他人进入
+message SComein{
+	optional uint32 	cmd 			= 1[default=0x7002];  	//
+	optional RoomUser 	roomuser		= 2;
+}
+
+//开始
+message CBegin{
+	optional uint32 	cmd 			= 1[default=0x7003];  	//
+	optional uint32 	type 			= 2;//房间类型 1表示HM麻将私人局
+}
+
+message SBegin{
+	optional uint32 	cmd 			= 1[default=0x7003];  	//
+	optional uint32 	type 			= 2;//房间类型 1表示HM麻将私人局
+	optional uint32 	err				= 3;
+}
+
+//准备
+message CReady{
+	optional uint32 	cmd 			= 1[default=0x7004];  	//
+	optional bool 		ready 			= 2;
+}
+
+message SReady{
+	optional uint32 	cmd 			= 1[default=0x7004];  	//
+	optional bool 		ready 			= 2;
+	optional uint32 	position 		= 3;
+	optional string	 	uid 			= 4;
+	optional uint32 	err				= 5;
+}
+
+//离开房间
+message CLeave{
+	optional uint32 	cmd 			= 1[default=0x7005];  	//
+}
+
+message SLeave{
+	optional uint32 	cmd 			= 1[default=0x7005];  	//
+	optional string	 	uid 			= 2;
+	optional uint32 	err				= 3;
+}
+
+//离线（进入后台和切回前台）
+message CLine{
+	optional uint32 	cmd 			= 1[default=0x7006];  	//
+	optional bool	 	online 			= 2;
+}
+
+message SLine{
+	optional uint32 	cmd 			= 1[default=0x7006];  	//
+	optional bool	 	online 			= 2;
+	optional uint32 	position 		= 3;
+	optional string	 	uid 			= 4;//
+	optional uint32 	err				= 5;
+}
+
+//申请解散房间
+message CDissolveRoom{
+	optional uint32 	cmd 			= 1[default=0x7007];  	//
+	optional string	 	rid 			= 2;
+}
+
+message SDissolveRoom{
+	optional uint32 	cmd 			= 1[default=0x7007];  	//
+	optional string	 	rid 			= 2;
+	optional uint32 	time			= 3;//解散房间倒计时
+	optional uint32 	position 		= 4;
+	optional string	 	uid 			= 5;//谁发起的解散
+	optional uint32 	err				= 6;
+}
+
+//投票
+message CVote{
+	optional uint32 	cmd 			= 1[default=0x7008];  	//
+	optional string	 	agree 			= 2;
+}
+
+message SVote{
+	optional uint32 	cmd 			= 1[default=0x7008];  	//
+	optional string	 	agree 			= 2;
+	optional uint32 	position 		= 3;
+	optional string	 	uid 			= 4;//
+}
+
+//投票结果
+message SVoteResult{
+	optional uint32 	cmd 			= 1[default=0x7009];  	//
+	optional bool	 	dissolve 		= 2;
+}
+
+//房间内聊天
+message CRChat{
+	optional uint32 	cmd 			= 1[default=0x700A];  	//
+	optional string		content			= 2;
+}
+
+message SRChat{
+	optional uint32 	cmd 			= 1[default=0x700A];  	//
+	optional string		content			= 2;
+	optional string		uid				= 3;
+	optional uint32 	pos 			= 4;
 }
