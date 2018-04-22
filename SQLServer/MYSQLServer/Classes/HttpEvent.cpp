@@ -3,6 +3,7 @@
 #include "curl.h"
 #include "HttpLogic.h"
 #include "Common.h"
+#include "Common.h"
 
 #define WECHAT_APPID "wx73057982ca59e10c"
 #define WECHAT_APPSECRET "021Odmeo0sPwHo1Nqxco0Glneo0OdmeH"
@@ -70,7 +71,7 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("requset:%s:%d\n",ip.c_str(),port);
+	printf("%s requset:%s:%d\n", Common::getLocalTime().c_str(),ip.c_str(), port);
 	
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);

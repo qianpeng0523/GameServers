@@ -1,5 +1,14 @@
 #include "Common.h"
-
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include <ws2tcpip.h>
+#else
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include<netdb.h>
+#include <netinet/in.h>
+#endif
 	
 Common::Common(){
 
@@ -7,6 +16,13 @@ Common::Common(){
 
 Common::~Common() {
 
+}
+
+std::string&  Common::replace_all(char *& str, const   std::string&   old_value, const   std::string&   new_value){
+	string tt = str;
+	replace_all(tt,old_value,new_value);
+	strcpy(str,tt.c_str());
+	return tt;
 }
 
 std::string& Common::replace_all(std::string& str, const std::string& old_value, const std::string& new_value)
@@ -53,4 +69,18 @@ bool Common::isHave(std::vector<std::string> vecs, std::string value){
 		}
 	}
 	return false;
+}
+
+
+string Common::getLocalTime(){
+	char buff[100];
+	time_t tt = time(NULL);//这句返回的只是一个时间cuo
+	tm* t = localtime(&tt);
+	sprintf(buff, "%d-%02d-%02d %02d:%02d",
+		t->tm_year + 1900,
+		t->tm_mon + 1,
+		t->tm_mday,
+		t->tm_hour,
+		t->tm_min);
+	return buff;
 }

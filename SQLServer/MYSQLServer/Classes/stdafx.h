@@ -61,3 +61,4 @@ using namespace protocol;
 #pragma comment(lib,"../Debug/libprotobuf.lib")
 #endif
 using namespace std;
+#define KONGGE "^"
