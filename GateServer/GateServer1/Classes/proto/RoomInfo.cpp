@@ -109,6 +109,7 @@ void RoomInfo::SendSReady(SReady sd, int fd){
 
 void RoomInfo::HandCLeave(ccEvent *event){
 	CLeave cr;
+	cr.CopyFrom(*event->msg);
 	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
 }
 
