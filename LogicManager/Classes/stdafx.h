@@ -21,6 +21,8 @@
 #include "YMSocketData.h"
 #include "ccEvent.h"
 #include "LogicServer.h"
+#include "RoomLogic.h"
+
 using namespace std;
 using namespace protocol;
 
