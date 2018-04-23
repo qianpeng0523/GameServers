@@ -1757,17 +1757,12 @@ class CVote : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional string agree = 2;
+  // optional bool agree = 2;
   inline bool has_agree() const;
   inline void clear_agree();
   static const int kAgreeFieldNumber = 2;
-  inline const ::std::string& agree() const;
-  inline void set_agree(const ::std::string& value);
-  inline void set_agree(const char* value);
-  inline void set_agree(const char* value, size_t size);
-  inline ::std::string* mutable_agree();
-  inline ::std::string* release_agree();
-  inline void set_allocated_agree(::std::string* agree);
+  inline bool agree() const;
+  inline void set_agree(bool value);
 
   // @@protoc_insertion_point(class_scope:protocol.CVote)
  private:
@@ -1778,8 +1773,8 @@ class CVote : public ::google::protobuf::Message {
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::std::string* agree_;
   ::google::protobuf::uint32 cmd_;
+  bool agree_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
@@ -1854,17 +1849,12 @@ class SVote : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional string agree = 2;
+  // optional bool agree = 2;
   inline bool has_agree() const;
   inline void clear_agree();
   static const int kAgreeFieldNumber = 2;
-  inline const ::std::string& agree() const;
-  inline void set_agree(const ::std::string& value);
-  inline void set_agree(const char* value);
-  inline void set_agree(const char* value, size_t size);
-  inline ::std::string* mutable_agree();
-  inline ::std::string* release_agree();
-  inline void set_allocated_agree(::std::string* agree);
+  inline bool agree() const;
+  inline void set_agree(bool value);
 
   // optional uint32 position = 3;
   inline bool has_position() const;
@@ -1898,10 +1888,10 @@ class SVote : public ::google::protobuf::Message {
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::std::string* agree_;
   ::google::protobuf::uint32 cmd_;
-  ::google::protobuf::uint32 position_;
+  bool agree_;
   ::std::string* uid_;
+  ::google::protobuf::uint32 position_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
@@ -3841,7 +3831,7 @@ inline void CVote::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional string agree = 2;
+// optional bool agree = 2;
 inline bool CVote::has_agree() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -3852,63 +3842,15 @@ inline void CVote::clear_has_agree() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void CVote::clear_agree() {
-  if (agree_ != &::google::protobuf::internal::kEmptyString) {
-    agree_->clear();
-  }
+  agree_ = false;
   clear_has_agree();
 }
-inline const ::std::string& CVote::agree() const {
-  return *agree_;
-}
-inline void CVote::set_agree(const ::std::string& value) {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
-  agree_->assign(value);
-}
-inline void CVote::set_agree(const char* value) {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
-  agree_->assign(value);
-}
-inline void CVote::set_agree(const char* value, size_t size) {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
-  agree_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* CVote::mutable_agree() {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
+inline bool CVote::agree() const {
   return agree_;
 }
-inline ::std::string* CVote::release_agree() {
-  clear_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = agree_;
-    agree_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void CVote::set_allocated_agree(::std::string* agree) {
-  if (agree_ != &::google::protobuf::internal::kEmptyString) {
-    delete agree_;
-  }
-  if (agree) {
-    set_has_agree();
-    agree_ = agree;
-  } else {
-    clear_has_agree();
-    agree_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
+inline void CVote::set_agree(bool value) {
+  set_has_agree();
+  agree_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -3937,7 +3879,7 @@ inline void SVote::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional string agree = 2;
+// optional bool agree = 2;
 inline bool SVote::has_agree() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -3948,63 +3890,15 @@ inline void SVote::clear_has_agree() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void SVote::clear_agree() {
-  if (agree_ != &::google::protobuf::internal::kEmptyString) {
-    agree_->clear();
-  }
+  agree_ = false;
   clear_has_agree();
 }
-inline const ::std::string& SVote::agree() const {
-  return *agree_;
-}
-inline void SVote::set_agree(const ::std::string& value) {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
-  agree_->assign(value);
-}
-inline void SVote::set_agree(const char* value) {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
-  agree_->assign(value);
-}
-inline void SVote::set_agree(const char* value, size_t size) {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
-  agree_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* SVote::mutable_agree() {
-  set_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    agree_ = new ::std::string;
-  }
+inline bool SVote::agree() const {
   return agree_;
 }
-inline ::std::string* SVote::release_agree() {
-  clear_has_agree();
-  if (agree_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = agree_;
-    agree_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void SVote::set_allocated_agree(::std::string* agree) {
-  if (agree_ != &::google::protobuf::internal::kEmptyString) {
-    delete agree_;
-  }
-  if (agree) {
-    set_has_agree();
-    agree_ = agree;
-  } else {
-    clear_has_agree();
-    agree_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
+inline void SVote::set_agree(bool value) {
+  set_has_agree();
+  agree_ = value;
 }
 
 // optional uint32 position = 3;

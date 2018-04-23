@@ -133,6 +133,8 @@
     <ClCompile Include="Classes\proto\HallInfo.cpp" />
     <ClCompile Include="Classes\proto\LogicServerInfo.cpp" />
     <ClCompile Include="Classes\proto\LoginInfo.cpp" />
+    <ClCompile Include="Classes\proto\RoomInfo.cpp" />
+    <ClCompile Include="Classes\proto\RoomLogicInfo.cpp" />
     <ClCompile Include="Classes\redisdata\RedisGet.cpp" />
     <ClCompile Include="Classes\redisdata\RedisModify.cpp" />
     <ClCompile Include="Classes\redisdata\RedisPut.cpp" />
@@ -192,6 +194,8 @@
     <ClInclude Include="Classes\proto\HallInfo.h" />
     <ClInclude Include="Classes\proto\LogicServerInfo.h" />
     <ClInclude Include="Classes\proto\LoginInfo.h" />
+    <ClInclude Include="Classes\proto\RoomInfo.h" />
+    <ClInclude Include="Classes\proto\RoomLogicInfo.h" />
     <ClInclude Include="Classes\redisdata\RedisGet.h" />
     <ClInclude Include="Classes\redisdata\RedisModify.h" />
     <ClInclude Include="Classes\redisdata\RedisPut.h" />

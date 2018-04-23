@@ -28,6 +28,7 @@
 #include "ConfigProto.h"
 #include "Hall.h"
 #include "redis.h"
+#include "RoomLogic.h"
 
 using namespace std;
 using namespace protocol;

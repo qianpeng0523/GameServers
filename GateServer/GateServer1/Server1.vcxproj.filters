@@ -192,6 +192,12 @@
     <ClCompile Include="Classes\cc\RoomLogic.cpp">
       <Filter>源文件\Classes\cc</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\proto\RoomInfo.cpp">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\proto\RoomLogicInfo.cpp">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -367,6 +373,12 @@
     </ClInclude>
     <ClInclude Include="Classes\cc\RoomLogic.h">
       <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\proto\RoomInfo.h">
+      <Filter>源文件\Classes\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\proto\RoomLogicInfo.h">
+      <Filter>源文件\Classes\proto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
