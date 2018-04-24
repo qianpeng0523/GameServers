@@ -19,7 +19,8 @@ ClientSocket *ClientSocket::getIns() {
 }
 
 ClientSocket::ClientSocket(){
-	m_stamp = 0;
+	m_sendstamp = 0;
+	m_recvstamp = 0;
 	createTcp();
 }
 
@@ -62,7 +63,8 @@ void ClientSocket::int2Chars(char *chars, int val, int start) {
 }
 
 int ClientSocket::connect(const char* ip, unsigned short port) {
-	m_stamp = 0;
+	m_sendstamp = 0;
+	m_recvstamp = 0;
 	m_ip = ip;
 	m_port = port;
 	int connectFlag = m_tcpSocket->Connect(ip, port);
@@ -83,7 +85,8 @@ int ClientSocket::close() {
 	if (m_tcpSocket != NULL)
 	{
 		state = m_tcpSocket->Close();
-		m_stamp = 0;
+		m_sendstamp = 0;
+		m_recvstamp = 0;
 	}
 	return state;
 }
@@ -97,7 +100,7 @@ int ClientSocket::GetError() {
 }
 
 void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
-	m_stamp = (m_stamp+1)%256;
+	m_sendstamp = (m_sendstamp + 1) % MAXSTAMP;
 	int len = msg->ByteSize();
 	char *buffer = new char[HEADLEN + len];
 	memset(buffer, 0, HEADLEN + len);
@@ -106,7 +109,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	memcpy(buffer, HttpLogic::SERVER_CODE.c_str(), 3);
 
 	//消息序列号
-	buffer[3] = m_stamp;
+	buffer[3] = m_sendstamp;
 	//bodylen
 	char * clen = (char *)&len;
 	for (int i = 0; i < 2; i++){
@@ -157,7 +160,8 @@ void *ClientSocket::threadHandler(void *arg) {
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
-			if (stamp == p->m_stamp&&servercode == HttpLogic::SERVER_CODE){
+			p->m_recvstamp = (p->m_recvstamp+1)%MAXSTAMP;
+			if (stamp == p->m_recvstamp&&servercode == HttpLogic::SERVER_CODE){
 				char *out = new char[len+1];
 				HttpLogic::getIns()->aes_decrypt(temp, len, out);
 				delete temp;

@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Classes\cc\DBProto.cpp" />
     <ClCompile Include="Classes\cc\LogicServer.cpp" />
+    <ClCompile Include="Classes\cc\Vo.cpp" />
     <ClCompile Include="Classes\common\Common.cpp" />
     <ClCompile Include="Classes\common\CSVDataHelper.cpp" />
     <ClCompile Include="Classes\common\CSVDataInfo.cpp" />
@@ -108,11 +109,13 @@
     <ClCompile Include="Classes\network\EventListen.cpp" />
     <ClCompile Include="Classes\network\TcpSocket.cpp" />
     <ClCompile Include="Classes\proto\LogicServerInfo.cpp" />
+    <ClCompile Include="Classes\room\GRoom.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\cc\DBProto.h" />
     <ClInclude Include="Classes\cc\LogicServer.h" />
+    <ClInclude Include="Classes\cc\Vo.h" />
     <ClInclude Include="Classes\common\Common.h" />
     <ClInclude Include="Classes\common\CSVBaseData.h" />
     <ClInclude Include="Classes\common\CSVDataHelper.h" />
@@ -140,6 +143,7 @@
     <ClInclude Include="Classes\network\EventListen.h" />
     <ClInclude Include="Classes\network\TcpSocket.h" />
     <ClInclude Include="Classes\proto\LogicServerInfo.h" />
+    <ClInclude Include="Classes\room\GRoom.h" />
     <ClInclude Include="Classes\stdafx.h" />
     <ClInclude Include="Classes\targetver.h" />
   </ItemGroup>

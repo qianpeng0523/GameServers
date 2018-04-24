@@ -21,7 +21,7 @@
 #include "YMSocketData.h"
 #include "LogicServer.h"
 #include "ccEvent.h"
-
+#include "Vo.h"
 using namespace std;
 using namespace protocol;
 #define CC_REPEAT_FOREVER (UINT_MAX -1)
@@ -86,3 +86,5 @@ static string SERVER_IP = "192.168.50.151";
 #define sqlhttp "http://192.168.50.151:8080/"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
+
+#define MAXSTAMP 128

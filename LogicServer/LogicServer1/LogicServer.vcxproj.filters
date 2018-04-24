@@ -34,6 +34,9 @@
     <Filter Include="源文件\Classes\http">
       <UniqueIdentifier>{1835ae49-3e5c-4e67-bafc-104b7f6faa06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes\room">
+      <UniqueIdentifier>{0cc3dc4d-18d2-4c3e-b00a-3709596b94b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\stdafx.cpp">
@@ -97,6 +100,12 @@
       <Filter>源文件\Classes\proto</Filter>
     </ClCompile>
     <ClCompile Include="Classes\cc\LogicServer.cpp">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\room\GRoom.cpp">
+      <Filter>源文件\Classes\room</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\cc\Vo.cpp">
       <Filter>源文件\Classes\cc</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,6 +201,12 @@
       <Filter>源文件\Classes\proto</Filter>
     </ClInclude>
     <ClInclude Include="Classes\cc\LogicServer.h">
+      <Filter>源文件\Classes\cc</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\room\GRoom.h">
+      <Filter>源文件\Classes\room</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\cc\Vo.h">
       <Filter>源文件\Classes\cc</Filter>
     </ClInclude>
   </ItemGroup>
