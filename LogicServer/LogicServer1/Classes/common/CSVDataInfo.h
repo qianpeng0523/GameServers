@@ -4,20 +4,6 @@
 #include "CSVDataHelper.h"
 #include "CSVBaseData.h"
 
-enum CSVSTRUCT{
-	//CSV_ROOM,
-	CSV_HUTEST,
-	CSV_CONFIG,
-	CSV_HUFAN,
-	CSV_GANG_TYPE_FAN,
-	CSV_GANGHU_TYPE_FAN,
-	CSV_RULE_TYPE_FAN,
-	CSV_OTHER_TYPE_FAN,
-	CSV_OVERDATA_TYPE_FAN,
-	CSV_GAMEOVERDATA_TYPE_FAN,
-	CSV_ROBOT,
-};
-
 typedef std::map<CSVSTRUCT, CSVDataHelper *> CSVDATAS;
 
 
@@ -32,16 +18,14 @@ public:
 	static CSVDataInfo* getIns();
 	
 	void openCSVFile(string file, CSVSTRUCT filekey);//打开文件并读取文件
-	Object *getData(int key, CSVSTRUCT csvenum);
+	string getDataHuItem(string key, CSVSTRUCT csvenum);
 	int getDataSize(CSVSTRUCT csvenu);
-	std::map<int, Object *> getDatas(CSVSTRUCT csvenum);
+	map<string, int> getDatasHuItem(CSVSTRUCT csvenum);
+
 private:
 	static CSVDataInfo *m_ins;
-	CSVDATAS m_pCSVDataInfos;
 public:
-	std::map<CSVSTRUCT, std::map<int, Object *>> m_Objects;//_widgetid 
-	
-	std::map<CSVSTRUCT, CSVDataHelper *>m_CSVDataHelpers;
+	CSVDATAS m_CSVDataHelpers;
 };
 
 #endif 

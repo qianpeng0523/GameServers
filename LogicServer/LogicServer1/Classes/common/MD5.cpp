@@ -148,18 +148,18 @@ context.
 */
 void MD5::update(const byte* input, size_t length) {
 
-	uint32 i, index, partLen;
+	unsigned int i, index, partLen;
 
 	_finished = false;
 
 	/* Compute number of bytes mod 64 */
-	index = (uint32)((_count[0] >> 3) & 0x3f);
+	index = (unsigned int)((_count[0] >> 3) & 0x3f);
 
 	/* update number of bits */
-	if ((_count[0] += ((uint32)length << 3)) < ((uint32)length << 3)) {
+	if ((_count[0] += ((unsigned int)length << 3)) < ((unsigned int)length << 3)) {
 		++_count[1];
 	}
-	_count[1] += ((uint32)length >> 29);
+	_count[1] += ((unsigned int)length >> 29);
 
 	partLen = 64 - index;
 
@@ -188,9 +188,9 @@ the message _digest and zeroizing the context.
 void MD5::final() {
 
 	byte bits[8];
-	uint32 oldState[4];
-	uint32 oldCount[2];
-	uint32 index, padLen;
+	unsigned int oldState[4];
+	unsigned int oldCount[2];
+	unsigned int index, padLen;
 
 	/* Save current state and count. */
 	memcpy(oldState, _state, 16);
@@ -200,7 +200,7 @@ void MD5::final() {
 	encode(_count, bits, 8);
 
 	/* Pad out to 56 mod 64. */
-	index = (uint32)((_count[0] >> 3) & 0x3f);
+	index = (unsigned int)((_count[0] >> 3) & 0x3f);
 	padLen = (index < 56) ? (56 - index) : (120 - index);
 	update(PADDING, padLen);
 
@@ -218,7 +218,7 @@ void MD5::final() {
 /* MD5 basic transformation. Transforms _state based on block. */
 void MD5::transform(const byte block[64]) {
 
-	uint32 a = _state[0], b = _state[1], c = _state[2], d = _state[3], x[16];
+	unsigned int a = _state[0], b = _state[1], c = _state[2], d = _state[3], x[16];
 
 	decode(block, x, 64);
 
@@ -314,7 +314,7 @@ a multiple of 4.
 //	return tmp;
 //}
 
-void MD5::encode(const uint32* input, byte* output, size_t length) {
+void MD5::encode(const unsigned int* input, byte* output, size_t length) {
 
 	for (size_t i = 0, j = 0; j < length; ++i, j += 4) {
 		output[j]= (byte)(input[i] & 0xff);
@@ -327,11 +327,11 @@ void MD5::encode(const uint32* input, byte* output, size_t length) {
 /* Decodes input (byte) into output (ulong). Assumes length is
 a multiple of 4.
 */
-void MD5::decode(const byte* input, uint32* output, size_t length) {
+void MD5::decode(const byte* input, unsigned int* output, size_t length) {
 
 	for (size_t i = 0, j = 0; j < length; ++i, j += 4) {
-		output[i] = ((uint32)input[j]) | (((uint32)input[j + 1]) << 8) |
-		(((uint32)input[j + 2]) << 16) | (((uint32)input[j + 3]) << 24);
+		output[i] = ((unsigned int)input[j]) | (((unsigned int)input[j + 1]) << 8) |
+		(((unsigned int)input[j + 2]) << 16) | (((unsigned int)input[j + 3]) << 24);
 	}
 }
 

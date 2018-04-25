@@ -12,6 +12,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	HttpLogic::getIns()->requestManagerData();
 	
+
+
 	getchar();
 	return 0;
 }
