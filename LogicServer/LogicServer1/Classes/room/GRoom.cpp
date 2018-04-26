@@ -234,7 +234,7 @@ void GRoom::SendZhuangHandCards(int pos){
 	memcpy(m_udata[pos - 1]->_hand,pai,sizeof(int)*14);
 	UData *ud = m_udata[pos - 1];
 	//推送给玩家
-
+	
 	//test
 	printf("zhuanghand:");
 	for (int i = 0; i < 14; i++){
