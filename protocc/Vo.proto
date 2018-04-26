@@ -168,6 +168,7 @@ message RoomData{
 	optional uint32 	bang 	= 5;					//
 	optional string		roomid	= 6;
 	optional string		roomtype= 7;					//1私人场 2金币场 3比赛场
+	optional string		uid		= 8;					//房主id
 }
 
 message CPGCardData{
