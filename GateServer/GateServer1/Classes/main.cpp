@@ -112,7 +112,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LoginInfo::getIns();
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 1), &wsaData);
-	redis::getIns()->initial("47.104.165.65", 6379, "3.1415926qp");
+	redis::getIns()->initial("www.lesharecs.com", 6379, "3.1415926qp");
 	RedisGet::getIns()->init();
 	//HttpAliPay::getIns()->requestOrder("100001", "1", 1, "test 1", "", 2);
 	//ConfigData::getIns();
