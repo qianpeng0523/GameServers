@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include "hiredis.h"
 #include "YMSocketData.h"
-#include "Hall.h"
-#include "Login.h"
+//#include "Hall.h"
+#include "Vo.h"
 #include "LogicServer.h"
 
 #define ZERO_STR '&'
