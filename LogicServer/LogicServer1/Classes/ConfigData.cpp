@@ -3,7 +3,7 @@
 #include "time.h"
 #include "Common.h"
 #include "CSVDataInfo.h"
-
+#include "RoomControl.h"
 
 bool compare(int a, int b){
 	if (a < b){
@@ -138,9 +138,9 @@ void ConfigData::init(){
 	uint64_t tt = t2 - t;
 	printf("******use time:%gs******\n", tt / 1000.0 / 1000);
 
+	RoomControl::getIns()->test();
 
-
-	test();
+	//test();
 	
 }
 #define  TESTCOUNT 50

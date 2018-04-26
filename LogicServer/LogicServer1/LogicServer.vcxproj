@@ -57,7 +57,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_XKEYCHECK_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\protobuf\src;.\Classes\proto;.\Classes\http;.\Classes\netjson;.\Classes\room;.\Classes\control;.\Classes\log;.\libevent\include;..\curl\include\win32\curl;..\libMessagePack;..\Classes\poco;..\libevent;..\libevent\include;..\libevent\include\event2;.\Classes\cryptopp;..\..\redis\src;..\..\redis\deps\hiredis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\protobuf\src;.\Classes\proto;.\Classes\http;.\Classes\netjson;.\Classes\room;.\Classes\control;.\Classes\log;.\libevent\include;..\curl\include\win32\curl;..\libMessagePack;..\Classes\poco;..\libevent;..\libevent\include;..\libevent\include\event2;.\Classes\cryptopp;..\..\redis\src;..\..\redis\deps\hiredis;..\poco\Foundation\include;..\poco\Net\include;..\poco\Util\include;..\poco\Data\include;..\poco\CppUnit\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -65,7 +65,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib;wsock32.lib;..\curl\prebuilt\win32\libcurl_imp.lib;..\curl\prebuilt\win32\libeay32.lib;..\curl\prebuilt\win32\ssleay32.lib;..\libevent\lib\libevent_core.lib;..\libevent\lib\libevent_extras.lib;..\libevent\lib\libevent.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>.\Debug;..\..\redis\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\Debug;..\..\redis\Debug;..\poco\bin;..\poco\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineTHUMB</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -98,6 +98,7 @@
     <ClCompile Include="Classes\common\CSVDataInfo.cpp" />
     <ClCompile Include="Classes\common\MD5.cpp" />
     <ClCompile Include="Classes\common\Object.cpp" />
+    <ClCompile Include="Classes\common\StatTimer.cpp" />
     <ClCompile Include="Classes\common\XXIconv.cpp" />
     <ClCompile Include="Classes\ConfigData.cpp" />
     <ClCompile Include="Classes\http\HttpEvent.cpp" />
@@ -113,6 +114,7 @@
     <ClCompile Include="Classes\network\TcpSocket.cpp" />
     <ClCompile Include="Classes\proto\LogicServerInfo.cpp" />
     <ClCompile Include="Classes\room\GRoom.cpp" />
+    <ClCompile Include="Classes\room\RoomControl.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +130,7 @@
     <ClInclude Include="Classes\common\iconv.h" />
     <ClInclude Include="Classes\common\MD5.h" />
     <ClInclude Include="Classes\common\Object.h" />
+    <ClInclude Include="Classes\common\StatTimer.h" />
     <ClInclude Include="Classes\common\XXIconv.h" />
     <ClInclude Include="Classes\ConfigData.h" />
     <ClInclude Include="Classes\http\HttpEvent.h" />
@@ -150,6 +153,7 @@
     <ClInclude Include="Classes\network\TcpSocket.h" />
     <ClInclude Include="Classes\proto\LogicServerInfo.h" />
     <ClInclude Include="Classes\room\GRoom.h" />
+    <ClInclude Include="Classes\room\RoomControl.h" />
     <ClInclude Include="Classes\stdafx.h" />
     <ClInclude Include="Classes\targetver.h" />
   </ItemGroup>

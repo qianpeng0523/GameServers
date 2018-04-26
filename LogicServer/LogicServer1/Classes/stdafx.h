@@ -92,3 +92,5 @@ static string SERVER_IP = "192.168.50.151";
 
 #define MAXSTAMP 128
 #define KONGGE "^"
+
+#define CHI_DEFINE 0

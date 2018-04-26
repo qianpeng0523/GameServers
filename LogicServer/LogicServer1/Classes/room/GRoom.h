@@ -26,6 +26,13 @@ struct UData
 	int _score;
 };
 
+enum NEXTSTEPTYPE{
+	FRONT_DRAW=0,
+	BACK_DRAW,
+	DISCARD,
+
+};
+
 class GRoom:public Object
 {
 public:
@@ -38,7 +45,14 @@ public:
 	RoomData getRoomData(){
 		return m_roomdata;
 	}
+	void setRoomData(RoomData rd){
+		m_roomdata.CopyFrom(rd);
+	}
+
 	void reset();
+	void PushUData(UData *ud);
+	UData *getUData(string uid);
+	UData *getUData(int pos);
 
 	//oprate
 	void SendDraw(int pos,int card);
@@ -48,8 +62,14 @@ public:
 	void SendMingGang(int pos,int card);
 	void SendAnGang(int pos,int card);
 	void SendHu(int pos);
+	void SendZhuangHandCards(int pos);
+	void SendHandCards(int pos);
 
-	void NextStep();
+	void NextStep(NEXTSTEPTYPE step);
+	void Begin();
+
+	//test
+	void ZhuangChu(float dt);
 private:
 	bool isPeng(int pos);
 	bool isMoGang(int pos);
@@ -62,16 +82,25 @@ private:
 	bool isChuGang(int pos, int card);
 	bool isChi(int pos, int card);
 	bool isHu(int pos, int card);
+
+	void initMJ();
+	int getMJ();
+	int getMJ(int index);
 private:
 	int m_maxcount;
 	RoomData m_roomdata;
 	int m_curbao;
-	UData m_udata[4];
+	UData *m_udata[4];
 	int m_curchu;
 	bool m_isgang;
 	int m_curdraw;
 	int m_curdir;
+	int m_curcpgcard;
+	int m_zhuangpos;
 	OpTypeEnum m_optype;
+
+	vector<int >m_cards;
+	int m_index;
 };
 
 #endif 
