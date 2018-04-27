@@ -1,5 +1,7 @@
 ﻿#include "RoomInfo.h"
 #include "ClientSocket.h"
+#include "RoomControl.h"
+static RoomControl *m_pRoomControl = RoomControl::getIns();
 
 RoomInfo *RoomInfo::m_shareRoomInfo=NULL;
 RoomInfo::RoomInfo()
@@ -64,7 +66,31 @@ bool RoomInfo::init()
 void RoomInfo::HandCHMMJCreateRoom(ccEvent *event){
 	CHMMJCreateRoom cl;
 	cl.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cl.cmd(),&cl);
+	int type = cl.type();
+	int ante = cl.ante();
+	int round = cl.round();
+	int bao = cl.bao();
+	int bang = cl.bang();
+	string uid = cl.uid();
+	GRoom *gr = m_pRoomControl->createRoom(uid, type, ante, round, bao, bang);
+
+	SHMMJCreateRoom sd;
+	if (gr){
+		RoomData *rd= sd.mutable_roomdata();
+		rd->CopyFrom(gr->getRoomData());
+		UData ** udatas = gr->getUDatas();
+		for (int i = 0; i < 4;i++){
+			if (udatas[i]){
+				RoomUser *ru = sd.mutable_roomuser();
+				ru->set_userid(udatas[i]->_uid);
+				ru->set_position(i+1);
+			}
+		}
+	}
+	else{
+		sd.set_err(1);
+	}
+	SendSHMMJCreateRoom(sd);
 }
 
 void RoomInfo::SendSHMMJCreateRoom(SHMMJCreateRoom sd){
@@ -89,7 +115,7 @@ void RoomInfo::SendSComein(SComein sd){
 void RoomInfo::HandCBegin(ccEvent *event){
 	CBegin cr;
 	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
+	
 }
 
 void RoomInfo::SendSBegin(SBegin sd){

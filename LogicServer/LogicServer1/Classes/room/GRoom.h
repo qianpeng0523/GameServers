@@ -58,7 +58,9 @@ public:
 	void PushUData(UData *ud);
 	UData *getUData(string uid);
 	UData *getUData(int pos);
-
+	UData **getUDatas(){
+		return m_udata;
+	}
 	
 	void selectZhuang();
 	void SendDice(string uid);
