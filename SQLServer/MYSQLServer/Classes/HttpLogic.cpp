@@ -123,18 +123,20 @@ HttpLogic *HttpLogic::getIns(){
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	printf("sd:%s\n",sd.getJsonString().c_str());
-	int cmd = sd["cmd"].asInt();
-	if (cmd == 0x01){
-		SqlStart(sd,buff,sz);
-	}
-	else if (cmd==0x02){
-		SqlClose(buff,sz);
-	}
-	else if (cmd == 0x0A){
-		getLogicManagerData(sd, buff, sz);
-	}
-	else if (cmd == 0x0B){
-		getGateData(sd, buff, sz);
+	if (sd.isMember("cmd")){
+		int cmd = sd["cmd"].asInt();
+		if (cmd == 0x01){
+			SqlStart(sd, buff, sz);
+		}
+		else if (cmd == 0x02){
+			SqlClose(buff, sz);
+		}
+		else if (cmd == 0x0A){
+			getLogicManagerData(sd, buff, sz);
+		}
+		else if (cmd == 0x0B){
+			getGateData(sd, buff, sz);
+		}
 	}
 }
 
@@ -145,27 +147,29 @@ void HttpLogic::SqlConnect(char *&buff, int &sz){
 }
 
 void HttpLogic::SqlStart(YMSocketData sd, char *&buff, int &sz){
-	printf("%s\n",sd.getJsonString().c_str());
-	m_pSQLInfo->_ip = sd["ip"].asString();
-	m_pSQLInfo->_name = sd["name"].asString();
-	m_pSQLInfo->_pass = sd["pass"].asString();
-	m_pSQLInfo->_db = sd["db"].asString();
-	m_pSQLInfo->_port = sd["port"].asInt();
-	bool isc = redis::getIns()->isConnect();
-	bool ist = true;
-	if (!isc){
-		ist = redis::getIns()->initial(m_pSQLInfo->_ip, m_pSQLInfo->_port, m_pSQLInfo->_pass);
+	printf("%s\n", sd.getJsonString().c_str());
+	if (sd.isMember("ip") && sd.isMember("name") && sd.isMember("pass") && sd.isMember("db") && sd.isMember("port")){
+		m_pSQLInfo->_ip = sd["ip"].asString();
+		m_pSQLInfo->_name = sd["name"].asString();
+		m_pSQLInfo->_pass = sd["pass"].asString();
+		m_pSQLInfo->_db = sd["db"].asString();
+		m_pSQLInfo->_port = sd["port"].asInt();
+		bool isc = redis::getIns()->isConnect();
+		bool ist = true;
+		if (!isc){
+			ist = redis::getIns()->initial(m_pSQLInfo->_ip, m_pSQLInfo->_port, m_pSQLInfo->_pass);
+		}
+		YMSocketData sd1;
+		if (ist){
+			sd1["err"] = 0;
+			SQLInfo *p = HttpLogic::getIns()->getSQLInfo();
+			sd1["dbname"] = p->_db;
+		}
+		else{
+			sd1["err"] = 1;
+		}
+		sd1.serializer(buff, &sz);
 	}
-	YMSocketData sd1;
-	if (ist){
-		sd1["err"] = 0;
-		SQLInfo *p = HttpLogic::getIns()->getSQLInfo();
-		sd1["dbname"] = p->_db;
-	}
-	else{
-		sd1["err"] = 1;
-	}
-	sd1.serializer(buff, &sz);
 }
 
 void HttpLogic::SqlClose(char *&buff, int &sz){
@@ -176,66 +180,70 @@ void HttpLogic::SqlClose(char *&buff, int &sz){
 }
 
 void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
-	int type = sd1["type"].asInt();
-	int cmd = sd1["cmd"].asInt();
-	YMSocketData sd;
-	int err = 0;
-	int len;
-	char buff1[50];
-	sprintf(buff1,"gatetype%d",type);
-	char *gatetype = redis::getIns()->get(buff1,len);
-	int gtype = -1;
-	if (gatetype == NULL){
-		gtype = 0;
-		redis::getIns()->set(buff1,"0",sizeof("0")-1);
-	}
-	else{
-		gtype = atoi(gatetype);
-		delete gatetype;
-	}
-	sprintf(buff1,"gate%d_%d",type,gtype);
+	if (sd1.isMember("type") && sd1.isMember("cmd")){
+		int type = sd1["type"].asInt();
+		int cmd = sd1["cmd"].asInt();
+		YMSocketData sd;
+		int err = 0;
+		int len;
+		char buff1[50];
+		sprintf(buff1, "gatetype%d", type);
+		char *gatetype = redis::getIns()->get(buff1, len);
+		int gtype = -1;
+		if (gatetype == NULL){
+			gtype = 0;
+			redis::getIns()->set(buff1, "0", sizeof("0") - 1);
+		}
+		else{
+			gtype = atoi(gatetype);
+			delete gatetype;
+		}
+		sprintf(buff1, "gate%d_%d", type, gtype);
 
-	char *dd = (char *)redis::getIns()->get(buff1,len);
-	redis::getIns()->ChangeToZero(dd,len);
-	GateData *data = (GateData *)dd;
-	if (!data){
-		err = 1;
+		char *dd = (char *)redis::getIns()->get(buff1, len);
+		redis::getIns()->ChangeToZero(dd, len);
+		GateData *data = (GateData *)dd;
+		if (!data){
+			err = 1;
+		}
+		else{
+			sd["ip"] = data->_ip;
+			sd["port"] = data->_port;
+			sd["name"] = data->_name;
+			delete dd;
+		}
+		sd["cmd"] = cmd;
+		sd["err"] = err;
+		sd["type"] = type;
+		sd.serializer(buff, &sz);
 	}
-	else{
-		sd["ip"] = data->_ip;
-		sd["port"] = data->_port;
-		sd["name"] = data->_name;
-		delete dd;
-	}
-	sd["cmd"] = cmd;
-	sd["err"] = err;
-	sd["type"] = type;
-	sd.serializer(buff, &sz);
 }
 
 void HttpLogic::getLogicManagerData(YMSocketData sd1, char *&buff, int &sz){
-	int type = sd1["type"].asInt();
-	int cmd = sd1["cmd"].asInt();
-	YMSocketData sd;
-	int err = 0;
-	
-	int len;
-	char buff1[50];
-	sprintf(buff1, "logicmanager%d", type);
-	char *dd= redis::getIns()->get(buff1, len);
-	redis::getIns()->ChangeToZero(dd, len);
-	GateData *data = (GateData *)dd;
-	if (!data){
-		err = 1;
+	if (sd1.isMember("type") && sd1.isMember("cmd")){
+		int type = sd1["type"].asInt();
+		int cmd = sd1["cmd"].asInt();
+		YMSocketData sd;
+		int err = 0;
+
+		int len;
+		char buff1[50];
+		sprintf(buff1, "logicmanager%d", type);
+		char *dd = redis::getIns()->get(buff1, len);
+		redis::getIns()->ChangeToZero(dd, len);
+		GateData *data = (GateData *)dd;
+		if (!data){
+			err = 1;
+		}
+		else{
+			sd["ip"] = data->_ip;
+			sd["port"] = data->_port;
+			sd["name"] = data->_name;
+			delete dd;
+		}
+		sd["cmd"] = cmd;
+		sd["err"] = err;
+		sd["type"] = type;
+		sd.serializer(buff, &sz);
 	}
-	else{
-		sd["ip"] = data->_ip;
-		sd["port"] = data->_port;
-		sd["name"] = data->_name;
-		delete dd;
-	}
-	sd["cmd"] = cmd;
-	sd["err"] = err;
-	sd["type"] = type;
-	sd.serializer(buff, &sz);
 }
