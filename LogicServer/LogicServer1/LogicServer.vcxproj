@@ -92,6 +92,8 @@
     <ClCompile Include="..\..\redis\src\win32fixes.c" />
     <ClCompile Include="Classes\cc\DBProto.cpp" />
     <ClCompile Include="Classes\cc\LogicServer.cpp" />
+    <ClCompile Include="Classes\cc\Room.cpp" />
+    <ClCompile Include="Classes\cc\RoomLogic.cpp" />
     <ClCompile Include="Classes\cc\Vo.cpp" />
     <ClCompile Include="Classes\common\Common.cpp" />
     <ClCompile Include="Classes\common\CSVDataHelper.cpp" />
@@ -113,6 +115,8 @@
     <ClCompile Include="Classes\network\EventListen.cpp" />
     <ClCompile Include="Classes\network\TcpSocket.cpp" />
     <ClCompile Include="Classes\proto\LogicServerInfo.cpp" />
+    <ClCompile Include="Classes\proto\RoomInfo.cpp" />
+    <ClCompile Include="Classes\proto\RoomLogicInfo.cpp" />
     <ClCompile Include="Classes\room\GRoom.cpp" />
     <ClCompile Include="Classes\room\RoomControl.cpp" />
     <ClCompile Include="Classes\stdafx.cpp" />
@@ -122,6 +126,8 @@
     <ClInclude Include="..\..\redis\src\win32fixes.h" />
     <ClInclude Include="Classes\cc\DBProto.h" />
     <ClInclude Include="Classes\cc\LogicServer.h" />
+    <ClInclude Include="Classes\cc\Room.h" />
+    <ClInclude Include="Classes\cc\RoomLogic.h" />
     <ClInclude Include="Classes\cc\Vo.h" />
     <ClInclude Include="Classes\common\Common.h" />
     <ClInclude Include="Classes\common\CSVBaseData.h" />
@@ -152,6 +158,8 @@
     <ClInclude Include="Classes\network\EventListen.h" />
     <ClInclude Include="Classes\network\TcpSocket.h" />
     <ClInclude Include="Classes\proto\LogicServerInfo.h" />
+    <ClInclude Include="Classes\proto\RoomInfo.h" />
+    <ClInclude Include="Classes\proto\RoomLogicInfo.h" />
     <ClInclude Include="Classes\room\GRoom.h" />
     <ClInclude Include="Classes\room\RoomControl.h" />
     <ClInclude Include="Classes\stdafx.h" />

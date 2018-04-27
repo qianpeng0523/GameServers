@@ -96,5 +96,5 @@ void RoomControl::test(){
 	enterRoom("123457", rid);
 	enterRoom("123458", rid);
 	enterRoom("123459", rid);
-	gr->Begin();
+	gr->Begin("123456",1);
 }

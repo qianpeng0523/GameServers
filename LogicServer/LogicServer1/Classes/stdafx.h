@@ -22,6 +22,7 @@
 #include "LogicServer.h"
 #include "ccEvent.h"
 #include "Vo.h"
+#include "RoomLogic.h"
 
 using namespace std;
 using namespace protocol;

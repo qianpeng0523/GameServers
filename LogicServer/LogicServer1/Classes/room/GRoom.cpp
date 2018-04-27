@@ -3,13 +3,14 @@
 #include "EventListen.h"
 #include "EventDispatcher.h"
 #include "HttpLogic.h"
-#include "ConfigData.h"
 #include "StatTimer.h"
 
 GRoom::GRoom():
 m_curbao(0),
 m_maxcount(4)
 {
+	m_pRoomInfo = RoomInfo::getIns();
+	m_pRoomLogicInfo = RoomLogicInfo::getIns();
 	memset(m_udata, NULL, sizeof(UData *)*4);
 }
 
@@ -30,6 +31,7 @@ bool GRoom::init()
 
 void GRoom::reset(){
 	m_curbao=0;
+	m_curbaoniang = 0;
 	m_index = 0;
 	m_cards.clear();
 	for (int i = 0; i < 4; i++){
@@ -67,59 +69,92 @@ UData *GRoom::getUData(int pos){
 	return m_udata[pos - 1];
 }
 
-bool GRoom::isPeng(int pos){
+vector<CPGCardData> GRoom::isPeng(int pos){
 	return isPeng(pos, m_curchu);
 }
 
-bool GRoom::isMoGang(int pos){
+vector<CPGCardData> GRoom::isMoGang(int pos){
 	return isMoGang(pos,m_curdraw);
 }
 
-bool GRoom::isChuGang(int pos){
+vector<CPGCardData> GRoom::isChuGang(int pos){
 	return isChuGang(pos, m_curchu);
 }
 
-bool GRoom::isChi(int pos){
+vector<CPGCardData> GRoom::isChi(int pos){
 	return isChi(pos, m_curchu);
 }
 
-bool GRoom::isHu(int pos){
+HuItem GRoom::isHu(int pos){
 	return isHu(pos, m_optype == DRAW_TYPE ? m_curdraw : m_curchu);
 }
 
-bool GRoom::isPeng(int pos, int card){
+vector<CPGCardData> GRoom::isPeng(int pos, int card){
+	vector<CPGCardData> cpgs;
 	UData *ud = m_udata[pos - 1];
 	int *pai = ud->_hand;
 	int count = 0;
 	for (int i = 0; i < 14; i++){
 		int va = pai[i];
-		if (va>0 && va == card){
+		if (va>0 && va == card&&va != m_curbaoniang){
 			count++;
 			if (count >= 2){
-				return true;
+				int a[2] = { va, va };
+				CPGCardData cpg;
+				cpg.set_type(2);
+				cpg.set_cards(a, 2);
+				cpg.set_bei(m_curdir);
+				cpgs.push_back(cpg);
+				break;
 			}
 		}
 	}
-	return false;
+	return cpgs;
 }
 
-bool GRoom::isMoGang(int pos, int card){
+vector<CPGCardData> GRoom::isMoGang(int pos, int card){
 	UData *ud = m_udata[pos - 1];
+	vector<CPGCardData> gang;
 	//手牌
 	int *pai = ud->_hand;
-	int count = 0;
+	//暗杠
+	map<int, int>paicount;
 	for (int i = 0; i < 14; i++){
 		int va = pai[i];
-		if (va>0 && va == card){
-			count++;
-			if (count == 3){
-				return true;
+		if (va>0){
+			if (paicount.find(va) != paicount.end()){
+				paicount.at(va)++;
+			}
+			else{
+				paicount.insert(make_pair(va,1));
 			}
 		}
 	}
+	auto itr1 = paicount.begin();
+	for (itr1; itr1 != paicount.end(); itr1++){
+		int va = itr1->first;
+		int count = itr1->second;
+		if (count == 3 && va == m_curbaoniang){
+			char a[3] = { va, va, va };
+			CPGCardData cpg;
+			cpg.set_cards(a, 3);
+			cpg.set_bei(pos);
+			cpg.set_type(6);
+			gang.push_back(cpg);
+		}
+		else if (count == 4){
+			char a[4] = { va, va, va, va };
+			CPGCardData cpg;
+			cpg.set_cards(a, 4);
+			cpg.set_bei(pos);
+			cpg.set_type(4);
+			gang.push_back(cpg);
+		}
+	}
+
+	//明杠
 	vector<int>vec;
 	auto itr = ud->_cpg.begin();
-	
 	for (itr; itr != ud->_cpg.end(); itr++){
 		CPGCardData cpgd = *itr;
 		int va = cpgd.cards()[0];
@@ -127,18 +162,27 @@ bool GRoom::isMoGang(int pos, int card){
 			vec.push_back(va);
 		}
 	}
+	
 	for (int i = 0; i < 14; i++){
 		int va = pai[i];
 		for (int j = 0; j<vec.size(); j++){
 			if (va>0 && vec.at(j) == va){
-				return true;
+				char a[1] = { va};
+				CPGCardData cpg;
+				cpg.set_cards(a, 1);
+				cpg.set_bei(pos);
+				cpg.set_type(3);
+				gang.push_back(cpg);
+				break;
+				//return true;
 			}
 		}
 	}
-	return false;
+	return gang;
 }
 
-bool GRoom::isChuGang(int pos, int card){
+vector<CPGCardData> GRoom::isChuGang(int pos, int card){
+	vector<CPGCardData> cpgs;
 	UData *ud = m_udata[pos - 1];
 	if (ud){
 		int *pai = ud->_hand;
@@ -147,8 +191,14 @@ bool GRoom::isChuGang(int pos, int card){
 			int va = pai[i];
 			if (va>0 && va == card){
 				count++;
-				if (count == 3){
-					return true;
+				if (count == 3 || (count == 2 && m_curbaoniang==va)){
+					char a[3] = { va, va, va };
+					CPGCardData cpg;
+					cpg.set_bei(m_curdir);
+					cpg.set_cards(a);
+					cpg.set_type(3);
+					cpgs.push_back(cpg);
+					break;
 				}
 			}
 		}
@@ -159,15 +209,22 @@ bool GRoom::isChuGang(int pos, int card){
 				CPGCardData cpgd = *itr;
 				int va = cpgd.cards()[0];
 				if (cpgd.type() == 2 && va == card){
-					return true;
+					char a[1] = { va};
+					CPGCardData cpg;
+					cpg.set_bei(m_curdir);
+					cpg.set_cards(a);
+					cpg.set_type(5);
+					cpgs.push_back(cpg);
+					break;
 				}
 			}
 		}
 	}
-	return false;
+	return cpgs;
 }
 
-bool GRoom::isChi(int pos, int card){
+vector<CPGCardData> GRoom::isChi(int pos, int card){
+	vector<CPGCardData> cpgs;
 	if (CHI_DEFINE == 1){
 		if (card < 0x31){
 			UData *ud = m_udata[pos - 1];
@@ -191,6 +248,7 @@ bool GRoom::isChi(int pos, int card){
 			vecs.push_back(a3);
 			for (int i = 0; i < vecs.size(); i++){
 				int *a = vecs.at(i);
+				char b[3] = {a[0],a[1],0};
 				for (int k = 0; k < 2; k++){
 					for (int j = 0; j < 14; j++){
 						int va = pai[j];
@@ -201,15 +259,21 @@ bool GRoom::isChi(int pos, int card){
 					}
 				}
 				if (a[0] == -1 && a[1] == -1){
-					return true;
+					b[2] = card;
+					CPGCardData cpg;
+					cpg.set_bei(m_curdir);
+					cpg.set_cards(b);
+					cpg.set_type(1);
+					cpgs.push_back(cpg);
+					//return true;
 				}
 			}
 		}
 	}
-	return false;
+	return cpgs;
 }
 
-bool GRoom::isHu(int pos, int card){
+HuItem GRoom::isHu(int pos, int card){
 	UData *ud = m_udata[pos - 1];
 	int pai[14];
 	memcpy(pai,ud->_hand,sizeof(int )*14);
@@ -223,58 +287,79 @@ bool GRoom::isHu(int pos, int card){
 		}
 	}
 	HuItem item = ConfigData::getIns()->isHu(pai, m_isgang, m_curbao);
-	return item._hutype!=None;
+	return item;
 }
 
-void GRoom::SendZhuangHandCards(int pos){
-	int pai[14] = { 0 };
-	for (int i = 0; i < 14; i++){
-		pai[i] = getMJ();
+void GRoom::selectZhuang(){
+	SSelectZhuang ssz;
+	if (m_leftround == m_roomdata.round()){
+		char mm[2] = { rand() % 6 + 1, rand() % 6 + 1 };
+		m_zhuangpos = ((mm[0] + mm[1]) % 4) == 0 ? 4 : ((mm[0] + mm[1]) % 4);
+		ssz.set_zdice(mm, 2);
 	}
-	memcpy(m_udata[pos - 1]->_hand,pai,sizeof(int)*14);
-	UData *ud = m_udata[pos - 1];
-	//推送给玩家
-	
-	//test
-	printf("zhuanghand:");
-	for (int i = 0; i < 14; i++){
-		int va = ud->_hand[i];
-		printf("[%d]", va);
+	else{
+		//一炮双响、一炮三响为放炮的玩家坐庄，其余为胡的人坐庄，流局为原有庄的下一家坐庄
 	}
-	printf("\n");
-	m_zhuangpos = pos;
-	
-	StatTimer::getIns()->scheduleOnce(this, schedule_selector(GRoom::ZhuangChu), 5.0);
+	ssz.set_zhuang(m_zhuangpos);
+	ssz.set_zuid(m_udata[m_zhuangpos-1]->_uid);
+	m_pRoomLogicInfo->SendSSelectZhuang(ssz);
 }
 
-void GRoom::ZhuangChu(float dt){
-	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::ZhuangChu));
+void GRoom::SendDice(string uid){
 	UData *ud = m_udata[m_zhuangpos-1];
-	for (int i = 0; i < 14; i++){
-		int va = ud->_hand[i];
-		if (va>0){
-			SendDiscard(m_zhuangpos, va);
-			break;
+	SDice sd;
+	if (ud&&ud->_uid.compare(uid) == 0){
+		char mm[2] = { rand() % 6 + 1, rand() % 6 + 1 };
+		sd.set_dice(mm,2);
+	}
+	else{
+		sd.set_err(1);
+	}
+	m_pRoomLogicInfo->SendSDice(sd);
+	StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::HandCardCallBack),3.0);
+}
+
+void GRoom::SendZhuangHandCards(){
+	UData *ud = m_udata[m_zhuangpos - 1];
+	if (ud){
+		char pai[14] = { 0 };
+		for (int i = 0; i < 14; i++){
+			pai[i] = getMJ();
+			ud->_hand[i] = pai[i];
+		}
+		SZhuangCard szc;
+		szc.set_cards(pai, 14);
+		szc.set_uid(ud->_uid);
+		HuItem item = ConfigData::getIns()->isHu(ud->_hand,false);
+		szc.set_hu(item._hutype);
+		m_pRoomLogicInfo->SendSZhuangCard(szc);
+	}
+	
+}
+
+void GRoom::HandCardCallBack(float dt){
+	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::HandCardCallBack));
+	SendZhuangHandCards();
+	SendHandCards();
+}
+
+void GRoom::SendHandCards(){
+	for (int j = 1; j <= 4; j++){
+		UData *ud = m_udata[j - 1];
+		if (ud){
+			char pai[14] = { 0 };
+			for (int i = 0; i < 13; i++){
+				pai[i] = getMJ();
+				ud->_hand[i] = pai[i];
+			}
+			SZhuangCard szc;
+			szc.set_cards(pai, 13);
+			szc.set_uid(ud->_uid);
+			HuItem item = ConfigData::getIns()->isHu(ud->_hand, false);
+			szc.set_hu(item._hutype);
+			m_pRoomLogicInfo->SendSZhuangCard(szc);
 		}
 	}
-}
-
-void GRoom::SendHandCards(int pos){
-	int pai[14] = { 0 };
-	for (int i = 0; i < 13; i++){
-		pai[i] = getMJ();
-	}
-	memcpy(m_udata[pos - 1]->_hand, pai, sizeof(int)* 14);
-	UData *ud = m_udata[pos - 1];
-	//推送给玩家
-
-	//test
-	printf("otherhand:");
-	for (int i = 0; i < 14; i++){
-		int va = ud->_hand[i];
-		printf("[%d]", va);
-	}
-	printf("\n");
 }
 
 void GRoom::SendDraw(int pos, int card){
@@ -291,21 +376,20 @@ void GRoom::SendDraw(int pos, int card){
 	printf("draw:[%d]->[%d]\n", pos, card);
 	m_optype = DRAW_TYPE;
 	m_curdir = pos;
-	if (isHu(pos)){
-		//提示玩家可以胡牌
-		//test
-		SendHu(pos);
+	SDraw sd;
+	sd.set_uid(ud->_uid);
+	sd.set_gang(m_isgang);
+	sd.set_card(card);
+	HuItem item = isHu(pos);
+	sd.set_hu(item._hutype);
+	sd.set_pos(pos);
+	vector<CPGCardData> vec= isMoGang(pos, card);
+	for (int i = 0; i < vec.size();i++){
+		CPGCardData cpg1 = vec.at(i);
+		CPGCardData *cpg = sd.add_cpg();
+		cpg->CopyFrom(cpg1);
 	}
-	else{
-		//test
-		for (int i = 0; i < 14; i++){
-			int va = ud->_hand[i];
-			if (va>0){
-				SendDiscard(pos, va);
-				break;
-			}
-		}
-	}
+	m_pRoomLogicInfo->SendSDraw(sd);
 }
 
 void GRoom::SendDiscard(int pos, int card){
@@ -324,30 +408,41 @@ void GRoom::SendDiscard(int pos, int card){
 	m_isgang = false;
 	m_curdir = pos;
 	bool ist = false;
+	
+
 	for (int i = 1; i <= 4; i++){
+		SDiscard sd;
+		sd.set_card(card);
+		sd.set_position(i);
+		sd.set_uid(ud->_uid);
 		if (pos != i){
-			if (isChi(i, card)){
+			vector<CPGCardData> cpgs1 = isChi(i,card);
+			for (int j = 0; j < cpgs1.size(); j++){
+				CPGCardData *c1= sd.add_cpg();
+				c1->CopyFrom(cpgs1.at(j));
 				ist = true;
 			}
-			if (isPeng(i, card)){
+			vector<CPGCardData> cpgs2 = isPeng(i, card);
+			for (int j = 0; j < cpgs2.size(); j++){
+				CPGCardData *c1 = sd.add_cpg();
+				c1->CopyFrom(cpgs2.at(j));
 				ist = true;
-				//test
-				SendPeng(i, card);
 			}
-			if (isChuGang(i, card)){
+			vector<CPGCardData> cpgs3 = isChuGang(i, card);
+			for (int j = 0; j < cpgs3.size(); j++){
+				CPGCardData *c1 = sd.add_cpg();
+				c1->CopyFrom(cpgs3.at(j));
 				ist = true;
-				//test
-				SendMingGang(i, card);
 			}
-			if (isHu(i, card)){
-				ist = true;
-				//test
-				SendHu(i);
-			}
+
+			HuItem item = isHu(i, card);
+			sd.set_hu(item._hutype);
+
 		}
+		m_pRoomLogicInfo->SendSDiscard(sd);
 	}
 	if (!ist){
-		NextStep(FRONT_DRAW);
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::NextFrontDraw), 1.0);
 	}
 }
 
@@ -372,14 +467,13 @@ void GRoom::SendChi(int pos, int *chi){
 	m_curcpgcard = chi[2];
 	m_isgang = false;
 	m_curdir = pos;
-	//test
-	for (int i = 0; i < 14; i++){
-		int va = ud->_hand[i];
-		if (va>0){
-			SendDiscard(pos, va);
-			break;
-		}
-	}
+	
+	char a[3] = {chi[0],chi[1],chi[2]};
+	SChi sc;
+	sc.set_card(a);
+	sc.set_pos(pos);
+	sc.set_uid(ud->_uid);
+	m_pRoomLogicInfo->SendSChi(sc);
 }
 
 void GRoom::SendPeng(int pos, int card){
@@ -403,14 +497,11 @@ void GRoom::SendPeng(int pos, int card){
 	m_isgang = false;
 	m_curdir = pos;
 
-	//test
-	for (int i = 0; i < 14; i++){
-		int va = ud->_hand[i];
-		if (va>0){
-			SendDiscard(pos, va);
-			break;
-		}
-	}
+	SPeng sc;
+	sc.set_card(card);
+	sc.set_pos(pos);
+	sc.set_uid(ud->_uid);
+	m_pRoomLogicInfo->SendSPeng(sc);
 }
 
 void GRoom::SendMingGang(int pos, int card){
@@ -433,20 +524,34 @@ void GRoom::SendMingGang(int pos, int card){
 	m_curcpgcard = card;
 	m_isgang = true;
 	m_curdir = pos;
-	vector<int> vec;
+	map<int, HuItem> vec;
 	for (int i = 1; i <= 4; i++){
-		if (pos!=i && isHu(pos, card)){
-			vec.push_back(i);
+		HuItem item = isHu(i, card);
+		if (pos!=i && item._hutype!=None){
+			vec.insert(make_pair(i,item));
 		}
+		UData *uda = m_udata[i-1];
+		SMingGang smg;
+		smg.set_pos(i);
+		smg.set_card(card);
+		smg.set_uid(uda->_uid);
+		smg.set_hu(item._hutype);
+		m_pRoomLogicInfo->SendSMingGang(smg);
 	}
 	if (vec.empty()){
-		NextStep(BACK_DRAW);
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::NextBackDraw), 1.0);
 	}
 	else{
 		//提示这些玩家可以胡
-		//test
-		for (int i = 0; i < vec.size(); i++){
-			SendHu(i);
+		for (auto itr = vec.begin(); itr != vec.end();itr++){
+			int ppos = itr->first;
+			UData *uda = m_udata[ppos-1];
+			HuItem item = itr->second;
+			SHu hu;
+			hu.set_hu(item._hutype);
+			hu.set_pos(ppos);
+			hu.set_uid(uda->_uid);
+			m_pRoomLogicInfo->SendSHu(hu);
 		}
 	}
 }
@@ -471,55 +576,63 @@ void GRoom::SendAnGang(int pos, int card){
 	m_curcpgcard = card;
 	m_isgang = true;
 	m_curdir = pos;
-	NextStep(BACK_DRAW);
+	StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::NextBackDraw), 1.0);
 }
 
 void GRoom::SendHu(int pos){
-	if (isHu(pos)){
+	UData *ud = m_udata[pos - 1];
+	HuItem item = isHu(pos);
+	if (item._hutype!=None){
 		//可以胡
 		printf("hu hu hu\n");
+		SHu hu;
+		hu.set_hu(item._hutype);
+		hu.set_pos(pos);
+		hu.set_uid(ud->_uid);
+		m_pRoomLogicInfo->SendSHu(hu);
 	}
 }
 
-void GRoom::NextStep(NEXTSTEPTYPE step){
-	int card = 0;
-	switch (step)
-	{
-	case FRONT_DRAW:
-		card = getMJ();
-		if (card > 0){
-			SendDraw(m_curdir + 1, card);
-		}
-		else{
-			printf("end!!!\n");
-		}
-		break;
-	case BACK_DRAW:
-		card = getMJ();
-		if (card > 0){
-			SendDraw(m_curdir, card);
-		}
-		else{
-			printf("end!!!\n");
-		}
-		break;
-	case DISCARD:
-		
-		break;
-	default:
-		break;
+void GRoom::NextFrontDraw(float dt){
+	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::NextFrontDraw));
+	int card = getMJ();
+	if (card > 0){
+		SendDraw(m_curdir + 1, card);
+	}
+	else{
+		printf("end!!!\n");
 	}
 }
 
-void GRoom::Begin(){
-	reset();
-	initMJ();
+void GRoom::NextBackDraw(float dt){
+	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::NextBackDraw));
+	int card = getMJ();
+	if (card > 0){
+		SendDraw(m_curdir, card);
+	}
+	else{
+		printf("end!!!\n");
+	}
+}
 
-	//test
-	SendZhuangHandCards(1);
-	SendHandCards(2);
-	SendHandCards(3);
-	SendHandCards(4);
+void GRoom::Begin(string uid,int type){
+	SBegin sb;
+	if (m_fangzhuuid.compare(uid) == 0){
+		reset();
+		initMJ();
+		sb.set_type(type);
+		m_pRoomInfo->SendSBegin(sb);
+	}
+}
+
+int GRoom::getPosition(string uid){
+	for (int i = 1; i <= 4; i++){
+		UData *ud = m_udata[i-1];
+		if (ud&&ud->_uid.compare(uid) == 0){
+			return i;
+		}
+	}
+	return -1;
 }
 
 void GRoom::initMJ(){
