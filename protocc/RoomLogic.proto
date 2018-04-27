@@ -15,6 +15,7 @@ message SSelectZhuang{
 //打骰子
 message CDice{
 	optional uint32 	cmd 			= 1[default=0x800A];  	//
+	optional string 	uid 			= 2;					//
 }
 
 message SDice{
@@ -30,24 +31,27 @@ message SZhuangCard{
 	optional uint32			hu				= 3;
 	repeated CPGCardData	gang			= 4;//暗杠
 	optional TingCard		ting			= 5;//听牌
+	optional string 		uid 			= 6;					//
 }
 //闲家的手牌
 message SCard{
 	optional uint32 	cmd 			= 1[default=0x800B];  	//
 	optional bytes		cards			= 2;
+	optional string 	uid 			= 3;					//
 }
 
 //出牌
 message CDiscard{
 	optional uint32 	cmd 			= 1[default=0x800C];  	//
 	optional uint32 	card 			= 2;
+	optional string 	uid 			= 3;					//
 }
 
 message SDiscard{
 	optional uint32 		cmd 			= 1[default=0x800C];  	//
 	optional uint32 		card 			= 2;
 	optional uint32			position		= 3;//位置
-	optional uint32			uid				= 4;
+	optional string			uid				= 4;
 	repeated CPGCardData	cpg				= 5;
 	optional uint32			hu				= 6;
 	optional bytes			ting			= 7;//出牌的人才会给
@@ -62,6 +66,8 @@ message SDraw{
 	optional uint32			hu				= 4;
 	optional bytes			ting			= 5;
 	optional bool			gang			= 6;//是否是杠抓
+	optional string 		uid 			= 7;					//
+	optional uint32 		pos 			= 8;					//
 }
 //其他人抓牌
 message SOtherDraw{
@@ -74,6 +80,7 @@ message SOtherDraw{
 message CChi{
 	optional uint32 		cmd 			= 1[default=0x8010];  	//
 	optional bytes 			card 			= 2;
+	optional string 		uid 			= 3;					//
 }
 
 message SChi{
@@ -87,6 +94,7 @@ message SChi{
 message CPeng{
 	optional uint32 		cmd 			= 1[default=0x8011];  	//
 	optional uint32 		card 			= 2;
+	optional string 		uid 			= 3;					//
 }
 
 message SPeng{
@@ -101,6 +109,7 @@ message CMingGang{
 	optional uint32 		cmd 			= 1[default=0x8012];  	//
 	optional uint32 		card 			= 2;
 	optional uint32			type			= 3;
+	optional string 		uid 			= 4;					//
 }
 
 message SMingGang{
@@ -117,6 +126,7 @@ message CAnGang{
 	optional uint32 		cmd 			= 1[default=0x8013];  	//
 	optional uint32 		card 			= 2;
 	optional uint32			type			= 3;
+	optional string 		uid 			= 4;					//
 }
 
 message SAnGang{
@@ -137,6 +147,7 @@ message SFa{
 //胡
 message CHu{
 	optional uint32 		cmd 			= 1[default=0x8015];
+	optional string 		uid 			= 2;					//
 }
 
 message SHu{

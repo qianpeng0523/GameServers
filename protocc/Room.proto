@@ -11,6 +11,7 @@ message CHMMJCreateRoom
 	optional uint32 	round 			= 4;					//
 	optional uint32 	bao 			= 5;					//0无宝 1有宝不可打 2有宝可打
 	optional uint32 	bang 			= 6;					//
+	optional string 	uid 			= 7;					//
 }
 
 message SHMMJCreateRoom
@@ -27,6 +28,7 @@ message CHMMJEnterRoom
     optional uint32 	cmd 			= 1[default=0x7001];  	//
 	optional string 	roomid 			= 2;					//房间号
 	optional uint32 	rtype 			= 3;					//1私人场 2金币场 3比赛场
+	optional string 	uid 			= 4;					//
 }
 
 message SHMMJEnterRoom
@@ -48,18 +50,21 @@ message SComein{
 message CBegin{
 	optional uint32 	cmd 			= 1[default=0x7003];  	//
 	optional uint32 	type 			= 2;//房间类型 1表示HM麻将私人局
+	optional string 	uid 			= 3;					//
 }
 
 message SBegin{
 	optional uint32 	cmd 			= 1[default=0x7003];  	//
 	optional uint32 	type 			= 2;//房间类型 1表示HM麻将私人局
-	optional uint32 	err				= 3;
+	optional string 	uid 			= 3;					//
+	optional uint32 	err				= 4;
 }
 
 //准备
 message CReady{
 	optional uint32 	cmd 			= 1[default=0x7004];  	//
 	optional bool 		ready 			= 2;
+	optional string 	uid 			= 3;					//
 }
 
 message SReady{
@@ -85,6 +90,7 @@ message SLeave{
 message CLine{
 	optional uint32 	cmd 			= 1[default=0x7006];  	//
 	optional bool	 	online 			= 2;
+	optional string 	uid 			= 3;					//
 }
 
 message SLine{
@@ -99,6 +105,7 @@ message SLine{
 message CDissolveRoom{
 	optional uint32 	cmd 			= 1[default=0x7007];  	//
 	optional string	 	rid 			= 2;
+	optional string 	uid 			= 3;					//
 }
 
 message SDissolveRoom{
@@ -114,6 +121,7 @@ message SDissolveRoom{
 message CVote{
 	optional uint32 	cmd 			= 1[default=0x7008];  	//
 	optional string	 	agree 			= 2;
+	optional string 	uid 			= 3;					//
 }
 
 message SVote{
@@ -133,6 +141,7 @@ message SVoteResult{
 message CRChat{
 	optional uint32 	cmd 			= 1[default=0x700A];  	//
 	optional string		content			= 2;
+	optional string 	uid 			= 3;					//
 }
 
 message SRChat{
