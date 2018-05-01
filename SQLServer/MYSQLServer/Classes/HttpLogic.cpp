@@ -123,7 +123,7 @@ HttpLogic *HttpLogic::getIns(){
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	printf("sd:%s\n",sd.getJsonString().c_str());
-	if (sd.isMember("cmd")){
+	if (!sd.isNull()&&sd.isMember("cmd")){
 		int cmd = sd["cmd"].asInt();
 		if (cmd == 0x01){
 			SqlStart(sd, buff, sz);
