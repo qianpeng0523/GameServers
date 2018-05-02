@@ -4,6 +4,8 @@
 #include "EventDispatcher.h"
 #include "HttpLogic.h"
 #include "StatTimer.h"
+#include "RoomControl.h"
+#include "Common.h"
 
 GRoom::GRoom():
 m_curbao(0),
@@ -15,6 +17,7 @@ m_maxcount(4)
 }
 
 GRoom::~GRoom(){
+	reset();
 	for (int i = 0; i < 4; i++){
 		if (m_udata[i]){
 			delete m_udata[i];
@@ -35,8 +38,12 @@ void GRoom::reset(){
 	m_index = 0;
 	m_cards.clear();
 	for (int i = 0; i < 4; i++){
-		if (m_udata[i]){
-			m_udata[i]->init();
+		UData *ud = m_udata[i];
+		if (ud){
+			ud->init();
+			if (m_voteuids.find(ud->_uid) != m_voteuids.end()){
+				m_voteuids.at(ud->_uid) = 0;
+			}
 		}
 	}
 	m_curchu=0;
@@ -44,6 +51,8 @@ void GRoom::reset(){
 	m_curdraw=0;
 	m_curdir=-1;
 	m_optype=DRAW_TYPE;
+	m_dissoveuid = "";
+	m_voteuids.clear();
 }
 
 void GRoom::PushUData(UData *ud){
@@ -536,6 +545,7 @@ void GRoom::SendMingGang(int pos, int card){
 		smg.set_card(card);
 		smg.set_uid(uda->_uid);
 		smg.set_hu(item._hutype);
+		
 		m_pRoomLogicInfo->SendSMingGang(smg);
 	}
 	if (vec.empty()){
@@ -622,6 +632,130 @@ void GRoom::Begin(string uid,int type){
 		initMJ();
 		sb.set_type(type);
 		m_pRoomInfo->SendSBegin(sb);
+		selectZhuang();
+	}
+	
+}
+
+void GRoom::Ready(string uid, bool ready){
+	SReady sr;
+	UData *ud = getUData(uid);
+	if (ud&&ud->_ready!=ready){
+		sr.set_ready(ready);
+		sr.set_position(getPosition(uid));
+		sr.set_uid(uid);
+	}
+	else{
+		sr.set_err(1);
+		sr.set_uid(uid);
+	}
+	m_pRoomInfo->SendSReady(sr);
+}
+
+void GRoom::Leave(string uid){
+	SLeave sl;
+	sl.set_uid(uid);
+	UData *ud = getUData(uid);
+	if (ud){
+		PopUData(ud);
+		sl.set_err(0);
+	}
+	else{
+		sl.set_err(1);
+	}
+	m_pRoomInfo->SendSLeave(sl);
+}
+
+void GRoom::PopUData(UData *ud){
+	for (int i = 0; i < 4;i++){
+		if (m_udata[i]&&m_udata[i] == ud){
+			delete m_udata[i];
+			m_udata[i] = NULL;
+			return;
+		}
+	}
+}
+
+void GRoom::onLine(string uid, bool online){
+	SLine sl;
+	sl.set_uid(uid);
+	UData *ud = getUData(uid);
+	if (ud){
+		ud->_online = online;
+		sl.set_err(0);
+	}
+	else{
+		sl.set_err(1);
+	}
+	m_pRoomInfo->SendSLine(sl);
+}
+
+bool GRoom::DissolveRoom(string uid){
+	SDissolveRoom sd;
+	sd.set_uid(uid);
+	sd.set_rid(m_roomdata.roomid());
+	UData *ud = getUData(uid);
+	if (ud){
+		if (m_dissoveuid.empty()){
+			m_dissoveuid = uid;
+			sd.set_position(getPosition(uid));
+			sd.set_time(Common::getTime());
+			m_pRoomInfo->SendSDissolveRoom(sd);
+			if (m_voteuids.size() == 1){
+				VoteResult(true);
+			}
+			return true;
+		}
+		else{
+			sd.set_err(1);
+		}
+	}
+	else{
+		sd.set_err(1);
+	}
+	m_pRoomInfo->SendSDissolveRoom(sd);
+	return false;
+}
+
+bool GRoom::Agree(string uid, bool isagree){
+	SVote sv;
+	sv.set_uid(uid);
+	UData *ud = getUData(uid);
+	if (ud){
+		auto itr = m_voteuids.find(uid);
+		if (itr != m_voteuids.end()){
+			itr->second = isagree ? 1 : 2;
+		}
+	}
+	m_pRoomInfo->SendSVote(sv);
+
+	auto itr = m_voteuids.find(uid);
+	int acount = 0;
+	int dcount = 0;
+	int count = m_voteuids.size();
+	for (itr; itr != m_voteuids.end(); itr++){
+		if (itr->second == 1){
+			acount++;
+		}
+		else if (itr->second == 2){
+			dcount++;
+		}
+	}
+	if (acount > count / 2){
+		VoteResult(true);
+	}
+	else if (dcount > count / 2){
+		VoteResult(false);
+	}
+	return true;
+}
+
+void GRoom::VoteResult(bool isDissolve){
+	SVoteResult svr;
+	svr.set_dissolve(isDissolve);
+	m_pRoomInfo->SendSVoteResult(svr);
+	if (isDissolve){
+		RoomControl::getIns()->eraseRoom(m_roomdata.roomid());
 	}
 }
 

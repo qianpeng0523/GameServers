@@ -14,11 +14,18 @@ enum OpTypeEnum{
 
 struct UData
 {
+	UData(){
+		_online = true;
+		_gold = 0;
+		_score = 0;
+		init();
+	}
 	void init(){
 		memset(_hand,0,sizeof(int)*14);
 		_cpg.clear();
 		_out.clear();
-		_fa;
+		_fa = 0;
+		_ready = false;
 	}
 	string _uid;
 	int _hand[14];
@@ -27,6 +34,8 @@ struct UData
 	int _fa;
 	int _gold;
 	int _score;
+	bool _ready;
+	bool _online;
 };
 
 enum NEXTSTEPTYPE{
@@ -43,8 +52,6 @@ public:
 	~GRoom();
 	bool init();
 
-	void Comein();
-
 	RoomData getRoomData(){
 		return m_roomdata;
 	}
@@ -56,6 +63,7 @@ public:
 
 	void reset();
 	void PushUData(UData *ud);
+	void PopUData(UData *ud);
 	UData *getUData(string uid);
 	UData *getUData(int pos);
 	UData **getUDatas(){
@@ -80,7 +88,13 @@ public:
 	void NextBackDraw(float dt);
 
 	void Begin(string uid, int type);
-
+	void Ready(string uid,bool ready);
+	void Leave(string uid);
+	void onLine(string uid,bool online);
+	bool DissolveRoom(string uid);
+	bool Agree(string uid,bool isagree);
+	void VoteResult(bool isDissolve);
+	int getPosition(string uid);
 	//
 	void HandCardCallBack(float dt);
 private:
@@ -100,7 +114,7 @@ private:
 	int getMJ();
 	int getMJ(int index);
 
-	int getPosition(string uid);
+	
 private:
 	int m_maxcount;
 	RoomData m_roomdata;
@@ -118,6 +132,8 @@ private:
 	vector<int >m_cards;
 	int m_index;
 	string m_fangzhuuid;
+	string m_dissoveuid;
+	map<string,int>m_voteuids;
 	RoomLogicInfo *m_pRoomLogicInfo;
 	RoomInfo *m_pRoomInfo;
 };

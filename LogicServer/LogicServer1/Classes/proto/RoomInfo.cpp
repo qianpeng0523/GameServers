@@ -1,6 +1,8 @@
 ﻿#include "RoomInfo.h"
 #include "ClientSocket.h"
+#include "GRoom.h"
 #include "RoomControl.h"
+
 static RoomControl *m_pRoomControl = RoomControl::getIns();
 
 RoomInfo *RoomInfo::m_shareRoomInfo=NULL;
@@ -38,10 +40,6 @@ RoomInfo::RoomInfo()
 	CVote sl8;
 	pe->registerProto(sl8.cmd(), sl8.GetTypeName());
 	pe->addListener(sl8.cmd(), this, Event_Handler(RoomInfo::SendSVote));
-
-	CRChat sl9;
-	pe->registerProto(sl9.cmd(), sl9.GetTypeName());
-	pe->addListener(sl9.cmd(), this, Event_Handler(RoomInfo::SendSRChat));
 
 }
 
@@ -100,22 +98,43 @@ void RoomInfo::SendSHMMJCreateRoom(SHMMJCreateRoom sd){
 void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 	CHMMJEnterRoom cr;
 	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
+	string rid = cr.roomid();
+	int rtype = cr.rtype();
+	string uid = cr.uid();
+
+	SHMMJEnterRoom sr;
+	GRoom *gr = m_pRoomControl->enterRoom(uid, rid);
+	if (gr){
+		RoomData *rd = sr.mutable_roomdata();
+		rd->CopyFrom(gr->getRoomData());
+		UData ** udatas = gr->getUDatas();
+		for (int i = 0; i < 4; i++){
+			if (udatas[i]){
+				RoomUser *ru = sr.add_roomusers();
+				ru->set_userid(udatas[i]->_uid);
+				ru->set_position(i + 1);
+
+				//SVote
+			}
+		}
+	}
+	else{
+		sr.set_err(1);
+	}
+	SendSHMMJEnterRoom(sr);
 }
 
 void RoomInfo::SendSHMMJEnterRoom(SHMMJEnterRoom sd){
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
-void RoomInfo::SendSComein(SComein sd){
-	ClientSocket::getIns()->sendMsg(sd.cmd(),&sd);
-
-}
-
 void RoomInfo::HandCBegin(ccEvent *event){
 	CBegin cr;
 	cr.CopyFrom(*event->msg);
 	
+	int type = cr.type();
+	string uid = cr.uid();
+	m_pRoomControl->BeginMJ(type, uid);
 }
 
 void RoomInfo::SendSBegin(SBegin sd){
@@ -125,7 +144,9 @@ void RoomInfo::SendSBegin(SBegin sd){
 void RoomInfo::HandCReady(ccEvent *event){
 	CReady cr;
 	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
+	bool ready = cr.ready();
+	string uid = cr.uid();
+	m_pRoomControl->ReadyMJ(uid, ready);
 }
 
 void RoomInfo::SendSReady(SReady sd){
@@ -135,7 +156,9 @@ void RoomInfo::SendSReady(SReady sd){
 void RoomInfo::HandCLeave(ccEvent *event){
 	CLeave cr;
 	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
+	string uid = cr.uid();
+
+	m_pRoomControl->LeaveMJ(uid);
 }
 
 void RoomInfo::SendSLeave(SLeave sd){
@@ -145,7 +168,10 @@ void RoomInfo::SendSLeave(SLeave sd){
 void RoomInfo::HandCLine(ccEvent *event){
 	CLine cr;
 	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
+	string uid = cr.uid();
+	bool online = cr.online();
+
+	m_pRoomControl->onLine(uid, online);
 }
 
 void RoomInfo::SendSLine(SLine sd){
@@ -155,7 +181,10 @@ void RoomInfo::SendSLine(SLine sd){
 void RoomInfo::HandCDissolveRoom(ccEvent *event){
 	CDissolveRoom cr;
 	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
+	
+	string rid = cr.rid();
+	string uid = cr.uid();
+	m_pRoomControl->DissolveRoom(uid, rid);
 }
 
 void RoomInfo::SendSDissolveRoom(SDissolveRoom sd){
@@ -165,7 +194,10 @@ void RoomInfo::SendSDissolveRoom(SDissolveRoom sd){
 void RoomInfo::HandCVote(ccEvent *event){
 	CVote cr;
 	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
+	
+	bool agree = cr.agree();
+	string uid = cr.uid();
+	m_pRoomControl->Vote(uid, agree);
 }
 
 void RoomInfo::SendSVote(SVote sd){
@@ -173,15 +205,5 @@ void RoomInfo::SendSVote(SVote sd){
 }
 
 void RoomInfo::SendSVoteResult(SVoteResult sd){
-	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
-}
-
-void RoomInfo::HandCRChat(ccEvent *event){
-	CRChat cr;
-	cr.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cr.cmd(), &cr);
-}
-
-void RoomInfo::SendSRChat(SRChat sd){
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }

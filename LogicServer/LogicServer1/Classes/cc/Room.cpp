@@ -254,8 +254,9 @@ void protobuf_AssignDesc_Room_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SReady));
   CLeave_descriptor_ = file->message_type(9);
-  static const int CLeave_offsets_[1] = {
+  static const int CLeave_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLeave, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLeave, uid_),
   };
   CLeave_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -572,25 +573,25 @@ void protobuf_AddDesc_Room_2eproto() {
     "\n\006CReady\022\022\n\003cmd\030\001 \001(\r:\00528676\022\r\n\005ready\030\002 "
     "\001(\010\022\013\n\003uid\030\003 \001(\t\"W\n\006SReady\022\022\n\003cmd\030\001 \001(\r:"
     "\00528676\022\r\n\005ready\030\002 \001(\010\022\020\n\010position\030\003 \001(\r\022"
-    "\013\n\003uid\030\004 \001(\t\022\013\n\003err\030\005 \001(\r\"\034\n\006CLeave\022\022\n\003c"
-    "md\030\001 \001(\r:\00528677\"6\n\006SLeave\022\022\n\003cmd\030\001 \001(\r:\005"
-    "28677\022\013\n\003uid\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"8\n\005CLine"
-    "\022\022\n\003cmd\030\001 \001(\r:\00528678\022\016\n\006online\030\002 \001(\010\022\013\n\003"
-    "uid\030\003 \001(\t\"W\n\005SLine\022\022\n\003cmd\030\001 \001(\r:\00528678\022\016"
-    "\n\006online\030\002 \001(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003uid\030"
-    "\004 \001(\t\022\013\n\003err\030\005 \001(\r\"=\n\rCDissolveRoom\022\022\n\003c"
-    "md\030\001 \001(\r:\00528679\022\013\n\003rid\030\002 \001(\t\022\013\n\003uid\030\003 \001("
-    "\t\"j\n\rSDissolveRoom\022\022\n\003cmd\030\001 \001(\r:\00528679\022\013"
-    "\n\003rid\030\002 \001(\t\022\014\n\004time\030\003 \001(\r\022\020\n\010position\030\004 "
-    "\001(\r\022\013\n\003uid\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"7\n\005CVote\022\022"
-    "\n\003cmd\030\001 \001(\r:\00528680\022\r\n\005agree\030\002 \001(\t\022\013\n\003uid"
-    "\030\003 \001(\t\"I\n\005SVote\022\022\n\003cmd\030\001 \001(\r:\00528680\022\r\n\005a"
-    "gree\030\002 \001(\t\022\020\n\010position\030\003 \001(\r\022\013\n\003uid\030\004 \001("
-    "\t\"3\n\013SVoteResult\022\022\n\003cmd\030\001 \001(\r:\00528681\022\020\n\010"
-    "dissolve\030\002 \001(\010\":\n\006CRChat\022\022\n\003cmd\030\001 \001(\r:\0052"
-    "8682\022\017\n\007content\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\"G\n\006SR"
-    "Chat\022\022\n\003cmd\030\001 \001(\r:\00528682\022\017\n\007content\030\002 \001("
-    "\t\022\013\n\003uid\030\003 \001(\t\022\013\n\003pos\030\004 \001(\r", 1587);
+    "\013\n\003uid\030\004 \001(\t\022\013\n\003err\030\005 \001(\r\")\n\006CLeave\022\022\n\003c"
+    "md\030\001 \001(\r:\00528677\022\013\n\003uid\030\002 \001(\t\"6\n\006SLeave\022\022"
+    "\n\003cmd\030\001 \001(\r:\00528677\022\013\n\003uid\030\002 \001(\t\022\013\n\003err\030\003"
+    " \001(\r\"8\n\005CLine\022\022\n\003cmd\030\001 \001(\r:\00528678\022\016\n\006onl"
+    "ine\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\"W\n\005SLine\022\022\n\003cmd\030\001"
+    " \001(\r:\00528678\022\016\n\006online\030\002 \001(\010\022\020\n\010position\030"
+    "\003 \001(\r\022\013\n\003uid\030\004 \001(\t\022\013\n\003err\030\005 \001(\r\"=\n\rCDiss"
+    "olveRoom\022\022\n\003cmd\030\001 \001(\r:\00528679\022\013\n\003rid\030\002 \001("
+    "\t\022\013\n\003uid\030\003 \001(\t\"j\n\rSDissolveRoom\022\022\n\003cmd\030\001"
+    " \001(\r:\00528679\022\013\n\003rid\030\002 \001(\t\022\014\n\004time\030\003 \001(\r\022\020"
+    "\n\010position\030\004 \001(\r\022\013\n\003uid\030\005 \001(\t\022\013\n\003err\030\006 \001"
+    "(\r\"7\n\005CVote\022\022\n\003cmd\030\001 \001(\r:\00528680\022\r\n\005agree"
+    "\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\"I\n\005SVote\022\022\n\003cmd\030\001 \001("
+    "\r:\00528680\022\r\n\005agree\030\002 \001(\010\022\020\n\010position\030\003 \001("
+    "\r\022\013\n\003uid\030\004 \001(\t\"3\n\013SVoteResult\022\022\n\003cmd\030\001 \001"
+    "(\r:\00528681\022\020\n\010dissolve\030\002 \001(\010\":\n\006CRChat\022\022\n"
+    "\003cmd\030\001 \001(\r:\00528682\022\017\n\007content\030\002 \001(\t\022\013\n\003ui"
+    "d\030\003 \001(\t\"G\n\006SRChat\022\022\n\003cmd\030\001 \001(\r:\00528682\022\017\n"
+    "\007content\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\022\013\n\003pos\030\004 \001(\r", 1600);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Room.proto", &protobuf_RegisterTypes);
   CHMMJCreateRoom::default_instance_ = new CHMMJCreateRoom();
@@ -3774,6 +3775,7 @@ void SReady::Swap(SReady* other) {
 
 #ifndef _MSC_VER
 const int CLeave::kCmdFieldNumber;
+const int CLeave::kUidFieldNumber;
 #endif  // !_MSC_VER
 
 CLeave::CLeave()
@@ -3793,6 +3795,7 @@ CLeave::CLeave(const CLeave& from)
 void CLeave::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 28677u;
+  uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -3801,6 +3804,9 @@ CLeave::~CLeave() {
 }
 
 void CLeave::SharedDtor() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
   if (this != default_instance_) {
   }
 }
@@ -3829,6 +3835,11 @@ CLeave* CLeave::New() const {
 void CLeave::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 28677u;
+    if (has_uid()) {
+      if (uid_ != &::google::protobuf::internal::kEmptyString) {
+        uid_->clear();
+      }
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -3848,6 +3859,23 @@ bool CLeave::MergePartialFromCodedStream(
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &cmd_)));
           set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_uid;
+        break;
+      }
+
+      // optional string uid = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_uid:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_uid()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->uid().data(), this->uid().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
@@ -3878,6 +3906,15 @@ void CLeave::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
+  // optional string uid = 2;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->uid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -3889,6 +3926,16 @@ void CLeave::SerializeWithCachedSizes(
   // optional uint32 cmd = 1 [default = 28677];
   if (has_cmd()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional string uid = 2;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->uid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -3907,6 +3954,13 @@ int CLeave::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->cmd());
+    }
+
+    // optional string uid = 2;
+    if (has_uid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->uid());
     }
 
   }
@@ -3939,6 +3993,9 @@ void CLeave::MergeFrom(const CLeave& from) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
     }
+    if (from.has_uid()) {
+      set_uid(from.uid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -3963,6 +4020,7 @@ bool CLeave::IsInitialized() const {
 void CLeave::Swap(CLeave* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
+    std::swap(uid_, other->uid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -5758,7 +5816,7 @@ CVote::CVote(const CVote& from)
 void CVote::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 28680u;
-  agree_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  agree_ = false;
   uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -5768,9 +5826,6 @@ CVote::~CVote() {
 }
 
 void CVote::SharedDtor() {
-  if (agree_ != &::google::protobuf::internal::kEmptyString) {
-    delete agree_;
-  }
   if (uid_ != &::google::protobuf::internal::kEmptyString) {
     delete uid_;
   }
@@ -5802,11 +5857,7 @@ CVote* CVote::New() const {
 void CVote::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 28680u;
-    if (has_agree()) {
-      if (agree_ != &::google::protobuf::internal::kEmptyString) {
-        agree_->clear();
-      }
-    }
+    agree_ = false;
     if (has_uid()) {
       if (uid_ != &::google::protobuf::internal::kEmptyString) {
         uid_->clear();
@@ -5834,20 +5885,19 @@ bool CVote::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_agree;
+        if (input->ExpectTag(16)) goto parse_agree;
         break;
       }
 
-      // optional string agree = 2;
+      // optional bool agree = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_agree:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_agree()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->agree().data(), this->agree().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &agree_)));
+          set_has_agree();
         } else {
           goto handle_uninterpreted;
         }
@@ -5895,13 +5945,9 @@ void CVote::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional string agree = 2;
+  // optional bool agree = 2;
   if (has_agree()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->agree().data(), this->agree().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->agree(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->agree(), output);
   }
 
   // optional string uid = 3;
@@ -5926,14 +5972,9 @@ void CVote::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // optional string agree = 2;
+  // optional bool agree = 2;
   if (has_agree()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->agree().data(), this->agree().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->agree(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->agree(), target);
   }
 
   // optional string uid = 3;
@@ -5964,11 +6005,9 @@ int CVote::ByteSize() const {
           this->cmd());
     }
 
-    // optional string agree = 2;
+    // optional bool agree = 2;
     if (has_agree()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->agree());
+      total_size += 1 + 1;
     }
 
     // optional string uid = 3;
@@ -6081,7 +6120,7 @@ SVote::SVote(const SVote& from)
 void SVote::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 28680u;
-  agree_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  agree_ = false;
   position_ = 0u;
   uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -6092,9 +6131,6 @@ SVote::~SVote() {
 }
 
 void SVote::SharedDtor() {
-  if (agree_ != &::google::protobuf::internal::kEmptyString) {
-    delete agree_;
-  }
   if (uid_ != &::google::protobuf::internal::kEmptyString) {
     delete uid_;
   }
@@ -6126,11 +6162,7 @@ SVote* SVote::New() const {
 void SVote::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 28680u;
-    if (has_agree()) {
-      if (agree_ != &::google::protobuf::internal::kEmptyString) {
-        agree_->clear();
-      }
-    }
+    agree_ = false;
     position_ = 0u;
     if (has_uid()) {
       if (uid_ != &::google::protobuf::internal::kEmptyString) {
@@ -6159,20 +6191,19 @@ bool SVote::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_agree;
+        if (input->ExpectTag(16)) goto parse_agree;
         break;
       }
 
-      // optional string agree = 2;
+      // optional bool agree = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_agree:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_agree()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->agree().data(), this->agree().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &agree_)));
+          set_has_agree();
         } else {
           goto handle_uninterpreted;
         }
@@ -6236,13 +6267,9 @@ void SVote::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional string agree = 2;
+  // optional bool agree = 2;
   if (has_agree()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->agree().data(), this->agree().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->agree(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->agree(), output);
   }
 
   // optional uint32 position = 3;
@@ -6272,14 +6299,9 @@ void SVote::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // optional string agree = 2;
+  // optional bool agree = 2;
   if (has_agree()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->agree().data(), this->agree().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->agree(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->agree(), target);
   }
 
   // optional uint32 position = 3;
@@ -6315,11 +6337,9 @@ int SVote::ByteSize() const {
           this->cmd());
     }
 
-    // optional string agree = 2;
+    // optional bool agree = 2;
     if (has_agree()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->agree());
+      total_size += 1 + 1;
     }
 
     // optional uint32 position = 3;

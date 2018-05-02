@@ -19,8 +19,6 @@ public:
 	void HandCHMMJEnterRoom(ccEvent *event);
 	void SendSHMMJEnterRoom(SHMMJEnterRoom sd);
 
-	void SendSComein(SComein sd);
-
 	void HandCBegin(ccEvent *event);
 	void SendSBegin(SBegin sd);
 
@@ -41,8 +39,6 @@ public:
 
 	void SendSVoteResult(SVoteResult sd);
 
-	void HandCRChat(ccEvent *event);
-	void SendSRChat(SRChat sd);
 private:
 	static RoomInfo *m_shareRoomInfo;
 	

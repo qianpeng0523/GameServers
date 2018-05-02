@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 class RoomControl 
 {
 public:
@@ -16,9 +17,17 @@ public:
 	void init();
 	
 	GRoom *createRoom(string uid, int type, int ante, int round, int bao, int bang);
-	bool enterRoom(string uid,string rid);
-
+	GRoom *enterRoom(string uid, string rid);
+	GRoom *getGRoom_(string uid);
+	GRoom *getGRoom(string rid);
 	void eraseRoom(string rid);
+
+	bool BeginMJ(int type,string uid);
+	bool ReadyMJ(string uid,bool ready);
+	bool LeaveMJ(string uid);
+	bool onLine(string uid,bool online);
+	bool DissolveRoom(string uid,string rid);
+	bool Vote(string uid,bool agree);
 
 	void test();
 private:

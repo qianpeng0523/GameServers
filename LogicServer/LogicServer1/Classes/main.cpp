@@ -6,7 +6,6 @@
 #include "stdafx.h"
 #include "ClientSocket.h"
 #include "HttpLogic.h"
-#include "RoomControl.h"
 #include "ConfigData.h"
 int _tmain(int argc, _TCHAR* argv[])
 {

@@ -2,11 +2,13 @@
 #include "ClientSocket.h"
 #include "EventDispatcher.h"
 #include "XXIconv.h"
+#include "GRoom.h"
+#include "RoomControl.h"
 
+static RoomControl *g_pRoomControl = RoomControl::getIns();
 RoomLogicInfo *RoomLogicInfo::m_shareRoomLogicInfo=NULL;
 RoomLogicInfo::RoomLogicInfo()
 {
-	
 	EventDispatcher *pe = EventDispatcher::getIns();
 	CDice sl;
 	pe->registerProto(sl.cmd(), sl.GetTypeName());
@@ -57,21 +59,16 @@ bool RoomLogicInfo::init()
 }
 
 void RoomLogicInfo::SendSDice(SDice sd){
-	CDice cl;
-	EventDispatcher::getIns()->addListener(cl.cmd(), this, Event_Handler(RoomLogicInfo::HandCDice));
-	ClientSocket::getIns()->sendMsg(cl.cmd(),&cl);
+	ClientSocket::getIns()->sendMsg(sd.cmd(),&sd);
 }
 
 void RoomLogicInfo::HandCDice(ccEvent *event){
-	SDice cl;
+	CDice cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(RoomLogicInfo::HandCDice));
-	int err = cl.err();
-	if (err==0){
-		
-	}
-	else{
-		
+	string uid = cl.uid();
+	GRoom *gr = g_pRoomControl->getGRoom_(uid);
+	if (gr){
+		gr->SendDice(uid);
 	}
 }
 
@@ -90,7 +87,13 @@ void RoomLogicInfo::SendSCard(SCard sd){
 void RoomLogicInfo::HandCDiscard(ccEvent *event){
 	CDiscard cl;
 	cl.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cl.cmd(), &cl);
+	string uid = cl.uid();
+	int card = cl.card();
+	GRoom *gr = g_pRoomControl->getGRoom_(uid);
+	if (gr){
+		int pos = gr->getPosition(uid);
+		gr->SendDiscard(pos,card);
+	}
 }
 
 void RoomLogicInfo::SendSDiscard(SDiscard sd){
@@ -108,7 +111,18 @@ void RoomLogicInfo::SendSOtherDraw(SOtherDraw sd){
 void RoomLogicInfo::HandChi(ccEvent *event){
 	CChi cl;
 	cl.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cl.cmd(), &cl);
+	string uid = cl.uid();
+	string cards = cl.card();
+	int sz = cards.size();
+	int cds[3] = { 0 };
+	for (int i = 0; i < sz;i++){
+		cds[i] = cards[i];
+	}
+	GRoom *gr = g_pRoomControl->getGRoom_(uid);
+	if (gr){
+		int pos = gr->getPosition(uid);
+		gr->SendChi(pos, cds);
+	}
 }
 
 void RoomLogicInfo::SendSChi(SChi sd){
@@ -118,7 +132,14 @@ void RoomLogicInfo::SendSChi(SChi sd){
 void RoomLogicInfo::HandCPeng(ccEvent *event){
 	CPeng cl;
 	cl.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cl.cmd(), &cl);
+	
+	string uid = cl.uid();
+	int card = cl.card();
+	GRoom *gr = g_pRoomControl->getGRoom_(uid);
+	if (gr){
+		int pos = gr->getPosition(uid);
+		gr->SendPeng(pos, card);
+	}
 }
 
 void RoomLogicInfo::SendSPeng(SPeng sd){
@@ -128,7 +149,26 @@ void RoomLogicInfo::SendSPeng(SPeng sd){
 void RoomLogicInfo::HandCMingGang(ccEvent *event){
 	CMingGang cl;
 	cl.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cl.cmd(), &cl);
+	int card = cl.card();
+	int type = cl.type();
+	string uid = cl.uid();
+
+	GRoom *gr = g_pRoomControl->getGRoom_(uid);
+	int pos = 0;
+	if (gr){
+		pos = gr->getPosition(uid);
+		if (type == 3){
+			gr->SendMingGang(pos, card);
+			return;
+		}
+		else if (type == 5){
+			gr->SendPeng(pos, card);
+			return;
+		}
+	}
+	SMingGang smg;
+	smg.set_err(1);
+	SendSMingGang(smg);
 }
 
 void RoomLogicInfo::SendSMingGang(SMingGang sd){
@@ -138,7 +178,27 @@ void RoomLogicInfo::SendSMingGang(SMingGang sd){
 void RoomLogicInfo::HandCAnGang(ccEvent *event){
 	CAnGang cl;
 	cl.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cl.cmd(), &cl);
+	
+	int card = cl.card();
+	int type = cl.type();
+	string uid = cl.uid();
+
+	GRoom *gr = g_pRoomControl->getGRoom_(uid);
+	int pos = 0;
+	if (gr){
+		pos = gr->getPosition(uid);
+		if (type == 4){
+			gr->SendAnGang(pos, card);
+			return;
+		}
+		else if (type == 6){
+			gr->SendPeng(pos, card);
+			return;
+		}
+	}
+	SAnGang smg;
+	smg.set_err(1);
+	SendSAnGang(smg);
 }
 
 void RoomLogicInfo::SendSAnGang(SAnGang sd){
@@ -152,7 +212,18 @@ void RoomLogicInfo::SendSFa(SFa sd){
 void RoomLogicInfo::HandCHu(ccEvent *event){
 	CHu cl;
 	cl.CopyFrom(*event->msg);
-	ClientSocket::getIns()->sendMsg(cl.cmd(), &cl);
+	
+	string uid = cl.uid();
+	GRoom *gr = g_pRoomControl->getGRoom_(uid);
+	int pos = 0;
+	if (gr){
+		pos = gr->getPosition(uid);
+		gr->SendHu(pos);
+		return;
+	}
+	SHu smg;
+	smg.set_err(1);
+	SendSHu(smg);
 }
 
 void RoomLogicInfo::SendSHu(SHu sd){

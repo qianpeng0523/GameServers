@@ -67,17 +67,17 @@ GRoom *RoomControl::createRoom(string uid, int type, int ante, int round, int ba
 	return gr;
 }
 
-bool RoomControl::enterRoom(string uid, string rid){
-	if (m_roomdatas.find(rid) != m_roomdatas.end()){
-		GRoom *gr = m_roomdatas.at(rid);
+GRoom *RoomControl::enterRoom(string uid, string rid){
+	GRoom *gr = getGRoom(rid);
+	if (gr){
 		UData *ud = new UData();
 		ud->init();
 		ud->_uid = uid;
 		gr->PushUData(ud);
 		m_roomdatas.at(rid) = gr;
-		return true;
+		return gr;
 	}
-	return false;
+	return NULL;
 }
 
 void RoomControl::eraseRoom(string rid){
@@ -87,6 +87,81 @@ void RoomControl::eraseRoom(string rid){
 		itr->second = NULL;
 		m_roomdatas.erase(itr);
 	}
+}
+
+bool RoomControl::BeginMJ(int type, string uid){
+	GRoom *gr = getGRoom_(uid);
+	if (gr){
+		gr->Begin(uid, type);
+		return true;
+	}
+	return false;
+}
+
+bool RoomControl::ReadyMJ(string uid, bool ready){
+	GRoom *gr = getGRoom_(uid);
+	if (gr){
+		gr->Ready(uid, ready);
+		return true;
+	}
+	return false;
+}
+
+bool RoomControl::LeaveMJ(string uid){
+	GRoom *gr = getGRoom_(uid);
+	if (gr){
+		gr->Leave(uid);
+		return true;
+	}
+	return false;
+}
+
+bool RoomControl::onLine(string uid, bool online){
+	GRoom *gr = getGRoom_(uid);
+	if (gr){
+		gr->onLine(uid,online);
+		return true;
+	}
+	return false;
+}
+
+bool RoomControl::DissolveRoom(string uid, string rid){
+	GRoom *gr = getGRoom(rid);
+	if (gr){
+		gr->DissolveRoom(uid);
+	}
+	return true;
+}
+
+bool RoomControl::Vote(string uid, bool agree){
+	GRoom *gr = getGRoom_(uid);
+	if (gr){
+		gr->Agree(uid, agree);
+		return true;
+	}
+	return false;
+}
+
+GRoom *RoomControl::getGRoom_(string uid){
+	auto itr = m_roomdatas.begin();
+	for (itr; itr != m_roomdatas.end(); itr++){
+		GRoom *gr = itr->second;
+		if (gr->getUData(uid)){
+			return gr;
+		}
+	}
+	return NULL;
+}
+
+GRoom *RoomControl::getGRoom(string rid){
+	auto itr = m_roomdatas.find(rid);
+	if (itr != m_roomdatas.end()){
+		GRoom *gr = itr->second;
+		if (gr){
+			return gr;
+		}
+	}
+	return NULL;
 }
 
 void RoomControl::test(){
