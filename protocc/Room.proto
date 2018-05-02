@@ -120,13 +120,13 @@ message SDissolveRoom{
 //投票
 message CVote{
 	optional uint32 	cmd 			= 1[default=0x7008];  	//
-	optional string	 	agree 			= 2;
+	optional bool	 	agree 			= 2;
 	optional string 	uid 			= 3;					//
 }
 
 message SVote{
 	optional uint32 	cmd 			= 1[default=0x7008];  	//
-	optional string	 	agree 			= 2;
+	optional bool	 	agree 			= 2;
 	optional uint32 	position 		= 3;
 	optional string	 	uid 			= 4;//
 }
