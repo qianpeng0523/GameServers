@@ -156,10 +156,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		LibEvent *pLibEvent = LibEvent::getIns();
 		Head *testhead = (Head*)headchar;
 		string serverdest = pLibEvent->getReq(testhead);
-		if (serverdest != HttpLogic::SERVER_CODE){
-			printf("数据不合法！！！！！！！！\n");
-			return;
-		}
+		
 		int cmd = pLibEvent->getCMD(testhead);
 		int bodylen = pLibEvent->getBodyLen(testhead);
 		int stamp = pLibEvent->getStamp(testhead);
@@ -171,6 +168,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 			HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
 			delete buffer;
 			ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd);
+			cce->m_servername = serverdest;
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{

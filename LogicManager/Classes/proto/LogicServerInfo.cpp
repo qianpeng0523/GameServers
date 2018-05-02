@@ -32,6 +32,7 @@ bool LogicServerInfo::init()
 void LogicServerInfo::SendSLogicLogin(int fd,int err){
 	SLogicLogin sl;
 	sl.set_err(err);
+	
 	LibEvent::getIns()->SendData(sl.cmd(), &sl, fd);
 }
 
@@ -47,9 +48,18 @@ void LogicServerInfo::HandlerCLogicLoginHand(ccEvent *event){
 	}
 	string seession = cl.seession();
 	if (/*event->m_servername.compare(servername) == 0 &&*/ seession.compare(LOGIC_TOKEN) == 0){
+		m_gamefds.insert(make_pair(event->m_servername, event->m_fd));
 		SendSLogicLogin(event->m_fd,0);
+		
 	}
 	else{
 		SendSLogicLogin(event->m_fd,1);
 	}
+}
+
+int LogicServerInfo::getFd(string type){
+	if (m_gamefds.find(type) != m_gamefds.end()){
+		return m_gamefds.at(type);
+	}
+	return -1;
 }

@@ -5,6 +5,13 @@
 #include "stdafx.h"
 #include "ccEvent.h"
 
+struct RoomCache
+{
+	string _rid;
+	string _fzuid;
+	vector<string> _uids;
+};
+
 class RoomInfo:public Object
 {
 public:
@@ -43,9 +50,11 @@ public:
 
 	void HandCRChat(ccEvent *event);
 	void SendSRChat(SRChat sd, int fd);
+
+	void PushRoom(string rid,string uid);
 private:
 	static RoomInfo *m_shareRoomInfo;
-	
+	map<string, RoomCache *> m_pRooms;
 };
 
 #endif 

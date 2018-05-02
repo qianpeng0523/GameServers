@@ -1,6 +1,8 @@
 ﻿#include "RoomInfo.h"
 #include "LibEvent.h"
+#include "LogicServerInfo.h"
 
+static LogicServerInfo *m_pLogicServerInfo = LogicServerInfo::getIns();
 RoomInfo *RoomInfo::m_shareRoomInfo=NULL;
 RoomInfo::RoomInfo()
 {
@@ -64,17 +66,31 @@ bool RoomInfo::init()
 void RoomInfo::HandCHMMJCreateRoom(ccEvent *event){
 	CHMMJCreateRoom cl;
 	cl.CopyFrom(*event->msg);
-	
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
 }
 
 void RoomInfo::SendSHMMJCreateRoom(SHMMJCreateRoom sd, int fd){
+	int err = sd.err();
+	if (err == 0){
+		string rid = sd.roomdata().roomid();
+		string uid = sd.roomuser().userid();
+		if (m_pRooms.find(rid) == m_pRooms.end()){
+			RoomCache *rc = new RoomCache();
+			rc->_fzuid = uid;
+			rc->_uids.push_back(uid);
+			m_pRooms.insert(make_pair(rid, rc));
+		}
+	}
+
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
 }
 
 void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 	CHMMJEnterRoom cr;
 	cr.CopyFrom(*event->msg);
-	
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cr.cmd(), &cr, fd);
 }
 
 void RoomInfo::SendSHMMJEnterRoom(SHMMJEnterRoom sd, int fd){
@@ -89,7 +105,8 @@ void RoomInfo::SendSComein(SComein sd, int fd){
 void RoomInfo::HandCBegin(ccEvent *event){
 	CBegin cr;
 	cr.CopyFrom(*event->msg);
-	
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cr.cmd(), &cr, fd);
 }
 
 void RoomInfo::SendSBegin(SBegin sd, int fd){
@@ -99,7 +116,8 @@ void RoomInfo::SendSBegin(SBegin sd, int fd){
 void RoomInfo::HandCReady(ccEvent *event){
 	CReady cr;
 	cr.CopyFrom(*event->msg);
-	
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cr.cmd(), &cr, fd);
 }
 
 void RoomInfo::SendSReady(SReady sd, int fd){
@@ -108,7 +126,9 @@ void RoomInfo::SendSReady(SReady sd, int fd){
 
 void RoomInfo::HandCLeave(ccEvent *event){
 	CLeave cr;
-	
+	cr.CopyFrom(*event->msg);
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cr.cmd(), &cr, fd);
 }
 
 void RoomInfo::SendSLeave(SLeave sd, int fd){
@@ -118,7 +138,8 @@ void RoomInfo::SendSLeave(SLeave sd, int fd){
 void RoomInfo::HandCLine(ccEvent *event){
 	CLine cr;
 	cr.CopyFrom(*event->msg);
-	
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cr.cmd(), &cr, fd);
 }
 
 void RoomInfo::SendSLine(SLine sd, int fd){
@@ -128,7 +149,8 @@ void RoomInfo::SendSLine(SLine sd, int fd){
 void RoomInfo::HandCDissolveRoom(ccEvent *event){
 	CDissolveRoom cr;
 	cr.CopyFrom(*event->msg);
-	
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cr.cmd(), &cr, fd);
 }
 
 void RoomInfo::SendSDissolveRoom(SDissolveRoom sd, int fd){
@@ -138,7 +160,8 @@ void RoomInfo::SendSDissolveRoom(SDissolveRoom sd, int fd){
 void RoomInfo::HandCVote(ccEvent *event){
 	CVote cr;
 	cr.CopyFrom(*event->msg);
-	
+	int fd = m_pLogicServerInfo->getFd(event->m_servername);
+	LibEvent::getIns()->SendData(cr.cmd(), &cr, fd);
 }
 
 void RoomInfo::SendSVote(SVote sd, int fd){
@@ -152,7 +175,7 @@ void RoomInfo::SendSVoteResult(SVoteResult sd, int fd){
 void RoomInfo::HandCRChat(ccEvent *event){
 	CRChat cr;
 	cr.CopyFrom(*event->msg);
-	
+	//
 }
 
 void RoomInfo::SendSRChat(SRChat sd, int fd){
