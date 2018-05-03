@@ -115,6 +115,7 @@ void HttpLogic::GateDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
 	if (err == 0){
 		SERVER_PORT = sd["port"].asInt();
+		SERVER_CODE = sd["name"].asString();
 		printf("\n/************************************************/\n");
 		std::cout << "socket start:" <<SERVER_PORT<< std::endl;
 		printf("/************************************************/\n");

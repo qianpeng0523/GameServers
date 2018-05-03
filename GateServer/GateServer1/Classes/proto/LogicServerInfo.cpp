@@ -32,20 +32,20 @@ bool LogicServerInfo::init()
     return true;
 }
 
-void LogicServerInfo::SendCLogicLogin(){
-	CLogicLogin cl;
+void LogicServerInfo::SendCGateLogin(){
+	CGateLogin cl;
 	cl.set_seession(LOGIC_TOKEN);
 	cl.set_servername(HttpLogic::SERVER_CODE);
-	EventListen::getIns()->addDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogicLoginHand));
-	ClientSocket::getIns()->sendMsg(cl.cmd(),&cl);
+	EventListen::getIns()->addDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSGateLoginHand));
+	ClientSocket::getIns()->sendMsg(cl.cmd(), &cl);
 }
 
-void LogicServerInfo::HandlerSLogicLoginHand(ccEvent *event){
-	SLogicLogin cl;
+void LogicServerInfo::HandlerSGateLoginHand(ccEvent *event){
+	SGateLogin cl;
 	cl.CopyFrom(*event->msg);
-	EventListen::getIns()->removeDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogicLoginHand));
+	EventListen::getIns()->removeDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSGateLoginHand));
 	int err = cl.err();
-	if (err==0){
+	if (err == 0){
 		printf("连接成功!\n");
 	}
 	else{
