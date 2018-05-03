@@ -151,10 +151,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	fprintf(file2, content2.c_str(), content2.length());
 	fclose(file2);
 	*/
-
+	WSADATA wsaData;
+	WSAStartup(MAKEWORD(2, 1), &wsaData);
+	redis::getIns()->initial("www.lesharecs.com", 6379, "3.1415926qp");
 	HttpLogic::getIns()->requestManagerData();
-	redis::getIns()->initial("www.lesharecs.com",  6379, "3.1415926qp");
-	ConfigData::getIns();
+
+	//ConfigData::getIns();
 	getchar();
 	return 0;
 }
