@@ -9,7 +9,7 @@ LogicServerInfo::LogicServerInfo()
 {
 	EventDispatcher *pe = EventDispatcher::getIns();
 	EventListen *p = EventListen::getIns();
-	SLogicLogin sl;
+	SGateLogin sl;
 	pe->registerProto(sl.cmd(), sl.GetTypeName());
 	
 }

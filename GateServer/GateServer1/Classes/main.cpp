@@ -119,9 +119,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	LoginInfo::getIns()->openCheckUpdate(true);
 	HallInfo::getIns();
-
-	HttpLogic::getIns()->requestManagerData();
 	HttpLogic::getIns()->requestGateData();
+	HttpLogic::getIns()->requestManagerData();
+	
 	HttpWXLogin::getIns();
 	HttpAliPay::getIns();
 	HttpPay::getIns()/*->test()*/;
