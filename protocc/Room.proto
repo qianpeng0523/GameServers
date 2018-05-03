@@ -78,6 +78,7 @@ message SReady{
 //离开房间
 message CLeave{
 	optional uint32 	cmd 			= 1[default=0x7005];  	//
+	optional string	 	uid 			= 2;
 }
 
 message SLeave{

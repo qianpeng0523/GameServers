@@ -12,6 +12,21 @@ message CLogicLogin
 //SLogicLogin
 message SLogicLogin
 {
-	optional uint32 cmd 			= 1[default=0x1000];  	// 
+	optional uint32 cmd 		= 1[default=0x1000];  	// 
+    optional uint32 err  		= 2;					//
+}
+
+//CGateLogin
+message CGateLogin
+{
+	optional uint32 cmd 			= 1[default=0x1001];  	// 
+    optional string servername 		= 2;  					// 
+    optional string seession  		= 3; 					//
+}
+
+//SGateLogin
+message SGateLogin
+{
+	optional uint32 cmd 		= 1[default=0x1001];  	// 
     optional uint32 err  		= 2;					//
 }
