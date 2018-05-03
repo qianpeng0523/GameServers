@@ -80,7 +80,7 @@ void HttpLogic::requestManagerData(){
 	string url=sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0A;
-	sd["type"] = 2;
+	sd["type"] = 3;
 	HttpEvent::getIns()->requestData(url,sd);
 }
 
@@ -88,7 +88,8 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 	int err = sd["err"].asInt();
 	if (err == 0){
 		SERVER_PORT = sd["port"].asInt();
-		SERVER_IP = sd["ip"].asString();
+		unsigned int port;
+		SERVER_IP =Common::getHostNameIp(sd["ip"].asString(),port);
 		SERVER_CODE = sd["name"].asString();
 		ClientSocket::getIns()->connect(SERVER_IP.c_str(), SERVER_PORT);
 	}

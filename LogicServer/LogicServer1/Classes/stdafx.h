@@ -27,19 +27,7 @@
 
 using namespace std;
 using namespace protocol;
-#define CC_REPEAT_FOREVER (UINT_MAX -1)
-#define kRepeatForever CC_REPEAT_FOREVER
-// TODO: 在此处引用程序需要的其他头文件
 
-#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
-#define CC_DEPRECATED_ATTRIBUTE __attribute__((deprecated))
-#elif _MSC_VER >= 1400 //vs 2005 or higher
-#define CC_DEPRECATED_ATTRIBUTE __declspec(deprecated) 
-#else
-#define CC_DEPRECATED_ATTRIBUTE
-#endif 
-
-#define CC_UNUSED_PARAM(unusedparam) (void)unusedparam
 
 
 enum ERR_CODE{

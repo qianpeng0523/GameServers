@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "ClientSocket.h"
 #include "HttpLogic.h"
+#include "redis.h"
 #include "ConfigData.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
