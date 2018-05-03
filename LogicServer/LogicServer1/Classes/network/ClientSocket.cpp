@@ -106,7 +106,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	memset(buffer, 0, HEADLEN + len);
 
 	//服务器编号
-	memcpy(buffer, HttpLogic::SERVER_CODE.c_str(), 3);
+	memcpy(buffer, LOGICNAME, strlen(LOGICNAME));
 
 	//消息序列号
 	buffer[3] = m_sendstamp;

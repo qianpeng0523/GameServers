@@ -96,3 +96,4 @@ static string SERVER_IP = "192.168.50.151";
 #define KONGGE "^"
 
 #define CHI_DEFINE 0
+#define LOGICNAME "lg1"
