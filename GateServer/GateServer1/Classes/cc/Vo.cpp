@@ -420,7 +420,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PayRecord));
   RoomData_descriptor_ = file->message_type(17);
-  static const int RoomData_offsets_[7] = {
+  static const int RoomData_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, ante_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, round_),
@@ -428,6 +428,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, bang_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, roomid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, roomtype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, uid_),
   };
   RoomData_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -704,24 +705,25 @@ void protobuf_AddDesc_Vo_2eproto() {
     "\002 \001(\t\022\024\n\014out_trade_no\030\003 \001(\t\022\022\n\ntime_star"
     "t\030\004 \001(\t\022\023\n\013time_expire\030\005 \001(\t\022\021\n\tprepay_i"
     "d\030\006 \001(\t\022\014\n\004body\030\007 \001(\t\022\021\n\ttotal_fee\030\010 \001(\t"
-    "\022\030\n\020spbill_create_ip\030\t \001(\t\"r\n\010RoomData\022\014"
+    "\022\030\n\020spbill_create_ip\030\t \001(\t\"\177\n\010RoomData\022\014"
     "\n\004type\030\001 \001(\r\022\014\n\004ante\030\002 \001(\r\022\r\n\005round\030\003 \001("
     "\r\022\013\n\003bao\030\004 \001(\r\022\014\n\004bang\030\005 \001(\r\022\016\n\006roomid\030\006"
-    " \001(\t\022\020\n\010roomtype\030\007 \001(\t\"F\n\013CPGCardData\022\014\n"
-    "\004type\030\001 \001(\r\022\r\n\005cards\030\002 \001(\014\022\r\n\005index\030\003 \001("
-    "\r\022\013\n\003bei\030\004 \001(\r\"\254\002\n\010RoomUser\022\016\n\006userid\030\001 "
-    "\001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005picid\030\003 \001(\r\022\016\n\006"
-    "picurl\030\004 \001(\t\022\013\n\003sex\030\005 \001(\r\022\n\n\002ip\030\006 \001(\t\022\014\n"
-    "\004gold\030\007 \001(\r\022\r\n\005score\030\010 \001(\r\022\013\n\003win\030\t \001(\r\022"
-    "\014\n\004lose\030\n \001(\r\022\014\n\004ping\030\013 \001(\r\022\013\n\003vip\030\014 \001(\r"
-    "\022&\n\007cpgcard\030\r \003(\0132\025.protocol.CPGCardData"
-    "\022\020\n\010position\030\016 \001(\r\022\r\n\005cards\030\017 \001(\014\022\020\n\010out"
-    "cards\030\020 \001(\014\022\n\n\002fa\030\021 \001(\r\022\014\n\004piao\030\022 \001(\r\"&\n"
-    "\010TingCard\022\014\n\004card\030\001 \001(\r\022\014\n\004ting\030\002 \001(\014\"Y\n"
-    "\010UserOver\022\016\n\006userid\030\001 \001(\t\022\020\n\010position\030\002 "
-    "\001(\r\022\r\n\005score\030\003 \001(\r\022\r\n\005total\030\004 \001(\r\022\r\n\005car"
-    "ds\030\005 \001(\014\"D\n\tUserRound\022\016\n\006userid\030\001 \001(\t\022\r\n"
-    "\005total\030\002 \001(\r\022\013\n\003pao\030\003 \001(\t\022\013\n\003win\030\004 \001(\t", 2438);
+    " \001(\t\022\020\n\010roomtype\030\007 \001(\t\022\013\n\003uid\030\010 \001(\t\"F\n\013C"
+    "PGCardData\022\014\n\004type\030\001 \001(\r\022\r\n\005cards\030\002 \001(\014\022"
+    "\r\n\005index\030\003 \001(\r\022\013\n\003bei\030\004 \001(\r\"\254\002\n\010RoomUser"
+    "\022\016\n\006userid\030\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005pi"
+    "cid\030\003 \001(\r\022\016\n\006picurl\030\004 \001(\t\022\013\n\003sex\030\005 \001(\r\022\n"
+    "\n\002ip\030\006 \001(\t\022\014\n\004gold\030\007 \001(\r\022\r\n\005score\030\010 \001(\r\022"
+    "\013\n\003win\030\t \001(\r\022\014\n\004lose\030\n \001(\r\022\014\n\004ping\030\013 \001(\r"
+    "\022\013\n\003vip\030\014 \001(\r\022&\n\007cpgcard\030\r \003(\0132\025.protoco"
+    "l.CPGCardData\022\020\n\010position\030\016 \001(\r\022\r\n\005cards"
+    "\030\017 \001(\014\022\020\n\010outcards\030\020 \001(\014\022\n\n\002fa\030\021 \001(\r\022\014\n\004"
+    "piao\030\022 \001(\r\"&\n\010TingCard\022\014\n\004card\030\001 \001(\r\022\014\n\004"
+    "ting\030\002 \001(\014\"Y\n\010UserOver\022\016\n\006userid\030\001 \001(\t\022\020"
+    "\n\010position\030\002 \001(\r\022\r\n\005score\030\003 \001(\r\022\r\n\005total"
+    "\030\004 \001(\r\022\r\n\005cards\030\005 \001(\014\"D\n\tUserRound\022\016\n\006us"
+    "erid\030\001 \001(\t\022\r\n\005total\030\002 \001(\r\022\013\n\003pao\030\003 \001(\t\022\013"
+    "\n\003win\030\004 \001(\t", 2451);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Vo.proto", &protobuf_RegisterTypes);
   UserBase::default_instance_ = new UserBase();
@@ -7502,6 +7504,7 @@ const int RoomData::kBaoFieldNumber;
 const int RoomData::kBangFieldNumber;
 const int RoomData::kRoomidFieldNumber;
 const int RoomData::kRoomtypeFieldNumber;
+const int RoomData::kUidFieldNumber;
 #endif  // !_MSC_VER
 
 RoomData::RoomData()
@@ -7527,6 +7530,7 @@ void RoomData::SharedCtor() {
   bang_ = 0u;
   roomid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   roomtype_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -7540,6 +7544,9 @@ void RoomData::SharedDtor() {
   }
   if (roomtype_ != &::google::protobuf::internal::kEmptyString) {
     delete roomtype_;
+  }
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
   }
   if (this != default_instance_) {
   }
@@ -7581,6 +7588,11 @@ void RoomData::Clear() {
     if (has_roomtype()) {
       if (roomtype_ != &::google::protobuf::internal::kEmptyString) {
         roomtype_->clear();
+      }
+    }
+    if (has_uid()) {
+      if (uid_ != &::google::protobuf::internal::kEmptyString) {
+        uid_->clear();
       }
     }
   }
@@ -7703,6 +7715,23 @@ bool RoomData::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(66)) goto parse_uid;
+        break;
+      }
+
+      // optional string uid = 8;
+      case 8: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_uid:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_uid()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->uid().data(), this->uid().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -7768,6 +7797,15 @@ void RoomData::SerializeWithCachedSizes(
       7, this->roomtype(), output);
   }
 
+  // optional string uid = 8;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      8, this->uid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -7819,6 +7857,16 @@ void RoomData::SerializeWithCachedSizes(
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->roomtype(), target);
+  }
+
+  // optional string uid = 8;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        8, this->uid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -7881,6 +7929,13 @@ int RoomData::ByteSize() const {
           this->roomtype());
     }
 
+    // optional string uid = 8;
+    if (has_uid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->uid());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -7929,6 +7984,9 @@ void RoomData::MergeFrom(const RoomData& from) {
     if (from.has_roomtype()) {
       set_roomtype(from.roomtype());
     }
+    if (from.has_uid()) {
+      set_uid(from.uid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -7959,6 +8017,7 @@ void RoomData::Swap(RoomData* other) {
     std::swap(bang_, other->bang_);
     std::swap(roomid_, other->roomid_);
     std::swap(roomtype_, other->roomtype_);
+    std::swap(uid_, other->uid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

@@ -244,17 +244,32 @@ class CDice : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
+  // optional string uid = 2;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 2;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.CDice)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
+  ::std::string* uid_;
   ::google::protobuf::uint32 cmd_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -473,6 +488,18 @@ class SZhuangCard : public ::google::protobuf::Message {
   inline ::protocol::TingCard* release_ting();
   inline void set_allocated_ting(::protocol::TingCard* ting);
 
+  // optional string uid = 6;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 6;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.SZhuangCard)
  private:
   inline void set_has_cmd();
@@ -483,6 +510,8 @@ class SZhuangCard : public ::google::protobuf::Message {
   inline void clear_has_hu();
   inline void set_has_ting();
   inline void clear_has_ting();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -491,9 +520,10 @@ class SZhuangCard : public ::google::protobuf::Message {
   ::google::protobuf::uint32 hu_;
   ::google::protobuf::RepeatedPtrField< ::protocol::CPGCardData > gang_;
   ::protocol::TingCard* ting_;
+  ::std::string* uid_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -577,20 +607,35 @@ class SCard : public ::google::protobuf::Message {
   inline ::std::string* release_cards();
   inline void set_allocated_cards(::std::string* cards);
 
+  // optional string uid = 3;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 3;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.SCard)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
   inline void set_has_cards();
   inline void clear_has_cards();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* cards_;
+  ::std::string* uid_;
   ::google::protobuf::uint32 cmd_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -669,20 +714,35 @@ class CDiscard : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 card() const;
   inline void set_card(::google::protobuf::uint32 value);
 
+  // optional string uid = 3;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 3;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.CDiscard)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
   inline void set_has_card();
   inline void clear_has_card();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 card_;
+  ::std::string* uid_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -768,12 +828,17 @@ class SDiscard : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 position() const;
   inline void set_position(::google::protobuf::uint32 value);
 
-  // optional uint32 uid = 4;
+  // optional string uid = 4;
   inline bool has_uid() const;
   inline void clear_uid();
   static const int kUidFieldNumber = 4;
-  inline ::google::protobuf::uint32 uid() const;
-  inline void set_uid(::google::protobuf::uint32 value);
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
 
   // repeated .protocol.CPGCardData cpg = 5;
   inline int cpg_size() const;
@@ -834,11 +899,11 @@ class SDiscard : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 card_;
+  ::std::string* uid_;
   ::google::protobuf::uint32 position_;
-  ::google::protobuf::uint32 uid_;
+  ::google::protobuf::uint32 hu_;
   ::google::protobuf::RepeatedPtrField< ::protocol::CPGCardData > cpg_;
   ::std::string* ting_;
-  ::google::protobuf::uint32 hu_;
   ::google::protobuf::uint32 err_;
 
   mutable int _cached_size_;
@@ -959,6 +1024,25 @@ class SDraw : public ::google::protobuf::Message {
   inline bool gang() const;
   inline void set_gang(bool value);
 
+  // optional string uid = 7;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 7;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
+  // optional uint32 pos = 8;
+  inline bool has_pos() const;
+  inline void clear_pos();
+  static const int kPosFieldNumber = 8;
+  inline ::google::protobuf::uint32 pos() const;
+  inline void set_pos(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.SDraw)
  private:
   inline void set_has_cmd();
@@ -971,6 +1055,10 @@ class SDraw : public ::google::protobuf::Message {
   inline void clear_has_ting();
   inline void set_has_gang();
   inline void clear_has_gang();
+  inline void set_has_uid();
+  inline void clear_has_uid();
+  inline void set_has_pos();
+  inline void clear_has_pos();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -980,9 +1068,11 @@ class SDraw : public ::google::protobuf::Message {
   ::std::string* ting_;
   ::google::protobuf::uint32 hu_;
   bool gang_;
+  ::std::string* uid_;
+  ::google::protobuf::uint32 pos_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -1183,20 +1273,35 @@ class CChi : public ::google::protobuf::Message {
   inline ::std::string* release_card();
   inline void set_allocated_card(::std::string* card);
 
+  // optional string uid = 3;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 3;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.CChi)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
   inline void set_has_card();
   inline void clear_has_card();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* card_;
+  ::std::string* uid_;
   ::google::protobuf::uint32 cmd_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -1407,20 +1512,35 @@ class CPeng : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 card() const;
   inline void set_card(::google::protobuf::uint32 value);
 
+  // optional string uid = 3;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 3;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.CPeng)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
   inline void set_has_card();
   inline void clear_has_card();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 card_;
+  ::std::string* uid_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -1633,6 +1753,18 @@ class CMingGang : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 type() const;
   inline void set_type(::google::protobuf::uint32 value);
 
+  // optional string uid = 4;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 4;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.CMingGang)
  private:
   inline void set_has_cmd();
@@ -1641,15 +1773,18 @@ class CMingGang : public ::google::protobuf::Message {
   inline void clear_has_card();
   inline void set_has_type();
   inline void clear_has_type();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 card_;
+  ::std::string* uid_;
   ::google::protobuf::uint32 type_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -1882,6 +2017,18 @@ class CAnGang : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 type() const;
   inline void set_type(::google::protobuf::uint32 value);
 
+  // optional string uid = 4;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 4;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.CAnGang)
  private:
   inline void set_has_cmd();
@@ -1890,15 +2037,18 @@ class CAnGang : public ::google::protobuf::Message {
   inline void clear_has_card();
   inline void set_has_type();
   inline void clear_has_type();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 cmd_;
   ::google::protobuf::uint32 card_;
+  ::std::string* uid_;
   ::google::protobuf::uint32 type_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -2214,17 +2364,32 @@ class CHu : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
+  // optional string uid = 2;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 2;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.CHu)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
+  ::std::string* uid_;
   ::google::protobuf::uint32 cmd_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
 
   friend void  protobuf_AddDesc_RoomLogic_2eproto();
   friend void protobuf_AssignDesc_RoomLogic_2eproto();
@@ -2994,6 +3159,76 @@ inline void CDice::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
+// optional string uid = 2;
+inline bool CDice::has_uid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CDice::set_has_uid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CDice::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CDice::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CDice::uid() const {
+  return *uid_;
+}
+inline void CDice::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CDice::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CDice::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CDice::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CDice::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CDice::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
 // -------------------------------------------------------------------
 
 // SDice
@@ -3293,6 +3528,76 @@ inline void SZhuangCard::set_allocated_ting(::protocol::TingCard* ting) {
   }
 }
 
+// optional string uid = 6;
+inline bool SZhuangCard::has_uid() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void SZhuangCard::set_has_uid() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void SZhuangCard::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void SZhuangCard::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& SZhuangCard::uid() const {
+  return *uid_;
+}
+inline void SZhuangCard::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SZhuangCard::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SZhuangCard::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SZhuangCard::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* SZhuangCard::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SZhuangCard::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
 // -------------------------------------------------------------------
 
 // SCard
@@ -3389,6 +3694,76 @@ inline void SCard::set_allocated_cards(::std::string* cards) {
   }
 }
 
+// optional string uid = 3;
+inline bool SCard::has_uid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SCard::set_has_uid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SCard::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SCard::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& SCard::uid() const {
+  return *uid_;
+}
+inline void SCard::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SCard::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SCard::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SCard::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* SCard::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SCard::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
 // -------------------------------------------------------------------
 
 // CDiscard
@@ -3435,6 +3810,76 @@ inline ::google::protobuf::uint32 CDiscard::card() const {
 inline void CDiscard::set_card(::google::protobuf::uint32 value) {
   set_has_card();
   card_ = value;
+}
+
+// optional string uid = 3;
+inline bool CDiscard::has_uid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CDiscard::set_has_uid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CDiscard::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CDiscard::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CDiscard::uid() const {
+  return *uid_;
+}
+inline void CDiscard::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CDiscard::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CDiscard::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CDiscard::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CDiscard::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CDiscard::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // -------------------------------------------------------------------
@@ -3507,7 +3952,7 @@ inline void SDiscard::set_position(::google::protobuf::uint32 value) {
   position_ = value;
 }
 
-// optional uint32 uid = 4;
+// optional string uid = 4;
 inline bool SDiscard::has_uid() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -3518,15 +3963,63 @@ inline void SDiscard::clear_has_uid() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void SDiscard::clear_uid() {
-  uid_ = 0u;
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
   clear_has_uid();
 }
-inline ::google::protobuf::uint32 SDiscard::uid() const {
+inline const ::std::string& SDiscard::uid() const {
+  return *uid_;
+}
+inline void SDiscard::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SDiscard::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SDiscard::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SDiscard::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
   return uid_;
 }
-inline void SDiscard::set_uid(::google::protobuf::uint32 value) {
-  set_has_uid();
-  uid_ = value;
+inline ::std::string* SDiscard::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SDiscard::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // repeated .protocol.CPGCardData cpg = 5;
@@ -3855,6 +4348,98 @@ inline void SDraw::set_gang(bool value) {
   gang_ = value;
 }
 
+// optional string uid = 7;
+inline bool SDraw::has_uid() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void SDraw::set_has_uid() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void SDraw::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void SDraw::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& SDraw::uid() const {
+  return *uid_;
+}
+inline void SDraw::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SDraw::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void SDraw::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SDraw::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* SDraw::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SDraw::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint32 pos = 8;
+inline bool SDraw::has_pos() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void SDraw::set_has_pos() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void SDraw::clear_has_pos() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void SDraw::clear_pos() {
+  pos_ = 0u;
+  clear_has_pos();
+}
+inline ::google::protobuf::uint32 SDraw::pos() const {
+  return pos_;
+}
+inline void SDraw::set_pos(::google::protobuf::uint32 value) {
+  set_has_pos();
+  pos_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // SOtherDraw
@@ -4088,6 +4673,76 @@ inline void CChi::set_allocated_card(::std::string* card) {
   } else {
     clear_has_card();
     card_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string uid = 3;
+inline bool CChi::has_uid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CChi::set_has_uid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CChi::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CChi::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CChi::uid() const {
+  return *uid_;
+}
+inline void CChi::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CChi::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CChi::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CChi::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CChi::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CChi::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 
@@ -4349,6 +5004,76 @@ inline void CPeng::set_card(::google::protobuf::uint32 value) {
   card_ = value;
 }
 
+// optional string uid = 3;
+inline bool CPeng::has_uid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CPeng::set_has_uid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CPeng::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CPeng::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CPeng::uid() const {
+  return *uid_;
+}
+inline void CPeng::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CPeng::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CPeng::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CPeng::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CPeng::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CPeng::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
 // -------------------------------------------------------------------
 
 // SPeng
@@ -4579,6 +5304,76 @@ inline ::google::protobuf::uint32 CMingGang::type() const {
 inline void CMingGang::set_type(::google::protobuf::uint32 value) {
   set_has_type();
   type_ = value;
+}
+
+// optional string uid = 4;
+inline bool CMingGang::has_uid() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void CMingGang::set_has_uid() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void CMingGang::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void CMingGang::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CMingGang::uid() const {
+  return *uid_;
+}
+inline void CMingGang::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CMingGang::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CMingGang::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CMingGang::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CMingGang::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CMingGang::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // -------------------------------------------------------------------
@@ -4855,6 +5650,76 @@ inline ::google::protobuf::uint32 CAnGang::type() const {
 inline void CAnGang::set_type(::google::protobuf::uint32 value) {
   set_has_type();
   type_ = value;
+}
+
+// optional string uid = 4;
+inline bool CAnGang::has_uid() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void CAnGang::set_has_uid() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void CAnGang::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void CAnGang::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CAnGang::uid() const {
+  return *uid_;
+}
+inline void CAnGang::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CAnGang::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CAnGang::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CAnGang::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CAnGang::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CAnGang::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // -------------------------------------------------------------------
@@ -5183,6 +6048,76 @@ inline ::google::protobuf::uint32 CHu::cmd() const {
 inline void CHu::set_cmd(::google::protobuf::uint32 value) {
   set_has_cmd();
   cmd_ = value;
+}
+
+// optional string uid = 2;
+inline bool CHu::has_uid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CHu::set_has_uid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CHu::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CHu::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CHu::uid() const {
+  return *uid_;
+}
+inline void CHu::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CHu::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CHu::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CHu::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CHu::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CHu::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // -------------------------------------------------------------------
