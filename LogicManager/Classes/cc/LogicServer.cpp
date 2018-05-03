@@ -26,6 +26,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* SLogicLogin_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SLogicLogin_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CGateLogin_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CGateLogin_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SGateLogin_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SGateLogin_reflection_ = NULL;
 
 }  // namespace
 
@@ -69,6 +75,39 @@ void protobuf_AssignDesc_LogicServer_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SLogicLogin));
+  CGateLogin_descriptor_ = file->message_type(2);
+  static const int CGateLogin_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CGateLogin, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CGateLogin, servername_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CGateLogin, seession_),
+  };
+  CGateLogin_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CGateLogin_descriptor_,
+      CGateLogin::default_instance_,
+      CGateLogin_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CGateLogin, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CGateLogin, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CGateLogin));
+  SGateLogin_descriptor_ = file->message_type(3);
+  static const int SGateLogin_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SGateLogin, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SGateLogin, err_),
+  };
+  SGateLogin_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      SGateLogin_descriptor_,
+      SGateLogin::default_instance_,
+      SGateLogin_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SGateLogin, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SGateLogin, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(SGateLogin));
 }
 
 namespace {
@@ -85,6 +124,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
     CLogicLogin_descriptor_, &CLogicLogin::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     SLogicLogin_descriptor_, &SLogicLogin::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CGateLogin_descriptor_, &CGateLogin::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    SGateLogin_descriptor_, &SGateLogin::default_instance());
 }
 
 }  // namespace
@@ -94,6 +137,10 @@ void protobuf_ShutdownFile_LogicServer_2eproto() {
   delete CLogicLogin_reflection_;
   delete SLogicLogin::default_instance_;
   delete SLogicLogin_reflection_;
+  delete CGateLogin::default_instance_;
+  delete CGateLogin_reflection_;
+  delete SGateLogin::default_instance_;
+  delete SGateLogin_reflection_;
 }
 
 void protobuf_AddDesc_LogicServer_2eproto() {
@@ -106,13 +153,20 @@ void protobuf_AddDesc_LogicServer_2eproto() {
     "\n\021LogicServer.proto\022\010protocol\"F\n\013CLogicL"
     "ogin\022\021\n\003cmd\030\001 \001(\r:\0044096\022\022\n\nservername\030\002 "
     "\001(\t\022\020\n\010seession\030\003 \001(\t\"-\n\013SLogicLogin\022\021\n\003"
-    "cmd\030\001 \001(\r:\0044096\022\013\n\003err\030\002 \001(\r", 148);
+    "cmd\030\001 \001(\r:\0044096\022\013\n\003err\030\002 \001(\r\"E\n\nCGateLog"
+    "in\022\021\n\003cmd\030\001 \001(\r:\0044097\022\022\n\nservername\030\002 \001("
+    "\t\022\020\n\010seession\030\003 \001(\t\",\n\nSGateLogin\022\021\n\003cmd"
+    "\030\001 \001(\r:\0044097\022\013\n\003err\030\002 \001(\r", 265);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "LogicServer.proto", &protobuf_RegisterTypes);
   CLogicLogin::default_instance_ = new CLogicLogin();
   SLogicLogin::default_instance_ = new SLogicLogin();
+  CGateLogin::default_instance_ = new CGateLogin();
+  SGateLogin::default_instance_ = new SGateLogin();
   CLogicLogin::default_instance_->InitAsDefaultInstance();
   SLogicLogin::default_instance_->InitAsDefaultInstance();
+  CGateLogin::default_instance_->InitAsDefaultInstance();
+  SGateLogin::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_LogicServer_2eproto);
 }
 
@@ -689,6 +743,576 @@ void SLogicLogin::Swap(SLogicLogin* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = SLogicLogin_descriptor_;
   metadata.reflection = SLogicLogin_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int CGateLogin::kCmdFieldNumber;
+const int CGateLogin::kServernameFieldNumber;
+const int CGateLogin::kSeessionFieldNumber;
+#endif  // !_MSC_VER
+
+CGateLogin::CGateLogin()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void CGateLogin::InitAsDefaultInstance() {
+}
+
+CGateLogin::CGateLogin(const CGateLogin& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CGateLogin::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 4097u;
+  servername_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  seession_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CGateLogin::~CGateLogin() {
+  SharedDtor();
+}
+
+void CGateLogin::SharedDtor() {
+  if (servername_ != &::google::protobuf::internal::kEmptyString) {
+    delete servername_;
+  }
+  if (seession_ != &::google::protobuf::internal::kEmptyString) {
+    delete seession_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void CGateLogin::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CGateLogin::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CGateLogin_descriptor_;
+}
+
+const CGateLogin& CGateLogin::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_LogicServer_2eproto();
+  return *default_instance_;
+}
+
+CGateLogin* CGateLogin::default_instance_ = NULL;
+
+CGateLogin* CGateLogin::New() const {
+  return new CGateLogin;
+}
+
+void CGateLogin::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 4097u;
+    if (has_servername()) {
+      if (servername_ != &::google::protobuf::internal::kEmptyString) {
+        servername_->clear();
+      }
+    }
+    if (has_seession()) {
+      if (seession_ != &::google::protobuf::internal::kEmptyString) {
+        seession_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CGateLogin::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 4097];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_servername;
+        break;
+      }
+
+      // optional string servername = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_servername:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_servername()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->servername().data(), this->servername().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_seession;
+        break;
+      }
+
+      // optional string seession = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_seession:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_seession()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->seession().data(), this->seession().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CGateLogin::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 4097];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // optional string servername = 2;
+  if (has_servername()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->servername().data(), this->servername().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->servername(), output);
+  }
+
+  // optional string seession = 3;
+  if (has_seession()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->seession().data(), this->seession().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      3, this->seession(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CGateLogin::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 4097];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional string servername = 2;
+  if (has_servername()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->servername().data(), this->servername().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->servername(), target);
+  }
+
+  // optional string seession = 3;
+  if (has_seession()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->seession().data(), this->seession().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->seession(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int CGateLogin::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 4097];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+    // optional string servername = 2;
+    if (has_servername()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->servername());
+    }
+
+    // optional string seession = 3;
+    if (has_seession()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->seession());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CGateLogin::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CGateLogin* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CGateLogin*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CGateLogin::MergeFrom(const CGateLogin& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+    if (from.has_servername()) {
+      set_servername(from.servername());
+    }
+    if (from.has_seession()) {
+      set_seession(from.seession());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CGateLogin::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CGateLogin::CopyFrom(const CGateLogin& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CGateLogin::IsInitialized() const {
+
+  return true;
+}
+
+void CGateLogin::Swap(CGateLogin* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(servername_, other->servername_);
+    std::swap(seession_, other->seession_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CGateLogin::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CGateLogin_descriptor_;
+  metadata.reflection = CGateLogin_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int SGateLogin::kCmdFieldNumber;
+const int SGateLogin::kErrFieldNumber;
+#endif  // !_MSC_VER
+
+SGateLogin::SGateLogin()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void SGateLogin::InitAsDefaultInstance() {
+}
+
+SGateLogin::SGateLogin(const SGateLogin& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void SGateLogin::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 4097u;
+  err_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+SGateLogin::~SGateLogin() {
+  SharedDtor();
+}
+
+void SGateLogin::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void SGateLogin::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SGateLogin::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SGateLogin_descriptor_;
+}
+
+const SGateLogin& SGateLogin::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_LogicServer_2eproto();
+  return *default_instance_;
+}
+
+SGateLogin* SGateLogin::default_instance_ = NULL;
+
+SGateLogin* SGateLogin::New() const {
+  return new SGateLogin;
+}
+
+void SGateLogin::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 4097u;
+    err_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SGateLogin::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 4097];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_err:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &err_)));
+          set_has_err();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void SGateLogin::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 4097];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // optional uint32 err = 2;
+  if (has_err()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->err(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* SGateLogin::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 4097];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional uint32 err = 2;
+  if (has_err()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->err(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int SGateLogin::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 4097];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+    // optional uint32 err = 2;
+    if (has_err()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->err());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SGateLogin::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SGateLogin* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SGateLogin*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SGateLogin::MergeFrom(const SGateLogin& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+    if (from.has_err()) {
+      set_err(from.err());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SGateLogin::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SGateLogin::CopyFrom(const SGateLogin& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SGateLogin::IsInitialized() const {
+
+  return true;
+}
+
+void SGateLogin::Swap(SGateLogin* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(err_, other->err_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata SGateLogin::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SGateLogin_descriptor_;
+  metadata.reflection = SGateLogin_reflection_;
   return metadata;
 }
 

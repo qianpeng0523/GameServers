@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "ccEvent.h"
+#include "EventDispatcher.h"
 
 struct RoomCache
 {
@@ -21,35 +22,35 @@ public:
 	bool init();
 public:
 	void HandCHMMJCreateRoom(ccEvent *event);
-	void SendSHMMJCreateRoom(SHMMJCreateRoom sd, int fd);
+	void HandSHMMJCreateRoom(ccEvent *event);
 
 	void HandCHMMJEnterRoom(ccEvent *event);
-	void SendSHMMJEnterRoom(SHMMJEnterRoom sd, int fd);
+	void HandSHMMJEnterRoom(ccEvent *event);
 
-	void SendSComein(SComein sd, int fd);
+	void HandSComein(ccEvent *event);
 
 	void HandCBegin(ccEvent *event);
-	void SendSBegin(SBegin sd, int fd);
+	void HandSBegin(ccEvent *event);
 
 	void HandCReady(ccEvent *event);
-	void SendSReady(SReady sd, int fd);
+	void HandSReady(ccEvent *event);
 
 	void HandCLeave(ccEvent *event);
-	void SendSLeave(SLeave sd, int fd);
+	void HandSLeave(ccEvent *event);
 
 	void HandCLine(ccEvent *event);
-	void SendSLine(SLine sd, int fd);
+	void HandSLine(ccEvent *event);
 
 	void HandCDissolveRoom(ccEvent *event);
-	void SendSDissolveRoom(SDissolveRoom sd, int fd);
+	void HandSDissolveRoom(ccEvent *event);
 
 	void HandCVote(ccEvent *event);
-	void SendSVote(SVote sd, int fd);
+	void HandSVote(ccEvent *event);
 
-	void SendSVoteResult(SVoteResult sd, int fd);
+	void HandSVoteResult(ccEvent *event);
 
 	void HandCRChat(ccEvent *event);
-	void SendSRChat(SRChat sd, int fd);
+	void HandSRChat(ccEvent *event);
 
 	void PushRoom(string rid,string uid);
 private:

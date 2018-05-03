@@ -54,9 +54,6 @@
     <ClCompile Include="Classes\main.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\network\EventListen.cpp">
-      <Filter>源文件\Classes\network</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\netjson\json_reader.cpp">
       <Filter>源文件\Classes\netjson</Filter>
     </ClCompile>
@@ -135,9 +132,6 @@
       <Filter>源文件\Classes\common</Filter>
     </ClInclude>
     <ClInclude Include="Classes\network\ccEvent.h">
-      <Filter>源文件\Classes\network</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\network\EventListen.h">
       <Filter>源文件\Classes\network</Filter>
     </ClInclude>
     <ClInclude Include="Classes\netjson\json_batchallocator.h">

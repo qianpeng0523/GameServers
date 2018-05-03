@@ -3,7 +3,7 @@
 #define __LogicServerInfo__
 
 #include "stdafx.h"
-
+#include "EventDispatcher.h"
 
 class LogicServerInfo:public Object
 {
@@ -15,10 +15,17 @@ public:
 public:
 	void SendSLogicLogin(int fd, int err);
 	void HandlerCLogicLoginHand(ccEvent *event);
-	int getFd(string type);
+
+	void SendSGateLogin(int fd, int err);
+	void HandlerCGateLoginHand(ccEvent *event);
+
+	int getFd(SERVERTYPE type);
+	SERVERTYPE getServerType(string servername);
+	int getFd(string servername);
 private:
 	static LogicServerInfo *m_shareLogicServerInfo;
-	map<string, int>m_gamefds;
+	map<SERVERTYPE, int>m_gamefds;
+	map<string, SERVERTYPE>m_name_type;
 };
 
 #endif 

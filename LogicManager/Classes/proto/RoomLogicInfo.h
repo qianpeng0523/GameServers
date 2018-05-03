@@ -13,44 +13,44 @@ public:
 	static RoomLogicInfo* getIns();
 	bool init();
 public:
-	void SendSDice(SDice sd,int fd);
+	void HandSDice(ccEvent *event);
 	void HandCDice(ccEvent *event);
 
-	void SendSSelectZhuang(SSelectZhuang ssz, int fd);
+	void HandSSelectZhuang(ccEvent *event);
 
-	void SendSZhuangCard(SZhuangCard sd, int fd);
+	void HandSZhuangCard(ccEvent *event);
 
-	void SendSCard(SCard sd, int fd);
+	void HandSCard(ccEvent *event);
 
 	void HandCDiscard(ccEvent *event);
-	void SendSDiscard(SDiscard sd, int fd);
+	void HandSDiscard(ccEvent *event);
 
-	void SendSDraw(SDraw sd, int fd);
+	void HandSDraw(ccEvent *event);
 
-	void SendSOtherDraw(SOtherDraw sd, int fd);
+	void HandSOtherDraw(ccEvent *event);
 
 	void HandChi(ccEvent *event);
-	void SendSChi(SChi sd, int fd);
+	void HandSChi(ccEvent *event);
 
 	void HandCPeng(ccEvent *event);
-	void SendSPeng(SPeng sd, int fd);
+	void HandSPeng(ccEvent *event);
 
 	void HandCMingGang(ccEvent *event);
-	void SendSMingGang(SMingGang sd, int fd);
+	void HandSMingGang(ccEvent *event);
 
 	void HandCAnGang(ccEvent *event);
-	void SendSAnGang(SAnGang sd, int fd);
+	void HandSAnGang(ccEvent *event);
 
-	void SendSFa(SFa sd, int fd);
+	void HandSFa(ccEvent *event);
 
 	void HandCHu(ccEvent *event);
-	void SendSHu(SHu sd, int fd);
+	void HandSHu(ccEvent *event);
 
-	void SendSGameover(SGameover sd, int fd);
+	void HandSGameover(ccEvent *event);
 
-	void SendSRoundOver(SRoundOver sd, int fd);
+	void HandSRoundOver(ccEvent *event);
 
-	void SendSDissolveTip(SDissolveTip sd, int fd);
+	void HandSDissolveTip(ccEvent *event);
 private:
 	static RoomLogicInfo *m_shareRoomLogicInfo;
 	

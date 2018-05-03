@@ -2396,6 +2396,18 @@ class RoomData : public ::google::protobuf::Message {
   inline ::std::string* release_roomtype();
   inline void set_allocated_roomtype(::std::string* roomtype);
 
+  // optional string uid = 8;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 8;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
   // @@protoc_insertion_point(class_scope:protocol.RoomData)
  private:
   inline void set_has_type();
@@ -2412,6 +2424,8 @@ class RoomData : public ::google::protobuf::Message {
   inline void clear_has_roomid();
   inline void set_has_roomtype();
   inline void clear_has_roomtype();
+  inline void set_has_uid();
+  inline void clear_has_uid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -2421,10 +2435,11 @@ class RoomData : public ::google::protobuf::Message {
   ::google::protobuf::uint32 bao_;
   ::std::string* roomid_;
   ::std::string* roomtype_;
+  ::std::string* uid_;
   ::google::protobuf::uint32 bang_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
 
   friend void  protobuf_AddDesc_Vo_2eproto();
   friend void protobuf_AssignDesc_Vo_2eproto();
@@ -6955,6 +6970,76 @@ inline void RoomData::set_allocated_roomtype(::std::string* roomtype) {
   } else {
     clear_has_roomtype();
     roomtype_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string uid = 8;
+inline bool RoomData::has_uid() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void RoomData::set_has_uid() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void RoomData::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void RoomData::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& RoomData::uid() const {
+  return *uid_;
+}
+inline void RoomData::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void RoomData::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void RoomData::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RoomData::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* RoomData::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void RoomData::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 

@@ -167,8 +167,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 			char *out = new char[bodylen + 1];
 			HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
 			delete buffer;
-			ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd);
-			cce->m_servername = serverdest;
+			ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd,serverdest);
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{

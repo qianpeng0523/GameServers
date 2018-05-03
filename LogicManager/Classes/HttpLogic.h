@@ -24,7 +24,7 @@ private:
 	
 public:
 	static int SERVER_PORT;
-	static string SERVER_CODE;
+	static string SERVER_CODE;//logicmanager
 };
 
 #endif 
