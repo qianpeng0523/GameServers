@@ -34,6 +34,7 @@ public:
 	
 	void registerProto(int cmd, string tname, SERVERTYPE type);
 	string getProtoName(int cmd, SERVERTYPE type);
+
 private:
 	void EventPathch(std::vector<ccEvent *> &ep);
 private:

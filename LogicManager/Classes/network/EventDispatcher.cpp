@@ -116,8 +116,7 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 			if (m_eventLists.find(type) != m_eventLists.end()){
 				CallList_Vec vec;
 				auto mmp = m_eventLists.at(type);
-				auto mitr = mmp.begin();
-				while (mitr != mmp.end()){
+				if (mmp.find(cmd)!=mmp.end()){
 					vec = mmp.at(cmd);
 					CallList_Vec::iterator itr = vec.begin();
 					while (itr != vec.end()){
@@ -131,7 +130,6 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 							break;
 						}
 					}
-					mitr++;
 				}
 			}
 

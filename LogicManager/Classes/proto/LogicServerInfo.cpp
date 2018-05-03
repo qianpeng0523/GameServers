@@ -6,12 +6,12 @@ LogicServerInfo::LogicServerInfo()
 {
 	EventDispatcher *pe = EventDispatcher::getIns();
 	CLogicLogin cl;
-	pe->registerProto(cl.cmd(), cl.GetTypeName(), LOGIC_TYPE);
-	pe->addListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerCLogicLoginHand), LOGIC_TYPE);
+	pe->registerProto(cl.cmd(), cl.GetTypeName(), NO_TYPE);
+	pe->addListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerCLogicLoginHand), NO_TYPE);
 
 	CGateLogin cl1;
-	pe->registerProto(cl1.cmd(), cl1.GetTypeName(), GATE_TYPE);
-	pe->addListener(cl1.cmd(), this, Event_Handler(LogicServerInfo::HandlerCGateLoginHand), GATE_TYPE);
+	pe->registerProto(cl1.cmd(), cl1.GetTypeName(), NO_TYPE);
+	pe->addListener(cl1.cmd(), this, Event_Handler(LogicServerInfo::HandlerCGateLoginHand), NO_TYPE);
 }
 
 LogicServerInfo::~LogicServerInfo(){
