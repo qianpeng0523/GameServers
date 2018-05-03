@@ -38,12 +38,6 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* SWXLogin_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SWXLogin_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CPing_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CPing_reflection_ = NULL;
-const ::google::protobuf::Descriptor* SPing_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  SPing_reflection_ = NULL;
 
 }  // namespace
 
@@ -158,36 +152,6 @@ void protobuf_AssignDesc_Login_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SWXLogin));
-  CPing_descriptor_ = file->message_type(6);
-  static const int CPing_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPing, cmd_),
-  };
-  CPing_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      CPing_descriptor_,
-      CPing::default_instance_,
-      CPing_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPing, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPing, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(CPing));
-  SPing_descriptor_ = file->message_type(7);
-  static const int SPing_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SPing, cmd_),
-  };
-  SPing_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      SPing_descriptor_,
-      SPing::default_instance_,
-      SPing_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SPing, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SPing, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(SPing));
 }
 
 namespace {
@@ -212,10 +176,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
     CWXLogin_descriptor_, &CWXLogin::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     SWXLogin_descriptor_, &SWXLogin::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    CPing_descriptor_, &CPing::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    SPing_descriptor_, &SPing::default_instance());
 }
 
 }  // namespace
@@ -233,10 +193,6 @@ void protobuf_ShutdownFile_Login_2eproto() {
   delete CWXLogin_reflection_;
   delete SWXLogin::default_instance_;
   delete SWXLogin_reflection_;
-  delete CPing::default_instance_;
-  delete CPing_reflection_;
-  delete SPing::default_instance_;
-  delete SPing_reflection_;
 }
 
 void protobuf_AddDesc_Login_2eproto() {
@@ -258,9 +214,7 @@ void protobuf_AddDesc_Login_2eproto() {
     "\";\n\010CWXLogin\022\022\n\003cmd\030\001 \001(\r:\00516386\022\014\n\004code"
     "\030\002 \001(\t\022\r\n\005token\030\003 \001(\t\"\\\n\010SWXLogin\022\022\n\003cmd"
     "\030\001 \001(\r:\00516386\022 \n\004info\030\002 \001(\0132\022.protocol.U"
-    "serBase\022\r\n\005token\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"\033\n\005C"
-    "Ping\022\022\n\003cmd\030\001 \001(\r:\00516387\"\033\n\005SPing\022\022\n\003cmd"
-    "\030\001 \001(\r:\00516387", 533);
+    "serBase\022\r\n\005token\030\003 \001(\t\022\013\n\003err\030\004 \001(\r", 475);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Login.proto", &protobuf_RegisterTypes);
   CLogin::default_instance_ = new CLogin();
@@ -269,16 +223,12 @@ void protobuf_AddDesc_Login_2eproto() {
   SRegister::default_instance_ = new SRegister();
   CWXLogin::default_instance_ = new CWXLogin();
   SWXLogin::default_instance_ = new SWXLogin();
-  CPing::default_instance_ = new CPing();
-  SPing::default_instance_ = new SPing();
   CLogin::default_instance_->InitAsDefaultInstance();
   SLogin::default_instance_->InitAsDefaultInstance();
   CRegister::default_instance_->InitAsDefaultInstance();
   SRegister::default_instance_->InitAsDefaultInstance();
   CWXLogin::default_instance_->InitAsDefaultInstance();
   SWXLogin::default_instance_->InitAsDefaultInstance();
-  CPing::default_instance_->InitAsDefaultInstance();
-  SPing::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Login_2eproto);
 }
 
@@ -2244,422 +2194,6 @@ void SWXLogin::Swap(SWXLogin* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = SWXLogin_descriptor_;
   metadata.reflection = SWXLogin_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int CPing::kCmdFieldNumber;
-#endif  // !_MSC_VER
-
-CPing::CPing()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void CPing::InitAsDefaultInstance() {
-}
-
-CPing::CPing(const CPing& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void CPing::SharedCtor() {
-  _cached_size_ = 0;
-  cmd_ = 16387u;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-CPing::~CPing() {
-  SharedDtor();
-}
-
-void CPing::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void CPing::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* CPing::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CPing_descriptor_;
-}
-
-const CPing& CPing::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_Login_2eproto();
-  return *default_instance_;
-}
-
-CPing* CPing::default_instance_ = NULL;
-
-CPing* CPing::New() const {
-  return new CPing;
-}
-
-void CPing::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    cmd_ = 16387u;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool CPing::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional uint32 cmd = 1 [default = 16387];
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &cmd_)));
-          set_has_cmd();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void CPing::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional uint32 cmd = 1 [default = 16387];
-  if (has_cmd()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
-  }
-
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* CPing::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // optional uint32 cmd = 1 [default = 16387];
-  if (has_cmd()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int CPing::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional uint32 cmd = 1 [default = 16387];
-    if (has_cmd()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->cmd());
-    }
-
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void CPing::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const CPing* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const CPing*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void CPing::MergeFrom(const CPing& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_cmd()) {
-      set_cmd(from.cmd());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void CPing::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void CPing::CopyFrom(const CPing& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool CPing::IsInitialized() const {
-
-  return true;
-}
-
-void CPing::Swap(CPing* other) {
-  if (other != this) {
-    std::swap(cmd_, other->cmd_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata CPing::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CPing_descriptor_;
-  metadata.reflection = CPing_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int SPing::kCmdFieldNumber;
-#endif  // !_MSC_VER
-
-SPing::SPing()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void SPing::InitAsDefaultInstance() {
-}
-
-SPing::SPing(const SPing& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void SPing::SharedCtor() {
-  _cached_size_ = 0;
-  cmd_ = 16387u;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-SPing::~SPing() {
-  SharedDtor();
-}
-
-void SPing::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void SPing::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* SPing::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return SPing_descriptor_;
-}
-
-const SPing& SPing::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_Login_2eproto();
-  return *default_instance_;
-}
-
-SPing* SPing::default_instance_ = NULL;
-
-SPing* SPing::New() const {
-  return new SPing;
-}
-
-void SPing::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    cmd_ = 16387u;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool SPing::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional uint32 cmd = 1 [default = 16387];
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &cmd_)));
-          set_has_cmd();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void SPing::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional uint32 cmd = 1 [default = 16387];
-  if (has_cmd()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
-  }
-
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* SPing::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // optional uint32 cmd = 1 [default = 16387];
-  if (has_cmd()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int SPing::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional uint32 cmd = 1 [default = 16387];
-    if (has_cmd()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->cmd());
-    }
-
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void SPing::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const SPing* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const SPing*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void SPing::MergeFrom(const SPing& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_cmd()) {
-      set_cmd(from.cmd());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void SPing::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void SPing::CopyFrom(const SPing& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool SPing::IsInitialized() const {
-
-  return true;
-}
-
-void SPing::Swap(SPing* other) {
-  if (other != this) {
-    std::swap(cmd_, other->cmd_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata SPing::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = SPing_descriptor_;
-  metadata.reflection = SPing_reflection_;
   return metadata;
 }
 

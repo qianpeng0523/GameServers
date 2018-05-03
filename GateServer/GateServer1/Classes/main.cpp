@@ -19,6 +19,9 @@
 #include "HttpPay.h"
 #include "HttpWXLogin.h"
 #include "HttpAliPay.h"
+#include "RoomInfo.h"
+#include "RoomLogicInfo.h"
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -106,7 +109,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	fclose(fp);
 	*/
 	
-
+	RoomInfo::getIns();
+	RoomLogicInfo::getIns();
 	StatTimer::getIns();
 	CSVDataInfo::getIns();
 	LoginInfo::getIns();
