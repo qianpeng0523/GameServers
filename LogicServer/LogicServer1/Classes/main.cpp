@@ -8,6 +8,9 @@
 #include "HttpLogic.h"
 #include "redis.h"
 #include "ConfigData.h"
+#include "RoomInfo.h"
+#include "RoomLogicInfo.h"
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	/*
@@ -152,6 +155,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	fprintf(file2, content2.c_str(), content2.length());
 	fclose(file2);
 	*/
+	RoomInfo::getIns();
+	RoomLogicInfo::getIns();
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 1), &wsaData);
 	redis::getIns()->initial("www.lesharecs.com", 6379, "3.1415926qp");
