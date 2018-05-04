@@ -1,0 +1,13 @@
+syntax = "proto2";
+package protocol;
+import "Vo.proto";
+
+message CLPing
+{
+	optional uint32 	cmd 		= 1[default=0x4004];  	//
+}
+
+message SLPing
+{
+	optional uint32 	cmd 		= 1[default=0x4004];  	//
+}
