@@ -113,7 +113,7 @@ bool redis::initial(std::string redisIp,int redisPort,std::string mypass)
 	m_pass = mypass;
 	freeReplyObject(this->m_pReply);
 	m_pReply = NULL;
-	//printf("redis auth success\n");
+	printf("redis auth success\n");
 	return true;
 }
 
