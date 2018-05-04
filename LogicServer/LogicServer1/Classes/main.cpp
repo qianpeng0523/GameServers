@@ -1,8 +1,8 @@
 // testlibeventSrv.cpp : 定义控制台应用程序的入口点。
 //
 
-#ifndef __SERVER_H__
-#define __SERVER_H__
+#ifndef __MAIN_H__
+#define __MAIN_H__
 #include "stdafx.h"
 #include "ClientSocket.h"
 #include "HttpLogic.h"
@@ -10,7 +10,7 @@
 #include "ConfigData.h"
 #include "RoomInfo.h"
 #include "RoomLogicInfo.h"
-
+#include "PingInfo.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
 	/*
@@ -160,6 +160,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 1), &wsaData);
 	redis::getIns()->initial("www.lesharecs.com", 6379, "3.1415926qp");
+	PingInfo::getIns()->openCheckUpdate(true);
 	HttpLogic::getIns()->requestManagerData();
 
 	//ConfigData::getIns();

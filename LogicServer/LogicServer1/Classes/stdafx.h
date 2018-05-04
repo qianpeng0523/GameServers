@@ -71,7 +71,7 @@ static string SERVER_IP = "192.168.50.151";
 #pragma comment(lib,"../Debug/libiconv.lib") 
 #pragma comment(lib,"../Debug/libprotobuf.lib")
 #pragma comment(lib,"../Debug/libMessagePack.lib")
-#pragma comment(lib,"../Debug/libcrypto.lib")
+//#pragma comment(lib,"../Debug/libcrypto.lib")
 #pragma comment(lib,"../../../redis/Debug/hiredis.lib")
 #endif
 
