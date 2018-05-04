@@ -34,7 +34,7 @@ RoomLogicInfo::RoomLogicInfo()
 	pe->registerProto(sl10.cmd(), sl10.GetTypeName());
 	pe->addListener(sl10.cmd(), this, Event_Handler(RoomLogicInfo::HandCAnGang));
 
-	SHu sl12;
+	CHu sl12;
 	pe->registerProto(sl12.cmd(), sl12.GetTypeName());
 	pe->addListener(sl12.cmd(), this, Event_Handler(RoomLogicInfo::HandCHu));
 

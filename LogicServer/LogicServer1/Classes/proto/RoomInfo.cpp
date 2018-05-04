@@ -23,23 +23,23 @@ RoomInfo::RoomInfo()
 
 	CReady sl4;
 	pe->registerProto(sl4.cmd(), sl4.GetTypeName());
-	pe->addListener(sl4.cmd(), this, Event_Handler(RoomInfo::SendSReady));
+	pe->addListener(sl4.cmd(), this, Event_Handler(RoomInfo::HandCReady));
 
 	CLeave sl5;
 	pe->registerProto(sl5.cmd(), sl5.GetTypeName());
-	pe->addListener(sl5.cmd(), this, Event_Handler(RoomInfo::SendSLeave));
+	pe->addListener(sl5.cmd(), this, Event_Handler(RoomInfo::HandCLeave));
 
 	CLine sl6;
 	pe->registerProto(sl6.cmd(), sl6.GetTypeName());
-	pe->addListener(sl6.cmd(), this, Event_Handler(RoomInfo::SendSLine));
+	pe->addListener(sl6.cmd(), this, Event_Handler(RoomInfo::HandCLine));
 
 	CDissolveRoom sl7;
 	pe->registerProto(sl7.cmd(), sl7.GetTypeName());
-	pe->addListener(sl7.cmd(), this, Event_Handler(RoomInfo::SendSDissolveRoom));
+	pe->addListener(sl7.cmd(), this, Event_Handler(RoomInfo::HandCDissolveRoom));
 
 	CVote sl8;
 	pe->registerProto(sl8.cmd(), sl8.GetTypeName());
-	pe->addListener(sl8.cmd(), this, Event_Handler(RoomInfo::SendSVote));
+	pe->addListener(sl8.cmd(), this, Event_Handler(RoomInfo::HandCVote));
 
 }
 

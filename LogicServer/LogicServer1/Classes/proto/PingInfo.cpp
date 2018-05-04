@@ -56,11 +56,11 @@ void PingInfo::setTime(){
 
 void PingInfo::update(float dt){
 	time_t t = Common::getTime();
-	if (m_lasttime != 0 && t - m_lasttime >= 13){
+	if (m_lasttime != 0 && t - m_lasttime >= 60){
 		m_lasttime = t;
 		SendCLPing();
 	}
-	if (m_pingcount >= 4 && m_lasttime != 0 && t - m_lasttime >= 0){
+	if (m_pingcount >= 3 && m_lasttime != 0 && t - m_lasttime >= 0){
 		printf("pingocunt[%d]--t[%ld]---lasttime[%ld]\n", m_pingcount, t, m_lasttime);
 		m_lasttime = t;
 		m_pingcount = 0;
