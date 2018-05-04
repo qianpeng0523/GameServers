@@ -97,6 +97,9 @@ public:
 	int getPosition(string uid);
 	//
 	void HandCardCallBack(float dt);
+	void setFangZhuUid(string uid){
+		m_fangzhuuid = uid;
+	}
 private:
 	vector<CPGCardData> isPeng(int pos);
 	vector<CPGCardData> isMoGang(int pos);

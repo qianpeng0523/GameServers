@@ -64,6 +64,7 @@ GRoom *RoomControl::createRoom(string uid, int type, int ante, int round, int ba
 	ud->_uid = uid;
 	gr->PushUData(ud);
 	gr->setRoomData(rd);
+	gr->setFangZhuUid(uid);
 	return gr;
 }
 
