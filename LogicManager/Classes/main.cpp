@@ -8,9 +8,10 @@
 #include "HttpLogic.h"
 #include "RoomInfo.h"
 #include "RoomLogicInfo.h"
-
+#include "PingInfo.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
+	PingInfo::getIns();
 	RoomInfo::getIns();
 	RoomLogicInfo::getIns();
 	HttpLogic::getIns()->requestManagerData();

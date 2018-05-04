@@ -19,7 +19,7 @@ void ccEvent::parse(const char* data, int size){
 
 		msg->PrintDebugString();
 		string ss = msg->DebugString();
-		printf("ccEvent:%s",ss.c_str());
+		printf("[%s]ccEvent:%s\n",type_name.c_str(),ss.c_str());
 	}
 	delete data;
 }

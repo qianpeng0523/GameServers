@@ -7,8 +7,12 @@ PingInfo::PingInfo()
 	EventDispatcher *pe = EventDispatcher::getIns();
 	
 	CLPing cl1;
-	pe->registerProto(cl1.cmd(), cl1.GetTypeName(),NO_TYPE);
-	pe->addListener(cl1.cmd(), this, Event_Handler(PingInfo::HandCLPing),NO_TYPE);
+	pe->registerProto(cl1.cmd(), cl1.GetTypeName(),GATE_TYPE);
+	pe->addListener(cl1.cmd(), this, Event_Handler(PingInfo::HandCLPing), GATE_TYPE);
+
+	CLPing cl2;
+	pe->registerProto(cl2.cmd(), cl2.GetTypeName(), LOGIC_TYPE);
+	pe->addListener(cl2.cmd(), this, Event_Handler(PingInfo::HandCLPing), LOGIC_TYPE);
 }
 
 PingInfo::~PingInfo(){

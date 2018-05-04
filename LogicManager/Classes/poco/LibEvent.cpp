@@ -218,6 +218,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 			buffer[i] = out[i - HEADLEN];
 		}
 		delete out;
+		printf("senddata:%s\n",msg->DebugString().c_str());
 		bufferevent_write(pdata->_conn->bufev, buffer, len + HEADLEN);
 
 		delete buffer;
