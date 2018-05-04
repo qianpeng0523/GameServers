@@ -218,3 +218,14 @@ message UserRound{
 	optional string			pao			= 3;//炮手
 	optional string			win			= 4;//最大赢家
 }
+
+
+message CPing
+{
+	optional uint32 	cmd 		= 1[default=0x4003];  	//
+}
+
+message SPing
+{
+	optional uint32 	cmd 		= 1[default=0x4003];  	//
+}

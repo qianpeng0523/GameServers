@@ -37,13 +37,15 @@ message SHMMJEnterRoom
 	optional RoomData	roomdata		= 2;
 	repeated RoomUser   roomusers 		= 3;
 	repeated SVote		sv				= 4;
-	optional uint32 	err				= 5;
+	optional string 	uid 			= 5;					//
+	optional uint32 	err				= 6;
 }
 
 //其他人进入
 message SComein{
 	optional uint32 	cmd 			= 1[default=0x7002];  	//
 	optional RoomUser 	roomuser		= 2;
+	optional string 	uid 			= 3;					//
 }
 
 //开始
@@ -72,7 +74,8 @@ message SReady{
 	optional bool 		ready 			= 2;
 	optional uint32 	position 		= 3;
 	optional string	 	uid 			= 4;
-	optional uint32 	err				= 5;
+	optional string 	suid 			= 5;					//
+	optional uint32 	err				= 6;
 }
 
 //离开房间
@@ -84,7 +87,8 @@ message CLeave{
 message SLeave{
 	optional uint32 	cmd 			= 1[default=0x7005];  	//
 	optional string	 	uid 			= 2;
-	optional uint32 	err				= 3;
+	optional string 	suid 			= 3;					//
+	optional uint32 	err				= 4;
 }
 
 //离线（进入后台和切回前台）
@@ -99,7 +103,8 @@ message SLine{
 	optional bool	 	online 			= 2;
 	optional uint32 	position 		= 3;
 	optional string	 	uid 			= 4;//
-	optional uint32 	err				= 5;
+	optional string 	suid 			= 5;					//
+	optional uint32 	err				= 6;
 }
 
 //申请解散房间
@@ -115,7 +120,8 @@ message SDissolveRoom{
 	optional uint32 	time			= 3;//解散房间倒计时
 	optional uint32 	position 		= 4;
 	optional string	 	uid 			= 5;//谁发起的解散
-	optional uint32 	err				= 6;
+	optional string 	suid 			= 6;					//
+	optional uint32 	err				= 7;
 }
 
 //投票
@@ -130,12 +136,15 @@ message SVote{
 	optional bool	 	agree 			= 2;
 	optional uint32 	position 		= 3;
 	optional string	 	uid 			= 4;//
+	optional string 	suid 			= 5;					//
 }
 
 //投票结果
 message SVoteResult{
 	optional uint32 	cmd 			= 1[default=0x7009];  	//
 	optional bool	 	dissolve 		= 2;
+	optional string 	uid 			= 3;					//
+	optional string 	suid 			= 5;					//
 }
 
 //房间内聊天
@@ -150,4 +159,5 @@ message SRChat{
 	optional string		content			= 2;
 	optional string		uid				= 3;
 	optional uint32 	pos 			= 4;
+	optional string 	suid 			= 5;					//
 }

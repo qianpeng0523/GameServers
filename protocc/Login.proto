@@ -48,13 +48,3 @@ message SWXLogin
 	optional string		token		= 3;
     optional uint32 	err  		= 4;					//
 }
-
-message CPing
-{
-	optional uint32 	cmd 		= 1[default=0x4003];  	//
-}
-
-message SPing
-{
-	optional uint32 	cmd 		= 1[default=0x4003];  	//
-}

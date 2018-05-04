@@ -10,6 +10,7 @@ message SSelectZhuang{
 	optional uint32 	zhuang 			= 2;
 	optional string 	zuid 			= 3;
 	optional bytes 		zdice 			= 4;
+	optional string 	suid 			= 5;
 }
 
 //打骰子
@@ -21,7 +22,8 @@ message CDice{
 message SDice{
 	optional uint32 	cmd 			= 1[default=0x800A];  	//
 	optional bytes 		dice 			= 2;
-	optional uint32 	err 			= 3;  					//
+	optional string 	suid 			= 3;
+	optional uint32 	err 			= 4;  					//
 }
 
 //庄的手牌
@@ -55,7 +57,8 @@ message SDiscard{
 	repeated CPGCardData	cpg				= 5;
 	optional uint32			hu				= 6;
 	optional bytes			ting			= 7;//出牌的人才会给
-	optional uint32 		err 			= 8;  					//
+	optional string 		suid 			= 8;//发送给哪个玩家的
+	optional uint32 		err 			= 9;  					//
 }
 
 //自己抓牌
@@ -68,6 +71,7 @@ message SDraw{
 	optional bool			gang			= 6;//是否是杠抓
 	optional string 		uid 			= 7;					//
 	optional uint32 		pos 			= 8;					//
+	optional string 		suid 			= 9;//发送给哪个玩家的
 }
 //其他人抓牌
 message SOtherDraw{
@@ -75,6 +79,7 @@ message SOtherDraw{
 	optional uint32 		card 			= 2;
 	optional uint32			pos				= 3;
 	optional string			uid				= 4;
+	optional string 		suid 			= 5;//发送给哪个玩家的
 }
 
 message CChi{
@@ -88,7 +93,8 @@ message SChi{
 	optional bytes 			card 			= 2;
 	optional uint32			pos				= 3;
 	optional string			uid				= 4;
-	optional uint32 		err 			= 5;  					//
+	optional string 		suid 			= 5;//发送给哪个玩家的
+	optional uint32 		err 			= 6;  					//
 }
 
 message CPeng{
@@ -102,7 +108,8 @@ message SPeng{
 	optional uint32 		card 			= 2;
 	optional uint32			pos				= 3;
 	optional string			uid				= 4;
-	optional uint32 		err 			= 5;  					//
+	optional string 		suid 			= 5;//发送给哪个玩家的
+	optional uint32 		err 			= 6;  					//
 }
 
 message CMingGang{
@@ -119,7 +126,8 @@ message SMingGang{
 	optional string			uid				= 4;
 	optional uint32			type			= 5;
 	optional uint32			hu				= 6;
-	optional uint32 		err 			= 7;  					//
+	optional string 		suid 			= 7;//发送给哪个玩家的
+	optional uint32 		err 			= 8;  					//
 }
 
 message CAnGang{
@@ -135,7 +143,8 @@ message SAnGang{
 	optional uint32			pos				= 3;
 	optional string			uid				= 4;
 	optional uint32			type			= 5;
-	optional uint32 		err 			= 6;  					//
+	optional string 		suid 			= 6;//发送给哪个玩家的
+	optional uint32 		err 			= 7;  					//
 }
 
 //发
@@ -143,6 +152,7 @@ message SFa{
 	optional uint32 		cmd 			= 1[default=0x8014];
 	optional uint32			pos				= 2;
 	optional string			uid				= 3;
+	optional string 		suid 			= 4;//发送给哪个玩家的
 }
 //胡
 message CHu{
@@ -155,7 +165,8 @@ message SHu{
 	optional uint32			pos				= 2;
 	optional string			uid				= 3;
 	optional uint32			hu				= 4;//胡牌掩码
-	optional uint32 		err 			= 5;  					//
+	optional string 		suid 			= 5;//发送给哪个玩家的
+	optional uint32 		err 			= 6;  					//
 }
 //单局结算
 message SGameover{
@@ -166,6 +177,7 @@ message SGameover{
 	optional uint32			pao				= 5;
 	optional uint32			score			= 6;
 	repeated UserOver		info			= 7;
+	optional string 		suid 			= 8;//发送给哪个玩家的
 }
 //结束
 message SRoundOver{
@@ -175,6 +187,7 @@ message SRoundOver{
 	optional string			uid				= 4;//房主
 	optional string			time			= 5;
 	repeated UserRound		info			= 6;
+	optional string 		suid 			= 7;//发送给哪个玩家的
 }
 //很久没出牌等操作解散房间提示
 message SDissolveTip{
@@ -182,4 +195,5 @@ message SDissolveTip{
 	optional uint32 		time 			= 2;
 	optional uint32			pos				= 3;
 	optional string			uid				= 4;
+	optional string 		suid 			= 5;//发送给哪个玩家的
 }
