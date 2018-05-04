@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class ClientSocket{
+class ClientSocket:public Object{
 public:
     static ClientSocket *getIns();
 private:
@@ -25,11 +25,13 @@ public:
     int connect(const char* ip, unsigned short port);
     int close();
     int GetError();
-	void reConnect();
+	bool reConnect();
 	void createTcp();
 	void sendMsg(int cmd,const google::protobuf::Message* msg);
 	void update(float dt);
-
+	void setBegin(bool isbeign){
+		m_isbegin = isbeign;
+	}
 private:
 	static  void *threadHandler(void *arg);
 	int chars2Int(char chars[]);
@@ -49,6 +51,7 @@ public:
 	unsigned short m_port;
 	int m_sendstamp;
 	int m_recvstamp;
+	bool m_isbegin;
 };
 
 #endif

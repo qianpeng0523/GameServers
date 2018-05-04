@@ -2,7 +2,7 @@
 #include "LogicServerInfo.h"
 #include "HttpLogic.h"
 #include "PingInfo.h"
-
+#include "StatTimer.h"
 /**********消息头********
 0		服务器序列号
 1		stamp
@@ -22,7 +22,10 @@ ClientSocket *ClientSocket::getIns() {
 ClientSocket::ClientSocket(){
 	m_sendstamp = 0;
 	m_recvstamp = 0;
+	m_isbegin = false;
+	m_tcpSocket = new TcpSocket();
 	createTcp();
+	StatTimer::getIns()->scheduleSelector(this, schedule_selector(ClientSocket::update), 5.0);
 }
 
 void ClientSocket::createTcp(){
@@ -33,12 +36,12 @@ void ClientSocket::createTcp(){
 	if (ret) {
 		printf("Create socket:success,ret:%d\n", ret);
 	} else {
-		printf("Create socket:fail,ret:%d", ret);
+		printf("Create socket:fail,ret:%d\n", ret);
 	}
 }
 
 ClientSocket::~ClientSocket() {
-	
+	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(ClientSocket::update));
 }
 
 string ClientSocket::int2String(unsigned int val) {
@@ -104,6 +107,12 @@ int ClientSocket::GetError() {
 }
 
 void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
+	if (!m_isConnected){
+		int con = reConnect();
+		if (con == SOCKET_ERROR){
+			return;
+		}
+	}
 	m_sendstamp = (m_sendstamp + 1) % MAXSTAMP;
 	int len = msg->ByteSize();
 	char *buffer = new char[HEADLEN + len];
@@ -134,7 +143,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 		buffer[i] = data[i - HEADLEN];
 	}
 	delete data;
-	printf("sendmsg:body:%s",msg->DebugString().c_str());
+	printf("sendmsg:body:%s\n",msg->DebugString().c_str());
 	
 	if (m_tcpSocket){
 		m_tcpSocket->Send(buffer, HEADLEN + len);
@@ -145,7 +154,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 
 void ClientSocket::DataIn(char* data, int size, int cmd){
 	//数据不能用string  只能用char*
-	printf("datain size:%d cmd:%d", size, cmd);
+	printf("datain size:%d cmd:%d\n", size, cmd);
 	ccEvent *sEvent = new ccEvent(cmd, data, size,1);
 	EventDispatcher::getIns()->disEventDispatcher(sEvent);
 }
@@ -177,10 +186,11 @@ void *ClientSocket::threadHandler(void *arg) {
 			else{
 				printf("数据不合法\n");
 				delete temp;
+				p->close();
 			}
 
         }else{
-			printf("%s", "==== connect break up ====");
+			printf("%s\n", "==== connect break up ====");
             //服务端断开
             p->close();
 			//断开线程
@@ -190,16 +200,19 @@ void *ClientSocket::threadHandler(void *arg) {
     return 0;
 }
 
-void ClientSocket::reConnect(){
-	if (m_tcpSocket){
-		m_tcpSocket->Connect(m_ip.c_str(), m_port);
+bool ClientSocket::reConnect(){
+	if (m_tcpSocket&&!m_isConnected){
+		createTcp();
+		return connect(m_ip.c_str(), m_port);
 	}
+	return SOCKET_ERROR;
 }
 
 void ClientSocket::update(float dt){
-	
+	if (!m_isConnected&&m_isbegin){
+		reConnect();
+	}
 }
-
 
 string ClientSocket::getReq(Head *h){
 	char buff[10];

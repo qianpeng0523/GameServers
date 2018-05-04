@@ -13,7 +13,7 @@ PingInfo::PingInfo()
 	pe->registerProto(sl.cmd(), sl.GetTypeName());
 	pe->addListener(sl.cmd(), this, Event_Handler(PingInfo::HandlerCPing));
 
-	CLPing cl1;
+	SLPing cl1;
 	pe->registerProto(cl1.cmd(), cl1.GetTypeName());
 	openUpdate(true);
 }
@@ -60,7 +60,7 @@ void PingInfo::HandSLPing(ccEvent *event){
 	m_pingcount = 0;
 	SLPing cp;
 	cp.CopyFrom(*event->msg);
-
+	EventDispatcher::getIns()->removeListener(cp.cmd(), this, Event_Handler(PingInfo::HandSLPing));
 }
 
 void PingInfo::setTime(){
