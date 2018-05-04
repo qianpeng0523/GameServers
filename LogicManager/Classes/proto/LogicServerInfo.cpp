@@ -43,21 +43,27 @@ void LogicServerInfo::HandlerCLogicLoginHand(ccEvent *event){
 	CLogicLogin cl;
 	cl.CopyFrom(*event->msg);
 	string servername = cl.servername();
-	if (!servername.empty()){
-		ClientData *data = LibEvent::getIns()->getClientData1(servername);
-		if (data&&data->_conn){
-			data->_conn->_servername = servername;
+	if (m_name_type.find(servername) == m_name_type.end()){
+		if (!servername.empty()){
+			ClientData *data = LibEvent::getIns()->getClientData1(servername);
+			if (data&&data->_conn){
+				data->_conn->_servername = servername;
+			}
+		}
+		string seession = cl.seession();
+		if (seession.compare(LOGIC_TOKEN) == 0){
+			m_gamefds.insert(make_pair(LOGIC_TYPE, event->m_fd));
+			m_name_type.insert(make_pair(servername, LOGIC_TYPE));
+			SendSLogicLogin(event->m_fd, 0);
+
+		}
+		else{
+			SendSLogicLogin(event->m_fd, 1);
 		}
 	}
-	string seession = cl.seession();
-	if (/*event->m_servername.compare(servername) == 0 &&*/ seession.compare(LOGIC_TOKEN) == 0){
-		m_gamefds.insert(make_pair(LOGIC_TYPE, event->m_fd));
-		m_name_type.insert(make_pair(servername,LOGIC_TYPE));
-		SendSLogicLogin(event->m_fd,0);
-		
-	}
 	else{
-		SendSLogicLogin(event->m_fd,1);
+		SendSLogicLogin(event->m_fd, 1);
+		LibEvent::getIns()->eraseClientData(event->m_fd);
 	}
 }
 
@@ -72,21 +78,27 @@ void LogicServerInfo::HandlerCGateLoginHand(ccEvent *event){
 	CGateLogin cl;
 	cl.CopyFrom(*event->msg);
 	string servername = cl.servername();
-	if (!servername.empty()){
-		ClientData *data = LibEvent::getIns()->getClientData1(servername);
-		if (data&&data->_conn){
-			data->_conn->_servername = servername;
+	if (m_name_type.find(servername) == m_name_type.end()){
+		if (!servername.empty()){
+			ClientData *data = LibEvent::getIns()->getClientData1(servername);
+			if (data&&data->_conn){
+				data->_conn->_servername = servername;
+			}
 		}
-	}
-	string seession = cl.seession();
-	if (seession.compare(LOGIC_TOKEN) == 0){
-		m_name_type.insert(make_pair(servername, GATE_TYPE));
-		m_gamefds.insert(make_pair(GATE_TYPE, event->m_fd));
-		SendSGateLogin(event->m_fd, 0);
+		string seession = cl.seession();
+		if (seession.compare(LOGIC_TOKEN) == 0){
+			m_name_type.insert(make_pair(servername, GATE_TYPE));
+			m_gamefds.insert(make_pair(GATE_TYPE, event->m_fd));
+			SendSGateLogin(event->m_fd, 0);
 
+		}
+		else{
+			SendSGateLogin(event->m_fd, 1);
+		}
 	}
 	else{
 		SendSGateLogin(event->m_fd, 1);
+		LibEvent::getIns()->eraseClientData(event->m_fd);
 	}
 }
 
@@ -107,4 +119,26 @@ SERVERTYPE LogicServerInfo::getServerType(string servername){
 int LogicServerInfo::getFd(string servername){
 	SERVERTYPE type = getServerType(servername);
 	return getFd(type);
+}
+
+void LogicServerInfo::eraseFds(int fd){
+	auto itr = m_gamefds.begin();
+	for (itr; itr != m_gamefds.end();itr++){
+		if (itr->second == fd){
+			SERVERTYPE type = itr->first;
+			auto itr1 = m_name_type.begin();
+			for (itr1; itr1 != m_name_type.end(); itr1++){
+				if (itr1->second == type){
+					m_name_type.erase(itr1);
+					break;
+				}
+			}
+			m_gamefds.erase(itr);
+			return;
+		}
+	}
+}
+
+void LogicServerInfo::eraseClientData(int fd){
+	LibEvent::getIns()->eraseClientData(fd);
 }

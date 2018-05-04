@@ -154,6 +154,10 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 	size_t len = bufferevent_read(bev, headchar, 10);
 	if (len >= 0){
 		LibEvent *pLibEvent = LibEvent::getIns();
+		ClientData *data = pLibEvent->getClientData(c->fd);
+		if (data){
+			data->m_lasttime = Common::getTime();
+		}
 		Head *testhead = (Head*)headchar;
 		string serverdest = pLibEvent->getReq(testhead);
 		
@@ -225,17 +229,18 @@ void LibEvent::CloseConn(Conn *pConn, int nFunID)
 	int fd = pConn->fd;
 	if (fd > 0){
 		eraseClientData(fd);
-		resetConn(pConn);
 	}
 }
 
 void LibEvent::resetConn(Conn *pConn){
 	if (pConn&&pConn->fd>0){
+		LogicServerInfo::getIns()->eraseFds(pConn->fd);
 		bufferevent_disable(pConn->bufev, EV_READ | EV_WRITE);
 		evutil_closesocket(pConn->fd);
 		pConn->m_sendstamp = 0;
 		pConn->m_recvstamp = 0;
 		pConn->owner->PutFreeConn(pConn);
+		pConn->fd = 0;
 	}
 }
 
@@ -292,6 +297,7 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	data->_fd = fd;
 	data->_conn = pConn;
 	data->m_ip = ip;
+	data->m_lasttime = Common::getTime();
 	LibEvent *pLibEvent = LibEvent::getIns();
 	pLibEvent->inserClientData(fd, data);
 	bufferevent_enable(pConn->bufev, EV_READ | EV_WRITE);

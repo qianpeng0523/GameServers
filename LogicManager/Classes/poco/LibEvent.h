@@ -28,6 +28,7 @@ public:
 		return m_Server;
 	}
 	ClientData * getClientData1(string servername);
+	void eraseClientData(int fd);
 private:
 	static void DoError(struct bufferevent *bev, short error, void *ctx);
 	void CloseConn(Conn *pConn, int nFunID);
@@ -47,7 +48,7 @@ private:
 	ClientData * getClientData(int fd);
 	ClientData * getClientData(string sessionid);
 	
-	void eraseClientData(int fd);
+	
 	void eraseClientData(string seesionid);
 	void resetConn(Conn *pConn);
 private:

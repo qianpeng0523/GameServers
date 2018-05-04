@@ -22,6 +22,9 @@ public:
 	int getFd(SERVERTYPE type);
 	SERVERTYPE getServerType(string servername);
 	int getFd(string servername);
+
+	void eraseClientData(int fd);
+	void eraseFds(int fd);
 private:
 	static LogicServerInfo *m_shareLogicServerInfo;
 	map<SERVERTYPE, int>m_gamefds;

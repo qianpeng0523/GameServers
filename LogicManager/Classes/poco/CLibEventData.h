@@ -10,9 +10,10 @@
 #include <event2/http_struct.h>
 #include <event2/bufferevent.h>
 #include <event2/thread.h>
-
+#include "StatTimer.h"
 #include "CProtocol.h"
-
+#include "Common.h"
+#include "LogicServerInfo.h"
 struct _Conn;
 struct _Worker;
 
@@ -99,18 +100,31 @@ struct _Worker
 	}
 };
 
-struct _ClientData
+struct _ClientData:public Object
 {
 	_ClientData(){
 		
 		_fd = 0;
 		_conn = NULL;
+		m_lasttime = 0;
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(_ClientData::update), 1.0);
+	}
+	~_ClientData(){
+		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(_ClientData::update));
+	}
+	void update(float dt){
+		time_t tt = Common::getTime();
+		if (m_lasttime > 0 && tt - m_lasttime > 2 * 60){
+			printf("lasttime[%ld]---tt[%ld]--sub[%ld]\n", m_lasttime, tt, tt - m_lasttime);
+			printf("%s\n", "Ö÷¶¯¶Ï¿ª");
+			LogicServerInfo::getIns()->eraseClientData(_fd);
+		}
 	}
 	evutil_socket_t _fd;
 	_Conn *_conn;
 	string _sessionID;
 	string m_ip;
-	
+	time_t m_lasttime;
 };
 
 typedef struct _Server Server;
