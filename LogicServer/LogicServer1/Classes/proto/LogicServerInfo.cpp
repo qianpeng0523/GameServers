@@ -35,7 +35,7 @@ bool LogicServerInfo::init()
 void LogicServerInfo::SendCLogicLogin(){
 	CLogicLogin cl;
 	cl.set_seession(LOGIC_TOKEN);
-	cl.set_servername(HttpLogic::SERVER_CODE);
+	cl.set_servername(LOGICNAME);
 	EventListen::getIns()->addDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogicLoginHand));
 	ClientSocket::getIns()->sendMsg(cl.cmd(),&cl);
 }

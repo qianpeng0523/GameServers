@@ -11,7 +11,7 @@ PingInfo::PingInfo()
 	m_lasttime = 0;
 	EventDispatcher *pe = EventDispatcher::getIns();
 	
-	CLPing cl1;
+	SLPing cl1;
 	pe->registerProto(cl1.cmd(), cl1.GetTypeName());
 	openUpdate(true);
 }
@@ -47,7 +47,7 @@ void PingInfo::HandSLPing(ccEvent *event){
 	m_pingcount = 0;
 	SLPing cp;
 	cp.CopyFrom(*event->msg);
-
+	EventDispatcher::getIns()->removeListener(cp.cmd(), this, Event_Handler(PingInfo::HandSLPing));
 }
 
 void PingInfo::setTime(){

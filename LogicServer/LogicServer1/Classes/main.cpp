@@ -155,6 +155,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	fprintf(file2, content2.c_str(), content2.length());
 	fclose(file2);
 	*/
+	PingInfo::getIns();
 	RoomInfo::getIns();
 	RoomLogicInfo::getIns();
 	WSADATA wsaData;
