@@ -155,7 +155,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 void ClientSocket::DataIn(char* data, int size, int cmd){
 	//数据不能用string  只能用char*
 	printf("datain size:%d cmd:%d\n", size, cmd);
-	ccEvent *sEvent = new ccEvent(cmd, data, size,1);
+	ccEvent *sEvent = new ccEvent(cmd, data, size,1,LOGIC_MANAGER_TYPE);
 	EventDispatcher::getIns()->disEventDispatcher(sEvent);
 }
 

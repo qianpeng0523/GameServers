@@ -1,6 +1,6 @@
 ﻿#include "LoginInfo.h"
 #include "ClientSocket.h"
-#include "EventListen.h"
+
 #include "EventDispatcher.h"
 #include "LibEvent.h"
 #include "HttpLogic.h"
@@ -13,18 +13,17 @@ LoginInfo::LoginInfo()
 	m_pRedisPut = RedisPut::getIns();
 	m_pRedisGet = RedisGet::getIns();
 	EventDispatcher *pe = EventDispatcher::getIns();
-	EventListen *p = EventListen::getIns();
 	CLogin cl;
-	pe->registerProto(cl.cmd(), cl.GetTypeName());
-	EventListen::getIns()->addDataPacketListener(cl.cmd(), this, Event_Handler(LoginInfo::HandlerCLoginHand));
+	pe->registerProto(cl.cmd(), cl.GetTypeName(), GAME_TYPE);
+	pe->addListener(cl.cmd(), this, Event_Handler(LoginInfo::HandlerCLoginHand),GAME_TYPE);
 
 	CRegister cl1;
-	pe->registerProto(cl1.cmd(), cl1.GetTypeName());
-	EventListen::getIns()->addDataPacketListener(cl1.cmd(), this, Event_Handler(LoginInfo::HandlerCRegister));
+	pe->registerProto(cl1.cmd(), cl1.GetTypeName(), GAME_TYPE);
+	pe->addListener(cl1.cmd(), this, Event_Handler(LoginInfo::HandlerCRegister), GAME_TYPE);
 
 	CWXLogin cl2;
-	pe->registerProto(cl2.cmd(), cl2.GetTypeName());
-	EventListen::getIns()->addDataPacketListener(cl2.cmd(), this, Event_Handler(LoginInfo::HandlerCWXLogin));
+	pe->registerProto(cl2.cmd(), cl2.GetTypeName(), GAME_TYPE);
+	pe->addListener(cl2.cmd(), this, Event_Handler(LoginInfo::HandlerCWXLogin), GAME_TYPE);
 
 	
 }

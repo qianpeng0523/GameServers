@@ -75,9 +75,6 @@
     <ClCompile Include="Classes\main.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\network\EventListen.cpp">
-      <Filter>源文件\Classes\network</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\netjson\json_reader.cpp">
       <Filter>源文件\Classes\netjson</Filter>
     </ClCompile>
@@ -232,9 +229,6 @@
     </ClInclude>
     <ClInclude Include="Classes\poco\LibPOCO.h">
       <Filter>源文件\Classes\poco</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\network\EventListen.h">
-      <Filter>源文件\Classes\network</Filter>
     </ClInclude>
     <ClInclude Include="Classes\netjson\json_batchallocator.h">
       <Filter>源文件\Classes\netjson</Filter>

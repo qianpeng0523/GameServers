@@ -171,7 +171,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 			char* out = new char[len+1];
 			HttpLogic::getIns()->aes_decrypt(buffer, len, out);
 			delete buffer;
-			ccEvent *cce = new ccEvent(cmd, out, len, c->fd);
+			ccEvent *cce = new ccEvent(cmd, out, len, c->fd,GAME_TYPE);
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{
@@ -369,6 +369,14 @@ ClientData * LibEvent::getClientData(int fd){
 		return m_ClientDatas.at(fd);
 	}
 	return NULL;
+}
+
+int LibEvent::getFd(string uid){
+	ClientData *data = getClientData(uid);
+	if (data){
+		return data->_fd;
+	}
+	return -1;
 }
 
 ClientData * LibEvent::getClientData(string sessionid){

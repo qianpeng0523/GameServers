@@ -8,8 +8,8 @@ ConfigInfo::ConfigInfo()
 {
 	EventDispatcher *pe = EventDispatcher::getIns();
 	CConfig sl;
-	pe->registerProto(sl.cmd(), sl.GetTypeName());
-	pe->addListener(sl.cmd(), this, Event_Handler(ConfigInfo::HandlerCConfig));
+	pe->registerProto(sl.cmd(), sl.GetTypeName(),GAME_TYPE);
+	pe->addListener(sl.cmd(), this, Event_Handler(ConfigInfo::HandlerCConfig),GAME_TYPE);
 }
 
 ConfigInfo::~ConfigInfo(){

@@ -76,8 +76,8 @@ HallInfo::~HallInfo(){
 
 void HallInfo::regist(int cmd, string name, EventHandler handler){
 	EventDispatcher *pe = EventDispatcher::getIns();
-	pe->registerProto(cmd,name);
-	pe->addListener(cmd, this, handler);
+	pe->registerProto(cmd, name, GAME_TYPE);
+	pe->addListener(cmd, this, handler, GAME_TYPE);
 }
 
 HallInfo* HallInfo::getIns(){
@@ -419,7 +419,7 @@ void HallInfo::SendSExchangeReward(SExchangeReward cl, int fd){
 void HallInfo::HandlerCExchangeReward(ccEvent *event){
 	CExchangeReward cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeReward));
+	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeReward),GAME_TYPE);
 	
 
 	char buff[100];
@@ -648,7 +648,7 @@ void HallInfo::SendSSignList(SSignList cl, int fd){
 void HallInfo::HandlerCSignList(ccEvent *event){
 	CSignList cl;
 	cl.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCSignList));
+	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCSignList), GAME_TYPE);
 	
 	SSignList sl;
 	sl.set_count(3);

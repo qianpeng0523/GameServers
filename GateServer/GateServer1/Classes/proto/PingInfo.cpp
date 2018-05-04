@@ -10,11 +10,11 @@ PingInfo::PingInfo()
 	m_lasttime = 0;
 	EventDispatcher *pe = EventDispatcher::getIns();
 	CPing sl;
-	pe->registerProto(sl.cmd(), sl.GetTypeName());
-	pe->addListener(sl.cmd(), this, Event_Handler(PingInfo::HandlerCPing));
+	pe->registerProto(sl.cmd(), sl.GetTypeName(), GAME_TYPE);
+	pe->addListener(sl.cmd(), this, Event_Handler(PingInfo::HandlerCPing), GAME_TYPE);
 
 	SLPing cl1;
-	pe->registerProto(cl1.cmd(), cl1.GetTypeName());
+	pe->registerProto(cl1.cmd(), cl1.GetTypeName(),LOGIC_MANAGER_TYPE);
 	openUpdate(true);
 }
 
@@ -51,7 +51,7 @@ void PingInfo::HandlerCPing(ccEvent *event){
 void PingInfo::SendCLPing(){
 	CLPing cp;
 	SLPing sp;
-	EventDispatcher::getIns()->addListener(sp.cmd(), this, Event_Handler(PingInfo::HandSLPing));
+	EventDispatcher::getIns()->addListener(sp.cmd(), this, Event_Handler(PingInfo::HandSLPing),LOGIC_MANAGER_TYPE);
 	m_pingcount++;
 	ClientSocket::getIns()->sendMsg(cp.cmd(),&cp);
 }
@@ -60,7 +60,7 @@ void PingInfo::HandSLPing(ccEvent *event){
 	m_pingcount = 0;
 	SLPing cp;
 	cp.CopyFrom(*event->msg);
-	EventDispatcher::getIns()->removeListener(cp.cmd(), this, Event_Handler(PingInfo::HandSLPing));
+	EventDispatcher::getIns()->removeListener(cp.cmd(), this, Event_Handler(PingInfo::HandSLPing),LOGIC_MANAGER_TYPE);
 }
 
 void PingInfo::setTime(){

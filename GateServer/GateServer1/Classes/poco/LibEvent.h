@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <WinSock2.h>
 #include "EventDispatcher.h"
-#include "EventListen.h"
+
 #include "HttpEvent.h"
 #include "CSVDataInfo.h"
 #include "CLibEventData.h"
@@ -33,6 +33,7 @@ public:
 	ClientData * getClientData(int fd);
 	ClientData * getClientData(string sessionid);
 	ClientData * getClientDataByUID(string uid);
+	int getFd(string uid);
 	string getUID(int fd);
 	void eraseClientData(int fd);
 private:

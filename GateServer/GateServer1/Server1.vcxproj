@@ -122,7 +122,6 @@
     <ClCompile Include="Classes\network\ccEvent.cpp" />
     <ClCompile Include="Classes\network\ClientSocket.cpp" />
     <ClCompile Include="Classes\network\EventDispatcher.cpp" />
-    <ClCompile Include="Classes\network\EventListen.cpp" />
     <ClCompile Include="Classes\network\TcpSocket.cpp" />
     <ClCompile Include="Classes\openapi\http\http_client.cpp" />
     <ClCompile Include="Classes\openapi\json\cJSON.c" />
@@ -183,7 +182,6 @@
     <ClInclude Include="Classes\network\ccEvent.h" />
     <ClInclude Include="Classes\network\ClientSocket.h" />
     <ClInclude Include="Classes\network\EventDispatcher.h" />
-    <ClInclude Include="Classes\network\EventListen.h" />
     <ClInclude Include="Classes\network\TcpSocket.h" />
     <ClInclude Include="Classes\openapi\http\http_client.h" />
     <ClInclude Include="Classes\openapi\json\cJSON.h" />

@@ -13,6 +13,7 @@ class CallList{
 public:
 	int cmd;
 	Object *obj;
+	SERVERTYPE type;
 	EventHandler handler;
 };
 
@@ -27,20 +28,20 @@ public:
 	static EventDispatcher *getIns();
 	bool init();
 	
-	void addListener(int cmd, Object *target, EventHandler handler);//添加监听
-	void removeListener(int cmd, Object *target, EventHandler handler);//移除监听
-	void removeAllKistener();
+	void addListener(int cmd, Object *target, EventHandler handler, SERVERTYPE type);//添加监听
+	void removeListener(int cmd, Object *target, EventHandler handler, SERVERTYPE type);//移除监听
+	void removeAllListener();
 	void disEventDispatcher(ccEvent *event);
 	
-	void registerProto(int cmd,string tname);
-	string getProtoName(int cmd);
+	void registerProto(int cmd, string tname, SERVERTYPE type);
+	string getProtoName(int cmd, SERVERTYPE type);
 private:
 	void EventPathch(std::vector<ccEvent *> &ep);
 private:
 	static EventDispatcher* m_ins;
-	std::map<int, CallList_Vec> m_eventLists;
-	std::vector<ccEvent *> m_Events;
-	map<int, string> m_protos;
+	map<SERVERTYPE, map<int, CallList_Vec>> m_eventLists;
+	vector<ccEvent *> m_Events;
+	map<SERVERTYPE, map<int, string>> m_protos;
 private:
 
 };

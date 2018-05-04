@@ -1,11 +1,11 @@
 #include "ccEvent.h"
 #include "EventDispatcher.h"
 
-ccEvent::ccEvent(int pcmd, const char* data, int size, int fd) :
+ccEvent::ccEvent(int pcmd, const char* data, int size, int fd, SERVERTYPE type) :
 msg(NULL){
-	cmd = pcmd;
+	m_cmd = pcmd;
 	m_fd = fd;
-
+	m_type = type;
 	parse(data, size);
 }
 
@@ -18,7 +18,7 @@ ccEvent::~ccEvent(){
 
 void ccEvent::parse(const char* data, int size){
 
-	std::string type_name = EventDispatcher::getIns()->getProtoName(cmd);
+	std::string type_name = EventDispatcher::getIns()->getProtoName(m_cmd,m_type);
 	if (!type_name.empty()){
 		msg = create_message(type_name);
 		msg->ParseFromArray(data, size);
