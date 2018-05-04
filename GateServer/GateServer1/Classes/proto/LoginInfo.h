@@ -25,8 +25,7 @@ public:
 	void SendSWXLogin(SWXLogin sl, int fd);
 	void HandlerCWXLogin(ccEvent *event);
 
-	void SendSPing(SPing sp,int fd);
-	void HandlerCPing(ccEvent *event);
+	
 
 public:
 	void eraseClientData(int fd);

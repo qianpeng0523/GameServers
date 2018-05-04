@@ -21,7 +21,7 @@
 #include "HttpAliPay.h"
 #include "RoomInfo.h"
 #include "RoomLogicInfo.h"
-
+#include "PingInfo.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -108,7 +108,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	fprintf(fp,content.c_str());
 	fclose(fp);
 	*/
-	
+	PingInfo::getIns();
 	RoomInfo::getIns();
 	RoomLogicInfo::getIns();
 	StatTimer::getIns();

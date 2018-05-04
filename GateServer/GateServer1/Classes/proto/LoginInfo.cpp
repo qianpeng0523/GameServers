@@ -26,9 +26,7 @@ LoginInfo::LoginInfo()
 	pe->registerProto(cl2.cmd(), cl2.GetTypeName());
 	EventListen::getIns()->addDataPacketListener(cl2.cmd(), this, Event_Handler(LoginInfo::HandlerCWXLogin));
 
-	CPing cl3;
-	pe->registerProto(cl3.cmd(), cl3.GetTypeName());
-	EventListen::getIns()->addDataPacketListener(cl3.cmd(), this, Event_Handler(LoginInfo::HandlerCPing));
+	
 }
 
 LoginInfo::~LoginInfo(){
@@ -205,17 +203,6 @@ void LoginInfo::HandlerCWXLogin(ccEvent *event){
 		}
 	}
 	SendSWXLogin(sl, event->m_fd);
-}
-
-void LoginInfo::SendSPing(SPing sp, int fd){
-	LibEvent::getIns()->SendData(sp.cmd(), &sp, fd);
-}
-
-void LoginInfo::HandlerCPing(ccEvent *event){
-	CPing cp;
-	cp.CopyFrom(*event->msg);
-	SPing sp;
-	SendSPing(sp, event->m_fd);
 }
 
 void LoginInfo::eraseClientData(int fd){

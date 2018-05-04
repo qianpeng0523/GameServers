@@ -1,6 +1,7 @@
 ﻿#include "ClientSocket.h"
 #include "LogicServerInfo.h"
 #include "HttpLogic.h"
+#include "PingInfo.h"
 
 /**********消息头********
 0		服务器序列号
@@ -71,8 +72,12 @@ int ClientSocket::connect(const char* ip, unsigned short port) {
     if (connectFlag != SOCKET_ERROR) {
 		std::thread t1(&ClientSocket::threadHandler, this);//创建一个分支线程，回调到myThread函数里
 		t1.detach();
+		PingInfo::getIns()->setTime();
         m_isConnected = true;
 		LogicServerInfo::getIns()->SendCGateLogin();
+	}
+	else{
+		PingInfo::getIns()->setTime();
 	}
     return connectFlag;
 }
@@ -152,6 +157,7 @@ void *ClientSocket::threadHandler(void *arg) {
     while (1) {
 		len = p->Recv(buff, HEADLEN, 0);
         if (len > 0){
+			PingInfo::getIns()->setTime();
 			Head *head = (Head*)buff;
 			string servercode = p->getReq(head);
 			int stamp = p->getStamp(head);

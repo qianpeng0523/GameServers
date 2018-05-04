@@ -230,7 +230,6 @@ void LibEvent::CloseConn(Conn *pConn, int nFunID)
 	int fd = pConn->fd;
 	if (fd > 0){
 		eraseClientData(fd);
-		resetConn(pConn);
 	}
 }
 
@@ -241,6 +240,7 @@ void LibEvent::resetConn(Conn *pConn){
 		pConn->m_sendstamp = 0;
 		pConn->m_recvstamp = 0;
 		pConn->owner->PutFreeConn(pConn);
+		pConn->fd = 0;
 	}
 }
 
@@ -406,6 +406,7 @@ void LibEvent::eraseClientData(string sesionid){
 				printf("close ip:%s", data->_ip.c_str());
 				if (data->_conn){
 					CloseConn(data->_conn, emFunClosed);
+					resetConn(data->_conn);
 				}
 				delete data;
 			}
