@@ -109,7 +109,12 @@ HttpLogic::~HttpLogic(){
 
 bool HttpLogic::init()
 {
-	
+	YMSocketData sd;
+	string ee = "123456";
+	sd.parse((char *)ee.c_str(), ee.length());
+	int sz = 0;
+	char *buff =new char[30];
+	HandleLogic(sd, buff, sz);
     return true;
 }
 
@@ -123,7 +128,8 @@ HttpLogic *HttpLogic::getIns(){
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
 	printf("sd:%s\n",sd.getJsonString().c_str());
-	if (!sd.isNull()&&sd.isMember("cmd")){
+	CSJson::ValueType ise = sd.type();
+	if (ise == CSJson::ValueType::objectValue&&sd.isMember("cmd")){
 		int cmd = sd["cmd"].asInt();
 		if (cmd == 0x01){
 			SqlStart(sd, buff, sz);
