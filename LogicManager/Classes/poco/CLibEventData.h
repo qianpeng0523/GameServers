@@ -115,7 +115,7 @@ struct _ClientData:public Object
 	void update(float dt){
 		time_t tt = Common::getTime();
 		if (m_lasttime > 0 && tt - m_lasttime > 4 * 60){
-			printf("lasttime[%ld]---tt[%ld]--sub[%ld]\n", m_lasttime, tt, tt - m_lasttime);
+			printf("[%s]lasttime[%ld]---tt[%ld]--sub[%ld]\n",Common::getLocalTime().c_str(), m_lasttime, tt, tt - m_lasttime);
 			printf("%s\n", "Ö÷¶¯¶Ï¿ª");
 			LogicServerInfo::getIns()->eraseClientData(_fd);
 		}

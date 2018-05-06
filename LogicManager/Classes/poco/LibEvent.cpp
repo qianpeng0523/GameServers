@@ -175,7 +175,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{
-			printf("数据不合法！！！！！！！！\n");
+			printf("[%s]数据不合法！！！！！！！！\n", Common::getLocalTime().c_str());
 			delete buffer;
 		}
 	}
@@ -218,7 +218,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 			buffer[i] = out[i - HEADLEN];
 		}
 		delete out;
-		printf("senddata:%s\n",msg->DebugString().c_str());
+		printf("[%s]senddata:%s\n", Common::getLocalTime().c_str(), msg->DebugString().c_str());
 		bufferevent_write(pdata->_conn->bufev, buffer, len + HEADLEN);
 
 		delete buffer;
@@ -288,7 +288,7 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	pConn->m_sendstamp = 0;
 	struct sockaddr_in * in = (struct sockaddr_in *)sa;
 	string ip = inet_ntoa(in->sin_addr);
-	printf("accept IP:%s\n", ip.c_str());
+	printf("[%s]accept IP:%s\n", Common::getLocalTime().c_str(), ip.c_str());
 	pConn->fd = fd;
 
 	evutil_make_socket_nonblocking(pConn->fd);
@@ -402,7 +402,7 @@ void LibEvent::eraseClientData(int fd){
 		m_ClientDatas.erase(m_ClientDatas.find(fd));
 		if (data){
 			if (data->_conn){
-				printf("IP:%s close connect!\n",data->m_ip.c_str());
+				printf("[%s]%s close connect!\n", Common::getLocalTime().c_str(), data->m_ip.c_str());
 				resetConn(data->_conn);
 			}
 			delete data;
@@ -418,7 +418,7 @@ void LibEvent::eraseClientData(string sesionid){
 			m_ClientDatas.erase(itr);
 			if (data){
 				if (data->_conn){
-					printf("IP:%s close connect!\n", data->m_ip.c_str());
+					printf("[%s]%s close connect!\n", Common::getLocalTime().c_str(), data->m_ip.c_str());
 					CloseConn(data->_conn, emFunClosed);
 				}
 				delete data;
