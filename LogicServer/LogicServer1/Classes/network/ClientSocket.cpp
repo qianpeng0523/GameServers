@@ -3,6 +3,7 @@
 #include "HttpLogic.h"
 #include "PingInfo.h"
 #include "StatTimer.h"
+#include "Common.h"
 /**********消息头********
 0		服务器序列号
 1		stamp
@@ -33,9 +34,9 @@ void ClientSocket::createTcp(){
 	TcpSocket::Init();
 	int ret = m_tcpSocket->Create(AF_INET, SOCK_STREAM, IPPROTO_IP);
 	if (ret) {
-		printf("Create socket:success,ret:%d\n", ret);
+		printf("[%s]Create socket:success,ret:%d\n",Common::getLocalTime().c_str(), ret);
 	} else {
-		printf("Create socket:fail,ret:%d", ret);
+		printf("[%s]Create socket:fail,ret:%d", Common::getLocalTime().c_str(), ret);
 	}
 }
 
@@ -144,7 +145,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 		buffer[i] = out[i - HEADLEN];
 	}
 	delete out;
-	printf("sendmsg:body:%s\n",msg->DebugString().c_str());
+	printf("[%s]sendmsg:body:%s\n", Common::getLocalTime().c_str(), msg->DebugString().c_str());
 	if (m_tcpSocket){
 		m_tcpSocket->Send(buffer, HEADLEN + len);
 	}
@@ -154,7 +155,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 
 void ClientSocket::DataIn(char* data, int size,int cmd){
 	//数据不能用string  只能用char*
-	printf("datain size:%d cmd:%d\n", size, cmd);
+	printf("[%s]DataIn size:%d cmd:%d\n", Common::getLocalTime().c_str(), size, cmd);
 	ccEvent *sEvent = new ccEvent(cmd, data, size,1);
 	EventDispatcher::getIns()->disEventDispatcher(sEvent);
 }
@@ -183,13 +184,13 @@ void *ClientSocket::threadHandler(void *arg) {
 				p->DataIn(out, len, cmd);
 			}
 			else{
-				printf("数据不合法\n");
+				printf("[%s]数据不合法\n", Common::getLocalTime().c_str());
 				delete temp;
 				p->close();
 			}
 
         } else{
-			printf("%s\n", "==== connect break up ====");
+			printf("[%s]%s\n", Common::getLocalTime().c_str(), "==== connect break up ====");
             //服务端断开
             p->close();
 			//断开线程

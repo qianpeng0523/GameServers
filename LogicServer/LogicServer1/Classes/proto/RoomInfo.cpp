@@ -103,6 +103,7 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 	string uid = cr.uid();
 
 	SHMMJEnterRoom sr;
+	sr.set_uid(uid);
 	GRoom *gr = m_pRoomControl->enterRoom(uid, rid);
 	if (gr){
 		RoomData *rd = sr.mutable_roomdata();
