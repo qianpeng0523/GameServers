@@ -1,6 +1,6 @@
 #include "ccEvent.h"
 #include "EventDispatcher.h"
-
+#include "Common.h"
 ccEvent::ccEvent(int pcmd, const char* data, int size, int fd, SERVERTYPE type) :
 msg(NULL){
 	m_cmd = pcmd;
@@ -25,7 +25,7 @@ void ccEvent::parse(const char* data, int size){
 
 		msg->PrintDebugString();
 		string ss = msg->DebugString();
-		printf("ccEvent:%s\n",ss.c_str());
+		printf("[%s]ccEvent[0x%04X]:(%s)%s\n", Common::getLocalTime().c_str(), m_cmd, type_name.c_str(), ss.c_str());
 	}
 	delete data;
 }
