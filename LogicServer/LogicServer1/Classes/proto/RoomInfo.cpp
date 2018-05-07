@@ -105,6 +105,7 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 	SHMMJEnterRoom sr;
 	sr.set_uid(uid);
 	GRoom *gr = m_pRoomControl->enterRoom(uid, rid);
+	RoomUser scomeinuser;
 	if (gr){
 		RoomData *rd = sr.mutable_roomdata();
 		rd->CopyFrom(gr->getRoomData());
@@ -112,9 +113,12 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 		for (int i = 0; i < 4; i++){
 			if (udatas[i]){
 				RoomUser *ru = sr.add_roomusers();
-				ru->set_userid(udatas[i]->_uid);
+				string puid = udatas[i]->_uid;
+				ru->set_userid(puid);
 				ru->set_position(i + 1);
-
+				if (puid.compare(uid)==0){
+					scomeinuser.CopyFrom(*ru);
+				}
 				//SVote
 			}
 		}
@@ -123,9 +127,17 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 		sr.set_err(1);
 	}
 	SendSHMMJEnterRoom(sr);
+	SComein sc;
+	RoomUser *user = sc.mutable_roomuser();
+	user->CopyFrom(scomeinuser);
+	SendSComein(sc);
 }
 
 void RoomInfo::SendSHMMJEnterRoom(SHMMJEnterRoom sd){
+	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
+}
+
+void RoomInfo::SendSComein(SComein sd){
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 

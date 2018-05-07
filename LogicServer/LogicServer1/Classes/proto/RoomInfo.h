@@ -19,6 +19,8 @@ public:
 	void HandCHMMJEnterRoom(ccEvent *event);
 	void SendSHMMJEnterRoom(SHMMJEnterRoom sd);
 
+	void SendSComein(SComein sd);
+
 	void HandCBegin(ccEvent *event);
 	void SendSBegin(SBegin sd);
 

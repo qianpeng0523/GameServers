@@ -317,6 +317,7 @@ void GRoom::selectZhuang(){
 void GRoom::SendDice(string uid){
 	UData *ud = m_udata[m_zhuangpos-1];
 	SDice sd;
+	sd.set_suid(uid);
 	if (ud&&ud->_uid.compare(uid) == 0){
 		char mm[2] = { rand() % 6 + 1, rand() % 6 + 1 };
 		sd.set_dice(mm,2);
@@ -586,6 +587,14 @@ void GRoom::SendAnGang(int pos, int card){
 	m_curcpgcard = card;
 	m_isgang = true;
 	m_curdir = pos;
+
+	SAnGang sd;
+	sd.set_card(card);
+	sd.set_pos(pos);
+	sd.set_uid(ud->_uid);
+	sd.set_type(4);
+	m_pRoomLogicInfo->SendSAnGang(sd);
+
 	StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::NextBackDraw), 1.0);
 }
 
@@ -631,6 +640,7 @@ void GRoom::Begin(string uid,int type){
 		reset();
 		initMJ();
 		sb.set_type(type);
+		sb.set_uid(uid);
 		m_pRoomInfo->SendSBegin(sb);
 		selectZhuang();
 	}
@@ -649,7 +659,6 @@ void GRoom::Ready(string uid, bool ready){
 		sr.set_err(1);
 		sr.set_uid(uid);
 	}
-	m_pRoomInfo->SendSReady(sr);
 }
 
 void GRoom::Leave(string uid){
@@ -756,6 +765,10 @@ void GRoom::VoteResult(bool isDissolve){
 	m_pRoomInfo->SendSVoteResult(svr);
 	if (isDissolve){
 		RoomControl::getIns()->eraseRoom(m_roomdata.roomid());
+	}
+	else{
+		m_dissoveuid = "";
+		m_voteuids.clear();
 	}
 }
 
