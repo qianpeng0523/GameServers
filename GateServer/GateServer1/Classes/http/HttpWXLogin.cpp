@@ -174,11 +174,12 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 		ub.set_address(province + city);
 		m_pRedisPut->PushUserBase(ub);
 
-		uint32 gold = ub.gold();
 		Rank rk;
+		rk.set_type(1);
 		rk.set_uid(ub.userid());
 		m_pRedisPut->PushRank(rk);
 		Rank rk1;
+		rk1.set_type(2);
 		rk1.set_uid(ub.userid());
 		m_pRedisPut->PushRank(rk1);
 
@@ -197,7 +198,7 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	string uid = "yk";
 	m_pRedis->set("userid_index", buff, len);
 	uid += u;
-
+	m_pRedis->set("ykuid"+uid,(char *)pwd.c_str(),len);
 	UserBase ub;
 	ub.set_userid(uid);
 	ub.set_username(name);
@@ -206,11 +207,12 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	ub.set_picurl("http://www.lesharecs.com/1.jpg");
 	m_pRedisPut->PushUserBase(ub);
 
-	uint32 gold = ub.gold();
 	Rank rk;
+	rk.set_type(1);
 	rk.set_uid(ub.userid());
 	m_pRedisPut->PushRank(rk);
 	Rank rk1;
+	rk1.set_type(2);
 	rk1.set_uid(ub.userid());
 	m_pRedisPut->PushRank(rk1);
 	return ub;

@@ -55,21 +55,21 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	string uid = cl.uid();
 	string pwd = cl.pwd();
-
-
+	
+	string key = "ykuid" + uid;
+	int len = 0;
+	char *dd= redis::getIns()->get("ykuid" + uid,len);
 	SLogin sl;
 	sl.set_cmd(sl.cmd());
-	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
-	if (data){
-		string seesion=uid+pwd+LOGIC_TOKEN;
-		MD5 md5;
-		md5.update(seesion);
-		data->_sessionID = md5.toString();
-		data->_uid = uid;
-		string ip = data->_ip;
-		int len;
-		char* pass = m_pRedisGet->getPass(uid);
-		if (pass&&data->_sessionID.compare(pass) == 0){
+	if (dd&&pwd.compare(dd) == 0){
+		ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+		if (data){
+			string seesion = uid + pwd + LOGIC_TOKEN;
+			MD5 md5;
+			md5.update(seesion);
+			data->_sessionID = md5.toString();
+			data->_uid = uid;
+			string ip = data->_ip;
 			UserBase *info = m_pRedisGet->getUserBase(uid);
 			if (info){
 				sl.set_allocated_info(info);
@@ -78,17 +78,13 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 			else{
 				sl.set_err(1);
 			}
-			delete pass;
-			pass = NULL;
+			delete dd;
+			dd = NULL;
+
 		}
 		else{
-			if (pass){
-				delete pass;
-				pass = NULL;
-			}
 			sl.set_err(1);
 		}
-		
 	}
 	else{
 		sl.set_err(1);

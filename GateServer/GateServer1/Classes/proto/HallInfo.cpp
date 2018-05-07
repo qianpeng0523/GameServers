@@ -160,6 +160,7 @@ void HallInfo::HandlerCMail(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	
 	SMail sl;
+	sl.set_cmd(sl.cmd());
 	string uid = LibEvent::getIns()->getUID(event->m_fd);
 	map<string,Mail> vec = m_pRedisGet->getMail(uid);
 	map<string, Mail>::iterator itr = vec.begin();

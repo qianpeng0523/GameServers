@@ -173,7 +173,7 @@ string Common::getLocalTime(){
 	char buff[100];
 	time_t tt = time(NULL);//这句返回的只是一个时间cuo
 	tm* t = localtime(&tt);
-	sprintf(buff, "%d-%02d-%02d %02d:%02d",
+	sprintf(buff, "%d-%02d-%02d %02d:%02d:%02d",
 		t->tm_year + 1900,
 		t->tm_mon + 1,
 		t->tm_mday,

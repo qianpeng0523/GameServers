@@ -47,7 +47,7 @@ bool RedisPut::addUserBase(string uid, string key, int value){
 bool RedisPut::PushRank(Rank rk){
 	int type = rk.type();
 	char buff[50];
-	sprintf(buff,"%s%d",rk.GetTypeName(),type);
+	sprintf(buff,"%s%d",rk.GetTypeName().c_str(),type);
 	return m_redis->List(buff,&rk);
 }
 
