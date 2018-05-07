@@ -21,23 +21,23 @@ RoomInfo::RoomInfo()
 
 	CReady sl4;
 	pe->registerProto(sl4.cmd(), sl4.GetTypeName(), GATE_TYPE);
-	pe->addListener(sl4.cmd(), this, Event_Handler(RoomInfo::HandSReady), GATE_TYPE);
+	pe->addListener(sl4.cmd(), this, Event_Handler(RoomInfo::HandCReady), GATE_TYPE);
 
 	CLeave sl5;
 	pe->registerProto(sl5.cmd(), sl5.GetTypeName(), GATE_TYPE);
-	pe->addListener(sl5.cmd(), this, Event_Handler(RoomInfo::HandSLeave), GATE_TYPE);
+	pe->addListener(sl5.cmd(), this, Event_Handler(RoomInfo::HandCLeave), GATE_TYPE);
 
 	CLine sl6;
 	pe->registerProto(sl6.cmd(), sl6.GetTypeName(), GATE_TYPE);
-	pe->addListener(sl6.cmd(), this, Event_Handler(RoomInfo::HandSLine), GATE_TYPE);
+	pe->addListener(sl6.cmd(), this, Event_Handler(RoomInfo::HandCLine), GATE_TYPE);
 
 	CDissolveRoom sl7;
 	pe->registerProto(sl7.cmd(), sl7.GetTypeName(), GATE_TYPE);
-	pe->addListener(sl7.cmd(), this, Event_Handler(RoomInfo::HandSDissolveRoom), GATE_TYPE);
+	pe->addListener(sl7.cmd(), this, Event_Handler(RoomInfo::HandCDissolveRoom), GATE_TYPE);
 
 	CVote sl8;
 	pe->registerProto(sl8.cmd(), sl8.GetTypeName(), GATE_TYPE);
-	pe->addListener(sl8.cmd(), this, Event_Handler(RoomInfo::HandSVote), GATE_TYPE);
+	pe->addListener(sl8.cmd(), this, Event_Handler(RoomInfo::HandCVote), GATE_TYPE);
 
 	CRChat sl9;
 	pe->registerProto(sl9.cmd(), sl9.GetTypeName(), GATE_TYPE);
