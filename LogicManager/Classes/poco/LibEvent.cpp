@@ -153,6 +153,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 	Conn *c = (Conn *)ctx;
 	size_t len = bufferevent_read(bev, headchar, 10);
 	if (len >= 0){
+		printf("doread:%d\n",len);
 		LibEvent *pLibEvent = LibEvent::getIns();
 		ClientData *data = pLibEvent->getClientData(c->fd);
 		if (data){
@@ -167,11 +168,18 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 		char *buffer = new char[bodylen];
 		len = bufferevent_read(bev, buffer, bodylen);
 		c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
+		printf("serverdest[%s] recvstamp:%d---clienstamp:%d\n",serverdest.c_str(),c->m_recvstamp,stamp);
 		if (len == bodylen&&c->m_recvstamp == stamp){
 			char *out = new char[bodylen + 1];
 			HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
 			delete buffer;
 			ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd,serverdest);
+			if (cce->msg){
+				printf("right\n");
+			}
+			else{
+				printf("wrong\n");
+			}
 			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{
@@ -288,11 +296,8 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	pConn->m_sendstamp = 0;
 	struct sockaddr_in * in = (struct sockaddr_in *)sa;
 	string ip = inet_ntoa(in->sin_addr);
-	printf("[%s]accept IP:%s\n", Common::getLocalTime().c_str(), ip.c_str());
+	printf("[%s]accept IP:%s [FD:%d]\n", Common::getLocalTime().c_str(), ip.c_str(),fd);
 	pConn->fd = fd;
-
-	evutil_make_socket_nonblocking(pConn->fd);
-	bufferevent_setfd(pConn->bufev, pConn->fd);
 	//记录连接的信息 fd关键
 	ClientData *data = new ClientData();
 	data->_fd = fd;
@@ -301,6 +306,9 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	data->m_lasttime = Common::getTime();
 	LibEvent *pLibEvent = LibEvent::getIns();
 	pLibEvent->inserClientData(fd, data);
+	evutil_make_socket_nonblocking(pConn->fd);
+	bufferevent_setfd(pConn->bufev, pConn->fd);
+	
 	bufferevent_enable(pConn->bufev, EV_READ | EV_WRITE);
 }
 
@@ -363,6 +371,7 @@ int LibEvent::getStamp(Head *h){
 
 void LibEvent::inserClientData(int fd, ClientData *data){
 	if (m_ClientDatas.find(fd) == m_ClientDatas.end()){
+		printf("insert_fd:%d\n",fd);
 		m_ClientDatas.insert(make_pair(fd, data));
 	}
 }

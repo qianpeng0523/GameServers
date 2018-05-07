@@ -45,7 +45,7 @@ void LogicServerInfo::HandlerCLogicLoginHand(ccEvent *event){
 	string servername = cl.servername();
 	if (m_name_type.find(servername) == m_name_type.end()){
 		if (!servername.empty()){
-			ClientData *data = LibEvent::getIns()->getClientData1(servername);
+			ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 			if (data&&data->_conn){
 				data->_conn->_servername = servername;
 			}
@@ -80,7 +80,7 @@ void LogicServerInfo::HandlerCGateLoginHand(ccEvent *event){
 	string servername = cl.servername();
 	if (m_name_type.find(servername) == m_name_type.end()){
 		if (!servername.empty()){
-			ClientData *data = LibEvent::getIns()->getClientData1(servername);
+			ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 			if (data&&data->_conn){
 				data->_conn->_servername = servername;
 			}
@@ -90,7 +90,6 @@ void LogicServerInfo::HandlerCGateLoginHand(ccEvent *event){
 			m_name_type.insert(make_pair(servername, GATE_TYPE));
 			m_gamefds.insert(make_pair(GATE_TYPE, event->m_fd));
 			SendSGateLogin(event->m_fd, 0);
-
 		}
 		else{
 			SendSGateLogin(event->m_fd, 1);

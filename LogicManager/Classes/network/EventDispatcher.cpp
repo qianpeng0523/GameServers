@@ -112,7 +112,6 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 			ccEvent *event = *itr;
 			int cmd = event->m_cmd;
 			SERVERTYPE type = event->m_type;
-			
 			if (m_eventLists.find(type) != m_eventLists.end()){
 				CallList_Vec vec;
 				auto mmp = m_eventLists.at(type);

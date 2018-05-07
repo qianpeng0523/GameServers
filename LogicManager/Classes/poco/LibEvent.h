@@ -28,6 +28,7 @@ public:
 		return m_Server;
 	}
 	ClientData * getClientData1(string servername);
+	ClientData * getClientData(int fd);
 	void eraseClientData(int fd);
 private:
 	static void DoError(struct bufferevent *bev, short error, void *ctx);
@@ -45,7 +46,7 @@ private:
 	int getStamp(Head *h);
 	
 	void inserClientData(int fd,ClientData *data);
-	ClientData * getClientData(int fd);
+	
 	ClientData * getClientData(string sessionid);
 	
 	
