@@ -41,7 +41,7 @@ RoomInfo::RoomInfo()
 
 	CRChat sl9;
 	pe->registerProto(sl9.cmd(), sl9.GetTypeName(), GATE_TYPE);
-	pe->addListener(sl9.cmd(), this, Event_Handler(RoomInfo::HandSRChat), GATE_TYPE);
+	pe->addListener(sl9.cmd(), this, Event_Handler(RoomInfo::HandCRChat), GATE_TYPE);
 
 
 
@@ -80,10 +80,6 @@ RoomInfo::RoomInfo()
 	SVote sl28;
 	pe->registerProto(sl28.cmd(), sl28.GetTypeName(), LOGIC_TYPE);
 	pe->addListener(sl28.cmd(), this, Event_Handler(RoomInfo::HandSVote), LOGIC_TYPE);
-
-	SRChat sl29;
-	pe->registerProto(sl29.cmd(), sl29.GetTypeName(), LOGIC_TYPE);
-	pe->addListener(sl29.cmd(), this, Event_Handler(RoomInfo::HandSRChat), LOGIC_TYPE);
 
 	SVoteResult sl30;
 	pe->registerProto(sl30.cmd(), sl3.GetTypeName(), LOGIC_TYPE);
@@ -129,6 +125,9 @@ void RoomInfo::HandSHMMJCreateRoom(ccEvent *event){
 			rc->_uids.push_back(uid);
 			m_pRooms.insert(make_pair(rid, rc));
 		}
+		if (m_roomids.find(uid) == m_roomids.end()){
+			m_roomids.insert(make_pair(uid,rid));
+		}
 	}
 
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
@@ -144,6 +143,11 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 void RoomInfo::HandSHMMJEnterRoom(ccEvent *event){
 	SHMMJEnterRoom sd;
 	sd.CopyFrom(*event->msg);
+	string rid = sd.roomdata().roomid();
+	string uid = sd.uid();
+	if (m_roomids.find(uid) == m_roomids.end()){
+		m_roomids.insert(make_pair(uid, rid));
+	}
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
 }
@@ -152,7 +156,18 @@ void RoomInfo::HandSComein(ccEvent *event){
 	SComein sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(),&sd,fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SComein sd1;
+		sd1.CopyFrom(sd);
+		string puid = users.at(i);
+		if (puid.compare(uid) != 0){
+			sd1.set_uid(puid);
+		}
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 
 }
 
@@ -181,7 +196,16 @@ void RoomInfo::HandSReady(ccEvent *event){
 	SReady sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SReady sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(users.at(i));
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
+	
 }
 
 void RoomInfo::HandCLeave(ccEvent *event){
@@ -195,7 +219,16 @@ void RoomInfo::HandSLeave(ccEvent *event){
 	SLeave sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SLeave sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(users.at(i));
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
+	PopUserFromRoom(rid);
 }
 
 void RoomInfo::HandCLine(ccEvent *event){
@@ -209,7 +242,15 @@ void RoomInfo::HandSLine(ccEvent *event){
 	SLine sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SLine sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(users.at(i));
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomInfo::HandCDissolveRoom(ccEvent *event){
@@ -223,7 +264,15 @@ void RoomInfo::HandSDissolveRoom(ccEvent *event){
 	SDissolveRoom sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SDissolveRoom sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(users.at(i));
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomInfo::HandCVote(ccEvent *event){
@@ -237,25 +286,119 @@ void RoomInfo::HandSVote(ccEvent *event){
 	SVote sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SVote sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(users.at(i));
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomInfo::HandSVoteResult(ccEvent *event){
 	SVoteResult sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	bool isjiesan = sd.dissolve();
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SVoteResult sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(users.at(i));
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
+	
+	if (isjiesan){
+		PopRoom(rid);
+	}
+	
 }
 
 void RoomInfo::HandCRChat(ccEvent *event){
 	CRChat cr;
 	cr.CopyFrom(*event->msg);
-	//
+	string uid = cr.uid();
+	string content = cr.content();
+
+	SRChat sd;
+	sd.set_uid(uid);
+	sd.set_content(content);
+	SendSRChat(sd);
+
+	
 }
 
-void RoomInfo::HandSRChat(ccEvent *event){
-	SRChat sd;
-	sd.CopyFrom(*event->msg);
+void RoomInfo::SendSRChat(SRChat sd){
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	string rid = getRoomId(uid);
+	vector<string >users = getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		SRChat sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(users.at(i));
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
+}
+
+string RoomInfo::getRoomId(string uid){
+	if (m_roomids.find(uid) != m_roomids.end()){
+		return m_roomids.at(uid);
+	}
+	return "";
+}
+
+void RoomInfo::PopRoom(string rid){
+	auto itr = m_pRooms.find(rid);
+	if (itr != m_pRooms.end()){
+		RoomCache *p = itr->second;
+		for (int i = 0; i < p->_uids.size(); i++){
+			string uid = p->_uids.at(i);
+			auto itr1 = m_roomids.find(uid);
+			if (itr1 != m_roomids.end()){
+				m_roomids.erase(itr1);
+			}
+		}
+		delete p;
+		p = NULL;
+		m_pRooms.erase(itr);
+	}
+	
+}
+
+void RoomInfo::PopUserFromRoom(string uid){
+	auto itr = m_roomids.find(uid);
+	if (itr != m_roomids.end()){
+		string rid = itr->second;
+		m_roomids.erase(itr);
+		auto itr1 = m_pRooms.find(rid);
+		if (itr1 != m_pRooms.end()){
+			auto itr2 = itr1->second->_uids.begin();
+			for (itr2; itr2 != itr1->second->_uids.end(); itr2++){
+				string puid = *itr2;
+				if (puid.compare(uid) == 0){
+					itr1->second->_uids.erase(itr2);
+					break;
+				}
+			}
+			if (itr1->second->_uids.empty()){
+				PopRoom(rid);
+			}
+		}
+	}
+}
+
+vector<string> RoomInfo::getRoomUsers(string rid){
+	vector<string> vec;
+	auto itr = m_pRooms.find(rid);
+	if (itr != m_pRooms.end()){
+		RoomCache *p = itr->second;
+		vec = p->_uids;
+		return vec;
+	}
+	return vec;
 }

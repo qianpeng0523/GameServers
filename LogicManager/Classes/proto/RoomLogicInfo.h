@@ -27,7 +27,7 @@ public:
 
 	void HandSDraw(ccEvent *event);
 
-	void HandSOtherDraw(ccEvent *event);
+	void SendSOtherDraw(SOtherDraw sd);
 
 	void HandChi(ccEvent *event);
 	void HandSChi(ccEvent *event);

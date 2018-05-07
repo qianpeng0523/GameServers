@@ -50,12 +50,17 @@ public:
 	void HandSVoteResult(ccEvent *event);
 
 	void HandCRChat(ccEvent *event);
-	void HandSRChat(ccEvent *event);
+	void SendSRChat(SRChat sd);
 
 	void PushRoom(string rid,string uid);
+	string getRoomId(string uid);
+	void PopRoom(string rid);
+	void PopUserFromRoom(string uid);
+	vector<string> getRoomUsers(string rid);
 private:
 	static RoomInfo *m_shareRoomInfo;
 	map<string, RoomCache *> m_pRooms;
+	map<string, string> m_roomids;
 };
 
 #endif 

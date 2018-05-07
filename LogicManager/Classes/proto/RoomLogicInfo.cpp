@@ -3,6 +3,7 @@
 #include "XXIconv.h"
 #include "LibEvent.h"
 #include "LogicServerInfo.h"
+#include "RoomInfo.h"
 
 static LogicServerInfo *m_pLogicServerInfo = LogicServerInfo::getIns();
 RoomLogicInfo *RoomLogicInfo::m_shareRoomLogicInfo=NULL;
@@ -65,10 +66,6 @@ RoomLogicInfo::RoomLogicInfo()
 	pe->registerProto(sl18.cmd(), sl18.GetTypeName(), LOGIC_TYPE);
 	pe->addListener(sl18.cmd(), this, Event_Handler(RoomLogicInfo::HandSDraw), LOGIC_TYPE);
 
-	SOtherDraw sl19;
-	pe->registerProto(sl19.cmd(), sl19.GetTypeName(), LOGIC_TYPE);
-	pe->addListener(sl19.cmd(), this, Event_Handler(RoomLogicInfo::HandSOtherDraw), LOGIC_TYPE);
-
 	SChi sl20;
 	pe->registerProto(sl20.cmd(), sl20.GetTypeName(), LOGIC_TYPE);
 	pe->addListener(sl20.cmd(), this, Event_Handler(RoomLogicInfo::HandSChi), LOGIC_TYPE);
@@ -128,7 +125,17 @@ void RoomLogicInfo::HandSDice(ccEvent *event){
 	SDice sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.suid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SDice sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandCDice(ccEvent *event){
@@ -142,7 +149,17 @@ void RoomLogicInfo::HandSSelectZhuang(ccEvent *event){
 	SSelectZhuang sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(),&sd, fd);
+	string uid = sd.zuid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SSelectZhuang sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandSZhuangCard(ccEvent *event){
@@ -170,19 +187,46 @@ void RoomLogicInfo::HandSDiscard(ccEvent *event){
 	SDiscard sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SDiscard sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandSDraw(ccEvent *event){
 	SDraw sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		if (puid.compare(uid) == 0){
+			SDraw sd1;
+			sd1.CopyFrom(sd);
+			sd1.set_suid(puid);
+			LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+		}
+		else{
+			SOtherDraw sd1;
+			sd1.set_uid(uid);
+			sd1.set_suid(puid);
+			sd1.set_pos(sd.pos());
+			LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+		}
+	}
 }
 
-void RoomLogicInfo::HandSOtherDraw(ccEvent *event){
-	SOtherDraw sd;
-	sd.CopyFrom(*event->msg);
+void RoomLogicInfo::SendSOtherDraw(SOtherDraw sd){
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
 }
@@ -198,7 +242,17 @@ void RoomLogicInfo::HandSChi(ccEvent *event){
 	SChi sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SChi sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandCPeng(ccEvent *event){
@@ -212,7 +266,17 @@ void RoomLogicInfo::HandSPeng(ccEvent *event){
 	SPeng sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SPeng sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandCMingGang(ccEvent *event){
@@ -240,14 +304,34 @@ void RoomLogicInfo::HandSAnGang(ccEvent *event){
 	SAnGang sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SAnGang sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandSFa(ccEvent *event){
 	SFa sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SFa sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandCHu(ccEvent *event){
@@ -261,26 +345,68 @@ void RoomLogicInfo::HandSHu(ccEvent *event){
 	SHu sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SHu sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandSGameover(ccEvent *event){
 	SGameover sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.huuid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SGameover sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandSRoundOver(ccEvent *event){
 	SRoundOver sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		SRoundOver sd1;
+		sd1.CopyFrom(sd);
+		sd1.set_suid(puid);
+		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+	}
 }
 
 void RoomLogicInfo::HandSDissolveTip(ccEvent *event){
 	SDissolveTip sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
+	string uid = sd.uid();
+	RoomInfo *pRoomInfo = RoomInfo::getIns();
+	string rid = pRoomInfo->getRoomId(uid);
+	vector<string >users = pRoomInfo->getRoomUsers(rid);
+	for (int i = 0; i < users.size(); i++){
+		string puid = users.at(i);
+		if (puid.compare(uid) != 0){
+			SDissolveTip sd1;
+			sd1.CopyFrom(sd);
+			sd1.set_suid(puid);
+			LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
+		}
+	}
 }
