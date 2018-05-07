@@ -61,6 +61,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\Classes;.\Classes\network;.\Classes\cc;.\Classes\common;..\protobuf\src;.\Classes\proto;.\Classes\http;.\Classes\netjson;.\Classes\room;.\Classes\control;.\Classes\log;.\libevent\include;..\curl\include\win32\curl;..\libMessagePack;..\Classes\poco;..\libevent;..\libevent\include;..\libevent\include\event2;.\Classes\cryptopp;..\..\redis\src;..\..\redis\deps\hiredis;..\poco\Foundation\include;..\poco\Net\include;..\poco\Util\include;..\poco\Data\include;..\poco\CppUnit\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

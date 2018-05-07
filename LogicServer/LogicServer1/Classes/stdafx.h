@@ -17,7 +17,6 @@
 #include <string.h>
 #include <xstring>
 #include "MD5.h"
-#include "XXIconv.h"
 #include "YMSocketData.h"
 #include "LogicServer.h"
 #include "ccEvent.h"

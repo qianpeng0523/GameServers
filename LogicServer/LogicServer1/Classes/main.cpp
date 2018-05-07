@@ -3,6 +3,7 @@
 
 #ifndef __MAIN_H__
 #define __MAIN_H__
+
 #include "stdafx.h"
 #include "ClientSocket.h"
 #include "HttpLogic.h"
@@ -11,7 +12,7 @@
 #include "RoomInfo.h"
 #include "RoomLogicInfo.h"
 #include "PingInfo.h"
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, _TCHAR* argv[])
 {
 	PingInfo::getIns();
 	RoomInfo::getIns();
