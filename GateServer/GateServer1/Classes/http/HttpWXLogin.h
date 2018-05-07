@@ -23,6 +23,8 @@ public:
 
 	UserBase requestUserinfo(string acctoken, string openid);
 	UserBase respondUserinfo(string result);
+
+	UserBase getUserinfo(string name,string pwd);
 private:
 	static HttpWXLogin *m_Ins;
 	redis *m_pRedis;

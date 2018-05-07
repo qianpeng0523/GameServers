@@ -106,55 +106,35 @@ void LoginInfo::SendSRegister(SRegister cl, int fd){
 void LoginInfo::HandlerCRegister(ccEvent *event){
 	CRegister cl;
 	cl.CopyFrom(*event->msg);
-	string uid = cl.uid();
+	
 	string pwd = cl.pwd();
 	string uname = cl.uname();
 
 	SRegister sl;
 	sl.set_cmd(sl.cmd());
-	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
-	if (data){
-		string seesion = uid + pwd + LOGIC_TOKEN;
-		MD5 md5;
-		md5.update(seesion);
-		data->_sessionID = md5.toString();
-		data->_uid = uid;
-		UserBase *user =m_pRedisGet->getUserBase(uid);
-		if (user){
-			delete user;
-			user = NULL;
-			sl.set_err(1);
-		}
-		else{
-			user = sl.mutable_info();
-			user->set_userid(uid);
-			user->set_username(uname);
-			user->set_ip(data->_ip);
-			int sex = rand()%2;
-			user->set_sex(sex);
-			user->set_picid(sex);
-			m_pRedisPut->PushPass(uid, data->_sessionID);
-			bool ist = m_pRedisPut->PushUserBase(*user);
-			if (ist){
-				sl.set_err(0);
-				uint32 gold = user->gold();
-				Rank rk;
-				rk.set_uid(user->userid());
-				m_pRedisPut->PushRank(rk);
-				Rank rk1;
-				rk1.set_uid(user->userid());
-				m_pRedisPut->PushRank(rk1);
-			}
-			else{
-				sl.set_err(1);
-				sl.release_info();
-			}
-		}
-	}
-	else{
+
+	UserBase ub = HttpWXLogin::getIns()->getUserinfo(uname,pwd);
+	if (ub.userid().empty()){
 		sl.set_err(1);
 	}
-	
+	else{
+		UserBase *ub1 = sl.mutable_info();
+		ub1->CopyFrom(ub);
+		ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+		if (data){
+			string uid = ub1->userid();
+			string seesion = uid + pwd + LOGIC_TOKEN;
+			MD5 md5;
+			md5.update(seesion);
+			data->_sessionID = md5.toString();
+			data->_uid = uid;
+			ub1->set_ip(data->_ip);
+		}
+		else{
+			sl.set_err(1);
+		}
+	}
+
 	SendSRegister(sl, event->m_fd);
 }
 

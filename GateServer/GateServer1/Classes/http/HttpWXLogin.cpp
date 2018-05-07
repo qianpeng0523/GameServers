@@ -188,3 +188,30 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 	UserBase ub;
 	return ub;
 }
+
+UserBase HttpWXLogin::getUserinfo(string name, string pwd){
+	int len = 0;
+	char* u = m_pRedis->get("userid_index", len);
+	char buff[50];
+	sprintf(buff, "%d", atoi(u) + 1);
+	string uid = "yk";
+	m_pRedis->set("userid_index", buff, len);
+	uid += u;
+
+	UserBase ub;
+	ub.set_userid(uid);
+	ub.set_username(name);
+	ub.set_picid(rand()%2+1);
+	ub.set_sex(rand()%2);
+	ub.set_picurl("http://www.lesharecs.com/1.jpg");
+	m_pRedisPut->PushUserBase(ub);
+
+	uint32 gold = ub.gold();
+	Rank rk;
+	rk.set_uid(ub.userid());
+	m_pRedisPut->PushRank(rk);
+	Rank rk1;
+	rk1.set_uid(ub.userid());
+	m_pRedisPut->PushRank(rk1);
+	return ub;
+}

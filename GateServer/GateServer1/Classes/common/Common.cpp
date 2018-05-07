@@ -178,7 +178,8 @@ string Common::getLocalTime(){
 		t->tm_mon + 1,
 		t->tm_mday,
 		t->tm_hour,
-		t->tm_min);
+		t->tm_min,
+		t->tm_sec);
 	return buff;
 }
 
