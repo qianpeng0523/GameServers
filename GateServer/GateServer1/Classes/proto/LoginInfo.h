@@ -26,13 +26,15 @@ public:
 	void HandlerCWXLogin(ccEvent *event);
 
 	
-
+	void PushUserBase(UserBase *user);
+	UserBase *getUserBase(string uid);
 public:
 	void eraseClientData(int fd);
 private:
 	static LoginInfo *m_shareLoginInfo;
 	RedisPut *m_pRedisPut;
 	RedisGet *m_pRedisGet;
+	map<string, UserBase *>m_UserBases;
 };
 
 #endif 

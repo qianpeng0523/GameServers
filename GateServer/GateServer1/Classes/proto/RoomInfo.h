@@ -43,6 +43,8 @@ public:
 
 	void HandCRChat(ccEvent *event);
 	void HandSRChat(ccEvent *event);
+
+	void CopyUser(RoomUser &ru,UserBase *ub);
 private:
 	static RoomInfo *m_shareRoomInfo;
 	

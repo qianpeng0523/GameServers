@@ -114,6 +114,21 @@ bool RoomInfo::init()
     return true;
 }
 
+
+void RoomInfo::CopyUser(RoomUser &ru, UserBase *user){
+	ru.set_userid(user->userid());
+	ru.set_username(user->username());
+	ru.set_ip(user->ip());
+	ru.set_picid(user->picid());
+	ru.set_picurl(user->picurl());
+	ru.set_win(user->win());
+	ru.set_lose(user->lose());
+	ru.set_ping(user->ping());
+	ru.set_gold(user->gold());
+	ru.set_sex(user->sex());
+	ru.set_vip(user->vip());
+}
+
 void RoomInfo::HandCHMMJCreateRoom(ccEvent *event){
 	CHMMJCreateRoom cl;
 	cl.CopyFrom(*event->msg);
@@ -123,7 +138,14 @@ void RoomInfo::HandCHMMJCreateRoom(ccEvent *event){
 void RoomInfo::HandSHMMJCreateRoom(ccEvent *event){
 	SHMMJCreateRoom sd;
 	sd.CopyFrom(*event->msg);
-	string uid = sd.roomuser().userid();
+	RoomUser ru = sd.roomuser();
+	string uid = ru.userid();
+	UserBase *user = LoginInfo::getIns()->getUserBase(uid);
+	if (user){
+		CopyUser(ru,user);
+		RoomUser *rr = sd.mutable_roomuser();
+		rr->CopyFrom(ru);
+	}
 	int fd = LibEvent::getIns()->getFd(uid);
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
 }
@@ -137,6 +159,16 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 void RoomInfo::HandSHMMJEnterRoom(ccEvent *event){
 	SHMMJEnterRoom sd;
 	sd.CopyFrom(*event->msg);
+	auto vec = sd.mutable_roomusers();
+	int sz = vec->size();
+	for (int i = 0; i < sz; i++){
+		RoomUser *ru = vec->Mutable(i);
+		string uid =ru->userid();
+		UserBase *user = LoginInfo::getIns()->getUserBase(uid);
+		if (user){
+			CopyUser(*ru, user);
+		}
+	}
 	string uid = sd.uid();
 	int fd = LibEvent::getIns()->getFd(uid);
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
@@ -145,8 +177,16 @@ void RoomInfo::HandSHMMJEnterRoom(ccEvent *event){
 void RoomInfo::HandSComein(ccEvent *event){
 	SComein sd;
 	sd.CopyFrom(*event->msg);
-	string uid = sd.uid();
-	int fd = LibEvent::getIns()->getFd(uid);
+	RoomUser ru = sd.roomuser();
+	string uid = ru.userid();
+	UserBase *user = LoginInfo::getIns()->getUserBase(uid);
+	if (user){
+		CopyUser(ru, user);
+		RoomUser *rr = sd.mutable_roomuser();
+		rr->CopyFrom(ru);
+	}
+	string suid = sd.uid();
+	int fd = LibEvent::getIns()->getFd(suid);
 	LibEvent::getIns()->SendData(sd.cmd(),&sd,fd);
 
 }

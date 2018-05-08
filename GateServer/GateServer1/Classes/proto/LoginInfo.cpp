@@ -74,6 +74,7 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 			if (info){
 				sl.set_allocated_info(info);
 				info->set_ip(ip);
+				PushUserBase(info);
 			}
 			else{
 				sl.set_err(1);
@@ -116,6 +117,7 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 	else{
 		UserBase *ub1 = sl.mutable_info();
 		ub1->CopyFrom(ub);
+		PushUserBase(ub1);
 		ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 		if (data){
 			string uid = ub1->userid();
@@ -170,6 +172,7 @@ void LoginInfo::HandlerCWXLogin(ccEvent *event){
 		sl.set_token(token);
 		UserBase *ub1= sl.mutable_info();
 		ub1->CopyFrom(ub);
+		PushUserBase(ub1);
 		ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 		if (data){
 			string uid = ub1->userid();
@@ -182,4 +185,20 @@ void LoginInfo::HandlerCWXLogin(ccEvent *event){
 
 void LoginInfo::eraseClientData(int fd){
 	LibEvent::getIns()->eraseClientData(fd);
+}
+
+void LoginInfo::PushUserBase(UserBase *user){
+	string uid = user->userid();
+	if (m_UserBases.find(uid)==m_UserBases.end()){
+		UserBase *u = (UserBase *)ccEvent::create_message(user->GetTypeName());
+		u->CopyFrom(*user);
+		m_UserBases.insert(make_pair(uid, u));
+	}
+}
+
+UserBase *LoginInfo::getUserBase(string uid){
+	if (m_UserBases.find(uid) != m_UserBases.end()){
+		return m_UserBases.at(uid);
+	}
+	return NULL;
 }
