@@ -119,12 +119,7 @@ void RoomInfo::HandSHMMJCreateRoom(ccEvent *event){
 	if (err == 0){
 		string rid = sd.roomdata().roomid();
 		string uid = sd.roomuser().userid();
-		if (m_pRooms.find(rid) == m_pRooms.end()){
-			RoomCache *rc = new RoomCache();
-			rc->_fzuid = uid;
-			rc->_uids.push_back(uid);
-			m_pRooms.insert(make_pair(rid, rc));
-		}
+		PushRoom(rid,uid);
 		if (m_roomids.find(uid) == m_roomids.end()){
 			m_roomids.insert(make_pair(uid,rid));
 		}
@@ -145,6 +140,7 @@ void RoomInfo::HandSHMMJEnterRoom(ccEvent *event){
 	sd.CopyFrom(*event->msg);
 	string rid = sd.roomdata().roomid();
 	string uid = sd.uid();
+	PushRoom(rid, uid);
 	if (m_roomids.find(uid) == m_roomids.end()){
 		m_roomids.insert(make_pair(uid, rid));
 	}
@@ -158,17 +154,20 @@ void RoomInfo::HandSComein(ccEvent *event){
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
 	string uid = sd.uid();
 	string rid = getRoomId(uid);
+	printf("HandSComein111\n");
 	vector<string >users = getRoomUsers(rid);
+	printf("sz:%d\n",users.size());
 	for (int i = 0; i < users.size(); i++){
 		SComein sd1;
 		sd1.CopyFrom(sd);
 		string puid = users.at(i);
 		if (puid.compare(uid) != 0){
+			printf("HandSComein2222\n");
 			sd1.set_uid(puid);
+			LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
 		}
-		LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
 	}
-
+	printf("HandSComein3333\n");
 }
 
 void RoomInfo::HandCBegin(ccEvent *event){
@@ -350,6 +349,30 @@ string RoomInfo::getRoomId(string uid){
 		return m_roomids.at(uid);
 	}
 	return "";
+}
+
+void RoomInfo::PushRoom(string rid, string uid){
+	auto itr = m_pRooms.find(rid);
+	if (itr == m_pRooms.end()){
+		RoomCache *rc = new RoomCache();
+		rc->_fzuid = uid;
+		rc->_uids.push_back(uid);
+		m_pRooms.insert(make_pair(rid, rc));
+	}
+	else{
+		RoomCache *rc = itr->second;
+		bool ist = false;
+		for (int i = 0; i < rc->_uids.size(); i++){
+			string puid = rc->_uids.at(i);
+			if (puid.compare(uid) == 0){
+				ist = true;
+			}
+		}
+		if (!ist){
+			rc->_uids.push_back(uid);
+			m_pRooms.at(rid) = rc;
+		}
+	}
 }
 
 void RoomInfo::PopRoom(string rid){
