@@ -352,14 +352,17 @@ string RoomInfo::getRoomId(string uid){
 }
 
 void RoomInfo::PushRoom(string rid, string uid){
+	printf("wwwww1111:rid:%s,uid:%s\n",rid.c_str(),uid.c_str());
 	auto itr = m_pRooms.find(rid);
 	if (itr == m_pRooms.end()){
+		printf("wwwww2222\n");
 		RoomCache *rc = new RoomCache();
 		rc->_fzuid = uid;
 		rc->_uids.push_back(uid);
 		m_pRooms.insert(make_pair(rid, rc));
 	}
 	else{
+		printf("wwww3333\n");
 		RoomCache *rc = itr->second;
 		bool ist = false;
 		for (int i = 0; i < rc->_uids.size(); i++){
@@ -416,9 +419,11 @@ void RoomInfo::PopUserFromRoom(string uid){
 }
 
 vector<string> RoomInfo::getRoomUsers(string rid){
+	printf("vvvvv rid:%s\n",rid.c_str());
 	vector<string> vec;
 	auto itr = m_pRooms.find(rid);
 	if (itr != m_pRooms.end()){
+		printf("wwwww\n");
 		RoomCache *p = itr->second;
 		vec = p->_uids;
 		return vec;
