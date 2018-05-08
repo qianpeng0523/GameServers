@@ -120,9 +120,6 @@ void RoomInfo::HandSHMMJCreateRoom(ccEvent *event){
 		string rid = sd.roomdata().roomid();
 		string uid = sd.roomuser().userid();
 		PushRoom(rid,uid);
-		if (m_roomids.find(uid) == m_roomids.end()){
-			m_roomids.insert(make_pair(uid,rid));
-		}
 	}
 
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
@@ -141,9 +138,6 @@ void RoomInfo::HandSHMMJEnterRoom(ccEvent *event){
 	string rid = sd.roomdata().roomid();
 	string uid = sd.uid();
 	PushRoom(rid, uid);
-	if (m_roomids.find(uid) == m_roomids.end()){
-		m_roomids.insert(make_pair(uid, rid));
-	}
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
 	LibEvent::getIns()->SendData(sd.cmd(), &sd, fd);
 }
@@ -152,22 +146,18 @@ void RoomInfo::HandSComein(ccEvent *event){
 	SComein sd;
 	sd.CopyFrom(*event->msg);
 	int fd = m_pLogicServerInfo->getFd(GATE_TYPE);
-	string uid = sd.uid();
+	string uid = sd.roomuser().userid();
 	string rid = getRoomId(uid);
-	printf("HandSComein111\n");
 	vector<string >users = getRoomUsers(rid);
-	printf("sz:%d\n",users.size());
 	for (int i = 0; i < users.size(); i++){
 		SComein sd1;
 		sd1.CopyFrom(sd);
 		string puid = users.at(i);
 		if (puid.compare(uid) != 0){
-			printf("HandSComein2222\n");
 			sd1.set_uid(puid);
 			LibEvent::getIns()->SendData(sd1.cmd(), &sd1, fd);
 		}
 	}
-	printf("HandSComein3333\n");
 }
 
 void RoomInfo::HandCBegin(ccEvent *event){
@@ -352,17 +342,14 @@ string RoomInfo::getRoomId(string uid){
 }
 
 void RoomInfo::PushRoom(string rid, string uid){
-	printf("wwwww1111:rid:%s,uid:%s\n",rid.c_str(),uid.c_str());
 	auto itr = m_pRooms.find(rid);
 	if (itr == m_pRooms.end()){
-		printf("wwwww2222\n");
 		RoomCache *rc = new RoomCache();
 		rc->_fzuid = uid;
 		rc->_uids.push_back(uid);
 		m_pRooms.insert(make_pair(rid, rc));
 	}
 	else{
-		printf("wwww3333\n");
 		RoomCache *rc = itr->second;
 		bool ist = false;
 		for (int i = 0; i < rc->_uids.size(); i++){
@@ -375,6 +362,10 @@ void RoomInfo::PushRoom(string rid, string uid){
 			rc->_uids.push_back(uid);
 			m_pRooms.at(rid) = rc;
 		}
+	}
+
+	if (m_roomids.find(uid) == m_roomids.end()){
+		m_roomids.insert(make_pair(uid, rid));
 	}
 }
 
@@ -419,11 +410,9 @@ void RoomInfo::PopUserFromRoom(string uid){
 }
 
 vector<string> RoomInfo::getRoomUsers(string rid){
-	printf("vvvvv rid:%s\n",rid.c_str());
 	vector<string> vec;
 	auto itr = m_pRooms.find(rid);
 	if (itr != m_pRooms.end()){
-		printf("wwwww\n");
 		RoomCache *p = itr->second;
 		vec = p->_uids;
 		return vec;
