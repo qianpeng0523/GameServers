@@ -72,6 +72,7 @@ public:
 	
 	void selectZhuang();
 	void SendDice(string uid);
+	int getZhuang();
 
 	//oprate
 	void SendDraw(int pos,int card);
@@ -95,6 +96,9 @@ public:
 	bool Agree(string uid,bool isagree);
 	void VoteResult(bool isDissolve);
 	int getPosition(string uid);
+	bool isBegin(){
+		return m_isbegin;
+	}
 	//
 	void HandCardCallBack(float dt);
 	void setFangZhuUid(string uid){
@@ -139,6 +143,7 @@ private:
 	map<string,int>m_voteuids;
 	RoomLogicInfo *m_pRoomLogicInfo;
 	RoomInfo *m_pRoomInfo;
+	bool m_isbegin;
 };
 
 #endif 

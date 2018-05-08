@@ -78,10 +78,15 @@ void RoomInfo::HandCHMMJCreateRoom(ccEvent *event){
 		rd->CopyFrom(gr->getRoomData());
 		UData ** udatas = gr->getUDatas();
 		for (int i = 0; i < 4;i++){
-			if (udatas[i]){
+			UData *ud = udatas[i];
+			if (ud){
 				RoomUser *ru = sd.mutable_roomuser();
-				ru->set_userid(udatas[i]->_uid);
+				ru->set_userid(ud->_uid);
 				ru->set_position(i+1);
+				ru->set_ready(ud->_ready);
+				ru->set_begin(gr->isBegin());
+				ru->set_zhuang(gr->getZhuang());
+				ru->set_online(ud->_online);
 			}
 		}
 	}
@@ -111,11 +116,16 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 		rd->CopyFrom(gr->getRoomData());
 		UData ** udatas = gr->getUDatas();
 		for (int i = 0; i < 4; i++){
-			if (udatas[i]){
+			UData *ud = udatas[i];
+			if (ud){
 				RoomUser *ru = sr.add_roomusers();
-				string puid = udatas[i]->_uid;
+				string puid = ud->_uid;
 				ru->set_userid(puid);
 				ru->set_position(i + 1);
+				ru->set_ready(ud->_ready);
+				ru->set_begin(gr->isBegin());
+				ru->set_zhuang(gr->getZhuang());
+				ru->set_online(ud->_online);
 				if (puid.compare(uid)==0){
 					scomeinuser.CopyFrom(*ru);
 				}

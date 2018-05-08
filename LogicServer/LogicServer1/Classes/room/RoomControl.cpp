@@ -102,8 +102,10 @@ bool RoomControl::BeginMJ(int type, string uid){
 }
 
 bool RoomControl::ReadyMJ(string uid, bool ready){
+	printf("11111\n");
 	GRoom *gr = getGRoom_(uid);
 	if (gr){
+		printf("2222\n");
 		gr->Ready(uid, ready);
 		return true;
 	}

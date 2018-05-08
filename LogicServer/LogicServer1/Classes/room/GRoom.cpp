@@ -9,7 +9,8 @@
 
 GRoom::GRoom():
 m_curbao(0),
-m_maxcount(4)
+m_maxcount(4),
+m_isbegin(false)
 {
 	m_pRoomInfo = RoomInfo::getIns();
 	m_pRoomLogicInfo = RoomLogicInfo::getIns();
@@ -347,6 +348,10 @@ void GRoom::SendZhuangHandCards(){
 	
 }
 
+int GRoom::getZhuang(){
+	return m_zhuangpos;
+}
+
 void GRoom::HandCardCallBack(float dt){
 	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::HandCardCallBack));
 	SendZhuangHandCards();
@@ -637,6 +642,7 @@ void GRoom::NextBackDraw(float dt){
 void GRoom::Begin(string uid,int type){
 	SBegin sb;
 	if (m_fangzhuuid.compare(uid) == 0){
+		m_isbegin = true;
 		reset();
 		initMJ();
 		sb.set_type(type);
@@ -648,17 +654,22 @@ void GRoom::Begin(string uid,int type){
 }
 
 void GRoom::Ready(string uid, bool ready){
+	printf("33333\n");
 	SReady sr;
 	UData *ud = getUData(uid);
 	if (ud&&ud->_ready!=ready){
+		ud->_ready = ready;
+		printf("444444\n");
 		sr.set_ready(ready);
 		sr.set_position(getPosition(uid));
 		sr.set_uid(uid);
 	}
 	else{
+		printf("5555555\n");
 		sr.set_err(1);
 		sr.set_uid(uid);
 	}
+	RoomInfo::getIns()->SendSReady(sr);
 }
 
 void GRoom::Leave(string uid){
