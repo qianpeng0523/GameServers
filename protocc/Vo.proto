@@ -197,6 +197,10 @@ message RoomUser{
 	optional bytes  outcards	= 16;//出的牌
 	optional uint32 fa			= 17;
 	optional uint32	piao		= 18;
+	optional bool	ready		= 19;
+	optional bool	begin		= 20;
+	optional bool	zhuang		= 21;
+	optional bool	online		= 22;
 }
 
 message TingCard{
