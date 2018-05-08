@@ -71,11 +71,13 @@ GRoom *RoomControl::createRoom(string uid, int type, int ante, int round, int ba
 GRoom *RoomControl::enterRoom(string uid, string rid){
 	GRoom *gr = getGRoom(rid);
 	if (gr){
-		UData *ud = new UData();
-		ud->init();
-		ud->_uid = uid;
-		gr->PushUData(ud);
-		m_roomdatas.at(rid) = gr;
+		if (!gr->getUData(uid)){
+			UData *ud = new UData();
+			ud->init();
+			ud->_uid = uid;
+			gr->PushUData(ud);
+			m_roomdatas.at(rid) = gr;
+		}
 		return gr;
 	}
 	return NULL;
