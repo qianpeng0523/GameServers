@@ -466,7 +466,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CPGCardData));
   RoomUser_descriptor_ = file->message_type(19);
-  static const int RoomUser_offsets_[18] = {
+  static const int RoomUser_offsets_[22] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, userid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, username_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, picid_),
@@ -485,6 +485,10 @@ void protobuf_AssignDesc_Vo_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, outcards_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, fa_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, piao_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, ready_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, begin_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, zhuang_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, online_),
   };
   RoomUser_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -754,7 +758,7 @@ void protobuf_AddDesc_Vo_2eproto() {
     "\r\022\013\n\003bao\030\004 \001(\r\022\014\n\004bang\030\005 \001(\r\022\016\n\006roomid\030\006"
     " \001(\t\022\020\n\010roomtype\030\007 \001(\t\022\013\n\003uid\030\010 \001(\t\"F\n\013C"
     "PGCardData\022\014\n\004type\030\001 \001(\r\022\r\n\005cards\030\002 \001(\014\022"
-    "\r\n\005index\030\003 \001(\r\022\013\n\003bei\030\004 \001(\r\"\254\002\n\010RoomUser"
+    "\r\n\005index\030\003 \001(\r\022\013\n\003bei\030\004 \001(\r\"\352\002\n\010RoomUser"
     "\022\016\n\006userid\030\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005pi"
     "cid\030\003 \001(\r\022\016\n\006picurl\030\004 \001(\t\022\013\n\003sex\030\005 \001(\r\022\n"
     "\n\002ip\030\006 \001(\t\022\014\n\004gold\030\007 \001(\r\022\r\n\005score\030\010 \001(\r\022"
@@ -762,13 +766,15 @@ void protobuf_AddDesc_Vo_2eproto() {
     "\022\013\n\003vip\030\014 \001(\r\022&\n\007cpgcard\030\r \003(\0132\025.protoco"
     "l.CPGCardData\022\020\n\010position\030\016 \001(\r\022\r\n\005cards"
     "\030\017 \001(\014\022\020\n\010outcards\030\020 \001(\014\022\n\n\002fa\030\021 \001(\r\022\014\n\004"
-    "piao\030\022 \001(\r\"&\n\010TingCard\022\014\n\004card\030\001 \001(\r\022\014\n\004"
-    "ting\030\002 \001(\014\"Y\n\010UserOver\022\016\n\006userid\030\001 \001(\t\022\020"
-    "\n\010position\030\002 \001(\r\022\r\n\005score\030\003 \001(\r\022\r\n\005total"
-    "\030\004 \001(\r\022\r\n\005cards\030\005 \001(\014\"D\n\tUserRound\022\016\n\006us"
-    "erid\030\001 \001(\t\022\r\n\005total\030\002 \001(\r\022\013\n\003pao\030\003 \001(\t\022\013"
-    "\n\003win\030\004 \001(\t\"\033\n\005CPing\022\022\n\003cmd\030\001 \001(\r:\00516387"
-    "\"\033\n\005SPing\022\022\n\003cmd\030\001 \001(\r:\00516387", 2509);
+    "piao\030\022 \001(\r\022\r\n\005ready\030\023 \001(\010\022\r\n\005begin\030\024 \001(\010"
+    "\022\016\n\006zhuang\030\025 \001(\010\022\016\n\006online\030\026 \001(\010\"&\n\010Ting"
+    "Card\022\014\n\004card\030\001 \001(\r\022\014\n\004ting\030\002 \001(\014\"Y\n\010User"
+    "Over\022\016\n\006userid\030\001 \001(\t\022\020\n\010position\030\002 \001(\r\022\r"
+    "\n\005score\030\003 \001(\r\022\r\n\005total\030\004 \001(\r\022\r\n\005cards\030\005 "
+    "\001(\014\"D\n\tUserRound\022\016\n\006userid\030\001 \001(\t\022\r\n\005tota"
+    "l\030\002 \001(\r\022\013\n\003pao\030\003 \001(\t\022\013\n\003win\030\004 \001(\t\"\033\n\005CPi"
+    "ng\022\022\n\003cmd\030\001 \001(\r:\00516387\"\033\n\005SPing\022\022\n\003cmd\030\001"
+    " \001(\r:\00516387", 2571);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Vo.proto", &protobuf_RegisterTypes);
   UserBase::default_instance_ = new UserBase();
@@ -8439,6 +8445,10 @@ const int RoomUser::kCardsFieldNumber;
 const int RoomUser::kOutcardsFieldNumber;
 const int RoomUser::kFaFieldNumber;
 const int RoomUser::kPiaoFieldNumber;
+const int RoomUser::kReadyFieldNumber;
+const int RoomUser::kBeginFieldNumber;
+const int RoomUser::kZhuangFieldNumber;
+const int RoomUser::kOnlineFieldNumber;
 #endif  // !_MSC_VER
 
 RoomUser::RoomUser()
@@ -8474,6 +8484,10 @@ void RoomUser::SharedCtor() {
   outcards_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   fa_ = 0u;
   piao_ = 0u;
+  ready_ = false;
+  begin_ = false;
+  zhuang_ = false;
+  online_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -8572,6 +8586,10 @@ void RoomUser::Clear() {
   if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
     fa_ = 0u;
     piao_ = 0u;
+    ready_ = false;
+    begin_ = false;
+    zhuang_ = false;
+    online_ = false;
   }
   cpgcard_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -8866,6 +8884,70 @@ bool RoomUser::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(152)) goto parse_ready;
+        break;
+      }
+
+      // optional bool ready = 19;
+      case 19: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_ready:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &ready_)));
+          set_has_ready();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(160)) goto parse_begin;
+        break;
+      }
+
+      // optional bool begin = 20;
+      case 20: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_begin:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &begin_)));
+          set_has_begin();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(168)) goto parse_zhuang;
+        break;
+      }
+
+      // optional bool zhuang = 21;
+      case 21: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_zhuang:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &zhuang_)));
+          set_has_zhuang();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(176)) goto parse_online;
+        break;
+      }
+
+      // optional bool online = 22;
+      case 22: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_online:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &online_)));
+          set_has_online();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -8997,6 +9079,26 @@ void RoomUser::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(18, this->piao(), output);
   }
 
+  // optional bool ready = 19;
+  if (has_ready()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(19, this->ready(), output);
+  }
+
+  // optional bool begin = 20;
+  if (has_begin()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(20, this->begin(), output);
+  }
+
+  // optional bool zhuang = 21;
+  if (has_zhuang()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(21, this->zhuang(), output);
+  }
+
+  // optional bool online = 22;
+  if (has_online()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(22, this->online(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -9119,6 +9221,26 @@ void RoomUser::SerializeWithCachedSizes(
   // optional uint32 piao = 18;
   if (has_piao()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(18, this->piao(), target);
+  }
+
+  // optional bool ready = 19;
+  if (has_ready()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(19, this->ready(), target);
+  }
+
+  // optional bool begin = 20;
+  if (has_begin()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(20, this->begin(), target);
+  }
+
+  // optional bool zhuang = 21;
+  if (has_zhuang()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(21, this->zhuang(), target);
+  }
+
+  // optional bool online = 22;
+  if (has_online()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(22, this->online(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -9255,6 +9377,26 @@ int RoomUser::ByteSize() const {
           this->piao());
     }
 
+    // optional bool ready = 19;
+    if (has_ready()) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool begin = 20;
+    if (has_begin()) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool zhuang = 21;
+    if (has_zhuang()) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool online = 22;
+    if (has_online()) {
+      total_size += 2 + 1;
+    }
+
   }
   // repeated .protocol.CPGCardData cpgcard = 13;
   total_size += 1 * this->cpgcard_size();
@@ -9346,6 +9488,18 @@ void RoomUser::MergeFrom(const RoomUser& from) {
     if (from.has_piao()) {
       set_piao(from.piao());
     }
+    if (from.has_ready()) {
+      set_ready(from.ready());
+    }
+    if (from.has_begin()) {
+      set_begin(from.begin());
+    }
+    if (from.has_zhuang()) {
+      set_zhuang(from.zhuang());
+    }
+    if (from.has_online()) {
+      set_online(from.online());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -9387,6 +9541,10 @@ void RoomUser::Swap(RoomUser* other) {
     std::swap(outcards_, other->outcards_);
     std::swap(fa_, other->fa_);
     std::swap(piao_, other->piao_);
+    std::swap(ready_, other->ready_);
+    std::swap(begin_, other->begin_);
+    std::swap(zhuang_, other->zhuang_);
+    std::swap(online_, other->online_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

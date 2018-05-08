@@ -2784,6 +2784,34 @@ class RoomUser : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 piao() const;
   inline void set_piao(::google::protobuf::uint32 value);
 
+  // optional bool ready = 19;
+  inline bool has_ready() const;
+  inline void clear_ready();
+  static const int kReadyFieldNumber = 19;
+  inline bool ready() const;
+  inline void set_ready(bool value);
+
+  // optional bool begin = 20;
+  inline bool has_begin() const;
+  inline void clear_begin();
+  static const int kBeginFieldNumber = 20;
+  inline bool begin() const;
+  inline void set_begin(bool value);
+
+  // optional bool zhuang = 21;
+  inline bool has_zhuang() const;
+  inline void clear_zhuang();
+  static const int kZhuangFieldNumber = 21;
+  inline bool zhuang() const;
+  inline void set_zhuang(bool value);
+
+  // optional bool online = 22;
+  inline bool has_online() const;
+  inline void clear_online();
+  static const int kOnlineFieldNumber = 22;
+  inline bool online() const;
+  inline void set_online(bool value);
+
   // @@protoc_insertion_point(class_scope:protocol.RoomUser)
  private:
   inline void set_has_userid();
@@ -2820,6 +2848,14 @@ class RoomUser : public ::google::protobuf::Message {
   inline void clear_has_fa();
   inline void set_has_piao();
   inline void clear_has_piao();
+  inline void set_has_ready();
+  inline void clear_has_ready();
+  inline void set_has_begin();
+  inline void clear_has_begin();
+  inline void set_has_zhuang();
+  inline void clear_has_zhuang();
+  inline void set_has_online();
+  inline void clear_has_online();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -2841,9 +2877,13 @@ class RoomUser : public ::google::protobuf::Message {
   ::google::protobuf::uint32 fa_;
   ::std::string* outcards_;
   ::google::protobuf::uint32 piao_;
+  bool ready_;
+  bool begin_;
+  bool zhuang_;
+  bool online_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(18 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(22 + 31) / 32];
 
   friend void  protobuf_AddDesc_Vo_2eproto();
   friend void protobuf_AssignDesc_Vo_2eproto();
@@ -8038,6 +8078,94 @@ inline ::google::protobuf::uint32 RoomUser::piao() const {
 inline void RoomUser::set_piao(::google::protobuf::uint32 value) {
   set_has_piao();
   piao_ = value;
+}
+
+// optional bool ready = 19;
+inline bool RoomUser::has_ready() const {
+  return (_has_bits_[0] & 0x00040000u) != 0;
+}
+inline void RoomUser::set_has_ready() {
+  _has_bits_[0] |= 0x00040000u;
+}
+inline void RoomUser::clear_has_ready() {
+  _has_bits_[0] &= ~0x00040000u;
+}
+inline void RoomUser::clear_ready() {
+  ready_ = false;
+  clear_has_ready();
+}
+inline bool RoomUser::ready() const {
+  return ready_;
+}
+inline void RoomUser::set_ready(bool value) {
+  set_has_ready();
+  ready_ = value;
+}
+
+// optional bool begin = 20;
+inline bool RoomUser::has_begin() const {
+  return (_has_bits_[0] & 0x00080000u) != 0;
+}
+inline void RoomUser::set_has_begin() {
+  _has_bits_[0] |= 0x00080000u;
+}
+inline void RoomUser::clear_has_begin() {
+  _has_bits_[0] &= ~0x00080000u;
+}
+inline void RoomUser::clear_begin() {
+  begin_ = false;
+  clear_has_begin();
+}
+inline bool RoomUser::begin() const {
+  return begin_;
+}
+inline void RoomUser::set_begin(bool value) {
+  set_has_begin();
+  begin_ = value;
+}
+
+// optional bool zhuang = 21;
+inline bool RoomUser::has_zhuang() const {
+  return (_has_bits_[0] & 0x00100000u) != 0;
+}
+inline void RoomUser::set_has_zhuang() {
+  _has_bits_[0] |= 0x00100000u;
+}
+inline void RoomUser::clear_has_zhuang() {
+  _has_bits_[0] &= ~0x00100000u;
+}
+inline void RoomUser::clear_zhuang() {
+  zhuang_ = false;
+  clear_has_zhuang();
+}
+inline bool RoomUser::zhuang() const {
+  return zhuang_;
+}
+inline void RoomUser::set_zhuang(bool value) {
+  set_has_zhuang();
+  zhuang_ = value;
+}
+
+// optional bool online = 22;
+inline bool RoomUser::has_online() const {
+  return (_has_bits_[0] & 0x00200000u) != 0;
+}
+inline void RoomUser::set_has_online() {
+  _has_bits_[0] |= 0x00200000u;
+}
+inline void RoomUser::clear_has_online() {
+  _has_bits_[0] &= ~0x00200000u;
+}
+inline void RoomUser::clear_online() {
+  online_ = false;
+  clear_has_online();
+}
+inline bool RoomUser::online() const {
+  return online_;
+}
+inline void RoomUser::set_online(bool value) {
+  set_has_online();
+  online_ = value;
 }
 
 // -------------------------------------------------------------------
