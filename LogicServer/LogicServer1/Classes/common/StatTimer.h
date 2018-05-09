@@ -13,7 +13,7 @@ using namespace std;
 using Poco::Timer;         // 使用Timer基类的成员
 using Poco::TimerCallback; // 使用TimerCallback基类的成员
 
-#define ONCETIME 1000/60.0
+#define ONCETIME 1000/1000.0
 
 struct TimeFun
 {
