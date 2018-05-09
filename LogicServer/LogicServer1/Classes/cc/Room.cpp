@@ -257,9 +257,10 @@ void protobuf_AssignDesc_Room_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SReady));
   CLeave_descriptor_ = file->message_type(9);
-  static const int CLeave_offsets_[2] = {
+  static const int CLeave_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLeave, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLeave, uid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLeave, zhudong_),
   };
   CLeave_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -584,28 +585,28 @@ void protobuf_AddDesc_Room_2eproto() {
     "d\030\001 \001(\r:\00528676\022\r\n\005ready\030\002 \001(\010\022\013\n\003uid\030\003 \001"
     "(\t\"e\n\006SReady\022\022\n\003cmd\030\001 \001(\r:\00528676\022\r\n\005read"
     "y\030\002 \001(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003uid\030\004 \001(\t\022\014"
-    "\n\004suid\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\")\n\006CLeave\022\022\n\003c"
-    "md\030\001 \001(\r:\00528677\022\013\n\003uid\030\002 \001(\t\"D\n\006SLeave\022\022"
-    "\n\003cmd\030\001 \001(\r:\00528677\022\013\n\003uid\030\002 \001(\t\022\014\n\004suid\030"
-    "\003 \001(\t\022\013\n\003err\030\004 \001(\r\"8\n\005CLine\022\022\n\003cmd\030\001 \001(\r"
-    ":\00528678\022\016\n\006online\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\"e\n\005"
-    "SLine\022\022\n\003cmd\030\001 \001(\r:\00528678\022\016\n\006online\030\002 \001("
-    "\010\022\020\n\010position\030\003 \001(\r\022\013\n\003uid\030\004 \001(\t\022\014\n\004suid"
-    "\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"=\n\rCDissolveRoom\022\022\n\003"
-    "cmd\030\001 \001(\r:\00528679\022\013\n\003rid\030\002 \001(\t\022\013\n\003uid\030\003 \001"
-    "(\t\"x\n\rSDissolveRoom\022\022\n\003cmd\030\001 \001(\r:\00528679\022"
-    "\013\n\003rid\030\002 \001(\t\022\014\n\004time\030\003 \001(\r\022\020\n\010position\030\004"
-    " \001(\r\022\013\n\003uid\030\005 \001(\t\022\014\n\004suid\030\006 \001(\t\022\013\n\003err\030\007"
-    " \001(\r\"7\n\005CVote\022\022\n\003cmd\030\001 \001(\r:\00528680\022\r\n\005agr"
-    "ee\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\"W\n\005SVote\022\022\n\003cmd\030\001 "
-    "\001(\r:\00528680\022\r\n\005agree\030\002 \001(\010\022\020\n\010position\030\003 "
-    "\001(\r\022\013\n\003uid\030\004 \001(\t\022\014\n\004suid\030\005 \001(\t\"N\n\013SVoteR"
-    "esult\022\022\n\003cmd\030\001 \001(\r:\00528681\022\020\n\010dissolve\030\002 "
-    "\001(\010\022\013\n\003uid\030\003 \001(\t\022\014\n\004suid\030\005 \001(\t\":\n\006CRChat"
-    "\022\022\n\003cmd\030\001 \001(\r:\00528682\022\017\n\007content\030\002 \001(\t\022\013\n"
-    "\003uid\030\003 \001(\t\"U\n\006SRChat\022\022\n\003cmd\030\001 \001(\r:\00528682"
-    "\022\017\n\007content\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\022\013\n\003pos\030\004 "
-    "\001(\r\022\014\n\004suid\030\005 \001(\t", 1737);
+    "\n\004suid\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\":\n\006CLeave\022\022\n\003c"
+    "md\030\001 \001(\r:\00528677\022\013\n\003uid\030\002 \001(\t\022\017\n\007zhudong\030"
+    "\003 \001(\010\"D\n\006SLeave\022\022\n\003cmd\030\001 \001(\r:\00528677\022\013\n\003u"
+    "id\030\002 \001(\t\022\014\n\004suid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"8\n\005C"
+    "Line\022\022\n\003cmd\030\001 \001(\r:\00528678\022\016\n\006online\030\002 \001(\010"
+    "\022\013\n\003uid\030\003 \001(\t\"e\n\005SLine\022\022\n\003cmd\030\001 \001(\r:\005286"
+    "78\022\016\n\006online\030\002 \001(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003"
+    "uid\030\004 \001(\t\022\014\n\004suid\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"=\n\r"
+    "CDissolveRoom\022\022\n\003cmd\030\001 \001(\r:\00528679\022\013\n\003rid"
+    "\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\"x\n\rSDissolveRoom\022\022\n\003"
+    "cmd\030\001 \001(\r:\00528679\022\013\n\003rid\030\002 \001(\t\022\014\n\004time\030\003 "
+    "\001(\r\022\020\n\010position\030\004 \001(\r\022\013\n\003uid\030\005 \001(\t\022\014\n\004su"
+    "id\030\006 \001(\t\022\013\n\003err\030\007 \001(\r\"7\n\005CVote\022\022\n\003cmd\030\001 "
+    "\001(\r:\00528680\022\r\n\005agree\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\"W"
+    "\n\005SVote\022\022\n\003cmd\030\001 \001(\r:\00528680\022\r\n\005agree\030\002 \001"
+    "(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003uid\030\004 \001(\t\022\014\n\004sui"
+    "d\030\005 \001(\t\"N\n\013SVoteResult\022\022\n\003cmd\030\001 \001(\r:\005286"
+    "81\022\020\n\010dissolve\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\022\014\n\004sui"
+    "d\030\005 \001(\t\":\n\006CRChat\022\022\n\003cmd\030\001 \001(\r:\00528682\022\017\n"
+    "\007content\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\"U\n\006SRChat\022\022\n"
+    "\003cmd\030\001 \001(\r:\00528682\022\017\n\007content\030\002 \001(\t\022\013\n\003ui"
+    "d\030\003 \001(\t\022\013\n\003pos\030\004 \001(\r\022\014\n\004suid\030\005 \001(\t", 1754);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Room.proto", &protobuf_RegisterTypes);
   CHMMJCreateRoom::default_instance_ = new CHMMJCreateRoom();
@@ -3961,6 +3962,7 @@ void SReady::Swap(SReady* other) {
 #ifndef _MSC_VER
 const int CLeave::kCmdFieldNumber;
 const int CLeave::kUidFieldNumber;
+const int CLeave::kZhudongFieldNumber;
 #endif  // !_MSC_VER
 
 CLeave::CLeave()
@@ -3981,6 +3983,7 @@ void CLeave::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 28677u;
   uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  zhudong_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -4025,6 +4028,7 @@ void CLeave::Clear() {
         uid_->clear();
       }
     }
+    zhudong_ = false;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -4064,6 +4068,22 @@ bool CLeave::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(24)) goto parse_zhudong;
+        break;
+      }
+
+      // optional bool zhudong = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_zhudong:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &zhudong_)));
+          set_has_zhudong();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -4100,6 +4120,11 @@ void CLeave::SerializeWithCachedSizes(
       2, this->uid(), output);
   }
 
+  // optional bool zhudong = 3;
+  if (has_zhudong()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->zhudong(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -4121,6 +4146,11 @@ void CLeave::SerializeWithCachedSizes(
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->uid(), target);
+  }
+
+  // optional bool zhudong = 3;
+  if (has_zhudong()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->zhudong(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -4146,6 +4176,11 @@ int CLeave::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->uid());
+    }
+
+    // optional bool zhudong = 3;
+    if (has_zhudong()) {
+      total_size += 1 + 1;
     }
 
   }
@@ -4181,6 +4216,9 @@ void CLeave::MergeFrom(const CLeave& from) {
     if (from.has_uid()) {
       set_uid(from.uid());
     }
+    if (from.has_zhudong()) {
+      set_zhudong(from.zhudong());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -4206,6 +4244,7 @@ void CLeave::Swap(CLeave* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
     std::swap(uid_, other->uid_);
+    std::swap(zhudong_, other->zhudong_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

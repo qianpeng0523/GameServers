@@ -90,7 +90,7 @@ public:
 
 	void Begin(string uid, int type);
 	void Ready(string uid,bool ready);
-	void Leave(string uid);
+	void Leave(string uid,bool zhudong);
 	void onLine(string uid,bool online);
 	bool DissolveRoom(string uid);
 	bool Agree(string uid,bool isagree);
@@ -121,7 +121,8 @@ private:
 	int getMJ();
 	int getMJ(int index);
 
-	
+	void update(float dt);
+	void openUpdate(bool isopen);
 private:
 	int m_maxcount;
 	RoomData m_roomdata;
@@ -144,6 +145,9 @@ private:
 	RoomLogicInfo *m_pRoomLogicInfo;
 	RoomInfo *m_pRoomInfo;
 	bool m_isbegin;
+	time_t m_lasttime;
+	bool m_isopen;
+	string m_tipuid;
 };
 
 #endif 

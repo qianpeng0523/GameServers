@@ -104,6 +104,7 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 						break;
 					}
 					else{
+						printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 						break;
 					}
 				}

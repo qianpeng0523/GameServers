@@ -12,12 +12,15 @@ m_curbao(0),
 m_maxcount(4),
 m_isbegin(false)
 {
+	m_isopen = false;
+	m_lasttime = 0;
 	m_pRoomInfo = RoomInfo::getIns();
 	m_pRoomLogicInfo = RoomLogicInfo::getIns();
 	memset(m_udata, NULL, sizeof(UData *)*4);
 }
 
 GRoom::~GRoom(){
+	openUpdate(false);
 	reset();
 	for (int i = 0; i < 4; i++){
 		if (m_udata[i]){
@@ -31,6 +34,29 @@ bool GRoom::init()
 {
 	reset();
     return true;
+}
+
+void GRoom::openUpdate(bool isopen){
+	if (!m_isopen&&isopen){
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::update), 1.0);
+	}
+	else if (m_isopen&&!isopen){
+		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::update));
+	}
+}
+
+void GRoom::update(float dt){
+	if (m_lasttime > 0){
+		time_t t= Common::getCurrentTime();
+		int fl = t-m_lasttime;
+		if (!m_tipuid.empty()){
+			m_tipuid = "";
+		}
+		if (fl > 120){
+			m_lasttime = 0;
+			VoteResult(true);
+		}
+	}
 }
 
 void GRoom::reset(){
@@ -672,27 +698,60 @@ void GRoom::Ready(string uid, bool ready){
 	RoomInfo::getIns()->SendSReady(sr);
 }
 
-void GRoom::Leave(string uid){
-	SLeave sl;
-	sl.set_uid(uid);
-	UData *ud = getUData(uid);
-	if (ud){
-		PopUData(ud);
-		sl.set_err(0);
+void GRoom::Leave(string uid, bool zhudong){
+	if (zhudong){
+		SLeave sl;
+		sl.set_uid(uid);
+		UData *ud = getUData(uid);
+		if (ud&&!m_isbegin){
+			PopUData(ud);
+			sl.set_err(0);
+		}
+		else{
+			sl.set_err(1);
+		}
+		m_pRoomInfo->SendSLeave(sl);
 	}
 	else{
-		sl.set_err(1);
+		if (!m_isbegin){
+			SLeave sl;
+			sl.set_uid(uid);
+			UData *ud = getUData(uid);
+			if (ud){
+				PopUData(ud);
+				sl.set_err(0);
+			}
+			else{
+				sl.set_err(1);
+			}
+			m_pRoomInfo->SendSLeave(sl);
+		}
+		else{
+			onLine(uid, false);
+		}
 	}
-	m_pRoomInfo->SendSLeave(sl);
+	
+	
 }
 
 void GRoom::PopUData(UData *ud){
+	int sz = 0;
 	for (int i = 0; i < 4;i++){
-		if (m_udata[i]&&m_udata[i] == ud){
-			delete m_udata[i];
-			m_udata[i] = NULL;
-			return;
+		if (m_udata[i]){
+			if (m_udata[i] == ud){
+				delete m_udata[i];
+				m_udata[i] = NULL;
+				//return;
+			}
+			else{
+				sz++;
+			}
 		}
+	}
+	
+	if (sz == 0 && m_lasttime == 0){
+		m_lasttime = Common::getCurrentTime();
+		openUpdate(true);
 	}
 }
 
@@ -708,6 +767,16 @@ void GRoom::onLine(string uid, bool online){
 		sl.set_err(1);
 	}
 	m_pRoomInfo->SendSLine(sl);
+	if (!online&&m_isbegin&&m_lasttime==0){
+		m_tipuid = uid;
+		m_lasttime = Common::getCurrentTime();
+		openUpdate(true);
+	}
+	else if (online){
+		if (m_tipuid.compare(uid) == 0){
+			m_tipuid = "";
+		}
+	}
 }
 
 bool GRoom::DissolveRoom(string uid){
@@ -775,6 +844,7 @@ void GRoom::VoteResult(bool isDissolve){
 	svr.set_dissolve(isDissolve);
 	m_pRoomInfo->SendSVoteResult(svr);
 	if (isDissolve){
+		openUpdate(false);
 		RoomControl::getIns()->eraseRoom(m_roomdata.roomid());
 	}
 	else{

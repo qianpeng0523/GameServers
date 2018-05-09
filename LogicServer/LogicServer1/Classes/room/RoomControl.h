@@ -24,7 +24,7 @@ public:
 
 	bool BeginMJ(int type,string uid);
 	bool ReadyMJ(string uid,bool ready);
-	bool LeaveMJ(string uid);
+	bool LeaveMJ(string uid, bool zhudong);
 	bool onLine(string uid,bool online);
 	bool DissolveRoom(string uid,string rid);
 	bool Vote(string uid,bool agree);

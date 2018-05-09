@@ -145,9 +145,10 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 		buffer[i] = out[i - HEADLEN];
 	}
 	delete out;
-	printf("[%s]sendmsg:body:%s\n", Common::getLocalTime().c_str(), msg->DebugString().c_str());
+	
 	if (m_tcpSocket){
-		m_tcpSocket->Send(buffer, HEADLEN + len);
+		printf("[%s]sendmsg[0x%04X]:body:%s\n", Common::getLocalTime().c_str(),cmd, msg->DebugString().c_str());
+		int err = m_tcpSocket->Send(buffer, HEADLEN + len);
 	}
 	delete buffer;
 }
@@ -176,6 +177,7 @@ void *ClientSocket::threadHandler(void *arg) {
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
+			printf("ClientSocket threadHandler:cmd[0x%04X],len[%d],servercode[%s]\n", cmd, len, servercode.c_str());
 			p->m_recvstamp = (p->m_recvstamp+1)%MAXSTAMP;
 			if (stamp == p->m_recvstamp&&servercode == HttpLogic::SERVER_CODE){
 				char *out = new char[len+1];

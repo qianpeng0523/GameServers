@@ -112,10 +112,10 @@ bool RoomControl::ReadyMJ(string uid, bool ready){
 	return false;
 }
 
-bool RoomControl::LeaveMJ(string uid){
+bool RoomControl::LeaveMJ(string uid,bool zhudong){
 	GRoom *gr = getGRoom_(uid);
 	if (gr){
-		gr->Leave(uid);
+		gr->Leave(uid,zhudong);
 		return true;
 	}
 	return false;

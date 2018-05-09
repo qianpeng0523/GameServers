@@ -59,6 +59,7 @@ bool RoomLogicInfo::init()
 }
 
 void RoomLogicInfo::SendSDice(SDice sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(),&sd);
 }
 
@@ -72,15 +73,18 @@ void RoomLogicInfo::HandCDice(ccEvent *event){
 	}
 }
 
-void RoomLogicInfo::SendSSelectZhuang(SSelectZhuang ssz){
-	ClientSocket::getIns()->sendMsg(ssz.cmd(),&ssz);
+void RoomLogicInfo::SendSSelectZhuang(SSelectZhuang sd){
+	sd.set_cmd(sd.cmd());
+	ClientSocket::getIns()->sendMsg(sd.cmd(),&sd);
 }
 
 void RoomLogicInfo::SendSZhuangCard(SZhuangCard sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomLogicInfo::SendSCard(SCard sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -97,14 +101,17 @@ void RoomLogicInfo::HandCDiscard(ccEvent *event){
 }
 
 void RoomLogicInfo::SendSDiscard(SDiscard sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomLogicInfo::SendSDraw(SDraw sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomLogicInfo::SendSOtherDraw(SOtherDraw sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -126,6 +133,7 @@ void RoomLogicInfo::HandChi(ccEvent *event){
 }
 
 void RoomLogicInfo::SendSChi(SChi sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -143,6 +151,7 @@ void RoomLogicInfo::HandCPeng(ccEvent *event){
 }
 
 void RoomLogicInfo::SendSPeng(SPeng sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -172,6 +181,7 @@ void RoomLogicInfo::HandCMingGang(ccEvent *event){
 }
 
 void RoomLogicInfo::SendSMingGang(SMingGang sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -202,10 +212,12 @@ void RoomLogicInfo::HandCAnGang(ccEvent *event){
 }
 
 void RoomLogicInfo::SendSAnGang(SAnGang sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomLogicInfo::SendSFa(SFa sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -227,17 +239,21 @@ void RoomLogicInfo::HandCHu(ccEvent *event){
 }
 
 void RoomLogicInfo::SendSHu(SHu sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomLogicInfo::SendSGameover(SGameover sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomLogicInfo::SendSRoundOver(SRoundOver sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomLogicInfo::SendSDissolveTip(SDissolveTip sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }

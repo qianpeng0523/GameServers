@@ -2,7 +2,7 @@
 
 StatTimer *StatTimer::m_ins=NULL;
 
-StatTimer::StatTimer() : timer(0, ONCETIME), callback(*this, &StatTimer::onTimer), end(false)
+StatTimer::StatTimer() : timer(0, ONCETIME), callback(*this, &StatTimer::onTimer), end(false), m_lock(false)
 {
 }
 // timer(0, 2000)，第一个参数默认设置为0,2000代表时间间隔为2秒
@@ -26,13 +26,15 @@ bool StatTimer::start()
 
 void StatTimer::onTimer(Timer&/*t*/)
 {
+	StatTimer::getIns()->m_lock = true;
 	map<Object *, TimerEvent *> *maps=&StatTimer::getIns()->m_timeevents;
 	map<Object *, TimerEvent *>::iterator itr = maps->begin();
-	for (itr; itr != maps->end();itr++){
+	for (itr; itr != maps->end();){
 		TimerEvent *t = itr->second;
 		if (itr->first){
-			for (int i = 0; i < t->_funs.size(); i++){
-				TimeFun *tf = t->_funs.at(i);
+			auto itr1 = t->_funs.begin();
+			for (itr1; itr1 != t->_funs.end();){
+				TimeFun *tf = *itr1;
 				if (!tf->_pause){
 					if (t){
 						if (tf->_count*ONCETIME >= tf->_interval * 1000){
@@ -41,13 +43,22 @@ void StatTimer::onTimer(Timer&/*t*/)
 						}
 						tf->_count++;
 					}
+					itr1++;
 				}
 				else{
-					t->_funs.erase(t->_funs.begin()+i);
+					itr1= t->_funs.erase(itr1);
 					delete tf;
 					tf = NULL;
 				}
 				
+			}
+			if (t->_funs.empty()){
+				delete t;
+				t = NULL;
+				itr = maps->erase(itr);
+			}
+			else{
+				itr++;
 			}
 		}
 		else{
@@ -55,8 +66,26 @@ void StatTimer::onTimer(Timer&/*t*/)
 				delete t;
 				t = NULL;
 			}
-			maps->erase(itr++);
+			itr=maps->erase(itr);
 		}
+	}
+	StatTimer::getIns()->m_lock = false;
+	auto ttir = StatTimer::getIns()->m_timeeventstemp.begin();
+	for (ttir; ttir != StatTimer::getIns()->m_timeeventstemp.end();){
+		Object *target = ttir->first;
+		TimerEvent *t = ttir->second;
+		if (StatTimer::getIns()->m_timeevents.find(target) == StatTimer::getIns()->m_timeevents.end()){
+			StatTimer::getIns()->m_timeevents.insert(make_pair(target, t));
+		}
+		else{
+			TimerEvent *tt = StatTimer::getIns()->m_timeevents.at(target);
+			for (int i = 0; i < t->_funs.size(); i++){
+				tt->_funs.push_back(t->_funs.at(i));
+			}
+			delete t;
+			t = NULL;
+		}
+		ttir = StatTimer::getIns()->m_timeeventstemp.erase(ttir);
 	}
 }
 
@@ -78,8 +107,12 @@ void StatTimer::scheduleUpdate(Object *target){
 }
 
 void StatTimer::schedule(Object *target, SEL_SCHEDULE selector, float interval, float delaytime, bool once){
+	auto temp = &m_timeevents;
+	if (m_lock){
+		temp = &m_timeeventstemp;
+	}
 	TimerEvent *t = NULL;
-	if (m_timeevents.find(target) == m_timeevents.end()){
+	if (temp->find(target) == temp->end()){
 		t = new TimerEvent();
 		t->_target = target;
 		TimeFun *fun = new TimeFun();
@@ -87,10 +120,10 @@ void StatTimer::schedule(Object *target, SEL_SCHEDULE selector, float interval, 
 		fun->_delaytime = delaytime;
 		fun->_selector = selector;
 		t->_funs.push_back(fun);
-		m_timeevents.insert(make_pair(target, t));
+		temp->insert(make_pair(target, t));
 	}
 	else{
-		t = m_timeevents.at(target);
+		t = temp->at(target);
 		bool ist = false;
 		for (int i = 0; i < t->_funs.size(); i++){
 			TimeFun *tf = t->_funs.at(i);
@@ -104,7 +137,7 @@ void StatTimer::schedule(Object *target, SEL_SCHEDULE selector, float interval, 
 			fun->_delaytime = delaytime;
 			fun->_selector = selector;
 			t->_funs.push_back(fun);
-			m_timeevents.at(target) = t;
+			temp->at(target) = t;
 		}
 	}
 }

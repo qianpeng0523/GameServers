@@ -97,6 +97,7 @@ void RoomInfo::HandCHMMJCreateRoom(ccEvent *event){
 }
 
 void RoomInfo::SendSHMMJCreateRoom(SHMMJCreateRoom sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -112,6 +113,7 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 	GRoom *gr = m_pRoomControl->enterRoom(uid, rid);
 	RoomUser scomeinuser;
 	if (gr){
+		gr->onLine(uid, true);
 		RoomData *rd = sr.mutable_roomdata();
 		rd->CopyFrom(gr->getRoomData());
 		UData ** udatas = gr->getUDatas();
@@ -144,10 +146,12 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 }
 
 void RoomInfo::SendSHMMJEnterRoom(SHMMJEnterRoom sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
 void RoomInfo::SendSComein(SComein sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -161,6 +165,7 @@ void RoomInfo::HandCBegin(ccEvent *event){
 }
 
 void RoomInfo::SendSBegin(SBegin sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -173,6 +178,7 @@ void RoomInfo::HandCReady(ccEvent *event){
 }
 
 void RoomInfo::SendSReady(SReady sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -181,10 +187,11 @@ void RoomInfo::HandCLeave(ccEvent *event){
 	cr.CopyFrom(*event->msg);
 	string uid = cr.uid();
 
-	m_pRoomControl->LeaveMJ(uid);
+	m_pRoomControl->LeaveMJ(uid,cr.zhudong());
 }
 
 void RoomInfo::SendSLeave(SLeave sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -198,6 +205,7 @@ void RoomInfo::HandCLine(ccEvent *event){
 }
 
 void RoomInfo::SendSLine(SLine sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -211,6 +219,7 @@ void RoomInfo::HandCDissolveRoom(ccEvent *event){
 }
 
 void RoomInfo::SendSDissolveRoom(SDissolveRoom sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
@@ -224,6 +233,7 @@ void RoomInfo::HandCVote(ccEvent *event){
 }
 
 void RoomInfo::SendSVote(SVote sd){
+	sd.set_cmd(sd.cmd());
 	ClientSocket::getIns()->sendMsg(sd.cmd(), &sd);
 }
 
