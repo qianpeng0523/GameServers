@@ -164,8 +164,8 @@ ValueIteratorBase::key() const
    const Value::CZString czstring = (*current_).first;
    if ( czstring.c_str() )
    {
-      if ( czstring.isStaticString() )
-         return Value( StaticString( czstring.c_str() ) );
+      if ( czstring.isStatistring() )
+         return Value( Statistring( czstring.c_str() ) );
       return Value( czstring.c_str() );
    }
    return Value( czstring.index() );
@@ -175,7 +175,7 @@ ValueIteratorBase::key() const
    bool isStatic;
    const char *memberName = ValueInternalMap::key( iterator_.map_, isStatic );
    if ( isStatic )
-      return Value( StaticString( memberName ) );
+      return Value( Statistring( memberName ) );
    return Value( memberName );
 #endif
 }

@@ -13,7 +13,7 @@
 #include <iostream>
 #include <utility>
 #include <stdexcept>
-#include <cstring>
+#include <string>
 #include <cassert>
 #ifdef JSON_USE_CPPTL
 # include <cpptl/conststring.h>
@@ -215,7 +215,7 @@ Value::CZString::c_str() const
 }
 
 bool 
-Value::CZString::isStaticString() const
+Value::CZString::isStatistring() const
 {
    return index_ == noDuplication;
 }
@@ -373,7 +373,7 @@ Value::Value( const std::string &value )
 
 }
 
-Value::Value( const StaticString &value )
+Value::Value( const Statistring &value )
    : type_( stringValue )
    , allocated_( false )
    , comments_( 0 )
@@ -654,7 +654,7 @@ Value::operator !=( const Value &other ) const
 }
 
 const char *
-Value::asCString() const
+Value::asstring() const
 {
    JSON_ASSERT( type_ == stringValue );
    return value_.string_;
@@ -1221,7 +1221,7 @@ Value::operator[]( const std::string &key ) const
 }
 
 Value &
-Value::operator[]( const StaticString &key )
+Value::operator[]( const Statistring &key )
 {
    return resolveReference( key, true );
 }

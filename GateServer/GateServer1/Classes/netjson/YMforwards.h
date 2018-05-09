@@ -24,7 +24,7 @@ namespace CSJson {
 
    // value.h
    typedef unsigned int ArrayIndex;
-   class StaticString;
+   class Statistring;
    class Path;
    class PathArgument;
    class Value;

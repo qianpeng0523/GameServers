@@ -209,7 +209,7 @@ static unsigned parse_hex4(const char *str)
 	return h;
 }
 
-/* Parse the input text into an unescaped cstring, and populate item. */
+/* Parse the input text into an unescaped string, and populate item. */
 static const unsigned char firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC };
 static const char *parse_string(cJSON *item,const char *str,const char **ep)
 {
@@ -272,7 +272,7 @@ static const char *parse_string(cJSON *item,const char *str,const char **ep)
 	return ptr;
 }
 
-/* Render the cstring provided to an escaped version that can be printed. */
+/* Render the string provided to an escaped version that can be printed. */
 static char *print_string_ptr(const char *str,printbuffer *p)
 {
 	const char *ptr;char *ptr2,*out;int len=0,flag=0;unsigned char token;

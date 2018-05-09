@@ -23,7 +23,7 @@ public:
 	void update(ifstream& in);
 	const byte* digest();
 	string toString();
-//	CString GetStrMD5(CString str);
+//	string GetStrMD5(string str);
 	void reset();
 
 private:

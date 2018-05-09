@@ -231,7 +231,7 @@ FastWriter::writeValue( const Value &value )
       document_ += valueToString( value.asDouble() );
       break;
    case stringValue:
-      document_ += valueToQuotedString( value.asCString() );
+      document_ += valueToQuotedString( value.asstring() );
       break;
    case booleanValue:
       document_ += valueToString( value.asBool() );
@@ -314,7 +314,7 @@ StyledWriter::writeValue( const Value &value )
       pushValue( valueToString( value.asDouble() ) );
       break;
    case stringValue:
-      pushValue( valueToQuotedString( value.asCString() ) );
+      pushValue( valueToQuotedString( value.asstring() ) );
       break;
    case booleanValue:
       pushValue( valueToString( value.asBool() ) );
@@ -590,7 +590,7 @@ StyledStreamWriter::writeValue( const Value &value )
       pushValue( valueToString( value.asDouble() ) );
       break;
    case stringValue:
-      pushValue( valueToQuotedString( value.asCString() ) );
+      pushValue( valueToQuotedString( value.asstring() ) );
       break;
    case booleanValue:
       pushValue( valueToString( value.asBool() ) );

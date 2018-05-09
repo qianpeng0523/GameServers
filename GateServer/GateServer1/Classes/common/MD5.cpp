@@ -304,10 +304,10 @@ void MD5::transform(const byte block[64]) {
 a multiple of 4.
 */
 
-//CString MD5::GetStrMD5(CString str)
+//string MD5::GetStrMD5(string str)
 //{
 //	string s(str.GetBuffer());
-//	CString tmp="";
+//	string tmp="";
 //	MD5 md5;
 //	md5.update(s);
 //	tmp = md5.toString().c_str();

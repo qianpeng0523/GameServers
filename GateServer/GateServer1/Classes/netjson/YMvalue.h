@@ -55,21 +55,21 @@ namespace CSJson {
    /** \brief Lightweight wrapper to tag static string.
     *
     * Value constructor and objectValue member assignement takes advantage of the
-    * StaticString and avoid the cost of string duplication when storing the
+    * Statistring and avoid the cost of string duplication when storing the
     * string or the member name.
     *
     * Example of usage:
     * \code
-    * CSJson::Value aValue( StaticString("some text") );
+    * CSJson::Value aValue( Statistring("some text") );
     * CSJson::Value object;
-    * static const StaticString code("code");
+    * static const Statistring code("code");
     * object[code] = 1234;
     * \endcode
     */
-   class JSON_API StaticString
+   class JSON_API Statistring
    {
    public:
-      explicit StaticString( const char *czstring )
+      explicit Statistring( const char *czstring )
          : str_( czstring )
       {
       }
@@ -179,7 +179,7 @@ namespace CSJson {
          bool operator==( const CZString &other ) const;
          ArrayIndex index() const;
          const char *c_str() const;
-         bool isStaticString() const;
+         bool isStatistring() const;
       private:
          void swap( CZString &other );
          const char *cstr_;
@@ -228,10 +228,10 @@ namespace CSJson {
        * constructor.
        * Example of usage:
        * \code
-       * CSJson::Value aValue( StaticString("some text") );
+       * CSJson::Value aValue( Statistring("some text") );
        * \endcode
        */
-      Value( const StaticString &value );
+      Value( const Statistring &value );
       Value( const std::string &value );
 # ifdef JSON_USE_CPPTL
       Value( const CppTL::ConstString &value );
@@ -258,7 +258,7 @@ namespace CSJson {
 
       int compare( const Value &other ) const;
 
-      const char *asCString() const;
+      const char *asstring() const;
       std::string asString() const;
 # ifdef JSON_USE_CPPTL
       CppTL::ConstString asConstString() const;
@@ -358,11 +358,11 @@ namespace CSJson {
        * Example of use:
        * \code
        * CSJson::Value object;
-       * static const StaticString code("code");
+       * static const Statistring code("code");
        * object[code] = 1234;
        * \endcode
        */
-      Value &operator[]( const StaticString &key );
+      Value &operator[]( const Statistring &key );
 # ifdef JSON_USE_CPPTL
       /// Access an object value by name, create a null member if it does not exist.
       Value &operator[]( const CppTL::ConstString &key );
