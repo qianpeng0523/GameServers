@@ -5,7 +5,7 @@ Object::Object(){
 }
 
 Object::~Object() {
-		
+	
 }
 
 void Object::update(float dt){

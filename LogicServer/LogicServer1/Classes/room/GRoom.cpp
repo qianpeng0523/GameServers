@@ -38,21 +38,23 @@ bool GRoom::init()
 
 void GRoom::openUpdate(bool isopen){
 	if (!m_isopen&&isopen){
+		m_isopen = isopen;
 		StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::update), 1.0);
 	}
 	else if (m_isopen&&!isopen){
+		m_isopen = isopen;
 		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::update));
 	}
 }
 
 void GRoom::update(float dt){
 	if (m_lasttime > 0){
-		time_t t= Common::getCurrentTime();
+		time_t t = Common::getTime();
 		int fl = t-m_lasttime;
 		if (!m_tipuid.empty()){
 			m_tipuid = "";
 		}
-		if (fl > 120){
+		if (fl >= 0){
 			m_lasttime = 0;
 			VoteResult(true);
 		}
@@ -750,7 +752,7 @@ void GRoom::PopUData(UData *ud){
 	}
 	
 	if (sz == 0 && m_lasttime == 0){
-		m_lasttime = Common::getCurrentTime();
+		m_lasttime = Common::getTime();
 		openUpdate(true);
 	}
 }
@@ -769,7 +771,7 @@ void GRoom::onLine(string uid, bool online){
 	m_pRoomInfo->SendSLine(sl);
 	if (!online&&m_isbegin&&m_lasttime==0){
 		m_tipuid = uid;
-		m_lasttime = Common::getCurrentTime();
+		m_lasttime = Common::getTime();
 		openUpdate(true);
 	}
 	else if (online){

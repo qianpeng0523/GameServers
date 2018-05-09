@@ -29,15 +29,16 @@ void StatTimer::onTimer(Timer&/*t*/)
 	StatTimer::getIns()->m_lock = true;
 	map<Object *, TimerEvent *> *maps=&StatTimer::getIns()->m_timeevents;
 	map<Object *, TimerEvent *>::iterator itr = maps->begin();
+	auto itrend = maps->end();
 	for (itr; itr != maps->end();){
 		TimerEvent *t = itr->second;
-		if (itr->first){
+		if (t){
 			auto itr1 = t->_funs.begin();
 			for (itr1; itr1 != t->_funs.end();){
 				TimeFun *tf = *itr1;
-				if (!tf->_pause){
+				if (tf&&!tf->_pause){
 					if (t){
-						if (tf->_count*ONCETIME >= tf->_interval * 1000){
+						if (*itr1&&tf->_count*ONCETIME >= tf->_interval * 1000){
 							tf->_count = 0;
 							(t->_target->*tf->_selector)(0);
 						}
@@ -154,13 +155,18 @@ void StatTimer::unschedule(Object *obj, SEL_SCHEDULE selector){
 	if (m_timeevents.find(obj) != m_timeevents.end()){
 		TimerEvent *t = m_timeevents.at(obj);
 		if (t){
-			for (int i = 0; i < t->_funs.size();i++){
-				TimeFun *tf = t->_funs.at(i);
+			auto itr = t->_funs.begin();
+			for (itr; itr != t->_funs.end();){
+				TimeFun *tf = *itr;
 				if (tf->_selector == selector){
 					tf->_pause = true;
 					break;
 				}
+				else{
+					itr++;
+				}
 			}
+			
 		}
 	}
 }
