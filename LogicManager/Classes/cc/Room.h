@@ -1242,20 +1242,30 @@ class CLeave : public ::google::protobuf::Message {
   inline ::std::string* release_uid();
   inline void set_allocated_uid(::std::string* uid);
 
+  // optional bool zhudong = 3;
+  inline bool has_zhudong() const;
+  inline void clear_zhudong();
+  static const int kZhudongFieldNumber = 3;
+  inline bool zhudong() const;
+  inline void set_zhudong(bool value);
+
   // @@protoc_insertion_point(class_scope:protocol.CLeave)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
   inline void set_has_uid();
   inline void clear_has_uid();
+  inline void set_has_zhudong();
+  inline void clear_has_zhudong();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* uid_;
   ::google::protobuf::uint32 cmd_;
+  bool zhudong_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_Room_2eproto();
   friend void protobuf_AssignDesc_Room_2eproto();
@@ -4077,6 +4087,28 @@ inline void CLeave::set_allocated_uid(::std::string* uid) {
     clear_has_uid();
     uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
+}
+
+// optional bool zhudong = 3;
+inline bool CLeave::has_zhudong() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CLeave::set_has_zhudong() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CLeave::clear_has_zhudong() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CLeave::clear_zhudong() {
+  zhudong_ = false;
+  clear_has_zhudong();
+}
+inline bool CLeave::zhudong() const {
+  return zhudong_;
+}
+inline void CLeave::set_zhudong(bool value) {
+  set_has_zhudong();
+  zhudong_ = value;
 }
 
 // -------------------------------------------------------------------

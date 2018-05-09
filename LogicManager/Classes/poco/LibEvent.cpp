@@ -151,45 +151,45 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 {
 	char headchar[10];
 	Conn *c = (Conn *)ctx;
-	size_t len = bufferevent_read(bev, headchar, 10);
-	if (len >= 0){
-		printf("doread:%d\n",len);
-		LibEvent *pLibEvent = LibEvent::getIns();
-		ClientData *data = pLibEvent->getClientData(c->fd);
-		if (data){
-			data->m_lasttime = Common::getTime();
-		}
-		Head *testhead = (Head*)headchar;
-		string serverdest = pLibEvent->getReq(testhead);
-		
-		int cmd = pLibEvent->getCMD(testhead);
-		int bodylen = pLibEvent->getBodyLen(testhead);
-		int stamp = pLibEvent->getStamp(testhead);
-		char *buffer = new char[bodylen];
-		len = bufferevent_read(bev, buffer, bodylen);
-		c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
-		printf("serverdest[%s] recvstamp:%d---clienstamp:%d\n",serverdest.c_str(),c->m_recvstamp,stamp);
-		if (len == bodylen&&c->m_recvstamp == stamp){
-			char *out = new char[bodylen + 1];
-			HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
-			delete buffer;
-			ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd,serverdest);
-			if (cce->msg){
-				printf("right\n");
+	while (1){
+		size_t len = bufferevent_read(bev, headchar, 10);
+		if (len > 0){
+			LibEvent *pLibEvent = LibEvent::getIns();
+			ClientData *data = pLibEvent->getClientData(c->fd);
+			if (data){
+				data->m_lasttime = Common::getTime();
+			}
+			Head *testhead = (Head*)headchar;
+			string serverdest = pLibEvent->getReq(testhead);
+			int cmd = pLibEvent->getCMD(testhead);
+			int bodylen = pLibEvent->getBodyLen(testhead);
+			int stamp = pLibEvent->getStamp(testhead);
+			char *buffer = new char[bodylen];
+			len = bufferevent_read(bev, buffer, bodylen);
+			c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
+
+			printf("ClientSocket threadHandler:cmd[0x%04X],len[%d],servercode[%s]\nrecvstamp:%d---clienstamp:%d\n", cmd, bodylen, serverdest.c_str(), c->m_recvstamp, stamp);
+			if (len == bodylen&&c->m_recvstamp == stamp){
+				char *out = new char[bodylen + 1];
+				HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
+				delete buffer;
+				ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd, serverdest);
+				if (cce->msg){
+					printf("right\n");
+				}
+				else{
+					printf("wrong\n");
+				}
+				EventDispatcher::getIns()->disEventDispatcher(cce);
 			}
 			else{
-				printf("wrong\n");
+				printf("[%s]数据不合法！！！！！！！！\n", Common::getLocalTime().c_str());
+				delete buffer;
 			}
-			EventDispatcher::getIns()->disEventDispatcher(cce);
 		}
 		else{
-			printf("[%s]数据不合法！！！！！！！！\n", Common::getLocalTime().c_str());
-			delete buffer;
+			break;
 		}
-	}
-	else{
-		printf("请求包不合法\n");
-		LibEvent::getIns()->CloseConn(c);
 	}
 }
 
@@ -226,7 +226,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 			buffer[i] = out[i - HEADLEN];
 		}
 		delete out;
-		printf("[%s]senddata:%s\n", Common::getLocalTime().c_str(), msg->DebugString().c_str());
+		printf("[%s]senddata[0x%04X]:%s\n", Common::getLocalTime().c_str(),cmd, msg->DebugString().c_str());
 		bufferevent_write(pdata->_conn->bufev, buffer, len + HEADLEN);
 
 		delete buffer;
