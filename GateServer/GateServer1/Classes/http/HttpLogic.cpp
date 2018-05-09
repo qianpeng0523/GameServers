@@ -95,7 +95,7 @@ void HttpLogic::requestGateData(){
 	string url=sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0B;
-	sd["type"] = 3;
+	sd["type"] = 2;
 	HttpEvent::getIns()->requestData(url,sd);
 }
 
@@ -131,7 +131,7 @@ void HttpLogic::requestManagerData(){
 	string url = sqlhttp;
 	YMSocketData sd;
 	sd["cmd"] = 0x0A;
-	sd["type"] = 3;
+	sd["type"] = 2;
 	HttpEvent::getIns()->requestData(url,sd);
 }
 

@@ -71,5 +71,7 @@ private:
 	TimerCallback<StatTimer> callback;  // 套用模板，将StatTimer类关联起来
 	Timer timer;
 	map<Object *, TimerEvent *>m_timeevents;
+	bool m_lock;
+	map<Object *, TimerEvent *>m_timeeventstemp;
 };
 #endif // __Common_H__

@@ -132,8 +132,9 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 					}
 				}
 			}
-
-			delete event;
+			if (event){
+				delete event;
+			}
 			ep.erase(itr);
 		}
 	}

@@ -45,11 +45,13 @@ void PingInfo::HandlerCPing(ccEvent *event){
 	CPing cp;
 	cp.CopyFrom(*event->msg);
 	SPing sp;
+	sp.set_cmd(sp.cmd());
 	SendSPing(sp, event->m_fd);
 }
 
 void PingInfo::SendCLPing(){
 	CLPing cp;
+	cp.set_cmd(cp.cmd());
 	SLPing sp;
 	EventDispatcher::getIns()->addListener(sp.cmd(), this, Event_Handler(PingInfo::HandSLPing),LOGIC_MANAGER_TYPE);
 	m_pingcount++;

@@ -56,8 +56,7 @@ private:
 	
 	void eraseClientData(string seesionid);
 	void resetConn(Conn *pConn);
-
-	
+	void SendLeave(string uid);
 private:
 	map<int ,ClientData *>m_ClientDatas;
 	static LibEvent *m_ins;

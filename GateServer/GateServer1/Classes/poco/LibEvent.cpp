@@ -3,6 +3,8 @@
 #include "LoginInfo.h"
 #include "HttpLogic.h"
 #include "Common.h"
+#include "RoomInfo.h"
+
 LibEvent *LibEvent::m_ins = NULL;
 LibEvent::LibEvent()
 {
@@ -151,42 +153,44 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 {
 	char headchar[10];
 	Conn *c = (Conn *)ctx;
-	size_t len = bufferevent_read(bev, headchar, 10);
-	if (len >= 0){
-		LibEvent *pLibEvent = LibEvent::getIns();
-		ClientData *data = pLibEvent->getClientData(c->fd);
-		if (data){
-			data->m_lasttime = Common::getTime();
-		}
-		Head *testhead = (Head*)headchar;
-		string serverdest = pLibEvent->getReq(testhead);
-		int cmd = pLibEvent->getCMD(testhead);
-		int bodylen = pLibEvent->getBodyLen(testhead);
-		int stamp = pLibEvent->getStamp(testhead);
-		char *buffer = new char[bodylen];
-		len = bufferevent_read(bev, buffer, bodylen);
-		c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
-		printf("[%s]len[%d]==bodylen[%d]  server stamp[%d]==stamp[%d]\n",Common::getLocalTime().c_str(), len, bodylen, stamp, c->m_recvstamp);
-		if (len == bodylen&&c->m_recvstamp==stamp){
-			char* out = new char[len+1];
-			HttpLogic::getIns()->aes_decrypt(buffer, len, out);
-			delete buffer;
-			ccEvent *cce = new ccEvent(cmd, out, len, c->fd,GAME_TYPE);
-			EventDispatcher::getIns()->disEventDispatcher(cce);
+	while (1) {
+		size_t len = bufferevent_read(bev, headchar, 10);
+		if (len > 0){
+			LibEvent *pLibEvent = LibEvent::getIns();
+			ClientData *data = pLibEvent->getClientData(c->fd);
+			if (data){
+				data->m_lasttime = Common::getTime();
+			}
+			Head *testhead = (Head*)headchar;
+			string serverdest = pLibEvent->getReq(testhead);
+			int cmd = pLibEvent->getCMD(testhead);
+			int bodylen = pLibEvent->getBodyLen(testhead);
+			int stamp = pLibEvent->getStamp(testhead);
+			char *buffer = new char[bodylen];
+			len = bufferevent_read(bev, buffer, bodylen);
+			printf("libevent threadHandler:cmd[0x%04X],len[%d],servercode[%s]\n", cmd, bodylen, serverdest.c_str());
+			c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
+			printf("[%s]len[%d]==bodylen[%d]  server stamp[%d]==stamp[%d]\n", Common::getLocalTime().c_str(), len, bodylen, stamp, c->m_recvstamp);
+			if (len == bodylen&&c->m_recvstamp == stamp){
+				char* out = new char[len + 1];
+				HttpLogic::getIns()->aes_decrypt(buffer, len, out);
+				delete buffer;
+				ccEvent *cce = new ccEvent(cmd, out, len, c->fd, GAME_TYPE);
+				EventDispatcher::getIns()->disEventDispatcher(cce);
+			}
+			else{
+				printf("[%s]LibEvent数据不合法！！！！！！！！\n", Common::getLocalTime().c_str());
+				LibEvent::getIns()->CloseConn(c);
+			}
 		}
 		else{
-			printf("[%s]LibEvent数据不合法！！！！！！！！\n",Common::getLocalTime().c_str());
-			LibEvent::getIns()->CloseConn(c);
+			break;
 		}
-	}
-	else{
-		printf("请求包不合法\n");
-		LibEvent::getIns()->CloseConn(c);
 	}
 }
 
 void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_socket_t fd){
-	printf("[%s]%s\n",Common::getLocalTime().c_str(),msg->DebugString().c_str());
+	printf("[%s][0x%04X]%s\n",Common::getLocalTime().c_str(),cmd,msg->DebugString().c_str());
 	ClientData *pdata = getClientData(fd);
 	if (pdata&&pdata->_conn){
 		pdata->_conn->m_sendstamp = (pdata->_conn->m_sendstamp + 1) % MAXSTAMP;
@@ -398,6 +402,7 @@ void LibEvent::eraseClientData(int fd){
 		if (data){
 			printf("[%s]close ip:%s\n", Common::getLocalTime().c_str(),data->_ip.c_str());
 			if (data->_conn){
+				SendLeave(data->_uid);
 				resetConn(data->_conn);
 			}
 			delete data;
@@ -414,6 +419,7 @@ void LibEvent::eraseClientData(string sesionid){
 			if (data){
 				printf("[%s]close ip:%s\n", Common::getLocalTime().c_str(), data->_ip.c_str());
 				if (data->_conn){
+					SendLeave(data->_uid);
 					CloseConn(data->_conn, emFunClosed);
 					resetConn(data->_conn);
 				}
@@ -422,6 +428,20 @@ void LibEvent::eraseClientData(string sesionid){
 			return;
 		}
 	}
+}
+
+void LibEvent::SendLeave(string uid){
+	CLeave line;
+	line.set_cmd(line.cmd());
+	line.set_uid(uid);
+	line.set_zhudong(false);
+	int sz = line.ByteSize();
+	char *buffer = new char[sz];
+	line.SerializePartialToArray(buffer, sz);
+	ccEvent *ev = new ccEvent(line.cmd(), buffer, sz, -1, GAME_TYPE);
+	RoomInfo::getIns()->HandCLeave(ev);
+	delete ev;
+	ev = NULL;
 }
 
 ClientData *LibEvent::getClientDataByUID(string uid){

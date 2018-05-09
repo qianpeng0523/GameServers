@@ -144,9 +144,8 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 		buffer[i] = data[i - HEADLEN];
 	}
 	delete data;
-	printf("[%s] sendmsg:%s\n",Common::getLocalTime().c_str(),msg->DebugString().c_str());
-	
 	if (m_tcpSocket){
+		printf("[%s]sendmsg[0x%04X]:body:%s\n", Common::getLocalTime().c_str(), cmd, msg->DebugString().c_str());
 		m_tcpSocket->Send(buffer, HEADLEN + len);
 	}
 	
@@ -155,7 +154,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 
 void ClientSocket::DataIn(char* data, int size, int cmd){
 	//数据不能用string  只能用char*
-	printf("[%s] DataIn size:%d cmd:%d\n", Common::getLocalTime().c_str(),size, cmd);
+	printf("[%s] DataIn size:%d cmd:0x%04X\n", Common::getLocalTime().c_str(),size, cmd);
 	ccEvent *sEvent = new ccEvent(cmd, data, size,1,LOGIC_MANAGER_TYPE);
 	EventDispatcher::getIns()->disEventDispatcher(sEvent);
 }
@@ -176,7 +175,7 @@ void *ClientSocket::threadHandler(void *arg) {
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
-
+			printf("client threadHandler:cmd[0x%04X],len[%d],servercode[%s]\n",cmd,len,servercode.c_str());
 			p->m_recvstamp = (p->m_recvstamp + 1) % MAXSTAMP;
 			if (stamp == p->m_recvstamp){
 				char *out = new char[len+1];
