@@ -17,7 +17,7 @@ public:
 	static void log(const char* fmt, ...);
 	
 
-	static void    printch(char ch);
+	static void    printch(char ch,bool other=false);
 	static void    printdec(int dec);
 	static void    printflt(double flt);
 	static void    printstr(char* str);
@@ -30,5 +30,6 @@ private:
 	static string m_content;
 	static string m_tt;
 	static string m_num;
+	static string m_ontstr;
 };
 #endif// !defined(AFX_LOGFILE_H__DD3CDF99_1639_4506_88F4_887CFD1DE775__INCLUDED_)

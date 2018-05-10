@@ -164,7 +164,7 @@ void HttpPay::NoticePushCurrency(Reward rd, string uid){
 void HttpPay::respondResult(string content, struct evhttp_request *req){
 	map<string, string>maps = XmlConfig::getIns()->parseXmlData(content);
 	for (auto itr = maps.begin(); itr != maps.end(); itr++){
-		printf("%s:%s\n", itr->first.c_str(), itr->second.c_str());
+		CLog::log("%s:%s\n", itr->first.c_str(), itr->second.c_str());
 	}
 	string returncode = maps.find("return_code")->second;
 	string resultcode = maps.find("result_code")->second;
@@ -232,7 +232,7 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 		}
 	}
 	else{
-		printf("%s\n", XXIconv::GBK2UTF("格式错误或签名错误").c_str());
+		CLog::log("%s\n", XXIconv::GBK2UTF("格式错误或签名错误").c_str());
 	}
 }
 
@@ -243,10 +243,10 @@ bool HttpPay::requestCheck(string xml){
 }
 
 bool HttpPay::respondCheck(string content){
-	//printf("%s\n",content.c_str());
+	//CLog::log("%s\n",content.c_str());
 	map<string, string>maps = XmlConfig::getIns()->parseXmlData(content);
 	for (auto itr = maps.begin(); itr != maps.end(); itr++){
-		printf("%s:%s\n", itr->first.c_str(), itr->second.c_str());
+		CLog::log("%s:%s\n", itr->first.c_str(), itr->second.c_str());
 	}
 	string returncode = maps.find("return_code")->second;
 	string resultcode = maps.find("result_code")->second;
@@ -287,7 +287,7 @@ bool HttpPay::respondCheck(string content){
 	}
 	else{
 		//格式错误，签名错误不管
-		printf("%s\n",XXIconv::GBK2UTF("格式错误或签名错误").c_str());
+		CLog::log("%s\n",XXIconv::GBK2UTF("格式错误或签名错误").c_str());
 	}
 	return false;
 }
@@ -325,7 +325,7 @@ SWxpayOrder HttpPay::respondOrder(string content, map<string, string> ordermap){
 	SWxpayOrder swo;
 	map<string, string>maps = XmlConfig::getIns()->parseXmlData(content);
 	for (auto itr = maps.begin(); itr != maps.end(); itr++){
-		printf("%s:%s\n", itr->first.c_str(), itr->second.c_str());
+		CLog::log("%s:%s\n", itr->first.c_str(), itr->second.c_str());
 	}
 	string uid = ordermap.find("userid")->second;
 	ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
@@ -405,7 +405,7 @@ string HttpPay::createSign(map<string, string> valuemap){
 		}
 		signA += name+"="+value;
 	}
-	printf("%s\n",signA.c_str());
+	CLog::log("%s\n",signA.c_str());
 	signA += "&key=19890523ylhdwlkjyxgs201804112012";
 	MD5 md5;
 	md5.update(signA);
@@ -449,7 +449,7 @@ bool HttpPay::closeOrder(string out_trade_no){
 	string url = "https://api.mch.weixin.qq.com/pay/closeorder";
 	string content = HttpEvent::getIns()->requestData(url, xml.c_str(), read_data1);
 	map<string, string> vec = XmlConfig::getIns()->parseXmlData(content);
-	printf("closeOrder:%s\n", content.c_str());
+	CLog::log("closeOrder:%s\n", content.c_str());
 	string code ;
 	if (vec.find("result_code") != vec.end()){
 		code = vec.at("result_code");

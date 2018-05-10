@@ -37,7 +37,7 @@ string XmlConfig::setXmlData1(map<string, string> valuemap){
 		xml += "</" + name + ">\n";
 	}
 	xml += "</xml>\n";
-	printf("%s\n", xml.c_str());
+	CLog::log("%s\n", xml.c_str());
 	return XXIconv::GBK2UTF(xml.c_str());
 }
 
@@ -52,7 +52,7 @@ string XmlConfig::setXmlData(map<string, string> valuemap){
 		xml += "</" + name + ">\n";
 	}
 	xml += "</xml>\n";
-	printf("%s\n", xml.c_str());
+	CLog::log("%s\n", xml.c_str());
 	return XXIconv::GBK2UTF(xml.c_str());
 }
 
@@ -99,6 +99,6 @@ string XmlConfig::setJsonData(map<string, string> valuemap){
 		}
 		signA += name + "=" + value;
 	}
-	printf("%s\n", signA.c_str());
+	CLog::log("%s\n", signA.c_str());
 	return signA;
 }

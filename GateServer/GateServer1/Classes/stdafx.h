@@ -29,7 +29,7 @@
 #include "Hall.h"
 #include "redis.h"
 #include "RoomLogic.h"
-
+#include "CLog.h"
 using namespace std;
 using namespace protocol;
 using namespace Poco;

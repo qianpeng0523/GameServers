@@ -116,7 +116,7 @@ FILEDATA *CSVDataHelper::getFileByName(string filename){
 	unsigned char *pchBuf = new unsigned char[nLen + 1];
 	if (!pchBuf)
 	{
-		printf( "内存不够!\n");
+		CLog::log( "内存不够!\n");
 		exit(0);
 	}
 
@@ -124,7 +124,7 @@ FILEDATA *CSVDataHelper::getFileByName(string filename){
 	nLen = fread(pchBuf, sizeof(unsigned char), nLen, fd);
 
 	pchBuf[nLen] = '\0'; //添加字符串结尾标志
-	//log::printf((char*)pchBuf);
+	//log::CLog::log((char*)pchBuf);
 	FILEDATA *p = new FILEDATA();
 	p->_data = pchBuf;
 	p->_len = nLen;

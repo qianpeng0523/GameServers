@@ -82,7 +82,7 @@ UserBase HttpWXLogin::requestAccessToken(string code, string &token){
 UserBase HttpWXLogin::respondAccessToken(string result, string &token){
 	//获取的是json
 	YMSocketData sd(result);
-	printf("sd:%s\n",sd.getJsonString().c_str());
+	CLog::log("sd:%s\n",sd.getJsonString().c_str());
 	if (!sd.isMember("errcode")){
 		//请求成功
 		string access_token = sd["access_token"].asString();
@@ -106,7 +106,7 @@ UserBase HttpWXLogin::respondAccessToken(string result, string &token){
 	}
 	else{
 		string errmsg = sd["errmsg"].asString();
-		printf("%s\n", errmsg.c_str());
+		CLog::log("%s\n", errmsg.c_str());
 	}
 	UserBase ub;
 	return ub;
@@ -122,7 +122,7 @@ UserBase HttpWXLogin::requestRefreshToken(string refreshtoken, string &token){
 UserBase HttpWXLogin::respondRefreshToken(string result, string &token){
 	UserBase ub;
 	YMSocketData sd(result);
-	printf("sd:%s\n", sd.getJsonString().c_str());
+	CLog::log("sd:%s\n", sd.getJsonString().c_str());
 	if (!sd.isMember("errcode")){
 		string refresh_token = sd["refresh_token"].asString();
 		token = refresh_token;
@@ -149,7 +149,7 @@ UserBase HttpWXLogin::requestUserinfo(string acctoken, string openid){
 
 UserBase HttpWXLogin::respondUserinfo(string result){
 	YMSocketData sd(result);
-	printf("sd:%s\n", sd.getJsonString().c_str());
+	CLog::log("sd:%s\n", sd.getJsonString().c_str());
 	if (!sd.isMember("errcode")){
 		string openid = sd["openid"].asString();
 		int len = 0;

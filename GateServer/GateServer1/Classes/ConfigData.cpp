@@ -63,7 +63,7 @@ uint64 ConfigData::getRedisLastIndex(string key){
 		return 0;
 	}
 	string tt = dd;
-	printf("tt:%s,dd:%s",tt.c_str(),dd);
+	CLog::log("tt:%s,dd:%s",tt.c_str(),dd);
 	delete dd;
 	return atoi(tt.c_str());
 }
@@ -102,13 +102,13 @@ void ConfigData::init(){
 				sprintf(buff1,"%ld",itr1->first);
 				m_predis->List(buff, buff1);
 			}
-			printf("******%s***********\n",buff);
+			CLog::log("******%s***********\n",buff);
 		}
 
 		for (int i = 1; i <= 4; i++){
 			setLiankeBao(i);
 		}
-		printf("______\n");
+		CLog::log("______\n");
 	}
 	else{
 		string vv[] = {"5","52","8","82","11","112","14","142"};
@@ -116,7 +116,7 @@ void ConfigData::init(){
 		string vr[] = { "01", "02", "03", "04" };
 		for (int i = 0; i < 8; i++){
 			sprintf(buff,"ke%s",vv[i].c_str());
-			printf("*********type:%d********\n", ct[i]);
+			CLog::log("*********type:%d********\n", ct[i]);
 			map<uint64, int> vec = m_predis->getList(buff);
 			if (!vec.empty()){
 				int len = atoi(vv[i].c_str());
@@ -129,14 +129,14 @@ void ConfigData::init(){
 				if (!vec5.empty()){
 					m_liankebao.insert(make_pair(atoi((vv[i] + vr[j]).c_str()), vec5));
 				}
-				printf("**********type:%d**********\n", type);
+				CLog::log("**********type:%d**********\n", type);
 			}
 		}
 
 	}
 	int64_t t2 = Common::getCurrentTime();
 	uint64_t tt = t2 - t;
-	printf("******use time:%gs******\n", tt / 1000.0 / 1000);
+	CLog::log("******use time:%gs******\n", tt / 1000.0 / 1000);
 
 
 
@@ -172,7 +172,7 @@ void ConfigData::test(){
 	}
 	int64_t ttt = Common::getCurrentTime();
 	int64_t tt = ttt - t;
-	printf("******rand.use time:%gs******\n", tt / 1000.0 / 1000);
+	CLog::log("******rand.use time:%gs******\n", tt / 1000.0 / 1000);
 
 
 	index = 0;
@@ -182,7 +182,7 @@ void ConfigData::test(){
 	}
 	int64_t t3 = Common::getCurrentTime();
 	tt = t3 - ttt;
-	printf("******Hu.use time:%gs******\n", tt / 1000.0 / 1000);
+	CLog::log("******Hu.use time:%gs******\n", tt / 1000.0 / 1000);
 
 	index = 0;
 	while (index < TESTCOUNT){
@@ -191,7 +191,7 @@ void ConfigData::test(){
 	}
 	int64_t t2 = Common::getCurrentTime();
 	tt = t2 - t3;
-	printf("******Ting.use time:%gs******\n", tt / 1000.0 / 1000);
+	CLog::log("******Ting.use time:%gs******\n", tt / 1000.0 / 1000);
 
 	index = 0;
 	while (index < TESTCOUNT){
@@ -200,14 +200,14 @@ void ConfigData::test(){
 	}
 	int64_t t1 = Common::getCurrentTime();
 	tt = t1 - t2;
-	printf("******ChuTing.use time:%gs******\n", tt/1000.0/1000);
+	CLog::log("******ChuTing.use time:%gs******\n", tt/1000.0/1000);
 
 	
 
 	
 
 
-	printf("1111\n");
+	CLog::log("1111\n");
 }
 
 void ConfigData::quickSort(int *s, int l, int r)
@@ -325,7 +325,7 @@ void ConfigData::init3P(int index, int kenum){
 	if (shunnum == 0){
 		co = co * 10 + 2;
 	}
-	printf("*********%d**********\n", co);
+	CLog::log("*********%d**********\n", co);
 	
 }
 
@@ -867,10 +867,10 @@ void ConfigData::setLiankeBao(int i){
 			sprintf(buff1,"%ld",itr->first);
 			m_predis->List(buff, buff1);
 		}
-		printf("*********%s**********\n", buff);
+		CLog::log("*********%s**********\n", buff);
 	}
 	
-	printf("\n");
+	CLog::log("\n");
 }
 
 vector<int> ConfigData::isTing(int *pai, int bao){

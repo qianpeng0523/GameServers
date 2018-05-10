@@ -118,7 +118,7 @@ void HttpAliPay::respondResult(string content, struct evhttp_request *req ){
 
 void HttpAliPay::respondQueryResult(string content){
 	YMSocketData sd(content);
-	printf("%s\n",sd.getJsonString().c_str());
+	CLog::log("%s\n",sd.getJsonString().c_str());
 	CSJson::Value response = sd;
 	string out_trade_no = response["out_trade_no"].asString();
 	string trade_no = response["trade_no"].asString();
@@ -340,7 +340,7 @@ string HttpAliPay::setPrivateKey(string &key){
 	string tp = "-----BEGIN RSA PRIVATE KEY-----\n";
 	while (len >= 64){
 		string tt = key.substr(0, 64);
-		//printf("tt:%02d--[%s]\n",tt.length(),tt.c_str());
+		//CLog::log("tt:%02d--[%s]\n",tt.length(),tt.c_str());
 		tp += tt + "\n";
 		key = key.substr(64, key.length());
 		len = key.length();

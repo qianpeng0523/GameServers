@@ -74,7 +74,7 @@ HttpLogic *HttpLogic::getIns(){
 }
 
 void HttpLogic::update(float dt){
-	printf("httplogic-update\n");
+	CLog::log("httplogic-update\n");
 }
 
 void HttpLogic::respondleLogic(YMSocketData sd){
@@ -88,7 +88,7 @@ void HttpLogic::respondleLogic(YMSocketData sd){
 }
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
-	printf("socketdata:%s", sd.getJsonString().c_str());
+	CLog::log("socketdata:%s", sd.getJsonString().c_str());
 }
 
 void HttpLogic::requestGateData(){
@@ -116,14 +116,14 @@ void HttpLogic::GateDataCall(YMSocketData sd){
 	if (err == 0){
 		SERVER_PORT = sd["port"].asInt();
 		SERVER_CODE = sd["name"].asString();
-		printf("\n/************************************************/\n");
-		std::cout << "socket start:" <<SERVER_PORT<< std::endl;
-		printf("/************************************************/\n");
+		CLog::log("\n/************************************************/\n");
+		CLog::log("socket[%s] start:%d", SERVER_CODE.c_str(), SERVER_PORT);
+		CLog::log("/************************************************/\n");
 		thread t1(&threadClient1, NULL);
 		t1.detach();
 	}
 	else{
-		printf("GateDataCall未获取到数据\n");
+		CLog::log("GateDataCall未获取到数据\n");
 	}
 }
 
@@ -149,13 +149,13 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 		m_logicmnip =Common::getHostNameIp(sd["ip"].asString(),port);
 		m_logicmnport = sd["port"].asInt();
 		m_servername = sd["name"].asString();
-		printf("\n/************************************************/\n");
-		std::cout << "client socket start:ip:" << m_logicmnip.c_str() << " port:" << m_logicmnport << std::endl;
-		printf("/************************************************/\n");
+		CLog::log("\n/************************************************/\n");
+		CLog::log("client socket start:[ip]:%s,[port]:%d", m_logicmnip.c_str(), m_logicmnport);
+		CLog::log("/************************************************/\n");
 		thread t1(&threadClient, NULL);
 		t1.detach();
 	}
 	else{
-		printf("ManagerDataCall未获取到数据\n");
+		CLog::log("ManagerDataCall未获取到数据\n");
 	}
 }

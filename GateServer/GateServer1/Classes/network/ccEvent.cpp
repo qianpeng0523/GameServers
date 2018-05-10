@@ -24,7 +24,7 @@ void ccEvent::parse(const char* data, int size){
 		msg->ParseFromArray(data, size);
 
 		string ss = msg->DebugString();
-		printf("[%s]ccEvent[0x%04X]:(%s)%s\n", Common::getLocalTime().c_str(), m_cmd, type_name.c_str(), ss.c_str());
+		CLog::log("[%s]ccEvent[0x%04X]:(%s)%s\n", Common::getLocalTime().c_str(), m_cmd, type_name.c_str(), ss.c_str());
 	}
 	delete data;
 }

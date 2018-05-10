@@ -48,7 +48,7 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("requset:%s:%d\n", ip.c_str(), port);
+	CLog::log("requset:%s:%d\n", ip.c_str(), port);
 
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);
@@ -98,7 +98,7 @@ string HttpEvent::requestData(string url, string content, size_t(*func)(void*, s
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
-		printf("cannot curl");
+		CLog::log("cannot curl");
 		curl_easy_cleanup(curl);
 	}
 	//ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。
@@ -124,18 +124,18 @@ string HttpEvent::requestData(string url, string content, size_t(*func)(void*, s
 	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
 	CURLcode code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10000);
 	if (code != CURLE_OK) {
-		printf("time out\n");
+		CLog::log("time out\n");
 	}
 	code = curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 10000);
 	if (code != CURLE_OK) {
-		printf("connect time out\n");
+		CLog::log("connect time out\n");
 	}
 
 	curl_easy_perform(curl);
 	int responseCode = 0;
 	code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
 	if (code != CURLE_OK || !(responseCode >= 200 && responseCode < 300)) {
-		printf("Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(code));
+		CLog::log("Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(code));
 	}
 	else{
 		FILE *fp = fopen("./res/test.xml","w+");
@@ -144,7 +144,7 @@ string HttpEvent::requestData(string url, string content, size_t(*func)(void*, s
 		fclose(fp);
 // 		map<string, string> maps = XmlConfig::getIns()->parseXmlData(result);
 // 		HttpPay::getIns()->respond(maps,ordermap);
-		//printf("result:\n%s\n",result.c_str());
+		//CLog::log("result:\n%s\n",result.c_str());
 	}
 	curl_slist_free_all(head);//记得要释放  
 	curl_easy_cleanup(curl);
@@ -155,7 +155,7 @@ void HttpEvent::requestData(string url, YMSocketData sd){
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
-		printf("cannot curl");
+		CLog::log("cannot curl");
 		curl_easy_cleanup(curl);
 	}
 	//ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。
@@ -179,11 +179,11 @@ void HttpEvent::requestData(string url, YMSocketData sd){
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, sz);
 	CURLcode code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10000);
 	if (code != CURLE_OK) {
-		printf("time out\n");
+		CLog::log("time out\n");
 	}
 	code = curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 10000);
 	if (code != CURLE_OK) {
-		printf("connect time out\n");
+		CLog::log("connect time out\n");
 	}
 
 	curl_easy_perform(curl);
@@ -191,7 +191,7 @@ void HttpEvent::requestData(string url, YMSocketData sd){
 	delete data;
 	code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
 	if (code != CURLE_OK || !(responseCode >= 200 && responseCode < 300)) {
-		printf("Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(code));
+		CLog::log("Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(code));
 	}
 	else{
 		char *out = getData(vec);
@@ -237,7 +237,7 @@ void httpd_ALIPayhandler(struct evhttp_request *req, void *arg) {
 
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("alipay respond:%s:%d\n", ip.c_str(), port);
+	CLog::log("alipay respond:%s:%d\n", ip.c_str(), port);
 
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);
@@ -260,7 +260,7 @@ void httpd_WXPayhandler(struct evhttp_request *req, void *arg) {
 
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("weixin respond:%s:%d\n", ip.c_str(), port);
+	CLog::log("weixin respond:%s:%d\n", ip.c_str(), port);
 
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);

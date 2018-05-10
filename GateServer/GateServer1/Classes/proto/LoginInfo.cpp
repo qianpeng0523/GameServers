@@ -90,7 +90,7 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 	else{
 		sl.set_err(1);
 	}
-	printf("login:uid:%s,pwd:%s",uid.c_str(),pwd.c_str());
+	CLog::log("login:uid:%s,pwd:%s",uid.c_str(),pwd.c_str());
 	
 	SendSLogin(sl,event->m_fd);
 }

@@ -5,7 +5,7 @@
 #include <string>
 #include <list>
 #include <map>
-
+#include "CLog.h"
 #if defined(_WIN32) || defined(_WIN64)
 #pragma comment(lib, "Wldap32.lib")
 #pragma comment (lib, "Advapi32.lib")
@@ -19,7 +19,7 @@ using std::list;
 using std::map;
 
 #ifdef _DEBUG
-#define DebugLog(format,...)    printf("[" __FILE__ ":%04d]\n" format "\n\n", __LINE__, ##__VA_ARGS__)
+#define DebugLog(format,...)    CLog::log("[" __FILE__ ":%04d]\n" format "\n\n", __LINE__, ##__VA_ARGS__)
 #else
 #define DebugLog(format,...)
 #endif

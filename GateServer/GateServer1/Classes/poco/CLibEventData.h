@@ -115,8 +115,8 @@ struct _ClientData:public Object
 	void update(float dt){
 		time_t tt = Common::getTime();
 		if (m_lasttime>0&&tt - m_lasttime > 2 * 60){
-			printf("lasttime[%ld]---tt[%ld]--sub[%ld]\n",m_lasttime,tt,tt-m_lasttime);
-			printf("%s\n","主动断开");
+			CLog::log("lasttime[%ld]---tt[%ld]--sub[%ld]\n",m_lasttime,tt,tt-m_lasttime);
+			CLog::log("%s\n","主动断开");
 			LoginInfo::getIns()->eraseClientData(_fd);
 		}
 	}

@@ -36,7 +36,7 @@ void RedisGet::init(){
 		vector<Rank> vec = getRank(i + 1, 1);
 		m_pRanks.insert(make_pair(i+1,vec));
 	}
-	printf("111\n");
+	CLog::log("111\n");
 }
 
 char* RedisGet::getPass(string uid){

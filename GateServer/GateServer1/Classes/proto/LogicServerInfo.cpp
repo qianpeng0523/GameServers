@@ -45,9 +45,9 @@ void LogicServerInfo::HandlerSGateLoginHand(ccEvent *event){
 	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSGateLoginHand), LOGIC_MANAGER_TYPE);
 	int err = cl.err();
 	if (err == 0){
-		printf("连接成功!\n");
+		CLog::log("连接成功!\n");
 	}
 	else{
-		printf("数据有问题\n");
+		CLog::log("数据有问题\n");
 	}
 }
