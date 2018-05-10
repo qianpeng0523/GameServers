@@ -78,10 +78,11 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	char *buff= (char *)EVBUFFER_DATA(buffer);
 	if (buff&&sz>0){
 		char *out = new char[sz + 1];
-		CLog::log("test %s requset:%s:%d\n", Common::getLocalTime().c_str(), ip.c_str(), port);
+		CLog::log("test requset:%s:%d\n", ip.c_str(), port);
 		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
-		CLog::log("test %\n", out);
+		CLog::log("test %s\n", out);
 		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
+		CLog::log("test1 %d\n", sz);
 		delete out;
 		HttpEvent::getIns()->SendMsg(sd, req);
 	}
