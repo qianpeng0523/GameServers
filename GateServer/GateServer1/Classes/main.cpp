@@ -108,8 +108,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	fprintf(fp,content.c_str());
 	fclose(fp);
 	*/
-	printf("%2d\n",1);
-	CLog::log("%02d\n",1);
+	
 
 	PingInfo::getIns();
 	RoomInfo::getIns();
