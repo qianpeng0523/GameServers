@@ -33,19 +33,19 @@ void  protobuf_AddDesc_LogicServer_2eproto();
 void protobuf_AssignDesc_LogicServer_2eproto();
 void protobuf_ShutdownFile_LogicServer_2eproto();
 
-class CLogicLogin;
-class SLogicLogin;
+class CLogiCLogin;
+class SLogiCLogin;
 
 // ===================================================================
 
-class CLogicLogin : public ::google::protobuf::Message {
+class CLogiCLogin : public ::google::protobuf::Message {
  public:
-  CLogicLogin();
-  virtual ~CLogicLogin();
+  CLogiCLogin();
+  virtual ~CLogiCLogin();
 
-  CLogicLogin(const CLogicLogin& from);
+  CLogiCLogin(const CLogiCLogin& from);
 
-  inline CLogicLogin& operator=(const CLogicLogin& from) {
+  inline CLogiCLogin& operator=(const CLogiCLogin& from) {
     CopyFrom(from);
     return *this;
   }
@@ -59,17 +59,17 @@ class CLogicLogin : public ::google::protobuf::Message {
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const CLogicLogin& default_instance();
+  static const CLogiCLogin& default_instance();
 
-  void Swap(CLogicLogin* other);
+  void Swap(CLogiCLogin* other);
 
   // implements Message ----------------------------------------------
 
-  CLogicLogin* New() const;
+  CLogiCLogin* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const CLogicLogin& from);
-  void MergeFrom(const CLogicLogin& from);
+  void CopyFrom(const CLogiCLogin& from);
+  void MergeFrom(const CLogiCLogin& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -123,7 +123,7 @@ class CLogicLogin : public ::google::protobuf::Message {
   inline ::std::string* release_seession();
   inline void set_allocated_seession(::std::string* seession);
 
-  // @@protoc_insertion_point(class_scope:protocol.CLogicLogin)
+  // @@protoc_insertion_point(class_scope:protocol.CLogiCLogin)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
@@ -146,18 +146,18 @@ class CLogicLogin : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_LogicServer_2eproto();
 
   void InitAsDefaultInstance();
-  static CLogicLogin* default_instance_;
+  static CLogiCLogin* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SLogicLogin : public ::google::protobuf::Message {
+class SLogiCLogin : public ::google::protobuf::Message {
  public:
-  SLogicLogin();
-  virtual ~SLogicLogin();
+  SLogiCLogin();
+  virtual ~SLogiCLogin();
 
-  SLogicLogin(const SLogicLogin& from);
+  SLogiCLogin(const SLogiCLogin& from);
 
-  inline SLogicLogin& operator=(const SLogicLogin& from) {
+  inline SLogiCLogin& operator=(const SLogiCLogin& from) {
     CopyFrom(from);
     return *this;
   }
@@ -171,17 +171,17 @@ class SLogicLogin : public ::google::protobuf::Message {
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const SLogicLogin& default_instance();
+  static const SLogiCLogin& default_instance();
 
-  void Swap(SLogicLogin* other);
+  void Swap(SLogiCLogin* other);
 
   // implements Message ----------------------------------------------
 
-  SLogicLogin* New() const;
+  SLogiCLogin* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SLogicLogin& from);
-  void MergeFrom(const SLogicLogin& from);
+  void CopyFrom(const SLogiCLogin& from);
+  void MergeFrom(const SLogiCLogin& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -218,7 +218,7 @@ class SLogicLogin : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:protocol.SLogicLogin)
+  // @@protoc_insertion_point(class_scope:protocol.SLogiCLogin)
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
@@ -238,85 +238,85 @@ class SLogicLogin : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_LogicServer_2eproto();
 
   void InitAsDefaultInstance();
-  static SLogicLogin* default_instance_;
+  static SLogiCLogin* default_instance_;
 };
 // ===================================================================
 
 
 // ===================================================================
 
-// CLogicLogin
+// CLogiCLogin
 
 // optional uint32 cmd = 1 [default = 4096];
-inline bool CLogicLogin::has_cmd() const {
+inline bool CLogiCLogin::has_cmd() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void CLogicLogin::set_has_cmd() {
+inline void CLogiCLogin::set_has_cmd() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void CLogicLogin::clear_has_cmd() {
+inline void CLogiCLogin::clear_has_cmd() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void CLogicLogin::clear_cmd() {
+inline void CLogiCLogin::clear_cmd() {
   cmd_ = 4096u;
   clear_has_cmd();
 }
-inline ::google::protobuf::uint32 CLogicLogin::cmd() const {
+inline ::google::protobuf::uint32 CLogiCLogin::cmd() const {
   return cmd_;
 }
-inline void CLogicLogin::set_cmd(::google::protobuf::uint32 value) {
+inline void CLogiCLogin::set_cmd(::google::protobuf::uint32 value) {
   set_has_cmd();
   cmd_ = value;
 }
 
 // optional string servername = 2;
-inline bool CLogicLogin::has_servername() const {
+inline bool CLogiCLogin::has_servername() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void CLogicLogin::set_has_servername() {
+inline void CLogiCLogin::set_has_servername() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void CLogicLogin::clear_has_servername() {
+inline void CLogiCLogin::clear_has_servername() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void CLogicLogin::clear_servername() {
+inline void CLogiCLogin::clear_servername() {
   if (servername_ != &::google::protobuf::internal::kEmptyString) {
     servername_->clear();
   }
   clear_has_servername();
 }
-inline const ::std::string& CLogicLogin::servername() const {
+inline const ::std::string& CLogiCLogin::servername() const {
   return *servername_;
 }
-inline void CLogicLogin::set_servername(const ::std::string& value) {
+inline void CLogiCLogin::set_servername(const ::std::string& value) {
   set_has_servername();
   if (servername_ == &::google::protobuf::internal::kEmptyString) {
     servername_ = new ::std::string;
   }
   servername_->assign(value);
 }
-inline void CLogicLogin::set_servername(const char* value) {
+inline void CLogiCLogin::set_servername(const char* value) {
   set_has_servername();
   if (servername_ == &::google::protobuf::internal::kEmptyString) {
     servername_ = new ::std::string;
   }
   servername_->assign(value);
 }
-inline void CLogicLogin::set_servername(const char* value, size_t size) {
+inline void CLogiCLogin::set_servername(const char* value, size_t size) {
   set_has_servername();
   if (servername_ == &::google::protobuf::internal::kEmptyString) {
     servername_ = new ::std::string;
   }
   servername_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* CLogicLogin::mutable_servername() {
+inline ::std::string* CLogiCLogin::mutable_servername() {
   set_has_servername();
   if (servername_ == &::google::protobuf::internal::kEmptyString) {
     servername_ = new ::std::string;
   }
   return servername_;
 }
-inline ::std::string* CLogicLogin::release_servername() {
+inline ::std::string* CLogiCLogin::release_servername() {
   clear_has_servername();
   if (servername_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
@@ -326,7 +326,7 @@ inline ::std::string* CLogicLogin::release_servername() {
     return temp;
   }
 }
-inline void CLogicLogin::set_allocated_servername(::std::string* servername) {
+inline void CLogiCLogin::set_allocated_servername(::std::string* servername) {
   if (servername_ != &::google::protobuf::internal::kEmptyString) {
     delete servername_;
   }
@@ -340,53 +340,53 @@ inline void CLogicLogin::set_allocated_servername(::std::string* servername) {
 }
 
 // optional string seession = 3;
-inline bool CLogicLogin::has_seession() const {
+inline bool CLogiCLogin::has_seession() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void CLogicLogin::set_has_seession() {
+inline void CLogiCLogin::set_has_seession() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void CLogicLogin::clear_has_seession() {
+inline void CLogiCLogin::clear_has_seession() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void CLogicLogin::clear_seession() {
+inline void CLogiCLogin::clear_seession() {
   if (seession_ != &::google::protobuf::internal::kEmptyString) {
     seession_->clear();
   }
   clear_has_seession();
 }
-inline const ::std::string& CLogicLogin::seession() const {
+inline const ::std::string& CLogiCLogin::seession() const {
   return *seession_;
 }
-inline void CLogicLogin::set_seession(const ::std::string& value) {
+inline void CLogiCLogin::set_seession(const ::std::string& value) {
   set_has_seession();
   if (seession_ == &::google::protobuf::internal::kEmptyString) {
     seession_ = new ::std::string;
   }
   seession_->assign(value);
 }
-inline void CLogicLogin::set_seession(const char* value) {
+inline void CLogiCLogin::set_seession(const char* value) {
   set_has_seession();
   if (seession_ == &::google::protobuf::internal::kEmptyString) {
     seession_ = new ::std::string;
   }
   seession_->assign(value);
 }
-inline void CLogicLogin::set_seession(const char* value, size_t size) {
+inline void CLogiCLogin::set_seession(const char* value, size_t size) {
   set_has_seession();
   if (seession_ == &::google::protobuf::internal::kEmptyString) {
     seession_ = new ::std::string;
   }
   seession_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* CLogicLogin::mutable_seession() {
+inline ::std::string* CLogiCLogin::mutable_seession() {
   set_has_seession();
   if (seession_ == &::google::protobuf::internal::kEmptyString) {
     seession_ = new ::std::string;
   }
   return seession_;
 }
-inline ::std::string* CLogicLogin::release_seession() {
+inline ::std::string* CLogiCLogin::release_seession() {
   clear_has_seession();
   if (seession_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
@@ -396,7 +396,7 @@ inline ::std::string* CLogicLogin::release_seession() {
     return temp;
   }
 }
-inline void CLogicLogin::set_allocated_seession(::std::string* seession) {
+inline void CLogiCLogin::set_allocated_seession(::std::string* seession) {
   if (seession_ != &::google::protobuf::internal::kEmptyString) {
     delete seession_;
   }
@@ -411,48 +411,48 @@ inline void CLogicLogin::set_allocated_seession(::std::string* seession) {
 
 // -------------------------------------------------------------------
 
-// SLogicLogin
+// SLogiCLogin
 
 // optional uint32 cmd = 1 [default = 4096];
-inline bool SLogicLogin::has_cmd() const {
+inline bool SLogiCLogin::has_cmd() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void SLogicLogin::set_has_cmd() {
+inline void SLogiCLogin::set_has_cmd() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void SLogicLogin::clear_has_cmd() {
+inline void SLogiCLogin::clear_has_cmd() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void SLogicLogin::clear_cmd() {
+inline void SLogiCLogin::clear_cmd() {
   cmd_ = 4096u;
   clear_has_cmd();
 }
-inline ::google::protobuf::uint32 SLogicLogin::cmd() const {
+inline ::google::protobuf::uint32 SLogiCLogin::cmd() const {
   return cmd_;
 }
-inline void SLogicLogin::set_cmd(::google::protobuf::uint32 value) {
+inline void SLogiCLogin::set_cmd(::google::protobuf::uint32 value) {
   set_has_cmd();
   cmd_ = value;
 }
 
 // optional uint32 err = 2;
-inline bool SLogicLogin::has_err() const {
+inline bool SLogiCLogin::has_err() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void SLogicLogin::set_has_err() {
+inline void SLogiCLogin::set_has_err() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void SLogicLogin::clear_has_err() {
+inline void SLogiCLogin::clear_has_err() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void SLogicLogin::clear_err() {
+inline void SLogiCLogin::clear_err() {
   err_ = 0u;
   clear_has_err();
 }
-inline ::google::protobuf::uint32 SLogicLogin::err() const {
+inline ::google::protobuf::uint32 SLogiCLogin::err() const {
   return err_;
 }
-inline void SLogicLogin::set_err(::google::protobuf::uint32 value) {
+inline void SLogiCLogin::set_err(::google::protobuf::uint32 value) {
   set_has_err();
   err_ = value;
 }

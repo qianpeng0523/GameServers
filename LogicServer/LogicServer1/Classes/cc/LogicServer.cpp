@@ -20,12 +20,12 @@ namespace protocol {
 
 namespace {
 
-const ::google::protobuf::Descriptor* CLogicLogin_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* CLogiCLogin_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  CLogicLogin_reflection_ = NULL;
-const ::google::protobuf::Descriptor* SLogicLogin_descriptor_ = NULL;
+  CLogiCLogin_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SLogiCLogin_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  SLogicLogin_reflection_ = NULL;
+  SLogiCLogin_reflection_ = NULL;
 
 }  // namespace
 
@@ -36,39 +36,39 @@ void protobuf_AssignDesc_LogicServer_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "LogicServer.proto");
   GOOGLE_CHECK(file != NULL);
-  CLogicLogin_descriptor_ = file->message_type(0);
-  static const int CLogicLogin_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogicLogin, cmd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogicLogin, servername_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogicLogin, seession_),
+  CLogiCLogin_descriptor_ = file->message_type(0);
+  static const int CLogiCLogin_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogiCLogin, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogiCLogin, servername_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogiCLogin, seession_),
   };
-  CLogicLogin_reflection_ =
+  CLogiCLogin_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      CLogicLogin_descriptor_,
-      CLogicLogin::default_instance_,
-      CLogicLogin_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogicLogin, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogicLogin, _unknown_fields_),
+      CLogiCLogin_descriptor_,
+      CLogiCLogin::default_instance_,
+      CLogiCLogin_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogiCLogin, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CLogiCLogin, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(CLogicLogin));
-  SLogicLogin_descriptor_ = file->message_type(1);
-  static const int SLogicLogin_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogicLogin, cmd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogicLogin, err_),
+      sizeof(CLogiCLogin));
+  SLogiCLogin_descriptor_ = file->message_type(1);
+  static const int SLogiCLogin_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogiCLogin, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogiCLogin, err_),
   };
-  SLogicLogin_reflection_ =
+  SLogiCLogin_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      SLogicLogin_descriptor_,
-      SLogicLogin::default_instance_,
-      SLogicLogin_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogicLogin, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogicLogin, _unknown_fields_),
+      SLogiCLogin_descriptor_,
+      SLogiCLogin::default_instance_,
+      SLogiCLogin_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogiCLogin, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SLogiCLogin, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(SLogicLogin));
+      sizeof(SLogiCLogin));
 }
 
 namespace {
@@ -82,18 +82,18 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    CLogicLogin_descriptor_, &CLogicLogin::default_instance());
+    CLogiCLogin_descriptor_, &CLogiCLogin::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    SLogicLogin_descriptor_, &SLogicLogin::default_instance());
+    SLogiCLogin_descriptor_, &SLogiCLogin::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_LogicServer_2eproto() {
-  delete CLogicLogin::default_instance_;
-  delete CLogicLogin_reflection_;
-  delete SLogicLogin::default_instance_;
-  delete SLogicLogin_reflection_;
+  delete CLogiCLogin::default_instance_;
+  delete CLogiCLogin_reflection_;
+  delete SLogiCLogin::default_instance_;
+  delete SLogiCLogin_reflection_;
 }
 
 void protobuf_AddDesc_LogicServer_2eproto() {
@@ -105,14 +105,14 @@ void protobuf_AddDesc_LogicServer_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021LogicServer.proto\022\010protocol\"F\n\013CLogicL"
     "ogin\022\021\n\003cmd\030\001 \001(\r:\0044096\022\022\n\nservername\030\002 "
-    "\001(\t\022\020\n\010seession\030\003 \001(\t\"-\n\013SLogicLogin\022\021\n\003"
+    "\001(\t\022\020\n\010seession\030\003 \001(\t\"-\n\013SLogiCLogin\022\021\n\003"
     "cmd\030\001 \001(\r:\0044096\022\013\n\003err\030\002 \001(\r", 148);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "LogicServer.proto", &protobuf_RegisterTypes);
-  CLogicLogin::default_instance_ = new CLogicLogin();
-  SLogicLogin::default_instance_ = new SLogicLogin();
-  CLogicLogin::default_instance_->InitAsDefaultInstance();
-  SLogicLogin::default_instance_->InitAsDefaultInstance();
+  CLogiCLogin::default_instance_ = new CLogiCLogin();
+  SLogiCLogin::default_instance_ = new SLogiCLogin();
+  CLogiCLogin::default_instance_->InitAsDefaultInstance();
+  SLogiCLogin::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_LogicServer_2eproto);
 }
 
@@ -126,26 +126,26 @@ struct StaticDescriptorInitializer_LogicServer_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int CLogicLogin::kCmdFieldNumber;
-const int CLogicLogin::kServernameFieldNumber;
-const int CLogicLogin::kSeessionFieldNumber;
+const int CLogiCLogin::kCmdFieldNumber;
+const int CLogiCLogin::kServernameFieldNumber;
+const int CLogiCLogin::kSeessionFieldNumber;
 #endif  // !_MSC_VER
 
-CLogicLogin::CLogicLogin()
+CLogiCLogin::CLogiCLogin()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void CLogicLogin::InitAsDefaultInstance() {
+void CLogiCLogin::InitAsDefaultInstance() {
 }
 
-CLogicLogin::CLogicLogin(const CLogicLogin& from)
+CLogiCLogin::CLogiCLogin(const CLogiCLogin& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void CLogicLogin::SharedCtor() {
+void CLogiCLogin::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 4096u;
   servername_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
@@ -153,11 +153,11 @@ void CLogicLogin::SharedCtor() {
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-CLogicLogin::~CLogicLogin() {
+CLogiCLogin::~CLogiCLogin() {
   SharedDtor();
 }
 
-void CLogicLogin::SharedDtor() {
+void CLogiCLogin::SharedDtor() {
   if (servername_ != &::google::protobuf::internal::kEmptyString) {
     delete servername_;
   }
@@ -168,28 +168,28 @@ void CLogicLogin::SharedDtor() {
   }
 }
 
-void CLogicLogin::SetCachedSize(int size) const {
+void CLogiCLogin::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* CLogicLogin::descriptor() {
+const ::google::protobuf::Descriptor* CLogiCLogin::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return CLogicLogin_descriptor_;
+  return CLogiCLogin_descriptor_;
 }
 
-const CLogicLogin& CLogicLogin::default_instance() {
+const CLogiCLogin& CLogiCLogin::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_LogicServer_2eproto();
   return *default_instance_;
 }
 
-CLogicLogin* CLogicLogin::default_instance_ = NULL;
+CLogiCLogin* CLogiCLogin::default_instance_ = NULL;
 
-CLogicLogin* CLogicLogin::New() const {
-  return new CLogicLogin;
+CLogiCLogin* CLogiCLogin::New() const {
+  return new CLogiCLogin;
 }
 
-void CLogicLogin::Clear() {
+void CLogiCLogin::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 4096u;
     if (has_servername()) {
@@ -207,7 +207,7 @@ void CLogicLogin::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool CLogicLogin::MergePartialFromCodedStream(
+bool CLogiCLogin::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -278,7 +278,7 @@ bool CLogicLogin::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void CLogicLogin::SerializeWithCachedSizes(
+void CLogiCLogin::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
@@ -309,7 +309,7 @@ void CLogicLogin::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* CLogicLogin::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* CLogiCLogin::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
@@ -343,7 +343,7 @@ void CLogicLogin::SerializeWithCachedSizes(
   return target;
 }
 
-int CLogicLogin::ByteSize() const {
+int CLogiCLogin::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -380,10 +380,10 @@ int CLogicLogin::ByteSize() const {
   return total_size;
 }
 
-void CLogicLogin::MergeFrom(const ::google::protobuf::Message& from) {
+void CLogiCLogin::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const CLogicLogin* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const CLogicLogin*>(
+  const CLogiCLogin* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CLogiCLogin*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -392,7 +392,7 @@ void CLogicLogin::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void CLogicLogin::MergeFrom(const CLogicLogin& from) {
+void CLogiCLogin::MergeFrom(const CLogiCLogin& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_cmd()) {
@@ -408,24 +408,24 @@ void CLogicLogin::MergeFrom(const CLogicLogin& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void CLogicLogin::CopyFrom(const ::google::protobuf::Message& from) {
+void CLogiCLogin::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void CLogicLogin::CopyFrom(const CLogicLogin& from) {
+void CLogiCLogin::CopyFrom(const CLogiCLogin& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool CLogicLogin::IsInitialized() const {
+bool CLogiCLogin::IsInitialized() const {
 
   return true;
 }
 
-void CLogicLogin::Swap(CLogicLogin* other) {
+void CLogiCLogin::Swap(CLogiCLogin* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
     std::swap(servername_, other->servername_);
@@ -436,11 +436,11 @@ void CLogicLogin::Swap(CLogicLogin* other) {
   }
 }
 
-::google::protobuf::Metadata CLogicLogin::GetMetadata() const {
+::google::protobuf::Metadata CLogiCLogin::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CLogicLogin_descriptor_;
-  metadata.reflection = CLogicLogin_reflection_;
+  metadata.descriptor = CLogiCLogin_descriptor_;
+  metadata.reflection = CLogiCLogin_reflection_;
   return metadata;
 }
 
@@ -448,62 +448,62 @@ void CLogicLogin::Swap(CLogicLogin* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int SLogicLogin::kCmdFieldNumber;
-const int SLogicLogin::kErrFieldNumber;
+const int SLogiCLogin::kCmdFieldNumber;
+const int SLogiCLogin::kErrFieldNumber;
 #endif  // !_MSC_VER
 
-SLogicLogin::SLogicLogin()
+SLogiCLogin::SLogiCLogin()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void SLogicLogin::InitAsDefaultInstance() {
+void SLogiCLogin::InitAsDefaultInstance() {
 }
 
-SLogicLogin::SLogicLogin(const SLogicLogin& from)
+SLogiCLogin::SLogiCLogin(const SLogiCLogin& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void SLogicLogin::SharedCtor() {
+void SLogiCLogin::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 4096u;
   err_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-SLogicLogin::~SLogicLogin() {
+SLogiCLogin::~SLogiCLogin() {
   SharedDtor();
 }
 
-void SLogicLogin::SharedDtor() {
+void SLogiCLogin::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void SLogicLogin::SetCachedSize(int size) const {
+void SLogiCLogin::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* SLogicLogin::descriptor() {
+const ::google::protobuf::Descriptor* SLogiCLogin::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return SLogicLogin_descriptor_;
+  return SLogiCLogin_descriptor_;
 }
 
-const SLogicLogin& SLogicLogin::default_instance() {
+const SLogiCLogin& SLogiCLogin::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_LogicServer_2eproto();
   return *default_instance_;
 }
 
-SLogicLogin* SLogicLogin::default_instance_ = NULL;
+SLogiCLogin* SLogiCLogin::default_instance_ = NULL;
 
-SLogicLogin* SLogicLogin::New() const {
-  return new SLogicLogin;
+SLogiCLogin* SLogiCLogin::New() const {
+  return new SLogiCLogin;
 }
 
-void SLogicLogin::Clear() {
+void SLogiCLogin::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 4096u;
     err_ = 0u;
@@ -512,7 +512,7 @@ void SLogicLogin::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool SLogicLogin::MergePartialFromCodedStream(
+bool SLogiCLogin::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -565,7 +565,7 @@ bool SLogicLogin::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void SLogicLogin::SerializeWithCachedSizes(
+void SLogiCLogin::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
@@ -583,7 +583,7 @@ void SLogicLogin::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* SLogicLogin::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* SLogiCLogin::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // optional uint32 cmd = 1 [default = 4096];
   if (has_cmd()) {
@@ -602,7 +602,7 @@ void SLogicLogin::SerializeWithCachedSizes(
   return target;
 }
 
-int SLogicLogin::ByteSize() const {
+int SLogiCLogin::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -632,10 +632,10 @@ int SLogicLogin::ByteSize() const {
   return total_size;
 }
 
-void SLogicLogin::MergeFrom(const ::google::protobuf::Message& from) {
+void SLogiCLogin::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const SLogicLogin* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const SLogicLogin*>(
+  const SLogiCLogin* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SLogiCLogin*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -644,7 +644,7 @@ void SLogicLogin::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void SLogicLogin::MergeFrom(const SLogicLogin& from) {
+void SLogiCLogin::MergeFrom(const SLogiCLogin& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_cmd()) {
@@ -657,24 +657,24 @@ void SLogicLogin::MergeFrom(const SLogicLogin& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void SLogicLogin::CopyFrom(const ::google::protobuf::Message& from) {
+void SLogiCLogin::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SLogicLogin::CopyFrom(const SLogicLogin& from) {
+void SLogiCLogin::CopyFrom(const SLogiCLogin& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SLogicLogin::IsInitialized() const {
+bool SLogiCLogin::IsInitialized() const {
 
   return true;
 }
 
-void SLogicLogin::Swap(SLogicLogin* other) {
+void SLogiCLogin::Swap(SLogiCLogin* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
     std::swap(err_, other->err_);
@@ -684,11 +684,11 @@ void SLogicLogin::Swap(SLogicLogin* other) {
   }
 }
 
-::google::protobuf::Metadata SLogicLogin::GetMetadata() const {
+::google::protobuf::Metadata SLogiCLogin::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = SLogicLogin_descriptor_;
-  metadata.reflection = SLogicLogin_reflection_;
+  metadata.descriptor = SLogiCLogin_descriptor_;
+  metadata.reflection = SLogiCLogin_reflection_;
   return metadata;
 }
 

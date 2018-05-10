@@ -34,9 +34,9 @@ void ClientSocket::createTcp(){
 	TcpSocket::Init();
 	int ret = m_tcpSocket->Create(AF_INET, SOCK_STREAM, IPPROTO_IP);
 	if (ret) {
-		printf("[%s]Create socket:success,ret:%d\n",Common::getLocalTime().c_str(), ret);
+		CLog::log("[%s]Create socket:success,ret:%d\n",Common::getLocalTime().c_str(), ret);
 	} else {
-		printf("[%s]Create socket:fail,ret:%d", Common::getLocalTime().c_str(), ret);
+		CLog::log("[%s]Create socket:fail,ret:%d", Common::getLocalTime().c_str(), ret);
 	}
 }
 
@@ -78,7 +78,7 @@ int ClientSocket::connect(const char* ip, unsigned short port) {
 		t1.detach();
         m_isConnected = true;
 		PingInfo::getIns()->setTime();
-		LogicServerInfo::getIns()->SendCLogicLogin();
+		LogicServerInfo::getIns()->SendCLogiCLogin();
 	}
 	else{
 		PingInfo::getIns()->setTime();
@@ -147,7 +147,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	delete out;
 	
 	if (m_tcpSocket){
-		printf("[%s]sendmsg[0x%04X]:body:%s\n", Common::getLocalTime().c_str(),cmd, msg->DebugString().c_str());
+		CLog::log("[%s]sendmsg[0x%04X]:body:%s\n", Common::getLocalTime().c_str(),cmd, msg->DebugString().c_str());
 		int err = m_tcpSocket->Send(buffer, HEADLEN + len);
 	}
 	delete buffer;
@@ -156,7 +156,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 
 void ClientSocket::DataIn(char* data, int size,int cmd){
 	//数据不能用string  只能用char*
-	printf("[%s]DataIn size:%d cmd:%d\n", Common::getLocalTime().c_str(), size, cmd);
+	CLog::log("[%s]DataIn size:%d cmd:%d\n", Common::getLocalTime().c_str(), size, cmd);
 	ccEvent *sEvent = new ccEvent(cmd, data, size,1);
 	EventDispatcher::getIns()->disEventDispatcher(sEvent);
 }
@@ -177,7 +177,7 @@ void *ClientSocket::threadHandler(void *arg) {
 			
 			char *temp = new char[len];
 			p->Recv(temp, len, 0);
-			printf("ClientSocket threadHandler:cmd[0x%04X],len[%d],servercode[%s]\n", cmd, len, servercode.c_str());
+			CLog::log("ClientSocket threadHandler:cmd[0x%04X],len[%d],servercode[%s]\n", cmd, len, servercode.c_str());
 			p->m_recvstamp = (p->m_recvstamp+1)%MAXSTAMP;
 			if (stamp == p->m_recvstamp&&servercode == HttpLogic::SERVER_CODE){
 				char *out = new char[len+1];
@@ -186,13 +186,13 @@ void *ClientSocket::threadHandler(void *arg) {
 				p->DataIn(out, len, cmd);
 			}
 			else{
-				printf("[%s]数据不合法\n", Common::getLocalTime().c_str());
+				CLog::log("[%s]数据不合法\n", Common::getLocalTime().c_str());
 				delete temp;
 				p->close();
 			}
 
         } else{
-			printf("[%s]%s\n", Common::getLocalTime().c_str(), "==== connect break up ====");
+			CLog::log("[%s]%s\n", Common::getLocalTime().c_str(), "==== connect break up ====");
             //服务端断开
             p->close();
 			//断开线程

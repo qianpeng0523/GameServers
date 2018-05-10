@@ -1,6 +1,7 @@
 ﻿
 #include "RoomControl.h"
 #include "ConfigData.h"
+#include "CLog.h"
 RoomControl *RoomControl::m_ins=NULL;
 RoomControl::RoomControl(){
 	
@@ -102,10 +103,10 @@ bool RoomControl::BeginMJ(int type, string uid){
 }
 
 bool RoomControl::ReadyMJ(string uid, bool ready){
-	printf("11111\n");
+	CLog::log("11111\n");
 	GRoom *gr = getGRoom_(uid);
 	if (gr){
-		printf("2222\n");
+		CLog::log("2222\n");
 		gr->Ready(uid, ready);
 		return true;
 	}

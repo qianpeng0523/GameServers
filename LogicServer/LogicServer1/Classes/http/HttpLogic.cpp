@@ -94,7 +94,7 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 		ClientSocket::getIns()->connect(SERVER_IP.c_str(), SERVER_PORT);
 	}
 	else{
-		printf("未获取到数据\n");
+		CLog::log("未获取到数据\n");
 	}
 }
 
@@ -106,5 +106,5 @@ void HttpLogic::respondleLogic(YMSocketData sd){
 }
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
-	printf("socketdata:%s",sd.getJsonString().c_str());
+	CLog::log("socketdata:%s",sd.getJsonString().c_str());
 }

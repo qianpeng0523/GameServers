@@ -1,6 +1,6 @@
 ﻿#include "TcpSocket.h"
 #include <stdio.h>
-
+#include "CLog.h"
 #ifdef WIN32
 #pragma comment(lib,"wsock32")
 #endif
@@ -25,7 +25,7 @@ bool TcpSocket::Init()
     int ret = WSAStartup(version, &wsaData);
     if ( ret ) 
 	{
-		printf("%s","init winsock error!");
+		CLog::log("%s","init winsock error!");
         return false;
     }
 

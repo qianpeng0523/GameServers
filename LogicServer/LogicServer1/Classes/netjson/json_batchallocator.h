@@ -36,7 +36,7 @@ public:
       : freeHead_( 0 )
       , objectsPerPage_( objectsPerPage )
    {
-//      printf( "Size: %d => %s\n", sizeof(AllocatedType), typeid(AllocatedType).name() );
+//      CLog::log( "Size: %d => %s\n", sizeof(AllocatedType), typeid(AllocatedType).name() );
       assert( sizeof(AllocatedType) * objectPerAllocation >= sizeof(AllocatedType *) ); // We must be able to store a slist in the object free space.
       assert( objectsPerPage >= 16 );
       batches_ = allocateBatch( 0 );   // allocated a dummy page

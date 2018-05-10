@@ -6,7 +6,7 @@
 #include "StatTimer.h"
 #include "RoomControl.h"
 #include "Common.h"
-
+#include "CLog.h"
 GRoom::GRoom():
 m_curbao(0),
 m_maxcount(4),
@@ -416,7 +416,7 @@ void GRoom::SendDraw(int pos, int card){
 			break;
 		}
 	}
-	printf("draw:[%d]->[%d]\n", pos, card);
+	CLog::log("draw:[%d]->[%d]\n", pos, card);
 	m_optype = DRAW_TYPE;
 	m_curdir = pos;
 	SDraw sd;
@@ -445,7 +445,7 @@ void GRoom::SendDiscard(int pos, int card){
 			break;
 		}
 	}
-	printf("discard:[%d]->[%d]\n", pos, card);
+	CLog::log("discard:[%d]->[%d]\n", pos, card);
 	m_optype = DISCARD_TYPE;
 	m_curcpgcard = 0;
 	m_isgang = false;
@@ -535,7 +535,7 @@ void GRoom::SendPeng(int pos, int card){
 			}
 		}
 	}
-	printf("peng:[%d]->[%d]\n", pos, card);
+	CLog::log("peng:[%d]->[%d]\n", pos, card);
 	m_curcpgcard = card;
 	m_isgang = false;
 	m_curdir = pos;
@@ -563,7 +563,7 @@ void GRoom::SendMingGang(int pos, int card){
 			}
 		}
 	}
-	printf("minggang:[%d]->[%d]\n", pos, card);
+	CLog::log("minggang:[%d]->[%d]\n", pos, card);
 	m_curcpgcard = card;
 	m_isgang = true;
 	m_curdir = pos;
@@ -616,7 +616,7 @@ void GRoom::SendAnGang(int pos, int card){
 			}
 		}
 	}
-	printf("angang:[%d]->[%d]\n",pos,card);
+	CLog::log("angang:[%d]->[%d]\n",pos,card);
 	m_curcpgcard = card;
 	m_isgang = true;
 	m_curdir = pos;
@@ -636,7 +636,7 @@ void GRoom::SendHu(int pos){
 	HuItem item = isHu(pos);
 	if (item._hutype!=None){
 		//可以胡
-		printf("hu hu hu\n");
+		CLog::log("hu hu hu\n");
 		SHu hu;
 		hu.set_hu(item._hutype);
 		hu.set_pos(pos);
@@ -652,7 +652,7 @@ void GRoom::NextFrontDraw(float dt){
 		SendDraw(m_curdir + 1, card);
 	}
 	else{
-		printf("end!!!\n");
+		CLog::log("end!!!\n");
 	}
 }
 
@@ -663,7 +663,7 @@ void GRoom::NextBackDraw(float dt){
 		SendDraw(m_curdir, card);
 	}
 	else{
-		printf("end!!!\n");
+		CLog::log("end!!!\n");
 	}
 }
 
@@ -682,18 +682,18 @@ void GRoom::Begin(string uid,int type){
 }
 
 void GRoom::Ready(string uid, bool ready){
-	printf("33333\n");
+	CLog::log("33333\n");
 	SReady sr;
 	UData *ud = getUData(uid);
 	if (ud&&ud->_ready!=ready){
 		ud->_ready = ready;
-		printf("444444\n");
+		CLog::log("444444\n");
 		sr.set_ready(ready);
 		sr.set_position(getPosition(uid));
 		sr.set_uid(uid);
 	}
 	else{
-		printf("5555555\n");
+		CLog::log("5555555\n");
 		sr.set_err(1);
 		sr.set_uid(uid);
 	}

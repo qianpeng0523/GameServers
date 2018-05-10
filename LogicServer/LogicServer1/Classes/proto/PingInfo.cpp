@@ -61,7 +61,7 @@ void PingInfo::update(float dt){
 		SendCLPing();
 	}
 	if (m_pingcount >= 3 && m_lasttime != 0 && t - m_lasttime >= 0){
-		printf("pingocunt[%d]--t[%ld]---lasttime[%ld]\n", m_pingcount, t, m_lasttime);
+		CLog::log("pingocunt[%d]--t[%ld]---lasttime[%ld]\n", m_pingcount, t, m_lasttime);
 		m_lasttime = t;
 		m_pingcount = 0;
 		//判定客户端已经与服务器端断开

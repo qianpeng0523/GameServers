@@ -14,8 +14,8 @@ public:
 	static LogicServerInfo* getIns();
 	bool init();
 public:
-	void SendCLogicLogin();
-	void HandlerSLogicLoginHand(ccEvent *event);
+	void SendCLogiCLogin();
+	void HandlerSLogiCLoginHand(ccEvent *event);
 private:
 	static LogicServerInfo *m_shareLogicServerInfo;
 	

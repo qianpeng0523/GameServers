@@ -9,7 +9,7 @@ LogicServerInfo::LogicServerInfo()
 {
 	EventDispatcher *pe = EventDispatcher::getIns();
 	EventListen *p = EventListen::getIns();
-	SLogicLogin sl;
+	SLogiCLogin sl;
 	pe->registerProto(sl.cmd(), sl.GetTypeName());
 	
 }
@@ -32,21 +32,21 @@ bool LogicServerInfo::init()
     return true;
 }
 
-void LogicServerInfo::SendCLogicLogin(){
-	CLogicLogin cl;
+void LogicServerInfo::SendCLogiCLogin(){
+	CLogiCLogin cl;
 	cl.set_seession(LOGIC_TOKEN);
 	cl.set_servername(LOGICNAME);
-	EventListen::getIns()->addDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogicLoginHand));
+	EventListen::getIns()->addDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogiCLoginHand));
 	ClientSocket::getIns()->sendMsg(cl.cmd(),&cl);
 }
 
-void LogicServerInfo::HandlerSLogicLoginHand(ccEvent *event){
-	SLogicLogin cl;
+void LogicServerInfo::HandlerSLogiCLoginHand(ccEvent *event){
+	SLogiCLogin cl;
 	cl.CopyFrom(*event->msg);
-	EventListen::getIns()->removeDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogicLoginHand));
+	EventListen::getIns()->removeDataPacketListener(cl.cmd(), this, Event_Handler(LogicServerInfo::HandlerSLogiCLoginHand));
 	int err = cl.err();
 	if (err==0){
-		printf("连接成功!\n");
+		CLog::log("连接成功!\n");
 // 		CHMMJCreateRoom cr;
 // 		cr.set_uid("100001");
 // 		cr.set_type(1);
@@ -61,6 +61,6 @@ void LogicServerInfo::HandlerSLogicLoginHand(ccEvent *event){
 		//delete out;
 	}
 	else{
-		printf("数据有问题\n");
+		CLog::log("数据有问题\n");
 	}
 }
