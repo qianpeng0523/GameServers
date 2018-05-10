@@ -18,7 +18,7 @@ void ccEvent::parse(const char* data, int size){
 
 		msg->PrintDebugString();
 		string ss = msg->DebugString();
-		printf("ccEvent:%s",ss.c_str());
+		CLog::log("ccEvent:%s",ss.c_str());
 	}
 	delete data;
 }

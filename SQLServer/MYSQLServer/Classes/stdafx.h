@@ -23,6 +23,8 @@
 #include "Login.h"
 #include "LogicServer.h"
 #include "redis.h"
+#include "CLog.h"
+
 using namespace ::google::protobuf;
 using namespace protocol;
 #define CC_REPEAT_FOREVER (UINT_MAX -1)

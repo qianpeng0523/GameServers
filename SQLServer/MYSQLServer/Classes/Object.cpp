@@ -9,7 +9,7 @@ Object::~Object() {
 }
 
 void Object::update(float dt){
-	//printf("eeeeeee\n");
+	//CLog::log("eeeeeee\n");
 }
 
 void Object::retain(){

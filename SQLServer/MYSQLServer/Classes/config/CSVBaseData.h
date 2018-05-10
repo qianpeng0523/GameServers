@@ -27,7 +27,7 @@ namespace CSV{
 		char _name[8];
 		char _ip[48];
 		void DebugPrintf(){
-			printf("%d %d %d %s %s\n",_id,_port,_type,_name,_ip);
+			CLog::log("%d %d %d %s %s\n",_id,_port,_type,_name,_ip);
 		}
 		char *getData(){
 			int sz = sizeof(GateData);

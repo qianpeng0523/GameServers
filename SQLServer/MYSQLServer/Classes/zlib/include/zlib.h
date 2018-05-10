@@ -1081,7 +1081,7 @@ ZEXTERN uLong ZEXPORT zlibCompileFlags OF((void));
 
     The sprintf variant used by gzprintf (zero is best):
      24: 0 = vs*, 1 = s* -- 1 means limited to 20 arguments after the format
-     25: 0 = *nprintf, 1 = *printf -- 1 means gzprintf() not secure!
+     25: 0 = *nprintf, 1 = *printf -- 1 means gzCLog::log() not secure!
      26: 0 = returns value, 1 = void -- 1 means inferred string length returned
 
     Remainder:
@@ -1217,7 +1217,7 @@ ZEXTERN int ZEXPORT gzbuffer OF((gzFile file, unsigned size));
    reading.  A larger buffer size of, for example, 64K or 128K bytes will
    noticeably increase the speed of decompression (reading).
 
-     The new buffer size also affects the maximum length for gzprintf().
+     The new buffer size also affects the maximum length for gzCLog::log().
 
      gzbuffer() returns 0 on success, or -1 on failure, such as being called
    too late.
@@ -1263,11 +1263,11 @@ ZEXTERN int ZEXPORTVA gzprintf OF((gzFile file, const char *format, ...));
    uncompressed bytes actually written, or 0 in case of error.  The number of
    uncompressed bytes written is limited to 8191, or one less than the buffer
    size given to gzbuffer().  The caller should assure that this limit is not
-   exceeded.  If it is exceeded, then gzprintf() will return an error (0) with
+   exceeded.  If it is exceeded, then gzCLog::log() will return an error (0) with
    nothing written.  In this case, there may also be a buffer overflow with
    unpredictable consequences, which is possible only if zlib was compiled with
-   the insecure functions sprintf() or vsprintf() because the secure snprintf()
-   or vsnprintf() functions were not available.  This can be determined using
+   the insecure functions sprintf() or vsprintf() because the secure snCLog::log()
+   or vsnCLog::log() functions were not available.  This can be determined using
    zlibCompileFlags().
 */
 

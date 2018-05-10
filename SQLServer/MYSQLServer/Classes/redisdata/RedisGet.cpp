@@ -41,7 +41,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr7.size(); i++){
 			Prop rd = vecr7.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -60,7 +60,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr.size(); i++){
 			Reward rd = vecr.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -89,7 +89,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr1.size(); i++){
 			ShopItem rd = vecr1.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -115,7 +115,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr2.size(); i++){
 			Task rd = vecr2.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -136,7 +136,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr3.size(); i++){
 			SignZhuan rd = vecr3.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -158,7 +158,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr4.size(); i++){
 			SignAward rd = vecr4.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -183,7 +183,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr5.size(); i++){
 			ExAward rd = vecr5.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -204,7 +204,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr6.size(); i++){
 			Active rd = vecr6.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 
@@ -230,7 +230,7 @@ void RedisGet::init(){
 	else{
 		for (int i = 0; i < vecr8.size(); i++){
 			Task rd = vecr8.at(i);
-			printf("%s\n", rd.DebugString().c_str());
+			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
 }

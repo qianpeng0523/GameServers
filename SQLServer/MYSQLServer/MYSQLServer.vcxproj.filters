@@ -78,9 +78,6 @@
     <ClCompile Include="Classes\Common.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\redis\src\win32fixes.c">
-      <Filter>源文件\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\redis\src\redis.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
@@ -116,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="Classes\redisdata\RedisPut.cpp">
       <Filter>源文件\Classes\redisdata</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\CLog.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\redis\src\win32fixes.c">
+      <Filter>源文件\Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +194,6 @@
     <ClInclude Include="Classes\Common.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\redis\src\win32fixes.h">
-      <Filter>源文件\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\redis\src\redis.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
@@ -231,6 +231,12 @@
       <Filter>源文件\Classes\redisdata</Filter>
     </ClInclude>
     <ClInclude Include="Classes\stdafx.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\CLog.h">
+      <Filter>源文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\redis\src\win32fixes.h">
       <Filter>源文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>

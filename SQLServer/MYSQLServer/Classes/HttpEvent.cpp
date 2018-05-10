@@ -71,7 +71,7 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	printf("%s requset:%s:%d\n", Common::getLocalTime().c_str(),ip.c_str(), port);
+	CLog::log("%s requset:%s:%d\n", Common::getLocalTime().c_str(),ip.c_str(), port);
 	
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);
@@ -105,7 +105,7 @@ void HttpEvent::init(){
 	char *httpd_option_listen = "0.0.0.0";
 	int httpd_option_port = 8080;
 	int httpd_option_timeout = 120; //in seconds
-	printf("http start port:%d\n",httpd_option_port);
+	CLog::log("http start port:%d\n",httpd_option_port);
 	/* 使用libevent创建HTTP Server */
 
 	//初始化event API
@@ -115,7 +115,7 @@ void HttpEvent::init(){
 	
 	m_httpd = evhttp_start(httpd_option_listen, httpd_option_port);
 	if (!m_httpd){
-		printf("端口被占用\n");
+		CLog::log("端口被占用\n");
 		return;
 	}
 	evhttp_set_timeout(m_httpd, httpd_option_timeout);

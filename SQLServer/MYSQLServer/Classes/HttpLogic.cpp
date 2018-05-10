@@ -127,7 +127,7 @@ HttpLogic *HttpLogic::getIns(){
 }
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
-	printf("sd:%s\n",sd.getJsonString().c_str());
+	CLog::log("sd:%s\n",sd.getJsonString().c_str());
 	CSJson::ValueType ise = sd.type();
 	if (ise == CSJson::ValueType::objectValue&&sd.isMember("cmd")){
 		int cmd = sd["cmd"].asInt();
@@ -153,7 +153,7 @@ void HttpLogic::SqlConnect(char *&buff, int &sz){
 }
 
 void HttpLogic::SqlStart(YMSocketData sd, char *&buff, int &sz){
-	printf("%s\n", sd.getJsonString().c_str());
+	CLog::log("%s\n", sd.getJsonString().c_str());
 	if (sd.isMember("ip") && sd.isMember("name") && sd.isMember("pass") && sd.isMember("db") && sd.isMember("port")){
 		m_pSQLInfo->_ip = sd["ip"].asString();
 		m_pSQLInfo->_name = sd["name"].asString();

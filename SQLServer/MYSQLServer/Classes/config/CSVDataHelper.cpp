@@ -82,7 +82,7 @@ int CSVDataHelper::getFieldWithQuoted(const std::string &line, std::string &fiel
 	field = std::string();
 	if (line[i] != '"') {
 		//不是引号起始，有问题
-		printf( "start char is not quote when call");
+		CLog::log( "start char is not quote when call");
 		return -1;
 	}
 
@@ -101,7 +101,7 @@ int CSVDataHelper::getFieldWithQuoted(const std::string &line, std::string &fiel
 	if (j == line.length()) {
 		//没有找到成对的结束引号
 		
-		printf("resoleve the line error: no pair quote, line:%s, field:%s, start index:%d", line.c_str(), field.c_str(), i);
+		CLog::log("resoleve the line error: no pair quote, line:%s, field:%s, start index:%d", line.c_str(), field.c_str(), i);
 	}
 
 	return j;
@@ -151,7 +151,7 @@ FILEDATA *CSVDataHelper::getFileByName(string filename){
 	unsigned char *pchBuf = new unsigned char[nLen + 1];
 	if (!pchBuf)
 	{
-		printf( "内存不够!\n");
+		CLog::log( "内存不够!\n");
 		exit(0);
 	}
 
@@ -159,7 +159,7 @@ FILEDATA *CSVDataHelper::getFileByName(string filename){
 	nLen = fread(pchBuf, sizeof(unsigned char), nLen, fd);
 
 	pchBuf[nLen] = '\0'; //添加字符串结尾标志
-	//log::printf((char*)pchBuf);
+	//log::CLog::log((char*)pchBuf);
 	FILEDATA *p = new FILEDATA();
 	p->_data = pchBuf;
 	p->_len = nLen;

@@ -18,6 +18,7 @@
     <ClCompile Include="Classes\cc\LogicServer.cpp" />
     <ClCompile Include="Classes\cc\Login.cpp" />
     <ClCompile Include="Classes\cc\Vo.cpp" />
+    <ClCompile Include="Classes\CLog.cpp" />
     <ClCompile Include="Classes\Common.cpp" />
     <ClCompile Include="Classes\config\CSVDataHelper.cpp" />
     <ClCompile Include="Classes\config\CSVDataInfo.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Classes\cc\LogicServer.h" />
     <ClInclude Include="Classes\cc\Login.h" />
     <ClInclude Include="Classes\cc\Vo.h" />
+    <ClInclude Include="Classes\CLog.h" />
     <ClInclude Include="Classes\Common.h" />
     <ClInclude Include="Classes\config\CSVBaseData.h" />
     <ClInclude Include="Classes\config\CSVDataHelper.h" />
