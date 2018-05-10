@@ -80,7 +80,7 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 		char *out = new char[sz + 1];
 		CLog::log("test requset:%s:%d\n", ip.c_str(), port);
 		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
-		CLog::log("test %s\n", out);
+		CLog::log("test %s [sz:%d]\n", out,sz);
 		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
 		CLog::log("test1 %d\n", sz);
 		delete out;
@@ -139,11 +139,12 @@ void HttpEvent::init(){
 }
 
 YMSocketData HttpEvent::getSocketDataByStr(const char* buff, int sz){
+	CLog::log("getSocketDataByStr1 [%s][%d]", buff,sz);
 	YMSocketData sd;
 	if (!buff){
 		return sd;
 	}
 	sd.parse((char *)buff, sz);
-
+	CLog::log("getSocketDataByStr %s", sd.getJsonString().c_str());
 	return sd;
 }
