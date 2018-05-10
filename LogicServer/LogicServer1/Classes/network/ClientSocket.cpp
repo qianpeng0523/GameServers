@@ -34,9 +34,9 @@ void ClientSocket::createTcp(){
 	TcpSocket::Init();
 	int ret = m_tcpSocket->Create(AF_INET, SOCK_STREAM, IPPROTO_IP);
 	if (ret) {
-		CLog::log("[%s]Create socket:success,ret:%d\n",Common::getLocalTime().c_str(), ret);
+		CLog::log("Create socket:success,ret:%d\n", ret);
 	} else {
-		CLog::log("[%s]Create socket:fail,ret:%d", Common::getLocalTime().c_str(), ret);
+		CLog::log("Create socket:fail,ret:%d", ret);
 	}
 }
 
@@ -147,7 +147,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 	delete out;
 	
 	if (m_tcpSocket){
-		CLog::log("[%s]sendmsg[0x%04X]:body:%s\n", Common::getLocalTime().c_str(),cmd, msg->DebugString().c_str());
+		CLog::log("sendmsg[0x%04X]:body:%s\n",cmd, msg->DebugString().c_str());
 		int err = m_tcpSocket->Send(buffer, HEADLEN + len);
 	}
 	delete buffer;
@@ -156,7 +156,7 @@ void ClientSocket::sendMsg(int cmd,const google::protobuf::Message *msg){
 
 void ClientSocket::DataIn(char* data, int size,int cmd){
 	//数据不能用string  只能用char*
-	CLog::log("[%s]DataIn size:%d cmd:%d\n", Common::getLocalTime().c_str(), size, cmd);
+	CLog::log("DataIn size:%d cmd:%d\n", size, cmd);
 	ccEvent *sEvent = new ccEvent(cmd, data, size,1);
 	EventDispatcher::getIns()->disEventDispatcher(sEvent);
 }
@@ -186,13 +186,13 @@ void *ClientSocket::threadHandler(void *arg) {
 				p->DataIn(out, len, cmd);
 			}
 			else{
-				CLog::log("[%s]数据不合法\n", Common::getLocalTime().c_str());
+				CLog::log("数据不合法\n");
 				delete temp;
 				p->close();
 			}
 
         } else{
-			CLog::log("[%s]%s\n", Common::getLocalTime().c_str(), "==== connect break up ====");
+			CLog::log("%s\n",  "==== connect break up ====");
             //服务端断开
             p->close();
 			//断开线程
