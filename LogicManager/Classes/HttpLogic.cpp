@@ -45,14 +45,14 @@ void HttpLogic::ManagerDataCall(YMSocketData sd){
 	if (err == 0){
 		HttpLogic::SERVER_PORT = sd["port"].asInt();
 		HttpLogic::SERVER_CODE = sd["name"].asString().c_str();
-		std::cout << "socket start:" << HttpLogic::SERVER_PORT << std::endl;
+		CLog::log("socket start[%s]:[port]%d", HttpLogic::SERVER_CODE.c_str(), HttpLogic::SERVER_PORT);
 		LibEvent *clib = LibEvent::getIns();
 		clib->StartServer(HttpLogic::SERVER_PORT, 2, 5000, 600, 600);
 		getchar();
 		clib->StopServer();
 	}
 	else{
-		printf("未获取到数据\n");
+		CLog::log("未获取到数据\n");
 	}
 }
 
@@ -64,7 +64,7 @@ void HttpLogic::respondleLogic(YMSocketData sd){
 }
 
 void HttpLogic::HandleLogic(YMSocketData sd, char *&buff, int &sz){
-	printf("socketdata:%s",sd.getJsonString().c_str());
+	CLog::log("socketdata:%s",sd.getJsonString().c_str());
 }
 
 

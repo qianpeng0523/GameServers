@@ -94,6 +94,7 @@
     <ClCompile Include="Classes\cc\Room.cpp" />
     <ClCompile Include="Classes\cc\RoomLogic.cpp" />
     <ClCompile Include="Classes\cc\Vo.cpp" />
+    <ClCompile Include="Classes\common\CLog.cpp" />
     <ClCompile Include="Classes\common\Common.cpp" />
     <ClCompile Include="Classes\common\CSVDataHelper.cpp" />
     <ClCompile Include="Classes\common\CSVDataInfo.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Classes\cc\Room.h" />
     <ClInclude Include="Classes\cc\RoomLogic.h" />
     <ClInclude Include="Classes\cc\Vo.h" />
+    <ClInclude Include="Classes\common\CLog.h" />
     <ClInclude Include="Classes\common\Common.h" />
     <ClInclude Include="Classes\common\CSVBaseData.h" />
     <ClInclude Include="Classes\common\CSVDataHelper.h" />

@@ -168,22 +168,22 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 			len = bufferevent_read(bev, buffer, bodylen);
 			c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
 
-			printf("ClientSocket threadHandler:cmd[0x%04X],len[%d],servercode[%s]\nrecvstamp:%d---clienstamp:%d\n", cmd, bodylen, serverdest.c_str(), c->m_recvstamp, stamp);
+			CLog::log("ClientSocket threadHandler:cmd[0x%04X],len[%d],servercode[%s]\nrecvstamp:%d---clienstamp:%d\n", cmd, bodylen, serverdest.c_str(), c->m_recvstamp, stamp);
 			if (len == bodylen&&c->m_recvstamp == stamp){
 				char *out = new char[bodylen + 1];
 				HttpLogic::getIns()->aes_decrypt(buffer, bodylen, out);
 				delete buffer;
 				ccEvent *cce = new ccEvent(cmd, out, bodylen, c->fd, serverdest);
 				if (cce->msg){
-					printf("right\n");
+					CLog::log("right\n");
 				}
 				else{
-					printf("wrong\n");
+					CLog::log("wrong\n");
 				}
 				EventDispatcher::getIns()->disEventDispatcher(cce);
 			}
 			else{
-				printf("[%s]数据不合法！！！！！！！！\n", Common::getLocalTime().c_str());
+				CLog::log("数据不合法！！！！！！！！\n");
 				delete buffer;
 			}
 		}
@@ -226,7 +226,7 @@ void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_so
 			buffer[i] = out[i - HEADLEN];
 		}
 		delete out;
-		printf("[%s]senddata[0x%04X]:%s\n", Common::getLocalTime().c_str(),cmd, msg->DebugString().c_str());
+		CLog::log("senddata[0x%04X]:%s\n",cmd, msg->DebugString().c_str());
 		bufferevent_write(pdata->_conn->bufev, buffer, len + HEADLEN);
 
 		delete buffer;
@@ -296,7 +296,7 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	pConn->m_sendstamp = 0;
 	struct sockaddr_in * in = (struct sockaddr_in *)sa;
 	string ip = inet_ntoa(in->sin_addr);
-	printf("[%s]accept IP:%s [FD:%d]\n", Common::getLocalTime().c_str(), ip.c_str(),fd);
+	CLog::log("accept IP:%s [FD:%d]\n", ip.c_str(),fd);
 	pConn->fd = fd;
 	//记录连接的信息 fd关键
 	ClientData *data = new ClientData();
@@ -371,7 +371,7 @@ int LibEvent::getStamp(Head *h){
 
 void LibEvent::inserClientData(int fd, ClientData *data){
 	if (m_ClientDatas.find(fd) == m_ClientDatas.end()){
-		printf("insert_fd:%d\n",fd);
+		CLog::log("insert_fd:%d\n",fd);
 		m_ClientDatas.insert(make_pair(fd, data));
 	}
 }
@@ -411,7 +411,7 @@ void LibEvent::eraseClientData(int fd){
 		m_ClientDatas.erase(m_ClientDatas.find(fd));
 		if (data){
 			if (data->_conn){
-				printf("[%s]%s close connect!\n", Common::getLocalTime().c_str(), data->m_ip.c_str());
+				CLog::log("%s close connect!\n", data->m_ip.c_str());
 				resetConn(data->_conn);
 			}
 			delete data;
@@ -427,7 +427,7 @@ void LibEvent::eraseClientData(string sesionid){
 			m_ClientDatas.erase(itr);
 			if (data){
 				if (data->_conn){
-					printf("[%s]%s close connect!\n", Common::getLocalTime().c_str(), data->m_ip.c_str());
+					CLog::log("%s close connect!\n", data->m_ip.c_str());
 					CloseConn(data->_conn, emFunClosed);
 				}
 				delete data;
