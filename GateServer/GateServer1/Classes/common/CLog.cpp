@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "CLog.h"
 #include "Common.h"
-#include "WinBase.h"
+#include "stdarg.h"
 
 FILE* CLog::m_file = NULL;
 string CLog::m_filepath = "";
@@ -160,14 +160,14 @@ void CLog::log(const char* fmt, ...){
 	string file = getFile();
 	if (!m_file){
 		m_filepath = file;
-		m_file = fopen(m_filepath.c_str(), "w+");
+		m_file = fopen(m_filepath.c_str(), "a+");
 		fseek(m_file, 0, SEEK_END);
 	}
 	else{
 		if (m_filepath.compare(file) != 0){
 			fclose(m_file);
 			m_filepath = file;
-			m_file = fopen(m_filepath.c_str(), "w+");
+			m_file = fopen(m_filepath.c_str(), "a+");
 			fseek(m_file, 0, SEEK_END);
 		}
 	}

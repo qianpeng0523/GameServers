@@ -1,0 +1,31 @@
+redis auth success
+111
+
+/************************************************/
+socket[gt1] start:5601
+/************************************************/
+
+/************************************************/
+client socket start:[ip]:47.104.165.65,[port]:6001
+/************************************************/
+Create socket:success,ret:828
+[2018-05-10 11:47:29]sendmsg[0x0x1WWX]:body:servername: "gt1"
+seession: "kashdkiuySKJHFKS312skfhksuiie2342"
+
+[2018-05-10 11:47:29] ==== connect break up ====
+01
+redis auth success
+111
+
+/************************************************/
+socket[gt1] start:5601
+/************************************************/
+
+/************************************************/
+client socket start:[ip]:47.104.165.65,[port]:6001
+/************************************************/
+Create socket:success,ret:848
+[2018-05-10 12:31:45]sendmsg[0x0x1WWX]:body:servername: "gt1"
+seession: "kashdkiuySKJHFKS312skfhksuiie2342"
+
+[2018-05-10 12:31:45] ==== connect break up ====
