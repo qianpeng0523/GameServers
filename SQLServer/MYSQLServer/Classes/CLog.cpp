@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "CLog.h"
 #include "Common.h"
-#include "WinBase.h"
+#include "stdarg.h"
 
 FILE* CLog::m_file = NULL;
 string CLog::m_filepath = "";
@@ -162,14 +162,14 @@ void CLog::log(const char* fmt, ...){
 	string file = getFile();
 	if (!m_file){
 		m_filepath = file;
-		m_file = fopen(m_filepath.c_str(), "w+");
+		m_file = fopen(m_filepath.c_str(), "a+");
 		fseek(m_file, 0, SEEK_END);
 	}
 	else{
 		if (m_filepath.compare(file) != 0){
 			fclose(m_file);
 			m_filepath = file;
-			m_file = fopen(m_filepath.c_str(), "w+");
+			m_file = fopen(m_filepath.c_str(), "a+");
 			fseek(m_file, 0, SEEK_END);
 		}
 	}
@@ -224,7 +224,7 @@ void CLog::printbin(int bin)
 {
 	if (bin == 0)
 	{
-		printstr("0b");
+		//printstr("0b");
 		return;
 	}
 	printbin(bin / 2);
@@ -235,16 +235,18 @@ void CLog::printhex(int hex)
 {
 	if (hex == 0)
 	{
-		printstr("0x");
+		//printstr("0x");
 		return;
 	}
 	printhex(hex / 16);
-	if (hex < 10)
+	if (hex < 10||hex%16<10)
 	{
 		printch((char)(hex % 16 + '0'));
 	}
 	else
 	{
-		printch((char)(hex % 16 - 10 + 'a'));
+		int a = hex % 16 - 10 + 'A';
+		char b = a;
+		printch(b);
 	}
 }
