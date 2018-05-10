@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-#include "Poco/Timer.h"
+#include "Poco\Timer.h"
 #include "Object.h"
 #include <map>
 #include <vector>
@@ -13,7 +13,7 @@ using namespace std;
 using Poco::Timer;         // 使用Timer基类的成员
 using Poco::TimerCallback; // 使用TimerCallback基类的成员
 
-#define ONCETIME 1000/60.0
+#define ONCETIME 1000/1000.0
 
 struct TimeFun
 {
@@ -71,5 +71,7 @@ private:
 	TimerCallback<StatTimer> callback;  // 套用模板，将StatTimer类关联起来
 	Timer timer;
 	map<Object *, TimerEvent *>m_timeevents;
+	bool m_lock;
+	map<Object *, TimerEvent *>m_timeeventstemp;
 };
 #endif // __Common_H__
