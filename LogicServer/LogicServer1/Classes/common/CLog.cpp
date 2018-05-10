@@ -178,7 +178,7 @@ void CLog::log(const char* fmt, ...){
 }
 
 
-void CLog::printch(char ch, bool other){
+void  CLog::printch(char ch, bool other){
 	if (other){
 		m_content += ch;
 	}
@@ -224,7 +224,7 @@ void CLog::printbin(int bin)
 {
 	if (bin == 0)
 	{
-		printstr("0b");
+		//printstr("0b");
 		return;
 	}
 	printbin(bin / 2);
@@ -235,16 +235,18 @@ void CLog::printhex(int hex)
 {
 	if (hex == 0)
 	{
-		printstr("0x");
+		//printstr("0x");
 		return;
 	}
 	printhex(hex / 16);
-	if (hex < 10)
+	if (hex < 10||hex%16<10)
 	{
 		printch((char)(hex % 16 + '0'));
 	}
 	else
 	{
-		printch((char)(hex % 16 - 10 + 'a'));
+		int a = hex % 16 - 10 + 'A';
+		char b = a;
+		printch(b);
 	}
 }
