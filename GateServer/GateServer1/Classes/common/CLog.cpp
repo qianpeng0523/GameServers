@@ -29,7 +29,9 @@ string CLog::getFile()
 
 
 void CLog::log(const char* fmt, ...){
-	m_content = "";
+	m_content = "¡¾";
+	m_content += Common::getLocalTime();
+	m_content += "¡¿";
 	double vargflt = 0;
 	int  vargint = 0;
 	char* vargpch = NULL;

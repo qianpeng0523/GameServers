@@ -170,7 +170,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 			len = bufferevent_read(bev, buffer, bodylen);
 			CLog::log("libevent threadHandler:cmd[0x%04X],len[%d],servercode[%s]\n", cmd, bodylen, serverdest.c_str());
 			c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
-			CLog::log("[%s]len[%d]==bodylen[%d]  server stamp[%d]==stamp[%d]\n", Common::getLocalTime().c_str(), len, bodylen, stamp, c->m_recvstamp);
+			CLog::log("len[%d]==bodylen[%d]  server stamp[%d]==stamp[%d]\n",len, bodylen, stamp, c->m_recvstamp);
 			if (len == bodylen&&c->m_recvstamp == stamp){
 				char* out = new char[len + 1];
 				HttpLogic::getIns()->aes_decrypt(buffer, len, out);
@@ -179,7 +179,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 				EventDispatcher::getIns()->disEventDispatcher(cce);
 			}
 			else{
-				CLog::log("[%s]LibEvent数据不合法！！！！！！！！\n", Common::getLocalTime().c_str());
+				CLog::log("LibEvent数据不合法！！！！！！！！\n");
 				LibEvent::getIns()->CloseConn(c);
 			}
 		}
@@ -190,11 +190,11 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 }
 
 void LibEvent::SendData(int cmd, const google::protobuf::Message *msg, evutil_socket_t fd){
-	CLog::log("[%s][0x%04X]%s\n",Common::getLocalTime().c_str(),cmd,msg->DebugString().c_str());
+	CLog::log("[0x%04X]%s\n",cmd,msg->DebugString().c_str());
 	ClientData *pdata = getClientData(fd);
 	if (pdata&&pdata->_conn){
 		pdata->_conn->m_sendstamp = (pdata->_conn->m_sendstamp + 1) % MAXSTAMP;
-		CLog::log("[%s]stamp:%d\n",Common::getLocalTime().c_str(), pdata->_conn->m_sendstamp);
+		CLog::log("tamp:%d\n", pdata->_conn->m_sendstamp);
 		int len = msg->ByteSize();
 		char *buffer = new char[HEADLEN + len];
 		memset(buffer, 0, HEADLEN + len);
@@ -290,7 +290,7 @@ void LibEvent::DoAccept(struct evconnlistener *listener, evutil_socket_t fd, str
 	}
 	struct sockaddr_in * in = (struct sockaddr_in *)sa;
 	string ip = inet_ntoa(in->sin_addr);
-	CLog::log("[%s]accept IP:%s\n", Common::getLocalTime().c_str(),ip.c_str());
+	CLog::log("accept IP:%s\n",ip.c_str());
 	pConn->fd = fd;
 
 	evutil_make_socket_nonblocking(pConn->fd);
@@ -400,7 +400,7 @@ void LibEvent::eraseClientData(int fd){
 		ClientData *data = m_ClientDatas.at(fd);
 		m_ClientDatas.erase(m_ClientDatas.find(fd));
 		if (data){
-			CLog::log("[%s]close ip:%s\n", Common::getLocalTime().c_str(),data->_ip.c_str());
+			CLog::log("close ip:%s\n",data->_ip.c_str());
 			if (data->_conn){
 				SendLeave(data->_uid);
 				resetConn(data->_conn);
@@ -417,7 +417,7 @@ void LibEvent::eraseClientData(string sesionid){
 		if (data&&data->_sessionID.compare(sesionid) == 0){
 			m_ClientDatas.erase(itr);
 			if (data){
-				CLog::log("[%s]close ip:%s\n", Common::getLocalTime().c_str(), data->_ip.c_str());
+				CLog::log("close ip:%s\n",data->_ip.c_str());
 				if (data->_conn){
 					SendLeave(data->_uid);
 					CloseConn(data->_conn, emFunClosed);
