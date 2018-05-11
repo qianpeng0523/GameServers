@@ -74,8 +74,8 @@ static string SERVER_IP = "192.168.50.151";
 #pragma comment(lib,"../../../redis/Debug/hiredis.lib")
 #endif
 
-//#define sqlhttp "http://192.168.50.151:8080/"
-#define sqlhttp "http://www.lesharecs.com:8080/"
+//#define sqlhttp "http://192.168.50.151:8080/f137e668f5b5babdd361dcb5966a3fe9"
+#define sqlhttp "http://www.lesharecs.com:8080/f137e668f5b5babdd361dcb5966a3fe9"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 
@@ -84,3 +84,4 @@ static string SERVER_IP = "192.168.50.151";
 
 #define CHI_DEFINE 0
 #define LOGICNAME "lg1"
+#define HTTP_KEY "f137e668f5b5babdd361dcb5966a3fe9"
