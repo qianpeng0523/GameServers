@@ -344,6 +344,15 @@ void GRoom::selectZhuang(){
 }
 
 void GRoom::SendDice(string uid){
+	m_leftround -= 1;
+	if (m_leftround < 0){
+		SDice sd;
+		sd.set_suid(uid);
+		sd.set_err(1);
+		m_pRoomLogicInfo->SendSDice(sd);
+		return;
+	}
+	m_roomdata.set_left(m_leftround);
 	UData *ud = m_udata[m_zhuangpos-1];
 	SDice sd;
 	sd.set_suid(uid);
@@ -792,7 +801,7 @@ bool GRoom::DissolveRoom(string uid){
 			sd.set_position(getPosition(uid));
 			sd.set_time(Common::getTime());
 			m_pRoomInfo->SendSDissolveRoom(sd);
-			if (m_voteuids.size() == 1){
+			if (m_voteuids.size() <= 1){
 				VoteResult(true);
 			}
 			return true;

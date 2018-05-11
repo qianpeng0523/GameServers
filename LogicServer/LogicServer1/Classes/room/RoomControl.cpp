@@ -55,6 +55,7 @@ GRoom *RoomControl::createRoom(string uid, int type, int ante, int round, int ba
 	rd.set_bao(bao);
 	rd.set_bang(bang);
 	rd.set_uid(uid);
+	rd.set_left(round);
 	string rid = createRoom();
 	rd.set_roomid(rid);
 	if (m_roomdatas.find(rid) == m_roomdatas.end()){
@@ -110,6 +111,13 @@ bool RoomControl::ReadyMJ(string uid, bool ready){
 		gr->Ready(uid, ready);
 		return true;
 	}
+	else{
+		SReady sr;
+		sr.set_err(1);
+		sr.set_uid(uid);
+		sr.set_suid(uid);
+		RoomInfo::getIns()->SendSReady(sr);
+	}
 	return false;
 }
 
@@ -135,6 +143,13 @@ bool RoomControl::DissolveRoom(string uid, string rid){
 	GRoom *gr = getGRoom(rid);
 	if (gr){
 		gr->DissolveRoom(uid);
+	}
+	else{
+		SDissolveRoom sd;
+		sd.set_uid(uid);
+		sd.set_rid(rid);
+		sd.set_err(1);
+		RoomInfo::getIns()->SendSDissolveRoom(sd);
 	}
 	return true;
 }

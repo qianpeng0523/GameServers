@@ -113,6 +113,7 @@ void RoomInfo::HandCHMMJEnterRoom(ccEvent *event){
 	GRoom *gr = m_pRoomControl->enterRoom(uid, rid);
 	RoomUser scomeinuser;
 	if (gr){
+		sr.set_begin(gr->isBegin());
 		gr->onLine(uid, true);
 		RoomData *rd = sr.mutable_roomdata();
 		rd->CopyFrom(gr->getRoomData());

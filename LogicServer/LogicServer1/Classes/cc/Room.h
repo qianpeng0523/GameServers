@@ -548,10 +548,17 @@ class SHMMJEnterRoom : public ::google::protobuf::Message {
   inline ::std::string* release_uid();
   inline void set_allocated_uid(::std::string* uid);
 
-  // optional uint32 err = 6;
+  // optional bool begin = 6;
+  inline bool has_begin() const;
+  inline void clear_begin();
+  static const int kBeginFieldNumber = 6;
+  inline bool begin() const;
+  inline void set_begin(bool value);
+
+  // optional uint32 err = 7;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 6;
+  static const int kErrFieldNumber = 7;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -563,6 +570,8 @@ class SHMMJEnterRoom : public ::google::protobuf::Message {
   inline void clear_has_roomdata();
   inline void set_has_uid();
   inline void clear_has_uid();
+  inline void set_has_begin();
+  inline void clear_has_begin();
   inline void set_has_err();
   inline void clear_has_err();
 
@@ -571,12 +580,13 @@ class SHMMJEnterRoom : public ::google::protobuf::Message {
   ::protocol::RoomData* roomdata_;
   ::google::protobuf::RepeatedPtrField< ::protocol::RoomUser > roomusers_;
   ::google::protobuf::uint32 cmd_;
-  ::google::protobuf::uint32 err_;
+  bool begin_;
   ::google::protobuf::RepeatedPtrField< ::protocol::SVote > sv_;
   ::std::string* uid_;
+  ::google::protobuf::uint32 err_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
   friend void  protobuf_AddDesc_Room_2eproto();
   friend void protobuf_AssignDesc_Room_2eproto();
@@ -3229,15 +3239,37 @@ inline void SHMMJEnterRoom::set_allocated_uid(::std::string* uid) {
   }
 }
 
-// optional uint32 err = 6;
-inline bool SHMMJEnterRoom::has_err() const {
+// optional bool begin = 6;
+inline bool SHMMJEnterRoom::has_begin() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void SHMMJEnterRoom::set_has_err() {
+inline void SHMMJEnterRoom::set_has_begin() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void SHMMJEnterRoom::clear_has_err() {
+inline void SHMMJEnterRoom::clear_has_begin() {
   _has_bits_[0] &= ~0x00000020u;
+}
+inline void SHMMJEnterRoom::clear_begin() {
+  begin_ = false;
+  clear_has_begin();
+}
+inline bool SHMMJEnterRoom::begin() const {
+  return begin_;
+}
+inline void SHMMJEnterRoom::set_begin(bool value) {
+  set_has_begin();
+  begin_ = value;
+}
+
+// optional uint32 err = 7;
+inline bool SHMMJEnterRoom::has_err() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void SHMMJEnterRoom::set_has_err() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void SHMMJEnterRoom::clear_has_err() {
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void SHMMJEnterRoom::clear_err() {
   err_ = 0u;

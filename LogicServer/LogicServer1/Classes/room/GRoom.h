@@ -58,7 +58,7 @@ public:
 	void setRoomData(RoomData rd){
 		m_roomdata.CopyFrom(rd);
 		m_fangzhuuid = rd.uid();
-		m_leftround = rd.round();
+		m_leftround = rd.left();
 	}
 
 	void reset();
