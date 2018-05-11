@@ -2410,6 +2410,13 @@ class RoomData : public ::google::protobuf::Message {
   inline ::std::string* release_uid();
   inline void set_allocated_uid(::std::string* uid);
 
+  // optional uint32 left = 9;
+  inline bool has_left() const;
+  inline void clear_left();
+  static const int kLeftFieldNumber = 9;
+  inline ::google::protobuf::uint32 left() const;
+  inline void set_left(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.RoomData)
  private:
   inline void set_has_type();
@@ -2428,6 +2435,8 @@ class RoomData : public ::google::protobuf::Message {
   inline void clear_has_roomtype();
   inline void set_has_uid();
   inline void clear_has_uid();
+  inline void set_has_left();
+  inline void clear_has_left();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -2437,11 +2446,12 @@ class RoomData : public ::google::protobuf::Message {
   ::google::protobuf::uint32 bao_;
   ::std::string* roomid_;
   ::std::string* roomtype_;
-  ::std::string* uid_;
   ::google::protobuf::uint32 bang_;
+  ::google::protobuf::uint32 left_;
+  ::std::string* uid_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(9 + 31) / 32];
 
   friend void  protobuf_AddDesc_Vo_2eproto();
   friend void protobuf_AssignDesc_Vo_2eproto();
@@ -7247,6 +7257,28 @@ inline void RoomData::set_allocated_uid(::std::string* uid) {
     clear_has_uid();
     uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
+}
+
+// optional uint32 left = 9;
+inline bool RoomData::has_left() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void RoomData::set_has_left() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void RoomData::clear_has_left() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void RoomData::clear_left() {
+  left_ = 0u;
+  clear_has_left();
+}
+inline ::google::protobuf::uint32 RoomData::left() const {
+  return left_;
+}
+inline void RoomData::set_left(::google::protobuf::uint32 value) {
+  set_has_left();
+  left_ = value;
 }
 
 // -------------------------------------------------------------------
