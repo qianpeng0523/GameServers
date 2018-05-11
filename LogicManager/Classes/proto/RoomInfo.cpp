@@ -82,8 +82,8 @@ RoomInfo::RoomInfo()
 	pe->addListener(sl28.cmd(), this, Event_Handler(RoomInfo::HandSVote), LOGIC_TYPE);
 
 	SVoteResult sl30;
-	pe->registerProto(sl30.cmd(), sl3.GetTypeName(), LOGIC_TYPE);
-	pe->addListener(sl3.cmd(), this, Event_Handler(RoomInfo::HandSVoteResult), LOGIC_TYPE);
+	pe->registerProto(sl30.cmd(), sl30.GetTypeName(), LOGIC_TYPE);
+	pe->addListener(sl30.cmd(), this, Event_Handler(RoomInfo::HandSVoteResult), LOGIC_TYPE);
 }
 
 RoomInfo::~RoomInfo(){
