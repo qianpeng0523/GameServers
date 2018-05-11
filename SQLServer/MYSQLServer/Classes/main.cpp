@@ -12,6 +12,8 @@
 #include "HttpLogic.h"
 #include "redis.h"
 #include "RedisGet.h"
+#include "MD55.h"
+
 // 线程A 方法
 DWORD WINAPI ThreadHttp(LPVOID lPVOID){
 	HttpEvent::getIns()->init();
@@ -24,6 +26,17 @@ DWORD WINAPI ThreadHttp(LPVOID lPVOID){
 
 int main()
 {
+// 	YMSocketData sd1;
+// 	sd1["nn"] = "1234";
+// 	sd1["type"] = 222;
+// 	char buff[1024];
+// 	int sz = 0;
+// 	sd1.serializer(buff, &sz);
+// 	buff[1] = '\0';
+// 	YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(buff, sz);
+// 	printf("%d\n",sd.getJsonString().c_str());
+
+	
 	CSVDataInfo::getIns();
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 1), &wsaData);

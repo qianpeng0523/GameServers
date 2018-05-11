@@ -11,6 +11,7 @@
 
 #include "YMvalue.h"
 #include "YMreader.h"
+
 using namespace std;
 class YMSocketData : public CSJson::Value
 {
@@ -31,8 +32,9 @@ public:
         {
             msgpack::unpacked unpackBuff;
             msgpack::unpack(&unpackBuff, buffer, iSize);
+			printf("%d\n",iSize);
             std::string jsonStr = unpackMsgData(&unpackBuff.get());
-            //CCLog(jsonStr.c_str());
+			printf("parse %s\n", jsonStr.c_str());
             reader.parse(jsonStr, *this);
         }
         else

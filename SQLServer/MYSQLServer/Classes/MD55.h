@@ -6,7 +6,6 @@
 
 /* Type define */
 typedef unsigned char byte;
-typedef unsigned int uint32;
 
 using std::string;
 using std::ifstream;
@@ -30,8 +29,8 @@ private:
 	void update(const byte* input, size_t length);
 	void final();
 	void transform(const byte block[64]);
-	void encode(const uint32* input, byte* output, size_t length);
-	void decode(const byte* input, uint32* output, size_t length);
+	void encode(const unsigned int* input, byte* output, size_t length);
+	void decode(const byte* input, unsigned int* output, size_t length);
 	string bytesToHexString(const byte* input, size_t length);
 
 	/* class uncopyable */
@@ -39,8 +38,8 @@ private:
 	MD55& operator=(const MD55&);
 
 private:
-	uint32 _state[4];	/* state (ABCD) */
-	uint32 _count[2];	/* number of bits, modulo 2^64 (low-order word first) */
+	unsigned int _state[4];	/* state (ABCD) */
+	unsigned int _count[2];	/* number of bits, modulo 2^64 (low-order word first) */
 	byte _buffer[64];	/* input buffer */
 	byte _digest[16];	/* message digest */
 	bool _finished;		/* calculate finished ? */

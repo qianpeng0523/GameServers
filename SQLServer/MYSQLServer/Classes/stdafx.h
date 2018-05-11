@@ -65,3 +65,4 @@ using namespace protocol;
 using namespace std;
 
 #define KONGGE "^"
+#define HTTP_KEY "f137e668f5b5babdd361dcb5966a3fe9"

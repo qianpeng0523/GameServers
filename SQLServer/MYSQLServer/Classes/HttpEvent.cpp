@@ -71,18 +71,48 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	CLog::log("%s requset:%s:%d\n", Common::getLocalTime().c_str(),ip.c_str(), port);
-	
+	CLog::log("%s requset:%s:%d 非法入侵\n", Common::getLocalTime().c_str(),ip.c_str(), port);
+	string ttt="?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶";
+	for (int i = 0; i < 10; i++){
+		YMSocketData sd;
+		sd["鏮ぱ"] = ttt;
+		
+
+		struct evbuffer *buf;
+		buf = evbuffer_new();
+		char *packBuffer = (char *)malloc(4096);
+		int packSize = 0;
+
+		sd.serializer(packBuffer, &packSize);
+
+		evbuffer_add(buf, packBuffer, packSize);
+		
+		evhttp_send_reply(req, HTTP_OK, "OK", buf);
+		evbuffer_free(buf);
+		free(packBuffer);
+	}
+}
+
+//处理模块
+void specific_handler(struct evhttp_request *req, void *arg) {
+
+	//HTTP header
+	evhttp_add_header(req->output_headers, "Server", MYHTTPD_SIGNATURE);
+	evhttp_add_header(req->output_headers, "Content-Type", "text/plain; charset=UTF-8");
+	evhttp_add_header(req->output_headers, "Connection", "close");
+	//输出的内容
+
+	string ip = req->remote_host;
+	int port = req->remote_port;
+	CLog::log("%s requset:%s:%d\n", Common::getLocalTime().c_str(), ip.c_str(), port);
+
 	struct evbuffer *buffer = req->input_buffer;
 	int sz = EVBUFFER_LENGTH(buffer);
-	char *buff= (char *)EVBUFFER_DATA(buffer);
-	if (buff&&sz>0){
+	char *buff = (char *)EVBUFFER_DATA(buffer);
+	if (buff&&sz > 0){
 		char *out = new char[sz + 1];
-		CLog::log("test requset:%s:%d\n", ip.c_str(), port);
 		HttpLogic::getIns()->aes_decrypt(buff, sz, out);
-		CLog::log("test %s [sz:%d]\n", out,sz);
 		YMSocketData sd = HttpEvent::getIns()->getSocketDataByStr(out, sz);
-		CLog::log("test1 %d\n", sz);
 		delete out;
 		HttpEvent::getIns()->SendMsg(sd, req);
 	}
@@ -129,7 +159,9 @@ void HttpEvent::init(){
 	//如果大厅是短连接，则需要短连接带上token
 
 	//也可以为特定的URI指定callback
-	//evhttp_set_cb(httpd, "/", specific_handler, NULL);
+	string t = "/";
+	t += HTTP_KEY;
+	evhttp_set_cb(m_httpd, t.c_str(), specific_handler, NULL);
 
 	//循环处理events
 	event_dispatch();
@@ -139,12 +171,11 @@ void HttpEvent::init(){
 }
 
 YMSocketData HttpEvent::getSocketDataByStr(const char* buff, int sz){
-	CLog::log("getSocketDataByStr1 [%s][%d]", buff,sz);
 	YMSocketData sd;
 	if (!buff){
 		return sd;
 	}
 	sd.parse((char *)buff, sz);
-	CLog::log("getSocketDataByStr %s", sd.getJsonString().c_str());
+	CLog::log("requst data:%s", sd.getJsonString().c_str());
 	return sd;
 }
