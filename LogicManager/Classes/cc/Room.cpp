@@ -148,12 +148,13 @@ void protobuf_AssignDesc_Room_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CHMMJEnterRoom));
   SHMMJEnterRoom_descriptor_ = file->message_type(3);
-  static const int SHMMJEnterRoom_offsets_[6] = {
+  static const int SHMMJEnterRoom_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SHMMJEnterRoom, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SHMMJEnterRoom, roomdata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SHMMJEnterRoom, roomusers_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SHMMJEnterRoom, sv_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SHMMJEnterRoom, uid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SHMMJEnterRoom, begin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SHMMJEnterRoom, err_),
   };
   SHMMJEnterRoom_reflection_ =
@@ -572,41 +573,42 @@ void protobuf_AddDesc_Room_2eproto() {
     "ser\030\003 \001(\0132\022.protocol.RoomUser\022\013\n\003err\030\004 \001"
     "(\r\"P\n\016CHMMJEnterRoom\022\022\n\003cmd\030\001 \001(\r:\00528673"
     "\022\016\n\006roomid\030\002 \001(\t\022\r\n\005rtype\030\003 \001(\r\022\013\n\003uid\030\004"
-    " \001(\t\"\250\001\n\016SHMMJEnterRoom\022\022\n\003cmd\030\001 \001(\r:\00528"
+    " \001(\t\"\267\001\n\016SHMMJEnterRoom\022\022\n\003cmd\030\001 \001(\r:\00528"
     "673\022$\n\010roomdata\030\002 \001(\0132\022.protocol.RoomDat"
     "a\022%\n\troomusers\030\003 \003(\0132\022.protocol.RoomUser"
     "\022\033\n\002sv\030\004 \003(\0132\017.protocol.SVote\022\013\n\003uid\030\005 \001"
-    "(\t\022\013\n\003err\030\006 \001(\r\"P\n\007SComein\022\022\n\003cmd\030\001 \001(\r:"
-    "\00528674\022$\n\010roomuser\030\002 \001(\0132\022.protocol.Room"
-    "User\022\013\n\003uid\030\003 \001(\t\"7\n\006CBegin\022\022\n\003cmd\030\001 \001(\r"
-    ":\00528675\022\014\n\004type\030\002 \001(\r\022\013\n\003uid\030\003 \001(\t\"D\n\006SB"
-    "egin\022\022\n\003cmd\030\001 \001(\r:\00528675\022\014\n\004type\030\002 \001(\r\022\013"
-    "\n\003uid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"8\n\006CReady\022\022\n\003cm"
-    "d\030\001 \001(\r:\00528676\022\r\n\005ready\030\002 \001(\010\022\013\n\003uid\030\003 \001"
-    "(\t\"e\n\006SReady\022\022\n\003cmd\030\001 \001(\r:\00528676\022\r\n\005read"
-    "y\030\002 \001(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003uid\030\004 \001(\t\022\014"
-    "\n\004suid\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\":\n\006CLeave\022\022\n\003c"
-    "md\030\001 \001(\r:\00528677\022\013\n\003uid\030\002 \001(\t\022\017\n\007zhudong\030"
-    "\003 \001(\010\"D\n\006SLeave\022\022\n\003cmd\030\001 \001(\r:\00528677\022\013\n\003u"
-    "id\030\002 \001(\t\022\014\n\004suid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"8\n\005C"
-    "Line\022\022\n\003cmd\030\001 \001(\r:\00528678\022\016\n\006online\030\002 \001(\010"
-    "\022\013\n\003uid\030\003 \001(\t\"e\n\005SLine\022\022\n\003cmd\030\001 \001(\r:\005286"
-    "78\022\016\n\006online\030\002 \001(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003"
-    "uid\030\004 \001(\t\022\014\n\004suid\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"=\n\r"
-    "CDissolveRoom\022\022\n\003cmd\030\001 \001(\r:\00528679\022\013\n\003rid"
-    "\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\"x\n\rSDissolveRoom\022\022\n\003"
-    "cmd\030\001 \001(\r:\00528679\022\013\n\003rid\030\002 \001(\t\022\014\n\004time\030\003 "
-    "\001(\r\022\020\n\010position\030\004 \001(\r\022\013\n\003uid\030\005 \001(\t\022\014\n\004su"
-    "id\030\006 \001(\t\022\013\n\003err\030\007 \001(\r\"7\n\005CVote\022\022\n\003cmd\030\001 "
-    "\001(\r:\00528680\022\r\n\005agree\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\"W"
-    "\n\005SVote\022\022\n\003cmd\030\001 \001(\r:\00528680\022\r\n\005agree\030\002 \001"
-    "(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003uid\030\004 \001(\t\022\014\n\004sui"
-    "d\030\005 \001(\t\"N\n\013SVoteResult\022\022\n\003cmd\030\001 \001(\r:\005286"
-    "81\022\020\n\010dissolve\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\022\014\n\004sui"
-    "d\030\005 \001(\t\":\n\006CRChat\022\022\n\003cmd\030\001 \001(\r:\00528682\022\017\n"
-    "\007content\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\"U\n\006SRChat\022\022\n"
-    "\003cmd\030\001 \001(\r:\00528682\022\017\n\007content\030\002 \001(\t\022\013\n\003ui"
-    "d\030\003 \001(\t\022\013\n\003pos\030\004 \001(\r\022\014\n\004suid\030\005 \001(\t", 1754);
+    "(\t\022\r\n\005begin\030\006 \001(\010\022\013\n\003err\030\007 \001(\r\"P\n\007SComei"
+    "n\022\022\n\003cmd\030\001 \001(\r:\00528674\022$\n\010roomuser\030\002 \001(\0132"
+    "\022.protocol.RoomUser\022\013\n\003uid\030\003 \001(\t\"7\n\006CBeg"
+    "in\022\022\n\003cmd\030\001 \001(\r:\00528675\022\014\n\004type\030\002 \001(\r\022\013\n\003"
+    "uid\030\003 \001(\t\"D\n\006SBegin\022\022\n\003cmd\030\001 \001(\r:\00528675\022"
+    "\014\n\004type\030\002 \001(\r\022\013\n\003uid\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\""
+    "8\n\006CReady\022\022\n\003cmd\030\001 \001(\r:\00528676\022\r\n\005ready\030\002"
+    " \001(\010\022\013\n\003uid\030\003 \001(\t\"e\n\006SReady\022\022\n\003cmd\030\001 \001(\r"
+    ":\00528676\022\r\n\005ready\030\002 \001(\010\022\020\n\010position\030\003 \001(\r"
+    "\022\013\n\003uid\030\004 \001(\t\022\014\n\004suid\030\005 \001(\t\022\013\n\003err\030\006 \001(\r"
+    "\":\n\006CLeave\022\022\n\003cmd\030\001 \001(\r:\00528677\022\013\n\003uid\030\002 "
+    "\001(\t\022\017\n\007zhudong\030\003 \001(\010\"D\n\006SLeave\022\022\n\003cmd\030\001 "
+    "\001(\r:\00528677\022\013\n\003uid\030\002 \001(\t\022\014\n\004suid\030\003 \001(\t\022\013\n"
+    "\003err\030\004 \001(\r\"8\n\005CLine\022\022\n\003cmd\030\001 \001(\r:\00528678\022"
+    "\016\n\006online\030\002 \001(\010\022\013\n\003uid\030\003 \001(\t\"e\n\005SLine\022\022\n"
+    "\003cmd\030\001 \001(\r:\00528678\022\016\n\006online\030\002 \001(\010\022\020\n\010pos"
+    "ition\030\003 \001(\r\022\013\n\003uid\030\004 \001(\t\022\014\n\004suid\030\005 \001(\t\022\013"
+    "\n\003err\030\006 \001(\r\"=\n\rCDissolveRoom\022\022\n\003cmd\030\001 \001("
+    "\r:\00528679\022\013\n\003rid\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\"x\n\rSD"
+    "issolveRoom\022\022\n\003cmd\030\001 \001(\r:\00528679\022\013\n\003rid\030\002"
+    " \001(\t\022\014\n\004time\030\003 \001(\r\022\020\n\010position\030\004 \001(\r\022\013\n\003"
+    "uid\030\005 \001(\t\022\014\n\004suid\030\006 \001(\t\022\013\n\003err\030\007 \001(\r\"7\n\005"
+    "CVote\022\022\n\003cmd\030\001 \001(\r:\00528680\022\r\n\005agree\030\002 \001(\010"
+    "\022\013\n\003uid\030\003 \001(\t\"W\n\005SVote\022\022\n\003cmd\030\001 \001(\r:\005286"
+    "80\022\r\n\005agree\030\002 \001(\010\022\020\n\010position\030\003 \001(\r\022\013\n\003u"
+    "id\030\004 \001(\t\022\014\n\004suid\030\005 \001(\t\"N\n\013SVoteResult\022\022\n"
+    "\003cmd\030\001 \001(\r:\00528681\022\020\n\010dissolve\030\002 \001(\010\022\013\n\003u"
+    "id\030\003 \001(\t\022\014\n\004suid\030\005 \001(\t\":\n\006CRChat\022\022\n\003cmd\030"
+    "\001 \001(\r:\00528682\022\017\n\007content\030\002 \001(\t\022\013\n\003uid\030\003 \001"
+    "(\t\"U\n\006SRChat\022\022\n\003cmd\030\001 \001(\r:\00528682\022\017\n\007cont"
+    "ent\030\002 \001(\t\022\013\n\003uid\030\003 \001(\t\022\013\n\003pos\030\004 \001(\r\022\014\n\004s"
+    "uid\030\005 \001(\t", 1769);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Room.proto", &protobuf_RegisterTypes);
   CHMMJCreateRoom::default_instance_ = new CHMMJCreateRoom();
@@ -1832,6 +1834,7 @@ const int SHMMJEnterRoom::kRoomdataFieldNumber;
 const int SHMMJEnterRoom::kRoomusersFieldNumber;
 const int SHMMJEnterRoom::kSvFieldNumber;
 const int SHMMJEnterRoom::kUidFieldNumber;
+const int SHMMJEnterRoom::kBeginFieldNumber;
 const int SHMMJEnterRoom::kErrFieldNumber;
 #endif  // !_MSC_VER
 
@@ -1855,6 +1858,7 @@ void SHMMJEnterRoom::SharedCtor() {
   cmd_ = 28673u;
   roomdata_ = NULL;
   uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  begin_ = false;
   err_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -1904,6 +1908,7 @@ void SHMMJEnterRoom::Clear() {
         uid_->clear();
       }
     }
+    begin_ = false;
     err_ = 0u;
   }
   roomusers_.Clear();
@@ -1990,12 +1995,28 @@ bool SHMMJEnterRoom::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(48)) goto parse_err;
+        if (input->ExpectTag(48)) goto parse_begin;
         break;
       }
 
-      // optional uint32 err = 6;
+      // optional bool begin = 6;
       case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_begin:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &begin_)));
+          set_has_begin();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 7;
+      case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_err:
@@ -2060,9 +2081,14 @@ void SHMMJEnterRoom::SerializeWithCachedSizes(
       5, this->uid(), output);
   }
 
-  // optional uint32 err = 6;
+  // optional bool begin = 6;
+  if (has_begin()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->begin(), output);
+  }
+
+  // optional uint32 err = 7;
   if (has_err()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->err(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->err(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -2109,9 +2135,14 @@ void SHMMJEnterRoom::SerializeWithCachedSizes(
         5, this->uid(), target);
   }
 
-  // optional uint32 err = 6;
+  // optional bool begin = 6;
+  if (has_begin()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->begin(), target);
+  }
+
+  // optional uint32 err = 7;
   if (has_err()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->err(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->err(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -2146,7 +2177,12 @@ int SHMMJEnterRoom::ByteSize() const {
           this->uid());
     }
 
-    // optional uint32 err = 6;
+    // optional bool begin = 6;
+    if (has_begin()) {
+      total_size += 1 + 1;
+    }
+
+    // optional uint32 err = 7;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -2207,6 +2243,9 @@ void SHMMJEnterRoom::MergeFrom(const SHMMJEnterRoom& from) {
     if (from.has_uid()) {
       set_uid(from.uid());
     }
+    if (from.has_begin()) {
+      set_begin(from.begin());
+    }
     if (from.has_err()) {
       set_err(from.err());
     }
@@ -2238,6 +2277,7 @@ void SHMMJEnterRoom::Swap(SHMMJEnterRoom* other) {
     roomusers_.Swap(&other->roomusers_);
     sv_.Swap(&other->sv_);
     std::swap(uid_, other->uid_);
+    std::swap(begin_, other->begin_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
