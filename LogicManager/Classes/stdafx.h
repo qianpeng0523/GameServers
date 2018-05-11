@@ -65,7 +65,8 @@ enum ERR_CODE{
 #define http_handler(_SELECTOR) CC_HTTPFUNC_SELECTOR(_SELECTOR)
 typedef void (Object::*Http_CallFun)(YMSocketData );
 
-#define sqlhttp "http://www.lesharecs.com:8080/"
+#define sqlhttp "http://www.lesharecs.com:8080/f137e668f5b5babdd361dcb5966a3fe9"
 #define LOGIC_TOKEN "kashdkiuySKJHFKS312skfhksuiie2342"
 #define DECKEY "FQ6M1w0GswdKkTuZWcFmM1rU3bDB/CTiw+KrONdCPOg"
 #define MAXSTAMP 128
+#define HTTP_KEY "f137e668f5b5babdd361dcb5966a3fe9"

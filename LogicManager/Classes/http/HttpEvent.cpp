@@ -159,12 +159,14 @@ void HttpEvent::init(){
 	evhttp_set_timeout(httpd, httpd_option_timeout);
 
 	//指定generic callback
-	evhttp_set_gencb(httpd, httpd_handler, NULL);
+	//evhttp_set_gencb(httpd, httpd_handler, NULL);
 
 	//如果大厅是短连接，则需要短连接带上token
 
 	//也可以为特定的URI指定callback
-	//evhttp_set_cb(httpd, "/", specific_handler, NULL);
+	string t = "/";
+	t += HTTP_KEY;
+	evhttp_set_cb(httpd, t.c_str(), httpd_handler, NULL);
 
 	//循环处理events
 	event_dispatch();
