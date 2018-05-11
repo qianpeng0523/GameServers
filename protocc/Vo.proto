@@ -169,6 +169,7 @@ message RoomData{
 	optional string		roomid	= 6;
 	optional string		roomtype= 7;					//1私人场 2金币场 3比赛场
 	optional string		uid		= 8;					//房主id
+	optional uint32		left	= 9;					//剩余局数
 }
 
 message CPGCardData{

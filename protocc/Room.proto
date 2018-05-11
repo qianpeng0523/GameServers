@@ -38,7 +38,8 @@ message SHMMJEnterRoom
 	repeated RoomUser   roomusers 		= 3;
 	repeated SVote		sv				= 4;
 	optional string 	uid 			= 5;					//
-	optional uint32 	err				= 6;
+	optional bool 		begin			= 6;
+	optional uint32 	err				= 7;
 }
 
 //其他人进入
