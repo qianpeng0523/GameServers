@@ -155,6 +155,7 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 	Conn *c = (Conn *)ctx;
 	while (1) {
 		size_t len = bufferevent_read(bev, headchar, 10);
+		int llen = len;
 		if (len > 0){
 			LibEvent *pLibEvent = LibEvent::getIns();
 			ClientData *data = pLibEvent->getClientData(c->fd);
@@ -167,15 +168,16 @@ void LibEvent::DoRead(struct bufferevent *bev, void *ctx)
 			int bodylen = pLibEvent->getBodyLen(testhead);
 			int stamp = pLibEvent->getStamp(testhead);
 			char *buffer = new char[bodylen];
-			len = bufferevent_read(bev, buffer, bodylen);
+			llen = bufferevent_read(bev, buffer, bodylen);
 			CLog::log("libevent threadHandler:cmd[0x%04X],len[%d],servercode[%s]\n", cmd, bodylen, serverdest.c_str());
 			c->m_recvstamp = (c->m_recvstamp + 1) % MAXSTAMP;
-			CLog::log("len[%d]==bodylen[%d]  server stamp[%d]==stamp[%d]\n",len, bodylen, stamp, c->m_recvstamp);
-			if (len == bodylen&&c->m_recvstamp == stamp){
-				char* out = new char[len + 1];
-				HttpLogic::getIns()->aes_decrypt(buffer, len, out);
+			CLog::log("len[%d]==bodylen[%d]  server stamp[%d]==stamp[%d]\n", llen, bodylen, stamp, c->m_recvstamp);
+			if (llen == bodylen&&c->m_recvstamp == stamp){
+				char* out = new char[llen + 1];
+				HttpLogic::getIns()->aes_decrypt(buffer, llen, out);
 				delete buffer;
-				ccEvent *cce = new ccEvent(cmd, out, len, c->fd, GAME_TYPE);
+				
+				ccEvent *cce = new ccEvent(cmd, out, llen, c->fd, GAME_TYPE);
 				EventDispatcher::getIns()->disEventDispatcher(cce);
 			}
 			else{

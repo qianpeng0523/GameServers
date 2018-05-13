@@ -7,6 +7,7 @@
 #include "HttpPay.h"
 #include "XmlConfig.h"
 #include "HttpAliPay.h"
+#include "ConfigInfo.h"
 
 HallInfo *HallInfo::m_shareHallInfo=NULL;
 HallInfo::HallInfo()
@@ -68,10 +69,16 @@ HallInfo::HallInfo()
 
 	CAliPayResult sl26;
 	regist(sl26.cmd(), sl26.GetTypeName(), Event_Handler(HallInfo::HandlerCAliPayResult));
+
+	CFirsyBuyData sl27;
+	regist(sl27.cmd(), sl27.GetTypeName(), Event_Handler(HallInfo::HandCFirsyBuyData));
+
+	m_lastday = Common::getLocalTimeDay();
+	StatTimer::getIns()->scheduleSelector(this, schedule_selector(HallInfo::update), 1.0);
 }
 
 HallInfo::~HallInfo(){
-	
+	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(HallInfo::update));
 }
 
 void HallInfo::regist(int cmd, string name, EventHandler handler){
@@ -185,19 +192,19 @@ void HallInfo::HandlerCMailAward(ccEvent *event){
 	SMailAward sma;
 	string uid = LibEvent::getIns()->getUID(event->m_fd);
 	Mail mail= m_pRedisGet->getMail(uid,mid);
+	vector<Reward>rds;
 	if (mail.eid() > 0){
 		sma.set_err(0);
-		int status = m_pRedisGet->getMailStatus(uid,mid);
+		int status = mail.status();
 		//status 0表示无奖励 1表示有奖励未领取 2表示有奖励已经领取
 		if (status == 1){
-			m_pRedisPut->setMailStatus(uid, mid, 2);
-			//给玩家奖励
+			m_pRedisPut->PopMail(uid,mail);
+			//给玩家奖励//推送金币那些协议
 			int sz = mail.rewardlist_size();
 			for (int i = 0; i < sz;i++){
 				Reward rd = mail.rewardlist(i);
-				resetUserData(rd, uid);
+				rds.push_back(rd);
 			}
-			//推送金币那些协议
 		}
 		else{
 			sma.set_err(1);
@@ -209,6 +216,19 @@ void HallInfo::HandlerCMailAward(ccEvent *event){
 	
 	sma.set_id(mid);
 	SendSMailAward(sma, event->m_fd);
+
+	for (int i = 0; i < rds.size(); i++){
+		Reward rd = rds.at(i);
+		HttpPay::getIns()->NoticePushCurrency(rd, uid);
+	}
+
+	auto vec = m_pRedisGet->getMail(uid);
+	SConfig *sc =m_pRedisGet->getSConfig(uid);
+	if (vec.empty()&&sc&&sc->mail()){
+		sc->set_mail(false);
+		m_pRedisPut->setConfig(uid, POINT_MAIL, false);
+		ConfigInfo::getIns()->SendSConfig(*sc,event->m_fd);
+	}
 }
 
 void HallInfo::resetUserData(Reward rd, string uid){
@@ -422,29 +442,14 @@ void HallInfo::HandlerCExchangeReward(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCExchangeReward),GAME_TYPE);
 	
-
-	char buff[100];
-	int gold = /*LoginInfo::getIns()->getMyUserBase().gold()*/0;
 	SExchangeReward se;
-	for (int i = 0; i < 8; i++){
-		ExAward *ea = se.add_list();
-		ea->set_eid(i + 1);
-		sprintf(buff, XXIconv::GBK2UTF("%d元红包").c_str(), i * 5 + 5);
-		ea->set_title(buff);
-		Reward *award = ea->mutable_award();
-		award->set_rid(1);
-		int number = 28000 * i;
-		award->set_number(number);
-		Prop *prop = award->mutable_prop();
-		prop->set_id(1);
-		
-		Reward *buy = ea->mutable_buy();
-		buy->set_rid(1);
-		buy->set_number(number);
-		Prop *prop1 = buy->mutable_prop();
-		prop1->set_id(1);
-
+	auto vec = m_pRedisGet->getExAward();
+	for (int i = 0; i < vec.size(); i++){
+		ExAward ex = vec.at(i);
+		ExAward *ex1 = se.add_list();
+		ex1->CopyFrom(ex);
 	}
+	se.set_err(0);
 	SendSExchangeReward(se, event->m_fd);
 }
 
@@ -456,8 +461,64 @@ void HallInfo::HandlerCExchangeCode(ccEvent *event){
 	CExchangeCode cl;
 	cl.CopyFrom(*event->msg);
 	
-	SExchangeCode sl;
-	SendSExchangeCode(sl, event->m_fd);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		SExchangeCode sl;
+		string code = cl.excode();
+		bool liangqu = m_pRedisGet->getExcode(code);
+		if (!liangqu){
+			auto maps = m_pRedisGet->getCSVExchangeCode();
+			if (maps.find(code) != maps.end()){
+				sl.set_success(true);
+				m_pRedisPut->changeEXCode(code, true);
+				PExchangeCode *p = m_pRedisGet->getPExchangeCode(code);
+				if (p){
+					auto vec = p->_rewardid;
+					for (int i = 0; i < vec.size(); i++){
+						int rid = vec.at(i);
+						Reward rd = m_pRedisGet->getReward(rid);
+						Reward *rd1 = sl.add_rd();
+						rd1->CopyFrom(rd);
+						HttpPay::getIns()->NoticePushCurrency(rd, uid);
+					}
+					
+				}
+				string code = m_pRedisGet->getExchangeCode();
+				char buff[10];
+				sprintf(buff, "%d", atoi(code.c_str()) + 1);
+				m_pRedisPut->setExchangeCode(buff);
+				
+				ExRecord exr;
+				int eid = m_pRedisGet->getExchangeRecordId(uid);
+				m_pRedisPut->setExchangeRecordId(uid, eid + 1);
+				exr.set_eid(eid);
+				exr.set_title(XXIconv::GBK2UTF("兑换码兑换"));
+				exr.set_orderid(code);
+				exr.set_time(Common::getLocalTime());
+				exr.set_status(1);
+				m_pRedisPut->PushExRecord(uid, exr);
+
+				CExchangeRecord ce;
+				ce.set_cmd(ce.cmd());
+				int sz = ce.ByteSize();
+				char *buffer = new char[sz];
+				ce.SerializePartialToArray(buffer, sz);
+				ccEvent *ev = new ccEvent(ce.cmd(),buffer,sz,event->m_fd,event->m_type);
+				HandlerCExchangeRecord(ev);
+				delete ev;
+				ev = NULL;
+			}
+			else{
+				sl.set_err(1);
+			}
+		}
+		else{
+			sl.set_err(1);
+		}
+
+		SendSExchangeCode(sl, event->m_fd);
+	}
 }
 
 void HallInfo::SendSExchangeRecord(SExchangeRecord cl, int fd){
@@ -468,21 +529,19 @@ void HallInfo::SendSExchangeRecord(SExchangeRecord cl, int fd){
 void HallInfo::HandlerCExchangeRecord(ccEvent *event){
 	CExchangeRecord cl;
 	cl.CopyFrom(*event->msg);
-	
-	char buff[100];
-	int gold = /*LoginInfo::getIns()->getMyUserBase().gold()*/0;
-	SExchangeRecord se;
-	for (int i = 0; i < 8; i++){
-		ExRecord *ea = se.add_list();
-		sprintf(buff, XXIconv::GBK2UTF("%d元红包").c_str(), i * 5 + 5);
-		ea->set_title(buff);
-		ea->set_eid(i + 1);
-		sprintf(buff, "201803201%04d", i);
-		ea->set_orderid(buff);
-		ea->set_status(i % 3);
-		ea->set_time(Common::getLocalTime());
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		char buff[100];
+		SExchangeRecord se;
+		se.set_cmd(se.cmd());
+		auto vec = m_pRedisGet->getExRecord(data->_uid);
+		for (int i = 0; i < vec.size(); i++){
+			ExRecord *ea = se.add_list();
+			ExRecord ea1 = vec.at(i);
+			ea->CopyFrom(ea1);
+		}
+		SendSExchangeRecord(se, event->m_fd);
 	}
-	SendSExchangeRecord(se, event->m_fd);
 }
 
 void HallInfo::SendSExchange(SExchange cl, int fd){
@@ -493,8 +552,55 @@ void HallInfo::HandlerCExchange(ccEvent *event){
 	CExchange cl;
 	cl.CopyFrom(*event->msg);
 	
-	SExchange sl;
-	SendSExchange(sl, event->m_fd);
+	int id = cl.id();
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		ExAward ea = m_pRedisGet->getExAward(id);
+		SExchange sl;
+
+		UserBase *user = LoginInfo::getIns()->getUserBase(uid);
+		Reward buyrewad = ea.buy();
+		int number = buyrewad.number();
+		int pid = buyrewad.prop().id();
+		int mynumber = 0;
+		if (pid == 1){
+			mynumber = user->gold();
+		}
+		else if (pid == 2){
+			mynumber = user->diamond();
+		}
+		else if (pid == 3){
+			mynumber = user->card();
+		}
+		if (number > mynumber){
+			sl.set_err(1);
+			SendSExchange(sl, event->m_fd);
+			return;
+		}
+		
+		string code = m_pRedisGet->getExchangeCode();
+		char buff[10];
+		sprintf(buff, "%d", atoi(code.c_str()) + 1);
+		m_pRedisPut->setExchangeCode(buff);
+		sl.set_code(code);
+		sl.set_id(id);
+
+		ExRecord exr;
+		int eid = m_pRedisGet->getExchangeRecordId(uid);
+		m_pRedisPut->setExchangeRecordId(uid, eid + 1);
+		exr.set_eid(eid);
+		exr.set_title(ea.title());
+		exr.set_orderid(code);
+		exr.set_time(Common::getLocalTime());
+		exr.set_status(0);
+		m_pRedisPut->PushExRecord(uid,exr);
+
+		SendSExchange(sl, event->m_fd);
+
+		
+		HttpPay::getIns()->NoticePushCurrency(buyrewad, uid,false);
+	}
 }
 
 void HallInfo::SendSApplePay(SApplePay cl, int fd){
@@ -552,17 +658,112 @@ void HallInfo::HandlerCWxpayQuery(ccEvent *event){
 	SendSWxpayQuery(sl, event->m_fd);
 }
 
+void HallInfo::SendSFirsyBuyData(SFirsyBuyData cl, int fd){
+	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
+}
+
+void HallInfo::HandCFirsyBuyData(ccEvent *event){
+	SFirsyBuyData sl;
+	int fd = event->m_fd;
+	FirstBuyItem *fbi = m_pRedisGet->getFirstBuy();
+	if (fbi){
+		sl.set_id(fbi->_sid);
+		for (int i = 0; i < fbi->_rid.size(); i++){
+			int rid = fbi->_rid.at(i);
+			Reward *rd = sl.add_reward();
+			Reward rd1 = m_pRedisGet->getReward(rid);
+			rd->CopyFrom(rd1);
+		}
+		Reward *conreward = sl.mutable_consume();
+		Reward rd1 = m_pRedisGet->getReward(fbi->_conid);
+		conreward->CopyFrom(rd1);
+		for (int i = 0; i < fbi->_giveid.size(); i++){
+			int rid = fbi->_giveid.at(i);
+			Reward *rd = sl.add_give();
+			Reward rd1 = m_pRedisGet->getReward(rid);
+			rd->CopyFrom(rd1);
+		}
+	}
+	else{
+		sl.set_err(1);
+	}
+	SendSFirsyBuyData(sl, fd);
+}
 
 void HallInfo::SendSFirstBuy(SFirstBuy cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
+	if (cl.err() == 0){
+		ClientData *data = LibEvent::getIns()->getClientData(fd);
+		if (data){
+			string uid = data->_uid;
+			SConfig *sc = m_pRedisGet->getSConfig(data->_uid);
+			sc->set_firstbuy(false);
+			m_pRedisPut->setConfig(uid,POINT_SHOUCHONG,false);
+			ConfigInfo::getIns()->SendSConfig(*sc, fd);
+		}
+	}
 }
 
 void HallInfo::HandlerCFirstBuy(ccEvent *event){
 	CFirstBuy cl;
 	cl.CopyFrom(*event->msg);
-	
-	SFirstBuy sl;
-	SendSFirstBuy(sl, event->m_fd);
+
+	SFirstBuy swo;
+
+	int type = cl.type();
+	swo.set_type(type);
+	if (type == 1){
+		//苹果支付
+	}
+	else if (type==2){
+		//微信支付
+		SWxpayOrder sl;
+		ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+		if (data){
+			FirstBuyItem *p = m_pRedisGet->getFirstBuy();
+			int id = p->_sid;
+			string body = XXIconv::GBK2UTF("首充10元");
+			string uid = data->_uid;
+			char buff[50];
+			sprintf(buff, "%d", id);
+			Reward conrew = m_pRedisGet->getReward(p->_conid);
+			int price = conrew.number();
+			sl = HttpPay::getIns()->requestOrder(uid, buff, price, body, data->_ip);
+			swo.set_noncestr(sl.noncestr());
+			swo.set_payreq(sl.payreq());
+			swo.set_timestamp(sl.timestamp());
+			swo.set_sign(sl.sign());
+			swo.set_err(sl.err());
+		}
+		else{
+			swo.set_err(1);
+		}
+		
+	}
+	else if (type==3){
+		//支付宝支付
+		SAliPayOrder sl;
+		ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+		if (data){
+			FirstBuyItem *p = m_pRedisGet->getFirstBuy();
+			int id = p->_sid;
+			string body = XXIconv::GBK2UTF("首充10元");
+			string uid = data->_uid;
+			char buff[50];
+			sprintf(buff, "%d", id);
+			Reward conrew = m_pRedisGet->getReward(p->_conid);
+			int price = conrew.number();
+
+			sl = HttpAliPay::getIns()->requestOrder(uid, buff, price, body, data->_ip, type);
+
+			swo.set_noncestr(sl.orderinfo());
+			swo.set_payreq(sl.appid());
+			swo.set_timestamp(sl.timestamp());
+			swo.set_sign(sl.privatekey());
+			swo.set_err(sl.err());
+		}
+	}
+	SendSFirstBuy(swo, event->m_fd);
 }
 
 void HallInfo::SendSAliPayOrder(SAliPayOrder cpo, int fd){
@@ -618,9 +819,13 @@ void HallInfo::SendSFeedBack(SFeedBack cl, int fd){
 void HallInfo::HandlerCFeedBack(ccEvent *event){
 	CFeedBack cl;
 	cl.CopyFrom(*event->msg);
-	
+	string uid = cl.uid();
+	string uname = cl.uname();
+	string content = cl.content();
+	m_pRedisPut->PushFeedBack(cl);
 
 	SFeedBack sl;
+	sl.set_cmd(sl.cmd());
 	SendSFeedBack(sl, event->m_fd);
 }
 
@@ -634,10 +839,72 @@ void HallInfo::SendSSign(SSign cl, int fd){
 void HallInfo::HandlerCSign(ccEvent *event){
 	CSign cl;
 	cl.CopyFrom(*event->msg);
-	
-	SSign sl;
-	SendSSign(sl, event->m_fd);
-	
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid =data->_uid;
+		SSign sl;
+		SignStatus ss = m_pRedisGet->getSignStatus(uid);
+		string time = ss._time;
+		if (m_lastday.compare(time) != 0){
+			ss._issign = false;
+			ss._left = 1;
+			if (time.empty()){
+				ss._signcount = 0;
+			}
+			else{
+				int a1 = atoi(m_lastday.substr(8, m_lastday.length()).c_str());
+				int a2 = atoi(time.substr(8, time.length()).c_str());
+				if (a1 - a2 > 1){
+					ss._signcount = 0;
+				}
+			}
+			ss._time = m_lastday;
+		}
+		if (!ss._issign&&ss._left>0){
+			auto vec1 = m_pRedisGet->getSignZhuan();
+			int sz =vec1.size();
+			int rd = rand() % sz;
+			sl.set_index(rd);
+			sl.set_count(ss._signcount + 1);
+			ss._issign = true;
+			ss._left -= 1;
+			ss._signcount += 1;
+			ss._time = m_lastday;
+			m_pRedisPut->setSignStatus(ss);
+			
+			//换成邮件发送
+
+			SMail sm;
+			
+			Mail *ml = sm.add_list();
+			Reward *rew = ml->add_rewardlist();
+			rew->CopyFrom(vec1.at(rd).reward());
+
+			int eid = m_pRedisGet->MailID();
+			ml->set_eid(eid);
+			char buff[300];
+			sprintf(buff,"%s%d%s",XXIconv::GBK2UTF("恭喜您，抽奖获得").c_str(),rew->number(),rew->prop().name().c_str());
+			ml->set_content(buff);
+			ml->set_status(1);
+			ml->set_time(Common::getLocalTime());
+			ml->set_title(XXIconv::GBK2UTF("恭喜您，抽奖获得"));
+
+			m_pRedisPut->setMailID(eid);
+			m_pRedisPut->PushMail(uid, *ml);
+			m_pRedisPut->setConfig(uid, POINT_SHOP, false);
+			SConfig *sc = m_pRedisGet->getSConfig(uid);
+			if (sc&&sc->yqs()){
+				sc->set_yqs(false);
+				sc->set_mail(true);
+				ConfigInfo::getIns()->SendSConfig(*sc,event->m_fd);
+			}
+			SendSMail(sm,event->m_fd);
+		}
+		else{
+			sl.set_err(1);
+		}
+		SendSSign(sl, event->m_fd);
+	}
 }
 
 
@@ -650,21 +917,53 @@ void HallInfo::HandlerCSignList(ccEvent *event){
 	CSignList cl;
 	cl.CopyFrom(*event->msg);
 	EventDispatcher::getIns()->removeListener(cl.cmd(), this, Event_Handler(HallInfo::HandlerCSignList), GAME_TYPE);
-	
-	SSignList sl;
-	sl.set_count(3);
-	sl.set_sign(0);
-	int dd[8] = { 3, 5, 7, 10, 14, 18, 22, 30 };
-	for (int i = 0; i < 8; i++){
-		SignAward *sa = sl.add_reward();
-		sa->set_id(i + 1);
-		sa->set_day(dd[i]);
-		Reward *award = sa->mutable_reward();
-		award->set_rid(1);
-		int pid = i % 2 + 1;
-		award->set_number(pid == 1 ? 500 * dd[i] : i / 2);
-		Prop *p = award->mutable_prop();
-		p->set_id(pid);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		SSignList sl;
+
+		SignStatus ss = m_pRedisGet->getSignStatus(uid);
+		string time = ss._time;
+		if (m_lastday.compare(time) != 0){
+			ss._issign = false;
+			ss._left = 1;
+			if (time.empty()){
+				ss._signcount = 0;
+			}
+			else{
+				int a1 = atoi(m_lastday.substr(8, m_lastday.length()).c_str());
+				int a2 = atoi(time.substr(8, time.length()).c_str());
+				if (a1 - a2 > 1){
+					ss._signcount = 0;
+				}
+			}
+			ss._time = m_lastday;
+			m_pRedisPut->setSignStatus(ss);
+		}
+
+
+		sl.set_count(ss._signcount);
+		sl.set_sign(ss._issign);
+		auto vec = m_pRedisGet->getSignAward();
+		for (int i = 0; i < vec.size(); i++){
+			SignAward sa1 = vec.at(i);
+			SignAward *sa = sl.add_reward();
+			sa->CopyFrom(sa1);
+		}
+		auto vec1 = m_pRedisGet->getSignZhuan();
+		for (int i = 0; i < vec1.size(); i++){
+			SignZhuan sz1 = vec1.at(i);
+			SignZhuan *sz = sl.add_zhuan();
+			sz->CopyFrom(sz1);
+		}
+
+		SendSSignList(sl, event->m_fd);
 	}
-	SendSSignList(sl, event->m_fd);
+}
+
+void HallInfo::update(float){
+	string time = Common::getLocalTimeDay();
+	if (m_lastday.compare(time) != 0){
+		m_lastday = time;
+	}
 }

@@ -123,17 +123,16 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 						CallList *clist = *itr;
 						if (clist && clist->obj && clist->handler){
 							(clist->obj->*clist->handler)(event);
-							itr++;
-							break;
+							//itr++;
+							
 						}
-						else{
-							break;
-						}
+						break;
 					}
 				}
 			}
 			if (event){
 				delete event;
+				event = NULL;
 			}
 			ep.erase(itr);
 		}

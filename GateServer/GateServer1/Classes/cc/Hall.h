@@ -86,6 +86,8 @@ class CSignList;
 class SSignList;
 class CMailAward;
 class SMailAward;
+class CFirsyBuyData;
+class SFirsyBuyData;
 
 // ===================================================================
 
@@ -2876,10 +2878,22 @@ class SExchangeCode : public ::google::protobuf::Message {
   inline bool success() const;
   inline void set_success(bool value);
 
-  // optional uint32 err = 3;
+  // repeated .protocol.Reward rd = 3;
+  inline int rd_size() const;
+  inline void clear_rd();
+  static const int kRdFieldNumber = 3;
+  inline const ::protocol::Reward& rd(int index) const;
+  inline ::protocol::Reward* mutable_rd(int index);
+  inline ::protocol::Reward* add_rd();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
+      rd() const;
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
+      mutable_rd();
+
+  // optional uint32 err = 4;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 3;
+  static const int kErrFieldNumber = 4;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -2896,10 +2910,11 @@ class SExchangeCode : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 cmd_;
   bool success_;
+  ::google::protobuf::RepeatedPtrField< ::protocol::Reward > rd_;
   ::google::protobuf::uint32 err_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -4589,29 +4604,65 @@ class SFirstBuy : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 cmd() const;
   inline void set_cmd(::google::protobuf::uint32 value);
 
-  // optional uint32 id = 2;
-  inline bool has_id() const;
-  inline void clear_id();
-  static const int kIdFieldNumber = 2;
-  inline ::google::protobuf::uint32 id() const;
-  inline void set_id(::google::protobuf::uint32 value);
+  // optional string noncestr = 2;
+  inline bool has_noncestr() const;
+  inline void clear_noncestr();
+  static const int kNoncestrFieldNumber = 2;
+  inline const ::std::string& noncestr() const;
+  inline void set_noncestr(const ::std::string& value);
+  inline void set_noncestr(const char* value);
+  inline void set_noncestr(const char* value, size_t size);
+  inline ::std::string* mutable_noncestr();
+  inline ::std::string* release_noncestr();
+  inline void set_allocated_noncestr(::std::string* noncestr);
 
-  // optional string transid = 3;
-  inline bool has_transid() const;
-  inline void clear_transid();
-  static const int kTransidFieldNumber = 3;
-  inline const ::std::string& transid() const;
-  inline void set_transid(const ::std::string& value);
-  inline void set_transid(const char* value);
-  inline void set_transid(const char* value, size_t size);
-  inline ::std::string* mutable_transid();
-  inline ::std::string* release_transid();
-  inline void set_allocated_transid(::std::string* transid);
+  // optional string payreq = 3;
+  inline bool has_payreq() const;
+  inline void clear_payreq();
+  static const int kPayreqFieldNumber = 3;
+  inline const ::std::string& payreq() const;
+  inline void set_payreq(const ::std::string& value);
+  inline void set_payreq(const char* value);
+  inline void set_payreq(const char* value, size_t size);
+  inline ::std::string* mutable_payreq();
+  inline ::std::string* release_payreq();
+  inline void set_allocated_payreq(::std::string* payreq);
 
-  // optional uint32 err = 4;
+  // optional string timestamp = 4;
+  inline bool has_timestamp() const;
+  inline void clear_timestamp();
+  static const int kTimestampFieldNumber = 4;
+  inline const ::std::string& timestamp() const;
+  inline void set_timestamp(const ::std::string& value);
+  inline void set_timestamp(const char* value);
+  inline void set_timestamp(const char* value, size_t size);
+  inline ::std::string* mutable_timestamp();
+  inline ::std::string* release_timestamp();
+  inline void set_allocated_timestamp(::std::string* timestamp);
+
+  // optional string sign = 5;
+  inline bool has_sign() const;
+  inline void clear_sign();
+  static const int kSignFieldNumber = 5;
+  inline const ::std::string& sign() const;
+  inline void set_sign(const ::std::string& value);
+  inline void set_sign(const char* value);
+  inline void set_sign(const char* value, size_t size);
+  inline ::std::string* mutable_sign();
+  inline ::std::string* release_sign();
+  inline void set_allocated_sign(::std::string* sign);
+
+  // required uint32 type = 6;
+  inline bool has_type() const;
+  inline void clear_type();
+  static const int kTypeFieldNumber = 6;
+  inline ::google::protobuf::uint32 type() const;
+  inline void set_type(::google::protobuf::uint32 value);
+
+  // optional uint32 err = 7;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 4;
+  static const int kErrFieldNumber = 7;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -4619,22 +4670,31 @@ class SFirstBuy : public ::google::protobuf::Message {
  private:
   inline void set_has_cmd();
   inline void clear_has_cmd();
-  inline void set_has_id();
-  inline void clear_has_id();
-  inline void set_has_transid();
-  inline void clear_has_transid();
+  inline void set_has_noncestr();
+  inline void clear_has_noncestr();
+  inline void set_has_payreq();
+  inline void clear_has_payreq();
+  inline void set_has_timestamp();
+  inline void clear_has_timestamp();
+  inline void set_has_sign();
+  inline void clear_has_sign();
+  inline void set_has_type();
+  inline void clear_has_type();
   inline void set_has_err();
   inline void clear_has_err();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
+  ::std::string* noncestr_;
+  ::std::string* payreq_;
   ::google::protobuf::uint32 cmd_;
-  ::google::protobuf::uint32 id_;
-  ::std::string* transid_;
+  ::google::protobuf::uint32 type_;
+  ::std::string* timestamp_;
+  ::std::string* sign_;
   ::google::protobuf::uint32 err_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -5227,10 +5287,22 @@ class SSignList : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedPtrField< ::protocol::SignAward >*
       mutable_reward();
 
-  // optional uint32 err = 5;
+  // repeated .protocol.SignZhuan zhuan = 5;
+  inline int zhuan_size() const;
+  inline void clear_zhuan();
+  static const int kZhuanFieldNumber = 5;
+  inline const ::protocol::SignZhuan& zhuan(int index) const;
+  inline ::protocol::SignZhuan* mutable_zhuan(int index);
+  inline ::protocol::SignZhuan* add_zhuan();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::SignZhuan >&
+      zhuan() const;
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::SignZhuan >*
+      mutable_zhuan();
+
+  // optional uint32 err = 6;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 5;
+  static const int kErrFieldNumber = 6;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -5252,9 +5324,10 @@ class SSignList : public ::google::protobuf::Message {
   ::google::protobuf::RepeatedPtrField< ::protocol::SignAward > reward_;
   ::google::protobuf::uint32 count_;
   ::google::protobuf::uint32 err_;
+  ::google::protobuf::RepeatedPtrField< ::protocol::SignZhuan > zhuan_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -5456,6 +5529,228 @@ class SMailAward : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SMailAward* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CFirsyBuyData : public ::google::protobuf::Message {
+ public:
+  CFirsyBuyData();
+  virtual ~CFirsyBuyData();
+
+  CFirsyBuyData(const CFirsyBuyData& from);
+
+  inline CFirsyBuyData& operator=(const CFirsyBuyData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CFirsyBuyData& default_instance();
+
+  void Swap(CFirsyBuyData* other);
+
+  // implements Message ----------------------------------------------
+
+  CFirsyBuyData* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CFirsyBuyData& from);
+  void MergeFrom(const CFirsyBuyData& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 cmd = 1 [default = 20512];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.CFirsyBuyData)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static CFirsyBuyData* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SFirsyBuyData : public ::google::protobuf::Message {
+ public:
+  SFirsyBuyData();
+  virtual ~SFirsyBuyData();
+
+  SFirsyBuyData(const SFirsyBuyData& from);
+
+  inline SFirsyBuyData& operator=(const SFirsyBuyData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SFirsyBuyData& default_instance();
+
+  void Swap(SFirsyBuyData* other);
+
+  // implements Message ----------------------------------------------
+
+  SFirsyBuyData* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SFirsyBuyData& from);
+  void MergeFrom(const SFirsyBuyData& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 cmd = 1 [default = 20512];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional uint32 id = 2;
+  inline bool has_id() const;
+  inline void clear_id();
+  static const int kIdFieldNumber = 2;
+  inline ::google::protobuf::uint32 id() const;
+  inline void set_id(::google::protobuf::uint32 value);
+
+  // repeated .protocol.Reward reward = 3;
+  inline int reward_size() const;
+  inline void clear_reward();
+  static const int kRewardFieldNumber = 3;
+  inline const ::protocol::Reward& reward(int index) const;
+  inline ::protocol::Reward* mutable_reward(int index);
+  inline ::protocol::Reward* add_reward();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
+      reward() const;
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
+      mutable_reward();
+
+  // optional .protocol.Reward consume = 4;
+  inline bool has_consume() const;
+  inline void clear_consume();
+  static const int kConsumeFieldNumber = 4;
+  inline const ::protocol::Reward& consume() const;
+  inline ::protocol::Reward* mutable_consume();
+  inline ::protocol::Reward* release_consume();
+  inline void set_allocated_consume(::protocol::Reward* consume);
+
+  // repeated .protocol.Reward give = 5;
+  inline int give_size() const;
+  inline void clear_give();
+  static const int kGiveFieldNumber = 5;
+  inline const ::protocol::Reward& give(int index) const;
+  inline ::protocol::Reward* mutable_give(int index);
+  inline ::protocol::Reward* add_give();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
+      give() const;
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
+      mutable_give();
+
+  // optional uint32 err = 6;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 6;
+  inline ::google::protobuf::uint32 err() const;
+  inline void set_err(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.SFirsyBuyData)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_id();
+  inline void clear_has_id();
+  inline void set_has_consume();
+  inline void clear_has_consume();
+  inline void set_has_err();
+  inline void clear_has_err();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 cmd_;
+  ::google::protobuf::uint32 id_;
+  ::google::protobuf::RepeatedPtrField< ::protocol::Reward > reward_;
+  ::protocol::Reward* consume_;
+  ::google::protobuf::RepeatedPtrField< ::protocol::Reward > give_;
+  ::google::protobuf::uint32 err_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static SFirsyBuyData* default_instance_;
 };
 // ===================================================================
 
@@ -7618,15 +7913,40 @@ inline void SExchangeCode::set_success(bool value) {
   success_ = value;
 }
 
-// optional uint32 err = 3;
+// repeated .protocol.Reward rd = 3;
+inline int SExchangeCode::rd_size() const {
+  return rd_.size();
+}
+inline void SExchangeCode::clear_rd() {
+  rd_.Clear();
+}
+inline const ::protocol::Reward& SExchangeCode::rd(int index) const {
+  return rd_.Get(index);
+}
+inline ::protocol::Reward* SExchangeCode::mutable_rd(int index) {
+  return rd_.Mutable(index);
+}
+inline ::protocol::Reward* SExchangeCode::add_rd() {
+  return rd_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
+SExchangeCode::rd() const {
+  return rd_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
+SExchangeCode::mutable_rd() {
+  return &rd_;
+}
+
+// optional uint32 err = 4;
 inline bool SExchangeCode::has_err() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void SExchangeCode::set_has_err() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void SExchangeCode::clear_has_err() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void SExchangeCode::clear_err() {
   err_ = 0u;
@@ -9461,107 +9781,317 @@ inline void SFirstBuy::set_cmd(::google::protobuf::uint32 value) {
   cmd_ = value;
 }
 
-// optional uint32 id = 2;
-inline bool SFirstBuy::has_id() const {
+// optional string noncestr = 2;
+inline bool SFirstBuy::has_noncestr() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void SFirstBuy::set_has_id() {
+inline void SFirstBuy::set_has_noncestr() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void SFirstBuy::clear_has_id() {
+inline void SFirstBuy::clear_has_noncestr() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void SFirstBuy::clear_id() {
-  id_ = 0u;
-  clear_has_id();
-}
-inline ::google::protobuf::uint32 SFirstBuy::id() const {
-  return id_;
-}
-inline void SFirstBuy::set_id(::google::protobuf::uint32 value) {
-  set_has_id();
-  id_ = value;
-}
-
-// optional string transid = 3;
-inline bool SFirstBuy::has_transid() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void SFirstBuy::set_has_transid() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void SFirstBuy::clear_has_transid() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void SFirstBuy::clear_transid() {
-  if (transid_ != &::google::protobuf::internal::kEmptyString) {
-    transid_->clear();
+inline void SFirstBuy::clear_noncestr() {
+  if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+    noncestr_->clear();
   }
-  clear_has_transid();
+  clear_has_noncestr();
 }
-inline const ::std::string& SFirstBuy::transid() const {
-  return *transid_;
+inline const ::std::string& SFirstBuy::noncestr() const {
+  return *noncestr_;
 }
-inline void SFirstBuy::set_transid(const ::std::string& value) {
-  set_has_transid();
-  if (transid_ == &::google::protobuf::internal::kEmptyString) {
-    transid_ = new ::std::string;
+inline void SFirstBuy::set_noncestr(const ::std::string& value) {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  transid_->assign(value);
+  noncestr_->assign(value);
 }
-inline void SFirstBuy::set_transid(const char* value) {
-  set_has_transid();
-  if (transid_ == &::google::protobuf::internal::kEmptyString) {
-    transid_ = new ::std::string;
+inline void SFirstBuy::set_noncestr(const char* value) {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  transid_->assign(value);
+  noncestr_->assign(value);
 }
-inline void SFirstBuy::set_transid(const char* value, size_t size) {
-  set_has_transid();
-  if (transid_ == &::google::protobuf::internal::kEmptyString) {
-    transid_ = new ::std::string;
+inline void SFirstBuy::set_noncestr(const char* value, size_t size) {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  transid_->assign(reinterpret_cast<const char*>(value), size);
+  noncestr_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* SFirstBuy::mutable_transid() {
-  set_has_transid();
-  if (transid_ == &::google::protobuf::internal::kEmptyString) {
-    transid_ = new ::std::string;
+inline ::std::string* SFirstBuy::mutable_noncestr() {
+  set_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
+    noncestr_ = new ::std::string;
   }
-  return transid_;
+  return noncestr_;
 }
-inline ::std::string* SFirstBuy::release_transid() {
-  clear_has_transid();
-  if (transid_ == &::google::protobuf::internal::kEmptyString) {
+inline ::std::string* SFirstBuy::release_noncestr() {
+  clear_has_noncestr();
+  if (noncestr_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
   } else {
-    ::std::string* temp = transid_;
-    transid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    ::std::string* temp = noncestr_;
+    noncestr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
     return temp;
   }
 }
-inline void SFirstBuy::set_allocated_transid(::std::string* transid) {
-  if (transid_ != &::google::protobuf::internal::kEmptyString) {
-    delete transid_;
+inline void SFirstBuy::set_allocated_noncestr(::std::string* noncestr) {
+  if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+    delete noncestr_;
   }
-  if (transid) {
-    set_has_transid();
-    transid_ = transid;
+  if (noncestr) {
+    set_has_noncestr();
+    noncestr_ = noncestr;
   } else {
-    clear_has_transid();
-    transid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    clear_has_noncestr();
+    noncestr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 
-// optional uint32 err = 4;
-inline bool SFirstBuy::has_err() const {
+// optional string payreq = 3;
+inline bool SFirstBuy::has_payreq() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SFirstBuy::set_has_payreq() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SFirstBuy::clear_has_payreq() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SFirstBuy::clear_payreq() {
+  if (payreq_ != &::google::protobuf::internal::kEmptyString) {
+    payreq_->clear();
+  }
+  clear_has_payreq();
+}
+inline const ::std::string& SFirstBuy::payreq() const {
+  return *payreq_;
+}
+inline void SFirstBuy::set_payreq(const ::std::string& value) {
+  set_has_payreq();
+  if (payreq_ == &::google::protobuf::internal::kEmptyString) {
+    payreq_ = new ::std::string;
+  }
+  payreq_->assign(value);
+}
+inline void SFirstBuy::set_payreq(const char* value) {
+  set_has_payreq();
+  if (payreq_ == &::google::protobuf::internal::kEmptyString) {
+    payreq_ = new ::std::string;
+  }
+  payreq_->assign(value);
+}
+inline void SFirstBuy::set_payreq(const char* value, size_t size) {
+  set_has_payreq();
+  if (payreq_ == &::google::protobuf::internal::kEmptyString) {
+    payreq_ = new ::std::string;
+  }
+  payreq_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SFirstBuy::mutable_payreq() {
+  set_has_payreq();
+  if (payreq_ == &::google::protobuf::internal::kEmptyString) {
+    payreq_ = new ::std::string;
+  }
+  return payreq_;
+}
+inline ::std::string* SFirstBuy::release_payreq() {
+  clear_has_payreq();
+  if (payreq_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = payreq_;
+    payreq_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SFirstBuy::set_allocated_payreq(::std::string* payreq) {
+  if (payreq_ != &::google::protobuf::internal::kEmptyString) {
+    delete payreq_;
+  }
+  if (payreq) {
+    set_has_payreq();
+    payreq_ = payreq;
+  } else {
+    clear_has_payreq();
+    payreq_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string timestamp = 4;
+inline bool SFirstBuy::has_timestamp() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void SFirstBuy::set_has_err() {
+inline void SFirstBuy::set_has_timestamp() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void SFirstBuy::clear_has_err() {
+inline void SFirstBuy::clear_has_timestamp() {
   _has_bits_[0] &= ~0x00000008u;
+}
+inline void SFirstBuy::clear_timestamp() {
+  if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+    timestamp_->clear();
+  }
+  clear_has_timestamp();
+}
+inline const ::std::string& SFirstBuy::timestamp() const {
+  return *timestamp_;
+}
+inline void SFirstBuy::set_timestamp(const ::std::string& value) {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  timestamp_->assign(value);
+}
+inline void SFirstBuy::set_timestamp(const char* value) {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  timestamp_->assign(value);
+}
+inline void SFirstBuy::set_timestamp(const char* value, size_t size) {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  timestamp_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SFirstBuy::mutable_timestamp() {
+  set_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    timestamp_ = new ::std::string;
+  }
+  return timestamp_;
+}
+inline ::std::string* SFirstBuy::release_timestamp() {
+  clear_has_timestamp();
+  if (timestamp_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = timestamp_;
+    timestamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SFirstBuy::set_allocated_timestamp(::std::string* timestamp) {
+  if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+    delete timestamp_;
+  }
+  if (timestamp) {
+    set_has_timestamp();
+    timestamp_ = timestamp;
+  } else {
+    clear_has_timestamp();
+    timestamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string sign = 5;
+inline bool SFirstBuy::has_sign() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void SFirstBuy::set_has_sign() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void SFirstBuy::clear_has_sign() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void SFirstBuy::clear_sign() {
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    sign_->clear();
+  }
+  clear_has_sign();
+}
+inline const ::std::string& SFirstBuy::sign() const {
+  return *sign_;
+}
+inline void SFirstBuy::set_sign(const ::std::string& value) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(value);
+}
+inline void SFirstBuy::set_sign(const char* value) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(value);
+}
+inline void SFirstBuy::set_sign(const char* value, size_t size) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* SFirstBuy::mutable_sign() {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  return sign_;
+}
+inline ::std::string* SFirstBuy::release_sign() {
+  clear_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = sign_;
+    sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void SFirstBuy::set_allocated_sign(::std::string* sign) {
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    delete sign_;
+  }
+  if (sign) {
+    set_has_sign();
+    sign_ = sign;
+  } else {
+    clear_has_sign();
+    sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// required uint32 type = 6;
+inline bool SFirstBuy::has_type() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void SFirstBuy::set_has_type() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void SFirstBuy::clear_has_type() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void SFirstBuy::clear_type() {
+  type_ = 0u;
+  clear_has_type();
+}
+inline ::google::protobuf::uint32 SFirstBuy::type() const {
+  return type_;
+}
+inline void SFirstBuy::set_type(::google::protobuf::uint32 value) {
+  set_has_type();
+  type_ = value;
+}
+
+// optional uint32 err = 7;
+inline bool SFirstBuy::has_err() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void SFirstBuy::set_has_err() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void SFirstBuy::clear_has_err() {
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void SFirstBuy::clear_err() {
   err_ = 0u;
@@ -10098,15 +10628,40 @@ SSignList::mutable_reward() {
   return &reward_;
 }
 
-// optional uint32 err = 5;
+// repeated .protocol.SignZhuan zhuan = 5;
+inline int SSignList::zhuan_size() const {
+  return zhuan_.size();
+}
+inline void SSignList::clear_zhuan() {
+  zhuan_.Clear();
+}
+inline const ::protocol::SignZhuan& SSignList::zhuan(int index) const {
+  return zhuan_.Get(index);
+}
+inline ::protocol::SignZhuan* SSignList::mutable_zhuan(int index) {
+  return zhuan_.Mutable(index);
+}
+inline ::protocol::SignZhuan* SSignList::add_zhuan() {
+  return zhuan_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::SignZhuan >&
+SSignList::zhuan() const {
+  return zhuan_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::protocol::SignZhuan >*
+SSignList::mutable_zhuan() {
+  return &zhuan_;
+}
+
+// optional uint32 err = 6;
 inline bool SSignList::has_err() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void SSignList::set_has_err() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void SSignList::clear_has_err() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void SSignList::clear_err() {
   err_ = 0u;
@@ -10234,6 +10789,190 @@ inline ::google::protobuf::uint32 SMailAward::err() const {
   return err_;
 }
 inline void SMailAward::set_err(::google::protobuf::uint32 value) {
+  set_has_err();
+  err_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// CFirsyBuyData
+
+// required uint32 cmd = 1 [default = 20512];
+inline bool CFirsyBuyData::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CFirsyBuyData::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CFirsyBuyData::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CFirsyBuyData::clear_cmd() {
+  cmd_ = 20512u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 CFirsyBuyData::cmd() const {
+  return cmd_;
+}
+inline void CFirsyBuyData::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// SFirsyBuyData
+
+// required uint32 cmd = 1 [default = 20512];
+inline bool SFirsyBuyData::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SFirsyBuyData::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SFirsyBuyData::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SFirsyBuyData::clear_cmd() {
+  cmd_ = 20512u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 SFirsyBuyData::cmd() const {
+  return cmd_;
+}
+inline void SFirsyBuyData::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional uint32 id = 2;
+inline bool SFirsyBuyData::has_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SFirsyBuyData::set_has_id() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SFirsyBuyData::clear_has_id() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SFirsyBuyData::clear_id() {
+  id_ = 0u;
+  clear_has_id();
+}
+inline ::google::protobuf::uint32 SFirsyBuyData::id() const {
+  return id_;
+}
+inline void SFirsyBuyData::set_id(::google::protobuf::uint32 value) {
+  set_has_id();
+  id_ = value;
+}
+
+// repeated .protocol.Reward reward = 3;
+inline int SFirsyBuyData::reward_size() const {
+  return reward_.size();
+}
+inline void SFirsyBuyData::clear_reward() {
+  reward_.Clear();
+}
+inline const ::protocol::Reward& SFirsyBuyData::reward(int index) const {
+  return reward_.Get(index);
+}
+inline ::protocol::Reward* SFirsyBuyData::mutable_reward(int index) {
+  return reward_.Mutable(index);
+}
+inline ::protocol::Reward* SFirsyBuyData::add_reward() {
+  return reward_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
+SFirsyBuyData::reward() const {
+  return reward_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
+SFirsyBuyData::mutable_reward() {
+  return &reward_;
+}
+
+// optional .protocol.Reward consume = 4;
+inline bool SFirsyBuyData::has_consume() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void SFirsyBuyData::set_has_consume() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void SFirsyBuyData::clear_has_consume() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void SFirsyBuyData::clear_consume() {
+  if (consume_ != NULL) consume_->::protocol::Reward::Clear();
+  clear_has_consume();
+}
+inline const ::protocol::Reward& SFirsyBuyData::consume() const {
+  return consume_ != NULL ? *consume_ : *default_instance_->consume_;
+}
+inline ::protocol::Reward* SFirsyBuyData::mutable_consume() {
+  set_has_consume();
+  if (consume_ == NULL) consume_ = new ::protocol::Reward;
+  return consume_;
+}
+inline ::protocol::Reward* SFirsyBuyData::release_consume() {
+  clear_has_consume();
+  ::protocol::Reward* temp = consume_;
+  consume_ = NULL;
+  return temp;
+}
+inline void SFirsyBuyData::set_allocated_consume(::protocol::Reward* consume) {
+  delete consume_;
+  consume_ = consume;
+  if (consume) {
+    set_has_consume();
+  } else {
+    clear_has_consume();
+  }
+}
+
+// repeated .protocol.Reward give = 5;
+inline int SFirsyBuyData::give_size() const {
+  return give_.size();
+}
+inline void SFirsyBuyData::clear_give() {
+  give_.Clear();
+}
+inline const ::protocol::Reward& SFirsyBuyData::give(int index) const {
+  return give_.Get(index);
+}
+inline ::protocol::Reward* SFirsyBuyData::mutable_give(int index) {
+  return give_.Mutable(index);
+}
+inline ::protocol::Reward* SFirsyBuyData::add_give() {
+  return give_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::Reward >&
+SFirsyBuyData::give() const {
+  return give_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::protocol::Reward >*
+SFirsyBuyData::mutable_give() {
+  return &give_;
+}
+
+// optional uint32 err = 6;
+inline bool SFirsyBuyData::has_err() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void SFirsyBuyData::set_has_err() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void SFirsyBuyData::clear_has_err() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void SFirsyBuyData::clear_err() {
+  err_ = 0u;
+  clear_has_err();
+}
+inline ::google::protobuf::uint32 SFirsyBuyData::err() const {
+  return err_;
+}
+inline void SFirsyBuyData::set_err(::google::protobuf::uint32 value) {
   set_has_err();
   err_ = value;
 }

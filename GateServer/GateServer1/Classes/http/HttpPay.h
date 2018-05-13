@@ -30,7 +30,7 @@ public:
 	string getNonceId();
 	void checkPay();
 	
-	void NoticePushCurrency(Reward rd,string uid);
+	void NoticePushCurrency(Reward rd,string uid,bool isadd=true);
 	static string payrecord[9];
 private:
 	static HttpPay *m_Ins;

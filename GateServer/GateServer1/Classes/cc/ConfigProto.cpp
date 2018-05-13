@@ -62,7 +62,7 @@ void protobuf_AssignDesc_ConfigProto_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, firstbuy_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, task_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, free_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, friend__),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, fri_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SConfig, yqs_),
   };
   SConfig_reflection_ =
@@ -138,14 +138,14 @@ void protobuf_AddDesc_ConfigProto_2eproto() {
   ::protocol::protobuf_AddDesc_Vo_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021ConfigProto.proto\022\010protocol\032\010Vo.proto\""
-    "\035\n\007CConfig\022\022\n\003cmd\030\001 \002(\r:\00520479\"\206\001\n\007SConf"
+    "\035\n\007CConfig\022\022\n\003cmd\030\001 \002(\r:\00520479\"\203\001\n\007SConf"
     "ig\022\022\n\003cmd\030\001 \002(\r:\00520479\022\014\n\004mail\030\002 \001(\010\022\016\n\006"
     "active\030\003 \001(\010\022\020\n\010firstbuy\030\004 \001(\010\022\014\n\004task\030\005"
-    " \001(\010\022\014\n\004free\030\006 \001(\010\022\016\n\006friend\030\007 \001(\010\022\013\n\003yq"
-    "s\030\010 \001(\r\"\215\001\n\rSPushCurrency\022\022\n\003cmd\030\001 \001(\r:\005"
-    "24576\022\017\n\007diamond\030\002 \001(\r\022\014\n\004card\030\003 \001(\r\022\014\n\004"
-    "gold\030\004 \001(\r\022\020\n\010cdiamond\030\005 \001(\r\022\r\n\005ccard\030\006 "
-    "\001(\r\022\r\n\005cgold\030\007 \001(\r\022\013\n\003err\030\010 \001(\r", 351);
+    " \001(\010\022\014\n\004free\030\006 \001(\010\022\013\n\003fri\030\007 \001(\010\022\013\n\003yqs\030\010"
+    " \001(\r\"\215\001\n\rSPushCurrency\022\022\n\003cmd\030\001 \001(\r:\005245"
+    "76\022\017\n\007diamond\030\002 \001(\r\022\014\n\004card\030\003 \001(\r\022\014\n\004gol"
+    "d\030\004 \001(\r\022\020\n\010cdiamond\030\005 \001(\r\022\r\n\005ccard\030\006 \001(\r"
+    "\022\r\n\005cgold\030\007 \001(\r\022\013\n\003err\030\010 \001(\r", 348);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ConfigProto.proto", &protobuf_RegisterTypes);
   CConfig::default_instance_ = new CConfig();
@@ -382,7 +382,7 @@ const int SConfig::kActiveFieldNumber;
 const int SConfig::kFirstbuyFieldNumber;
 const int SConfig::kTaskFieldNumber;
 const int SConfig::kFreeFieldNumber;
-const int SConfig::kFriendFieldNumber;
+const int SConfig::kFriFieldNumber;
 const int SConfig::kYqsFieldNumber;
 #endif  // !_MSC_VER
 
@@ -408,7 +408,7 @@ void SConfig::SharedCtor() {
   firstbuy_ = false;
   task_ = false;
   free_ = false;
-  friend__ = false;
+  fri_ = false;
   yqs_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -451,7 +451,7 @@ void SConfig::Clear() {
     firstbuy_ = false;
     task_ = false;
     free_ = false;
-    friend__ = false;
+    fri_ = false;
     yqs_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -555,19 +555,19 @@ bool SConfig::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(56)) goto parse_friend;
+        if (input->ExpectTag(56)) goto parse_fri;
         break;
       }
 
-      // optional bool friend = 7;
+      // optional bool fri = 7;
       case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_friend:
+         parse_fri:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &friend__)));
-          set_has_friend_();
+                 input, &fri_)));
+          set_has_fri();
         } else {
           goto handle_uninterpreted;
         }
@@ -639,9 +639,9 @@ void SConfig::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->free(), output);
   }
 
-  // optional bool friend = 7;
-  if (has_friend_()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->friend_(), output);
+  // optional bool fri = 7;
+  if (has_fri()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->fri(), output);
   }
 
   // optional uint32 yqs = 8;
@@ -687,9 +687,9 @@ void SConfig::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->free(), target);
   }
 
-  // optional bool friend = 7;
-  if (has_friend_()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->friend_(), target);
+  // optional bool fri = 7;
+  if (has_fri()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->fri(), target);
   }
 
   // optional uint32 yqs = 8;
@@ -740,8 +740,8 @@ int SConfig::ByteSize() const {
       total_size += 1 + 1;
     }
 
-    // optional bool friend = 7;
-    if (has_friend_()) {
+    // optional bool fri = 7;
+    if (has_fri()) {
       total_size += 1 + 1;
     }
 
@@ -797,8 +797,8 @@ void SConfig::MergeFrom(const SConfig& from) {
     if (from.has_free()) {
       set_free(from.free());
     }
-    if (from.has_friend_()) {
-      set_friend_(from.friend_());
+    if (from.has_fri()) {
+      set_fri(from.fri());
     }
     if (from.has_yqs()) {
       set_yqs(from.yqs());
@@ -833,7 +833,7 @@ void SConfig::Swap(SConfig* other) {
     std::swap(firstbuy_, other->firstbuy_);
     std::swap(task_, other->task_);
     std::swap(free_, other->free_);
-    std::swap(friend__, other->friend__);
+    std::swap(fri_, other->fri_);
     std::swap(yqs_, other->yqs_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

@@ -1,7 +1,7 @@
 ﻿#ifndef __LYNX_GAME_SERVER_RedisPut_H__
 #define __LYNX_GAME_SERVER_RedisPut_H__
 #include "stdafx.h"
-
+#include "RedisGet.h"
 using namespace std;
 
 
@@ -33,11 +33,25 @@ public:
 	bool PushExRecord(string uid,ExRecord er);
 	bool setExRecordStatus(string uid,int rid,int status);
 	bool PushSignAward(SignAward sa);
-	bool setSignStatus(string uid,int signid,int times);
+	bool setSignStatus(SignStatus ss);
+	
+	bool PushFeedBack(CFeedBack cfb);
+
 	bool setSConfig(string uid, SConfig sc);
 	bool PushSignZhuan(SignZhuan sz);
 	bool PushProp(Prop p);
 	bool PushFree(Task task);
+
+	bool setMailID(int mid);
+	void PopMail(string uid, Mail ml);
+	void ZeroChange(char *&data, int sz);
+
+	bool setConfig(string uid,POINTTIP type,bool ist);
+	
+	bool setExchangeCode(string code);
+	bool setExchangeRecordId(string uid,int id);
+	bool setEXCode(string code,bool isdui);
+	bool changeEXCode(string code,bool isdui);
 private:
 	static RedisPut *m_ins;
 	redis *m_redis;

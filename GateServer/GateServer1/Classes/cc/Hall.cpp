@@ -176,6 +176,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* SMailAward_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SMailAward_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CFirsyBuyData_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CFirsyBuyData_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SFirsyBuyData_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SFirsyBuyData_reflection_ = NULL;
 
 }  // namespace
 
@@ -635,9 +641,10 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchangeCode));
   SExchangeCode_descriptor_ = file->message_type(27);
-  static const int SExchangeCode_offsets_[3] = {
+  static const int SExchangeCode_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, success_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, rd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, err_),
   };
   SExchangeCode_reflection_ =
@@ -908,10 +915,13 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFirstBuy));
   SFirstBuy_descriptor_ = file->message_type(43);
-  static const int SFirstBuy_offsets_[4] = {
+  static const int SFirstBuy_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, cmd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, transid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, noncestr_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, payreq_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, timestamp_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, sign_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, err_),
   };
   SFirstBuy_reflection_ =
@@ -1008,11 +1018,12 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CSignList));
   SSignList_descriptor_ = file->message_type(49);
-  static const int SSignList_offsets_[5] = {
+  static const int SSignList_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, sign_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, count_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, reward_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, zhuan_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, err_),
   };
   SSignList_reflection_ =
@@ -1059,6 +1070,41 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SMailAward));
+  CFirsyBuyData_descriptor_ = file->message_type(52);
+  static const int CFirsyBuyData_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirsyBuyData, cmd_),
+  };
+  CFirsyBuyData_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CFirsyBuyData_descriptor_,
+      CFirsyBuyData::default_instance_,
+      CFirsyBuyData_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirsyBuyData, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirsyBuyData, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CFirsyBuyData));
+  SFirsyBuyData_descriptor_ = file->message_type(53);
+  static const int SFirsyBuyData_offsets_[6] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, reward_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, consume_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, give_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, err_),
+  };
+  SFirsyBuyData_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      SFirsyBuyData_descriptor_,
+      SFirsyBuyData::default_instance_,
+      SFirsyBuyData_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(SFirsyBuyData));
 }
 
 namespace {
@@ -1175,6 +1221,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
     CMailAward_descriptor_, &CMailAward::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     SMailAward_descriptor_, &SMailAward::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CFirsyBuyData_descriptor_, &CFirsyBuyData::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    SFirsyBuyData_descriptor_, &SFirsyBuyData::default_instance());
 }
 
 }  // namespace
@@ -1284,6 +1334,10 @@ void protobuf_ShutdownFile_Hall_2eproto() {
   delete CMailAward_reflection_;
   delete SMailAward::default_instance_;
   delete SMailAward_reflection_;
+  delete CFirsyBuyData::default_instance_;
+  delete CFirsyBuyData_reflection_;
+  delete SFirsyBuyData::default_instance_;
+  delete SFirsyBuyData_reflection_;
 }
 
 void protobuf_AddDesc_Hall_2eproto() {
@@ -1336,47 +1390,55 @@ void protobuf_AddDesc_Hall_2eproto() {
     "ward\022\022\n\003cmd\030\001 \002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021"
     ".protocol.ExAward\022\013\n\003err\030\003 \001(\r\"C\n\rCExcha"
     "ngeCode\022\022\n\003cmd\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 "
-    "\001(\t\022\016\n\006yzcode\030\003 \001(\t\"A\n\rSExchangeCode\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520493\022\017\n\007success\030\002 \001(\010\022\013\n\003err"
-    "\030\003 \001(\r\"%\n\017CExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\005"
-    "20494\"T\n\017SExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\0052"
-    "0494\022 \n\004list\030\002 \003(\0132\022.protocol.ExRecord\022\013"
-    "\n\003err\030\003 \001(\r\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\0052"
-    "0495\022\n\n\002id\030\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002"
-    "(\r:\00520495\022\n\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003e"
-    "rr\030\004 \001(\r\"<\n\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\0052049"
-    "6\022\n\n\002id\030\002 \001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApple"
-    "Pay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003e"
-    "rr\030\003 \001(\r\";\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520"
-    "497\022\n\n\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"q\n\013SWxpayO"
-    "rder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\020\n\010noncestr\030\002 \001"
-    "(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n"
-    "\004sign\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"J\n\014CAliPayOrder"
-    "\022\022\n\003cmd\030\001 \002(\r:\00520504\022\n\n\002id\030\002 \001(\r\022\014\n\004body"
-    "\030\003 \001(\t\022\014\n\004type\030\004 \001(\r\"x\n\014SAliPayOrder\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520504\022\021\n\torderinfo\030\002 \001(\t\022\r\n\005a"
-    "ppid\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\022\n\nprivate"
-    "key\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"4\n\rCAliPayResult\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520505\022\017\n\007content\030\002 \001(\t\"0\n\r"
-    "SAliPayResult\022\022\n\003cmd\030\001 \002(\r:\00520505\022\013\n\003err"
-    "\030\006 \001(\r\"2\n\013CWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\0052049"
-    "8\022\017\n\007transid\030\002 \001(\t\"\?\n\013SWxpayQuery\022\022\n\003cmd"
-    "\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\022\013\n\003err\030\003 "
-    "\001(\r\"-\n\tCFirstBuy\022\022\n\003cmd\030\001 \002(\r:\00520499\022\014\n\004"
-    "type\030\002 \001(\r\"I\n\tSFirstBuy\022\022\n\003cmd\030\001 \002(\r:\00520"
-    "499\022\n\n\002id\030\002 \001(\r\022\017\n\007transid\030\003 \001(\t\022\013\n\003err\030"
-    "\004 \001(\r\"L\n\tCFeedBack\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013"
-    "\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003 \001(\t\022\017\n\007content\030\004 "
-    "\001(\t\",\n\tSFeedBack\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013\n\003"
-    "err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003cmd\030\001 \002(\r:\00520501\"F"
-    "\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\00520501\022\r\n\005index\030\002 \001"
-    "(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003err\030\004 \001(\r\"\037\n\tCSignL"
-    "ist\022\022\n\003cmd\030\001 \002(\r:\00520502\"n\n\tSSignList\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520502\022\014\n\004sign\030\002 \001(\r\022\r\n\005count\030"
-    "\003 \001(\r\022#\n\006reward\030\004 \003(\0132\023.protocol.SignAwa"
-    "rd\022\013\n\003err\030\005 \001(\r\",\n\nCMailAward\022\022\n\003cmd\030\001 \002"
-    "(\r:\00520503\022\n\n\002id\030\002 \002(\r\"9\n\nSMailAward\022\022\n\003c"
-    "md\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r", 3320);
+    "\001(\t\022\016\n\006yzcode\030\003 \001(\t\"_\n\rSExchangeCode\022\022\n\003"
+    "cmd\030\001 \002(\r:\00520493\022\017\n\007success\030\002 \001(\010\022\034\n\002rd\030"
+    "\003 \003(\0132\020.protocol.Reward\022\013\n\003err\030\004 \001(\r\"%\n\017"
+    "CExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\"T\n\017S"
+    "ExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\022 \n\004li"
+    "st\030\002 \003(\0132\022.protocol.ExRecord\022\013\n\003err\030\003 \001("
+    "\r\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n\n\002id"
+    "\030\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002(\r:\00520495\022"
+    "\n\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"<"
+    "\n\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 "
+    "\001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApplePay\022\022\n\003cmd"
+    "\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\";"
+    "\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n\002id\030"
+    "\002 \001(\r\022\014\n\004body\030\003 \001(\t\"q\n\013SWxpayOrder\022\022\n\003cm"
+    "d\030\001 \002(\r:\00520497\022\020\n\010noncestr\030\002 \001(\t\022\016\n\006payr"
+    "eq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n\004sign\030\005 \001("
+    "\t\022\013\n\003err\030\006 \001(\r\"J\n\014CAliPayOrder\022\022\n\003cmd\030\001 "
+    "\002(\r:\00520504\022\n\n\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\022\014\n\004"
+    "type\030\004 \001(\r\"x\n\014SAliPayOrder\022\022\n\003cmd\030\001 \002(\r:"
+    "\00520504\022\021\n\torderinfo\030\002 \001(\t\022\r\n\005appid\030\003 \001(\t"
+    "\022\021\n\ttimestamp\030\004 \001(\t\022\022\n\nprivatekey\030\005 \001(\t\022"
+    "\013\n\003err\030\006 \001(\r\"4\n\rCAliPayResult\022\022\n\003cmd\030\001 \002"
+    "(\r:\00520505\022\017\n\007content\030\002 \001(\t\"0\n\rSAliPayRes"
+    "ult\022\022\n\003cmd\030\001 \002(\r:\00520505\022\013\n\003err\030\006 \001(\r\"2\n\013"
+    "CWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007trans"
+    "id\030\002 \001(\t\"\?\n\013SWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520"
+    "498\022\017\n\007transid\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFi"
+    "rstBuy\022\022\n\003cmd\030\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r"
+    "\"}\n\tSFirstBuy\022\022\n\003cmd\030\001 \002(\r:\00520499\022\020\n\010non"
+    "cestr\030\002 \001(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n\ttimestamp"
+    "\030\004 \001(\t\022\014\n\004sign\030\005 \001(\t\022\014\n\004type\030\006 \002(\r\022\013\n\003er"
+    "r\030\007 \001(\r\"L\n\tCFeedBack\022\022\n\003cmd\030\001 \002(\r:\00520500"
+    "\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003 \001(\t\022\017\n\007content\030"
+    "\004 \001(\t\",\n\tSFeedBack\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013"
+    "\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003cmd\030\001 \002(\r:\00520501"
+    "\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\00520501\022\r\n\005index\030\002"
+    " \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003err\030\004 \001(\r\"\037\n\tCSig"
+    "nList\022\022\n\003cmd\030\001 \002(\r:\00520502\"\222\001\n\tSSignList\022"
+    "\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004sign\030\002 \001(\r\022\r\n\005cou"
+    "nt\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132\023.protocol.Sign"
+    "Award\022\"\n\005zhuan\030\005 \003(\0132\023.protocol.SignZhua"
+    "n\022\013\n\003err\030\006 \001(\r\",\n\nCMailAward\022\022\n\003cmd\030\001 \002("
+    "\r:\00520503\022\n\n\002id\030\002 \002(\r\"9\n\nSMailAward\022\022\n\003cm"
+    "d\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\""
+    "#\n\rCFirsyBuyData\022\022\n\003cmd\030\001 \002(\r:\00520512\"\241\001\n"
+    "\rSFirsyBuyData\022\022\n\003cmd\030\001 \002(\r:\00520512\022\n\n\002id"
+    "\030\002 \001(\r\022 \n\006reward\030\003 \003(\0132\020.protocol.Reward"
+    "\022!\n\007consume\030\004 \001(\0132\020.protocol.Reward\022\036\n\004g"
+    "ive\030\005 \003(\0132\020.protocol.Reward\022\013\n\003err\030\006 \001(\r", 3640);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Hall.proto", &protobuf_RegisterTypes);
   CRank::default_instance_ = new CRank();
@@ -1431,6 +1493,8 @@ void protobuf_AddDesc_Hall_2eproto() {
   SSignList::default_instance_ = new SSignList();
   CMailAward::default_instance_ = new CMailAward();
   SMailAward::default_instance_ = new SMailAward();
+  CFirsyBuyData::default_instance_ = new CFirsyBuyData();
+  SFirsyBuyData::default_instance_ = new SFirsyBuyData();
   CRank::default_instance_->InitAsDefaultInstance();
   SRank::default_instance_->InitAsDefaultInstance();
   CShop::default_instance_->InitAsDefaultInstance();
@@ -1483,6 +1547,8 @@ void protobuf_AddDesc_Hall_2eproto() {
   SSignList::default_instance_->InitAsDefaultInstance();
   CMailAward::default_instance_->InitAsDefaultInstance();
   SMailAward::default_instance_->InitAsDefaultInstance();
+  CFirsyBuyData::default_instance_->InitAsDefaultInstance();
+  SFirsyBuyData::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Hall_2eproto);
 }
 
@@ -9010,6 +9076,7 @@ void CExchangeCode::Swap(CExchangeCode* other) {
 #ifndef _MSC_VER
 const int SExchangeCode::kCmdFieldNumber;
 const int SExchangeCode::kSuccessFieldNumber;
+const int SExchangeCode::kRdFieldNumber;
 const int SExchangeCode::kErrFieldNumber;
 #endif  // !_MSC_VER
 
@@ -9071,6 +9138,7 @@ void SExchangeCode::Clear() {
     success_ = false;
     err_ = 0u;
   }
+  rd_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -9108,12 +9176,27 @@ bool SExchangeCode::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(24)) goto parse_err;
+        if (input->ExpectTag(26)) goto parse_rd;
         break;
       }
 
-      // optional uint32 err = 3;
+      // repeated .protocol.Reward rd = 3;
       case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_rd:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_rd()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_rd;
+        if (input->ExpectTag(32)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_err:
@@ -9156,9 +9239,15 @@ void SExchangeCode::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->success(), output);
   }
 
-  // optional uint32 err = 3;
+  // repeated .protocol.Reward rd = 3;
+  for (int i = 0; i < this->rd_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->rd(i), output);
+  }
+
+  // optional uint32 err = 4;
   if (has_err()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->err(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->err(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -9179,9 +9268,16 @@ void SExchangeCode::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->success(), target);
   }
 
-  // optional uint32 err = 3;
+  // repeated .protocol.Reward rd = 3;
+  for (int i = 0; i < this->rd_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->rd(i), target);
+  }
+
+  // optional uint32 err = 4;
   if (has_err()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->err(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->err(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -9207,7 +9303,7 @@ int SExchangeCode::ByteSize() const {
       total_size += 1 + 1;
     }
 
-    // optional uint32 err = 3;
+    // optional uint32 err = 4;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -9215,6 +9311,14 @@ int SExchangeCode::ByteSize() const {
     }
 
   }
+  // repeated .protocol.Reward rd = 3;
+  total_size += 1 * this->rd_size();
+  for (int i = 0; i < this->rd_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->rd(i));
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -9240,6 +9344,7 @@ void SExchangeCode::MergeFrom(const ::google::protobuf::Message& from) {
 
 void SExchangeCode::MergeFrom(const SExchangeCode& from) {
   GOOGLE_CHECK_NE(&from, this);
+  rd_.MergeFrom(from.rd_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
@@ -9276,6 +9381,7 @@ void SExchangeCode::Swap(SExchangeCode* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
     std::swap(success_, other->success_);
+    rd_.Swap(&other->rd_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -13926,8 +14032,11 @@ void CFirstBuy::Swap(CFirstBuy* other) {
 
 #ifndef _MSC_VER
 const int SFirstBuy::kCmdFieldNumber;
-const int SFirstBuy::kIdFieldNumber;
-const int SFirstBuy::kTransidFieldNumber;
+const int SFirstBuy::kNoncestrFieldNumber;
+const int SFirstBuy::kPayreqFieldNumber;
+const int SFirstBuy::kTimestampFieldNumber;
+const int SFirstBuy::kSignFieldNumber;
+const int SFirstBuy::kTypeFieldNumber;
 const int SFirstBuy::kErrFieldNumber;
 #endif  // !_MSC_VER
 
@@ -13948,8 +14057,11 @@ SFirstBuy::SFirstBuy(const SFirstBuy& from)
 void SFirstBuy::SharedCtor() {
   _cached_size_ = 0;
   cmd_ = 20499u;
-  id_ = 0u;
-  transid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  noncestr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  payreq_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  timestamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  type_ = 0u;
   err_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -13959,8 +14071,17 @@ SFirstBuy::~SFirstBuy() {
 }
 
 void SFirstBuy::SharedDtor() {
-  if (transid_ != &::google::protobuf::internal::kEmptyString) {
-    delete transid_;
+  if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+    delete noncestr_;
+  }
+  if (payreq_ != &::google::protobuf::internal::kEmptyString) {
+    delete payreq_;
+  }
+  if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+    delete timestamp_;
+  }
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    delete sign_;
   }
   if (this != default_instance_) {
   }
@@ -13990,12 +14111,27 @@ SFirstBuy* SFirstBuy::New() const {
 void SFirstBuy::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     cmd_ = 20499u;
-    id_ = 0u;
-    if (has_transid()) {
-      if (transid_ != &::google::protobuf::internal::kEmptyString) {
-        transid_->clear();
+    if (has_noncestr()) {
+      if (noncestr_ != &::google::protobuf::internal::kEmptyString) {
+        noncestr_->clear();
       }
     }
+    if (has_payreq()) {
+      if (payreq_ != &::google::protobuf::internal::kEmptyString) {
+        payreq_->clear();
+      }
+    }
+    if (has_timestamp()) {
+      if (timestamp_ != &::google::protobuf::internal::kEmptyString) {
+        timestamp_->clear();
+      }
+    }
+    if (has_sign()) {
+      if (sign_ != &::google::protobuf::internal::kEmptyString) {
+        sign_->clear();
+      }
+    }
+    type_ = 0u;
     err_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -14019,45 +14155,96 @@ bool SFirstBuy::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(16)) goto parse_id;
+        if (input->ExpectTag(18)) goto parse_noncestr;
         break;
       }
 
-      // optional uint32 id = 2;
+      // optional string noncestr = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &id_)));
-          set_has_id();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(26)) goto parse_transid;
-        break;
-      }
-
-      // optional string transid = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_transid:
+         parse_noncestr:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_transid()));
+                input, this->mutable_noncestr()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->transid().data(), this->transid().length(),
+            this->noncestr().data(), this->noncestr().length(),
             ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(32)) goto parse_err;
+        if (input->ExpectTag(26)) goto parse_payreq;
         break;
       }
 
-      // optional uint32 err = 4;
+      // optional string payreq = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_payreq:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_payreq()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->payreq().data(), this->payreq().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(34)) goto parse_timestamp;
+        break;
+      }
+
+      // optional string timestamp = 4;
       case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_timestamp:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_timestamp()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->timestamp().data(), this->timestamp().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(42)) goto parse_sign;
+        break;
+      }
+
+      // optional string sign = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_sign:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_sign()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->sign().data(), this->sign().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_type;
+        break;
+      }
+
+      // required uint32 type = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_type:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &type_)));
+          set_has_type();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 7;
+      case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_err:
@@ -14095,23 +14282,50 @@ void SFirstBuy::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
   }
 
-  // optional uint32 id = 2;
-  if (has_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->id(), output);
-  }
-
-  // optional string transid = 3;
-  if (has_transid()) {
+  // optional string noncestr = 2;
+  if (has_noncestr()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->transid().data(), this->transid().length(),
+      this->noncestr().data(), this->noncestr().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      3, this->transid(), output);
+      2, this->noncestr(), output);
   }
 
-  // optional uint32 err = 4;
+  // optional string payreq = 3;
+  if (has_payreq()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->payreq().data(), this->payreq().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      3, this->payreq(), output);
+  }
+
+  // optional string timestamp = 4;
+  if (has_timestamp()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->timestamp().data(), this->timestamp().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      4, this->timestamp(), output);
+  }
+
+  // optional string sign = 5;
+  if (has_sign()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->sign().data(), this->sign().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      5, this->sign(), output);
+  }
+
+  // required uint32 type = 6;
+  if (has_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->type(), output);
+  }
+
+  // optional uint32 err = 7;
   if (has_err()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->err(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->err(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -14127,24 +14341,54 @@ void SFirstBuy::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
   }
 
-  // optional uint32 id = 2;
-  if (has_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->id(), target);
-  }
-
-  // optional string transid = 3;
-  if (has_transid()) {
+  // optional string noncestr = 2;
+  if (has_noncestr()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->transid().data(), this->transid().length(),
+      this->noncestr().data(), this->noncestr().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->transid(), target);
+        2, this->noncestr(), target);
   }
 
-  // optional uint32 err = 4;
+  // optional string payreq = 3;
+  if (has_payreq()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->payreq().data(), this->payreq().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->payreq(), target);
+  }
+
+  // optional string timestamp = 4;
+  if (has_timestamp()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->timestamp().data(), this->timestamp().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->timestamp(), target);
+  }
+
+  // optional string sign = 5;
+  if (has_sign()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->sign().data(), this->sign().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->sign(), target);
+  }
+
+  // required uint32 type = 6;
+  if (has_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->type(), target);
+  }
+
+  // optional uint32 err = 7;
   if (has_err()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->err(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->err(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -14165,21 +14409,42 @@ int SFirstBuy::ByteSize() const {
           this->cmd());
     }
 
-    // optional uint32 id = 2;
-    if (has_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->id());
-    }
-
-    // optional string transid = 3;
-    if (has_transid()) {
+    // optional string noncestr = 2;
+    if (has_noncestr()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->transid());
+          this->noncestr());
     }
 
-    // optional uint32 err = 4;
+    // optional string payreq = 3;
+    if (has_payreq()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->payreq());
+    }
+
+    // optional string timestamp = 4;
+    if (has_timestamp()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->timestamp());
+    }
+
+    // optional string sign = 5;
+    if (has_sign()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->sign());
+    }
+
+    // required uint32 type = 6;
+    if (has_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->type());
+    }
+
+    // optional uint32 err = 7;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -14216,11 +14481,20 @@ void SFirstBuy::MergeFrom(const SFirstBuy& from) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
     }
-    if (from.has_id()) {
-      set_id(from.id());
+    if (from.has_noncestr()) {
+      set_noncestr(from.noncestr());
     }
-    if (from.has_transid()) {
-      set_transid(from.transid());
+    if (from.has_payreq()) {
+      set_payreq(from.payreq());
+    }
+    if (from.has_timestamp()) {
+      set_timestamp(from.timestamp());
+    }
+    if (from.has_sign()) {
+      set_sign(from.sign());
+    }
+    if (from.has_type()) {
+      set_type(from.type());
     }
     if (from.has_err()) {
       set_err(from.err());
@@ -14242,7 +14516,7 @@ void SFirstBuy::CopyFrom(const SFirstBuy& from) {
 }
 
 bool SFirstBuy::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x00000021) != 0x00000021) return false;
 
   return true;
 }
@@ -14250,8 +14524,11 @@ bool SFirstBuy::IsInitialized() const {
 void SFirstBuy::Swap(SFirstBuy* other) {
   if (other != this) {
     std::swap(cmd_, other->cmd_);
-    std::swap(id_, other->id_);
-    std::swap(transid_, other->transid_);
+    std::swap(noncestr_, other->noncestr_);
+    std::swap(payreq_, other->payreq_);
+    std::swap(timestamp_, other->timestamp_);
+    std::swap(sign_, other->sign_);
+    std::swap(type_, other->type_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -15651,6 +15928,7 @@ const int SSignList::kCmdFieldNumber;
 const int SSignList::kSignFieldNumber;
 const int SSignList::kCountFieldNumber;
 const int SSignList::kRewardFieldNumber;
+const int SSignList::kZhuanFieldNumber;
 const int SSignList::kErrFieldNumber;
 #endif  // !_MSC_VER
 
@@ -15715,6 +15993,7 @@ void SSignList::Clear() {
     err_ = 0u;
   }
   reward_.Clear();
+  zhuan_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -15783,12 +16062,27 @@ bool SSignList::MergePartialFromCodedStream(
           goto handle_uninterpreted;
         }
         if (input->ExpectTag(34)) goto parse_reward;
-        if (input->ExpectTag(40)) goto parse_err;
+        if (input->ExpectTag(42)) goto parse_zhuan;
         break;
       }
 
-      // optional uint32 err = 5;
+      // repeated .protocol.SignZhuan zhuan = 5;
       case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_zhuan:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_zhuan()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(42)) goto parse_zhuan;
+        if (input->ExpectTag(48)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 6;
+      case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_err:
@@ -15842,9 +16136,15 @@ void SSignList::SerializeWithCachedSizes(
       4, this->reward(i), output);
   }
 
-  // optional uint32 err = 5;
+  // repeated .protocol.SignZhuan zhuan = 5;
+  for (int i = 0; i < this->zhuan_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->zhuan(i), output);
+  }
+
+  // optional uint32 err = 6;
   if (has_err()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->err(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->err(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -15877,9 +16177,16 @@ void SSignList::SerializeWithCachedSizes(
         4, this->reward(i), target);
   }
 
-  // optional uint32 err = 5;
+  // repeated .protocol.SignZhuan zhuan = 5;
+  for (int i = 0; i < this->zhuan_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->zhuan(i), target);
+  }
+
+  // optional uint32 err = 6;
   if (has_err()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->err(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->err(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -15914,7 +16221,7 @@ int SSignList::ByteSize() const {
           this->count());
     }
 
-    // optional uint32 err = 5;
+    // optional uint32 err = 6;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -15928,6 +16235,14 @@ int SSignList::ByteSize() const {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->reward(i));
+  }
+
+  // repeated .protocol.SignZhuan zhuan = 5;
+  total_size += 1 * this->zhuan_size();
+  for (int i = 0; i < this->zhuan_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->zhuan(i));
   }
 
   if (!unknown_fields().empty()) {
@@ -15956,6 +16271,7 @@ void SSignList::MergeFrom(const ::google::protobuf::Message& from) {
 void SSignList::MergeFrom(const SSignList& from) {
   GOOGLE_CHECK_NE(&from, this);
   reward_.MergeFrom(from.reward_);
+  zhuan_.MergeFrom(from.zhuan_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_cmd()) {
       set_cmd(from.cmd());
@@ -15997,6 +16313,7 @@ void SSignList::Swap(SSignList* other) {
     std::swap(sign_, other->sign_);
     std::swap(count_, other->count_);
     reward_.Swap(&other->reward_);
+    zhuan_.Swap(&other->zhuan_);
     std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -16547,6 +16864,629 @@ void SMailAward::Swap(SMailAward* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = SMailAward_descriptor_;
   metadata.reflection = SMailAward_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int CFirsyBuyData::kCmdFieldNumber;
+#endif  // !_MSC_VER
+
+CFirsyBuyData::CFirsyBuyData()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void CFirsyBuyData::InitAsDefaultInstance() {
+}
+
+CFirsyBuyData::CFirsyBuyData(const CFirsyBuyData& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CFirsyBuyData::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20512u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CFirsyBuyData::~CFirsyBuyData() {
+  SharedDtor();
+}
+
+void CFirsyBuyData::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void CFirsyBuyData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CFirsyBuyData::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CFirsyBuyData_descriptor_;
+}
+
+const CFirsyBuyData& CFirsyBuyData::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+CFirsyBuyData* CFirsyBuyData::default_instance_ = NULL;
+
+CFirsyBuyData* CFirsyBuyData::New() const {
+  return new CFirsyBuyData;
+}
+
+void CFirsyBuyData::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20512u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CFirsyBuyData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required uint32 cmd = 1 [default = 20512];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CFirsyBuyData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required uint32 cmd = 1 [default = 20512];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CFirsyBuyData::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required uint32 cmd = 1 [default = 20512];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int CFirsyBuyData::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required uint32 cmd = 1 [default = 20512];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CFirsyBuyData::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CFirsyBuyData* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CFirsyBuyData*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CFirsyBuyData::MergeFrom(const CFirsyBuyData& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CFirsyBuyData::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CFirsyBuyData::CopyFrom(const CFirsyBuyData& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CFirsyBuyData::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
+void CFirsyBuyData::Swap(CFirsyBuyData* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CFirsyBuyData::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CFirsyBuyData_descriptor_;
+  metadata.reflection = CFirsyBuyData_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int SFirsyBuyData::kCmdFieldNumber;
+const int SFirsyBuyData::kIdFieldNumber;
+const int SFirsyBuyData::kRewardFieldNumber;
+const int SFirsyBuyData::kConsumeFieldNumber;
+const int SFirsyBuyData::kGiveFieldNumber;
+const int SFirsyBuyData::kErrFieldNumber;
+#endif  // !_MSC_VER
+
+SFirsyBuyData::SFirsyBuyData()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void SFirsyBuyData::InitAsDefaultInstance() {
+  consume_ = const_cast< ::protocol::Reward*>(&::protocol::Reward::default_instance());
+}
+
+SFirsyBuyData::SFirsyBuyData(const SFirsyBuyData& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void SFirsyBuyData::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20512u;
+  id_ = 0u;
+  consume_ = NULL;
+  err_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+SFirsyBuyData::~SFirsyBuyData() {
+  SharedDtor();
+}
+
+void SFirsyBuyData::SharedDtor() {
+  if (this != default_instance_) {
+    delete consume_;
+  }
+}
+
+void SFirsyBuyData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SFirsyBuyData::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SFirsyBuyData_descriptor_;
+}
+
+const SFirsyBuyData& SFirsyBuyData::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+SFirsyBuyData* SFirsyBuyData::default_instance_ = NULL;
+
+SFirsyBuyData* SFirsyBuyData::New() const {
+  return new SFirsyBuyData;
+}
+
+void SFirsyBuyData::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20512u;
+    id_ = 0u;
+    if (has_consume()) {
+      if (consume_ != NULL) consume_->::protocol::Reward::Clear();
+    }
+    err_ = 0u;
+  }
+  reward_.Clear();
+  give_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SFirsyBuyData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required uint32 cmd = 1 [default = 20512];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_id;
+        break;
+      }
+
+      // optional uint32 id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_reward;
+        break;
+      }
+
+      // repeated .protocol.Reward reward = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_reward:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_reward()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_reward;
+        if (input->ExpectTag(34)) goto parse_consume;
+        break;
+      }
+
+      // optional .protocol.Reward consume = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_consume:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_consume()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(42)) goto parse_give;
+        break;
+      }
+
+      // repeated .protocol.Reward give = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_give:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_give()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(42)) goto parse_give;
+        if (input->ExpectTag(48)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_err:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &err_)));
+          set_has_err();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void SFirsyBuyData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required uint32 cmd = 1 [default = 20512];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // optional uint32 id = 2;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->id(), output);
+  }
+
+  // repeated .protocol.Reward reward = 3;
+  for (int i = 0; i < this->reward_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->reward(i), output);
+  }
+
+  // optional .protocol.Reward consume = 4;
+  if (has_consume()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->consume(), output);
+  }
+
+  // repeated .protocol.Reward give = 5;
+  for (int i = 0; i < this->give_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->give(i), output);
+  }
+
+  // optional uint32 err = 6;
+  if (has_err()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->err(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* SFirsyBuyData::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required uint32 cmd = 1 [default = 20512];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional uint32 id = 2;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->id(), target);
+  }
+
+  // repeated .protocol.Reward reward = 3;
+  for (int i = 0; i < this->reward_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->reward(i), target);
+  }
+
+  // optional .protocol.Reward consume = 4;
+  if (has_consume()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->consume(), target);
+  }
+
+  // repeated .protocol.Reward give = 5;
+  for (int i = 0; i < this->give_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->give(i), target);
+  }
+
+  // optional uint32 err = 6;
+  if (has_err()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->err(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int SFirsyBuyData::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required uint32 cmd = 1 [default = 20512];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+    // optional uint32 id = 2;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+
+    // optional .protocol.Reward consume = 4;
+    if (has_consume()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->consume());
+    }
+
+    // optional uint32 err = 6;
+    if (has_err()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->err());
+    }
+
+  }
+  // repeated .protocol.Reward reward = 3;
+  total_size += 1 * this->reward_size();
+  for (int i = 0; i < this->reward_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->reward(i));
+  }
+
+  // repeated .protocol.Reward give = 5;
+  total_size += 1 * this->give_size();
+  for (int i = 0; i < this->give_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->give(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SFirsyBuyData::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SFirsyBuyData* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SFirsyBuyData*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SFirsyBuyData::MergeFrom(const SFirsyBuyData& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  reward_.MergeFrom(from.reward_);
+  give_.MergeFrom(from.give_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+    if (from.has_consume()) {
+      mutable_consume()->::protocol::Reward::MergeFrom(from.consume());
+    }
+    if (from.has_err()) {
+      set_err(from.err());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SFirsyBuyData::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SFirsyBuyData::CopyFrom(const SFirsyBuyData& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SFirsyBuyData::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
+void SFirsyBuyData::Swap(SFirsyBuyData* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(id_, other->id_);
+    reward_.Swap(&other->reward_);
+    std::swap(consume_, other->consume_);
+    give_.Swap(&other->give_);
+    std::swap(err_, other->err_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata SFirsyBuyData::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SFirsyBuyData_descriptor_;
+  metadata.reflection = SFirsyBuyData_reflection_;
   return metadata;
 }
 

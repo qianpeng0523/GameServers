@@ -126,7 +126,7 @@ size_t read_data1(void* buffer, size_t size, size_t nmemb, void *stream)
 	return size*nmemb;
 }
 
-void HttpPay::NoticePushCurrency(Reward rd, string uid){
+void HttpPay::NoticePushCurrency(Reward rd, string uid, bool isadd){
 	ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
 	if (!data){
 		return;
@@ -139,21 +139,33 @@ void HttpPay::NoticePushCurrency(Reward rd, string uid){
 	spc.set_gold(ub->gold());
 	spc.set_diamond(ub->diamond());
 	spc.set_card(ub->card());
+
+	number = isadd?number:-number;
+
 	if (pid == 1){
 		spc.set_cgold(number);
 		int gd = ub->gold() + number;
+		if (gd < 0){
+			gd = 0;
+		}
 		ub->set_gold(gd);
 		spc.set_gold(gd);
 	}
 	else if (pid == 2){
 		spc.set_cdiamond(number);
 		int dia = ub->diamond() + number;
+		if (dia < 0){
+			dia = 0;
+		}
 		ub->set_diamond(dia);
 		spc.set_diamond(dia);
 	}
 	else if (pid == 3){
 		spc.set_ccard(number);
 		int cd = ub->card() + number;
+		if (cd < 0){
+			cd = 0;
+		}
 		ub->set_card(cd);
 		spc.set_card(cd);
 	}
@@ -188,9 +200,28 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 		if (itr != maps.end()){
 			string out_trade_no = itr->second;
 			string totalfree = maps.at("total_fee");
-			ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+			int nnumber = 0;
+			vector<Reward> rews;
+			if (atoi(shopid.c_str()) == 100){
+				FirstBuyItem *p = RedisGet::getIns()->getFirstBuy();
+				if (p){
+					Reward rrd = RedisGet::getIns()->getReward(p->_conid);
+					nnumber = rrd.number();
+					for (int i = 0; i < p->_rid.size(); i++){
+						Reward rrd = RedisGet::getIns()->getReward(p->_rid.at(i));
+						rews.push_back(rrd);
+					}
+				}
+			}
+			else{
+				ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+				nnumber = si.consume().number();
+				Reward rew = si.prop();
+				rews.push_back(rew);
+			}
+			
 
-			if (si.consume().number() == atoi(totalfree.c_str())){
+			if (nnumber == atoi(totalfree.c_str())){
 				//校验成功
 				int len = m_pRedis->eraseList("out_trade_no", out_trade_no);
 				if (len > 0){
@@ -201,8 +232,9 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 						tt.insert(make_pair("return_code", "SUCCESS"));
 						tt.insert(make_pair("return_msg", "OK"));
 
-						Reward rew = si.prop();
-						NoticePushCurrency(rew,uid);
+						for (int i = 0; i < rews.size(); i++){
+							NoticePushCurrency(rews.at(i), uid);
+						}
 					}
 					else{
 						tt.insert(make_pair("return_code", "FAIL"));

@@ -63,6 +63,22 @@ bool RedisPut::PushMail(string uid, Mail mail){
 	return m_redis->List("mail"+uid,&mail);
 }
 
+void RedisPut::ZeroChange(char *&data, int sz){
+	for (int i = 0; i < sz; i++){
+		if (data[i] == ZERO_STR){
+			data[i] = '\0';
+		}
+	}
+}
+
+void RedisPut::PopMail(string uid, Mail ml){
+	int sz = ml.ByteSize();
+	char *buffer = new char[sz];
+	ml.SerializePartialToArray(buffer, sz);
+	ZeroChange(buffer, sz);
+	m_redis->eraseList("mail"+uid, buffer);
+}
+
 bool RedisPut::setMailStatus(string uid, int mid, int status){
 	char buff[50];
 	sprintf(buff,"mailstatus%s%d",uid.c_str(),mid);
@@ -103,6 +119,7 @@ bool RedisPut::PushReward(Reward rd){
 }
 
 bool RedisPut::PushExRecord(string uid, ExRecord er){
+	RedisGet::getIns()->PushExRecord(uid, er);
 	return m_redis->List("exchangerecord" + uid, &er);
 }
 
@@ -116,14 +133,43 @@ bool RedisPut::PushSignAward(SignAward sa){
 	return m_redis->List("sign", &sa);
 }
 
-bool RedisPut::setSignStatus(string uid, int signid, int times){
+bool RedisPut::setMailID(int mid){
+	return m_redis->set("mailid_index",mid);
+}
+
+bool RedisPut::setSignStatus(SignStatus ss){
 	char buff[50];
-	sprintf(buff,"%s%d",uid.c_str(),signid);
-	return m_redis->set(buff, times);
+	sprintf(buff,"signstatus%s",ss._uid.c_str());
+	char buff1[50];
+	if (ss._signcount != -1){
+		sprintf(buff1, "%d", ss._signcount);
+		m_redis->Hash(buff, "count", buff1);
+	}
+	if (ss._issign != -1){
+		sprintf(buff1, "%d", ss._issign);
+		m_redis->Hash(buff, "sign", buff1);
+	}
+
+	if (ss._left != -1){
+		sprintf(buff1, "%d", ss._left);
+		m_redis->Hash(buff, "left", buff1);
+	}
+
+	if (!ss._time.empty()){
+		sprintf(buff1, "%s", ss._time.c_str());
+		m_redis->Hash(buff, "time", buff1);
+	}
+	RedisGet::getIns()->setSignStatus(ss);
+	return true;
 }
 
 bool RedisPut::setSConfig(string uid, SConfig sc){
 	return m_redis->Hash("config" + uid, &sc);
+}
+
+bool RedisPut::PushFeedBack(CFeedBack cfb){
+	string key = "feedback"+cfb.uid();
+	return m_redis->List(key, &cfb);
 }
 
 bool RedisPut::PushSignZhuan(SignZhuan sz){
@@ -136,4 +182,37 @@ bool RedisPut::PushProp(Prop p){
 
 bool RedisPut::PushFree(Task task){
 	return m_redis->List("free", &task);
+}
+
+bool RedisPut::setConfig(string uid, POINTTIP type, bool ist){
+	string key="config"+uid;
+	char va[10];
+	sprintf(va,"%d",ist);
+	return m_redis->Hash(key,g_PointStr[type],va);
+}
+
+bool RedisPut::setExchangeCode(string code){
+	int len = 0;
+	return m_redis->set("exchangecode",(char*)code.c_str(),len);
+}
+
+bool RedisPut::setExchangeRecordId(string uid, int id){
+	return m_redis->set("exchangerecordid"+uid, id);
+}
+
+bool RedisPut::setEXCode(string code, bool isdui){
+	string key = "EXCodeStatus";
+	char buff[10];
+	sprintf(buff,"%d",isdui);
+	return m_redis->List(key,buff);
+}
+
+bool RedisPut::changeEXCode(string code, bool isdui){
+	PExchangeCode *p = RedisGet::getIns()->getPExchangeCode(code);
+	if (p){
+		char buff[10];
+		sprintf(buff, "%d", isdui);
+		RedisGet::getIns()->setEXCodeStatus(p->_id, isdui);
+		return m_redis->setList("EXCodeStatus",p->_id-1,buff);
+	}
 }

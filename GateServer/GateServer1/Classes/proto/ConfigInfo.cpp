@@ -3,6 +3,8 @@
 #include "ClientSocket.h"
 #include "LoginInfo.h"
 #include "LibEvent.h"
+#include "RedisGet.h"
+
 ConfigInfo *ConfigInfo::m_shareConfigInfo=NULL;
 ConfigInfo::ConfigInfo()
 {
@@ -38,8 +40,26 @@ void ConfigInfo::HandlerCConfig(ccEvent *event){
 	CConfig cl;
 	cl.CopyFrom(*event->msg);
 	
-	SConfig sl;
-	SendSConfig(sl,event->m_fd);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		SConfig *sl1 = RedisGet::getIns()->getSConfig(uid);
+		SConfig sl;
+		if (sl1){
+			sl.CopyFrom(*sl1);
+		}
+		else{
+			sl.set_mail(false);
+			sl.set_active(true);
+			sl.set_firstbuy(true);
+			sl.set_fri(false);
+			sl.set_task(false);
+			sl.set_free(false);
+			sl.set_yqs(true);
+			RedisPut::getIns()->setSConfig(uid, sl);
+		}
+		SendSConfig(sl, event->m_fd);
+	}
 }
 
 void ConfigInfo::SendSPushCurrency(SPushCurrency spc, int fd){

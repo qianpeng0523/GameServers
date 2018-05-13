@@ -23,6 +23,8 @@
 #include "RoomLogicInfo.h"
 #include "PingInfo.h"
 #include "CLog.h"
+#include "ConfigInfo.h"
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	/*
@@ -109,7 +111,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	fclose(fp);
 	*/
 	
-
+	ConfigInfo::getIns();
 	PingInfo::getIns();
 	RoomInfo::getIns();
 	RoomLogicInfo::getIns();

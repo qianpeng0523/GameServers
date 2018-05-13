@@ -23,6 +23,10 @@ public:
 	void SendSShop(SShop cl, int fd);
 	void HandlerCShop(ccEvent *event);
 
+	//首充
+	void SendSFirsyBuyData(SFirsyBuyData cl,int fd);
+	void HandCFirsyBuyData(ccEvent *event);
+
 	//邮件
 	void SendSMail(SMail sl, int fd);
 	void HandlerCMail(ccEvent *event);
@@ -105,11 +109,14 @@ public:
 private:
 	void regist(int cmd, string name, EventHandler handler);
 	void resetUserData(Reward rd,string uid);
+	void update(float);
 private:
 	static HallInfo *m_shareHallInfo;
 	
 	RedisGet *m_pRedisGet;
 	RedisPut *m_pRedisPut;
+
+	string m_lastday;
 };
 
 #endif 

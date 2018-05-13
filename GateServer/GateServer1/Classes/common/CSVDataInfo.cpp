@@ -65,3 +65,18 @@ map<string, int> CSVDataInfo::getDatasHuItem(CSVSTRUCT csvenum){
 	}
 	return vec;
 }
+
+vector<int> CSVDataInfo::getIntFromstr(string str){
+	vector<int> vec;
+	int index = str.find("|");
+	string temp = str;
+	while (index != -1){
+		int a = atoi(temp.substr(0, index).c_str());
+		vec.push_back(a);
+		temp = temp.substr(index + 1, temp.length());
+		index = temp.find("|");
+	}
+	int a = atoi(temp.c_str());
+	vec.push_back(a);
+	return vec;
+}

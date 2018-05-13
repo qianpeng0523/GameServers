@@ -218,12 +218,12 @@ class SConfig : public ::google::protobuf::Message {
   inline bool free() const;
   inline void set_free(bool value);
 
-  // optional bool friend = 7;
-  inline bool has_friend_() const;
-  inline void clear_friend_();
-  static const int kFriendFieldNumber = 7;
-  inline bool friend_() const;
-  inline void set_friend_(bool value);
+  // optional bool fri = 7;
+  inline bool has_fri() const;
+  inline void clear_fri();
+  static const int kFriFieldNumber = 7;
+  inline bool fri() const;
+  inline void set_fri(bool value);
 
   // optional uint32 yqs = 8;
   inline bool has_yqs() const;
@@ -246,8 +246,8 @@ class SConfig : public ::google::protobuf::Message {
   inline void clear_has_task();
   inline void set_has_free();
   inline void clear_has_free();
-  inline void set_has_friend_();
-  inline void clear_has_friend_();
+  inline void set_has_fri();
+  inline void clear_has_fri();
   inline void set_has_yqs();
   inline void clear_has_yqs();
 
@@ -259,7 +259,7 @@ class SConfig : public ::google::protobuf::Message {
   bool firstbuy_;
   bool task_;
   bool free_;
-  bool friend__;
+  bool fri_;
   ::google::protobuf::uint32 yqs_;
 
   mutable int _cached_size_;
@@ -589,26 +589,26 @@ inline void SConfig::set_free(bool value) {
   free_ = value;
 }
 
-// optional bool friend = 7;
-inline bool SConfig::has_friend_() const {
+// optional bool fri = 7;
+inline bool SConfig::has_fri() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
-inline void SConfig::set_has_friend_() {
+inline void SConfig::set_has_fri() {
   _has_bits_[0] |= 0x00000040u;
 }
-inline void SConfig::clear_has_friend_() {
+inline void SConfig::clear_has_fri() {
   _has_bits_[0] &= ~0x00000040u;
 }
-inline void SConfig::clear_friend_() {
-  friend__ = false;
-  clear_has_friend_();
+inline void SConfig::clear_fri() {
+  fri_ = false;
+  clear_has_fri();
 }
-inline bool SConfig::friend_() const {
-  return friend__;
+inline bool SConfig::fri() const {
+  return fri_;
 }
-inline void SConfig::set_friend_(bool value) {
-  set_has_friend_();
-  friend__ = value;
+inline void SConfig::set_fri(bool value) {
+  set_has_fri();
+  fri_ = value;
 }
 
 // optional uint32 yqs = 8;

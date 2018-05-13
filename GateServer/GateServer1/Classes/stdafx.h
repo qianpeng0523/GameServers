@@ -78,3 +78,17 @@ using namespace Poco;
 #define KONGGE "^"
 #define MAXSTAMP 128
 #define HTTP_KEY "f137e668f5b5babdd361dcb5966a3fe9"
+
+enum POINTTIP
+{
+	POINT_MAIL = 0,
+	POINT_SHOUCHONG,
+	POINT_ACTIVE,
+	POINT_SHOP,
+	POINT_MAINFEI,
+	POINT_HAOYOU,
+	POINT_RENWU,
+	POINT_SIGN
+};
+
+static string g_PointStr[] = { "mail", "active", "firstbuy", "free", "fri","task","yqs" };

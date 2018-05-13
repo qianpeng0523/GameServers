@@ -470,7 +470,16 @@ void HttpAliPay::requestCloseOrder(map<string, string>mp){
 	DebugLog("Response:%s", responseStr.c_str());
 	string responseContent = analyzeResponse(responseStr);
 	DebugLog("[Response responseContent]:%s", responseStr.c_str());
-	m_pRedis->delKey("tradetimeend" + mp.find("out_trade_no")->second);
+	if (mp.find("out_trade_no")!=mp.end()){
+		m_pRedis->delKey("tradetimeend" + mp.find("out_trade_no")->second);
+	}
+	else if(mp.find("biz_content")!=mp.end()){
+		string t = mp.at("biz_content");
+		YMSocketData sd;
+		sd.parse((char *)t.c_str(), t.length());
+		m_pRedis->delKey("tradetimeend" + sd["out_trade_no"].asString());
+	}
+	
 }
 
 void HttpAliPay::openUpdate(bool isopen){

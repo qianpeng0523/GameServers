@@ -233,12 +233,10 @@ void CLog::printbin(int bin)
 
 void CLog::printhex(int hex)
 {
-	if (hex == 0)
-	{
-		//printstr("0x");
-		return;
+	int hh = hex / 16;
+	if (hh > 0){
+		printhex(hex / 16);
 	}
-	printhex(hex / 16);
 	if (hex < 10||hex%16<10)
 	{
 		printch((char)(hex % 16 + '0'));
