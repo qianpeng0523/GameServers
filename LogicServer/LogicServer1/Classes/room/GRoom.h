@@ -123,6 +123,9 @@ private:
 
 	void update(float dt);
 	void openUpdate(bool isopen);
+
+	void DisTime(float dt);
+	void openDisTime(bool isopen);
 private:
 	int m_maxcount;
 	RoomData m_roomdata;
@@ -148,6 +151,8 @@ private:
 	time_t m_lasttime;
 	bool m_isopen;
 	string m_tipuid;
+	int m_distime;
+	bool m_isDisTime;
 };
 
 #endif 

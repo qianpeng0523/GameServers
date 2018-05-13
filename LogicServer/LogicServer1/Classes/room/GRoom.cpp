@@ -21,6 +21,7 @@ m_isbegin(false)
 
 GRoom::~GRoom(){
 	openUpdate(false);
+	openDisTime(false);
 	reset();
 	for (int i = 0; i < 4; i++){
 		if (m_udata[i]){
@@ -61,6 +62,17 @@ void GRoom::update(float dt){
 	}
 }
 
+void GRoom::openDisTime(bool isopen){
+	if (!m_isDisTime&&isopen){
+		m_isDisTime = isopen;
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(GRoom::DisTime), 1.0);
+	}
+	else if (m_isDisTime&&!isopen){
+		m_isDisTime = isopen;
+		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(GRoom::DisTime));
+	}
+}
+
 void GRoom::reset(){
 	m_curbao=0;
 	m_curbaoniang = 0;
@@ -88,6 +100,7 @@ void GRoom::PushUData(UData *ud){
 	for (int i = 0; i < 4; i++){
 		if (!m_udata[i]){
 			m_udata[i] = ud;
+			m_voteuids.insert(make_pair(ud->_uid,0));
 			break;
 		}
 	}
@@ -750,8 +763,14 @@ void GRoom::PopUData(UData *ud){
 	for (int i = 0; i < 4;i++){
 		if (m_udata[i]){
 			if (m_udata[i] == ud){
+				
+				string uid = ud->_uid;
+				if (m_voteuids.find(uid) != m_voteuids.end()){
+					m_voteuids.erase(m_voteuids.find(uid));
+				}
 				delete m_udata[i];
 				m_udata[i] = NULL;
+
 				//return;
 			}
 			else{
@@ -797,10 +816,18 @@ bool GRoom::DissolveRoom(string uid){
 	UData *ud = getUData(uid);
 	if (ud){
 		if (m_dissoveuid.empty()){
+			m_distime = 10*60;
+			openDisTime(true);
 			m_dissoveuid = uid;
 			sd.set_position(getPosition(uid));
 			sd.set_time(Common::getTime());
 			m_pRoomInfo->SendSDissolveRoom(sd);
+			if (m_voteuids.find(uid) != m_voteuids.end()){
+				m_voteuids.at(uid) = 1;
+			}
+			else{
+				m_voteuids.insert(make_pair(uid, 1));
+			}
 			if (m_voteuids.size() <= 1){
 				VoteResult(true);
 			}
@@ -817,6 +844,15 @@ bool GRoom::DissolveRoom(string uid){
 	return false;
 }
 
+void GRoom::DisTime(float dt){
+	if (m_distime > 0){
+		m_distime -= 1;
+		if (m_distime == 0){
+			VoteResult(true);
+		}
+	}
+}
+
 bool GRoom::Agree(string uid, bool isagree){
 	SVote sv;
 	sv.set_uid(uid);
@@ -826,39 +862,54 @@ bool GRoom::Agree(string uid, bool isagree){
 		if (itr != m_voteuids.end()){
 			itr->second = isagree ? 1 : 2;
 		}
+		else{
+			m_voteuids.insert(make_pair(uid, isagree ? 1 : 2));
+		}
 	}
+	sv.set_agree(isagree);
 	m_pRoomInfo->SendSVote(sv);
 
 	auto itr = m_voteuids.find(uid);
 	int acount = 0;
 	int dcount = 0;
 	int count = m_voteuids.size();
+	int tcount = 0;
 	for (itr; itr != m_voteuids.end(); itr++){
 		if (itr->second == 1){
 			acount++;
+			tcount++;
 		}
 		else if (itr->second == 2){
 			dcount++;
+			tcount++;
 		}
 	}
-	if (acount > count / 2){
+	if (acount == count||acount==3||(tcount==count&&acount>count/2)){
 		VoteResult(true);
 	}
-	else if (dcount > count / 2){
+	else if ((count == 2 && dcount == 1) || dcount > count / 2 || (tcount == count&&dcount>count / 2)){
+		VoteResult(false);
+	}
+	else if(tcount==count){
 		VoteResult(false);
 	}
 	return true;
 }
 
 void GRoom::VoteResult(bool isDissolve){
+	openDisTime(false);
 	SVoteResult svr;
 	svr.set_dissolve(isDissolve);
+	svr.set_uid(m_dissoveuid);
 	m_pRoomInfo->SendSVoteResult(svr);
 	if (isDissolve){
+		m_distime = -1;
 		openUpdate(false);
+		m_voteuids.clear();
 		RoomControl::getIns()->eraseRoom(m_roomdata.roomid());
 	}
 	else{
+		m_distime = -1;
 		m_dissoveuid = "";
 		m_voteuids.clear();
 	}

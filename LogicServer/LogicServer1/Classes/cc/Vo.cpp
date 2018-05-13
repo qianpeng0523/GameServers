@@ -763,7 +763,7 @@ void protobuf_AddDesc_Vo_2eproto() {
     "(\r\"\352\002\n\010RoomUser\022\016\n\006userid\030\001 \001(\t\022\020\n\010usern"
     "ame\030\002 \001(\t\022\r\n\005picid\030\003 \001(\r\022\016\n\006picurl\030\004 \001(\t"
     "\022\013\n\003sex\030\005 \001(\r\022\n\n\002ip\030\006 \001(\t\022\014\n\004gold\030\007 \001(\r\022"
-    "\r\n\005score\030\010 \001(\r\022\013\n\003win\030\t \001(\r\022\014\n\004lose\030\n \001("
+    "\r\n\005score\030\010 \001(\005\022\013\n\003win\030\t \001(\r\022\014\n\004lose\030\n \001("
     "\r\022\014\n\004ping\030\013 \001(\r\022\013\n\003vip\030\014 \001(\r\022&\n\007cpgcard\030"
     "\r \003(\0132\025.protocol.CPGCardData\022\020\n\010position"
     "\030\016 \001(\r\022\r\n\005cards\030\017 \001(\014\022\020\n\010outcards\030\020 \001(\014\022"
@@ -8521,7 +8521,7 @@ void RoomUser::SharedCtor() {
   sex_ = 0u;
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   gold_ = 0u;
-  score_ = 0u;
+  score_ = 0;
   win_ = 0u;
   lose_ = 0u;
   ping_ = 0u;
@@ -8611,7 +8611,7 @@ void RoomUser::Clear() {
       }
     }
     gold_ = 0u;
-    score_ = 0u;
+    score_ = 0;
   }
   if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     win_ = 0u;
@@ -8764,13 +8764,13 @@ bool RoomUser::MergePartialFromCodedStream(
         break;
       }
 
-      // optional uint32 score = 8;
+      // optional int32 score = 8;
       case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_score:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &score_)));
           set_has_score();
         } else {
@@ -9068,9 +9068,9 @@ void RoomUser::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->gold(), output);
   }
 
-  // optional uint32 score = 8;
+  // optional int32 score = 8;
   if (has_score()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->score(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->score(), output);
   }
 
   // optional uint32 win = 9;
@@ -9209,9 +9209,9 @@ void RoomUser::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->gold(), target);
   }
 
-  // optional uint32 score = 8;
+  // optional int32 score = 8;
   if (has_score()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->score(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->score(), target);
   }
 
   // optional uint32 win = 9;
@@ -9350,10 +9350,10 @@ int RoomUser::ByteSize() const {
           this->gold());
     }
 
-    // optional uint32 score = 8;
+    // optional int32 score = 8;
     if (has_score()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->score());
     }
 

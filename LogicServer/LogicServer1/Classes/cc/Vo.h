@@ -2702,12 +2702,12 @@ class RoomUser : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 gold() const;
   inline void set_gold(::google::protobuf::uint32 value);
 
-  // optional uint32 score = 8;
+  // optional int32 score = 8;
   inline bool has_score() const;
   inline void clear_score();
   static const int kScoreFieldNumber = 8;
-  inline ::google::protobuf::uint32 score() const;
-  inline void set_score(::google::protobuf::uint32 value);
+  inline ::google::protobuf::int32 score() const;
+  inline void set_score(::google::protobuf::int32 value);
 
   // optional uint32 win = 9;
   inline bool has_win() const;
@@ -2876,7 +2876,7 @@ class RoomUser : public ::google::protobuf::Message {
   ::google::protobuf::uint32 sex_;
   ::std::string* ip_;
   ::google::protobuf::uint32 gold_;
-  ::google::protobuf::uint32 score_;
+  ::google::protobuf::int32 score_;
   ::google::protobuf::uint32 win_;
   ::google::protobuf::uint32 lose_;
   ::google::protobuf::uint32 ping_;
@@ -7771,7 +7771,7 @@ inline void RoomUser::set_gold(::google::protobuf::uint32 value) {
   gold_ = value;
 }
 
-// optional uint32 score = 8;
+// optional int32 score = 8;
 inline bool RoomUser::has_score() const {
   return (_has_bits_[0] & 0x00000080u) != 0;
 }
@@ -7782,13 +7782,13 @@ inline void RoomUser::clear_has_score() {
   _has_bits_[0] &= ~0x00000080u;
 }
 inline void RoomUser::clear_score() {
-  score_ = 0u;
+  score_ = 0;
   clear_has_score();
 }
-inline ::google::protobuf::uint32 RoomUser::score() const {
+inline ::google::protobuf::int32 RoomUser::score() const {
   return score_;
 }
-inline void RoomUser::set_score(::google::protobuf::uint32 value) {
+inline void RoomUser::set_score(::google::protobuf::int32 value) {
   set_has_score();
   score_ = value;
 }
