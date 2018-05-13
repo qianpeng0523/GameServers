@@ -199,7 +199,8 @@ message SExchangeCode
 {
     required uint32 	cmd 	= 1[default=0x500D];  	//
 	optional bool		success	= 2;//是否兑换成功
-	optional uint32 	err  	= 3;					//
+	repeated Reward 	rd		= 3;
+	optional uint32 	err  	= 4;					//
 }
 
 //CExchangeRecord 兑换记录
