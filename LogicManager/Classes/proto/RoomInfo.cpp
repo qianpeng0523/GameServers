@@ -293,8 +293,10 @@ void RoomInfo::HandSVoteResult(ccEvent *event){
 	string uid = sd.uid();
 	string rid = getRoomId(uid);
 	bool isjiesan = sd.dissolve();
+	printf("vvvvvvvvvvvvvvvvvvvvvvv111111\n");
 	vector<string >users = getRoomUsers(rid);
 	for (int i = 0; i < users.size(); i++){
+		printf("vvvvvvvvvvvvvvvvvvvvvvv\n");
 		SVoteResult sd1;
 		sd1.CopyFrom(sd);
 		sd1.set_suid(users.at(i));
