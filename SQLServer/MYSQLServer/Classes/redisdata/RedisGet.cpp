@@ -5,6 +5,7 @@
 
 RedisGet *RedisGet::m_ins=NULL;
 RedisGet::RedisGet(){
+	m_pFirstBuyItem = NULL;
 	m_redis = redis::getIns();
 }
 
@@ -54,6 +55,9 @@ void RedisGet::init(){
 			Reward rd;
 			rd.set_rid(re->_rid);
 			rd.set_number(re->_pnumber);
+			Prop *p = rd.mutable_prop();
+			p->set_id(re->_pid);
+			p->set_name(p->name());
 			pRedisPut->PushReward(rd);
 		}
 	}
@@ -233,6 +237,45 @@ void RedisGet::init(){
 			CLog::log("%s\n", rd.DebugString().c_str());
 		}
 	}
+
+	FirstBuyItem *p = getFirstBuy();
+	if (!p){
+		auto vec = csvinfo->getDatas(CSV_FIRSTBUY);
+		auto itr = vec.begin();
+		for (itr; itr != vec.end();itr++){
+			CSVFirstBuyItem *pp = (CSVFirstBuyItem *)itr->second;
+			pRedisPut->PushFirstBuy(pp);
+		}
+	}
+}
+
+FirstBuyItem *RedisGet::getFirstBuy(){
+	if (m_pFirstBuyItem){
+		return m_pFirstBuyItem;
+	}
+	std::map<string,string> vv = m_redis->getHash("firstbuy");
+	if (vv.empty()){
+		return m_pFirstBuyItem;
+	}
+	m_pFirstBuyItem = new FirstBuyItem();
+	auto itr = vv.begin();
+	for (itr; itr != vv.end();itr++){
+		string name = itr->first;
+		string value = itr->second;
+		if (name.compare("id") == 0){
+			m_pFirstBuyItem->_sid = atoi(value.c_str());
+		}
+		else if (name.compare("rewardid") == 0){
+			m_pFirstBuyItem->_rid = CSVDataInfo::getIns()->getIntFromstr(value);
+		}
+		else if (name.compare("conid") == 0){
+			m_pFirstBuyItem->_conid = atoi(value.c_str());
+		}
+		else if (name.compare("giveid") == 0){
+			m_pFirstBuyItem->_giveid = CSVDataInfo::getIns()->getIntFromstr(value);
+		}
+	}
+	return m_pFirstBuyItem;
 }
 
 char* RedisGet::getPass(string uid){

@@ -9,8 +9,26 @@
 #include<netdb.h>
 #include <netinet/in.h>
 #endif
-	
+
+
+vector<char> Common::m_pDChars;
+vector<char> Common::m_pXChars;
+vector<char> Common::m_pChars;
 Common::Common(){
+	srand(time(NULL));
+	for (char i = '0'; i <= '9'; i++){
+		m_pDChars.push_back(i);
+		m_pXChars.push_back(i);
+		m_pChars.push_back(i);
+	}
+	for (char i = 'A'; i <= 'Z'; i++){
+		m_pDChars.push_back(i);
+		m_pChars.push_back(i);
+	}
+	for (char i = 'a'; i <= 'z'; i++){
+		m_pXChars.push_back(i);
+		m_pChars.push_back(i);
+	}
 
 }
 
@@ -220,4 +238,23 @@ string Common::getHostNameIp(string hostname, unsigned int &port){
 		return ip;
 	}
 	return "";
+}
+
+string Common::RandStr(int number, int isup){
+	string str;
+	vector<char> cvecs;
+	if (isup == -1){
+		cvecs = m_pXChars;
+	}
+	else if (isup == 0){
+		cvecs = m_pChars;
+	}
+	else if (isup == 1){
+		cvecs = m_pDChars;
+	}
+	for (int i = 0; i < number;i++){
+		int rd = rand()%cvecs.size();
+		str += cvecs.at(rd);
+	}
+	return str;
 }

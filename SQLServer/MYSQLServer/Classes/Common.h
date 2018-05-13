@@ -26,5 +26,10 @@ public:
 	static string getTimeStr(time_t tp);
 	static int getTime(time_t ptimep, int type);//type 1年 2月 3日 4时 5分 6秒 
 	static string getHostNameIp(string hostname,unsigned int &port);
+	static string RandStr(int number,int isup);//isup -1小写 1大写 0不区分
+private:
+	static vector<char> m_pDChars;
+	static vector<char> m_pXChars;
+	static vector<char> m_pChars;
 };
 #endif // __Common_H__

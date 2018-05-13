@@ -129,6 +129,23 @@ namespace CSV{
 		int _count;
 		vector<int > _rewardid;
 	};
+
+	//Ê×³ä
+	struct CSVFirstBuyItem :public Object
+	{
+		int _sid;
+		string _rid;
+		string _conid;
+		string _giveid;
+	};
+
+	//Ê×³ä
+	struct CSVExchangeCode :public Object
+	{
+		int _id;
+		string _rewardid;
+		string _code;
+	};
 }
 
 #endif 

@@ -121,3 +121,21 @@ bool RedisPut::PushProp(Prop p){
 bool RedisPut::PushFree(Task task){
 	return m_redis->List("free", &task);
 }
+
+bool RedisPut::PushFirstBuy(CSVFirstBuyItem *sv){
+	char buff[50];
+	sprintf(buff, "%d", sv->_sid);
+	m_redis->Hash("firstbuy","id", buff);
+	m_redis->Hash("firstbuy", "rewardid", sv->_rid);
+	m_redis->Hash("firstbuy", "conid", sv->_conid);
+	return m_redis->Hash("firstbuy", "giveid", sv->_giveid);
+}
+
+bool RedisPut::PushDuiHuanCode(CSVExchangeCode *item){
+	string key = "CSVExchangeCode";
+	char buff[200];
+	sprintf(buff,"%d",item->_id);
+	string content =buff;
+	content += ","+item->_rewardid+","+item->_code;
+	return m_redis->List(key,(char *)content.c_str());
+}

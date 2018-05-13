@@ -1,9 +1,16 @@
 ﻿#ifndef __LYNX_GAME_SERVER_RedisGet_H__
 #define __LYNX_GAME_SERVER_RedisGet_H__
 #include "stdafx.h"
-
+#include "CSVDataInfo.h"
 using namespace std;
 
+struct FirstBuyItem :public Object
+{
+	int _sid;
+	vector<int> _rid;
+	int _conid;
+	vector<int> _giveid;
+};
 
 class RedisGet 
 {
@@ -36,9 +43,12 @@ public:
 	vector<SignZhuan> getSignZhuan();
 	vector<Prop > getProp();
 	vector<Task > getFree();
+	FirstBuyItem *getFirstBuy();
+		
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;
+	FirstBuyItem *m_pFirstBuyItem;
 };
 
 

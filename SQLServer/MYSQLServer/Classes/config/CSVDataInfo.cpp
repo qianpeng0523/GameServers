@@ -43,8 +43,8 @@ bool CSVDataInfo::init()
 	CSVDataInfo::getIns()->openCSVFile("./res/active.csv", CSV_ACTIVE);
 	CSVDataInfo::getIns()->openCSVFile("./res/prop.csv", CSV_PROP);
 	CSVDataInfo::getIns()->openCSVFile("./res/free.csv", CSV_FREE);
-
-	
+	CSVDataInfo::getIns()->openCSVFile("./res/firstbuy.csv", CSV_FIRSTBUY);
+	CSVDataInfo::getIns()->openCSVFile("./res/exchangecode.csv", CSV_FIRSTBUY);
 
     return true;
 }
@@ -59,6 +59,12 @@ CSVDataInfo* CSVDataInfo::getIns(){
 }
 
 void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
+	FILE *_file=NULL;
+	_file = fopen(file.c_str(), "r");
+	if (!_file){
+		return;
+	}
+	
 	CSVDataHelper *p = new CSVDataHelper();
 	p->openAndResolveFile(file.c_str());
 	if (m_CSVDataHelpers.find(filekey) != m_CSVDataHelpers.end()){
@@ -75,6 +81,8 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 
 	int rowlen = p->getRowLength();
 	int collen = p->getColLength();
+	string t1;
+	string t2;
 	std::map<int, Object *> vec = m_Objects.at(filekey);
 	for (int j = 1; j < rowlen; j++){
 		//string colname = p->getColName(j);
@@ -167,6 +175,24 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 			((CSVFree *)obj)->_rewardid = getIntFromstr(p->getData(j, 4));
 			vec.insert(make_pair(((CSVFree *)obj)->_tid, ((CSVFree *)obj)));
 			break;
+		case CSV_FIRSTBUY:
+			obj = new CSVFirstBuyItem();
+			((CSVFirstBuyItem *)obj)->_sid = atoi(p->getData(j, 0));
+			t1 = p->getData(j, 1);
+			((CSVFirstBuyItem *)obj)->_rid = t1;
+			((CSVFirstBuyItem *)obj)->_conid = p->getData(j, 2);
+			t2 = p->getData(j, 3);
+			((CSVFirstBuyItem *)obj)->_giveid = t2;
+			vec.insert(make_pair(((CSVFirstBuyItem *)obj)->_sid, ((CSVFirstBuyItem *)obj)));
+			break;
+		case CSV_EXCHANGECODE:
+			obj = new CSVExchangeCode();
+			((CSVExchangeCode *)obj)->_id = atoi(p->getData(j, 0));
+			((CSVExchangeCode *)obj)->_rewardid = p->getData(j, 1);
+			((CSVExchangeCode *)obj)->_code = p->getData(j, 2);
+			
+			vec.insert(make_pair(((CSVExchangeCode *)obj)->_id, ((CSVExchangeCode *)obj)));
+			break;
 		default:
 			break;
 		}
@@ -208,4 +234,20 @@ int CSVDataInfo::getDataSize(CSVSTRUCT csvenu){
 std::map<int, Object *> CSVDataInfo::getDatas(CSVSTRUCT csvenum){
 	std::map<int, Object *> vec = m_Objects.at(csvenum);
 	return vec;
+}
+
+vector<int> CSVDataInfo::getRewardID(vector<int> pids){
+	vector<int> vecs1;
+	auto vec = getDatas(CSV_REWARD);
+	auto itr = vec.begin();
+	for (itr; itr != vec.end();itr++){
+		CSVReward *p = (CSVReward *)itr->second;
+		for (int j = 0; j < pids.size(); j++){
+			if (p->_pid == pids.at(j)){
+				vecs1.push_back(p->_rid);
+				break;
+			}
+		}
+	}
+	return vecs1;
 }

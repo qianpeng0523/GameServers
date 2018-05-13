@@ -1,9 +1,9 @@
 ﻿#ifndef __LYNX_GAME_SERVER_RedisPut_H__
 #define __LYNX_GAME_SERVER_RedisPut_H__
 #include "stdafx.h"
-
+#include "CSVDataInfo.h"
 using namespace std;
-
+using namespace CSV;
 
 class RedisPut 
 {
@@ -35,6 +35,9 @@ public:
 	bool PushSignZhuan(SignZhuan sz);
 	bool PushProp(Prop p);
 	bool PushFree(Task task);
+	bool PushFirstBuy(CSVFirstBuyItem *sv);
+
+	bool PushDuiHuanCode(CSVExchangeCode *item);
 private:
 	static RedisPut *m_ins;
 	redis *m_redis;
