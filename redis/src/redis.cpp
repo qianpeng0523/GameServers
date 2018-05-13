@@ -505,6 +505,38 @@ map<uint64, int> redis::getList(string key){
 	return vec;
 }
 
+vector<std::string> redis::getListStr(string key){
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lrange %s %d %d", key.c_str(), 0, -1);
+	vector<std::string> vec;
+	if (!m_pReply)
+	{
+		reconnect();
+		printf("get value failed\n");
+		return vec;
+	}
+	//get成功返回结果为 REDIS_REPLY_STRING 
+	if (m_pReply->type == REDIS_REPLY_ERROR)
+	{
+		printf("get redis faliled\n");
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return vec;
+	}
+
+
+	int sz = m_pReply->elements;
+	for (int i = 0; i < sz; i++){
+		redisReply *rpvalues = m_pReply->element[i];
+		string value = rpvalues->str;
+		int len = rpvalues->len;
+		vec.push_back(value);
+	}
+	//printf("get redis success\n");
+	freeReplyObject(m_pReply);
+	m_pReply = NULL;
+	return vec;
+}
+
 bool redis::setList(std::string key, string keyname, string value, Message *msg1){
 	vector<Message *>vec = redis::getIns()->getList(key,msg1->GetTypeName());
 	char buff[100];
@@ -581,6 +613,26 @@ bool redis::setList(std::string key, string keyname, string value, Message *msg1
 		}
 	}
 	return false;
+}
+
+bool redis::setList(std::string key, int index, string value){
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lset %s %d %s", key.c_str(), index, value.c_str());
+	bool ist = true;
+	if (!m_pReply)
+	{
+		printf("set redis faliled\n");
+		ist = false;
+		return false;
+	}
+	if (ist && m_pReply->type == REDIS_REPLY_ERROR){
+		ist = false;
+		printf("set redis faliled\n");
+		freeReplyObject(m_pReply);
+		return false;
+	}
+	//printf("set redis success\n");
+	freeReplyObject(m_pReply);
+	return ist;
 }
 
 void redis::releaseMessages(vector<Message *>vecs){
