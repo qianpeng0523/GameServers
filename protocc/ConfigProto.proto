@@ -16,7 +16,7 @@ message SConfig
 	optional bool 		firstbuy= 4;					//
 	optional bool 		task  	= 5;					//
 	optional bool 		free  	= 6;					//
-	optional bool 		friend  = 7;					//
+	optional bool 		fri  	= 7;					//
 	optional uint32 	yqs  	= 8;					//
 }
 

@@ -318,10 +318,13 @@ message CFirstBuy
 
 message SFirstBuy
 {
-    required uint32 	cmd 	= 1[default=0x5013];  	//
-	optional uint32 	id 		= 2;					//
-	optional string 	transid = 3;					//
-	optional uint32 	err  	= 4;					//
+    required uint32 	cmd 		= 1[default=0x5013];  	//
+	optional string 	noncestr 	= 2;					//
+	optional string 	payreq 		= 3;					//
+	optional string 	timestamp 	= 4;					//
+	optional string 	sign 		= 5;					//
+	required uint32 	type 		= 6;
+	optional uint32 	err  		= 7;					//
 }
 
 //CFeedBack 反馈
@@ -365,7 +368,8 @@ message SSignList
 	optional uint32 	sign  	= 2;					//是否已经签到
 	optional uint32 	count  	= 3;					//签到次数
 	repeated SignAward 	reward  = 4;					//奖励
-	optional uint32 	err  	= 5;					//
+	repeated SignZhuan 	zhuan   = 5;					//转盘
+	optional uint32 	err  	= 6;					//
 }
 
 //CMailAward 领取邮件奖励
@@ -380,5 +384,21 @@ message SMailAward
     required uint32 	cmd 	= 1[default=0x5017];  	//
 	optional uint32 	id  	= 2;					//
 	optional uint32 	err  	= 3;					//
+}
+
+//CFirsyBuyData 首充数据
+message CFirsyBuyData
+{
+    required uint32 	cmd 	= 1[default=0x5020];  	//
+}
+
+message SFirsyBuyData
+{
+    required uint32 	cmd 	= 1[default=0x5020];  	//
+	optional uint32		id		= 2;
+	repeated Reward 	reward  = 3;					//
+	optional Reward 	consume = 4;					//
+	repeated Reward 	give    = 5;					//
+	optional uint32 	err  	= 6;					//
 }
 

@@ -187,7 +187,7 @@ message RoomUser{
 	optional uint32 sex 		= 5;
 	optional string ip			= 6;
 	optional uint32 gold		= 7;
-	optional uint32 score		= 8;
+	optional int32  score		= 8;
 	optional uint32 win			= 9;
 	optional uint32 lose		= 10;
 	optional uint32 ping		= 11;
