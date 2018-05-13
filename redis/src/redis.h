@@ -6,14 +6,17 @@
 #include <stdlib.h>
 #include "hiredis.h"
 #include "YMSocketData.h"
-//#include "Hall.h"
 #include "Vo.h"
+#include "Hall.h"
+#include "Login.h"
+
 #include "LogicServer.h"
 
 #define ZERO_STR '&'
 
 using namespace ::google::protobuf;
 using namespace protocol;
+
 class redis{
 public:
 	redis();
@@ -39,12 +42,13 @@ public:
 	int eraseList(string key, string value);//删除与value值相同的项
 
 	map<uint64, int> getList(string key);
+	vector<std::string> getListStr(string key);
 	bool getList(string key, map<string, int> &vec);
 	std::vector<Message *> getList(std::string key, string mesname);
 	std::vector<Message *> getList(std::string key, string mesname,int beginindex,int endindex);
 	vector<char *> getList(string key, vector<int> &lens,int beginindex=0, int endindex=-1);
 	bool setList(std::string key,string keyname,string value,Message *msg);
-	void sortList(std::string key,string keyname,string value);
+	bool setList(std::string key, int index, string value);
 
 	bool isConnect();
 	void releaseMessages(vector<Message *>vecs);
