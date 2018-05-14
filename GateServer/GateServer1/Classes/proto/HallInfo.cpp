@@ -295,13 +295,15 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 		if (fir){
 			Friend *fri = fris.add_list();
 			fri->set_acttype(1);
-			fri->set_online(1);
-			fri->set_time(Common::getTime());
-			fri->set_allocated_info(fir);
+			fri->set_online(LibEvent::getIns()->isHave(uid));
+			fri->set_time(Common::getTime() - RedisGet::getIns()->getUserLoginTime(uid));
+			UserBase *user= fri->mutable_info();
+			user->CopyFrom(*fir);
 		}
 	}
 	else if (type == 2){
-		
+		auto vec = m_pRedisGet->getUserBases();
+
 	}
 	SendSFindFriend(fris, event->m_fd);
 }

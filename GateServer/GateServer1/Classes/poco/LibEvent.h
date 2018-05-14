@@ -36,6 +36,7 @@ public:
 	int getFd(string uid);
 	string getUID(int fd);
 	void eraseClientData(int fd);
+	bool isHave(string uid);
 private:
 	static void DoError(struct bufferevent *bev, short error, void *ctx);
 	void CloseConn(Conn *pConn, int nFunID);

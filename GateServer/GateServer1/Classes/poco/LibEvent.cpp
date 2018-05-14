@@ -459,6 +459,11 @@ ClientData *LibEvent::getClientDataByUID(string uid){
 	return NULL;
 }
 
+bool LibEvent::isHave(string uid){
+	ClientData *data = getClientDataByUID(uid);
+	return data ? true : false;
+}
+
 string LibEvent::getUID(int fd){
 	ClientData *data = getClientData(fd);
 	if (data){
