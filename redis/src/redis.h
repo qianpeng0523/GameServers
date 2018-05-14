@@ -49,6 +49,7 @@ public:
 	vector<char *> getList(string key, vector<int> &lens,int beginindex=0, int endindex=-1);
 	bool setList(std::string key,string keyname,string value,Message *msg);
 	bool setList(std::string key, int index, string value);
+	bool setList(std::string key, int index, Message *msg);
 
 	bool isConnect();
 	void releaseMessages(vector<Message *>vecs);
