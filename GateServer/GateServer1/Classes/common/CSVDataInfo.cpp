@@ -66,30 +66,30 @@ map<string, int> CSVDataInfo::getDatasHuItem(CSVSTRUCT csvenum){
 	return vec;
 }
 
-vector<int> CSVDataInfo::getIntFromstr(string str){
+vector<int> CSVDataInfo::getIntFromstr(string str, string fenge){
 	vector<int> vec;
-	int index = str.find("|");
+	int index = str.find(fenge);
 	string temp = str;
 	while (index != -1){
 		int a = atoi(temp.substr(0, index).c_str());
 		vec.push_back(a);
 		temp = temp.substr(index + 1, temp.length());
-		index = temp.find("|");
+		index = temp.find(fenge);
 	}
 	int a = atoi(temp.c_str());
 	vec.push_back(a);
 	return vec;
 }
 
-vector<string> CSVDataInfo::getStrFromstr(string str){
+vector<string> CSVDataInfo::getStrFromstr(string str, string fenge){
 	vector<string> vec;
-	int index = str.find("|");
+	int index = str.find(fenge);
 	string temp = str;
 	while (index != -1){
 		string a = temp.substr(0, index);
 		vec.push_back(a);
 		temp = temp.substr(index + 1, temp.length());
-		index = temp.find("|");
+		index = temp.find(fenge);
 	}
 	vec.push_back(temp);
 	return vec;

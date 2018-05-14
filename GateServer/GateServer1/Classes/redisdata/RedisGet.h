@@ -10,7 +10,7 @@ struct SignStatus
 		_signcount = 0;
 		_issign = false;
 		_left = 1;
-		//_time = Common::getLocalTimeDay1();
+		_time = Common::getLocalTimeDay1();
 	}
 	string _uid;
 	int _signcount;
@@ -45,9 +45,13 @@ public:
 	void init();
 
 	string getPass(string uid);
+	map<string, string> getPass();
+	void setPass(string uid,string pass);
+
 	string getOpenidPass(string openid);
 	map<string, UserBase *> getUserBases();
 	UserBase *getUserBase(string uid);
+	UserBase *getUserBase(int index);
 	void setUserBase(UserBase *ub);
 	int getUserBaseIndex(string uid);
 	void setUserLoginTime(string uid,time_t t);
@@ -81,8 +85,9 @@ public:
 
 	int setExRecordStatus(string uid, int rid);
 	vector<SignAward> getSignAward();
-	SignStatus getSignStatus(string uid);
-	void setSignStatus(SignStatus ss);//不写入数据库
+	SignStatus *getSignStatus(string uid);
+	void setSignStatus(SignStatus *ss);//不写入数据库
+	map<string, SignStatus *> getSignStatuss();
 
 	map<string, SConfig *> getSConfig();
 	SConfig *getSConfig(string uid);
@@ -124,7 +129,7 @@ private:
 	map<string, PExchangeCode*> m_pExchangeCodes;
 	vector<bool> m_pEXCodes;
 	map<string, vector<ExRecord>> m_pExRecords;
-	map<string, SignStatus>m_pSignStatuss;
+	map<string, SignStatus*>m_pSignStatuss;
 	map<string,map<string,UserBase *>>m_pfriends;
 	map<string, UserBase *>m_pUserBases;
 	map<string, int>m_pUserIndexs;

@@ -45,7 +45,7 @@ void ConfigInfo::HandlerCConfig(ccEvent *event){
 		string uid = data->_uid;
 		SConfig *sl1 = RedisGet::getIns()->getSConfig(uid);
 		if (sl1){
-			return sl1;
+			return;
 		}
 		else{
 			SConfig sl;
@@ -58,7 +58,7 @@ void ConfigInfo::HandlerCConfig(ccEvent *event){
 			sl.set_free(false);
 			sl.set_yqs(true);
 			sl1->CopyFrom(sl);
-			RedisPut::getIns()->setSConfig(uid, sl1);
+			RedisPut::getIns()->PushConfig(uid, sl1);
 		}
 		SendSConfig(*sl1, event->m_fd);
 	}

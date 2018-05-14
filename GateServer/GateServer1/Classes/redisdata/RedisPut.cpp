@@ -41,14 +41,60 @@ bool RedisPut::PushConfig(string uid, SConfig *scf){
 	return ist;
 }
 
-bool RedisPut::PushUserBase(UserBase ub){
-	UserBase *ub1 = (UserBase *)ccEvent::create_message(ub.GetTypeName());
-	ub1->CopyFrom(ub);
+bool RedisPut::setConfig(string uid, POINTTIP type, bool ist){
+	SConfig *sc = RedisGet::getIns()->getSConfig(uid);
+	if (sc){
+		switch (type)
+		{
+		case POINT_MAIL:
+			sc->set_mail(ist);
+			break;
+		case POINT_SHOUCHONG:
+			sc->set_firstbuy(ist);
+			break;
+		case POINT_ACTIVE:
+			sc->set_active(ist);
+			break;
+		case POINT_SHOP:
+			
+			break;
+		case POINT_MAINFEI:
+			sc->set_free(ist);
+			break;
+		case POINT_HAOYOU:
+			sc->set_fri(ist);
+			break;
+		case POINT_RENWU:
+			sc->set_task(ist);
+			break;
+		case POINT_SIGN:
+			sc->set_yqs(ist);
+			break;
+		default:
+			break;
+		}
+	}
+	return PushConfig(uid, sc);
+}
+
+bool RedisPut::PushUserBase(UserBase *ub){
+	string key = "userbase";
 	RedisGet *pRedisGet = RedisGet::getIns();
-	PushUserLoginTime(ub.userid());
-	int index = pRedisGet->getUserBaseIndex(ub.userid());
-	pRedisGet->setUserBase(ub1);
-	return m_redis->List("userbase", ub1);
+	UserBase *ub1 = pRedisGet->getUserBase(ub->userid());
+	if (ub1){
+		ub1->CopyFrom(*ub);
+		pRedisGet->setUserBase(ub1);
+		int index = pRedisGet->getUserBaseIndex(ub1->userid());
+		return m_redis->setList(key, index,ub1);
+	}
+	else{
+		ub1 = (UserBase *)ccEvent::create_message(ub->GetTypeName());
+		ub1->CopyFrom(*ub);
+		pRedisGet->setUserBase(ub1);
+		PushUserLoginTime(ub->userid());
+		return m_redis->List(key, ub1);
+	}
+	
 }
 
 bool RedisPut::setUserBase(string uid,string key, string value){
@@ -152,6 +198,7 @@ bool RedisPut::PushRank(Rank rk){
 
 bool RedisPut::PushPass(string uid, string pass){
 	string key = "userpass";
+	RedisGet::getIns()->setPass(uid, pass);
 	return m_redis->List(key, (char *)(uid + "," + pass).c_str());
 }
 
@@ -242,30 +289,24 @@ bool RedisPut::setMailID(int mid){
 	return m_redis->set("mailid_index",mid);
 }
 
-bool RedisPut::setSignStatus(SignStatus ss){
+bool RedisPut::setSignStatus(SignStatus *ss){
+	RedisGet *pRedisGet = RedisGet::getIns();
+	
+	string uid = ss->_uid;
+	string key = "signstatus";
+	SignStatus *s1 = pRedisGet->getSignStatus(uid);
 	char buff[50];
-	sprintf(buff,"signstatus%s",ss._uid.c_str());
-	char buff1[50];
-	if (ss._signcount != -1){
-		sprintf(buff1, "%d", ss._signcount);
-		m_redis->Hash(buff, "count", buff1);
+	sprintf(buff, "%s,%d,%d,%d,%s", uid.c_str(), ss->_signcount, ss->_issign, ss->_left, ss->_time.c_str());
+	if (!s1){
+		pRedisGet->setSignStatus(ss);
+		return m_redis->List(key, buff);
 	}
-	if (ss._issign != -1){
-		sprintf(buff1, "%d", ss._issign);
-		m_redis->Hash(buff, "sign", buff1);
+	else{
+		pRedisGet->setSignStatus(ss);
+		int index = pRedisGet->getUserBaseIndex(uid);
+		return m_redis->setList(key, index, buff);
 	}
-
-	if (ss._left != -1){
-		sprintf(buff1, "%d", ss._left);
-		m_redis->Hash(buff, "left", buff1);
-	}
-
-	if (!ss._time.empty()){
-		sprintf(buff1, "%s", ss._time.c_str());
-		m_redis->Hash(buff, "time", buff1);
-	}
-	RedisGet::getIns()->setSignStatus(ss);
-	return true;
+	return false;
 }
 
 bool RedisPut::PushFeedBack(CFeedBack cfb){

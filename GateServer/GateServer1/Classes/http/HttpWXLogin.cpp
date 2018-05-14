@@ -172,7 +172,8 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 		ub.set_picurl(photo);
 		ub.set_sex(sex);
 		ub.set_address(province + city);
-		m_pRedisPut->PushUserBase(ub);
+		
+		m_pRedisPut->PushUserBase(&ub);
 
 		Rank rk;
 		rk.set_type(1);
@@ -205,7 +206,8 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	ub.set_picid(rand()%2+1);
 	ub.set_sex(rand()%2);
 	ub.set_picurl("http://www.lesharecs.com/1.jpg");
-	m_pRedisPut->PushUserBase(ub);
+	
+	m_pRedisPut->PushUserBase(&ub);
 
 	m_pRedisPut->PushPass(uid, pwd);
 
@@ -217,5 +219,9 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	rk1.set_type(2);
 	rk1.set_uid(ub.userid());
 	m_pRedisPut->PushRank(rk1);
+
+	SignStatus *ss = new SignStatus();
+	ss->_uid = uid;
+	m_pRedisPut->setSignStatus(ss);
 	return ub;
 }

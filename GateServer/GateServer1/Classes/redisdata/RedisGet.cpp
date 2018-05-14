@@ -37,6 +37,7 @@ void RedisGet::init(){
 	m_pEXCodes = getExcode();
 	getFirstBuy();
 	getUserBases();
+	getPass();
 	getFriend();
 	getOpenids();
 	getSConfig();
@@ -51,16 +52,29 @@ string RedisGet::getPass(string uid){
 	if (m_pPass.find(uid) != m_pPass.end()){
 		return m_pPass.at(uid);
 	}
-	string tt = "userpass";
-	int index = getUserBaseIndex(uid);
-	vector<int> lens;
-	vector<char *>dd = m_redis->getList(tt, lens, index, index);
-	if (!dd.empty()){
-		string pass = dd.at(0);
-		m_pPass.insert(make_pair(uid, pass));
-		return pass;
-	}
 	return "";
+}
+
+map<string, string> RedisGet::getPass(){
+	if (m_pPass.empty()){
+		string key = "userpass";
+		vector<string>vec = m_redis->getListStr(key);
+		for (int i = 0; i < vec.size(); i++){
+			string content = vec.at(i);
+			vector<string> ts = CSVDataInfo::getIns()->getStrFromstr(content,",");
+			m_pPass.insert(make_pair(ts.at(0), ts.at(1)));
+		}
+		return m_pPass;
+	}
+	else{
+		return m_pPass;
+	}
+}
+
+void RedisGet::setPass(string uid, string pass){
+	if (m_pPass.find(uid) == m_pPass.end()){
+		m_pPass.insert(make_pair(uid, pass));
+	}
 }
 
 map<string, UserBase *> RedisGet::getUserBases(){
@@ -97,6 +111,17 @@ void RedisGet::getFriend(){
 		string uid = itr->first;
 		getFriend(uid);
 	}
+}
+
+UserBase *RedisGet::getUserBase(int index){
+	auto itr = m_pUserIndexs.begin();
+	for (itr; itr != m_pUserIndexs.end(); itr++){
+		int pindex = itr->second;
+		if (pindex == index){
+			return getUserBase(itr->first);
+		}
+	}
+	return NULL;
 }
 
 UserBase *RedisGet::getUserBase(string uid){
@@ -322,7 +347,7 @@ map<string, string> RedisGet::getOpenids(){
 	vector<string> vec = m_redis->getListStr(key);
 	for (int i = 0; i < vec.size(); i++){
 		string con = vec.at(i);
-		vector<string>vv = CSVDataInfo::getIns()->getStrFromstr(con);
+		vector<string>vv = CSVDataInfo::getIns()->getStrFromstr(con,",");
 		string t1 = vv.at(0);
 		string t2 = vv.at(1);
 		maps.insert(make_pair(t1, t2));
@@ -539,36 +564,40 @@ vector<SignAward> RedisGet::getSignAward(){
 	}
 }
 
-SignStatus RedisGet::getSignStatus(string uid){
+SignStatus *RedisGet::getSignStatus(string uid){
 	if (m_pSignStatuss.find(uid) != m_pSignStatuss.end()){
 		return m_pSignStatuss.at(uid);
 	}
-	char buff[50];
-	sprintf(buff, "signstatus%s", uid.c_str());
-	int len = 0;
-	auto it = m_redis->getHash(buff);
-	SignStatus ss;
-	ss._uid = uid;
-	if (it.find("count") != it.end()){
-		ss._signcount = atoi(it.at("count").c_str());
-	}
-	if (it.find("left") != it.end()){
-		ss._left = atoi(it.at("left").c_str());
-	}
-	if (it.find("sign") != it.end()){
-		ss._issign = atoi(it.at("sign").c_str());
-	}
-	if (it.find("time") != it.end()){
-		ss._time = it.at("time");
-	}
-	m_pSignStatuss.insert(make_pair(uid, ss));
-	return ss;
+	
+	return NULL;
 }
 
-void RedisGet::setSignStatus( SignStatus ss){
-	if (m_pSignStatuss.find(ss._uid) != m_pSignStatuss.end()){
-		m_pSignStatuss.at(ss._uid) = ss;
+void RedisGet::setSignStatus( SignStatus *ss){
+	if (m_pSignStatuss.find(ss->_uid) != m_pSignStatuss.end()){
+		m_pSignStatuss.at(ss->_uid) = ss;
 	}
+	else{
+		m_pSignStatuss.insert(make_pair(ss->_uid, ss));
+	}
+}
+
+map<string, SignStatus *> RedisGet::getSignStatuss(){
+	if (!m_pSignStatuss.empty()){
+		return m_pSignStatuss;
+	}
+	string key = "signstatus";
+	vector<string> vecs=m_redis->getListStr(key);
+	for (int i = 0; i < vecs.size(); i++){
+		vector<string> tt = CSVDataInfo::getIns()->getStrFromstr(vecs.at(i),",");
+		SignStatus *ss = new SignStatus();
+		ss->_uid = tt.at(0);
+		ss->_signcount = atoi(tt.at(1).c_str());
+		ss->_issign = atoi(tt.at(2).c_str());
+		ss->_left = atoi(tt.at(3).c_str());
+		ss->_time = tt.at(4);
+		m_pSignStatuss.insert(make_pair(ss->_uid,ss));
+	}
+	return m_pSignStatuss;
 }
 
 map<string, SConfig *> RedisGet::getSConfig(){
@@ -710,13 +739,13 @@ FirstBuyItem *RedisGet::getFirstBuy(){
 			m_pFirstBuyItem->_sid = atoi(value.c_str());
 		}
 		else if (name.compare("rewardid") == 0){
-			m_pFirstBuyItem->_rid = CSVDataInfo::getIns()->getIntFromstr(value);
+			m_pFirstBuyItem->_rid = CSVDataInfo::getIns()->getIntFromstr(value,"|");
 		}
 		else if (name.compare("conid") == 0){
 			m_pFirstBuyItem->_conid = atoi(value.c_str());
 		}
 		else if (name.compare("giveid") == 0){
-			m_pFirstBuyItem->_giveid = CSVDataInfo::getIns()->getIntFromstr(value);
+			m_pFirstBuyItem->_giveid = CSVDataInfo::getIns()->getIntFromstr(value, "|");
 		}
 	}
 	return m_pFirstBuyItem;
@@ -775,7 +804,7 @@ map<string, PExchangeCode*> RedisGet::getCSVExchangeCode(){
 		PExchangeCode* cc=new PExchangeCode();
 		if (vec.size() == 3){
 			cc->_id = atoi(vec.at(0).c_str());
-			cc->_rewardid =CSVDataInfo::getIns()->getIntFromstr(vec.at(1));
+			cc->_rewardid = CSVDataInfo::getIns()->getIntFromstr(vec.at(1), "|");
 			cc->_code = vec.at(2);
 			codes.insert(make_pair(cc->_code,cc));
 		}

@@ -169,7 +169,7 @@ void HttpPay::NoticePushCurrency(Reward rd, string uid, bool isadd){
 		ub->set_card(cd);
 		spc.set_card(cd);
 	}
-	RedisPut::getIns()->PushUserBase(*ub);
+	RedisPut::getIns()->PushUserBase(ub);
 	ConfigInfo::getIns()->SendSPushCurrency(spc, data->_fd);
 }
 

@@ -21,8 +21,8 @@ public:
 	string getDataHuItem(string key, CSVSTRUCT csvenum);
 	int getDataSize(CSVSTRUCT csvenu);
 	map<string, int> getDatasHuItem(CSVSTRUCT csvenum);
-	vector<int> getIntFromstr(string str);
-	vector<string> getStrFromstr(string str);
+	vector<int> getIntFromstr(string str,string fenge);
+	vector<string> getStrFromstr(string str, string fenge);
 private:
 	static CSVDataInfo *m_ins;
 public:

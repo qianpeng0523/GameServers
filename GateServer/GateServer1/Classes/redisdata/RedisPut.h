@@ -17,7 +17,7 @@ public:
 	bool PushConfig(string uid,SConfig *scf);
 	bool PushPass(string uid,string pass);
 	bool PushOpenid(string openid,string uid);
-	bool PushUserBase(UserBase ub);
+	bool PushUserBase(UserBase *ub);
 	bool PushUserLoginTime(string uid);
 	bool setUserBase(string uid, string key, string value);
 	bool addUserBase(string uid, string key, int value);
@@ -36,7 +36,7 @@ public:
 	bool PushExRecord(string uid,ExRecord er);
 	bool setExRecordStatus(string uid,int rid,int status);
 	bool PushSignAward(SignAward sa);
-	bool setSignStatus(SignStatus ss);
+	bool setSignStatus(SignStatus *ss);
 	
 	bool PushFeedBack(CFeedBack cfb);
 

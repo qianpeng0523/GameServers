@@ -844,33 +844,36 @@ void HallInfo::HandlerCSign(ccEvent *event){
 	if (data){
 		string uid =data->_uid;
 		SSign sl;
-		SignStatus ss = m_pRedisGet->getSignStatus(uid);
-		string time = ss._time;
+		SignStatus *ss = m_pRedisGet->getSignStatus(uid);
+		if (!ss){
+			ss = new SignStatus();
+		}
+		string time = ss->_time;
 		if (m_lastday.compare(time) != 0){
-			ss._issign = false;
-			ss._left = 1;
+			ss->_issign = false;
+			ss->_left = 1;
 			if (time.empty()){
-				ss._signcount = 0;
+				ss->_signcount = 0;
 			}
 			else{
 				int a1 = atoi(m_lastday.substr(8, m_lastday.length()).c_str());
 				int a2 = atoi(time.substr(8, time.length()).c_str());
 				if (a1 - a2 > 1){
-					ss._signcount = 0;
+					ss->_signcount = 0;
 				}
 			}
-			ss._time = m_lastday;
+			ss->_time = m_lastday;
 		}
-		if (!ss._issign&&ss._left>0){
+		if (!ss->_issign&&ss->_left>0){
 			auto vec1 = m_pRedisGet->getSignZhuan();
 			int sz =vec1.size();
 			int rd = rand() % sz;
 			sl.set_index(rd);
-			sl.set_count(ss._signcount + 1);
-			ss._issign = true;
-			ss._left -= 1;
-			ss._signcount += 1;
-			ss._time = m_lastday;
+			sl.set_count(ss->_signcount + 1);
+			ss->_issign = true;
+			ss->_left -= 1;
+			ss->_signcount += 1;
+			ss->_time = m_lastday;
 			m_pRedisPut->setSignStatus(ss);
 			
 			//换成邮件发送
@@ -923,28 +926,31 @@ void HallInfo::HandlerCSignList(ccEvent *event){
 		string uid = data->_uid;
 		SSignList sl;
 
-		SignStatus ss = m_pRedisGet->getSignStatus(uid);
-		string time = ss._time;
+		SignStatus *ss = m_pRedisGet->getSignStatus(uid);
+		if (!ss){
+			ss = new SignStatus();
+		}
+		string time = ss->_time;
 		if (m_lastday.compare(time) != 0){
-			ss._issign = false;
-			ss._left = 1;
+			ss->_issign = false;
+			ss->_left = 1;
 			if (time.empty()){
-				ss._signcount = 0;
+				ss->_signcount = 0;
 			}
 			else{
 				int a1 = atoi(m_lastday.substr(8, m_lastday.length()).c_str());
 				int a2 = atoi(time.substr(8, time.length()).c_str());
 				if (a1 - a2 > 1){
-					ss._signcount = 0;
+					ss->_signcount = 0;
 				}
 			}
-			ss._time = m_lastday;
+			ss->_time = m_lastday;
 			m_pRedisPut->setSignStatus(ss);
 		}
 
 
-		sl.set_count(ss._signcount);
-		sl.set_sign(ss._issign);
+		sl.set_count(ss->_signcount);
+		sl.set_sign(ss->_issign);
 		auto vec = m_pRedisGet->getSignAward();
 		for (int i = 0; i < vec.size(); i++){
 			SignAward sa1 = vec.at(i);
