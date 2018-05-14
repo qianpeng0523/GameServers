@@ -125,8 +125,6 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 		UserBase *ub = m_pRedisGet->getUserBase(uid);
 		if (ub){
 			user->CopyFrom(*ub);
-			delete ub;
-			ub = NULL;
 		}
 		Rank *k= sl.add_list();
 		k->CopyFrom(rk);
@@ -259,18 +257,21 @@ void HallInfo::HandlerCFriend(ccEvent *event){
 	
 
 	SFriend sf;
-	ClientData *dd = LibEvent::getIns()->getClientData(event->m_fd);
-	vector<char *> uids = m_pRedisGet->getFriend(dd->_uid);
-	for (int i = 0; i < uids.size(); i++){
-		Friend *fri = sf.add_list();
-		fri->set_acttype(i % 3 + 1);
-		fri->set_time(Common::getTime());
-		char buff[100];
-		UserBase *user = fri->mutable_info();
-		UserBase *u = m_pRedisGet->getUserBase(uids.at(i));
-		user->CopyFrom(*u);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		auto users = m_pRedisGet->getFriend(uid);
+		auto uitr = users.begin();
+		for (uitr; uitr != users.end();uitr++){
+			UserBase *user = uitr->second;
+			Friend *fri = sf.add_list();
+			fri->set_acttype(rand()%3);
+			fri->set_time(Common::getTime());
+			UserBase *user1 = fri->mutable_info();
+			user1->CopyFrom(*user);
+		}
+		SendSFriend(sf, event->m_fd);
 	}
-	SendSFriend(sf,event->m_fd);
 }
 
 

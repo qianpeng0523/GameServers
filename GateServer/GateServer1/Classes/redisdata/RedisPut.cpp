@@ -30,18 +30,105 @@ bool RedisPut::PushConfig(string uid, SConfig scf){
 }
 
 bool RedisPut::PushUserBase(UserBase ub){
-	string uid = ub.userid();
-	return m_redis->Hash(ub.GetTypeName() + uid, &ub);
+	UserBase *ub1 = (UserBase *)ccEvent::create_message(ub.GetTypeName());
+	ub1->CopyFrom(ub);
+	RedisGet *pRedisGet = RedisGet::getIns();
+	PushUserLoginTime(ub.userid());
+	int index = pRedisGet->getUserBaseIndex(ub.userid());
+	pRedisGet->setUserBase(ub1);
+	return m_redis->List("userbase", ub1);
 }
 
 bool RedisPut::setUserBase(string uid,string key, string value){
-	UserBase ub;
-	return m_redis->Hash(ub.GetTypeName() + uid,key, value);
+	UserBase *ub=RedisGet::getIns()->getUserBase(uid);
+	Descriptor *des = (Descriptor *)ub->GetDescriptor();
+	Reflection *reflection = (Reflection *)ub->GetReflection();
+	int sz = des->field_count();
+	for (int i = 0; i < sz; i++){
+		FieldDescriptor *fd = (FieldDescriptor *)des->field(i);
+		string name = fd->name();
+		FieldDescriptor::Type type = fd->type();
+		if (name.compare(key) == 0){
+			switch (type)
+			{
+			case google::protobuf::FieldDescriptor::TYPE_DOUBLE:
+				reflection->SetDouble(ub, fd, atof(value.c_str()));
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_FLOAT:
+				reflection->SetFloat(ub, fd, atof(value.c_str()));
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_INT64:
+				reflection->SetInt64(ub, fd, atol(value.c_str()));
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_UINT64:
+				reflection->SetUInt64(ub, fd, atol(value.c_str()));
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_INT32:
+				reflection->SetInt32(ub, fd, atoi(value.c_str()));
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_BOOL:
+				reflection->SetBool(ub, fd, atoi(value.c_str()));
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_STRING:
+				reflection->SetString(ub, fd, value);
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_BYTES:
+				reflection->SetString(ub, fd, value);
+				break;
+			case google::protobuf::FieldDescriptor::TYPE_UINT32:
+				reflection->SetUInt32(ub, fd, atol(value.c_str()));
+				break;
+
+			default:
+				break;
+			}
+			break;
+		}
+	}
+	int index = RedisGet::getIns()->getUserBaseIndex(uid);
+	return m_redis->setList("userbase",index,ub);
 }
 
 bool RedisPut::addUserBase(string uid, string key, int value){
-	UserBase ub;
-	return m_redis->addHash(ub.GetTypeName() + uid, key, value);
+	UserBase *ub1=RedisGet::getIns()->getUserBase(uid);
+	Descriptor *des = (Descriptor *)ub1->GetDescriptor();
+	Reflection *reflection = (Reflection *)ub1->GetReflection();
+	int sz = des->field_count();
+	for (int i = 0; i < sz; i++){
+		FieldDescriptor *fd = (FieldDescriptor *)des->field(i);
+		string name = fd->name();
+		FieldDescriptor::Type type = fd->type();
+		if (name.compare(key) == 0){
+			if (type == FieldDescriptor::TYPE_INT32){
+				reflection->SetInt32(ub1, fd, reflection->GetInt32(*ub1, fd) + value);
+			}
+			else if (type == FieldDescriptor::TYPE_INT64){
+				reflection->SetInt64(ub1, fd, reflection->GetInt64(*ub1, fd) + value);
+			}else if (type == FieldDescriptor::TYPE_UINT32){
+				reflection->SetUInt32(ub1, fd, reflection->GetUInt32(*ub1, fd) + value);
+			}else if (type == FieldDescriptor::TYPE_UINT64){
+				reflection->SetUInt64(ub1, fd, reflection->GetUInt64(*ub1, fd) + value);
+			}
+			break;
+		}
+	}
+	int index = RedisGet::getIns()->getUserBaseIndex(uid);
+	return m_redis->setList("userbase", index, ub1);
+}
+
+bool RedisPut::PushUserLoginTime(string uid){
+	string tt = "userlogintime";
+	char buff[20];
+	time_t time = Common::getCurrentTime();
+	sprintf(buff, "%ld",time);
+	int index = RedisGet::getIns()->getUserBaseIndex(uid);
+	RedisGet::getIns()->setUserLoginTime(uid,time);
+	if (index == -1){
+		return m_redis->List(tt,buff);
+	}
+	else{
+		return m_redis->setList(tt,index,buff);
+	}
 }
 
 bool RedisPut::PushRank(Rank rk){
@@ -52,7 +139,13 @@ bool RedisPut::PushRank(Rank rk){
 }
 
 bool RedisPut::PushPass(string uid, string pass){
-	return m_redis->set("pass" + uid, (char *)pass.c_str(),pass.length());
+	string key = "userpass";
+	return m_redis->List(key, (char *)(uid + "," + pass).c_str());
+}
+
+bool RedisPut::PushOpenid(string openid, string uid){
+	string key = "openid";
+	return m_redis->List(key,(char *)(openid+","+uid).c_str());
 }
 
 bool RedisPut::PushShop(ShopItem item){

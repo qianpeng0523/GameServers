@@ -16,7 +16,9 @@ public:
 
 	bool PushConfig(string uid,SConfig scf);
 	bool PushPass(string uid,string pass);
+	bool PushOpenid(string openid,string uid);
 	bool PushUserBase(UserBase ub);
+	bool PushUserLoginTime(string uid);
 	bool setUserBase(string uid, string key, string value);
 	bool addUserBase(string uid, string key, int value);
 	bool PushRank(Rank rk);
@@ -25,6 +27,7 @@ public:
 	bool setMailStatus(string uid,int mid,int status);
 	bool PushFriend(string uid,string friuid);
 	bool PushFriendNotice(string uid, FriendNotice fn);
+
 	bool PushActive(Active at);
 	bool PushTask(Task task);
 	bool PushTaskStatus(string uid, int taskid, Status status);

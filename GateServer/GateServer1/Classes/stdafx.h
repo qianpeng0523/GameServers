@@ -33,6 +33,8 @@
 using namespace std;
 using namespace protocol;
 using namespace Poco;
+using namespace ::google::protobuf;
+
 
 #define HEADLEN 10
 #define ZHONGFABAI

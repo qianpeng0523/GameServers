@@ -80,3 +80,17 @@ vector<int> CSVDataInfo::getIntFromstr(string str){
 	vec.push_back(a);
 	return vec;
 }
+
+vector<string> CSVDataInfo::getStrFromstr(string str){
+	vector<string> vec;
+	int index = str.find("|");
+	string temp = str;
+	while (index != -1){
+		string a = temp.substr(0, index);
+		vec.push_back(a);
+		temp = temp.substr(index + 1, temp.length());
+		index = temp.find("|");
+	}
+	vec.push_back(temp);
+	return vec;
+}

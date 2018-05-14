@@ -118,12 +118,12 @@ void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
 				auto mmp = m_eventLists.at(type);
 				if (mmp.find(cmd) != mmp.end()){
 					vec = mmp.at(cmd);
-					CallList_Vec::iterator itr = vec.begin();
-					while (itr != vec.end()){
-						CallList *clist = *itr;
+					CallList_Vec::iterator itr1 = vec.begin();
+					while (itr1 != vec.end()){
+						CallList *clist = *itr1;
 						if (clist && clist->obj && clist->handler){
 							(clist->obj->*clist->handler)(event);
-							//itr++;
+							itr1++;
 							
 						}
 						break;

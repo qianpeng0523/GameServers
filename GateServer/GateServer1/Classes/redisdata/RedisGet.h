@@ -44,8 +44,18 @@ public:
 	static RedisGet *getIns();
 	void init();
 
-	char* getPass(string uid);
-	UserBase *getUserBase(string uid);//需要删除
+	string getPass(string uid);
+	string getOpenidPass(string openid);
+	map<string, UserBase *> getUserBases();
+	UserBase *getUserBase(string uid);
+	void setUserBase(UserBase *ub);
+	int getUserBaseIndex(string uid);
+	void setUserLoginTime(string uid,time_t t);
+	time_t getUserLoginTime(string uid);
+
+	map<string, string> getOpenids();
+	
+
 	std::vector<Rank >getRank(int type,int index);
 
 	std::vector<ShopItem >getShop();
@@ -53,7 +63,8 @@ public:
 	Mail getMail(string uid, int eid);
 	int getMailStatus(string uid, int mid);
 
-	vector<char *> getFriend(string uid);
+	void getFriend();
+	map<string,UserBase *> getFriend(string uid);
 	void setFriend(string uid,string fuid,bool isadd);
 
 	vector<FriendNotice > getFriendNotice(string uid);
@@ -111,7 +122,12 @@ private:
 	vector<bool> m_pEXCodes;
 	map<string, vector<ExRecord>> m_pExRecords;
 	map<string, SignStatus>m_pSignStatuss;
-	map<string, vector<char *>>m_pfriends;
+	map<string,map<string,UserBase *>>m_pfriends;
+	map<string, UserBase *>m_pUserBases;
+	map<string, int>m_pUserIndexs;
+	map<string, time_t> m_pUserLoginTime;
+	map<string, string>m_pPass;
+	map<string, string>m_pOpenids;
 };
 
 

@@ -35,6 +35,10 @@ void RedisGet::init(){
 	m_pFrees = getFree();
 	m_pExchangeCodes = getCSVExchangeCode();
 	m_pEXCodes = getExcode();
+	getFirstBuy();
+	getUserBases();
+	getFriend();
+	getOpenids();
 	for (int i = 0; i < 2;i++){
 		vector<Rank> vec = getRank(i + 1, 1);
 		m_pRanks.insert(make_pair(i+1,vec));
@@ -42,14 +46,87 @@ void RedisGet::init(){
 	CLog::log("111\n");
 }
 
-char* RedisGet::getPass(string uid){
-	int len;
-	return m_redis->get("pass"+uid,len);
+string RedisGet::getPass(string uid){
+	if (m_pPass.find(uid) != m_pPass.end()){
+		return m_pPass.at(uid);
+	}
+	string tt = "userpass";
+	int index = getUserBaseIndex(uid);
+	vector<int> lens;
+	vector<char *>dd = m_redis->getList(tt, lens, index, index);
+	if (!dd.empty()){
+		string pass = dd.at(0);
+		m_pPass.insert(make_pair(uid, pass));
+		return pass;
+	}
+	return "";
+}
+
+map<string, UserBase *> RedisGet::getUserBases(){
+	string key = "userbase";
+	UserBase ub;
+	auto vec = m_redis->getList(key,ub.GetTypeName());
+	auto itr = vec.begin();
+	int index = 0;
+	for (itr; itr != vec.end();itr++){
+		UserBase *ub1=(UserBase *)*itr;
+		string uid = ub1->userid();
+		if (m_pUserBases.find(uid)!=m_pUserBases.end()){
+			m_pUserBases.at(uid) = ub1;
+		}
+		else{
+			m_pUserBases.insert(make_pair(uid, ub1));
+		}
+		if (m_pUserIndexs.find(uid) != m_pUserIndexs.end()){
+			m_pUserIndexs.at(uid) = index;
+		}
+		else{
+			m_pUserIndexs.insert(make_pair(uid, index));
+		}
+		getUserLoginTime(uid);
+		getPass(uid);
+	}
+	return m_pUserBases;
+}
+
+void RedisGet::getFriend(){
+	auto vec = getUserBases();
+	auto itr = vec.begin();
+	for (itr; itr != vec.end();itr++){
+		string uid = itr->first;
+		getFriend(uid);
+	}
 }
 
 UserBase *RedisGet::getUserBase(string uid){
-	UserBase ub;
-	return (UserBase *)m_redis->getHash(ub.GetTypeName() + uid,ub.GetTypeName());
+	if (m_pUserBases.find(uid)!=m_pUserBases.end()){
+		return m_pUserBases.at(uid);
+	}
+	return NULL;
+}
+
+void RedisGet::setUserBase(UserBase *ub){
+	string uid = ub->userid();
+	if (m_pUserBases.find(uid) != m_pUserBases.end()){
+		m_pUserBases.at(uid) = ub;
+	}
+	else{
+		int index = m_pUserBases.size();
+		if (m_pUserIndexs.find(uid) != m_pUserIndexs.end()){
+			m_pUserIndexs.at(uid) = index;
+		}
+		else{
+			m_pUserIndexs.insert(make_pair(uid, index));
+		}
+		m_pUserBases.insert(make_pair(uid, ub));
+	}
+}
+
+int RedisGet::getUserBaseIndex(string uid){
+	if (m_pUserIndexs.find(uid) != m_pUserIndexs.end()){
+		return m_pUserIndexs.at(uid);
+	}
+	return -1;
 }
 
 std::vector<Rank > RedisGet::getRank(int type, int index){
@@ -162,36 +239,102 @@ int RedisGet::getMailStatus(string uid, int mid){
 	return atoi(m_redis->get(buff,len));
 }
 
-vector<char *> RedisGet::getFriend(string uid){
+map<string,UserBase *> RedisGet::getFriend(string uid){
 	if (m_pfriends.find(uid)!=m_pfriends.end()){
 		return m_pfriends.at(uid);
 	}
 	vector<int >lens;
 	vector<char *> vv = m_redis->getList(uid, lens);
-	m_pfriends.insert(make_pair(uid, vv));
-	return vv;
+	map<string,UserBase *> vec;
+	for (int i = 0; i < vv.size(); i++){
+		string puid = vv.at(i);
+		UserBase *ub = getUserBase(puid);
+		if (ub){
+			vec.insert(make_pair(puid, ub));
+		}
+	}
+	m_pfriends.insert(make_pair(uid, vec));
+	for (int i = 0; i < vv.size(); i++){
+		delete vv.at(i);
+	}
+	vv.clear();
+	return vec;
 }
 
 void RedisGet::setFriend(string uid, string fuid, bool isadd){
 	if (m_pfriends.find(uid) != m_pfriends.end()){
+		auto vec = m_pfriends.at(uid);
 		if (!isadd){
-			auto vec = m_pfriends.at(uid);
-			auto itr = vec.begin();
-			for (itr; itr < vec.end(); itr++){
-				if (fuid.compare(*itr) == 0){
-					vec.erase(itr);
-					break;
-				}
+			if (vec.find(fuid) != vec.end()){
+				vec.erase(vec.find(fuid));
+			}
+		}
+		else{
+			if (vec.find(fuid) == vec.end()){
+				UserBase *ub = getUserBase(fuid);
+				vec.insert(make_pair(fuid,ub));
 			}
 		}
 	}
 	else{
 		if (isadd){
-			auto vec = m_pfriends.at(uid);
-			vec.push_back((char *)fuid.c_str());
-			m_pfriends.insert(make_pair(uid, vec));
+			map<string,UserBase *>vec;
+			UserBase *ub = getUserBase(fuid);
+			if (ub){
+				vec.insert(make_pair(fuid, ub));
+				m_pfriends.insert(make_pair(uid, vec));
+			}
 		}
 	}
+}
+
+void RedisGet::setUserLoginTime(string uid, time_t t){
+	if (m_pUserLoginTime.find(uid) != m_pUserLoginTime.end()){
+		m_pUserLoginTime.at(uid) = t;
+	}
+	else{
+		m_pUserLoginTime.insert(make_pair(uid, t));
+	}
+}
+
+time_t RedisGet::getUserLoginTime(string uid){
+	if (m_pUserLoginTime.find(uid) != m_pUserLoginTime.end()){
+		return m_pUserLoginTime.at(uid);
+	}
+	else{
+		string tt = "userlogintime";
+		int index = getUserBaseIndex(uid);
+		vector<int> lens;
+		vector<char *>dd = m_redis->getList(tt,lens,index,index);
+		if (!dd.empty()){
+			time_t time = atol(dd.at(0));
+			m_pUserLoginTime.insert(make_pair(uid, time));
+			return time;
+		}
+	}
+	return 0;
+}
+
+map<string, string> RedisGet::getOpenids(){
+	map<string, string> maps;
+	string key = "openid";
+	vector<string> vec = m_redis->getListStr(key);
+	for (int i = 0; i < vec.size(); i++){
+		string con = vec.at(i);
+		vector<string>vv = CSVDataInfo::getIns()->getStrFromstr(con);
+		string t1 = vv.at(0);
+		string t2 = vv.at(1);
+		maps.insert(make_pair(t1, t2));
+	}
+	m_pOpenids = maps;
+	return maps;
+}
+
+string RedisGet::getOpenidPass(string openid){
+	if (m_pOpenids.find(openid) != m_pOpenids.end()){
+		return m_pOpenids.at(openid);
+	}
+	return "";
 }
 
 vector<FriendNotice > RedisGet::getFriendNotice(string uid){

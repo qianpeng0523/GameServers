@@ -72,7 +72,8 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 			string ip = data->_ip;
 			UserBase *info = m_pRedisGet->getUserBase(uid);
 			if (info){
-				sl.set_allocated_info(info);
+				UserBase *info1 = sl.mutable_info();
+				info1->CopyFrom(*info);
 				info->set_ip(ip);
 				PushUserBase(info);
 			}
