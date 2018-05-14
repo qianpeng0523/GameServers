@@ -14,7 +14,7 @@ public:
 	static RedisPut *getIns();
 	void init();
 
-	bool PushConfig(string uid,SConfig scf);
+	bool PushConfig(string uid,SConfig *scf);
 	bool PushPass(string uid,string pass);
 	bool PushOpenid(string openid,string uid);
 	bool PushUserBase(UserBase ub);
@@ -40,7 +40,6 @@ public:
 	
 	bool PushFeedBack(CFeedBack cfb);
 
-	bool setSConfig(string uid, SConfig sc);
 	bool PushSignZhuan(SignZhuan sz);
 	bool PushProp(Prop p);
 	bool PushFree(Task task);

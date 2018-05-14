@@ -25,8 +25,20 @@ void RedisPut::init(){
 	
 }
 
-bool RedisPut::PushConfig(string uid, SConfig scf){
-	return m_redis->Hash("config"+uid,&scf);
+bool RedisPut::PushConfig(string uid, SConfig *scf){
+	string key = "config";
+	SConfig *sc = RedisGet::getIns()->getSConfig(uid);
+	bool ist = false;
+	if (!sc){
+
+		ist= m_redis->List(key,scf);
+	}
+	else{
+		int index = RedisGet::getIns()->getUserBaseIndex(uid);
+		ist= m_redis->setList(key, index, scf);
+	}
+	RedisGet::getIns()->setSConfig(uid, scf);
+	return ist;
 }
 
 bool RedisPut::PushUserBase(UserBase ub){
@@ -256,10 +268,6 @@ bool RedisPut::setSignStatus(SignStatus ss){
 	return true;
 }
 
-bool RedisPut::setSConfig(string uid, SConfig sc){
-	return m_redis->Hash("config" + uid, &sc);
-}
-
 bool RedisPut::PushFeedBack(CFeedBack cfb){
 	string key = "feedback"+cfb.uid();
 	return m_redis->List(key, &cfb);
@@ -275,13 +283,6 @@ bool RedisPut::PushProp(Prop p){
 
 bool RedisPut::PushFree(Task task){
 	return m_redis->List("free", &task);
-}
-
-bool RedisPut::setConfig(string uid, POINTTIP type, bool ist){
-	string key="config"+uid;
-	char va[10];
-	sprintf(va,"%d",ist);
-	return m_redis->Hash(key,g_PointStr[type],va);
 }
 
 bool RedisPut::setExchangeCode(string code){

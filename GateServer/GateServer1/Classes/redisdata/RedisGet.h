@@ -84,7 +84,10 @@ public:
 	SignStatus getSignStatus(string uid);
 	void setSignStatus(SignStatus ss);//不写入数据库
 
+	map<string, SConfig *> getSConfig();
 	SConfig *getSConfig(string uid);
+	void setSConfig(string uid, SConfig *sc);
+
 	vector<SignZhuan> getSignZhuan();
 	map<int,Prop > getProp();
 	Prop getProp(int id);

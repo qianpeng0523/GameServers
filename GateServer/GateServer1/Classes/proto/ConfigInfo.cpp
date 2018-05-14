@@ -44,11 +44,12 @@ void ConfigInfo::HandlerCConfig(ccEvent *event){
 	if (data){
 		string uid = data->_uid;
 		SConfig *sl1 = RedisGet::getIns()->getSConfig(uid);
-		SConfig sl;
 		if (sl1){
-			sl.CopyFrom(*sl1);
+			return sl1;
 		}
 		else{
+			SConfig sl;
+			sl1 = (SConfig *)ccEvent::create_message(sl.GetTypeName());
 			sl.set_mail(false);
 			sl.set_active(true);
 			sl.set_firstbuy(true);
@@ -56,9 +57,10 @@ void ConfigInfo::HandlerCConfig(ccEvent *event){
 			sl.set_task(false);
 			sl.set_free(false);
 			sl.set_yqs(true);
-			RedisPut::getIns()->setSConfig(uid, sl);
+			sl1->CopyFrom(sl);
+			RedisPut::getIns()->setSConfig(uid, sl1);
 		}
-		SendSConfig(sl, event->m_fd);
+		SendSConfig(*sl1, event->m_fd);
 	}
 }
 

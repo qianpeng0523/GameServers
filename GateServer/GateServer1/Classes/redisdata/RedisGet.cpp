@@ -39,6 +39,7 @@ void RedisGet::init(){
 	getUserBases();
 	getFriend();
 	getOpenids();
+	getSConfig();
 	for (int i = 0; i < 2;i++){
 		vector<Rank> vec = getRank(i + 1, 1);
 		m_pRanks.insert(make_pair(i+1,vec));
@@ -570,17 +571,34 @@ void RedisGet::setSignStatus( SignStatus ss){
 	}
 }
 
+map<string, SConfig *> RedisGet::getSConfig(){
+	string key = "config";
+	SConfig sc;
+	vector<Message *> vec = m_redis->getList(key,sc.GetTypeName());
+	for (int i = 0; i < vec.size(); i++){
+		SConfig *sc1 = (SConfig *)vec.at(i);
+		UserBase *ub = getUserBase(i);
+		string uid = ub->userid();
+		m_pSConfigs.insert(make_pair(uid,sc1));
+	}
+	return m_pSConfigs;
+}
+
 SConfig* RedisGet::getSConfig(string uid){
 	SConfig *sc1=NULL;
 	if (m_pSConfigs.find(uid) != m_pSConfigs.end()){
 		sc1 = m_pSConfigs.at(uid);
 	}
-	else{
-		SConfig sc;
-		sc1=(SConfig *)m_redis->getHash("config" + uid, sc.GetTypeName());
-		m_pSConfigs.insert(make_pair(uid,sc1));
-	}
 	return sc1;
+}
+
+void RedisGet::setSConfig(string uid,SConfig *sc){
+	if (m_pSConfigs.find(uid) != m_pSConfigs.end()){
+		m_pSConfigs.at(uid)=sc;
+	}
+	else{
+		m_pSConfigs.insert(make_pair(uid, sc));
+	}
 }
 
 vector<SignZhuan> RedisGet::getSignZhuan(){
