@@ -163,7 +163,7 @@ message CAgreeFriend
 {
     required uint32 	cmd 	= 1[default=0x500B];  	//
 	optional bool 		agree  	= 2;					//
-	optional string 	userid  = 3;					//
+	optional uint32 	nid  	= 3;					//
 }
 
 message SAgreeFriend
@@ -171,7 +171,8 @@ message SAgreeFriend
     required uint32 	cmd 	= 1[default=0x500B];  	//
 	optional bool 		agree  	= 2;					//	
 	optional string 	userid  = 3;					//
-	optional uint32 	err  	= 4;					//
+	optional uint32		nid		= 4;
+	optional uint32 	err  	= 5;					//
 }
 
 //CExchangeReward 兑换奖品列表
