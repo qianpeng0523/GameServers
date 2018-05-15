@@ -1226,10 +1226,17 @@ class Friend : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 acttype() const;
   inline void set_acttype(::google::protobuf::uint32 value);
 
-  // optional uint32 time = 5;
+  // optional bool give = 5;
+  inline bool has_give() const;
+  inline void clear_give();
+  static const int kGiveFieldNumber = 5;
+  inline bool give() const;
+  inline void set_give(bool value);
+
+  // optional uint32 time = 6;
   inline bool has_time() const;
   inline void clear_time();
-  static const int kTimeFieldNumber = 5;
+  static const int kTimeFieldNumber = 6;
   inline ::google::protobuf::uint32 time() const;
   inline void set_time(::google::protobuf::uint32 value);
 
@@ -1243,6 +1250,8 @@ class Friend : public ::google::protobuf::Message {
   inline void clear_has_friend_();
   inline void set_has_acttype();
   inline void clear_has_acttype();
+  inline void set_has_give();
+  inline void clear_has_give();
   inline void set_has_time();
   inline void clear_has_time();
 
@@ -1251,11 +1260,12 @@ class Friend : public ::google::protobuf::Message {
   ::protocol::UserBase* info_;
   bool online_;
   bool friend__;
+  bool give_;
   ::google::protobuf::uint32 acttype_;
   ::google::protobuf::uint32 time_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
   friend void  protobuf_AddDesc_Vo_2eproto();
   friend void protobuf_AssignDesc_Vo_2eproto();
@@ -5260,15 +5270,37 @@ inline void Friend::set_acttype(::google::protobuf::uint32 value) {
   acttype_ = value;
 }
 
-// optional uint32 time = 5;
-inline bool Friend::has_time() const {
+// optional bool give = 5;
+inline bool Friend::has_give() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void Friend::set_has_time() {
+inline void Friend::set_has_give() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void Friend::clear_has_time() {
+inline void Friend::clear_has_give() {
   _has_bits_[0] &= ~0x00000010u;
+}
+inline void Friend::clear_give() {
+  give_ = false;
+  clear_has_give();
+}
+inline bool Friend::give() const {
+  return give_;
+}
+inline void Friend::set_give(bool value) {
+  set_has_give();
+  give_ = value;
+}
+
+// optional uint32 time = 6;
+inline bool Friend::has_time() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void Friend::set_has_time() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void Friend::clear_has_time() {
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void Friend::clear_time() {
   time_ = 0u;

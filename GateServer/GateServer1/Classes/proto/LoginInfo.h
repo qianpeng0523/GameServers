@@ -27,7 +27,12 @@ public:
 
 	
 	void PushUserBase(UserBase *user);
+
 	UserBase *getUserBase(string uid);
+	void eraseUserBase(string uid,bool online);
+	void inserUserBase(string,UserBase *ub,bool online);
+	void onLineUsers();
+	map<string, UserBase *> getOnLineUser(bool online);
 public:
 	void eraseClientData(int fd);
 private:
@@ -35,6 +40,8 @@ private:
 	RedisPut *m_pRedisPut;
 	RedisGet *m_pRedisGet;
 	map<string, UserBase *>m_UserBases;
+	map<string, UserBase *>m_pOnlineUsers;
+	map<string, UserBase *>m_pOfflineUsers;
 };
 
 #endif 

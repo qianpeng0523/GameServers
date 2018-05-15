@@ -8,6 +8,7 @@
 #include "XmlConfig.h"
 #include "HttpAliPay.h"
 #include "ConfigInfo.h"
+#include "LoginInfo.h"
 
 HallInfo *HallInfo::m_shareHallInfo=NULL;
 HallInfo::HallInfo()
@@ -283,31 +284,103 @@ void HallInfo::SendSFindFriend(SFindFriend cl, int fd){
 void HallInfo::HandlerCFindFriend(ccEvent *event){
 	CFindFriend cl;
 	cl.CopyFrom(*event->msg);
-	
-	string uid = cl.uid();
-	int type = cl.type();
-	char buff[100];
 	SFindFriend fris;
-	fris.set_type(type);
-	fris.set_err(0);
-	if (type == 1){
-		UserBase *fir = m_pRedisGet->getUserBase(uid);
-		if (fir){
-			Friend *fri = fris.add_list();
-			fri->set_acttype(1);
-			fri->set_online(LibEvent::getIns()->isHave(uid));
-			fri->set_time(Common::getTime() - RedisGet::getIns()->getUserLoginTime(uid));
-			UserBase *user= fri->mutable_info();
-			user->CopyFrom(*fir);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = cl.uid();
+		int type = cl.type();
+		char buff[100];
+		
+		fris.set_type(type);
+		fris.set_err(0);
+		if (type == 1){
+			UserBase *fir = m_pRedisGet->getUserBase(uid);
+			if (fir){
+				Friend *fri = fris.add_list();
+				fri->set_acttype(1);
+				fri->set_online(LibEvent::getIns()->isHave(uid));
+				fri->set_time(Common::getTime() - RedisGet::getIns()->getUserLoginTime(uid));
+				UserBase *user = fri->mutable_info();
+				user->CopyFrom(*fir);
+			}
+		}
+		else if (type == 2){
+			LoginInfo *pLoginInfo = LoginInfo::getIns();
+			auto vec = pLoginInfo->getOnLineUser(true);
+			vec.erase(vec.find(uid));
+			int num1 = vec.size();
+			auto vec1 = pLoginInfo->getOnLineUser(false);
+			int num2 = vec1.size();
+			int offnum = 4 - num1;
+			map<int, int> m1 = getRandNum(4, num1);
+			map<int, int> m2 = getRandNum(num2, offnum);
+
+			auto itr = m1.begin();
+
+			for (itr; itr != m1.end(); itr++){
+				int index = itr->first;
+				auto itr1 = vec.begin();
+				int i = 0;
+				while (i < index&&itr1 != vec.end()){
+					itr1++;
+					i++;
+				}
+				string puid = itr1->first;
+				UserBase *p = itr1->second;
+
+				Friend *fri = fris.add_list();
+				fri->set_acttype(1);
+				fri->set_online(true);
+				fri->set_time(Common::getTime() - RedisGet::getIns()->getUserLoginTime(uid));
+				UserBase *user = fri->mutable_info();
+				user->CopyFrom(*p);
+			}
+			itr = m2.begin();
+			for (itr; itr != m2.end(); itr++){
+				int index = itr->first;
+				auto itr1 = vec1.begin();
+				int i = 0;
+				while (i < index&&itr1 != vec1.end()){
+					itr1++;
+					i++;
+				}
+				string puid = itr1->first;
+				UserBase *p = itr1->second;
+
+				Friend *fri = fris.add_list();
+				fri->set_acttype(1);
+				fri->set_online(false);
+				fri->set_time(Common::getTime() - RedisGet::getIns()->getUserLoginTime(uid));
+				UserBase *user = fri->mutable_info();
+				user->CopyFrom(*p);
+			}
 		}
 	}
-	else if (type == 2){
-		auto vec = m_pRedisGet->getUserBases();
-
+	else{
+		fris.set_err(1);
 	}
 	SendSFindFriend(fris, event->m_fd);
 }
 
+map<int, int> HallInfo::getRandNum(int maxnum, int num){
+	map<int, int> maps;
+	if (maxnum <= num){
+		for (int i = 0; i < maxnum; i++){
+			maps.insert(make_pair(i, i));
+		}
+	}
+	else{
+		srand(time(NULL));
+		for (int i = 0; i <  num; i++){
+			int rd = rand() % maxnum;
+			while (maps.find(rd) != maps.end()){
+				rd = rand() % maxnum;
+			}
+			maps.insert(make_pair(rd, rd));
+		}
+	}
+	return maps;
+}
 
 void HallInfo::SendSGiveFriend(SGiveFriend cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
@@ -316,8 +389,14 @@ void HallInfo::SendSGiveFriend(SGiveFriend cl, int fd){
 void HallInfo::HandlerCGiveFriend(ccEvent *event){
 	CGiveFriend cl;
 	cl.CopyFrom(*event->msg);
-	
+	string fuid = cl.uid();
 	SGiveFriend sl;
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		//添加赠送的数据库
+		
+	}
 	SendSGiveFriend(sl, event->m_fd);
 }
 
@@ -329,8 +408,51 @@ void HallInfo::SendSAddFriend(SAddFriend cl, int fd){
 void HallInfo::HandlerCAddFriend(ccEvent *event){
 	CAddFriend cl;
 	cl.CopyFrom(*event->msg);
-	
+	string puid = cl.uid();
 	SAddFriend sl;
+	sl.set_uid(puid);
+	LibEvent *pLibEvent = LibEvent::getIns();
+	ClientData *data = pLibEvent->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		FriendNotice *p = m_pRedisGet->getFriendNotice(uid,puid);
+		UserBase *fri = m_pRedisGet->getFriend(uid,puid);
+		if (!fri){
+			if (p){
+				sl.set_err(2);
+			}
+			else{
+				FriendNotice temp;
+				string time = Common::getLocalTime();
+				FriendNotice *sp = (FriendNotice *)ccEvent::create_message(temp.GetTypeName());
+				sp->set_nid(m_pRedisGet->getFriendNoticeID());
+				sp->set_uid(puid);
+				sp->set_time(time);
+				sp->set_status(0);
+				sp->set_content(XXIconv::GBK2UTF("请求") + puid + XXIconv::GBK2UTF("添加好友"));
+				m_pRedisPut->PushFriendNotice(uid, sp);
+
+				FriendNotice *sp1 = (FriendNotice *)ccEvent::create_message(temp.GetTypeName());
+				sp1->set_nid(m_pRedisGet->getFriendNoticeID());
+				sp1->set_uid(uid);
+				sp1->set_time(time);
+				sp1->set_status(0);
+				sp1->set_content(uid+XXIconv::GBK2UTF("请求您添加好友"));
+				m_pRedisPut->PushFriendNotice(uid, sp1);
+
+				ClientData *ddata = pLibEvent->getClientData(puid);
+				if (ddata){
+					SendSAddFriend(sl, ddata->_fd);
+				}
+			}
+		}
+		else{
+			sl.set_err(3);
+		}
+	}
+	else{
+		sl.set_err(1);
+	}
 	SendSAddFriend(sl, event->m_fd);
 }
 
@@ -343,22 +465,72 @@ void HallInfo::HandlerCAddFriendList(ccEvent *event){
 	CAddFriendList cl;
 	cl.CopyFrom(*event->msg);
 	
-	char buff[100];
 	SAddFriendList fris;
-	for (int i = 0; i < 5; i++){
-		FriendNotice *fri = fris.add_list();
-		fri->set_status(i % 2);
-		sprintf(buff, "1000%02d", i);
-		fri->set_uid(buff);
-		fri->set_nid(i + 1);
-		sprintf(buff, XXIconv::GBK2UTF("%s添加您为好友").c_str(), buff);
-		fri->set_content(buff);
-		fri->set_time(Common::getLocalTime().c_str());
-		fri->set_status(1);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		auto vec = m_pRedisGet->getFriendNotice(uid);
+		for (int i = 0; i < vec.size(); i++){
+			FriendNotice *p = vec.at(i);
+			FriendNotice *p1 = fris.add_list();
+			p1->CopyFrom(*p);
+		}
+	}
+	else{
+		fris.set_err(1);
 	}
 	SendSAddFriendList(fris,event->m_fd);
 }
 
+
+void HallInfo::SendSAgreeFriend(SAgreeFriend cl, int fd){
+	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
+}
+
+void HallInfo::HandlerCAgreeFriend(ccEvent *event){
+	CAgreeFriend cl;
+	cl.CopyFrom(*event->msg);
+	int nid = cl.nid();
+	bool agree = cl.agree();
+
+	SAgreeFriend sl;
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = data->_uid;
+		FriendNotice *fn = m_pRedisGet->getFriendNotice(uid, nid);
+		if (fn){
+			string puid = fn->uid();
+			//接受方
+			sl.set_userid(puid);
+			sl.set_agree(agree);
+			sl.set_nid(nid);
+			fn->set_status(agree ? 2 : 3);
+			int index = m_pRedisGet->getFriendNoticeIndex(uid,nid);
+			m_pRedisPut->setFriendNotice(uid, index, fn);
+			//申请方
+			SAgreeFriend sl1;
+			FriendNotice *fn1 = m_pRedisGet->getFriendNotice(puid, uid);
+			if (fn1){
+				int pnid = fn1->nid();
+				sl.set_userid(uid);
+				sl.set_agree(agree);
+				sl.set_nid(pnid);
+				fn1->set_status(agree ? 2 : 3);
+				int index1 = m_pRedisGet->getFriendNoticeIndex(puid, pnid);
+				m_pRedisPut->setFriendNotice(puid,index1 , fn1);
+				ClientData *data1 = LibEvent::getIns()->getClientData(puid);
+				if (data1){
+					SendSAgreeFriend(sl1, data1->_fd);
+				}
+			}
+		}
+		else{
+			sl.set_err(1);
+		}
+	}
+	
+	SendSAgreeFriend(sl, event->m_fd);
+}
 
 void HallInfo::SendSActive(SActive cl, int fd){
 	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
@@ -422,18 +594,6 @@ void HallInfo::HandlerCReward(ccEvent *event){
 
 	SReward sl;
 	SendSReward(sl,event->m_fd);
-}
-
-void HallInfo::SendSAgreeFriend(SAgreeFriend cl, int fd){
-	LibEvent::getIns()->SendData(cl.cmd(), &cl,fd);
-}
-
-void HallInfo::HandlerCAgreeFriend(ccEvent *event){
-	CAgreeFriend cl;
-	cl.CopyFrom(*event->msg);
-	
-	SAgreeFriend sl;
-	SendSAgreeFriend(sl, event->m_fd);
 }
 
 void HallInfo::SendSExchangeReward(SExchangeReward cl, int fd){

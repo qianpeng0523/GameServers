@@ -2,7 +2,7 @@
 #include "RedisGet.h"
 #include "RedisPut.h"
 #include "CSVDataInfo.h"
-
+#include "LoginInfo.h"
 RedisGet *RedisGet::m_ins=NULL;
 RedisGet::RedisGet(){
 	m_pFirstBuyItem = NULL;
@@ -41,6 +41,8 @@ void RedisGet::init(){
 	getFriend();
 	getOpenids();
 	getSConfig();
+	LoginInfo::getIns()->onLineUsers();
+	getFriendNotices();
 	for (int i = 0; i < 2;i++){
 		vector<Rank> vec = getRank(i + 1, 1);
 		m_pRanks.insert(make_pair(i+1,vec));
@@ -287,6 +289,14 @@ map<string,UserBase *> RedisGet::getFriend(string uid){
 	return vec;
 }
 
+UserBase *RedisGet::getFriend(string uid,string fuid){
+	auto vec = getFriend(uid);
+	if (vec.find(fuid) != vec.end()){
+		return vec.at(fuid);
+	}
+	return NULL;
+}
+
 void RedisGet::setFriend(string uid, string fuid, bool isadd){
 	if (m_pfriends.find(uid) != m_pfriends.end()){
 		auto vec = m_pfriends.at(uid);
@@ -363,17 +373,121 @@ string RedisGet::getOpenidPass(string openid){
 	return "";
 }
 
-vector<FriendNotice > RedisGet::getFriendNotice(string uid){
+map<int, FriendNotice *> RedisGet::getFriendNotice(string uid){
+	if (m_pFriendNotices.find(uid) != m_pFriendNotices.end()){
+		return m_pFriendNotices.at(uid);
+	}
+	FriendNotice si;
+	std::vector<Message *> vv = m_redis->getList("friendnotice" + uid, si.GetTypeName());
+	map<int, FriendNotice *> vecs;
+	for (int i = 0; i < vv.size(); i++){
+		FriendNotice *rkk = (FriendNotice *)vv.at(i);
+		vecs.insert(make_pair(rkk->nid(),rkk));
+	}
+	return vecs;
+}
+
+map<int, FriendNotice *> RedisGet::getFriendNoticeB(string uid){
 	FriendNotice si;
 	std::vector<Message *> vv = m_redis->getList("friendnotice"+uid, si.GetTypeName());
-	std::vector<FriendNotice > vecs;
+	map<int,FriendNotice *> vecs;
 	for (int i = 0; i < vv.size(); i++){
-		FriendNotice rkk;
-		rkk.CopyFrom(*vv.at(i));
-		vecs.push_back(rkk);
+		FriendNotice *rkk = (FriendNotice *)vv.at(i);
+		vecs.insert(make_pair(rkk->nid(),rkk));
 	}
-	redis::getIns()->releaseMessages(vv);
 	return vecs;
+}
+
+FriendNotice *RedisGet::getFriendNotice(string uid, string fuid){
+	auto vec = getFriendNotice(uid);
+	auto itr = vec.begin();
+	for (itr; itr != vec.end(); itr++){
+		FriendNotice *p = itr->second;
+		if (p->uid().compare(fuid) == 0){
+			return p;
+		}
+	}
+	return NULL;
+}
+
+FriendNotice *RedisGet::getFriendNotice(string uid, int nid){
+	auto vec = getFriendNotice(uid);
+	if (vec.find(nid) != vec.end()){
+		return vec.at(nid);
+	}
+	return NULL;
+}
+
+map<string, map<int, FriendNotice *>> RedisGet::getFriendNotices(){
+	if (!m_pFriendNotices.empty()){
+		return m_pFriendNotices;
+	}
+	auto vecs = getUserBases();
+	auto itr = vecs.begin();
+	for (itr; itr != vecs.end();itr++){
+		string uid = itr->first;
+		map<int, FriendNotice *> vec = getFriendNoticeB(uid);
+		m_pFriendNotices.insert(make_pair(uid, vec));
+	}
+	return m_pFriendNotices;
+}
+
+void RedisGet::setFriendNotice(string uid, FriendNotice *p){
+	if (m_pFriendNotices.find(uid) != m_pFriendNotices.end()){
+		auto vec = m_pFriendNotices.at(uid);
+		if (vec.find(p->nid()) == vec.end()){
+			vec.insert(make_pair(p->nid(),p));
+		}
+		else{
+			vec.at(p->nid()) = p;
+		}
+		m_pFriendNotices.at(uid) = vec;
+	}
+	else{
+		map<int,FriendNotice *> vec;
+		vec.insert(make_pair(p->nid(),p));
+		m_pFriendNotices.insert(make_pair(uid, vec));
+	}
+}
+
+void RedisGet::eraseFriendNotice(string uid, FriendNotice *p){
+	if (m_pFriendNotices.find(uid) != m_pFriendNotices.end()){
+		m_pFriendNotices.erase(m_pFriendNotices.find(uid));
+		delete p;
+		p = NULL;
+	}
+}
+
+int RedisGet::getFriendNoticeID(){
+	string key = "friendnoticeid";
+	int len = 0;
+	char *dd = m_redis->get(key,len);
+	int id;
+	if (dd){
+		id = atoi(dd)+1;
+		
+	}
+	else{
+		dd = "1";
+		id = 1;
+		
+	}
+	RedisPut::getIns()->setFriendNoticeID(id);
+	return id;
+}
+
+int RedisGet::getFriendNoticeIndex(string uid, int nid){
+	auto vec = getFriendNotice(uid);
+	auto itr = vec.begin();
+	int index = 0;
+	for (itr; itr != vec.end(); itr++){
+		int pnid = itr->first;
+		if (pnid == nid){
+			return index;
+		}
+		index++;
+	}
+	return -1;
 }
 
 vector<Active > RedisGet::getActive(int type){

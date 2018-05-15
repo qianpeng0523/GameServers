@@ -2355,17 +2355,12 @@ class CAgreeFriend : public ::google::protobuf::Message {
   inline bool agree() const;
   inline void set_agree(bool value);
 
-  // optional string userid = 3;
-  inline bool has_userid() const;
-  inline void clear_userid();
-  static const int kUseridFieldNumber = 3;
-  inline const ::std::string& userid() const;
-  inline void set_userid(const ::std::string& value);
-  inline void set_userid(const char* value);
-  inline void set_userid(const char* value, size_t size);
-  inline ::std::string* mutable_userid();
-  inline ::std::string* release_userid();
-  inline void set_allocated_userid(::std::string* userid);
+  // optional uint32 nid = 3;
+  inline bool has_nid() const;
+  inline void clear_nid();
+  static const int kNidFieldNumber = 3;
+  inline ::google::protobuf::uint32 nid() const;
+  inline void set_nid(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:protocol.CAgreeFriend)
  private:
@@ -2373,14 +2368,14 @@ class CAgreeFriend : public ::google::protobuf::Message {
   inline void clear_has_cmd();
   inline void set_has_agree();
   inline void clear_has_agree();
-  inline void set_has_userid();
-  inline void clear_has_userid();
+  inline void set_has_nid();
+  inline void clear_has_nid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 cmd_;
   bool agree_;
-  ::std::string* userid_;
+  ::google::protobuf::uint32 nid_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
@@ -2474,10 +2469,17 @@ class SAgreeFriend : public ::google::protobuf::Message {
   inline ::std::string* release_userid();
   inline void set_allocated_userid(::std::string* userid);
 
-  // optional uint32 err = 4;
+  // optional uint32 nid = 4;
+  inline bool has_nid() const;
+  inline void clear_nid();
+  static const int kNidFieldNumber = 4;
+  inline ::google::protobuf::uint32 nid() const;
+  inline void set_nid(::google::protobuf::uint32 value);
+
+  // optional uint32 err = 5;
   inline bool has_err() const;
   inline void clear_err();
-  static const int kErrFieldNumber = 4;
+  static const int kErrFieldNumber = 5;
   inline ::google::protobuf::uint32 err() const;
   inline void set_err(::google::protobuf::uint32 value);
 
@@ -2489,6 +2491,8 @@ class SAgreeFriend : public ::google::protobuf::Message {
   inline void clear_has_agree();
   inline void set_has_userid();
   inline void clear_has_userid();
+  inline void set_has_nid();
+  inline void clear_has_nid();
   inline void set_has_err();
   inline void clear_has_err();
 
@@ -2497,10 +2501,11 @@ class SAgreeFriend : public ::google::protobuf::Message {
   ::google::protobuf::uint32 cmd_;
   bool agree_;
   ::std::string* userid_;
+  ::google::protobuf::uint32 nid_;
   ::google::protobuf::uint32 err_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
   friend void  protobuf_AddDesc_Hall_2eproto();
   friend void protobuf_AssignDesc_Hall_2eproto();
@@ -7390,74 +7395,26 @@ inline void CAgreeFriend::set_agree(bool value) {
   agree_ = value;
 }
 
-// optional string userid = 3;
-inline bool CAgreeFriend::has_userid() const {
+// optional uint32 nid = 3;
+inline bool CAgreeFriend::has_nid() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void CAgreeFriend::set_has_userid() {
+inline void CAgreeFriend::set_has_nid() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void CAgreeFriend::clear_has_userid() {
+inline void CAgreeFriend::clear_has_nid() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void CAgreeFriend::clear_userid() {
-  if (userid_ != &::google::protobuf::internal::kEmptyString) {
-    userid_->clear();
-  }
-  clear_has_userid();
+inline void CAgreeFriend::clear_nid() {
+  nid_ = 0u;
+  clear_has_nid();
 }
-inline const ::std::string& CAgreeFriend::userid() const {
-  return *userid_;
+inline ::google::protobuf::uint32 CAgreeFriend::nid() const {
+  return nid_;
 }
-inline void CAgreeFriend::set_userid(const ::std::string& value) {
-  set_has_userid();
-  if (userid_ == &::google::protobuf::internal::kEmptyString) {
-    userid_ = new ::std::string;
-  }
-  userid_->assign(value);
-}
-inline void CAgreeFriend::set_userid(const char* value) {
-  set_has_userid();
-  if (userid_ == &::google::protobuf::internal::kEmptyString) {
-    userid_ = new ::std::string;
-  }
-  userid_->assign(value);
-}
-inline void CAgreeFriend::set_userid(const char* value, size_t size) {
-  set_has_userid();
-  if (userid_ == &::google::protobuf::internal::kEmptyString) {
-    userid_ = new ::std::string;
-  }
-  userid_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* CAgreeFriend::mutable_userid() {
-  set_has_userid();
-  if (userid_ == &::google::protobuf::internal::kEmptyString) {
-    userid_ = new ::std::string;
-  }
-  return userid_;
-}
-inline ::std::string* CAgreeFriend::release_userid() {
-  clear_has_userid();
-  if (userid_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = userid_;
-    userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void CAgreeFriend::set_allocated_userid(::std::string* userid) {
-  if (userid_ != &::google::protobuf::internal::kEmptyString) {
-    delete userid_;
-  }
-  if (userid) {
-    set_has_userid();
-    userid_ = userid;
-  } else {
-    clear_has_userid();
-    userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
+inline void CAgreeFriend::set_nid(::google::protobuf::uint32 value) {
+  set_has_nid();
+  nid_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -7578,15 +7535,37 @@ inline void SAgreeFriend::set_allocated_userid(::std::string* userid) {
   }
 }
 
-// optional uint32 err = 4;
-inline bool SAgreeFriend::has_err() const {
+// optional uint32 nid = 4;
+inline bool SAgreeFriend::has_nid() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void SAgreeFriend::set_has_err() {
+inline void SAgreeFriend::set_has_nid() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void SAgreeFriend::clear_has_err() {
+inline void SAgreeFriend::clear_has_nid() {
   _has_bits_[0] &= ~0x00000008u;
+}
+inline void SAgreeFriend::clear_nid() {
+  nid_ = 0u;
+  clear_has_nid();
+}
+inline ::google::protobuf::uint32 SAgreeFriend::nid() const {
+  return nid_;
+}
+inline void SAgreeFriend::set_nid(::google::protobuf::uint32 value) {
+  set_has_nid();
+  nid_ = value;
+}
+
+// optional uint32 err = 5;
+inline bool SAgreeFriend::has_err() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void SAgreeFriend::set_has_err() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void SAgreeFriend::clear_has_err() {
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void SAgreeFriend::clear_err() {
   err_ = 0u;

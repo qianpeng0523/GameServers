@@ -260,11 +260,12 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FriendNotice));
   Friend_descriptor_ = file->message_type(8);
-  static const int Friend_offsets_[5] = {
+  static const int Friend_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Friend, info_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Friend, online_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Friend, friend__),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Friend, acttype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Friend, give_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Friend, time_),
   };
   Friend_reflection_ =
@@ -732,50 +733,50 @@ void protobuf_AddDesc_Vo_2eproto() {
     "\022\014\n\004time\030\005 \001(\t\022$\n\nrewardlist\030\006 \003(\0132\020.pro"
     "tocol.Reward\022\016\n\006status\030\007 \001(\r\"W\n\014FriendNo"
     "tice\022\013\n\003nid\030\001 \001(\r\022\017\n\007content\030\002 \001(\t\022\013\n\003ui"
-    "d\030\003 \001(\t\022\014\n\004time\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\"i\n"
+    "d\030\003 \001(\t\022\014\n\004time\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\"w\n"
     "\006Friend\022 \n\004info\030\001 \001(\0132\022.protocol.UserBas"
     "e\022\016\n\006online\030\002 \001(\010\022\016\n\006friend\030\003 \001(\010\022\017\n\007act"
-    "type\030\004 \001(\r\022\014\n\004time\030\005 \001(\r\"/\n\006Active\022\n\n\002id"
-    "\030\001 \001(\r\022\014\n\004type\030\002 \001(\r\022\013\n\003url\030\003 \001(\t\"9\n\006Sta"
-    "tus\022\r\n\005count\030\001 \001(\r\022\016\n\006fcount\030\002 \001(\r\022\020\n\010fi"
-    "nished\030\003 \001(\r\"\214\001\n\004Task\022\016\n\006taskid\030\001 \001(\r\022\r\n"
-    "\005title\030\002 \001(\t\022\017\n\007content\030\003 \001(\t\022\014\n\004type\030\004 "
-    "\001(\r\022$\n\nrewardlist\030\005 \003(\0132\020.protocol.Rewar"
-    "d\022 \n\006status\030\006 \001(\0132\020.protocol.Status\"e\n\007E"
-    "xAward\022\013\n\003eid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\037\n\005aw"
-    "ard\030\003 \001(\0132\020.protocol.Reward\022\035\n\003buy\030\004 \001(\013"
-    "2\020.protocol.Reward\"U\n\010ExRecord\022\013\n\003eid\030\001 "
-    "\001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007orderid\030\003 \001(\t\022\014\n\004t"
-    "ime\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\"F\n\tSignAward\022\n"
-    "\n\002id\030\001 \001(\r\022\013\n\003day\030\002 \001(\r\022 \n\006reward\030\003 \001(\0132"
-    "\020.protocol.Reward\"<\n\tSignZhuan\022\r\n\005index\030"
-    "\001 \001(\r\022 \n\006reward\030\002 \001(\0132\020.protocol.Reward\""
-    "\270\001\n\tPayRecord\022\016\n\006userid\030\001 \001(\t\022\016\n\006attach\030"
-    "\002 \001(\t\022\024\n\014out_trade_no\030\003 \001(\t\022\022\n\ntime_star"
-    "t\030\004 \001(\t\022\023\n\013time_expire\030\005 \001(\t\022\021\n\tprepay_i"
-    "d\030\006 \001(\t\022\014\n\004body\030\007 \001(\t\022\021\n\ttotal_fee\030\010 \001(\t"
-    "\022\030\n\020spbill_create_ip\030\t \001(\t\"\215\001\n\010RoomData\022"
-    "\014\n\004type\030\001 \001(\r\022\014\n\004ante\030\002 \001(\r\022\r\n\005round\030\003 \001"
-    "(\r\022\013\n\003bao\030\004 \001(\r\022\014\n\004bang\030\005 \001(\r\022\016\n\006roomid\030"
-    "\006 \001(\t\022\020\n\010roomtype\030\007 \001(\t\022\013\n\003uid\030\010 \001(\t\022\014\n\004"
-    "left\030\t \001(\r\"F\n\013CPGCardData\022\014\n\004type\030\001 \001(\r\022"
-    "\r\n\005cards\030\002 \001(\014\022\r\n\005index\030\003 \001(\r\022\013\n\003bei\030\004 \001"
-    "(\r\"\352\002\n\010RoomUser\022\016\n\006userid\030\001 \001(\t\022\020\n\010usern"
-    "ame\030\002 \001(\t\022\r\n\005picid\030\003 \001(\r\022\016\n\006picurl\030\004 \001(\t"
-    "\022\013\n\003sex\030\005 \001(\r\022\n\n\002ip\030\006 \001(\t\022\014\n\004gold\030\007 \001(\r\022"
-    "\r\n\005score\030\010 \001(\005\022\013\n\003win\030\t \001(\r\022\014\n\004lose\030\n \001("
-    "\r\022\014\n\004ping\030\013 \001(\r\022\013\n\003vip\030\014 \001(\r\022&\n\007cpgcard\030"
-    "\r \003(\0132\025.protocol.CPGCardData\022\020\n\010position"
-    "\030\016 \001(\r\022\r\n\005cards\030\017 \001(\014\022\020\n\010outcards\030\020 \001(\014\022"
-    "\n\n\002fa\030\021 \001(\r\022\014\n\004piao\030\022 \001(\r\022\r\n\005ready\030\023 \001(\010"
-    "\022\r\n\005begin\030\024 \001(\010\022\016\n\006zhuang\030\025 \001(\010\022\016\n\006onlin"
-    "e\030\026 \001(\010\"&\n\010TingCard\022\014\n\004card\030\001 \001(\r\022\014\n\004tin"
-    "g\030\002 \001(\014\"Y\n\010UserOver\022\016\n\006userid\030\001 \001(\t\022\020\n\010p"
-    "osition\030\002 \001(\r\022\r\n\005score\030\003 \001(\r\022\r\n\005total\030\004 "
-    "\001(\r\022\r\n\005cards\030\005 \001(\014\"D\n\tUserRound\022\016\n\006useri"
-    "d\030\001 \001(\t\022\r\n\005total\030\002 \001(\r\022\013\n\003pao\030\003 \001(\t\022\013\n\003w"
-    "in\030\004 \001(\t\"\033\n\005CPing\022\022\n\003cmd\030\001 \001(\r:\00516387\"\033\n"
-    "\005SPing\022\022\n\003cmd\030\001 \001(\r:\00516387", 2586);
+    "type\030\004 \001(\r\022\014\n\004give\030\005 \001(\010\022\014\n\004time\030\006 \001(\r\"/"
+    "\n\006Active\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\r\022\013\n\003ur"
+    "l\030\003 \001(\t\"9\n\006Status\022\r\n\005count\030\001 \001(\r\022\016\n\006fcou"
+    "nt\030\002 \001(\r\022\020\n\010finished\030\003 \001(\r\"\214\001\n\004Task\022\016\n\006t"
+    "askid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007content\030\003 "
+    "\001(\t\022\014\n\004type\030\004 \001(\r\022$\n\nrewardlist\030\005 \003(\0132\020."
+    "protocol.Reward\022 \n\006status\030\006 \001(\0132\020.protoc"
+    "ol.Status\"e\n\007ExAward\022\013\n\003eid\030\001 \001(\r\022\r\n\005tit"
+    "le\030\002 \001(\t\022\037\n\005award\030\003 \001(\0132\020.protocol.Rewar"
+    "d\022\035\n\003buy\030\004 \001(\0132\020.protocol.Reward\"U\n\010ExRe"
+    "cord\022\013\n\003eid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007orde"
+    "rid\030\003 \001(\t\022\014\n\004time\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\""
+    "F\n\tSignAward\022\n\n\002id\030\001 \001(\r\022\013\n\003day\030\002 \001(\r\022 \n"
+    "\006reward\030\003 \001(\0132\020.protocol.Reward\"<\n\tSignZ"
+    "huan\022\r\n\005index\030\001 \001(\r\022 \n\006reward\030\002 \001(\0132\020.pr"
+    "otocol.Reward\"\270\001\n\tPayRecord\022\016\n\006userid\030\001 "
+    "\001(\t\022\016\n\006attach\030\002 \001(\t\022\024\n\014out_trade_no\030\003 \001("
+    "\t\022\022\n\ntime_start\030\004 \001(\t\022\023\n\013time_expire\030\005 \001"
+    "(\t\022\021\n\tprepay_id\030\006 \001(\t\022\014\n\004body\030\007 \001(\t\022\021\n\tt"
+    "otal_fee\030\010 \001(\t\022\030\n\020spbill_create_ip\030\t \001(\t"
+    "\"\215\001\n\010RoomData\022\014\n\004type\030\001 \001(\r\022\014\n\004ante\030\002 \001("
+    "\r\022\r\n\005round\030\003 \001(\r\022\013\n\003bao\030\004 \001(\r\022\014\n\004bang\030\005 "
+    "\001(\r\022\016\n\006roomid\030\006 \001(\t\022\020\n\010roomtype\030\007 \001(\t\022\013\n"
+    "\003uid\030\010 \001(\t\022\014\n\004left\030\t \001(\r\"F\n\013CPGCardData\022"
+    "\014\n\004type\030\001 \001(\r\022\r\n\005cards\030\002 \001(\014\022\r\n\005index\030\003 "
+    "\001(\r\022\013\n\003bei\030\004 \001(\r\"\352\002\n\010RoomUser\022\016\n\006userid\030"
+    "\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005picid\030\003 \001(\r\022\016"
+    "\n\006picurl\030\004 \001(\t\022\013\n\003sex\030\005 \001(\r\022\n\n\002ip\030\006 \001(\t\022"
+    "\014\n\004gold\030\007 \001(\r\022\r\n\005score\030\010 \001(\005\022\013\n\003win\030\t \001("
+    "\r\022\014\n\004lose\030\n \001(\r\022\014\n\004ping\030\013 \001(\r\022\013\n\003vip\030\014 \001"
+    "(\r\022&\n\007cpgcard\030\r \003(\0132\025.protocol.CPGCardDa"
+    "ta\022\020\n\010position\030\016 \001(\r\022\r\n\005cards\030\017 \001(\014\022\020\n\010o"
+    "utcards\030\020 \001(\014\022\n\n\002fa\030\021 \001(\r\022\014\n\004piao\030\022 \001(\r\022"
+    "\r\n\005ready\030\023 \001(\010\022\r\n\005begin\030\024 \001(\010\022\016\n\006zhuang\030"
+    "\025 \001(\010\022\016\n\006online\030\026 \001(\010\"&\n\010TingCard\022\014\n\004car"
+    "d\030\001 \001(\r\022\014\n\004ting\030\002 \001(\014\"Y\n\010UserOver\022\016\n\006use"
+    "rid\030\001 \001(\t\022\020\n\010position\030\002 \001(\r\022\r\n\005score\030\003 \001"
+    "(\r\022\r\n\005total\030\004 \001(\r\022\r\n\005cards\030\005 \001(\014\"D\n\tUser"
+    "Round\022\016\n\006userid\030\001 \001(\t\022\r\n\005total\030\002 \001(\r\022\013\n\003"
+    "pao\030\003 \001(\t\022\013\n\003win\030\004 \001(\t\"\033\n\005CPing\022\022\n\003cmd\030\001"
+    " \001(\r:\00516387\"\033\n\005SPing\022\022\n\003cmd\030\001 \001(\r:\00516387", 2600);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Vo.proto", &protobuf_RegisterTypes);
   UserBase::default_instance_ = new UserBase();
@@ -4141,6 +4142,7 @@ const int Friend::kInfoFieldNumber;
 const int Friend::kOnlineFieldNumber;
 const int Friend::kFriendFieldNumber;
 const int Friend::kActtypeFieldNumber;
+const int Friend::kGiveFieldNumber;
 const int Friend::kTimeFieldNumber;
 #endif  // !_MSC_VER
 
@@ -4165,6 +4167,7 @@ void Friend::SharedCtor() {
   online_ = false;
   friend__ = false;
   acttype_ = 0u;
+  give_ = false;
   time_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -4208,6 +4211,7 @@ void Friend::Clear() {
     online_ = false;
     friend__ = false;
     acttype_ = 0u;
+    give_ = false;
     time_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -4277,12 +4281,28 @@ bool Friend::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(40)) goto parse_time;
+        if (input->ExpectTag(40)) goto parse_give;
         break;
       }
 
-      // optional uint32 time = 5;
+      // optional bool give = 5;
       case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_give:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &give_)));
+          set_has_give();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_time;
+        break;
+      }
+
+      // optional uint32 time = 6;
+      case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_time:
@@ -4336,9 +4356,14 @@ void Friend::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->acttype(), output);
   }
 
-  // optional uint32 time = 5;
+  // optional bool give = 5;
+  if (has_give()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->give(), output);
+  }
+
+  // optional uint32 time = 6;
   if (has_time()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->time(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->time(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -4371,9 +4396,14 @@ void Friend::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->acttype(), target);
   }
 
-  // optional uint32 time = 5;
+  // optional bool give = 5;
+  if (has_give()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->give(), target);
+  }
+
+  // optional uint32 time = 6;
   if (has_time()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->time(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->time(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -4411,7 +4441,12 @@ int Friend::ByteSize() const {
           this->acttype());
     }
 
-    // optional uint32 time = 5;
+    // optional bool give = 5;
+    if (has_give()) {
+      total_size += 1 + 1;
+    }
+
+    // optional uint32 time = 6;
     if (has_time()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -4457,6 +4492,9 @@ void Friend::MergeFrom(const Friend& from) {
     if (from.has_acttype()) {
       set_acttype(from.acttype());
     }
+    if (from.has_give()) {
+      set_give(from.give());
+    }
     if (from.has_time()) {
       set_time(from.time());
     }
@@ -4487,6 +4525,7 @@ void Friend::Swap(Friend* other) {
     std::swap(online_, other->online_);
     std::swap(friend__, other->friend__);
     std::swap(acttype_, other->acttype_);
+    std::swap(give_, other->give_);
     std::swap(time_, other->time_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

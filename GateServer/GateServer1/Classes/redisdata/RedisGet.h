@@ -69,9 +69,18 @@ public:
 
 	void getFriend();
 	map<string,UserBase *> getFriend(string uid);
+	UserBase *getFriend(string uid,string fuid);
 	void setFriend(string uid,string fuid,bool isadd);
 
-	vector<FriendNotice > getFriendNotice(string uid);
+	map<string, map<int, FriendNotice *>> getFriendNotices();
+	void setFriendNotice(string uid,FriendNotice *p);
+	void eraseFriendNotice(string uid, FriendNotice *p);
+	map<int, FriendNotice *> getFriendNotice(string uid);
+	FriendNotice *getFriendNotice(string uid,string fuid);
+	int getFriendNoticeID();
+	FriendNotice *getFriendNotice(string uid, int nid);
+	int getFriendNoticeIndex(string uid,int nid);
+
 	vector<Active > getActive(int type);
 	vector<Task > getTask();
 	Status *getTaskStatus(string uid, int taskid);//需要删除
@@ -112,6 +121,8 @@ public:
 	bool getExcode(string code);
 	void setEXCodeStatus(int id, bool ist);//不记录到数据库中
 private:
+	map<int, FriendNotice *> getFriendNoticeB(string uid);
+private:
 	static RedisGet *m_ins;
 	redis *m_redis;
 	map<int, Prop > m_pProps;
@@ -136,6 +147,7 @@ private:
 	map<string, time_t> m_pUserLoginTime;
 	map<string, string>m_pPass;
 	map<string, string>m_pOpenids;
+	map<string, map<int,FriendNotice *>>m_pFriendNotices;
 };
 
 

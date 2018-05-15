@@ -405,6 +405,7 @@ void LibEvent::eraseClientData(int fd){
 			CLog::log("close ip:%s\n",data->_ip.c_str());
 			if (data->_conn){
 				RedisPut::getIns()->PushUserLoginTime(data->_uid);
+				LoginInfo::getIns()->inserUserBase(data->_uid,RedisGet::getIns()->getUserBase(data->_uid), false);
 				SendLeave(data->_uid);
 				resetConn(data->_conn);
 			}
@@ -423,6 +424,7 @@ void LibEvent::eraseClientData(string sesionid){
 				CLog::log("close ip:%s\n",data->_ip.c_str());
 				if (data->_conn){
 					RedisPut::getIns()->PushUserLoginTime(data->_uid);
+					LoginInfo::getIns()->inserUserBase(data->_uid, RedisGet::getIns()->getUserBase(data->_uid), false);
 					SendLeave(data->_uid);
 					CloseConn(data->_conn, emFunClosed);
 					resetConn(data->_conn);

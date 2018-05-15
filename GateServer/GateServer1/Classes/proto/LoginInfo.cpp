@@ -75,6 +75,8 @@ void LoginInfo::HandlerCLoginHand(ccEvent *event){
 					info1->CopyFrom(*info);
 					info->set_ip(ip);
 					PushUserBase(info);
+
+					inserUserBase(uid, info, true);
 				}
 				else{
 					sl.set_err(1);
@@ -128,6 +130,8 @@ void LoginInfo::HandlerCRegister(ccEvent *event){
 			data->_sessionID = md5.toString();
 			data->_uid = uid;
 			ub1->set_ip(data->_ip);
+
+			inserUserBase(uid, RedisGet::getIns()->getUserBase(uid), true);
 		}
 		else{
 			sl.set_err(1);
@@ -180,6 +184,7 @@ void LoginInfo::HandlerCWXLogin(ccEvent *event){
 			data->_sessionID = uid + token + LOGIC_TOKEN;
 			data->_uid = uid;
 		}
+		inserUserBase(ub1->userid(),ub1,true);
 	}
 	SendSWXLogin(sl, event->m_fd);
 }
@@ -202,4 +207,50 @@ UserBase *LoginInfo::getUserBase(string uid){
 		return m_UserBases.at(uid);
 	}
 	return NULL;
+}
+
+void LoginInfo::onLineUsers(){
+	auto vec = RedisGet::getIns()->getUserBases();
+	auto itr = vec.begin();
+	LibEvent *p = LibEvent::getIns();
+	for (itr; itr != vec.end(); itr++){
+		string uid = itr->first;
+		if (p->isHave(uid)){
+			m_pOnlineUsers.insert(make_pair(uid, itr->second));
+		}
+		else{
+			m_pOfflineUsers.insert(make_pair(uid, itr->second));
+		}
+	}
+}
+
+void LoginInfo::eraseUserBase(string uid, bool online){
+	if (online){
+		if (m_pOnlineUsers.find(uid) != m_pOnlineUsers.end()){
+			m_pOnlineUsers.erase(m_pOnlineUsers.find(uid));
+		}
+	}
+	else{
+		if (m_pOfflineUsers.find(uid) != m_pOfflineUsers.end()){
+			m_pOfflineUsers.erase(m_pOfflineUsers.find(uid));
+		}
+	}
+}
+
+void LoginInfo::inserUserBase(string uid, UserBase *ub, bool online){
+	if (online){
+		if (m_pOnlineUsers.find(uid) == m_pOnlineUsers.end()){
+			m_pOnlineUsers.insert(make_pair(uid,ub));
+		}
+	}
+	else{
+		if (m_pOfflineUsers.find(uid) == m_pOfflineUsers.end()){
+			m_pOfflineUsers.insert(make_pair(uid, ub));
+		}
+	}
+	eraseUserBase(uid, !online);
+}
+
+map<string, UserBase *> LoginInfo::getOnLineUser(bool online){
+	return online ? m_pOnlineUsers : m_pOfflineUsers;
 }

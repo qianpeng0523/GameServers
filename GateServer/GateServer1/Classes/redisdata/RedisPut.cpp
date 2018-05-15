@@ -241,8 +241,27 @@ bool RedisPut::PushFriend(string uid, string friuid){
 	return m_redis->List("firend"+uid,(char *)friuid.c_str());
 }
 
-bool RedisPut::PushFriendNotice(string uid, FriendNotice fn){
-	return m_redis->List("friendnotice" + uid, &fn);
+bool RedisPut::PushFriendNotice(string uid, FriendNotice *fn){
+	RedisGet::getIns()->setFriendNotice(uid,fn);
+	return m_redis->List("friendnotice" + uid, fn);
+}
+
+bool RedisPut::setFriendNotice(string uid, int index, FriendNotice *fn){
+	RedisGet::getIns()->setFriendNotice(uid,fn);
+	return m_redis->setList(uid, index, fn);
+}
+
+bool RedisPut::eraseFriendNotice(string uid, FriendNotice *fn){
+	bool ist = m_redis->eraseList(uid, fn);
+	if (ist){
+		RedisGet::getIns()->eraseFriendNotice(uid,fn);
+	}
+	return ist;
+}
+
+bool RedisPut::setFriendNoticeID(int nid){
+	string key = "friendnoticeid";
+	return m_redis->set(key,nid);
 }
 
 bool RedisPut::PushActive(Active at){

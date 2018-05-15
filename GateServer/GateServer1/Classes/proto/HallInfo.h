@@ -110,6 +110,8 @@ private:
 	void regist(int cmd, string name, EventHandler handler);
 	void resetUserData(Reward rd,string uid);
 	void update(float);
+
+	map<int,int> getRandNum(int maxnum,int num);
 private:
 	static HallInfo *m_shareHallInfo;
 	
