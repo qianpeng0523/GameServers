@@ -67,7 +67,7 @@ public:
 	Mail getMail(string uid, int eid);
 	int getMailStatus(string uid, int mid);
 
-	void getFriend();
+	map<string, map<string, UserBase *>> getFriend();
 	map<string,UserBase *> getFriend(string uid);
 	UserBase *getFriend(string uid,string fuid);
 	void setFriend(string uid,string fuid,bool isadd);
@@ -80,6 +80,11 @@ public:
 	int getFriendNoticeID();
 	FriendNotice *getFriendNotice(string uid, int nid);
 	int getFriendNoticeIndex(string uid,int nid);
+
+	map<string, bool> getFriendGiveB(string uid);
+	map<string, bool> getFriendGive(string uid);
+	map<string, map<string, bool>> getFriendGive();
+	void setFriendGive(string uid,string fruid,bool have);
 
 	vector<Active > getActive(int type);
 	vector<Task > getTask();
@@ -141,6 +146,8 @@ private:
 	vector<bool> m_pEXCodes;
 	map<string, vector<ExRecord>> m_pExRecords;
 	map<string, SignStatus*>m_pSignStatuss;
+	map<string, map<string, bool>>m_pfriendgives;
+	map<string, map<string, int>>m_pfriendgiveindexs;
 	map<string,map<string,UserBase *>>m_pfriends;
 	map<string, UserBase *>m_pUserBases;
 	map<string, int>m_pUserIndexs;

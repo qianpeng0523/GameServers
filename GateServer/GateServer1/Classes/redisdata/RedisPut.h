@@ -26,6 +26,8 @@ public:
 	bool PushMail(string uid,Mail mail);
 	bool setMailStatus(string uid,int mid,int status);
 	bool PushFriend(string uid,string friuid);
+	bool PushFriendGive(string uid, string fuid, bool have);
+	bool setFriendGive(string uid, int index, string fuid, bool have);
 	bool PushFriendNotice(string uid, FriendNotice *fn);
 	bool setFriendNotice(string uid,int index ,FriendNotice *fn);
 	bool eraseFriendNotice(string uid, FriendNotice *fn);

@@ -106,7 +106,7 @@ map<string, UserBase *> RedisGet::getUserBases(){
 	return m_pUserBases;
 }
 
-void RedisGet::getFriend(){
+map<string, map<string, UserBase *>> RedisGet::getFriend(){
 	auto vec = getUserBases();
 	auto itr = vec.begin();
 	for (itr; itr != vec.end();itr++){
@@ -267,12 +267,26 @@ int RedisGet::getMailStatus(string uid, int mid){
 	return atoi(m_redis->get(buff,len));
 }
 
+map<string, map<string, UserBase *>> RedisGet::getFriend(){
+	if (!m_pfriends.empty()){
+		return m_pfriends;
+	}
+	auto maps = getUserBases();
+	auto itr = maps.begin();
+	for (itr; itr != maps.end();itr++){
+		string uid = itr->first;
+		map<string, UserBase *>vec = getFriend(uid);
+		m_pfriends.insert(make_pair(uid, vec));
+	}
+	return m_pfriends;
+}
+
 map<string,UserBase *> RedisGet::getFriend(string uid){
 	if (m_pfriends.find(uid)!=m_pfriends.end()){
 		return m_pfriends.at(uid);
 	}
 	vector<int >lens;
-	vector<char *> vv = m_redis->getList(uid, lens);
+	vector<char *> vv = m_redis->getList("friend"+uid, lens);
 	map<string,UserBase *> vec;
 	for (int i = 0; i < vv.size(); i++){
 		string puid = vv.at(i);
@@ -281,7 +295,6 @@ map<string,UserBase *> RedisGet::getFriend(string uid){
 			vec.insert(make_pair(puid, ub));
 		}
 	}
-	m_pfriends.insert(make_pair(uid, vec));
 	for (int i = 0; i < vv.size(); i++){
 		delete vv.at(i);
 	}
@@ -322,6 +335,46 @@ void RedisGet::setFriend(string uid, string fuid, bool isadd){
 			}
 		}
 	}
+}
+
+map<string, bool> RedisGet::getFriendGiveB(string uid){
+	string key = "friendgive" + uid;
+	vector<string>vec = m_redis->getListStr(key);
+	map<string, bool> maps;
+	map<string, int> indexs;
+	for (int i = 0; i < vec.size(); i++){
+		string con = vec.at(i);
+		vector<string> vv = CSVDataInfo::getIns()->getStrFromstr(con,",");
+		string fuid = vv.at(0);
+		bool have = atoi(vv.at(1).c_str());
+		maps.insert(make_pair(fuid, have));
+		indexs.insert(make_pair(fuid, i));
+	}
+	m_pfriendgiveindexs.insert(make_pair(uid,indexs));
+	return maps;
+}
+
+map<string, bool> RedisGet::getFriendGive(string uid){
+	if (m_pfriendgives.find(uid) != m_pfriendgives.end()){
+		return m_pfriendgives.at(uid);
+	}
+	map<string, bool> vec = getFriendGiveB(uid);
+	m_pfriendgives.insert(make_pair(uid, vec));
+	return vec;
+}
+
+map<string, map<string, bool>> RedisGet::getFriendGive(){
+	if (!m_pfriendgives.empty()){
+		return m_pfriendgives;
+	}
+	auto maps = getFriend();
+	auto itr = maps.begin();
+	for (itr; itr != maps.end();itr++){
+		string uid = itr->first;
+		auto vec = getFriendGiveB(uid);
+		m_pfriendgives.insert(make_pair(uid, vec));
+	}
+	return m_pfriendgives;
 }
 
 void RedisGet::setUserLoginTime(string uid, time_t t){

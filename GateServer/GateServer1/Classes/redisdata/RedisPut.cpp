@@ -238,7 +238,22 @@ bool RedisPut::setMailStatus(string uid, int mid, int status){
 }
 
 bool RedisPut::PushFriend(string uid, string friuid){
-	return m_redis->List("firend"+uid,(char *)friuid.c_str());
+	PushFriendGive(uid,friuid,false);
+	return m_redis->List("friend"+uid,(char *)friuid.c_str());
+}
+
+bool RedisPut::PushFriendGive(string uid,string fuid, bool have){
+	string key = "friendgive"+uid;
+	char buff[50];
+	sprintf(buff,"%s,%d",fuid.c_str(),have);
+	return m_redis->List(key,buff);
+}
+
+bool RedisPut::setFriendGive(string uid, int index,string fuid, bool have){
+	string key = "friendgive" + uid;
+	char buff[50];
+	sprintf(buff, "%s,%d", fuid.c_str(), have);
+	return m_redis->setList(uid, index, buff);
 }
 
 bool RedisPut::PushFriendNotice(string uid, FriendNotice *fn){
