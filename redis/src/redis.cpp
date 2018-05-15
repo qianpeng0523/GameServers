@@ -467,6 +467,35 @@ int redis::eraseList(string key, string value){
 	return integer;
 }
 
+bool redis::eraseList(string key, Message *msg){
+	int sz = msg->ByteSize();
+	char *buffer = new char[sz];
+	msg->SerializePartialToArray(buffer, sz);
+	ZeroChange(buffer, sz);
+
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect, " lrem  %s %d %s", key.c_str(), 0, buffer);
+	if (!m_pReply)
+	{
+		reconnect();
+		CLog::log("get value failed\n");
+		return 0;
+	}
+	//get成功返回结果为 REDIS_REPLY_STRING 
+	if (m_pReply->type == REDIS_REPLY_ERROR)
+	{
+		CLog::log("get redis faliled\n");
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return 0;
+	}
+
+	//CLog::log("get redis success\n");
+	int integer = m_pReply->integer;
+	freeReplyObject(m_pReply);
+	m_pReply = NULL;
+	return integer;
+}
+
 map<uint64, int> redis::getList(string key){
 	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "lrange %s %d %d", key.c_str(), 0, -1);
 	map<uint64, int> vec;

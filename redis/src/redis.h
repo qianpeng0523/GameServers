@@ -40,6 +40,7 @@ public:
 	bool List(std::string key, char* value);
 	bool List(string key,map<string,int>vec);
 	int eraseList(string key, string value);//删除与value值相同的项
+	bool eraseList(string key, Message *msg);
 
 	map<uint64, int> getList(string key);
 	vector<std::string> getListStr(string key);
