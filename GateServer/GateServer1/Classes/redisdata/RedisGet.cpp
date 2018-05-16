@@ -43,6 +43,7 @@ void RedisGet::init(){
 	getSConfig();
 	LoginInfo::getIns()->onLineUsers();
 	getFriendNotices();
+	getFriendGive();
 	for (int i = 0; i < 2;i++){
 		vector<Rank> vec = getRank(i + 1, 1);
 		m_pRanks.insert(make_pair(i+1,vec));
@@ -104,15 +105,6 @@ map<string, UserBase *> RedisGet::getUserBases(){
 		getPass(uid);
 	}
 	return m_pUserBases;
-}
-
-map<string, map<string, UserBase *>> RedisGet::getFriend(){
-	auto vec = getUserBases();
-	auto itr = vec.begin();
-	for (itr; itr != vec.end();itr++){
-		string uid = itr->first;
-		getFriend(uid);
-	}
 }
 
 UserBase *RedisGet::getUserBase(int index){
@@ -358,8 +350,7 @@ map<string, bool> RedisGet::getFriendGive(string uid){
 	if (m_pfriendgives.find(uid) != m_pfriendgives.end()){
 		return m_pfriendgives.at(uid);
 	}
-	map<string, bool> vec = getFriendGiveB(uid);
-	m_pfriendgives.insert(make_pair(uid, vec));
+	map<string, bool> vec;
 	return vec;
 }
 
@@ -375,6 +366,53 @@ map<string, map<string, bool>> RedisGet::getFriendGive(){
 		m_pfriendgives.insert(make_pair(uid, vec));
 	}
 	return m_pfriendgives;
+}
+
+void RedisGet::setFriendGive(string uid, string fruid, bool have){
+	auto vec = getFriendGive(uid);
+	if (vec.find(fruid) != vec.end()){
+		vec.at(fruid) = have;
+	}
+	else{
+		int index = vec.size();
+		vec.insert(make_pair(fruid,have));
+		if (m_pfriendgives.find(uid) == m_pfriendgives.end()){
+			m_pfriendgives.insert(make_pair(uid, vec));
+		}
+		else{
+			m_pfriendgives.at(uid) = vec;
+		}
+		setFriendGiveIndex(uid,fruid,index);
+	}
+	
+}
+
+int RedisGet::getFriendGiveIndex(string uid, string friuid){
+	if (m_pfriendgiveindexs.find(uid) != m_pfriendgiveindexs.end()){
+		auto vec = m_pfriendgiveindexs.at(uid);
+		if (vec.find(friuid) != vec.end()){
+			return vec.at(friuid);
+		}
+	}
+	return -1;
+}
+
+void RedisGet::setFriendGiveIndex(string uid, string friuid, int index){
+	if (m_pfriendgiveindexs.find(uid) != m_pfriendgiveindexs.end()){
+		auto vec = m_pfriendgiveindexs.at(uid);
+		if (vec.find(friuid) == vec.end()){
+			vec.insert(make_pair(friuid,index));
+		}
+		else{
+			CLog::log("err:%s[%d]", friuid.c_str(), index);
+		}
+	}
+	else{
+		map<string, int>vec;
+		vec.insert(make_pair(friuid, index));
+		m_pfriendgiveindexs.insert(make_pair(uid, vec));
+	}
+	
 }
 
 void RedisGet::setUserLoginTime(string uid, time_t t){

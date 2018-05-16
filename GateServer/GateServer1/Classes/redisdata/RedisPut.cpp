@@ -246,14 +246,19 @@ bool RedisPut::PushFriendGive(string uid,string fuid, bool have){
 	string key = "friendgive"+uid;
 	char buff[50];
 	sprintf(buff,"%s,%d",fuid.c_str(),have);
+	bool ist = false;
+	RedisGet *pRedisGet = RedisGet::getIns();
+	int index = pRedisGet->getFriendGiveIndex(uid, fuid);
+	if (index == -1){
+		index = pRedisGet->getFriendGive(uid).size();
+		pRedisGet->setFriendGive(uid, fuid, have);
+		ist = m_redis->List(key, buff);
+	}
+	else{
+		pRedisGet->setFriendGive(uid, fuid, have);
+		ist = m_redis->setList(uid, index, buff);
+	}
 	return m_redis->List(key,buff);
-}
-
-bool RedisPut::setFriendGive(string uid, int index,string fuid, bool have){
-	string key = "friendgive" + uid;
-	char buff[50];
-	sprintf(buff, "%s,%d", fuid.c_str(), have);
-	return m_redis->setList(uid, index, buff);
 }
 
 bool RedisPut::PushFriendNotice(string uid, FriendNotice *fn){

@@ -391,10 +391,49 @@ void HallInfo::HandlerCGiveFriend(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	string fuid = cl.uid();
 	SGiveFriend sl;
+	sl.set_uid(fuid);
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
 		string uid = data->_uid;
-		//添加赠送的数据库
+		auto vec = m_pRedisGet->getFriendGive(uid);
+		if (vec.find(fuid) != vec.end()){
+			bool give = vec.at(fuid);
+			if (give){
+				sl.set_err(1);
+			}
+			else{
+				Reward rd = m_pRedisGet->getReward(69);
+				UserBase *user = m_pRedisGet->getUserBase(fuid);
+				string uname = user->username();
+				
+				Mail ml1;
+				Mail *ml = (Mail *)ccEvent::create_message(ml1.GetTypeName());
+				Reward *rew = ml->add_rewardlist();
+				rew->CopyFrom(rd);
+
+				int eid = m_pRedisGet->MailID();
+				ml->set_eid(eid);
+				char buff[300];
+				sprintf(buff, "%s%s%s%d%s", XXIconv::GBK2UTF("好友【").c_str(), uname.c_str(), XXIconv::GBK2UTF("】赠送给您").c_str(), rew->number(), rew->prop().name().c_str());
+				ml->set_content(buff);
+				ml->set_status(1);
+				ml->set_time(Common::getLocalTime());
+				ml->set_title(XXIconv::GBK2UTF("好友【")+uname + XXIconv::GBK2UTF("】赠送"));
+
+				m_pRedisPut->setMailID(eid);
+				m_pRedisPut->PushMail(uid, *ml);
+				m_pRedisPut->setConfig(uid, POINT_MAIL, true);
+				
+				ClientData *data1 = LibEvent::getIns()->getClientData(fuid);
+				if (data1){
+					SConfig *sc = m_pRedisGet->getSConfig(uid);
+					if (sc&&!sc->mail()){
+						sc->set_mail(true);
+						ConfigInfo::getIns()->SendSConfig(*sc, data1->_fd);
+					}
+				}
+			}
+		}
 		
 	}
 	SendSGiveFriend(sl, event->m_fd);
@@ -431,6 +470,7 @@ void HallInfo::HandlerCAddFriend(ccEvent *event){
 				sp->set_status(0);
 				sp->set_content(XXIconv::GBK2UTF("请求") + puid + XXIconv::GBK2UTF("添加好友"));
 				m_pRedisPut->PushFriendNotice(uid, sp);
+				m_pRedisPut->setConfig(uid, POINT_HAOYOU, true);
 
 				FriendNotice *sp1 = (FriendNotice *)ccEvent::create_message(temp.GetTypeName());
 				sp1->set_nid(m_pRedisGet->getFriendNoticeID());
@@ -438,8 +478,8 @@ void HallInfo::HandlerCAddFriend(ccEvent *event){
 				sp1->set_time(time);
 				sp1->set_status(0);
 				sp1->set_content(uid+XXIconv::GBK2UTF("请求您添加好友"));
-				m_pRedisPut->PushFriendNotice(uid, sp1);
-
+				m_pRedisPut->PushFriendNotice(puid, sp1);
+				m_pRedisPut->setConfig(puid, POINT_HAOYOU, true);
 				ClientData *ddata = pLibEvent->getClientData(puid);
 				if (ddata){
 					SendSAddFriend(sl, ddata->_fd);
@@ -507,6 +547,7 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 			fn->set_status(agree ? 2 : 3);
 			int index = m_pRedisGet->getFriendNoticeIndex(uid,nid);
 			m_pRedisPut->setFriendNotice(uid, index, fn);
+			m_pRedisPut->PushFriendGive(uid, fuid, false);
 			//申请方
 			SAgreeFriend sl1;
 			FriendNotice *fn1 = m_pRedisGet->getFriendNotice(puid, uid);
@@ -518,6 +559,7 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 				fn1->set_status(agree ? 2 : 3);
 				int index1 = m_pRedisGet->getFriendNoticeIndex(puid, pnid);
 				m_pRedisPut->setFriendNotice(puid,index1 , fn1);
+				m_pRedisPut->PushFriendGive(fuid, uid, false);
 				ClientData *data1 = LibEvent::getIns()->getClientData(puid);
 				if (data1){
 					SendSAgreeFriend(sl1, data1->_fd);
@@ -1040,7 +1082,7 @@ void HallInfo::HandlerCSign(ccEvent *event){
 			
 			//换成邮件发送
 
-			SMail sm;
+			//SMail sm;
 			
 			Mail *ml = sm.add_list();
 			Reward *rew = ml->add_rewardlist();
@@ -1057,14 +1099,14 @@ void HallInfo::HandlerCSign(ccEvent *event){
 
 			m_pRedisPut->setMailID(eid);
 			m_pRedisPut->PushMail(uid, *ml);
-			m_pRedisPut->setConfig(uid, POINT_SHOP, false);
+			m_pRedisPut->setConfig(uid, POINT_MAIL, true);
 			SConfig *sc = m_pRedisGet->getSConfig(uid);
 			if (sc&&sc->yqs()){
 				sc->set_yqs(false);
 				sc->set_mail(true);
 				ConfigInfo::getIns()->SendSConfig(*sc,event->m_fd);
 			}
-			SendSMail(sm,event->m_fd);
+			//SendSMail(sm,event->m_fd);
 		}
 		else{
 			sl.set_err(1);

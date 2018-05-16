@@ -85,6 +85,8 @@ public:
 	map<string, bool> getFriendGive(string uid);
 	map<string, map<string, bool>> getFriendGive();
 	void setFriendGive(string uid,string fruid,bool have);
+	int getFriendGiveIndex(string uid,string friuid);
+	void setFriendGiveIndex(string uid,string friuid,int index);
 
 	vector<Active > getActive(int type);
 	vector<Task > getTask();
