@@ -80,7 +80,10 @@ void RedisGet::setPass(string uid, string pass){
 	}
 }
 
-map<string, UserBase *> RedisGet::getUserBases(){
+UserBaseMap RedisGet::getUserBases(){
+	if (!m_pUserBases.empty()){
+		return m_pUserBases;
+	}
 	string key = "userbase";
 	UserBase ub;
 	auto vec = m_redis->getList(key,ub.GetTypeName());
@@ -259,7 +262,7 @@ int RedisGet::getMailStatus(string uid, int mid){
 	return atoi(m_redis->get(buff,len));
 }
 
-map<string, map<string, UserBase *>> RedisGet::getFriend(){
+FriendMap RedisGet::getFriend(){
 	if (!m_pfriends.empty()){
 		return m_pfriends;
 	}
@@ -273,13 +276,13 @@ map<string, map<string, UserBase *>> RedisGet::getFriend(){
 	return m_pfriends;
 }
 
-map<string,UserBase *> RedisGet::getFriend(string uid){
+UserBaseMap RedisGet::getFriend(string uid){
 	if (m_pfriends.find(uid)!=m_pfriends.end()){
 		return m_pfriends.at(uid);
 	}
 	vector<int >lens;
 	vector<char *> vv = m_redis->getList("friend"+uid, lens);
-	map<string,UserBase *> vec;
+	UserBaseMap vec;
 	for (int i = 0; i < vv.size(); i++){
 		string puid = vv.at(i);
 		UserBase *ub = getUserBase(puid);

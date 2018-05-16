@@ -35,6 +35,9 @@ struct PExchangeCode :public Object
 	bool _isdui;
 };
 
+typedef map<string, UserBase *> UserBaseMap;
+typedef map<string, UserBaseMap> FriendMap;
+
 class RedisGet 
 {
 public:
@@ -49,7 +52,7 @@ public:
 	void setPass(string uid,string pass);
 
 	string getOpenidPass(string openid);
-	map<string, UserBase *> getUserBases();
+	UserBaseMap getUserBases();
 	UserBase *getUserBase(string uid);
 	UserBase *getUserBase(int index);
 	void setUserBase(UserBase *ub);
@@ -67,8 +70,8 @@ public:
 	Mail getMail(string uid, int eid);
 	int getMailStatus(string uid, int mid);
 
-	map<string, map<string, UserBase *>> getFriend();
-	map<string,UserBase *> getFriend(string uid);
+	FriendMap getFriend();
+	UserBaseMap getFriend(string uid);
 	UserBase *getFriend(string uid,string fuid);
 	void setFriend(string uid,string fuid,bool isadd);
 
@@ -150,8 +153,8 @@ private:
 	map<string, SignStatus*>m_pSignStatuss;
 	map<string, map<string, bool>>m_pfriendgives;
 	map<string, map<string, int>>m_pfriendgiveindexs;
-	map<string,map<string,UserBase *>>m_pfriends;
-	map<string, UserBase *>m_pUserBases;
+	FriendMap m_pfriends;
+	UserBaseMap m_pUserBases;
 	map<string, int>m_pUserIndexs;
 	map<string, time_t> m_pUserLoginTime;
 	map<string, string>m_pPass;

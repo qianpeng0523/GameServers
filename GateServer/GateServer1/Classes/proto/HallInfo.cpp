@@ -547,7 +547,7 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 			fn->set_status(agree ? 2 : 3);
 			int index = m_pRedisGet->getFriendNoticeIndex(uid,nid);
 			m_pRedisPut->setFriendNotice(uid, index, fn);
-			m_pRedisPut->PushFriendGive(uid, fuid, false);
+			m_pRedisPut->PushFriendGive(uid, puid, false);
 			//申请方
 			SAgreeFriend sl1;
 			FriendNotice *fn1 = m_pRedisGet->getFriendNotice(puid, uid);
@@ -559,7 +559,7 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 				fn1->set_status(agree ? 2 : 3);
 				int index1 = m_pRedisGet->getFriendNoticeIndex(puid, pnid);
 				m_pRedisPut->setFriendNotice(puid,index1 , fn1);
-				m_pRedisPut->PushFriendGive(fuid, uid, false);
+				m_pRedisPut->PushFriendGive(puid, uid, false);
 				ClientData *data1 = LibEvent::getIns()->getClientData(puid);
 				if (data1){
 					SendSAgreeFriend(sl1, data1->_fd);
@@ -1084,21 +1084,21 @@ void HallInfo::HandlerCSign(ccEvent *event){
 
 			//SMail sm;
 			
-			Mail *ml = sm.add_list();
-			Reward *rew = ml->add_rewardlist();
+			Mail ml;
+			Reward *rew = ml.add_rewardlist();
 			rew->CopyFrom(vec1.at(rd).reward());
 
 			int eid = m_pRedisGet->MailID();
-			ml->set_eid(eid);
+			ml.set_eid(eid);
 			char buff[300];
 			sprintf(buff,"%s%d%s",XXIconv::GBK2UTF("恭喜您，抽奖获得").c_str(),rew->number(),rew->prop().name().c_str());
-			ml->set_content(buff);
-			ml->set_status(1);
-			ml->set_time(Common::getLocalTime());
-			ml->set_title(XXIconv::GBK2UTF("恭喜您，抽奖获得"));
+			ml.set_content(buff);
+			ml.set_status(1);
+			ml.set_time(Common::getLocalTime());
+			ml.set_title(XXIconv::GBK2UTF("恭喜您，抽奖获得"));
 
 			m_pRedisPut->setMailID(eid);
-			m_pRedisPut->PushMail(uid, *ml);
+			m_pRedisPut->PushMail(uid, ml);
 			m_pRedisPut->setConfig(uid, POINT_MAIL, true);
 			SConfig *sc = m_pRedisGet->getSConfig(uid);
 			if (sc&&sc->yqs()){
