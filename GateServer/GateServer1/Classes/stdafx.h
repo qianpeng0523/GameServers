@@ -94,3 +94,25 @@ enum POINTTIP
 };
 
 static string g_PointStr[] = { "mail", "active", "firstbuy", "free", "fri","task","yqs" };
+
+enum REDISTYPE
+{
+	REIDS_HU = 0,
+	REIDS_PROP,
+	REIDS_REWARD,
+	REIDS_SHOP,
+	REIDS_TASK,
+	REIDS_SIGN,
+	REIDS_EXCHANGE,
+	REIDS_ACTIVE,
+	REIDS_FREE,
+	REIDS_USERBASE,
+	REIDS_PASS,
+	REIDS_FRIEND,
+	REDIS_SCONFIG,
+	REIDS_GATE,
+	REIDS_MAIL,
+	REIDS_RANK,
+};
+
+static string g_redisdbnames[] = { "hu", "prop", "reward", "shop", "task", "sign", "exaward", "active", "free", "userbase", "pass", "friend", "sconfig", "gate", "mail", "rank" };

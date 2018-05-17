@@ -84,6 +84,9 @@ UserBaseMap RedisGet::getUserBases(){
 	if (!m_pUserBases.empty()){
 		return m_pUserBases;
 	}
+	if (!m_pUserBases.empty()){
+		return m_pUserBases;
+	}
 	string key = "userbase";
 	UserBase ub;
 	auto vec = m_redis->getList(key,ub.GetTypeName());
@@ -106,6 +109,7 @@ UserBaseMap RedisGet::getUserBases(){
 		}
 		getUserLoginTime(uid);
 		getPass(uid);
+		index++;
 	}
 	return m_pUserBases;
 }
