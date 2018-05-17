@@ -1,5 +1,6 @@
 ﻿
 #include "RedisPut.h"
+#include "RedisGet.h"
 
 RedisPut *RedisPut::m_ins=NULL;
 RedisPut::RedisPut(){
@@ -25,117 +26,112 @@ void RedisPut::init(){
 	
 }
 
-bool RedisPut::PushConfig(string uid, SConfig scf){
-	return m_redis->Hash("config"+uid,&scf);
-}
-
-bool RedisPut::PushUserBase(UserBase ub){
-	string uid = ub.userid();
-	return m_redis->Hash(ub.GetTypeName() + uid, &ub);
-}
-
-bool RedisPut::PushRank(Rank rk){
-	int type = rk.type();
-	char buff[50];
-	sprintf(buff,"%s%d",rk.GetTypeName(),type);
-	return m_redis->List(buff,&rk);
-}
-
-bool RedisPut::PushPass(string uid, string pass){
-	return m_redis->set("pass" + uid, (char *)pass.c_str(),pass.length());
-}
-
 bool RedisPut::PushShop(ShopItem item){
-	return m_redis->List("shop",&item);
-}
-
-bool RedisPut::PushMail(string uid, Mail mail){
-	return m_redis->List("mail"+uid,&mail);
-}
-
-bool RedisPut::PushFriend(string uid, string friuid){
-	return m_redis->List("firend"+uid,(char *)friuid.c_str());
-}
-
-bool RedisPut::PushFriendNotice(string uid, FriendNotice fn){
-	return m_redis->List("friendnotice" + uid, &fn);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_SHOP], &item);
+	}
+	return ist;
 }
 
 bool RedisPut::PushActive(Active at){
-	int type = at.type();
-	char buff[100];
-	sprintf(buff,"active%d",type);
-	return m_redis->List(buff,&at);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_ACTIVE);
+	if (ist){
+		int type = at.type();
+		char buff[100];
+		sprintf(buff, "%s%d", g_redisdbnames[REIDS_ACTIVE].c_str(), type);
+		m_redis->List(buff, &at);
+	}
+	return ist;
 }
 
 bool RedisPut::PushTask(Task task){
-	return m_redis->List("task", &task);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_TASK);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_TASK], &task);
+	}
+	return ist;
 }
 
-bool RedisPut::PushTaskStatus(string uid, int taskid, Status status){
-	char buff[30];
-	sprintf(buff,"task%s%d",uid.c_str(),taskid);
-	return m_redis->Hash(buff,&status);
-}
 
 bool RedisPut::PushExAward(ExAward ea){
-	return m_redis->List("exchangereward",&ea);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_EXCHANGE]+"award", &ea);
+	}
+	return ist;
 }
 
 bool RedisPut::PushReward(Reward rd){
-	return m_redis->List("reward", &rd);
-}
-
-bool RedisPut::PushExRecord(string uid, ExRecord er){
-	return m_redis->List("exchangerecord" + uid, &er);
-}
-
-bool RedisPut::setExRecordStatus(string uid, int rid, int status){
-	char buff[50];
-	sprintf(buff,"exchangestatus%s%d",uid.c_str(),rid);
-	return m_redis->set(buff,status);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_REWARD);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_REWARD], &rd);
+	}
+	return ist;
 }
 
 bool RedisPut::PushSignAward(SignAward sa){
-	return m_redis->List("sign", &sa);
-}
-
-bool RedisPut::setSignStatus(string uid, int signid, int times){
-	char buff[50];
-	sprintf(buff,"%s%d",uid.c_str(),signid);
-	return m_redis->set(buff, times);
-}
-
-bool RedisPut::setSConfig(string uid, SConfig sc){
-	return m_redis->Hash("config" + uid, &sc);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SIGN);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_SIGN], &sa);
+	}
+	return ist;
 }
 
 bool RedisPut::PushSignZhuan(SignZhuan sz){
-	return m_redis->List("signzhuan", &sz);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SIGN);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_SIGN]+"zhuan", &sz);
+	}
+	return ist;
 }
 
 bool RedisPut::PushProp(Prop p){
-	return m_redis->List("prop", &p);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_PROP);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_PROP], &p);
+	}
+	return ist;
 }
 
 bool RedisPut::PushFree(Task task){
-	return m_redis->List("free", &task);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FREE);
+	if (ist){
+		m_redis->List(g_redisdbnames[REIDS_FREE], &task);
+	}
+	return ist;
 }
 
 bool RedisPut::PushFirstBuy(CSVFirstBuyItem *sv){
-	char buff[50];
-	sprintf(buff, "%d", sv->_sid);
-	m_redis->Hash("firstbuy","id", buff);
-	m_redis->Hash("firstbuy", "rewardid", sv->_rid);
-	m_redis->Hash("firstbuy", "conid", sv->_conid);
-	return m_redis->Hash("firstbuy", "giveid", sv->_giveid);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP] + "first";
+		char buff[50];
+		sprintf(buff, "%d", sv->_sid);
+		m_redis->Hash(key, "id", buff);
+		m_redis->Hash(key, "rewardid", sv->_rid);
+		m_redis->Hash(key, "conid", sv->_conid);
+		return m_redis->Hash("firstbuy", "giveid", sv->_giveid);
+	}
+	return ist;
 }
 
-bool RedisPut::PushDuiHuanCode(CSVExchangeCode *item){
-	string key = "CSVExchangeCode";
-	char buff[200];
-	sprintf(buff,"%d",item->_id);
-	string content =buff;
-	content += ","+item->_rewardid+","+item->_code;
-	return m_redis->List(key,(char *)content.c_str());
+bool RedisPut::PushExchangeCode(CSVExchangeCode *item){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		char buff[100];
+		sprintf(buff, "%d", item->_id);
+		string content = buff;
+		content += "," + item->_rewardid + "," + item->_code;
+		return m_redis->List(g_redisdbnames[REIDS_EXCHANGE]+"code", (char *)content.c_str());
+	}
+	return ist;
+}
+
+bool RedisPut::PushGate(GateData *gd){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		
+	}
+	return ist;
 }

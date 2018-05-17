@@ -58,7 +58,7 @@ void RandEXCode(){
 		for (itr; itr != maps.end();itr++){
 			printf("%d.",index++);
 			CSVExchangeCode p=itr->second;
-			RedisPut::getIns()->PushDuiHuanCode(&p);
+			RedisPut::getIns()->PushExchangeCode(&p);
 		}
 	}
 }

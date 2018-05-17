@@ -30,6 +30,7 @@ CSVDataInfo::~CSVDataInfo(){
 
 bool CSVDataInfo::init()
 {
+	CSVDataInfo::getIns()->openCSVFile("./res/dbname.csv", CSV_REDISDB);
 	CSVDataInfo::getIns()->openCSVFile("./res/robot.csv", CSV_ROBOT);
 	CSVDataInfo::getIns()->openCSVFile("./res/gateserver.csv", CSV_GATESERVER);
 	CSVDataInfo::getIns()->openCSVFile("./res/logicmanager.csv", CSV_LOGOCMANAGER);
@@ -128,7 +129,7 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 			((CSVTaskItem *)obj)->_title = p->getData(j, 1);
 			((CSVTaskItem *)obj)->_content = p->getData(j, 2);
 			((CSVTaskItem *)obj)->_count = atoi(p->getData(j, 3));
-			((CSVTaskItem *)obj)->_rewardid = getIntFromstr(p->getData(j, 4));
+			((CSVTaskItem *)obj)->_rewardid = getIntFromstr(p->getData(j, 4), "|");
 			((CSVTaskItem *)obj)->_type = atoi(p->getData(j, 5));
 			vec.insert(make_pair(((CSVTaskItem *)obj)->_tid, ((CSVTaskItem *)obj)));
 			break;
@@ -172,7 +173,7 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 			((CSVFree *)obj)->_title = p->getData(j, 1);
 			((CSVFree *)obj)->_content = p->getData(j, 2);
 			((CSVFree *)obj)->_count = atoi(p->getData(j, 3));
-			((CSVFree *)obj)->_rewardid = getIntFromstr(p->getData(j, 4));
+			((CSVFree *)obj)->_rewardid = getIntFromstr(p->getData(j, 4), "|");
 			vec.insert(make_pair(((CSVFree *)obj)->_tid, ((CSVFree *)obj)));
 			break;
 		case CSV_FIRSTBUY:
@@ -193,6 +194,12 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 			
 			vec.insert(make_pair(((CSVExchangeCode *)obj)->_id, ((CSVExchangeCode *)obj)));
 			break;
+		case CSV_REDISDB:
+			obj = new REDISDBName();
+			((REDISDBName *)obj)->_name = p->getData(j, 0);
+			((REDISDBName *)obj)->_dbindex = atoi(p->getData(j, 1));
+			vec.insert(make_pair(j, ((REDISDBName *)obj)));
+			break;
 		default:
 			break;
 		}
@@ -201,18 +208,45 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 
 }
 
-vector<int> CSVDataInfo::getIntFromstr(string str){
+std::map<string, REDISDBName *> CSVDataInfo::getDBNames(){
+	std::map<string, REDISDBName *> maps;
+	auto vec = getDatas(CSV_REDISDB);
+	auto itr = vec.begin();
+	for (itr; itr != vec.end();itr++){
+		REDISDBName *p = (REDISDBName *)itr->second;
+		string dbname = p->_name;
+		maps.insert(make_pair(dbname,p));
+	}
+	return maps;
+}
+
+vector<int> CSVDataInfo::getIntFromstr(string str, string fenge){
 	vector<int> vec;
-	int index = str.find("|");
+	int index = str.find(fenge);
 	string temp=str;
 	while (index != -1){
 		int a = atoi(temp.substr(0, index).c_str());
 		vec.push_back(a);
 		temp = temp.substr(index + 1, temp.length());
-		index = temp.find("|");
+		index = temp.find(fenge);
 	}
 	int a = atoi(temp.c_str());
 	vec.push_back(a);
+	return vec;
+}
+
+
+vector<string> CSVDataInfo::getStrFromstr(string str, string fenge){
+	vector<string> vec;
+	int index = str.find(fenge);
+	string temp = str;
+	while (index != -1){
+		string a = temp.substr(0, index);
+		vec.push_back(a);
+		temp = temp.substr(index + 1, temp.length());
+		index = temp.find(fenge);
+	}
+	vec.push_back(temp);
 	return vec;
 }
 

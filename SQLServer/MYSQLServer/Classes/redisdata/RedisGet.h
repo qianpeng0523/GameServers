@@ -20,35 +20,29 @@ public:
 	
 	static RedisGet *getIns();
 	void init();
-
-	char* getPass(string uid);
-	UserBase *getUserBase(string uid);//需要删除
-	std::vector<Rank >getRank(int type,int index);
+	bool SelectDB(REDISTYPE type);
+	int getRedisDBIndex(string name);
 
 	std::vector<ShopItem >getShop();
-	vector<Mail> getMail(string uid);
-	vector<char *> getFriend(string uid);
-	vector<FriendNotice > getFriendNotice(string uid);
 	vector<Active > getActive(int type);
 	vector<Task > getTask();
-	Status *getTaskStatus(string uid, int taskid);//需要删除
 	vector<ExAward> getExAward();
-	vector<Reward> getReward();
+	map<int, Reward> getReward();
 	Reward getReward(int rid);
-	vector<ExRecord> getExRecord(string uid);
-	int setExRecordStatus(string uid, int rid);
 	vector<SignAward> getSignAward();
-	int getSignStatus(string uid,int signid);
-	SConfig *getSConfig(string uid);
 	vector<SignZhuan> getSignZhuan();
-	vector<Prop > getProp();
+	map<int, Prop > getProp();
+	Prop getProp(int pid);
 	vector<Task > getFree();
 	FirstBuyItem *getFirstBuy();
-		
+	vector<CSVExchangeCode >getCSVExchangeCodes();
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;
 	FirstBuyItem *m_pFirstBuyItem;
+	map<string, REDISDBName *>m_RedisDBNames;
+	map<int, Prop >m_props;
+	map<int, Reward>m_rewards;
 };
 
 

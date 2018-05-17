@@ -146,6 +146,12 @@ namespace CSV{
 		string _rewardid;
 		string _code;
 	};
+
+	struct REDISDBName:public Object
+	{
+		string _name;
+		int _dbindex;
+	};
 }
 
 #endif 

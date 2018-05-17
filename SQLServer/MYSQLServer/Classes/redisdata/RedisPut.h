@@ -13,31 +13,18 @@ public:
 	
 	static RedisPut *getIns();
 	void init();
-
-	bool PushConfig(string uid,SConfig scf);
-	bool PushPass(string uid,string pass);
-	bool PushUserBase(UserBase ub);
-	bool PushRank(Rank rk);
 	bool PushShop(ShopItem item);
-	bool PushMail(string uid,Mail mail);
-	bool PushFriend(string uid,string friuid);
-	bool PushFriendNotice(string uid, FriendNotice fn);
 	bool PushActive(Active at);
 	bool PushTask(Task task);
-	bool PushTaskStatus(string uid, int taskid, Status status);
 	bool PushExAward(ExAward ea);
 	bool PushReward(Reward rd);
-	bool PushExRecord(string uid,ExRecord er);
-	bool setExRecordStatus(string uid,int rid,int status);
 	bool PushSignAward(SignAward sa);
-	bool setSignStatus(string uid,int signid,int times);
-	bool setSConfig(string uid, SConfig sc);
 	bool PushSignZhuan(SignZhuan sz);
 	bool PushProp(Prop p);
 	bool PushFree(Task task);
 	bool PushFirstBuy(CSVFirstBuyItem *sv);
-
-	bool PushDuiHuanCode(CSVExchangeCode *item);
+	bool PushExchangeCode(CSVExchangeCode *item);
+	bool PushGate(GateData *gd);
 private:
 	static RedisPut *m_ins;
 	redis *m_redis;

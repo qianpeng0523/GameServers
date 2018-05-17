@@ -71,26 +71,25 @@ void httpd_handler(struct evhttp_request *req, void *arg) {
 	
 	string ip = req->remote_host;
 	int port = req->remote_port;
-	CLog::log("%s requset:%s:%d 非法入侵\n", Common::getLocalTime().c_str(),ip.c_str(), port);
-	string ttt="?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶?v趬Ha鏮ぱ'曶";
-	for (int i = 0; i < 10; i++){
-		YMSocketData sd;
-		sd["鏮ぱ"] = ttt;
-		
+	CLog::log("%s requset:%s:%d 非法入侵\n", Common::getLocalTime().c_str(), ip.c_str(), port);
+	
+	YMSocketData sd;
+	sd["err"] = 9008;
 
-		struct evbuffer *buf;
-		buf = evbuffer_new();
-		char *packBuffer = (char *)malloc(4096);
-		int packSize = 0;
 
-		sd.serializer(packBuffer, &packSize);
+	struct evbuffer *buf;
+	buf = evbuffer_new();
+	char *packBuffer = (char *)malloc(4096);
+	int packSize = 0;
 
-		evbuffer_add(buf, packBuffer, packSize);
-		
-		evhttp_send_reply(req, HTTP_OK, "OK", buf);
-		evbuffer_free(buf);
-		free(packBuffer);
-	}
+	sd.serializer(packBuffer, &packSize);
+
+	evbuffer_add(buf, packBuffer, packSize);
+
+	evhttp_send_reply(req, HTTP_OK, "OK", buf);
+	evbuffer_free(buf);
+	free(packBuffer);
+	
 }
 
 //处理模块
