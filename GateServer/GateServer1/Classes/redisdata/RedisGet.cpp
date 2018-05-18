@@ -99,6 +99,67 @@ void RedisGet::setSConfig(string uid, SConfig *sc){
 }
 
 
+UserBaseMap RedisGet::getUserBases(){
+	if (!m_pUserBases.empty()){
+		return m_pUserBases;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
+	if (ist){
+		vector<string >keys = m_redis->getKeys(g_redisdbnames[REIDS_USERBASE],false);
+		UserBase ub;
+		for (int i = 0; i < keys.size(); i++){
+			string uid = keys.at(i);
+			UserBase *user = m_redis->getHash(g_redisdbnames[REIDS_USERBASE]+uid,ub.GetTypeName());
+			if (m_pUserBases.find(uid) != m_pUserBases.end()){
+				m_pUserBases.at(uid) = user;
+			}
+			else{
+				m_pUserBases.insert(make_pair(uid, user));
+			}
+			getUserLoginTime(uid);
+			getPass(uid);
+		}
+		return m_pUserBases;
+	}
+	else{
+		return m_pUserBases;
+	}
+}
+
+UserBase *RedisGet::getUserBase(int index){
+	auto itr = m_pUserIndexs.begin();
+	for (itr; itr != m_pUserIndexs.end(); itr++){
+		int pindex = itr->second;
+		if (pindex == index){
+			return getUserBase(itr->first);
+		}
+	}
+	return NULL;
+}
+
+UserBase *RedisGet::getUserBase(string uid){
+	if (m_pUserBases.find(uid) != m_pUserBases.end()){
+		return m_pUserBases.at(uid);
+	}
+	return NULL;
+}
+
+void RedisGet::setUserBase(UserBase *ub){
+	string uid = ub->userid();
+	if (m_pUserBases.find(uid) != m_pUserBases.end()){
+		m_pUserBases.at(uid) = ub;
+	}
+	else{
+		int index = m_pUserBases.size();
+		if (m_pUserIndexs.find(uid) != m_pUserIndexs.end()){
+			m_pUserIndexs.at(uid) = index;
+		}
+		else{
+			m_pUserIndexs.insert(make_pair(uid, index));
+		}
+		m_pUserBases.insert(make_pair(uid, ub));
+	}
+}
 
 string RedisGet::getPass(string uid){
 	if (m_pPass.find(uid) != m_pPass.end()){
@@ -129,74 +190,6 @@ void RedisGet::setPass(string uid, string pass){
 	}
 }
 
-UserBaseMap RedisGet::getUserBases(){
-	if (!m_pUserBases.empty()){
-		return m_pUserBases;
-	}
-	if (!m_pUserBases.empty()){
-		return m_pUserBases;
-	}
-	string key = "userbase";
-	UserBase ub;
-	auto vec = m_redis->getList(key,ub.GetTypeName());
-	auto itr = vec.begin();
-	int index = 0;
-	for (itr; itr != vec.end();itr++){
-		UserBase *ub1=(UserBase *)*itr;
-		string uid = ub1->userid();
-		if (m_pUserBases.find(uid)!=m_pUserBases.end()){
-			m_pUserBases.at(uid) = ub1;
-		}
-		else{
-			m_pUserBases.insert(make_pair(uid, ub1));
-		}
-		if (m_pUserIndexs.find(uid) != m_pUserIndexs.end()){
-			m_pUserIndexs.at(uid) = index;
-		}
-		else{
-			m_pUserIndexs.insert(make_pair(uid, index));
-		}
-		getUserLoginTime(uid);
-		getPass(uid);
-		index++;
-	}
-	return m_pUserBases;
-}
-
-UserBase *RedisGet::getUserBase(int index){
-	auto itr = m_pUserIndexs.begin();
-	for (itr; itr != m_pUserIndexs.end(); itr++){
-		int pindex = itr->second;
-		if (pindex == index){
-			return getUserBase(itr->first);
-		}
-	}
-	return NULL;
-}
-
-UserBase *RedisGet::getUserBase(string uid){
-	if (m_pUserBases.find(uid)!=m_pUserBases.end()){
-		return m_pUserBases.at(uid);
-	}
-	return NULL;
-}
-
-void RedisGet::setUserBase(UserBase *ub){
-	string uid = ub->userid();
-	if (m_pUserBases.find(uid) != m_pUserBases.end()){
-		m_pUserBases.at(uid) = ub;
-	}
-	else{
-		int index = m_pUserBases.size();
-		if (m_pUserIndexs.find(uid) != m_pUserIndexs.end()){
-			m_pUserIndexs.at(uid) = index;
-		}
-		else{
-			m_pUserIndexs.insert(make_pair(uid, index));
-		}
-		m_pUserBases.insert(make_pair(uid, ub));
-	}
-}
 
 int RedisGet::getUserBaseIndex(string uid){
 	if (m_pUserIndexs.find(uid) != m_pUserIndexs.end()){

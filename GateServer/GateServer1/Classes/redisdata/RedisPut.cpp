@@ -30,6 +30,7 @@ void RedisPut::init(){
 bool RedisPut::PushConfig(string uid, SConfig *scf){
 	bool ist = RedisGet::getIns()->SelectDB(REDIS_SCONFIG);
 	if (ist){
+		RedisGet::getIns()->setSConfig(uid, scf);
 		return m_redis->Hash(g_redisdbnames[REDIS_SCONFIG] + uid, &scf);
 	}
 	return ist;
