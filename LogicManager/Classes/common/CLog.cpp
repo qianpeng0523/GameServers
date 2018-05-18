@@ -21,7 +21,7 @@ CLog::~CLog()
 //获取日志文件名
 string CLog::getFile()
 {
-	string strFileName="./res/logicmanager_";
+	string strFileName="./res/mysqlserver_";
 	strFileName += Common::getLocalTimeDay() + ".log";
 
 	return strFileName;
@@ -191,12 +191,13 @@ void  CLog::printch(char ch, bool other){
 
 void CLog::printdec(int dec)
 {
-	if (dec == 0)
+	int hh = dec / 10;
+	if (hh>0)
 	{
-		return;
+		printdec(dec / 10);
 	}
-	printdec(dec / 10);
 	printch((char)(dec % 10 + '0'));
+	
 }
 
 void CLog::printflt(double flt)
@@ -222,23 +223,21 @@ void CLog::printstr(char* str)
 
 void CLog::printbin(int bin)
 {
-	if (bin == 0)
+	int hh = bin/2;
+	if (hh>0)
 	{
-		//printstr("0b");
-		return;
+		printbin(bin / 2);
 	}
-	printbin(bin / 2);
 	printch((char)(bin % 2 + '0'));
 }
 
 void CLog::printhex(int hex)
 {
-	if (hex == 0)
-	{
-		//printstr("0x");
-		return;
+	int hh = hex / 16;
+	if (hh > 0){
+		printhex(hex / 16);
 	}
-	printhex(hex / 16);
+
 	if (hex < 10||hex%16<10)
 	{
 		printch((char)(hex % 16 + '0'));
