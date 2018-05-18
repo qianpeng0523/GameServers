@@ -117,6 +117,31 @@ bool redis::initial(std::string redisIp,int redisPort,std::string mypass)
 	return true;
 }
 
+bool redis::SelectDB(int index){
+	//设置key和value关系，插入redis
+	if (!this->m_pConnect){
+		reconnect();
+		return false;
+	}
+
+	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "select %d", index);
+	if (!r)
+	{
+		CLog::log("redis select(%d) faliled\n",index);
+		return false;
+	}
+
+	//执行失败
+	if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "OK") == 0))
+	{
+		CLog::log("redis select(%d) faliled\n",index);
+		freeReplyObject(r);
+		return false;
+	}
+	freeReplyObject(r);
+	return true;
+}
+
 bool redis::reconnect(){
 	bool isc=redis::getIns()->initial(m_ip, m_port, m_pass);
 	return isc;

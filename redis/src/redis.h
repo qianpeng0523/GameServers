@@ -23,6 +23,7 @@ public:
 	~redis();
 	static redis *getIns();
 	bool initial(std::string redisIp, int redisPort, std::string mypass);
+	bool SelectDB(int index);
 	bool reconnect();
 	void release();
 	bool set(std::string key, char* value,int len);
