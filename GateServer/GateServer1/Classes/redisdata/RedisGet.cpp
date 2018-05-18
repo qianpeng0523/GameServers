@@ -51,6 +51,55 @@ void RedisGet::init(){
 	CLog::log("111\n");
 }
 
+
+int RedisGet::getRedisDBIndex(string name){
+	if (m_RedisDBNames.find(name) != m_RedisDBNames.end()){
+		return m_RedisDBNames.at(name)->_dbindex;
+	}
+	return -1;
+}
+
+bool RedisGet::SelectDB(REDISTYPE type){
+	string dbname = g_redisdbnames[type];
+	int index = getRedisDBIndex(dbname);
+	return m_redis->SelectDB(index);
+}
+
+
+map<string, SConfig *> RedisGet::getSConfig(){
+	if (!m_pSConfigs.empty()){
+		return m_pSConfigs;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REDIS_SCONFIG);
+	if (ist){
+		auto vec = getUserBases();
+		auto itr = vec.begin();
+		for (itr; itr != vec.begin();itr++){
+			string uid = itr->first;
+		}
+	}
+	return m_pSConfigs;
+}
+
+SConfig* RedisGet::getSConfig(string uid){
+	SConfig *sc1 = NULL;
+	if (m_pSConfigs.find(uid) != m_pSConfigs.end()){
+		sc1 = m_pSConfigs.at(uid);
+	}
+	return sc1;
+}
+
+void RedisGet::setSConfig(string uid, SConfig *sc){
+	if (m_pSConfigs.find(uid) != m_pSConfigs.end()){
+		m_pSConfigs.at(uid) = sc;
+	}
+	else{
+		m_pSConfigs.insert(make_pair(uid, sc));
+	}
+}
+
+
+
 string RedisGet::getPass(string uid){
 	if (m_pPass.find(uid) != m_pPass.end()){
 		return m_pPass.at(uid);
@@ -810,36 +859,6 @@ map<string, SignStatus *> RedisGet::getSignStatuss(){
 		m_pSignStatuss.insert(make_pair(ss->_uid,ss));
 	}
 	return m_pSignStatuss;
-}
-
-map<string, SConfig *> RedisGet::getSConfig(){
-	string key = "config";
-	SConfig sc;
-	vector<Message *> vec = m_redis->getList(key,sc.GetTypeName());
-	for (int i = 0; i < vec.size(); i++){
-		SConfig *sc1 = (SConfig *)vec.at(i);
-		UserBase *ub = getUserBase(i);
-		string uid = ub->userid();
-		m_pSConfigs.insert(make_pair(uid,sc1));
-	}
-	return m_pSConfigs;
-}
-
-SConfig* RedisGet::getSConfig(string uid){
-	SConfig *sc1=NULL;
-	if (m_pSConfigs.find(uid) != m_pSConfigs.end()){
-		sc1 = m_pSConfigs.at(uid);
-	}
-	return sc1;
-}
-
-void RedisGet::setSConfig(string uid,SConfig *sc){
-	if (m_pSConfigs.find(uid) != m_pSConfigs.end()){
-		m_pSConfigs.at(uid)=sc;
-	}
-	else{
-		m_pSConfigs.insert(make_pair(uid, sc));
-	}
 }
 
 vector<SignZhuan> RedisGet::getSignZhuan(){

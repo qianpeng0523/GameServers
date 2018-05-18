@@ -26,7 +26,11 @@ namespace CSV{
 		string _key;
 		int _value;
 	};*/
-
+	struct REDISDBName :public Object
+	{
+		string _name;
+		int _dbindex;
+	};
 }
 
 #endif 

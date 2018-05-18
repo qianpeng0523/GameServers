@@ -14,51 +14,37 @@ public:
 	static RedisPut *getIns();
 	void init();
 
-	bool PushConfig(string uid,SConfig *scf);
-	bool PushPass(string uid,string pass);
-	bool PushOpenid(string openid,string uid);
+	bool PushConfig(string uid, SConfig *sc);
+	bool setConfig(string uid, POINTTIP type, bool ist);
+
 	bool PushUserBase(UserBase *ub);
-	bool PushUserLoginTime(string uid);
 	bool setUserBase(string uid, string key, string value);
 	bool addUserBase(string uid, string key, int value);
-	bool PushRank(Rank rk);
-	bool PushShop(ShopItem item);
-	bool PushMail(string uid,Mail mail);
-	bool setMailStatus(string uid,int mid,int status);
-	bool PushFriend(string uid,string friuid);
-	bool PushFriendGive(string uid, string fuid, bool have);
-	bool setFriendGive(string uid, int index, string fuid, bool have);
-	bool PushFriendNotice(string uid, FriendNotice *fn);
-	bool setFriendNotice(string uid,int index ,FriendNotice *fn);
-	bool eraseFriendNotice(string uid, FriendNotice *fn);
-	bool setFriendNoticeID(int nid);
 
-	bool PushActive(Active at);
-	bool PushTask(Task task);
+	bool PushUserLoginTime(string uid);
+
+	bool PushPass(string uid, string pass);
+	bool PushOpenid(string openid, string uid);
+
+	bool PushRank(Rank rk);
+
+	bool PushMail(string uid,Mail mail);
+	void PopMail(string uid, Mail ml);
+
+	bool PushFriend(string uid,string friuid);
+	bool PushFriendNotice(string uid, FriendNotice *fn);
+	bool eraseFriendNotice(string uid, FriendNotice *fn);
+	
 	bool PushTaskStatus(string uid, int taskid, Status status);
-	bool PushExAward(ExAward ea);
-	bool PushReward(Reward rd);
+
 	bool PushExRecord(string uid,ExRecord er);
-	bool setExRecordStatus(string uid,int rid,int status);
-	bool PushSignAward(SignAward sa);
-	bool setSignStatus(SignStatus *ss);
+	bool setEXCode(string code, bool isdui);
+	
+	bool setSignStatus(int sid, SignStatus *ss);
 	
 	bool PushFeedBack(CFeedBack cfb);
 
-	bool PushSignZhuan(SignZhuan sz);
-	bool PushProp(Prop p);
-	bool PushFree(Task task);
-
-	bool setMailID(int mid);
-	void PopMail(string uid, Mail ml);
 	void ZeroChange(char *&data, int sz);
-
-	bool setConfig(string uid,POINTTIP type,bool ist);
-	
-	bool setExchangeCode(string code);
-	bool setExchangeRecordId(string uid,int id);
-	bool setEXCode(string code,bool isdui);
-	bool changeEXCode(string code,bool isdui);
 private:
 	static RedisPut *m_ins;
 	redis *m_redis;

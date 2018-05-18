@@ -47,6 +47,13 @@ public:
 	static RedisGet *getIns();
 	void init();
 
+	bool SelectDB(REDISTYPE type);
+	int getRedisDBIndex(string name);
+
+	map<string, SConfig *> getSConfig();
+	SConfig *getSConfig(string uid);
+	void setSConfig(string uid, SConfig *sc);
+
 	string getPass(string uid);
 	map<string, string> getPass();
 	void setPass(string uid,string pass);
@@ -108,10 +115,6 @@ public:
 	void setSignStatus(SignStatus *ss);//不写入数据库
 	map<string, SignStatus *> getSignStatuss();
 
-	map<string, SConfig *> getSConfig();
-	SConfig *getSConfig(string uid);
-	void setSConfig(string uid, SConfig *sc);
-
 	vector<SignZhuan> getSignZhuan();
 	map<int,Prop > getProp();
 	Prop getProp(int id);
@@ -160,6 +163,8 @@ private:
 	map<string, string>m_pPass;
 	map<string, string>m_pOpenids;
 	map<string, map<int,FriendNotice *>>m_pFriendNotices;
+
+	map<string, REDISDBName *>m_RedisDBNames;
 };
 
 
