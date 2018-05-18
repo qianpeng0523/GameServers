@@ -128,10 +128,26 @@ bool RedisPut::PushExchangeCode(CSVExchangeCode *item){
 	return ist;
 }
 
-bool RedisPut::PushGate(GateData *gd){
-	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+bool RedisPut::PushGate(GateData *gd, SERVERTYPE type){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_GATE);
 	if (ist){
-		
+		string key = g_redisdbnames[REIDS_GATE];
+		string tp;
+		switch (type)
+		{
+		case SERVER_TYPE_GATE:
+			tp = "_gate";
+			break;
+		case SERVER_TYPE_LOGICMANAGER:
+			tp = "_logicmanager";
+			break;
+		default:
+			break;
+		}
+		key += tp;
+		char *data = gd->getData();
+		redis::getIns()->ZeroChange(data,sizeof(GateData));
+		return m_redis->List(key, data);
 	}
 	return ist;
 }

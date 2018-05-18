@@ -87,4 +87,9 @@ enum REDISTYPE
 	REIDS_RANK,
 };
 
-static string g_redisdbnames[] = { "hu", "prop", "reward", "shop", "task", "sign", "exaward", "active", "free", "userbase", "pass", "friend", "sconfig","gate","mail","rank" };
+static string g_redisdbnames[] = { "hu", "prop", "reward", "shop", "task", "sign","exchange", "active", "free", "userbase", "pass", "friend", "sconfig","gate","mail","rank" };
+
+enum SERVERTYPE{
+	SERVER_TYPE_GATE=0,
+	SERVER_TYPE_LOGICMANAGER
+};

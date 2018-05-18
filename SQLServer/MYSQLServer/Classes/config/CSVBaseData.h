@@ -29,6 +29,11 @@ namespace CSV{
 		void DebugPrintf(){
 			CLog::log("%d %d %d %s %s\n",_id,_port,_type,_name,_ip);
 		}
+		char *getDebugString(){
+			char buff[200];
+			sprintf(buff,"%d %d %d %s %s\n", _id, _port, _type, _name, _ip);
+			return buff;
+		}
 		char *getData(){
 			int sz = sizeof(GateData);
 			char *buffer = new char[sz];

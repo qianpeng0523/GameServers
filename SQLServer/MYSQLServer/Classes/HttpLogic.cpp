@@ -3,7 +3,7 @@
 #include "aes.h"
 #include "CSVDataInfo.h"
 #include "StatTimer.h"
-
+#include "RedisGet.h"
 
 
 
@@ -54,52 +54,6 @@ void HttpLogic::update(float dt){
 
 HttpLogic::HttpLogic(){
 	m_pSQLInfo = new SQLInfo();
-	CSVDataInfo::getIns()->openCSVFile("res/gateserver.csv", CSV_GATESERVER);
-	CSVDataInfo::getIns()->openCSVFile("res/logicmanager.csv", CSV_LOGOCMANAGER);
-
-	std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_GATESERVER);
-	std::map<int, Object *>::iterator itr = maps.begin();
-	int co = maps.size() / 3;
-	int *index = new int[co];
-	memset(index ,0,sizeof(int)*co);
-	char buff[50];
-	for (itr; itr != maps.end(); itr++){
-		GateData *data = (GateData *)itr->second;
-		char *dd = data->getData();
-		int type = data->_type;
-		sprintf(buff,"gate%d_%d",type,index[type-1]);
-		int len = 0;
-		char *v = redis::getIns()->get(buff,len);
-		if (!v){
-			redis::getIns()->set(buff, dd,sizeof(*data));
-		}
-		else{
-			redis::getIns()->ChangeToZero(v,len);
-			GateData *data1 = (GateData *)v;
-			data1->DebugPrintf();
-			delete v;
-		}
-		index[type-1]++;
-	}
-	delete index;
-	std::map<int, Object *> maps1 = CSVDataInfo::getIns()->getDatas(CSV_LOGOCMANAGER);
-	std::map<int, Object *>::iterator itr1 = maps1.begin();
-	for (itr1; itr1 != maps1.end(); itr1++){
-		GateData *data = (GateData *)itr1->second;
-		char *dd = data->getData();
-		sprintf(buff, "logicmanager%d",data->_type);
-		int len = 0;
-		char *v = redis::getIns()->get(buff, len);
-		if (!v){
-			redis::getIns()->set(buff, dd, sizeof(*data));
-		}
-		else{
-			redis::getIns()->ChangeToZero(v, len);
-			GateData *data1 = (GateData *)v;
-			data1->DebugPrintf();
-			delete v;
-		}
-	}
 	StatTimer::getIns()->scheduleSelector(this, schedule_selector(HttpLogic::update), 8.0);
 }
 HttpLogic::~HttpLogic(){
@@ -109,12 +63,6 @@ HttpLogic::~HttpLogic(){
 
 bool HttpLogic::init()
 {
-	YMSocketData sd;
-	string ee = "123456";
-	sd.parse((char *)ee.c_str(), ee.length());
-	int sz = 0;
-	char *buff =new char[30];
-	HandleLogic(sd, buff, sz);
     return true;
 }
 
@@ -191,24 +139,7 @@ void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 		int cmd = sd1["cmd"].asInt();
 		YMSocketData sd;
 		int err = 0;
-		int len;
-		char buff1[50];
-		sprintf(buff1, "gatetype%d", type);
-		char *gatetype = redis::getIns()->get(buff1, len);
-		int gtype = -1;
-		if (gatetype == NULL){
-			gtype = 0;
-			redis::getIns()->set(buff1, "0", sizeof("0") - 1);
-		}
-		else{
-			gtype = atoi(gatetype);
-			delete gatetype;
-		}
-		sprintf(buff1, "gate%d_%d", type, gtype);
-
-		char *dd = (char *)redis::getIns()->get(buff1, len);
-		redis::getIns()->ChangeToZero(dd, len);
-		GateData *data = (GateData *)dd;
+		GateData *data = RedisGet::getIns()->getGateData(g_redisdbnames[REIDS_GATE]+"_gate",type);
 		if (!data){
 			err = 1;
 		}
@@ -216,7 +147,6 @@ void HttpLogic::getGateData(YMSocketData sd1, char *&buff, int &sz){
 			sd["ip"] = data->_ip;
 			sd["port"] = data->_port;
 			sd["name"] = data->_name;
-			delete dd;
 		}
 		sd["cmd"] = cmd;
 		sd["err"] = err;
@@ -232,12 +162,7 @@ void HttpLogic::getLogicManagerData(YMSocketData sd1, char *&buff, int &sz){
 		YMSocketData sd;
 		int err = 0;
 
-		int len;
-		char buff1[50];
-		sprintf(buff1, "logicmanager%d", type);
-		char *dd = redis::getIns()->get(buff1, len);
-		redis::getIns()->ChangeToZero(dd, len);
-		GateData *data = (GateData *)dd;
+		GateData *data = RedisGet::getIns()->getGateData(g_redisdbnames[REIDS_GATE] + "_logicmanager",type);
 		if (!data){
 			err = 1;
 		}
@@ -245,7 +170,6 @@ void HttpLogic::getLogicManagerData(YMSocketData sd1, char *&buff, int &sz){
 			sd["ip"] = data->_ip;
 			sd["port"] = data->_port;
 			sd["name"] = data->_name;
-			delete dd;
 		}
 		sd["cmd"] = cmd;
 		sd["err"] = err;

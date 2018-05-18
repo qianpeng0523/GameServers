@@ -23,6 +23,8 @@ public:
 	bool SelectDB(REDISTYPE type);
 	int getRedisDBIndex(string name);
 
+	map<string, map<int, GateData *>> getGates();
+	GateData *getGateData(string name,int type);
 	std::vector<ShopItem >getShop();
 	vector<Active > getActive(int type);
 	vector<Task > getTask();
@@ -43,6 +45,7 @@ private:
 	map<string, REDISDBName *>m_RedisDBNames;
 	map<int, Prop >m_props;
 	map<int, Reward>m_rewards;
+	map<string, map<int, GateData *>> m_pGates;
 };
 
 

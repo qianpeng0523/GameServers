@@ -31,7 +31,7 @@ int RedisGet::getRedisDBIndex(string name){
 }
 
 bool RedisGet::SelectDB(REDISTYPE type){
-	string dbname = g_redisdbnames[REDIS_SCONFIG];
+	string dbname = g_redisdbnames[type];
 	int index = getRedisDBIndex(dbname);
 	return m_redis->SelectDB(index);
 }
@@ -42,6 +42,43 @@ void RedisGet::init(){
 
 	if (m_RedisDBNames.empty()){
 		m_RedisDBNames = csvinfo->getDBNames();
+	}
+
+	getGates();
+	if (m_pGates.empty()){
+		CSVDataInfo::getIns()->openCSVFile("res/gateserver.csv", CSV_GATESERVER);
+		CSVDataInfo::getIns()->openCSVFile("res/logicmanager.csv", CSV_LOGOCMANAGER);
+
+		std::map<int, Object *> maps = CSVDataInfo::getIns()->getDatas(CSV_GATESERVER);
+		std::map<int, Object *>::iterator itr = maps.begin();
+		
+		for (itr; itr != maps.end(); itr++){
+			GateData *data = (GateData *)itr->second;
+			pRedisPut->PushGate(data, SERVER_TYPE_GATE);
+		}
+
+		std::map<int, Object *> maps1 = CSVDataInfo::getIns()->getDatas(CSV_LOGOCMANAGER);
+		std::map<int, Object *>::iterator itr1 = maps1.begin();
+		for (itr1; itr1 != maps1.end(); itr1++){
+			GateData *data = (GateData *)itr1->second;
+			pRedisPut->PushGate(data, SERVER_TYPE_LOGICMANAGER);
+		}
+	}
+	else{
+		CLog::log("******************** gate list ******************\n");
+		auto itr = m_pGates.begin();
+		int i = 0;
+		for (itr; itr != m_pGates.end(); itr++){
+			string key = itr->first;
+			auto maps = itr->second;
+			auto itr1 = maps.begin();
+			for (itr1; itr1 != maps.end();itr1++){
+				GateData *data = (GateData *)itr1->second;
+				CLog::log("[%d].【%d】.%s\n", i + 1,data->_id, data->getDebugString());
+				i++;
+			}
+		}
+		CLog::log("******************** end ******************\n");
 	}
 
 	m_props = getProp();
@@ -303,9 +340,65 @@ void RedisGet::init(){
 	}
 	else{
 		CLog::log("******************** CSVFirstBuyItem list ******************\n");
-		CLog::log("[%d].%P",1,p);
+		CLog::log("[%d].0x%P",1,p);
 		CLog::log("******************** end ******************\n");
 	}
+}
+
+map<string, map<int, GateData *>> RedisGet::getGates(){
+	if (!m_pGates.empty()){
+		return m_pGates;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_GATE);
+	if (ist){
+		for (int i = SERVER_TYPE_GATE; i <= SERVER_TYPE_LOGICMANAGER; i++){
+			string key = g_redisdbnames[REIDS_GATE];
+			string tp;
+			switch ((SERVERTYPE)i)
+			{
+			case SERVER_TYPE_GATE:
+				tp = "_gate";
+				break;
+			case SERVER_TYPE_LOGICMANAGER:
+				tp = "_logicmanager";
+				break;
+			default:
+				break;
+			}
+			key += tp;
+			map<int, GateData *> maps;
+			if (m_pGates.find(key) != m_pGates.end()){
+				maps = m_pGates.at(key);
+			}
+			vector<int> lens;
+			vector<char *>vec = m_redis->getList(key, lens);
+			for (int j = 0; j < vec.size(); j++){
+				GateData *data = (GateData *)vec.at(j);
+				data->DebugPrintf();
+				int type = data->_type;
+				maps.insert(make_pair(type, data));
+			}
+			if (!maps.empty()){
+				if (m_pGates.find(key) != m_pGates.end()){
+					m_pGates.at(key) = maps;
+				}
+				else{
+					m_pGates.insert(make_pair(key, maps));
+				}
+			}
+		}
+	}
+	return m_pGates;
+}
+
+GateData *RedisGet::getGateData(string name, int type){
+	if (m_pGates.find(name) != m_pGates.end()){
+		auto vec = m_pGates.at(name);
+		if (vec.find(type) != vec.end()){
+			return vec.at(type);
+		}
+	}
+	return NULL;
 }
 
 FirstBuyItem *RedisGet::getFirstBuy(){

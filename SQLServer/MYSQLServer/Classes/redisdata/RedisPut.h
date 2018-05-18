@@ -24,7 +24,7 @@ public:
 	bool PushFree(Task task);
 	bool PushFirstBuy(CSVFirstBuyItem *sv);
 	bool PushExchangeCode(CSVExchangeCode *item);
-	bool PushGate(GateData *gd);
+	bool PushGate(GateData *gd,SERVERTYPE type);
 private:
 	static RedisPut *m_ins;
 	redis *m_redis;
