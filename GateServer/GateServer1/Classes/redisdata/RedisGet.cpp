@@ -734,7 +734,11 @@ Reward *RedisGet::getReward(int rid){
 	return NULL;
 }
 
-vector<ExRecord> RedisGet::getExRecord(string uid){
+map<string, map<int, ExRecord *>> RedisGet::getExRecords(){
+
+}
+
+map<int, ExRecord *> RedisGet::getExRecord(string uid){
 	if (m_pExRecords.find(uid) != m_pExRecords.end()){
 		return m_pExRecords.at(uid);
 	}

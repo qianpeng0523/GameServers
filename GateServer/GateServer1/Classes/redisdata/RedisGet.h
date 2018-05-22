@@ -106,7 +106,9 @@ public:
 
 	map<int,Reward *> getReward();
 	Reward *getReward(int rid);
-	vector<ExRecord> getExRecord(string uid);
+
+	map<string, map<int, ExRecord *>> getExRecords();
+	map<int, ExRecord *> getExRecord(string uid);
 	void PushExRecord(string uid,ExRecord p);
 
 	int setExRecordStatus(string uid, int rid);
@@ -155,7 +157,8 @@ private:
 	FirstBuyItem *m_pFirstBuyItem;
 	map<string, PExchangeCode*> m_pExchangeCodes;
 	vector<bool> m_pEXCodes;
-	map<string, vector<ExRecord>> m_pExRecords;
+	map<string, map<int, ExRecord *>> m_pExRecords;
+
 	map<string, SignStatus*>m_pSignStatuss;
 	
 	FriendMap m_pfriends;
