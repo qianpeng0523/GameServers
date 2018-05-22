@@ -36,7 +36,7 @@ struct PExchangeCode :public Object
 };
 
 typedef map<string, UserBase *> UserBaseMap;
-typedef map<string, UserBaseMap> FriendMap;
+typedef map<string, map<string,Friend *>> FriendMap;
 
 class RedisGet 
 {
@@ -61,25 +61,28 @@ public:
 	string getOpenidPass(string openid);
 	UserBaseMap getUserBases();
 	UserBase *getUserBase(string uid);
-	UserBase *getUserBase(int index);
 	void setUserBase(UserBase *ub);
-	int getUserBaseIndex(string uid);
+
 	void setUserLoginTime(string uid,time_t t);
 	time_t getUserLoginTime(string uid);
+	map<string, time_t> getUserLoginTimes();
 
 	map<string, string> getOpenids();
+
+	map<int, vector<Rank *>> getRanks();
+	vector<Rank *>getRank(int type);
+
+	map<int, ShopItem*> getShop();
+	ShopItem *getShop(int shopid);
+	FirstBuyItem *getFirstBuy();
+
+	map<string, map<int, Mail *>>getMails();
+	map<int, Mail *> getMail(string uid);
+	Mail *getMail(string uid, int eid);
 	
-
-	std::vector<Rank >getRank(int type,int index);
-
-	std::vector<ShopItem >getShop();
-	map<string,Mail> getMail(string uid);
-	Mail getMail(string uid, int eid);
-	int getMailStatus(string uid, int mid);
-
 	FriendMap getFriend();
-	UserBaseMap getFriend(string uid);
-	UserBase *getFriend(string uid,string fuid);
+	map<string, Friend *> getFriend(string uid);
+	Friend *getFriend(string uid, string fuid);
 	void setFriend(string uid,string fuid,bool isadd);
 
 	map<string, map<int, FriendNotice *>> getFriendNotices();
@@ -87,25 +90,22 @@ public:
 	void eraseFriendNotice(string uid, FriendNotice *p);
 	map<int, FriendNotice *> getFriendNotice(string uid);
 	FriendNotice *getFriendNotice(string uid,string fuid);
-	int getFriendNoticeID();
 	FriendNotice *getFriendNotice(string uid, int nid);
-	int getFriendNoticeIndex(string uid,int nid);
 
-	map<string, bool> getFriendGiveB(string uid);
-	map<string, bool> getFriendGive(string uid);
-	map<string, map<string, bool>> getFriendGive();
-	void setFriendGive(string uid,string fruid,bool have);
-	int getFriendGiveIndex(string uid,string friuid);
-	void setFriendGiveIndex(string uid,string friuid,int index);
+	map<int, Active *> getActive(int type);
+	map<int, map<int, Active *>> getActives();
 
-	vector<Active > getActive(int type);
-	vector<Task > getTask();
+	map<int, Task *> getTask();
+	Task *getTask(int tid);
 	Status *getTaskStatus(string uid, int taskid);//需要删除
-	vector<ExAward> getExAward();
-	ExAward getExAward(int id);
+	map<string, map<int, Status *>> getTaskStatus();
+	map<int, Status *> getTaskStatus(string uid);
 
-	map<int,Reward> getReward();
-	Reward getReward(int rid);
+	map<int, ExAward *> getExAward();
+	ExAward *getExAward(int id);
+
+	map<int,Reward *> getReward();
+	Reward *getReward(int rid);
 	vector<ExRecord> getExRecord(string uid);
 	void PushExRecord(string uid,ExRecord p);
 
@@ -120,8 +120,7 @@ public:
 	Prop getProp(int id);
 	vector<Task > getFree();
 
-	ShopItem getShop(int shopid);
-	FirstBuyItem *getFirstBuy();
+	
 	int MailID();
 	
 	string getExchangeCode();
@@ -140,25 +139,28 @@ private:
 	redis *m_redis;
 	map<int, Prop > m_pProps;
 	map<int, Reward> m_pRewards;
-	vector<ShopItem> m_pShopItems;
-	vector<Task> m_tasks;
+	map<int,ShopItem*> m_pShopItems;
+	map<int,Task> m_tasks;
+	map<string, map<int, Status *>> m_taskstatus;
 	vector<SignZhuan> m_pSignZhuans;
 	vector<SignAward> m_pSignAwards;
-	vector<ExAward> m_pExAwards;
-	vector<Active> m_pActives;
+	map<int,ExAward *> m_pExAwards;
+	map<int, map<int, Active *>> m_pActives;
 	vector<Task> m_pFrees;
-	map<int,vector<Rank >> m_pRanks;
+
+	map<int, vector<Rank *>> m_pRanks;
+	map<string, map<int, Mail *>> m_pMails;
+
 	map<string, SConfig *>m_pSConfigs;
 	FirstBuyItem *m_pFirstBuyItem;
 	map<string, PExchangeCode*> m_pExchangeCodes;
 	vector<bool> m_pEXCodes;
 	map<string, vector<ExRecord>> m_pExRecords;
 	map<string, SignStatus*>m_pSignStatuss;
-	map<string, map<string, bool>>m_pfriendgives;
-	map<string, map<string, int>>m_pfriendgiveindexs;
+	
 	FriendMap m_pfriends;
 	UserBaseMap m_pUserBases;
-	map<string, int>m_pUserIndexs;
+	
 	map<string, time_t> m_pUserLoginTime;
 	map<string, string>m_pPass;
 	map<string, string>m_pOpenids;

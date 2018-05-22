@@ -76,7 +76,7 @@ bool RedisPut::PushUserBase(UserBase *ub){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
 	if (ist){
 		string uid = ub.userid();
-		m_redis->Hash(g_redisdbnames[REIDS_USERBASE] + uid, ub);
+		m_redis->Hash(g_redisdbnames[REIDS_USERBASE]+"_user" + uid, ub);
 	}
 	return ist;
 }
@@ -168,17 +168,18 @@ bool RedisPut::addUserBase(string uid, string key, int value){
 }
 
 bool RedisPut::PushUserLoginTime(string uid){
-	string tt = "userlogintime";
-	char buff[20];
-	time_t time = Common::getCurrentTime();
-	sprintf(buff, "%ld",time);
-	int index = RedisGet::getIns()->getUserBaseIndex(uid);
-	RedisGet::getIns()->setUserLoginTime(uid,time);
-	if (index == -1){
-		return m_redis->List(tt,buff);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
+	if (ist){
+		string tt = "logintime";
+		char buff[20];
+		time_t time = Common::getCurrentTime();
+		sprintf(buff, "%ld", time);
+		RedisGet::getIns()->setUserLoginTime(uid, time);
+		return m_redis->set(g_redisdbnames[REIDS_USERBASE] + tt+uid, buff);
+		
 	}
 	else{
-		return m_redis->setList(tt,index,buff);
+		return false;
 	}
 }
 
