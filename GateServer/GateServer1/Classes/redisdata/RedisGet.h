@@ -109,21 +109,21 @@ public:
 
 	map<string, map<int, ExRecord *>> getExRecords();
 	map<int, ExRecord *> getExRecord(string uid);
-	void PushExRecord(string uid,ExRecord p);
+	void PushExRecord(string uid,ExRecord *p);
 
-	int setExRecordStatus(string uid, int rid);
-	vector<SignAward> getSignAward();
+	map<int, SignAward*> getSignAward();
 	SignStatus *getSignStatus(string uid);
 	void setSignStatus(SignStatus *ss);//不写入数据库
 	map<string, SignStatus *> getSignStatuss();
 
-	vector<SignZhuan> getSignZhuan();
-	map<int,Prop > getProp();
-	Prop getProp(int id);
-	vector<Task > getFree();
+	map<int, SignZhuan *> getSignZhuan();
+	map<int,Prop *> getProp();
+	Prop *getProp(int id);
 
-	
-	int MailID();
+	map<int, Task*> getFree();
+	map<string, map<int, Status *>> getFreeStatus();
+	map<int, Status *> getFreeStatus(string uid);
+	Status *getFreeStatus(string uid,int fid);
 	
 	string getExchangeCode();
 	int getExchangeRecordId(string uid);
@@ -131,43 +131,52 @@ public:
 	map<string, PExchangeCode*> getCSVExchangeCode();
 	PExchangeCode* getPExchangeCode(string code);
 
-	vector<bool> getExcode();
+	map<string, bool> getExcode();
 	bool getExcode(string code);
-	void setEXCodeStatus(int id, bool ist);//不记录到数据库中
+	void setEXCodeStatus(string code, bool ist);//不记录到数据库中
+
+	int getMailID();
+	int getFriendNoticeID();
 private:
 	map<int, FriendNotice *> getFriendNoticeB(string uid);
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;
-	map<int, Prop > m_pProps;
-	map<int, Reward> m_pRewards;
+	map<int, Prop *> m_pProps;
+	map<int, Reward*> m_pRewards;
+
 	map<int,ShopItem*> m_pShopItems;
-	map<int,Task> m_tasks;
+	FirstBuyItem *m_pFirstBuyItem;
+
+	map<int,Task*> m_tasks;
 	map<string, map<int, Status *>> m_taskstatus;
-	vector<SignZhuan> m_pSignZhuans;
-	vector<SignAward> m_pSignAwards;
+
+	map<int,SignZhuan *> m_pSignZhuans;
+	map<int,SignAward *> m_pSignAwards;
+	map<string, SignStatus*>m_pSignStatuss;
+
+	map<string, PExchangeCode*> m_pExchangeCodes;
+	map<string, bool> m_pEXCodes;
+	map<string, map<int, ExRecord *>> m_pExRecords;
 	map<int,ExAward *> m_pExAwards;
+
 	map<int, map<int, Active *>> m_pActives;
-	vector<Task> m_pFrees;
+
+	map<int, Task*> m_pFrees;
+	map<string, map<int, Status *>> m_pFreeStatus;
 
 	map<int, vector<Rank *>> m_pRanks;
 	map<string, map<int, Mail *>> m_pMails;
 
 	map<string, SConfig *>m_pSConfigs;
-	FirstBuyItem *m_pFirstBuyItem;
-	map<string, PExchangeCode*> m_pExchangeCodes;
-	vector<bool> m_pEXCodes;
-	map<string, map<int, ExRecord *>> m_pExRecords;
-
-	map<string, SignStatus*>m_pSignStatuss;
 	
 	FriendMap m_pfriends;
+	map<string, map<int, FriendNotice *>>m_pFriendNotices;
+
 	UserBaseMap m_pUserBases;
-	
 	map<string, time_t> m_pUserLoginTime;
 	map<string, string>m_pPass;
 	map<string, string>m_pOpenids;
-	map<string, map<int,FriendNotice *>>m_pFriendNotices;
 
 	map<string, REDISDBName *>m_RedisDBNames;
 };

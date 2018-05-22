@@ -24,30 +24,32 @@ RedisGet *RedisGet::getIns(){
 }
 
 void RedisGet::init(){
-	m_pProps = getProp();
-	m_pRewards = getReward();
-	m_pShopItems = getShop();
-	m_tasks = getTask();
-	m_pSignZhuans = getSignZhuan();
-	m_pSignAwards = getSignAward();
-	m_pExAwards = getExAward();
-	m_pActives = getActive(1);
-	m_pFrees = getFree();
-	m_pExchangeCodes = getCSVExchangeCode();
-	m_pEXCodes = getExcode();
-	getFirstBuy();
+	getProp();
+	getReward();
 	getUserBases();
+	getShop();
+	getTask();
+	getSignZhuan();
+	getSignAward();
+	getExAward();
+	getActives();
+	getFree();
+	getCSVExchangeCode();
+	getExcode();
+	getFirstBuy();
 	getPass();
 	getFriend();
 	getOpenids();
 	getSConfig();
+	getUserLoginTimes();
 	LoginInfo::getIns()->onLineUsers();
 	getFriendNotices();
-	getFriendGive();
-	for (int i = 0; i < 2;i++){
-		vector<Rank> vec = getRank(i + 1, 1);
-		m_pRanks.insert(make_pair(i+1,vec));
-	}
+	getRanks();
+	getMails();
+	getTaskStatus();
+	getFreeStatus();
+	getExRecords();
+
 	CLog::log("111\n");
 }
 
@@ -109,7 +111,7 @@ UserBaseMap RedisGet::getUserBases(){
 		UserBase ub;
 		for (int i = 0; i < keys.size(); i++){
 			string uid = keys.at(i);
-			UserBase *user = m_redis->getHash(g_redisdbnames[REIDS_USERBASE]+uid,ub.GetTypeName());
+			UserBase *user = (UserBase *)m_redis->getHash(g_redisdbnames[REIDS_USERBASE]+uid,ub.GetTypeName());
 			if (m_pUserBases.find(uid) != m_pUserBases.end()){
 				m_pUserBases.at(uid) = user;
 			}
@@ -162,7 +164,7 @@ time_t RedisGet::getUserLoginTime(string uid){
 
 map<string, time_t> RedisGet::getUserLoginTimes(){
 	if (!m_pUserLoginTime.empty()){
-		return m_pUserLoginTime.at(uid);
+		return m_pUserLoginTime;
 	}
 	else{
 		string tt = "logintime";
@@ -289,25 +291,25 @@ map<int, ShopItem*> RedisGet::getShop(){
 	if (ist){
 		std::vector<Message *> vv = m_redis->getList(g_redisdbnames[REIDS_SHOP], si.GetTypeName());
 		for (int i = 0; i < vv.size(); i++){
-			ShopItem *rkk=vv.at(i);
+			ShopItem *rkk=(ShopItem *)vv.at(i);
 			
 			int rid = rkk->prop().rid();
 			Reward *rd = rkk->mutable_prop();
-			Reward rd1 = getReward(rid);
-			rd->CopyFrom(rd1);
+			Reward *rd1 = getReward(rid);
+			rd->CopyFrom(*rd1);
 
 			int conid = rkk->consume().rid();
 			if (conid>0){
 				Reward *r = rkk->mutable_consume();
-				Reward r1 = getReward(conid);
-				r->CopyFrom(r1);
+				Reward *r1 = getReward(conid);
+				r->CopyFrom(*r1);
 			}
 
 			int giveid = rkk->give().rid();
 			if (giveid > 0){
 				Reward *r = rkk->mutable_give();
-				Reward r1 = getReward(giveid);
-				r->CopyFrom(r1);
+				Reward *r1 = getReward(giveid);
+				r->CopyFrom(*r1);
 			}
 
 			m_pShopItems.insert(make_pair(rkk->id(),rkk));
@@ -368,17 +370,17 @@ map<string, map<int, Mail *>> RedisGet::getMails(){
 		auto itr = vecs.begin();
 		for (itr; itr != vecs.end(); itr++){
 			string uid = itr->first;
-			vector<string> keys = m_redis->getKeys(g_redisdbnames[REIDS_MAIL].c_str() + uid.c_str(), false);
-			map<string, Mail *> maps;
+			vector<string> keys = m_redis->getKeys(g_redisdbnames[REIDS_MAIL] + uid, false);
+			map<int, Mail *> maps;
 			for (int i = 0; i < keys.size(); i++){
 				string key = keys.at(i);
 				Mail *ml1 = (Mail *)m_redis->getHash(key, ml.GetTypeName());
 
 				for (int j = 0; j < ml1->rewardlist_size(); j++){
 					int rid = ml1->rewardlist(j).rid();
-					Reward *rd = rkk.add_rewardlist();
-					Reward rd1 = getReward(rid);
-					rd->CopyFrom(rd1);
+					Reward *rd = ml1->add_rewardlist();
+					Reward *rd1 = getReward(rid);
+					rd->CopyFrom(*rd1);
 				}
 
 				int eid = ml1->eid();
@@ -430,7 +432,7 @@ map<string, Friend *> RedisGet::getFriend(string uid){
 	map<string, Friend *> vec;
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
 	if (ist){
-		vector<string> vv = m_redis->getKeys(g_redisdbnames[REIDS_FRIEND].c_str() + uid.c_str(), false);
+		vector<string> vv = m_redis->getKeys(g_redisdbnames[REIDS_FRIEND] + uid, false);
 		Friend fr;
 		for (int i = 0; i < vv.size(); i++){
 			string key = vv.at(i);
@@ -463,29 +465,29 @@ void RedisGet::setFriend(string uid, string fuid, bool isadd){
 				Friend *fri = (Friend *)ccEvent::create_message(fr.GetTypeName());
 				UserBase *ub = getUserBase(fuid);
 				UserBase *ub1 = fri->mutable_info();
-				ub1->CopyFrom(ub);
+				ub1->CopyFrom(*ub);
 				fri->set_give(false);
 				
 
-				vec.insert(make_pair(fuid,ub));
+				vec.insert(make_pair(fuid,fri));
 				m_pfriends.at(uid) = vec;
 			}
 		}
 	}
 	else{
 		if (isadd){
-			map<string,UserBase *>vec;
+			map<string,Friend *>vec;
 			UserBase *ub = getUserBase(fuid);
 			if (ub){
 				Friend fr;
 				Friend *fri = (Friend *)ccEvent::create_message(fr.GetTypeName());
 				UserBase *ub = getUserBase(fuid);
 				UserBase *ub1 = fri->mutable_info();
-				ub1->CopyFrom(ub);
+				ub1->CopyFrom(*ub);
 				fri->set_give(false);
 
 
-				vec.insert(make_pair(fuid, ub));
+				vec.insert(make_pair(fuid, fri));
 				m_pfriends.insert(make_pair(uid, vec));
 			}
 		}
@@ -507,7 +509,7 @@ map<int, FriendNotice *> RedisGet::getFriendNoticeB(string uid){
 		vector<string> keys = m_redis->getKeys(g_redisdbnames[REIDS_FRIEND] + "notice" + uid, false);
 		for (int i = 0; i < keys.size(); i++){
 			string key = keys.at(i);
-			FriendNotice *fn = m_redis->getHash(key, si.GetTypeName());
+			FriendNotice *fn = (FriendNotice *)m_redis->getHash(key, si.GetTypeName());
 			vecs.insert(make_pair(fn->nid(),fn));
 		}
 	}
@@ -575,7 +577,7 @@ void RedisGet::eraseFriendNotice(string uid, FriendNotice *p){
 }
 
 map<int, Active *> RedisGet::getActive(int type){
-	if (!m_pActives.find(type)!=m_pActives.end()){
+	if (m_pActives.find(type)!=m_pActives.end()){
 		return m_pActives.at(type);
 	}
 	map<int, Active *> vecs;
@@ -680,17 +682,6 @@ map<int, ExAward *> RedisGet::getExAward(){
 		std::vector<Message *> vv = m_redis->getList(g_redisdbnames[REIDS_EXCHANGE] + "award", si.GetTypeName());
 		for (int i = 0; i < vv.size(); i++){
 			ExAward *rkk=(ExAward *)vv.at(i);
-			
-			int rid = rkk->award().rid();
-			Reward *rd = rkk->mutable_award();
-			Reward rd1 = getReward(rid);
-			rd->CopyFrom(rd1);
-
-			rid = rkk->buy().rid();
-			Reward *r = rkk->mutable_buy();
-			Reward r1 = getReward(rid);
-			r->CopyFrom(r1);
-
 			m_pExAwards.insert(make_pair(rkk->eid(), rkk));
 		}
 	}
@@ -716,11 +707,6 @@ map<int, Reward *> RedisGet::getReward(){
 		std::vector<Message *> vv = m_redis->getList(g_redisdbnames[REIDS_REWARD], si.GetTypeName());
 		for (int i = 0; i < vv.size(); i++){
 			Reward *rkk = (Reward *)vv.at(i);
-			rkk->CopyFrom(*vv.at(i));
-			int pid = rkk->prop().id();
-			Prop *pp = rkk->mutable_prop();
-			Prop p = getProp(pid);
-			pp->CopyFrom(p);
 			m_pRewards.insert(make_pair(rkk->rid(), rkk));
 		}
 	}
@@ -735,75 +721,73 @@ Reward *RedisGet::getReward(int rid){
 }
 
 map<string, map<int, ExRecord *>> RedisGet::getExRecords(){
-
+	if (!m_pExRecords.empty()){
+		return m_pExRecords;
+	}
+	auto vecs = getUserBases();
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		ExRecord er;
+		auto itr = vecs.begin();
+		for (itr; itr != vecs.end(); itr++){
+			string uid = itr->first;
+			vector<string> keys = m_redis->getKeys(g_redisdbnames[REIDS_EXCHANGE]+ uid,false);
+			map<int, ExRecord *> maps;
+			for (int i = 0; i < keys.size();i++){
+				string key = keys.at(i);
+				ExRecord *er1 = (ExRecord *)m_redis->getHash(key,er.GetTypeName());
+				maps.insert(make_pair(er1->eid(), er1));
+			}
+			m_pExRecords.insert(make_pair(uid, maps));
+		}
+	}
+	return m_pExRecords;
 }
 
 map<int, ExRecord *> RedisGet::getExRecord(string uid){
 	if (m_pExRecords.find(uid) != m_pExRecords.end()){
 		return m_pExRecords.at(uid);
 	}
-
-	ExRecord si;
-	std::vector<Message *> vv = m_redis->getList("exchangerecord"+uid, si.GetTypeName());
-	std::vector<ExRecord > vecs;
-	for (int i = 0; i < vv.size(); i++){
-		ExRecord rkk;
-		rkk.CopyFrom(*vv.at(i));
-		vecs.push_back(rkk);
-	}
-	redis::getIns()->releaseMessages(vv);
-	m_pExRecords.insert(make_pair(uid,vecs));
+	map<int, ExRecord *> vecs;
 	return vecs;
 }
 
-void RedisGet::PushExRecord(string uid, ExRecord p){
+void RedisGet::PushExRecord(string uid, ExRecord *p){
+	int eid = p->eid();
 	if (m_pExRecords.find(uid) != m_pExRecords.end()){
 		auto vec = m_pExRecords.at(uid);
-		vec.push_back(p);
+		if (vec.find(eid) != vec.end()){
+			vec.at(eid) = p;
+		}
+		else{
+			vec.insert(make_pair(eid,p));
+		}
 		m_pExRecords.at(uid) = vec;
 	}
 	else{
-		std::vector<ExRecord > vecs;
-		vecs.push_back(p);
+		map<int,ExRecord *> vecs;
+		vecs.insert(make_pair(eid, p));
 		m_pExRecords.insert(make_pair(uid, vecs));
 	}
 }
 
-int RedisGet::setExRecordStatus(string uid, int rid){
-	char buff[50];
-	sprintf(buff, "exchangestatus%s%d", uid.c_str(), rid);
-	int len = 0;
-	char *dd = m_redis->get(buff, len);
-	if (dd){
-		return atoi(dd);
-	}
-	else{
-		return 0;
-	}
-}
 
-vector<SignAward> RedisGet::getSignAward(){
-	if (m_pSignAwards.empty()){
-		SignAward si;
-		std::vector<Message *> vv = m_redis->getList("sign", si.GetTypeName());
-		std::vector<SignAward > vecs;
-		for (int i = 0; i < vv.size(); i++){
-			SignAward rkk;
-			rkk.CopyFrom(*vv.at(i));
-
-			int rid = rkk.reward().rid();
-			Reward *rd = rkk.mutable_reward();
-			Reward rd1 = getReward(rid);
-			rd->CopyFrom(rd1);
-
-			vecs.push_back(rkk);
-		}
-		redis::getIns()->releaseMessages(vv);
-		return vecs;
-	}
-	else{
+map<int, SignAward*> RedisGet::getSignAward(){
+	if (!m_pSignAwards.empty()){
 		return m_pSignAwards;
 	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SIGN);
+	if (ist){
+		SignAward si;
+		std::vector<Message *> vv = m_redis->getList(g_redisdbnames[REIDS_SIGN], si.GetTypeName());
+		for (int i = 0; i < vv.size(); i++){
+			SignAward *rkk = (SignAward *)vv.at(i);
+
+			m_pSignAwards.insert(make_pair(rkk->id(), rkk));
+		}
+	}
+	
+	return m_pSignAwards;
 }
 
 SignStatus *RedisGet::getSignStatus(string uid){
@@ -827,131 +811,157 @@ map<string, SignStatus *> RedisGet::getSignStatuss(){
 	if (!m_pSignStatuss.empty()){
 		return m_pSignStatuss;
 	}
-	string key = "signstatus";
-	vector<string> vecs=m_redis->getListStr(key);
-	for (int i = 0; i < vecs.size(); i++){
-		vector<string> tt = CSVDataInfo::getIns()->getStrFromstr(vecs.at(i),",");
-		SignStatus *ss = new SignStatus();
-		ss->_uid = tt.at(0);
-		ss->_signcount = atoi(tt.at(1).c_str());
-		ss->_issign = atoi(tt.at(2).c_str());
-		ss->_left = atoi(tt.at(3).c_str());
-		ss->_time = tt.at(4);
-		m_pSignStatuss.insert(make_pair(ss->_uid,ss));
+	string key = "status";
+	auto vecs = getUserBases();
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SIGN);
+	if (ist){
+		auto itr = vecs.begin();
+		int len = 0;
+		for (itr; itr != vecs.end(); itr++){
+			string uid = itr->first;
+			string content = m_redis->get(g_redisdbnames[REIDS_SIGN] + key + uid, len);
+			for (int i = 0; i < vecs.size(); i++){
+				vector<string> tt = CSVDataInfo::getIns()->getStrFromstr(content, ",");
+				SignStatus *ss = new SignStatus();
+				ss->_uid = tt.at(0);
+				ss->_signcount = atoi(tt.at(1).c_str());
+				ss->_issign = atoi(tt.at(2).c_str());
+				ss->_left = atoi(tt.at(3).c_str());
+				ss->_time = tt.at(4);
+				m_pSignStatuss.insert(make_pair(ss->_uid, ss));
+			}
+		}
 	}
 	return m_pSignStatuss;
 }
 
-vector<SignZhuan> RedisGet::getSignZhuan(){
-	if (m_pSignZhuans.empty()){
-		SignZhuan si;
-		std::vector<Message *> vv = m_redis->getList("signzhuan", si.GetTypeName());
-		std::vector<SignZhuan > vecs;
-		for (int i = 0; i < vv.size(); i++){
-			SignZhuan rkk;
-			rkk.CopyFrom(*vv.at(i));
-			int rid = rkk.reward().rid();
-			Reward *rd = rkk.mutable_reward();
-			Reward rd1 = getReward(rid);
-			rd->CopyFrom(rd1);
-
-			vecs.push_back(rkk);
-		}
-		redis::getIns()->releaseMessages(vv);
-		return vecs;
-	}
-	else{
+map<int, SignZhuan *> RedisGet::getSignZhuan(){
+	if (!m_pSignZhuans.empty()){
 		return m_pSignZhuans;
 	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SIGN);
+	std::vector<SignZhuan > vecs;
+	if (ist){
+		SignZhuan si;
+		std::vector<Message *> vv = m_redis->getList(g_redisdbnames[REIDS_SIGN] + "zhuan", si.GetTypeName());
+		for (int i = 0; i < vv.size(); i++){
+			SignZhuan *rkk=(SignZhuan *)vv.at(i);
+			m_pSignZhuans.insert(make_pair(rkk->index(),rkk));
+		}
+	}
+	return m_pSignZhuans;
 }
 
-map<int, Prop > RedisGet::getProp(){
-	if (m_pProps.empty()){
-		Prop si;
-		std::vector<Message *> vv = m_redis->getList("prop", si.GetTypeName());
-		map<int, Prop > vecs;
-		for (int i = 0; i < vv.size(); i++){
-			Prop rkk;
-			rkk.CopyFrom(*vv.at(i));
-			vecs.insert(make_pair(rkk.id(),rkk));
-		}
-		redis::getIns()->releaseMessages(vv);
-		return vecs;
-	}
-	else{
+map<int, Prop *> RedisGet::getProp(){
+	if (!m_pProps.empty()){
 		return m_pProps;
 	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_PROP);
+	if (ist){
+		Prop si;
+		std::vector<Message *> vv = m_redis->getList(g_redisdbnames[REIDS_PROP], si.GetTypeName());
+		for (int i = 0; i < vv.size(); i++){
+			Prop *rkk = (Prop *)vv.at(i);
+			m_pProps.insert(make_pair(rkk->id(), rkk));
+		}
+	}
+	return m_pProps;
 }
 
-Prop RedisGet::getProp(int id){
-	map<int, Prop > vec = getProp();
+Prop *RedisGet::getProp(int id){
+	map<int, Prop *> vec = getProp();
 	if (vec.find(id) != vec.end()){
 		return vec.at(id);
 	}
-	Prop p;
-	return p;
+	return NULL;
 }
 
-vector<Task > RedisGet::getFree(){
-	if (m_pFrees.empty()){
-		Task si;
-		std::vector<Message *> vv = m_redis->getList("free", si.GetTypeName());
-		std::vector<Task > vecs;
-		for (int i = 0; i < vv.size(); i++){
-			Task rkk;
-			rkk.CopyFrom(*vv.at(i));
-
-			vector<int >ids;
-			for (int j = 0; j < rkk.rewardlist_size(); j++){
-				int id = rkk.rewardlist(j).rid();
-				ids.push_back(id);
-			}
-			rkk.clear_rewardlist();
-			for (int j = 0; j < ids.size(); j++){
-				Reward *rd = rkk.add_rewardlist();
-				int rid = ids.at(j);
-				Reward rd1 = getReward(rid);
-				rd->CopyFrom(rd1);
-			}
-
-			vecs.push_back(rkk);
-		}
-		redis::getIns()->releaseMessages(vv);
-		return vecs;
-	}
-	else{
+map<int, Task*> RedisGet::getFree(){
+	if (!m_pFrees.empty()){
 		return m_pFrees;
 	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FREE);
+	if (ist){
+		Task si;
+		std::vector<Message *> vv = m_redis->getList(g_redisdbnames[REIDS_FREE], si.GetTypeName());
+		for (int i = 0; i < vv.size(); i++){
+			Task *rkk = (Task *)vv.at(i);
+			m_pFrees.insert(make_pair(rkk->taskid(),rkk));
+		}
+	}
+	return m_pFrees;
 }
 
-int RedisGet::MailID(){
-	int len = 0;
-	char *dd= m_redis->get("mailid_index", len);
-	if (dd){
-		return atoi(dd) + 1;
+
+Status *RedisGet::getFreeStatus(string uid, int fid){
+	auto vec = getFreeStatus(uid);
+	if (vec.find(fid) != vec.end()){
+		return vec.at(fid);
 	}
-	
-	return 1;
+	return NULL;
+}
+
+map<string, map<int, Status *>> RedisGet::getFreeStatus(){
+	if (!m_pFreeStatus.empty()){
+		return m_pFreeStatus;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FREE);
+	if (ist){
+		Status st;
+		auto users = getUserBases();
+		auto useritr = users.begin();
+		for (useritr; useritr != users.end(); useritr++){
+			string uid = useritr->first;
+			auto vecs = getFree();
+			auto itr = vecs.begin();
+			map<int, Status *> maps;
+			for (itr; itr != vecs.end(); itr++){
+				int fid = itr->first;
+				char buff[30];
+				sprintf(buff, "%sstatus%d", (g_redisdbnames[REIDS_FREE] + uid).c_str(), fid);
+				Status *st1 = (Status *)m_redis->getHash(buff, st.GetTypeName());
+				maps.insert(make_pair(fid, st1));
+			}
+			m_pFreeStatus.insert(make_pair(uid, maps));
+		}
+	}
+	return m_pFreeStatus;
+}
+
+map<int, Status *> RedisGet::getFreeStatus(string uid){
+	if (m_pFreeStatus.find(uid) != m_pFreeStatus.end()){
+		return m_pFreeStatus.at(uid);
+	}
+	map<int, Status *> vec;
+	return vec;
 }
 
 string RedisGet::getExchangeCode(){
-	int len = 0;
-	char *dd = m_redis->get("exchangecode", len);
-	if (!dd){
-		dd = "10000000";
-		RedisPut::getIns()->setExchangeCode(dd);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		int len = 0;
+		char *dd = m_redis->get(g_redisdbnames[REIDS_EXCHANGE] + "exrecordcode", len);
+		if (!dd){
+			dd = "10000000";
+			RedisPut::getIns()->setExchangeCode(dd);
+		}
+		return dd;
 	}
-	return dd;
+	return "";
 }
 
 int RedisGet::getExchangeRecordId(string uid){
-	int len = 0;
-	char *dd = m_redis->get("exchangerecordid" + uid,len);
-	if (!dd){
-		dd = "1";
-		RedisPut::getIns()->setExchangeRecordId(uid, atoi(dd));
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		int len = 0;
+		char *dd = m_redis->get(g_redisdbnames[REIDS_EXCHANGE] + "exrecordid" + uid, len);
+		if (!dd){
+			dd = "1";
+			RedisPut::getIns()->setExchangeRecordId(uid, atoi(dd));
+		}
+		return atoi(dd);
 	}
-	return atoi(dd);
+	return -1;
 }
 
 map<string, PExchangeCode*> RedisGet::getCSVExchangeCode(){
@@ -959,32 +969,35 @@ map<string, PExchangeCode*> RedisGet::getCSVExchangeCode(){
 		return m_pExchangeCodes;
 	}
 	map<string, PExchangeCode*> codes;
-	string key = "CSVExchangeCode";
-	vector<bool> veccodes=getExcode();
-	vector<string> mpas = m_redis->getListStr(key);
-	for (int i = 0; i < mpas.size(); i++){
-		vector<string >vec;
-		std::string field = mpas.at(i);
-		int index = field.find(",");
-		while (index != -1) {
-			vec.push_back(field.substr(0, index));
-			field = field.substr(index+1, field.length());
-			index = field.find(",");
-		}
-		vec.push_back(field);
-		PExchangeCode* cc=new PExchangeCode();
-		if (vec.size() == 3){
-			cc->_id = atoi(vec.at(0).c_str());
-			cc->_rewardid = CSVDataInfo::getIns()->getIntFromstr(vec.at(1), "|");
-			cc->_code = vec.at(2);
-			codes.insert(make_pair(cc->_code,cc));
-		}
-		else{
-			printf("vvvvvvvvvvvvvvvvvvv\n");
-		}
-		if (veccodes.empty()){
-			printf("%d.",i+1);
-			RedisPut::getIns()->setEXCode(cc->_code, false);
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		string key = g_redisdbnames[REIDS_EXCHANGE] + "code";
+		auto mpas = m_redis->getListStr(key);
+		map<string,bool> veccodes = getExcode();
+		for (int i = 0; i < mpas.size(); i++){
+			vector<string >vec;
+			std::string field = mpas.at(i);
+			int index = field.find(",");
+			while (index != -1) {
+				vec.push_back(field.substr(0, index));
+				field = field.substr(index + 1, field.length());
+				index = field.find(",");
+			}
+			vec.push_back(field);
+			PExchangeCode* cc = new PExchangeCode();
+			if (vec.size() == 3){
+				cc->_id = atoi(vec.at(0).c_str());
+				cc->_rewardid = CSVDataInfo::getIns()->getIntFromstr(vec.at(1), "|");
+				cc->_code = vec.at(2);
+				codes.insert(make_pair(cc->_code, cc));
+			}
+			else{
+				printf("vvvvvvvvvvvvvvvvvvv\n");
+			}
+			if (veccodes.empty()){
+				printf("%d.", i + 1);
+				RedisPut::getIns()->setEXCode(cc->_code, false);
+			}
 		}
 	}
 	return codes;
@@ -997,34 +1010,66 @@ PExchangeCode* RedisGet::getPExchangeCode(string code){
 	return NULL;
 }
 
-vector<bool> RedisGet::getExcode(){
+map<string,bool> RedisGet::getExcode(){
 	if (!m_pEXCodes.empty()){
 		return m_pEXCodes;
 	}
-	vector<bool> vec1;
-	string key = "EXCodeStatus";
-	vector<string> vec = m_redis->getListStr(key);
-	for (int i = 0; i < vec.size(); i++){
-		vec1.push_back(atoi(vec.at(i).c_str()));
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		vector<string> keys = m_redis->getKeys(g_redisdbnames[REIDS_EXCHANGE] + "duihuancode",false);
+		int len = 0;
+		for (int i = 0; i < keys.size(); i++){
+			string key = keys.at(i);
+			char *dui = m_redis->get(key,len);
+			if (dui){
+				m_pEXCodes.insert(make_pair(key,atoi(dui)));
+			}
+		}
 	}
-	return vec1;
+	return m_pEXCodes;
 }
 
 bool RedisGet::getExcode(string code){
-	PExchangeCode *p = getPExchangeCode(code);
-	if (p){
-		int index = p->_id-1;
-		if (index < m_pEXCodes.size()){
-			return m_pEXCodes.at(index);
-		}
-		return true;
+	string key = g_redisdbnames[REIDS_EXCHANGE] + "duihuancode"+code;
+	if (m_pEXCodes.find(key) != m_pEXCodes.end()){
+		return m_pEXCodes.at(key);
 	}
-	return true;
+	return false;
 }
 
-void RedisGet::setEXCodeStatus(int id,bool ist){
-	int index = id - 1;
-	if (index < m_pEXCodes.size()){
-		m_pEXCodes.at(index) = ist;
+void RedisGet::setEXCodeStatus(string code,bool ist){
+	if (m_pEXCodes.find(code) != m_pEXCodes.end()){
+		m_pEXCodes.at(code) = ist;
 	}
+	else{
+		m_pEXCodes.insert(make_pair(code,ist));
+	}
+}
+
+int RedisGet::getMailID(){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_MAIL);
+	if (ist){
+		int len = 0;
+		char *dd = m_redis->get(g_redisdbnames[REIDS_MAIL] + "mailid", len);
+		if (!dd){
+			dd = "1";
+			RedisPut::getIns()->setMailID(atoi(dd));
+		}
+		return atoi(dd);
+	}
+	return 1;
+}
+
+int RedisGet::getFriendNoticeID(){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
+	if (ist){
+		int len = 0;
+		char *dd = m_redis->get(g_redisdbnames[REIDS_FRIEND] + "friendnoticeid", len);
+		if (!dd){
+			dd = "1";
+			RedisPut::getIns()->setFriendNoticeID(atoi(dd));
+		}
+		return atoi(dd);
+	}
+	return 1;
 }

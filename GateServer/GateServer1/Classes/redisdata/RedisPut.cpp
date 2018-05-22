@@ -31,7 +31,7 @@ bool RedisPut::PushConfig(string uid, SConfig *scf){
 	bool ist = RedisGet::getIns()->SelectDB(REDIS_SCONFIG);
 	if (ist){
 		RedisGet::getIns()->setSConfig(uid, scf);
-		return m_redis->Hash(g_redisdbnames[REDIS_SCONFIG] + uid, &scf);
+		return m_redis->Hash(g_redisdbnames[REDIS_SCONFIG] + uid, scf);
 	}
 	return ist;
 }
@@ -69,13 +69,13 @@ bool RedisPut::setConfig(string uid, POINTTIP type, bool ist){
 			break;
 		}
 	}
-	return setSConfig(uid, sc);
+	return PushConfig(uid, sc);
 }
 
 bool RedisPut::PushUserBase(UserBase *ub){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
 	if (ist){
-		string uid = ub.userid();
+		string uid = ub->userid();
 		m_redis->Hash(g_redisdbnames[REIDS_USERBASE]+"_user" + uid, ub);
 	}
 	return ist;
@@ -226,7 +226,7 @@ bool RedisPut::PushMail(string uid, Mail *mail){
 void RedisPut::PopMail(string uid, Mail *ml){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_MAIL);
 	if (ist){
-		int mid = mail->eid();
+		int mid = ml->eid();
 		char buff[100];
 		sprintf(buff, "%s%s%d", g_redisdbnames[REIDS_MAIL].c_str(), uid.c_str(), mid);
 		m_redis->delKey(buff);
@@ -274,12 +274,38 @@ bool RedisPut::PushTaskStatus(string uid, int taskid, Status *status){
 	return ist;
 }
 
-bool RedisPut::PushExRecord(string uid, ExRecord er){
+bool RedisPut::PushFreeStatus(string uid, int fid, Status *status){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FREE);
+	if (ist){
+		char buff[30];
+		sprintf(buff, "%sstatus%d", (g_redisdbnames[REIDS_FREE] + uid).c_str(), fid);
+		m_redis->Hash(buff, status);
+	}
+	return ist;
+}
+
+bool RedisPut::PushExRecord(string uid, ExRecord *er){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
 	if (ist){
 		char buff[100];
-		sprintf("%sreward%s%d", g_redisdbnames[REIDS_EXCHANGE].c_str(), uid.c_str(), er.eid());
-		m_redis->Hash(buff, &er);
+		sprintf("%sexrecord%s%d", g_redisdbnames[REIDS_EXCHANGE].c_str(), uid.c_str(), er->eid());
+		m_redis->Hash(buff, er);
+	}
+	return ist;
+}
+
+bool RedisPut::setExchangeCode(string code){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		return m_redis->set(g_redisdbnames[REIDS_EXCHANGE]+"exrecordcode",code);
+	}
+	return ist;
+}
+
+bool RedisPut::setExchangeRecordId(string uid, int id){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
+	if (ist){
+		return m_redis->set(g_redisdbnames[REIDS_EXCHANGE] + "exrecordid"+uid, id);
 	}
 	return ist;
 }
@@ -289,20 +315,21 @@ bool RedisPut::setEXCode(string code, bool isdui){
 	if (ist){
 		char buff[10];
 		sprintf(buff, "%d", isdui);
-		return m_redis->set(g_redisdbnames[REIDS_EXCHANGE]+"code", buff);
+		int len = 0;
+		return m_redis->set(g_redisdbnames[REIDS_EXCHANGE]+"duihuancode"+code, buff,len);
 	}
 	return ist;
 }
 
-bool RedisPut::setSignStatus(int sid,SignStatus *ss){
+bool RedisPut::setSignStatus(SignStatus *ss){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_SIGN);
 	if (ist){
 		char buff[50];
 		string uid = ss->_uid;
-		sprintf(buff, "%s%d", (g_redisdbnames[REIDS_SIGN] + "status" + uid).c_str(), sid);
+		sprintf(buff, "%s", (g_redisdbnames[REIDS_SIGN] + "status" + uid).c_str());
 		char buff1[200];
 		sprintf(buff1,"%s,%d,%d,%d,%s",uid.c_str(),ss->_signcount,ss->_issign,ss->_left,ss->_time.c_str());
-		m_redis->Hash(buff, buff1);
+		m_redis->set(buff, buff1);
 	}
 	return ist;
 }
@@ -315,6 +342,21 @@ bool RedisPut::PushFeedBack(CFeedBack *cfb){
 	return ist;
 }
 
+bool RedisPut::setMailID(int mid){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_MAIL);
+	if (ist){
+		return m_redis->set(g_redisdbnames[REIDS_MAIL]+"mailid",mid);
+	}
+	return ist;
+}
+
+bool RedisPut::setFriendNoticeID(int id){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
+	if (ist){
+		return m_redis->set(g_redisdbnames[REIDS_FRIEND] + "friendnoticeid", id);
+	}
+	return ist;
+}
 
 void RedisPut::ZeroChange(char *&data, int sz){
 	for (int i = 0; i < sz; i++){

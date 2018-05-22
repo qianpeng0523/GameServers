@@ -116,19 +116,19 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 	//逻辑
 	SRank sl;
 	sl.set_type(type);
-	vector<Rank> vec = m_pRedisGet->getRank(type,index);
+	vector<Rank *> vec = m_pRedisGet->getRank(type);
 	for (int i = 0; i < vec.size();i++){
-		Rank rk = vec.at(i);
-		rk.set_lv(10*index+i+1);
-		rk.set_type(type);
-		UserBase *user = rk.mutable_info();
-		string uid = rk.uid();
+		Rank *rk = vec.at(i);
+		Rank *k = sl.add_list();
+
+		UserBase *user = rk->mutable_info();
+		string uid = rk->uid();
 		UserBase *ub = m_pRedisGet->getUserBase(uid);
 		if (ub){
 			user->CopyFrom(*ub);
 		}
-		Rank *k= sl.add_list();
-		k->CopyFrom(rk);
+		
+		k->CopyFrom(*rk);
 	}
 	SendSRank(sl,event->m_fd);
 }
@@ -145,13 +145,14 @@ void HallInfo::HandlerCShop(ccEvent *event){
 	//逻辑
 	SShop sl;
 	sl.set_type(type);
-	vector<ShopItem> vec = m_pRedisGet->getShop();
-	for (int i = 0; i < vec.size(); i++){
-		ShopItem p = vec.at(i);
-		int pid = p.prop().prop().id();
+	auto vec = m_pRedisGet->getShop();
+	auto itr = vec.begin();
+	for (itr; itr!=vec.end(); itr++){
+		ShopItem *p = itr->second;
+		int pid = p->prop().prop().id();
 		if (pid == type){
 			ShopItem *pp = sl.add_list();
-			pp->CopyFrom(p);
+			pp->CopyFrom(*p);
 		}
 	}
 	SendSShop(sl, event->m_fd);
@@ -168,12 +169,12 @@ void HallInfo::HandlerCMail(ccEvent *event){
 	SMail sl;
 	sl.set_cmd(sl.cmd());
 	string uid = LibEvent::getIns()->getUID(event->m_fd);
-	map<string,Mail> vec = m_pRedisGet->getMail(uid);
-	map<string, Mail>::iterator itr = vec.begin();
+	map<int,Mail*> vec = m_pRedisGet->getMail(uid);
+	map<int, Mail*>::iterator itr = vec.begin();
 	for (itr; itr != vec.end();itr++){
-		Mail m = itr->second;
+		Mail *m = itr->second;
 		Mail *m1= sl.add_list();
-		m1->CopyFrom(m);
+		m1->CopyFrom(*m);
 	}
 	SendSMail(sl,event->m_fd);
 }
@@ -190,18 +191,18 @@ void HallInfo::HandlerCMailAward(ccEvent *event){
 	//逻辑
 	SMailAward sma;
 	string uid = LibEvent::getIns()->getUID(event->m_fd);
-	Mail mail= m_pRedisGet->getMail(uid,mid);
+	Mail *mail= m_pRedisGet->getMail(uid,mid);
 	vector<Reward>rds;
-	if (mail.eid() > 0){
+	if (mail->eid() > 0){
 		sma.set_err(0);
-		int status = mail.status();
+		int status = mail->status();
 		//status 0表示无奖励 1表示有奖励未领取 2表示有奖励已经领取
 		if (status == 1){
 			m_pRedisPut->PopMail(uid,mail);
 			//给玩家奖励//推送金币那些协议
-			int sz = mail.rewardlist_size();
+			int sz = mail->rewardlist_size();
 			for (int i = 0; i < sz;i++){
-				Reward rd = mail.rewardlist(i);
+				Reward rd = mail->rewardlist(i);
 				rds.push_back(rd);
 			}
 		}
@@ -264,12 +265,9 @@ void HallInfo::HandlerCFriend(ccEvent *event){
 		auto users = m_pRedisGet->getFriend(uid);
 		auto uitr = users.begin();
 		for (uitr; uitr != users.end();uitr++){
-			UserBase *user = uitr->second;
+			Friend *user = uitr->second;
 			Friend *fri = sf.add_list();
-			fri->set_acttype(rand()%3);
-			fri->set_time(Common::getTime());
-			UserBase *user1 = fri->mutable_info();
-			user1->CopyFrom(*user);
+			fri->CopyFrom(*user);
 		}
 		SendSFriend(sf, event->m_fd);
 	}
@@ -395,23 +393,23 @@ void HallInfo::HandlerCGiveFriend(ccEvent *event){
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
 		string uid = data->_uid;
-		auto vec = m_pRedisGet->getFriendGive(uid);
-		if (vec.find(fuid) != vec.end()){
-			bool give = vec.at(fuid);
+		Friend *fri = m_pRedisGet->getFriend(uid,fuid);
+		if (fri){
+			bool give = fri->give();
 			if (give){
 				sl.set_err(1);
 			}
 			else{
-				Reward rd = m_pRedisGet->getReward(69);
+				Reward *rd = m_pRedisGet->getReward(69);
 				UserBase *user = m_pRedisGet->getUserBase(fuid);
 				string uname = user->username();
 				
 				Mail ml1;
 				Mail *ml = (Mail *)ccEvent::create_message(ml1.GetTypeName());
 				Reward *rew = ml->add_rewardlist();
-				rew->CopyFrom(rd);
+				rew->CopyFrom(*rd);
 
-				int eid = m_pRedisGet->MailID();
+				int eid = m_pRedisGet->getMailID();
 				ml->set_eid(eid);
 				char buff[300];
 				sprintf(buff, "%s%s%s%d%s", XXIconv::GBK2UTF("好友【").c_str(), uname.c_str(), XXIconv::GBK2UTF("】赠送给您").c_str(), rew->number(), rew->prop().name().c_str());
@@ -421,7 +419,7 @@ void HallInfo::HandlerCGiveFriend(ccEvent *event){
 				ml->set_title(XXIconv::GBK2UTF("好友【")+uname + XXIconv::GBK2UTF("】赠送"));
 
 				m_pRedisPut->setMailID(eid);
-				m_pRedisPut->PushMail(uid, *ml);
+				m_pRedisPut->PushMail(uid, ml);
 				m_pRedisPut->setConfig(uid, POINT_MAIL, true);
 				
 				ClientData *data1 = LibEvent::getIns()->getClientData(fuid);
@@ -455,7 +453,7 @@ void HallInfo::HandlerCAddFriend(ccEvent *event){
 	if (data){
 		string uid = data->_uid;
 		FriendNotice *p = m_pRedisGet->getFriendNotice(uid,puid);
-		UserBase *fri = m_pRedisGet->getFriend(uid,puid);
+		Friend *fri = m_pRedisGet->getFriend(uid,puid);
 		if (!fri){
 			if (p){
 				sl.set_err(2);
@@ -545,9 +543,11 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 			sl.set_agree(agree);
 			sl.set_nid(nid);
 			fn->set_status(agree ? 2 : 3);
-			int index = m_pRedisGet->getFriendNoticeIndex(uid,nid);
-			m_pRedisPut->setFriendNotice(uid, index, fn);
-			m_pRedisPut->PushFriendGive(uid, puid, false);
+			
+			m_pRedisPut->PushFriendNotice(uid, fn);
+			Friend *fri = m_pRedisGet->getFriend(puid,puid);
+			fri->set_give(false);
+			m_pRedisPut->PushFriend(uid, fri);
 			//申请方
 			SAgreeFriend sl1;
 			FriendNotice *fn1 = m_pRedisGet->getFriendNotice(puid, uid);
@@ -557,9 +557,10 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 				sl.set_agree(agree);
 				sl.set_nid(pnid);
 				fn1->set_status(agree ? 2 : 3);
-				int index1 = m_pRedisGet->getFriendNoticeIndex(puid, pnid);
-				m_pRedisPut->setFriendNotice(puid,index1 , fn1);
-				m_pRedisPut->PushFriendGive(puid, uid, false);
+				m_pRedisPut->PushFriendNotice(puid, fn);
+				Friend *fri1 = m_pRedisGet->getFriend(puid, uid);
+				fri1->set_give(false);
+				m_pRedisPut->PushFriend(puid, fri1);
 				ClientData *data1 = LibEvent::getIns()->getClientData(puid);
 				if (data1){
 					SendSAgreeFriend(sl1, data1->_fd);
@@ -649,10 +650,11 @@ void HallInfo::HandlerCExchangeReward(ccEvent *event){
 	
 	SExchangeReward se;
 	auto vec = m_pRedisGet->getExAward();
-	for (int i = 0; i < vec.size(); i++){
-		ExAward ex = vec.at(i);
+	auto itr = vec.begin();
+	for (itr; itr != vec.end();itr++){
+		ExAward *ex = itr->second;
 		ExAward *ex1 = se.add_list();
-		ex1->CopyFrom(ex);
+		ex1->CopyFrom(*ex);
 	}
 	se.set_err(0);
 	SendSExchangeReward(se, event->m_fd);
@@ -676,16 +678,16 @@ void HallInfo::HandlerCExchangeCode(ccEvent *event){
 			auto maps = m_pRedisGet->getCSVExchangeCode();
 			if (maps.find(code) != maps.end()){
 				sl.set_success(true);
-				m_pRedisPut->changeEXCode(code, true);
+				m_pRedisPut->setEXCode(code, true);
 				PExchangeCode *p = m_pRedisGet->getPExchangeCode(code);
 				if (p){
 					auto vec = p->_rewardid;
 					for (int i = 0; i < vec.size(); i++){
 						int rid = vec.at(i);
-						Reward rd = m_pRedisGet->getReward(rid);
+						Reward *rd = m_pRedisGet->getReward(rid);
 						Reward *rd1 = sl.add_rd();
-						rd1->CopyFrom(rd);
-						HttpPay::getIns()->NoticePushCurrency(rd, uid);
+						rd1->CopyFrom(*rd);
+						HttpPay::getIns()->NoticePushCurrency(*rd, uid);
 					}
 					
 				}
@@ -702,7 +704,7 @@ void HallInfo::HandlerCExchangeCode(ccEvent *event){
 				exr.set_orderid(code);
 				exr.set_time(Common::getLocalTime());
 				exr.set_status(1);
-				m_pRedisPut->PushExRecord(uid, exr);
+				m_pRedisPut->PushExRecord(uid, &exr);
 
 				CExchangeRecord ce;
 				ce.set_cmd(ce.cmd());
@@ -740,10 +742,11 @@ void HallInfo::HandlerCExchangeRecord(ccEvent *event){
 		SExchangeRecord se;
 		se.set_cmd(se.cmd());
 		auto vec = m_pRedisGet->getExRecord(data->_uid);
-		for (int i = 0; i < vec.size(); i++){
+		auto itr = vec.begin();
+		for (itr; itr != vec.end();itr++){
 			ExRecord *ea = se.add_list();
-			ExRecord ea1 = vec.at(i);
-			ea->CopyFrom(ea1);
+			ExRecord *ea1 = itr->second;
+			ea->CopyFrom(*ea1);
 		}
 		SendSExchangeRecord(se, event->m_fd);
 	}
@@ -761,11 +764,11 @@ void HallInfo::HandlerCExchange(ccEvent *event){
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
 		string uid = data->_uid;
-		ExAward ea = m_pRedisGet->getExAward(id);
+		ExAward *ea = m_pRedisGet->getExAward(id);
 		SExchange sl;
 
 		UserBase *user = LoginInfo::getIns()->getUserBase(uid);
-		Reward buyrewad = ea.buy();
+		Reward buyrewad = ea->buy();
 		int number = buyrewad.number();
 		int pid = buyrewad.prop().id();
 		int mynumber = 0;
@@ -795,11 +798,11 @@ void HallInfo::HandlerCExchange(ccEvent *event){
 		int eid = m_pRedisGet->getExchangeRecordId(uid);
 		m_pRedisPut->setExchangeRecordId(uid, eid + 1);
 		exr.set_eid(eid);
-		exr.set_title(ea.title());
+		exr.set_title(ea->title());
 		exr.set_orderid(code);
 		exr.set_time(Common::getLocalTime());
 		exr.set_status(0);
-		m_pRedisPut->PushExRecord(uid,exr);
+		m_pRedisPut->PushExRecord(uid,&exr);
 
 		SendSExchange(sl, event->m_fd);
 
@@ -836,8 +839,8 @@ void HallInfo::HandlerCWxpayOrder(ccEvent *event){
 		string uid = data->_uid;
 		char buff[50];
 		sprintf(buff,"%d",id);
-		ShopItem sp = m_pRedisGet->getShop(id);
-		int price= sp.consume().number();
+		ShopItem *sp = m_pRedisGet->getShop(id);
+		int price= sp->consume().number();
 		
 		sl = HttpPay::getIns()->requestOrder(uid, buff, price, body, data->_ip);
 	}
@@ -876,17 +879,17 @@ void HallInfo::HandCFirsyBuyData(ccEvent *event){
 		for (int i = 0; i < fbi->_rid.size(); i++){
 			int rid = fbi->_rid.at(i);
 			Reward *rd = sl.add_reward();
-			Reward rd1 = m_pRedisGet->getReward(rid);
-			rd->CopyFrom(rd1);
+			Reward *rd1 = m_pRedisGet->getReward(rid);
+			rd->CopyFrom(*rd1);
 		}
 		Reward *conreward = sl.mutable_consume();
-		Reward rd1 = m_pRedisGet->getReward(fbi->_conid);
-		conreward->CopyFrom(rd1);
+		Reward *rd1 = m_pRedisGet->getReward(fbi->_conid);
+		conreward->CopyFrom(*rd1);
 		for (int i = 0; i < fbi->_giveid.size(); i++){
 			int rid = fbi->_giveid.at(i);
 			Reward *rd = sl.add_give();
-			Reward rd1 = m_pRedisGet->getReward(rid);
-			rd->CopyFrom(rd1);
+			Reward *rd1 = m_pRedisGet->getReward(rid);
+			rd->CopyFrom(*rd1);
 		}
 	}
 	else{
@@ -931,8 +934,8 @@ void HallInfo::HandlerCFirstBuy(ccEvent *event){
 			string uid = data->_uid;
 			char buff[50];
 			sprintf(buff, "%d", id);
-			Reward conrew = m_pRedisGet->getReward(p->_conid);
-			int price = conrew.number();
+			Reward *conrew = m_pRedisGet->getReward(p->_conid);
+			int price = conrew->number();
 			sl = HttpPay::getIns()->requestOrder(uid, buff, price, body, data->_ip);
 			swo.set_noncestr(sl.noncestr());
 			swo.set_payreq(sl.payreq());
@@ -956,8 +959,8 @@ void HallInfo::HandlerCFirstBuy(ccEvent *event){
 			string uid = data->_uid;
 			char buff[50];
 			sprintf(buff, "%d", id);
-			Reward conrew = m_pRedisGet->getReward(p->_conid);
-			int price = conrew.number();
+			Reward *conrew = m_pRedisGet->getReward(p->_conid);
+			int price = conrew->number();
 
 			sl = HttpAliPay::getIns()->requestOrder(uid, buff, price, body, data->_ip, type);
 
@@ -988,8 +991,8 @@ void HallInfo::HandlerCAliPayOrder(ccEvent *event){
 		int type = cl.type();
 		char buff[50];
 		sprintf(buff, "%d", id);
-		ShopItem sp = m_pRedisGet->getShop(id);
-		int price = sp.consume().number();
+		ShopItem *sp = m_pRedisGet->getShop(id);
+		int price = sp->consume().number();
 
 		sl = HttpAliPay::getIns()->requestOrder(uid, buff, price, body, data->_ip,type);
 	}
@@ -1027,7 +1030,7 @@ void HallInfo::HandlerCFeedBack(ccEvent *event){
 	string uid = cl.uid();
 	string uname = cl.uname();
 	string content = cl.content();
-	m_pRedisPut->PushFeedBack(cl);
+	m_pRedisPut->PushFeedBack(&cl);
 
 	SFeedBack sl;
 	sl.set_cmd(sl.cmd());
@@ -1086,9 +1089,9 @@ void HallInfo::HandlerCSign(ccEvent *event){
 			
 			Mail ml;
 			Reward *rew = ml.add_rewardlist();
-			rew->CopyFrom(vec1.at(rd).reward());
+			rew->CopyFrom(vec1.at(rd)->reward());
 
-			int eid = m_pRedisGet->MailID();
+			int eid = m_pRedisGet->getMailID();
 			ml.set_eid(eid);
 			char buff[300];
 			sprintf(buff,"%s%d%s",XXIconv::GBK2UTF("恭喜您，抽奖获得").c_str(),rew->number(),rew->prop().name().c_str());
@@ -1098,7 +1101,7 @@ void HallInfo::HandlerCSign(ccEvent *event){
 			ml.set_title(XXIconv::GBK2UTF("恭喜您，抽奖获得"));
 
 			m_pRedisPut->setMailID(eid);
-			m_pRedisPut->PushMail(uid, ml);
+			m_pRedisPut->PushMail(uid, &ml);
 			m_pRedisPut->setConfig(uid, POINT_MAIL, true);
 			SConfig *sc = m_pRedisGet->getSConfig(uid);
 			if (sc&&sc->yqs()){
@@ -1157,15 +1160,15 @@ void HallInfo::HandlerCSignList(ccEvent *event){
 		sl.set_sign(ss->_issign);
 		auto vec = m_pRedisGet->getSignAward();
 		for (int i = 0; i < vec.size(); i++){
-			SignAward sa1 = vec.at(i);
+			SignAward *sa1 = vec.at(i);
 			SignAward *sa = sl.add_reward();
-			sa->CopyFrom(sa1);
+			sa->CopyFrom(*sa1);
 		}
 		auto vec1 = m_pRedisGet->getSignZhuan();
 		for (int i = 0; i < vec1.size(); i++){
-			SignZhuan sz1 = vec1.at(i);
+			SignZhuan *sz1 = vec1.at(i);
 			SignZhuan *sz = sl.add_zhuan();
-			sz->CopyFrom(sz1);
+			sz->CopyFrom(*sz1);
 		}
 
 		SendSSignList(sl, event->m_fd);

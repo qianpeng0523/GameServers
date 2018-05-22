@@ -26,23 +26,31 @@ public:
 	bool PushPass(string uid, string pass);
 	bool PushOpenid(string openid, string uid);
 
-	bool PushRank(Rank rk);
+	bool PushRank(Rank *rk);
 
-	bool PushMail(string uid,Mail mail);
-	void PopMail(string uid, Mail ml);
+	bool PushMail(string uid,Mail* mail);
+	void PopMail(string uid, Mail *ml);
 
-	bool PushFriend(string uid,string friuid);
+	bool PushFriend(string uid, Friend *fd);
 	bool PushFriendNotice(string uid, FriendNotice *fn);
 	bool eraseFriendNotice(string uid, FriendNotice *fn);
-	
-	bool PushTaskStatus(string uid, int taskid, Status status);
+	bool setFriendNoticeID(int id);
 
-	bool PushExRecord(string uid,ExRecord er);
+	bool PushTaskStatus(string uid, int taskid, Status *status);
+
+	bool PushFreeStatus(string uid, int fid, Status *status);
+
+	bool PushExRecord(string uid, ExRecord *er);
+	bool setExchangeCode(string code);
+	bool setExchangeRecordId(string uid, int id);
+
 	bool setEXCode(string code, bool isdui);
 	
-	bool setSignStatus(int sid, SignStatus *ss);
+	bool setSignStatus(SignStatus *ss);
 	
-	bool PushFeedBack(CFeedBack cfb);
+	bool PushFeedBack(CFeedBack *cfb);
+
+	bool setMailID(int mid);
 
 	void ZeroChange(char *&data, int sz);
 private:
