@@ -23,17 +23,19 @@ string HttpPay::payrecord[9] = { "prepay_id", "attach", "out_trade_no", "userid"
 HttpPay::HttpPay(){
 	m_count = 0;
 	m_pRedis = redis::getIns();
+	m_pRedisGet = RedisGet::getIns();
+	m_pRedisPut = RedisPut::getIns();
 	int len = 0;
-	char *dd = redis::getIns()->get("notime", len);
-	if (dd){
+	string dd = m_pRedisGet->getNoTime();
+	if (!dd.empty()){
 		m_lasttime = Common::getLocalTimeDay();
 		if (m_lasttime.compare(dd) != 0){
-			m_pRedis->set("notime", (char *)m_lasttime.c_str(), m_lasttime.length());
+			m_pRedisPut->setNoTime(m_lasttime);
 		}
 	}
 	else{
 		m_lasttime = Common::getLocalTimeDay();
-		m_pRedis->set("notime", (char *)m_lasttime.c_str(), m_lasttime.length());
+		m_pRedisPut->setNoTime(m_lasttime);
 	}
 	m_isopen = false;
 	openUpdate(true);
@@ -99,23 +101,6 @@ string HttpPay::getNonceId(){
 	md5.update(time);
 	string nonceid = md5.toString();
 	transform(nonceid.begin(), nonceid.end(), nonceid.begin(), toupper);
-	return time;
-}
-
-string HttpPay::getOutTradeNo(){
-	string time = Common::getLocalTimeDay1()+"YLHD";
-	int len = 0;
-	char buff[50];
-	char *dd = m_pRedis->get("outtradeno", len);
-	if (!dd){
-		time += INITNO;
-		m_pRedis->set("outtradeno", INITNO, strlen(INITNO));
-	}
-	else{
-		sprintf(buff, "%08d", atoi(dd)+1);
-		time += buff;
-		m_pRedis->set("outtradeno", buff, strlen(buff));
-	}
 	return time;
 }
 
@@ -332,7 +317,7 @@ SWxpayOrder HttpPay::requestOrder(string uid, string shopid, int price, string b
 	valuemap.insert(make_pair("attach", shopid));
 	valuemap.insert(make_pair("nonce_str", getNonceId()));
 	valuemap.insert(make_pair("notify_url", NOTIFYURL));
-	valuemap.insert(make_pair("out_trade_no", XXIconv::GBK2UTF(getOutTradeNo().c_str())));
+	valuemap.insert(make_pair("out_trade_no", XXIconv::GBK2UTF(m_pRedisGet->getAliOuttradeNo().c_str())));
 	valuemap.insert(make_pair("spbill_create_ip", ip));
 
 	time_t time = Common::getTime();

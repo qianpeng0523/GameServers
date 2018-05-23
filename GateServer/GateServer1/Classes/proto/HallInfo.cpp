@@ -193,7 +193,7 @@ void HallInfo::HandlerCMailAward(ccEvent *event){
 	string uid = LibEvent::getIns()->getUID(event->m_fd);
 	Mail *mail= m_pRedisGet->getMail(uid,mid);
 	vector<Reward>rds;
-	if (mail->eid() > 0){
+	if (mail->eid() > 0&&mail->status()==1){
 		sma.set_err(0);
 		int status = mail->status();
 		//status 0表示无奖励 1表示有奖励未领取 2表示有奖励已经领取
@@ -216,18 +216,19 @@ void HallInfo::HandlerCMailAward(ccEvent *event){
 	
 	sma.set_id(mid);
 	SendSMailAward(sma, event->m_fd);
+	if (sma.err() == 0){
+		for (int i = 0; i < rds.size(); i++){
+			Reward rd = rds.at(i);
+			HttpPay::getIns()->NoticePushCurrency(rd, uid);
+		}
 
-	for (int i = 0; i < rds.size(); i++){
-		Reward rd = rds.at(i);
-		HttpPay::getIns()->NoticePushCurrency(rd, uid);
-	}
-
-	auto vec = m_pRedisGet->getMail(uid);
-	SConfig *sc =m_pRedisGet->getSConfig(uid);
-	if (vec.empty()&&sc&&sc->mail()){
-		sc->set_mail(false);
-		m_pRedisPut->setConfig(uid, POINT_MAIL, false);
-		ConfigInfo::getIns()->SendSConfig(*sc,event->m_fd);
+		auto vec = m_pRedisGet->getMail(uid);
+		SConfig *sc = m_pRedisGet->getSConfig(uid);
+		if (vec.empty() && sc&&sc->mail()){
+			sc->set_mail(false);
+			m_pRedisPut->setConfig(uid, POINT_MAIL, false);
+			ConfigInfo::getIns()->SendSConfig(*sc, event->m_fd);
+		}
 	}
 }
 
@@ -1056,6 +1057,7 @@ void HallInfo::HandlerCSign(ccEvent *event){
 		SignStatus *ss = m_pRedisGet->getSignStatus(uid);
 		if (!ss){
 			ss = new SignStatus();
+			ss->_uid = uid;
 		}
 		string time = ss->_time;
 		if (m_lastday.compare(time) != 0){
@@ -1076,7 +1078,7 @@ void HallInfo::HandlerCSign(ccEvent *event){
 		if (!ss->_issign&&ss->_left>0){
 			auto vec1 = m_pRedisGet->getSignZhuan();
 			int sz =vec1.size();
-			int rd = rand() % sz;
+			int rd = rand() % sz+1;
 			sl.set_index(rd);
 			sl.set_count(ss->_signcount + 1);
 			ss->_issign = true;
@@ -1110,6 +1112,7 @@ void HallInfo::HandlerCSign(ccEvent *event){
 				sc->set_yqs(false);
 				sc->set_mail(true);
 				ConfigInfo::getIns()->SendSConfig(*sc,event->m_fd);
+				m_pRedisPut->PushConfig(uid, sc);
 			}
 			//SendSMail(sm,event->m_fd);
 		}
@@ -1138,6 +1141,7 @@ void HallInfo::HandlerCSignList(ccEvent *event){
 		SignStatus *ss = m_pRedisGet->getSignStatus(uid);
 		if (!ss){
 			ss = new SignStatus();
+			ss->_uid = uid;
 		}
 		string time = ss->_time;
 		if (m_lastday.compare(time) != 0){
@@ -1161,14 +1165,16 @@ void HallInfo::HandlerCSignList(ccEvent *event){
 		sl.set_count(ss->_signcount);
 		sl.set_sign(ss->_issign);
 		auto vec = m_pRedisGet->getSignAward();
-		for (int i = 0; i < vec.size(); i++){
-			SignAward *sa1 = vec.at(i);
+		auto itr = vec.begin();
+		for (itr; itr != vec.end();itr++){
+			SignAward *sa1 = itr->second;
 			SignAward *sa = sl.add_reward();
 			sa->CopyFrom(*sa1);
 		}
 		auto vec1 = m_pRedisGet->getSignZhuan();
-		for (int i = 0; i < vec1.size(); i++){
-			SignZhuan *sz1 = vec1.at(i);
+		auto itr1 = vec1.begin();
+		for (itr1; itr1 != vec1.begin();itr1++){
+			SignZhuan *sz1 = itr1->second;
 			SignZhuan *sz = sl.add_zhuan();
 			sz->CopyFrom(*sz1);
 		}

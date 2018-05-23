@@ -2,6 +2,8 @@
 #define __HttpPay_SCENE_H__
 
 #include "stdafx.h"
+#include "RedisGet.h"
+#include "RedisPut.h"
 
 class HttpPay:public Object
 {
@@ -26,7 +28,7 @@ public:
 	void update(float dt);
 	void openUpdate(bool isopen);
 	string createSign(map<string, string> valuemap);
-	string getOutTradeNo();
+	
 	string getNonceId();
 	void checkPay();
 	
@@ -37,6 +39,8 @@ private:
 	bool m_isopen;
 	string m_lasttime;
 	redis *m_pRedis;
+	RedisGet *m_pRedisGet;
+	RedisPut *m_pRedisPut;
 	int m_count;
 	
 };

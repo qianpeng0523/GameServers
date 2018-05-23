@@ -82,11 +82,14 @@ public:
 	map<int, ShopItem*> getShop();
 	ShopItem *getShop(int shopid);
 	FirstBuyItem *getFirstBuy();
+	string getNoTime();
+	string getAliOuttradeNo();
 
 	map<string, map<int, Mail *>>getMails();
 	map<int, Mail *> getMail(string uid);
 	Mail *getMail(string uid, int eid);
 	void setMail(string uid,Mail *ml);
+	void eraseMail(string uid,Mail *ml);
 
 	FriendMap getFriend();
 	map<string, Friend *> getFriend(string uid);

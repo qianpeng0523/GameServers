@@ -177,6 +177,9 @@ bool RedisPut::PushUserIndex(int index){
 }
 
 bool RedisPut::PushUserLoginTime(string uid){
+	if (uid.empty()){
+		return false;
+	}
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
 	if (ist){
 		string tt = "logintime";
@@ -229,7 +232,8 @@ bool RedisPut::PushMail(string uid, Mail *mail){
 		int mid = mail->eid();
 		char buff[100];
 		sprintf(buff, "%s%s%d", g_redisdbnames[REIDS_MAIL].c_str(), uid.c_str(), mid);
-		m_redis->Hash(buff, mail);
+		RedisGet::getIns()->setMail(uid, mail);
+		return m_redis->Hash(buff, mail);
 	}
 	return ist;
 }
@@ -241,6 +245,7 @@ void RedisPut::PopMail(string uid, Mail *ml){
 		char buff[100];
 		sprintf(buff, "%s%s%d", g_redisdbnames[REIDS_MAIL].c_str(), uid.c_str(), mid);
 		m_redis->delKey(buff);
+		RedisGet::getIns()->eraseMail(uid, ml);
 	}
 }
 
@@ -379,6 +384,22 @@ bool RedisPut::setFriendNoticeID(int id){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
 	if (ist){
 		return m_redis->set(g_redisdbnames[REIDS_FRIEND] + "friendnoticeid", id);
+	}
+	return ist;
+}
+
+bool RedisPut::setNoTime(string time){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		return m_redis->set(g_redisdbnames[REIDS_SHOP] + "notime", (char*)time.c_str());
+	}
+	return ist;
+}
+
+bool RedisPut::setAliOuttradeNo(string num){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		return m_redis->set(g_redisdbnames[REIDS_SHOP] + "aliouttradeno", (char*)num.c_str());
 	}
 	return ist;
 }

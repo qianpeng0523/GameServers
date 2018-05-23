@@ -151,7 +151,7 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 		sprintf(buff, "%d", index);
 		string uid = "wx";
 		uid += buff;
-		m_pRedisPut->PushOpenid(openid,uid)
+		m_pRedisPut->PushOpenid(openid, uid);
 		
 		string nickname = sd["nickname"].asString();
 		int sex = sd["sex"].asInt();
@@ -170,12 +170,32 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 		Rank rk;
 		rk.set_type(1);
 		rk.set_uid(ub.userid());
+		UserBase *ub1 = rk.mutable_info();
+		ub1->CopyFrom(ub);
+
 		m_pRedisPut->PushRank(&rk);
 		Rank rk1;
 		rk1.set_type(2);
 		rk1.set_uid(ub.userid());
+		UserBase *ub2 = rk1.mutable_info();
+		ub2->CopyFrom(ub);
 		m_pRedisPut->PushRank(&rk1);
 
+		SConfig sl;
+		SConfig *sl1 = (SConfig *)ccEvent::create_message(sl.GetTypeName());
+		sl.set_mail(false);
+		sl.set_active(true);
+		sl.set_firstbuy(true);
+		sl.set_fri(false);
+		sl.set_task(false);
+		sl.set_free(false);
+		sl.set_yqs(true);
+		sl1->CopyFrom(sl);
+		RedisPut::getIns()->PushConfig(uid, sl1);
+
+		SignStatus *ss = new SignStatus();
+		ss->_uid = uid;
+		m_pRedisPut->setSignStatus(ss);
 
 		return ub;
 	}
@@ -204,11 +224,27 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	Rank rk;
 	rk.set_type(1);
 	rk.set_uid(ub.userid());
+	UserBase *ub1 = rk.mutable_info();
+	ub1->CopyFrom(ub);
 	m_pRedisPut->PushRank(&rk);
 	Rank rk1;
 	rk1.set_type(2);
 	rk1.set_uid(ub.userid());
+	UserBase *ub2 = rk1.mutable_info();
+	ub2->CopyFrom(ub);
 	m_pRedisPut->PushRank(&rk1);
+
+	SConfig sl;
+	SConfig *sl1 = (SConfig *)ccEvent::create_message(sl.GetTypeName());
+	sl.set_mail(false);
+	sl.set_active(true);
+	sl.set_firstbuy(true);
+	sl.set_fri(false);
+	sl.set_task(false);
+	sl.set_free(false);
+	sl.set_yqs(true);
+	sl1->CopyFrom(sl);
+	RedisPut::getIns()->PushConfig(uid, sl1);
 
 	SignStatus *ss = new SignStatus();
 	ss->_uid = uid;

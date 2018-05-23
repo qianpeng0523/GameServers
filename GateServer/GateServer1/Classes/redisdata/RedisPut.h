@@ -55,6 +55,9 @@ public:
 
 	bool setMailID(int mid);
 
+	bool setNoTime(string time);
+	bool setAliOuttradeNo(string num);
+
 	void ZeroChange(char *&data, int sz);
 private:
 	static RedisPut *m_ins;

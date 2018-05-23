@@ -17,16 +17,16 @@ HttpAliPay::HttpAliPay(){
 	m_alipubkey = ALIPUBKEY;
 	m_isopen = false;
 	int len = 0;
-	char *dd = redis::getIns()->get("notime", len);
-	if (dd){
+	string dd = m_pRedisGet->getNoTime();
+	if (!dd.empty()){
 		m_lasttime = Common::getLocalTimeDay();
 		if (m_lasttime.compare(dd) != 0){
-			m_pRedis->set("notime", (char *)m_lasttime.c_str(), m_lasttime.length());
+			m_pRedisPut->setNoTime(m_lasttime);
 		}
 	}
 	else{
 		m_lasttime = Common::getLocalTimeDay();
-		m_pRedis->set("notime", (char *)m_lasttime.c_str(), m_lasttime.length());
+		m_pRedisPut->setNoTime(m_lasttime);
 	}
 	openUpdate(true);
 	
@@ -54,15 +54,15 @@ string HttpAliPay::getOutTradeNo(){
 	string time = Common::getLocalTimeDay1() + "YLHD";
 	int len = 0;
 	char buff[50];
-	char *dd = m_pRedis->get("aliouttradeno", len);
-	if (!dd){
+	string dd = m_pRedis->get("aliouttradeno", len);
+	if (!dd.empty()){
 		time += INITNO;
-		m_pRedis->set("aliouttradeno", INITNO, strlen(INITNO));
+		m_pRedisPut->setAliOuttradeNo(INITNO);
 	}
 	else{
-		sprintf(buff, "%08d", atoi(dd) + 1);
+		sprintf(buff, "%08d", atoi(dd.c_str()) + 1);
 		time += buff;
-		m_pRedis->set("aliouttradeno", buff, strlen(buff));
+		m_pRedisPut->setAliOuttradeNo(buff);
 	}
 	return time;
 }

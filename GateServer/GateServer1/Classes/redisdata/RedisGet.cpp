@@ -32,11 +32,12 @@ void RedisGet::init(){
 	getTask();
 	getSignZhuan();
 	getSignAward();
+	getSignStatuss();
 	getExAward();
 	getActives();
 	getFree();
 	getCSVExchangeCode();
-	getExcode();
+	//getExcode();
 	getFirstBuy();
 	getPass();
 	getFriend();
@@ -328,12 +329,12 @@ vector<Rank *> RedisGet::getRank(int type){
 }
 
 void RedisGet::setRank(Rank *rk, int type){
-	vector<Rank *> *vecs=&getRank(type);
-	int sz = vecs->size();
+	vector<Rank *> vecs=getRank(type);
+	int sz = vecs.size();
 	string uid = rk->info().userid();
 	bool ishave = false;
 	for (int i = 0; i < sz; i++){
-		Rank *rk1 = vecs->at(i);
+		Rank *rk1 = vecs.at(i);
 		if (rk1->info().userid().compare(uid)==0){
 			rk1->CopyFrom(*rk);
 			ishave = true;
@@ -341,7 +342,11 @@ void RedisGet::setRank(Rank *rk, int type){
 		}
 	}
 	if (!ishave){
-		vecs->push_back(rk);
+		Rank *rk1 = (Rank *)ccEvent::create_message(rk->GetTypeName());
+		rk1->CopyFrom(*rk);
+		vecs.push_back(rk1);
+		m_pRanks.at(type) = vecs;
+		
 	}
 }
 
@@ -396,7 +401,7 @@ FirstBuyItem *RedisGet::getFirstBuy(){
 	}
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
 	if (ist){
-		std::map<string, string> vv = m_redis->getHash(g_redisdbnames[REIDS_SHOP] + "first");
+		std::map<string, string> vv = m_redis->getHash(g_redisdbnames[REIDS_SHOP] + "_firstbuy");
 		if (vv.empty()){
 			return m_pFirstBuyItem;
 		}
@@ -420,6 +425,31 @@ FirstBuyItem *RedisGet::getFirstBuy(){
 		}
 	}
 	return m_pFirstBuyItem;
+}
+
+
+string RedisGet::getNoTime(){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		int len = 0;
+		char *dd = m_redis->get(g_redisdbnames[REIDS_SHOP] + "notime",len);
+		if (dd){
+			return dd;
+		}
+	}
+	return "";
+}
+
+string RedisGet::getAliOuttradeNo(){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		int len = 0;
+		char *dd = m_redis->get(g_redisdbnames[REIDS_SHOP] + "aliouttradeno", len);
+		if (dd){
+			return dd;
+		}
+	}
+	return "";
 }
 
 
@@ -477,17 +507,31 @@ Mail *RedisGet::getMail(string uid, int eid){
 }
 
 void RedisGet::setMail(string uid, Mail *ml){
-	map<int, Mail *> *vec = &getMail(uid);
+	map<int, Mail *> vec = getMail(uid);
 	int mid = ml->eid();
-	if (vec->find(mid) != vec->end()){
-		Mail *ml1 = vec->at(mid);
+	if (vec.find(mid) != vec.end()){
+		Mail *ml1 = vec.at(mid);
 		ml1->CopyFrom(*ml);
 	}
 	else{
 		Mail *ml1 = (Mail *)ccEvent::create_message(ml->GetTypeName());
 		ml1->CopyFrom(*ml);
-		vec->insert(make_pair(ml1->eid(), ml1));
+		vec.insert(make_pair(ml1->eid(), ml1));
+		m_pMails.at(uid) = vec;
 	}
+}
+
+void RedisGet::eraseMail(string uid, Mail *ml){
+	map<int, Mail *> vec = getMail(uid);
+	int mid = ml->eid();
+	if (vec.find(mid) != vec.end()){
+		Mail *ml1 = vec.at(mid);
+		vec.erase(vec.find(mid));
+		delete ml1;
+		ml1 = NULL;
+		m_pMails.at(uid) = vec;
+	}
+	
 }
 
 FriendMap RedisGet::getFriend(){
@@ -935,16 +979,24 @@ map<string, SignStatus *> RedisGet::getSignStatuss(){
 		int len = 0;
 		for (itr; itr != vecs.end(); itr++){
 			string uid = itr->first;
-			string content = m_redis->get(g_redisdbnames[REIDS_SIGN] + key + uid, len);
-			for (int i = 0; i < vecs.size(); i++){
-				vector<string> tt = CSVDataInfo::getIns()->getStrFromstr(content, ",");
+			char *content = m_redis->get(g_redisdbnames[REIDS_SIGN] + key + uid, len);
+			if (content){
+				for (int i = 0; i < vecs.size(); i++){
+					vector<string> tt = CSVDataInfo::getIns()->getStrFromstr(content, ",");
+					SignStatus *ss = new SignStatus();
+					ss->_uid = tt.at(0);
+					ss->_signcount = atoi(tt.at(1).c_str());
+					ss->_issign = atoi(tt.at(2).c_str());
+					ss->_left = atoi(tt.at(3).c_str());
+					ss->_time = tt.at(4);
+					m_pSignStatuss.insert(make_pair(ss->_uid, ss));
+				}
+			}
+			else{
 				SignStatus *ss = new SignStatus();
-				ss->_uid = tt.at(0);
-				ss->_signcount = atoi(tt.at(1).c_str());
-				ss->_issign = atoi(tt.at(2).c_str());
-				ss->_left = atoi(tt.at(3).c_str());
-				ss->_time = tt.at(4);
+				ss->_uid = uid;
 				m_pSignStatuss.insert(make_pair(ss->_uid, ss));
+				RedisPut::getIns()->setSignStatus(ss);
 			}
 		}
 	}
@@ -1082,8 +1134,11 @@ string RedisGet::getExchangeCode(){
 		char *dd = m_redis->get(g_redisdbnames[REIDS_EXCHANGE] + "exrecordcode", len);
 		if (!dd){
 			dd = "10000000";
-			RedisPut::getIns()->setExchangeCode(dd);
+			
 		}
+		char buff[30];
+		sprintf(buff,"%ld",atoi(dd)+1);
+		RedisPut::getIns()->setExchangeCode(buff);
 		return dd;
 	}
 	return "";
@@ -1096,8 +1151,9 @@ int RedisGet::getExchangeRecordId(string uid){
 		char *dd = m_redis->get(g_redisdbnames[REIDS_EXCHANGE] + "exrecordid" + uid, len);
 		if (!dd){
 			dd = "1";
-			RedisPut::getIns()->setExchangeRecordId(uid, atoi(dd));
+			
 		}
+		RedisPut::getIns()->setExchangeRecordId(uid, atoi(dd)+1);
 		return atoi(dd);
 	}
 	return -1;
@@ -1107,12 +1163,11 @@ map<string, PExchangeCode*> RedisGet::getCSVExchangeCode(){
 	if (!m_pExchangeCodes.empty()){
 		return m_pExchangeCodes;
 	}
-	map<string, PExchangeCode*> codes;
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
 	if (ist){
 		string key = g_redisdbnames[REIDS_EXCHANGE] + "code";
 		auto mpas = m_redis->getListStr(key);
-		map<string,bool> veccodes = getExcode();
+		
 		for (int i = 0; i < mpas.size(); i++){
 			vector<string >vec;
 			std::string field = mpas.at(i);
@@ -1128,18 +1183,21 @@ map<string, PExchangeCode*> RedisGet::getCSVExchangeCode(){
 				cc->_id = atoi(vec.at(0).c_str());
 				cc->_rewardid = CSVDataInfo::getIns()->getIntFromstr(vec.at(1), "|");
 				cc->_code = vec.at(2);
-				codes.insert(make_pair(cc->_code, cc));
+				m_pExchangeCodes.insert(make_pair(cc->_code, cc));
 			}
 			else{
 				printf("vvvvvvvvvvvvvvvvvvv\n");
 			}
+			/*
+			map<string, bool> veccodes = getExcode();
 			if (veccodes.empty()){
 				printf("%d.", i + 1);
 				RedisPut::getIns()->setEXCode(cc->_code, false);
 			}
+			*/
 		}
 	}
-	return codes;
+	return m_pExchangeCodes;
 }
 
 PExchangeCode* RedisGet::getPExchangeCode(string code){
@@ -1162,7 +1220,9 @@ map<string,bool> RedisGet::getExcode(){
 			char *dui = m_redis->get(key,len);
 			if (dui){
 				m_pEXCodes.insert(make_pair(key,atoi(dui)));
+				printf("%d.%s[%s]\n", i + 1, key.c_str(), atoi(dui)?"true":"false");
 			}
+			
 		}
 	}
 	return m_pEXCodes;
@@ -1172,6 +1232,14 @@ bool RedisGet::getExcode(string code){
 	string key = g_redisdbnames[REIDS_EXCHANGE] + "duihuancode"+code;
 	if (m_pEXCodes.find(key) != m_pEXCodes.end()){
 		return m_pEXCodes.at(key);
+	}
+	else{
+		int len = 0;
+		char *dui = m_redis->get(key, len);
+		if (dui){
+			m_pEXCodes.insert(make_pair(key, atoi(dui)));
+			return atoi(dui);
+		}
 	}
 	return false;
 }
@@ -1192,8 +1260,9 @@ int RedisGet::getMailID(){
 		char *dd = m_redis->get(g_redisdbnames[REIDS_MAIL] + "mailid", len);
 		if (!dd){
 			dd = "1";
-			RedisPut::getIns()->setMailID(atoi(dd));
 		}
+		RedisPut::getIns()->setMailID(atoi(dd)+1);
+		
 		return atoi(dd);
 	}
 	return 1;
@@ -1206,8 +1275,9 @@ int RedisGet::getFriendNoticeID(){
 		char *dd = m_redis->get(g_redisdbnames[REIDS_FRIEND] + "friendnoticeid", len);
 		if (!dd){
 			dd = "1";
-			RedisPut::getIns()->setFriendNoticeID(atoi(dd));
+			RedisPut::getIns()->setFriendNoticeID(atoi(dd)+1);
 		}
+		RedisPut::getIns()->setFriendNoticeID(atoi(dd) + 1);
 		return atoi(dd);
 	}
 	return 1;
