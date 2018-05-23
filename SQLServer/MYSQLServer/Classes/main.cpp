@@ -23,7 +23,7 @@ DWORD WINAPI ThreadHttp(LPVOID lPVOID){
 
 
 void RandEXCode(){
-	auto vec = RedisGet::getIns()->getGates();
+	auto vec = RedisGet::getIns()->getCSVExchangeCodes();
 	if (vec.empty()){
 		Common p;
 		vector<int>vv;

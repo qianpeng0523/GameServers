@@ -112,13 +112,13 @@ bool RedisPut::PushFree(Task task){
 bool RedisPut::PushFirstBuy(CSVFirstBuyItem *sv){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
 	if (ist){
-		string key = g_redisdbnames[REIDS_SHOP] + "first";
+		string key = g_redisdbnames[REIDS_SHOP] + "_firstbuy";
 		char buff[50];
 		sprintf(buff, "%d", sv->_sid);
 		m_redis->Hash(key, "id", buff);
 		m_redis->Hash(key, "rewardid", sv->_rid);
 		m_redis->Hash(key, "conid", sv->_conid);
-		return m_redis->Hash("firstbuy", "giveid", sv->_giveid);
+		return m_redis->Hash(key, "giveid", sv->_giveid);
 	}
 	return ist;
 }

@@ -73,8 +73,6 @@ void RedisGet::init(){
 		}
 	}
 
-	getCSVExchangeCodes();
-	
 	getGates();
 	if (m_pGates.empty()){
 		CSVDataInfo::getIns()->openCSVFile("res/gateserver.csv", CSV_GATESERVER);
