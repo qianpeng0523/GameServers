@@ -164,6 +164,7 @@ message CAgreeFriend
     required uint32 	cmd 	= 1[default=0x500B];  	//
 	optional bool 		agree  	= 2;					//
 	optional uint32 	nid  	= 3;					//
+	optional string 	userid  = 4;					//
 }
 
 message SAgreeFriend
