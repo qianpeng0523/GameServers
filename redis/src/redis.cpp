@@ -137,13 +137,7 @@ vector<string> redis::getKeys(string key, bool wanzheng){
 		return vec;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
-	if (m_pReply->type != REDIS_REPLY_STRING)
-	{
-		CLog::log("get keys faliled\n");
-		freeReplyObject(m_pReply);
-		m_pReply = NULL;
-		return vec;
-	}
+	
 	int sz = m_pReply->elements;
 	for (int i = 0; i < sz; i++){
 		redisReply *rpvalues = m_pReply->element[i];
@@ -231,6 +225,30 @@ bool redis::set(std::string key, char* value, int len)
 	}
 	ZeroChange(value, len);
 	CLog::log("*************************************%s\n",value);
+	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), value);
+	if (!r)
+	{
+		CLog::log("set redis faliled\n");
+		return false;
+	}
+
+	//执行失败
+	if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "OK") == 0))
+	{
+		CLog::log("set redis faliled\n");
+		freeReplyObject(r);
+		return false;
+	}
+	//CLog::log("set redis success\n");
+	freeReplyObject(r);
+	return true;
+}
+
+bool redis::set(std::string key, char* value){
+	if (!this->m_pConnect){
+		reconnect();
+		return false;
+	}
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), value);
 	if (!r)
 	{

@@ -27,6 +27,7 @@ public:
 	bool reconnect();
 	void release();
 	bool set(std::string key, char* value,int len);
+	bool set(std::string key, char* value);
 	bool set(string key,int value);
 	char* get(std::string key,int &len);
 	bool delKey(std::string key);
