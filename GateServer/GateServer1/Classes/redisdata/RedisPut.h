@@ -32,6 +32,7 @@ public:
 	void PopMail(string uid, Mail *ml);
 
 	bool PushFriend(string uid, Friend *fd);
+	bool eraseFriend(string uid,string fuid);
 	bool PushFriendNotice(string uid, FriendNotice *fn);
 	bool eraseFriendNotice(string uid, FriendNotice *fn);
 	bool setFriendNoticeID(int id);

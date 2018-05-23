@@ -178,11 +178,11 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 		Rank rk;
 		rk.set_type(1);
 		rk.set_uid(ub.userid());
-		m_pRedisPut->PushRank(rk);
+		m_pRedisPut->PushRank(&rk);
 		Rank rk1;
 		rk1.set_type(2);
 		rk1.set_uid(ub.userid());
-		m_pRedisPut->PushRank(rk1);
+		m_pRedisPut->PushRank(&rk1);
 
 
 		return ub;
@@ -214,11 +214,11 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	Rank rk;
 	rk.set_type(1);
 	rk.set_uid(ub.userid());
-	m_pRedisPut->PushRank(rk);
+	m_pRedisPut->PushRank(&rk);
 	Rank rk1;
 	rk1.set_type(2);
 	rk1.set_uid(ub.userid());
-	m_pRedisPut->PushRank(rk1);
+	m_pRedisPut->PushRank(&rk1);
 
 	SignStatus *ss = new SignStatus();
 	ss->_uid = uid;

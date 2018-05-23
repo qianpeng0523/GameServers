@@ -205,18 +205,18 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 			if (atoi(shopid.c_str()) == 100){
 				FirstBuyItem *p = RedisGet::getIns()->getFirstBuy();
 				if (p){
-					Reward rrd = RedisGet::getIns()->getReward(p->_conid);
-					nnumber = rrd.number();
+					Reward *rrd = RedisGet::getIns()->getReward(p->_conid);
+					nnumber = rrd->number();
 					for (int i = 0; i < p->_rid.size(); i++){
-						Reward rrd = RedisGet::getIns()->getReward(p->_rid.at(i));
-						rews.push_back(rrd);
+						Reward *rrd = RedisGet::getIns()->getReward(p->_rid.at(i));
+						rews.push_back(*rrd);
 					}
 				}
 			}
 			else{
-				ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
-				nnumber = si.consume().number();
-				Reward rew = si.prop();
+				ShopItem *si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+				nnumber = si->consume().number();
+				Reward rew = si->prop();
 				rews.push_back(rew);
 			}
 			

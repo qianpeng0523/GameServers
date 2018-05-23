@@ -39,7 +39,6 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 	else{
 		m_CSVDataHelpers.insert(make_pair(filekey, p));
 	}
-
 }
 
 string CSVDataInfo::getDataHuItem(string key, CSVSTRUCT csvenum){

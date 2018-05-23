@@ -305,7 +305,9 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 		else if (type == 2){
 			LoginInfo *pLoginInfo = LoginInfo::getIns();
 			auto vec = pLoginInfo->getOnLineUser(true);
-			vec.erase(vec.find(uid));
+			if (vec.find(uid) != vec.end()){
+				vec.erase(vec.find(uid));
+			}
 			int num1 = vec.size();
 			auto vec1 = pLoginInfo->getOnLineUser(false);
 			int num2 = vec1.size();
@@ -370,9 +372,9 @@ map<int, int> HallInfo::getRandNum(int maxnum, int num){
 	else{
 		srand(time(NULL));
 		for (int i = 0; i <  num; i++){
-			int rd = rand() % maxnum;
+			int rd = rand() % num;
 			while (maps.find(rd) != maps.end()){
-				rd = rand() % maxnum;
+				rd = rand() % num;
 			}
 			maps.insert(make_pair(rd, rd));
 		}

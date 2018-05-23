@@ -104,9 +104,9 @@ void HttpAliPay::respondResult(string content, struct evhttp_request *req ){
 				if (dd){
 					m_pRedis->delKey("shop" + out_trade_no);
 					string shopid = dd;
-					ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
-					if (si.consume().number() == atoi(total_amount.c_str())){
-						Reward rew = si.prop();
+					ShopItem *si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+					if (si->consume().number() == atoi(total_amount.c_str())){
+						Reward rew = si->prop();
 						HttpPay::getIns()->NoticePushCurrency(rew, uid);
 					}
 				}
@@ -138,9 +138,9 @@ void HttpAliPay::respondQueryResult(string content){
 			if (dd){
 				m_pRedis->delKey("shop" + out_trade_no);
 				string shopid = dd;
-				ShopItem si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
-				if (si.consume().number() == atoi(total_amount.c_str())){
-					Reward rew = si.prop();
+				ShopItem *si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
+				if (si->consume().number() == atoi(total_amount.c_str())){
+					Reward rew = si->prop();
 					HttpPay::getIns()->NoticePushCurrency(rew, uid);
 				}
 			}

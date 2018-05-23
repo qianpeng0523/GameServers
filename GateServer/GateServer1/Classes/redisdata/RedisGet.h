@@ -2,6 +2,8 @@
 #define __LYNX_GAME_SERVER_RedisGet_H__
 #include "stdafx.h"
 #include "Common.h"
+#include "CSVDataInfo.h"
+
 using namespace std;
 
 struct SignStatus
@@ -47,6 +49,7 @@ public:
 	static RedisGet *getIns();
 	void init();
 
+	map<string, REDISDBName *> getREDISDBNames();
 	bool SelectDB(REDISTYPE type);
 	int getRedisDBIndex(string name);
 
@@ -58,7 +61,10 @@ public:
 	map<string, string> getPass();
 	void setPass(string uid,string pass);
 
+	map<string, string> getOpenids();
 	string getOpenidPass(string openid);
+	void setOpenidPass(string openid,string uid);
+
 	UserBaseMap getUserBases();
 	UserBase *getUserBase(string uid);
 	void setUserBase(UserBase *ub);
@@ -67,10 +73,9 @@ public:
 	time_t getUserLoginTime(string uid);
 	map<string, time_t> getUserLoginTimes();
 
-	map<string, string> getOpenids();
-
 	map<int, vector<Rank *>> getRanks();
 	vector<Rank *>getRank(int type);
+	void setRank(Rank *rk,int type);
 
 	map<int, ShopItem*> getShop();
 	ShopItem *getShop(int shopid);
@@ -79,7 +84,8 @@ public:
 	map<string, map<int, Mail *>>getMails();
 	map<int, Mail *> getMail(string uid);
 	Mail *getMail(string uid, int eid);
-	
+	void setMail(string uid,Mail *ml);
+
 	FriendMap getFriend();
 	map<string, Friend *> getFriend(string uid);
 	Friend *getFriend(string uid, string fuid);
@@ -100,6 +106,7 @@ public:
 	Status *getTaskStatus(string uid, int taskid);//需要删除
 	map<string, map<int, Status *>> getTaskStatus();
 	map<int, Status *> getTaskStatus(string uid);
+	void setTaskStatus(string uid,int taskid,Status *ss);
 
 	map<int, ExAward *> getExAward();
 	ExAward *getExAward(int id);
@@ -124,7 +131,8 @@ public:
 	map<string, map<int, Status *>> getFreeStatus();
 	map<int, Status *> getFreeStatus(string uid);
 	Status *getFreeStatus(string uid,int fid);
-	
+	void setFreeStatus(string uid,int fid,Status *ss);
+
 	string getExchangeCode();
 	int getExchangeRecordId(string uid);
 

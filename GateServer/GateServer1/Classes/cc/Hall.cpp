@@ -557,10 +557,11 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SReward));
   CAgreeFriend_descriptor_ = file->message_type(22);
-  static const int CAgreeFriend_offsets_[3] = {
+  static const int CAgreeFriend_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, agree_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, nid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, userid_),
   };
   CAgreeFriend_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -1383,64 +1384,64 @@ void protobuf_AddDesc_Hall_2eproto() {
     "\n\007CReward\022\022\n\003cmd\030\001 \002(\r:\00520490\022\n\n\002id\030\003 \001("
     "\r\"L\n\007SReward\022\022\n\003cmd\030\001 \002(\r:\00520490\022 \n\006rewa"
     "rd\030\004 \003(\0132\020.protocol.Reward\022\013\n\003err\030\005 \001(\r\""
-    ">\n\014CAgreeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005a"
-    "gree\030\002 \001(\010\022\013\n\003nid\030\003 \001(\r\"[\n\014SAgreeFriend\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005agree\030\002 \001(\010\022\016\n\006us"
-    "erid\030\003 \001(\t\022\013\n\003nid\030\004 \001(\r\022\013\n\003err\030\005 \001(\r\"%\n\017"
-    "CExchangeReward\022\022\n\003cmd\030\001 \002(\r:\00520492\"S\n\017S"
-    "ExchangeReward\022\022\n\003cmd\030\001 \002(\r:\00520492\022\037\n\004li"
-    "st\030\002 \003(\0132\021.protocol.ExAward\022\013\n\003err\030\003 \001(\r"
-    "\"C\n\rCExchangeCode\022\022\n\003cmd\030\001 \002(\r:\00520493\022\016\n"
-    "\006excode\030\002 \001(\t\022\016\n\006yzcode\030\003 \001(\t\"_\n\rSExchan"
-    "geCode\022\022\n\003cmd\030\001 \002(\r:\00520493\022\017\n\007success\030\002 "
-    "\001(\010\022\034\n\002rd\030\003 \003(\0132\020.protocol.Reward\022\013\n\003err"
-    "\030\004 \001(\r\"%\n\017CExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\005"
-    "20494\"T\n\017SExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\0052"
-    "0494\022 \n\004list\030\002 \003(\0132\022.protocol.ExRecord\022\013"
-    "\n\003err\030\003 \001(\r\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\0052"
-    "0495\022\n\n\002id\030\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002"
-    "(\r:\00520495\022\n\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003e"
-    "rr\030\004 \001(\r\"<\n\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\0052049"
-    "6\022\n\n\002id\030\002 \001(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApple"
-    "Pay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003e"
-    "rr\030\003 \001(\r\";\n\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520"
-    "497\022\n\n\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\"q\n\013SWxpayO"
-    "rder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\020\n\010noncestr\030\002 \001"
-    "(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n"
-    "\004sign\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"J\n\014CAliPayOrder"
-    "\022\022\n\003cmd\030\001 \002(\r:\00520504\022\n\n\002id\030\002 \001(\r\022\014\n\004body"
-    "\030\003 \001(\t\022\014\n\004type\030\004 \001(\r\"x\n\014SAliPayOrder\022\022\n\003"
-    "cmd\030\001 \002(\r:\00520504\022\021\n\torderinfo\030\002 \001(\t\022\r\n\005a"
-    "ppid\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\022\n\nprivate"
-    "key\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"4\n\rCAliPayResult\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520505\022\017\n\007content\030\002 \001(\t\"0\n\r"
-    "SAliPayResult\022\022\n\003cmd\030\001 \002(\r:\00520505\022\013\n\003err"
-    "\030\006 \001(\r\"2\n\013CWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\0052049"
-    "8\022\017\n\007transid\030\002 \001(\t\"\?\n\013SWxpayQuery\022\022\n\003cmd"
-    "\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\022\013\n\003err\030\003 "
-    "\001(\r\"-\n\tCFirstBuy\022\022\n\003cmd\030\001 \002(\r:\00520499\022\014\n\004"
-    "type\030\002 \001(\r\"}\n\tSFirstBuy\022\022\n\003cmd\030\001 \002(\r:\00520"
-    "499\022\020\n\010noncestr\030\002 \001(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n"
-    "\ttimestamp\030\004 \001(\t\022\014\n\004sign\030\005 \001(\t\022\014\n\004type\030\006"
-    " \002(\r\022\013\n\003err\030\007 \001(\r\"L\n\tCFeedBack\022\022\n\003cmd\030\001 "
-    "\002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003 \001(\t\022\017"
-    "\n\007content\030\004 \001(\t\",\n\tSFeedBack\022\022\n\003cmd\030\001 \002("
-    "\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003cmd\030\001 "
-    "\002(\r:\00520501\"F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\00520501\022"
-    "\r\n\005index\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003err\030\004 \001"
-    "(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\"\222\001\n\t"
-    "SSignList\022\022\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004sign\030\002 "
-    "\001(\r\022\r\n\005count\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132\023.pro"
-    "tocol.SignAward\022\"\n\005zhuan\030\005 \003(\0132\023.protoco"
-    "l.SignZhuan\022\013\n\003err\030\006 \001(\r\",\n\nCMailAward\022\022"
-    "\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \002(\r\"9\n\nSMailA"
-    "ward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \001(\r\022\013\n\003"
-    "err\030\003 \001(\r\"#\n\rCFirsyBuyData\022\022\n\003cmd\030\001 \002(\r:"
-    "\00520512\"\241\001\n\rSFirsyBuyData\022\022\n\003cmd\030\001 \002(\r:\0052"
-    "0512\022\n\n\002id\030\002 \001(\r\022 \n\006reward\030\003 \003(\0132\020.proto"
-    "col.Reward\022!\n\007consume\030\004 \001(\0132\020.protocol.R"
-    "eward\022\036\n\004give\030\005 \003(\0132\020.protocol.Reward\022\013\n"
-    "\003err\030\006 \001(\r", 3650);
+    "N\n\014CAgreeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005a"
+    "gree\030\002 \001(\010\022\013\n\003nid\030\003 \001(\r\022\016\n\006userid\030\004 \001(\t\""
+    "[\n\014SAgreeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005a"
+    "gree\030\002 \001(\010\022\016\n\006userid\030\003 \001(\t\022\013\n\003nid\030\004 \001(\r\022"
+    "\013\n\003err\030\005 \001(\r\"%\n\017CExchangeReward\022\022\n\003cmd\030\001"
+    " \002(\r:\00520492\"S\n\017SExchangeReward\022\022\n\003cmd\030\001 "
+    "\002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021.protocol.ExAw"
+    "ard\022\013\n\003err\030\003 \001(\r\"C\n\rCExchangeCode\022\022\n\003cmd"
+    "\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 \001(\t\022\016\n\006yzcode\030"
+    "\003 \001(\t\"_\n\rSExchangeCode\022\022\n\003cmd\030\001 \002(\r:\005204"
+    "93\022\017\n\007success\030\002 \001(\010\022\034\n\002rd\030\003 \003(\0132\020.protoc"
+    "ol.Reward\022\013\n\003err\030\004 \001(\r\"%\n\017CExchangeRecor"
+    "d\022\022\n\003cmd\030\001 \002(\r:\00520494\"T\n\017SExchangeRecord"
+    "\022\022\n\003cmd\030\001 \002(\r:\00520494\022 \n\004list\030\002 \003(\0132\022.pro"
+    "tocol.ExRecord\022\013\n\003err\030\003 \001(\r\"+\n\tCExchange"
+    "\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n\n\002id\030\002 \001(\r\"F\n\tSExc"
+    "hange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n\n\002id\030\002 \001(\r\022\014\n"
+    "\004code\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"<\n\tCApplePay\022\022\n"
+    "\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\017\n\007receipt"
+    "\030\003 \001(\t\"8\n\tSApplePay\022\022\n\003cmd\030\001 \002(\r:\00520496\022"
+    "\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\";\n\013CWxpayOrder\022"
+    "\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n\002id\030\002 \001(\r\022\014\n\004body\030"
+    "\003 \001(\t\"q\n\013SWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497"
+    "\022\020\n\010noncestr\030\002 \001(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n\tti"
+    "mestamp\030\004 \001(\t\022\014\n\004sign\030\005 \001(\t\022\013\n\003err\030\006 \001(\r"
+    "\"J\n\014CAliPayOrder\022\022\n\003cmd\030\001 \002(\r:\00520504\022\n\n\002"
+    "id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\022\014\n\004type\030\004 \001(\r\"x\n\014"
+    "SAliPayOrder\022\022\n\003cmd\030\001 \002(\r:\00520504\022\021\n\torde"
+    "rinfo\030\002 \001(\t\022\r\n\005appid\030\003 \001(\t\022\021\n\ttimestamp\030"
+    "\004 \001(\t\022\022\n\nprivatekey\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"4"
+    "\n\rCAliPayResult\022\022\n\003cmd\030\001 \002(\r:\00520505\022\017\n\007c"
+    "ontent\030\002 \001(\t\"0\n\rSAliPayResult\022\022\n\003cmd\030\001 \002"
+    "(\r:\00520505\022\013\n\003err\030\006 \001(\r\"2\n\013CWxpayQuery\022\022\n"
+    "\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013SW"
+    "xpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid"
+    "\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cmd\030"
+    "\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r\"}\n\tSFirstBuy\022"
+    "\022\n\003cmd\030\001 \002(\r:\00520499\022\020\n\010noncestr\030\002 \001(\t\022\016\n"
+    "\006payreq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n\004sign"
+    "\030\005 \001(\t\022\014\n\004type\030\006 \002(\r\022\013\n\003err\030\007 \001(\r\"L\n\tCFe"
+    "edBack\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022"
+    "\r\n\005uname\030\003 \001(\t\022\017\n\007content\030\004 \001(\t\",\n\tSFeed"
+    "Back\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n"
+    "\005CSign\022\022\n\003cmd\030\001 \002(\r:\00520501\"F\n\005SSign\022\022\n\003c"
+    "md\030\001 \002(\r:\00520501\022\r\n\005index\030\002 \001(\r\022\r\n\005count\030"
+    "\003 \001(\r\022\013\n\003err\030\004 \001(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001"
+    " \002(\r:\00520502\"\222\001\n\tSSignList\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20502\022\014\n\004sign\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022#\n\006re"
+    "ward\030\004 \003(\0132\023.protocol.SignAward\022\"\n\005zhuan"
+    "\030\005 \003(\0132\023.protocol.SignZhuan\022\013\n\003err\030\006 \001(\r"
+    "\",\n\nCMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id"
+    "\030\002 \002(\r\"9\n\nSMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503"
+    "\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\"#\n\rCFirsyBuyDa"
+    "ta\022\022\n\003cmd\030\001 \002(\r:\00520512\"\241\001\n\rSFirsyBuyData"
+    "\022\022\n\003cmd\030\001 \002(\r:\00520512\022\n\n\002id\030\002 \001(\r\022 \n\006rewa"
+    "rd\030\003 \003(\0132\020.protocol.Reward\022!\n\007consume\030\004 "
+    "\001(\0132\020.protocol.Reward\022\036\n\004give\030\005 \003(\0132\020.pr"
+    "otocol.Reward\022\013\n\003err\030\006 \001(\r", 3666);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Hall.proto", &protobuf_RegisterTypes);
   CRank::default_instance_ = new CRank();
@@ -7610,6 +7611,7 @@ void SReward::Swap(SReward* other) {
 const int CAgreeFriend::kCmdFieldNumber;
 const int CAgreeFriend::kAgreeFieldNumber;
 const int CAgreeFriend::kNidFieldNumber;
+const int CAgreeFriend::kUseridFieldNumber;
 #endif  // !_MSC_VER
 
 CAgreeFriend::CAgreeFriend()
@@ -7631,6 +7633,7 @@ void CAgreeFriend::SharedCtor() {
   cmd_ = 20491u;
   agree_ = false;
   nid_ = 0u;
+  userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -7639,6 +7642,9 @@ CAgreeFriend::~CAgreeFriend() {
 }
 
 void CAgreeFriend::SharedDtor() {
+  if (userid_ != &::google::protobuf::internal::kEmptyString) {
+    delete userid_;
+  }
   if (this != default_instance_) {
   }
 }
@@ -7669,6 +7675,11 @@ void CAgreeFriend::Clear() {
     cmd_ = 20491u;
     agree_ = false;
     nid_ = 0u;
+    if (has_userid()) {
+      if (userid_ != &::google::protobuf::internal::kEmptyString) {
+        userid_->clear();
+      }
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -7723,6 +7734,23 @@ bool CAgreeFriend::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(34)) goto parse_userid;
+        break;
+      }
+
+      // optional string userid = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_userid:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_userid()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->userid().data(), this->userid().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -7760,6 +7788,15 @@ void CAgreeFriend::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->nid(), output);
   }
 
+  // optional string userid = 4;
+  if (has_userid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->userid().data(), this->userid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      4, this->userid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -7781,6 +7818,16 @@ void CAgreeFriend::SerializeWithCachedSizes(
   // optional uint32 nid = 3;
   if (has_nid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->nid(), target);
+  }
+
+  // optional string userid = 4;
+  if (has_userid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->userid().data(), this->userid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->userid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -7811,6 +7858,13 @@ int CAgreeFriend::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->nid());
+    }
+
+    // optional string userid = 4;
+    if (has_userid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->userid());
     }
 
   }
@@ -7849,6 +7903,9 @@ void CAgreeFriend::MergeFrom(const CAgreeFriend& from) {
     if (from.has_nid()) {
       set_nid(from.nid());
     }
+    if (from.has_userid()) {
+      set_userid(from.userid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -7876,6 +7933,7 @@ void CAgreeFriend::Swap(CAgreeFriend* other) {
     std::swap(cmd_, other->cmd_);
     std::swap(agree_, other->agree_);
     std::swap(nid_, other->nid_);
+    std::swap(userid_, other->userid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
