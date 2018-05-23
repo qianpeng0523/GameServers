@@ -23,9 +23,33 @@ RedisGet *RedisGet::getIns(){
 	return m_ins;
 }
 
-int RedisGet::getRedisDBIndex(string name){
+map<string, REDISDBName *> RedisGet::getREDISDBNames(){
+	if (!m_RedisDBNames.empty()){
+		return m_RedisDBNames;
+	}
+	vector<string> vecs = m_redis->getListStr("redisname");
+	for (int i = 0; i < vecs.size(); i++){
+		string con = vecs.at(i);
+		vector<string> vv = CSVDataInfo::getIns()->getStrFromstr(con,",");
+		REDISDBName *p = new REDISDBName();
+		p->_name = vv.at(0);
+		p->_dbindex = atoi(vv.at(1).c_str());
+		m_RedisDBNames.insert(make_pair(p->_name,p));
+	}
+	return m_RedisDBNames;
+}
+
+REDISDBName *RedisGet::getREDISDBName(string name){
 	if (m_RedisDBNames.find(name) != m_RedisDBNames.end()){
-		return m_RedisDBNames.at(name)->_dbindex;
+		return m_RedisDBNames.at(name);
+	}
+	return NULL;
+}
+
+int RedisGet::getRedisDBIndex(string name){
+	REDISDBName *p = getREDISDBName(name);
+	if (p){
+		return p->_dbindex;
 	}
 	return -1;
 }
@@ -40,8 +64,13 @@ void RedisGet::init(){
 	RedisPut *pRedisPut = RedisPut::getIns();
 	CSVDataInfo *csvinfo = CSVDataInfo::getIns();
 
+	m_RedisDBNames = getREDISDBNames();
 	if (m_RedisDBNames.empty()){
 		m_RedisDBNames = csvinfo->getDBNames();
+		auto itr = m_RedisDBNames.begin();
+		for (itr; itr != m_RedisDBNames.end(); itr++){
+			RedisPut::getIns()->PushREDISDBName(itr->second);
+		}
 	}
 
 	getGates();

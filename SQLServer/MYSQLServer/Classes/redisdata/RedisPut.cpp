@@ -26,6 +26,13 @@ void RedisPut::init(){
 	
 }
 
+bool RedisPut::PushREDISDBName(REDISDBName *p){
+	string key = "redisname";
+	char buff[200];
+	sprintf(buff,"%s,%d",p->_name.c_str(),p->_dbindex);
+	return m_redis->List(key,buff);
+}
+
 bool RedisPut::PushShop(ShopItem item){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
 	if (ist){

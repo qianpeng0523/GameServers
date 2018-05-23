@@ -13,6 +13,7 @@ public:
 	
 	static RedisPut *getIns();
 	void init();
+	bool PushREDISDBName(REDISDBName *p);
 	bool PushShop(ShopItem item);
 	bool PushActive(Active at);
 	bool PushTask(Task task);

@@ -20,6 +20,10 @@ public:
 	
 	static RedisGet *getIns();
 	void init();
+
+	map<string, REDISDBName *> getREDISDBNames();
+	REDISDBName *getREDISDBName(string name);
+
 	bool SelectDB(REDISTYPE type);
 	int getRedisDBIndex(string name);
 
