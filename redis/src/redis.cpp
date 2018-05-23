@@ -117,6 +117,45 @@ bool redis::initial(std::string redisIp,int redisPort,std::string mypass)
 	return true;
 }
 
+vector<string> redis::getKeys(string key, bool wanzheng){
+	vector<string> vec;
+	if (!this->m_pConnect){
+		reconnect();
+		return vec;
+	}
+	char buff[200];
+	if (wanzheng){
+		sprintf(buff, "keys %s",key.c_str());
+	}
+	else{
+		sprintf(buff, "keys %s*", key.c_str());
+	}
+	m_pReply = (redisReply*)redisCommand(this->m_pConnect,buff);
+	if (!m_pReply)
+	{
+		CLog::log("get keys failed\n");
+		return vec;
+	}
+	//get成功返回结果为 REDIS_REPLY_STRING 
+	if (m_pReply->type != REDIS_REPLY_STRING)
+	{
+		CLog::log("get keys faliled\n");
+		freeReplyObject(m_pReply);
+		m_pReply = NULL;
+		return vec;
+	}
+	int sz = m_pReply->elements;
+	for (int i = 0; i < sz; i++){
+		redisReply *rpvalues = m_pReply->element[i];
+		string value = rpvalues->str;
+		int len = rpvalues->len;
+		vec.push_back(value);
+	}
+	freeReplyObject(m_pReply);
+	m_pReply = NULL;
+	return vec;
+}
+
 bool redis::SelectDB(int index){
 	//设置key和value关系，插入redis
 	if (!this->m_pConnect){

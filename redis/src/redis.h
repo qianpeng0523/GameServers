@@ -60,6 +60,8 @@ public:
 
 	char *getLastList(string key);
 	Message *PopDataFromRedis(std::string key, map<string, string>maps);
+
+	vector<string> getKeys(string key,bool wanzheng);
 private:
 	vector<string> PushDataToRedis(std::string key, Message *msg);
 	
