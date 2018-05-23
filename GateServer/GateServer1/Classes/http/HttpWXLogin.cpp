@@ -11,12 +11,6 @@ HttpWXLogin::HttpWXLogin(){
 	m_pRedis = redis::getIns();
 	m_pRedisGet = RedisGet::getIns();
 	m_pRedisPut = RedisPut::getIns();
-	int len = 0;
-	char *index1 = m_pRedis->get("userid_index",len);
-	if (!index1){
-		index1 = "10000000";
-		m_pRedis->set("userid_index",index1,len);
-	}
 }
 HttpWXLogin::~HttpWXLogin(){
 	
@@ -92,13 +86,13 @@ UserBase HttpWXLogin::respondAccessToken(string result, string &token){
 		string openid = sd["openid"].asString();//需要和access_token与uid绑定起来
 		int len = 0;
 		UserBase ub;
-		char *u = m_pRedis->get("openid"+openid,len);
-		if (!u){
+		string uid = m_pRedisGet->getOpenidPass(openid);
+		if (!uid.empty()){
 			//获取userinfo
 			ub= requestUserinfo(access_token,openid);
 		}
 		else{
-			UserBase *ub1 = m_pRedisGet->getUserBase(u);
+			UserBase *ub1 = m_pRedisGet->getUserBase(uid);
 			ub.CopyFrom(*ub1);
 				
 		}
@@ -128,9 +122,9 @@ UserBase HttpWXLogin::respondRefreshToken(string result, string &token){
 		token = refresh_token;
 		string openid = sd["openid"].asString();
 		int len = 0;
-		char *u = m_pRedis->get("openid" + openid, len);
-		if (u){
-			UserBase *ub1 = m_pRedisGet->getUserBase(u);
+		string uid = m_pRedisGet->getOpenidPass(openid);
+		if (!uid.empty()){
+			UserBase *ub1 = m_pRedisGet->getUserBase(uid);
 			ub.CopyFrom(*ub1);
 			return ub;
 		}
@@ -152,14 +146,12 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 	CLog::log("sd:%s\n", sd.getJsonString().c_str());
 	if (!sd.isMember("errcode")){
 		string openid = sd["openid"].asString();
-		int len = 0;
-		char* u = m_pRedis->get("userid_index", len);
+		int index = m_pRedisGet->getUserIndex();
 		char buff[50];
-		sprintf(buff, "%d", atoi(u) + 1);
+		sprintf(buff, "%d", index);
 		string uid = "wx";
-		m_pRedis->set("userid_index", buff, len);
-		uid += u;
-		m_pRedis->set("openid" + openid, (char*)uid.c_str(), len);
+		uid += buff;
+		m_pRedisPut->PushOpenid(openid,uid)
 		
 		string nickname = sd["nickname"].asString();
 		int sex = sd["sex"].asInt();
@@ -192,13 +184,11 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 }
 
 UserBase HttpWXLogin::getUserinfo(string name, string pwd){
-	int len = 0;
-	char* u = m_pRedis->get("userid_index", len);
+	int index = m_pRedisGet->getUserIndex();
 	char buff[50];
-	sprintf(buff, "%d", atoi(u) + 1);
+	sprintf(buff, "%d", index);
 	string uid = "yk";
-	m_pRedis->set("userid_index", buff, len);
-	uid += u;
+	uid += buff;
 	
 	UserBase ub;
 	ub.set_userid(uid);

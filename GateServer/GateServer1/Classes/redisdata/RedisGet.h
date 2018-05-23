@@ -69,6 +69,8 @@ public:
 	UserBase *getUserBase(string uid);
 	void setUserBase(UserBase *ub);
 
+	int getUserIndex();
+
 	void setUserLoginTime(string uid,time_t t);
 	time_t getUserLoginTime(string uid);
 	map<string, time_t> getUserLoginTimes();

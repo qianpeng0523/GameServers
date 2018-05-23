@@ -168,6 +168,21 @@ void RedisGet::setUserBase(UserBase *ub){
 	}
 }
 
+int RedisGet::getUserIndex(){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
+	if (ist){
+		int len = 0;
+		char *dd = m_redis->get(g_redisdbnames[REIDS_USERBASE] + "_userindex",len);
+		if (!dd){
+			dd = "10000000";
+			RedisPut::getIns()->PushUserIndex(atoi(dd));
+			return atoi(dd);
+		}
+		RedisPut::getIns()->PushUserIndex(atoi(dd)+1);
+		return atoi(dd) + 1;
+	}
+	return -1;
+}
 
 void RedisGet::setUserLoginTime(string uid, time_t t){
 	if (m_pUserLoginTime.find(uid) != m_pUserLoginTime.end()){

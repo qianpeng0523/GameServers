@@ -21,6 +21,8 @@ public:
 	bool setUserBase(string uid, string key, string value);
 	bool addUserBase(string uid, string key, int value);
 
+	bool PushUserIndex(int index);
+
 	bool PushUserLoginTime(string uid);
 
 	bool PushPass(string uid, string pass);

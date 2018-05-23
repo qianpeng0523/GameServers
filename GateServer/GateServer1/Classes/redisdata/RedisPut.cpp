@@ -168,6 +168,14 @@ bool RedisPut::addUserBase(string uid, string key, int value){
 	return ist;
 }
 
+bool RedisPut::PushUserIndex(int index){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
+	if (ist){
+		return m_redis->set(g_redisdbnames[REIDS_USERBASE]+"_userindex",index);
+	}
+	return ist;
+}
+
 bool RedisPut::PushUserLoginTime(string uid){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_USERBASE);
 	if (ist){
