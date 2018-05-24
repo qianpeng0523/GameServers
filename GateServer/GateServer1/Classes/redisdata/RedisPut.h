@@ -60,6 +60,10 @@ public:
 	bool pushAliPayOuttradeno(string uid, string out_trade_no, time_t time, int shopid, map<string, string> requestPairs);
 	bool eraseAliPayOuttradeno(string out_trade_no);
 
+	bool setWXNonceid(int nonceid);
+	bool PushWXPayNoData(WXPayNoData *p);
+	bool eraseWXPayNoData(WXPayNoData *p);
+
 	bool PushPayRecord(PayRecord pr);
 	
 	void ZeroChange(char *&data, int sz);

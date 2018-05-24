@@ -46,6 +46,13 @@ struct AliPayNoData :public Object
 	map<string, string> _maps;
 };
 
+struct WXPayNoData
+{
+	string _uid;
+	string _out_trade_no;
+	time_t _endtime;
+};
+
 typedef map<string, UserBase *> UserBaseMap;
 typedef map<string, map<string,Friend *>> FriendMap;
 
@@ -102,6 +109,11 @@ public:
 	void setPayRecord(PayRecord *pr);
 	map<string, map<string, PayRecord *>> getPayRecords();
 	
+	string getWXNonceid();
+	map<string, WXPayNoData *> getWXPayNoDatas();
+	WXPayNoData *getWXPayNoData(string outno);
+	void setWXPayNoData(WXPayNoData *p);
+	void eraseWXPayNoData(WXPayNoData *p);
 
 	map<string, map<int, Mail *>>getMails();
 	map<int, Mail *> getMail(string uid);
@@ -211,7 +223,7 @@ private:
 
 	map<string, AliPayNoData *>m_pAliPayNoDatas;
 	map<string, map<string, PayRecord *>> m_pPayRecords;
-	
+	map<string, WXPayNoData *> m_pWXPayNoDatas;
 
 	map<string, REDISDBName *>m_RedisDBNames;
 };

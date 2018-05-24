@@ -476,6 +476,18 @@ bool RedisPut::PushPayRecord(PayRecord pr){
 	return ist;
 }
 
+bool RedisPut::setWXNonceid(int nonceid){
+
+}
+
+bool RedisPut::PushWXPayNoData(WXPayNoData *p){
+
+}
+
+bool RedisPut::eraseWXPayNoData(WXPayNoData *p){
+
+}
+
 void RedisPut::ZeroChange(char *&data, int sz){
 	for (int i = 0; i < sz; i++){
 		if (data[i] == ZERO_STR){

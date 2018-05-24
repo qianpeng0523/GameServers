@@ -529,6 +529,26 @@ map<string, map<string, PayRecord *>> RedisGet::getPayRecords(){
 	return m_pPayRecords;
 }
 
+string RedisGet::getWXNonceid(){
+
+}
+
+map<string, WXPayNoData *> RedisGet::getWXPayNoDatas(){
+
+}
+
+WXPayNoData *RedisGet::getWXPayNoData(string outno){
+
+}
+
+void RedisGet::setWXPayNoData(WXPayNoData *p){
+
+}
+
+void RedisGet::eraseWXPayNoData(WXPayNoData *p){
+
+}
+
 void RedisGet::setPayRecord(PayRecord *pr){
 	string uid = pr->userid();
 	string outno = pr->out_trade_no();
