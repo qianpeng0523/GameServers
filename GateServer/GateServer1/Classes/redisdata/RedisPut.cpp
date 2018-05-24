@@ -477,15 +477,35 @@ bool RedisPut::PushPayRecord(PayRecord pr){
 }
 
 bool RedisPut::setWXNonceid(int nonceid){
-
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP] + "_nonceid";
+		RedisGet::getIns()->setWXNonceid(nonceid);
+		return m_redis->set(key,nonceid);
+	}
+	return ist;
 }
 
 bool RedisPut::PushWXPayNoData(WXPayNoData *p){
-
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP] + "_wxouttradeno";
+		char buff[200];
+		sprintf(buff,"%s,%ld,%s",p->_uid.c_str(),p->_endtime,p->_out_trade_no.c_str());
+		return m_redis->List(key, buff);
+	}
+	return ist;
 }
 
 bool RedisPut::eraseWXPayNoData(WXPayNoData *p){
-
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP] + "_wxouttradeno";
+		char buff[200];
+		sprintf(buff, "%s,%ld,%s", p->_uid.c_str(), p->_endtime, p->_out_trade_no.c_str());
+		return m_redis->eraseList(key, buff);
+	}
+	return ist;
 }
 
 void RedisPut::ZeroChange(char *&data, int sz){

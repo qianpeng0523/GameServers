@@ -530,23 +530,65 @@ map<string, map<string, PayRecord *>> RedisGet::getPayRecords(){
 }
 
 string RedisGet::getWXNonceid(){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+		if (ist){
+			string key = g_redisdbnames[REIDS_SHOP] + "_nonceid";
+			int len = 0;
+			char *dd = m_redis->get(key,len);
+			if (!dd){
+				dd = INITNONCEID;
+			}
+			RedisPut::getIns()->setWXNonceid(atoi(dd)+1);
+			return dd;
+		}
+	}
+	return "";
+}
 
+void RedisGet::setWXNonceid(int nonceid){
+	m_wxnonceid = nonceid;
 }
 
 map<string, WXPayNoData *> RedisGet::getWXPayNoDatas(){
-
+	if (!m_pWXPayNoDatas.empty()){
+		return m_pWXPayNoDatas;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP] + "_wxouttradeno";
+		vector<string> convecs = m_redis->getListStr(key);
+		for (int i = 0; i < convecs.size();i++){
+			string content = convecs.at(i);
+			vector<string> vec = CSVDataInfo::getIns()->getStrFromstr(content,",");
+			WXPayNoData *p = new WXPayNoData();
+			p->_uid = vec.at(i);
+			p->_endtime = atol(vec.at(1).c_str());
+			p->_out_trade_no = vec.at(2);
+			m_pWXPayNoDatas.insert(make_pair(p->_out_trade_no,p));
+		}
+	}
+	return m_pWXPayNoDatas;
 }
 
 WXPayNoData *RedisGet::getWXPayNoData(string outno){
-
+	if (m_pWXPayNoDatas.find(outno) != m_pWXPayNoDatas.end()){
+		return m_pWXPayNoDatas.at(outno);
+	}
+	return NULL;
 }
 
 void RedisGet::setWXPayNoData(WXPayNoData *p){
-
+	if (m_pWXPayNoDatas.find(p->_out_trade_no) == m_pWXPayNoDatas.end()){
+		m_pWXPayNoDatas.insert(make_pair(p->_out_trade_no, p));
+	}
 }
 
 void RedisGet::eraseWXPayNoData(WXPayNoData *p){
-
+	if (m_pWXPayNoDatas.find(p->_out_trade_no) != m_pWXPayNoDatas.end()){
+		m_pWXPayNoDatas.erase(m_pWXPayNoDatas.find(p->_out_trade_no));
+	}
 }
 
 void RedisGet::setPayRecord(PayRecord *pr){

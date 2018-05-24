@@ -110,6 +110,7 @@ public:
 	map<string, map<string, PayRecord *>> getPayRecords();
 	
 	string getWXNonceid();
+	void setWXNonceid(int nonceid);
 	map<string, WXPayNoData *> getWXPayNoDatas();
 	WXPayNoData *getWXPayNoData(string outno);
 	void setWXPayNoData(WXPayNoData *p);
@@ -226,6 +227,7 @@ private:
 	map<string, WXPayNoData *> m_pWXPayNoDatas;
 
 	map<string, REDISDBName *>m_RedisDBNames;
+	int m_wxnonceid;
 };
 
 

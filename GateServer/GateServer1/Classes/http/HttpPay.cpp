@@ -62,8 +62,8 @@ void HttpPay::update(float dt){
 	string time = Common::getLocalTimeDay();
 	if (time.compare(m_lasttime) != 0){
 		m_lasttime = time;
-		m_pRedis->set("nonceid", INITNONCEID, strlen(INITNONCEID));
-		m_pRedis->set("outtradeno", INITNO, strlen(INITNO));
+		m_pRedisPut->setWXNonceid(atoi(INITNONCEID));
+		m_pRedisPut->setAliOuttradeNo(INITNO);
 	}
 	if (m_count % 120 == 0){
 		m_count = 0;
@@ -85,18 +85,8 @@ void HttpPay::openUpdate(bool isopen){
 
 string HttpPay::getNonceId(){
 	string time = Common::getLocalTimeDay1();
-	int len = 0;
-	char buff[50];
-	char *dd = m_pRedis->get("nonceid", len);
-	if (!dd){
-		time += INITNONCEID;
-		m_pRedis->set("nonceid", INITNONCEID, strlen(INITNONCEID));
-	}
-	else{
-		sprintf(buff,"%08d",atoi(dd)+1);
-		time += buff;
-		m_pRedis->set("nonceid", buff, strlen(buff));
-	}
+	string dd =m_pRedisGet->getWXNonceid();
+	time += dd;
 	MD5 md5;
 	md5.update(time);
 	string nonceid = md5.toString();
@@ -172,12 +162,11 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 		string sign = maps.find("sign")->second;//回调给微信验证
 		//通过openid获取uid
 		int len = 0;
-		char *u = m_pRedis->get("openid" + openid, len);
-		if (!u){
+		string uid = m_pRedisGet->getOpenidPass(openid);
+		if (uid.empty()){
 			//获取userinfo
 			return;
 		}
-		string uid=u;
 		
 		string con;
 		map<string, string>tt;
@@ -208,8 +197,9 @@ void HttpPay::respondResult(string content, struct evhttp_request *req){
 
 			if (nnumber == atoi(totalfree.c_str())){
 				//校验成功
-				int len = m_pRedis->eraseList("out_trade_no", out_trade_no);
-				if (len > 0){
+				WXPayNoData *pp = m_pRedisGet->getWXPayNoData(out_trade_no);
+				if (pp){
+					m_pRedisPut->eraseWXPayNoData(pp);
 					maps.erase(maps.find("sign"));
 					string nowsign = createSign(maps);
 					if (nowsign.compare(sign) == 0){
@@ -271,12 +261,15 @@ bool HttpPay::respondCheck(string content){
 		//不做处理
 		//支付查询 成功则和支付结果通知接口一样
 		string out_trade_no = maps.find("out_trade_no")->second;
+		WXPayNoData *pp = m_pRedisGet->getWXPayNoData(out_trade_no);
 		auto itr = maps.find("trade_state");
 		if (itr != maps.end()){
 			string statusstr = itr->second;
 			if (statusstr.compare("CLOSED") == 0
 				|| statusstr.compare("REVOKED") == 0 || statusstr.compare("PAYERROR") == 0){
-				m_pRedis->eraseList("out_trade_no", out_trade_no);
+				if (pp){
+					m_pRedisPut->eraseWXPayNoData(pp);
+				}
 			}
 			else if (itr->second.compare("SUCCESS") == 0){
 				respondResult(content);
@@ -284,18 +277,16 @@ bool HttpPay::respondCheck(string content){
 			}
 			else if (itr->second.compare("REFUND") == 0){
 				//退款
-				m_pRedis->eraseList("out_trade_no", out_trade_no);
+				m_pRedisPut->eraseWXPayNoData(pp);
 				return true;
 			}
 			else if (itr->second.compare("NOTPAY") == 0){
 				//退款
 				time_t t= Common::getTime();
-				int len = 0;
-				char* tend= m_pRedis->get("wxout_trade_noendtime" + out_trade_no,len);
-				if (!tend||(tend&& atol(tend) >= t)){
+				
+				if (pp&&pp->_endtime >= t){
 					closeOrder(out_trade_no);
-					m_pRedis->delKey("wxout_trade_noendtime" + out_trade_no);
-					m_pRedis->eraseList("out_trade_no", out_trade_no);
+					m_pRedisPut->eraseWXPayNoData(pp);
 				}
 				return true;
 			}
@@ -368,14 +359,17 @@ SWxpayOrder HttpPay::respondOrder(string content, map<string, string> ordermap){
 			}
 			PayRecord pr1;
 			PayRecord *pr = (PayRecord *)m_pRedis->PopDataFromRedis(pr1.GetTypeName(), record);
-			m_pRedis->List(pr1.GetTypeName(), pr);
+			m_pRedisPut->PushPayRecord(*pr);
 			delete pr;
 			//记录下单，支付结果收到删除
 			//支付状态 等待，失效，支付成功（给购买的商品，删除）
 			//string status = XXIconv::GBK2UTF("下单成功，等待支付");
 			string out_trade_no = ordermap.find("out_trade_no")->second;
-			m_pRedis->List("out_trade_no", (char *)out_trade_no.c_str());
-			m_pRedis->set("wxout_trade_noendtime" + out_trade_no, Common::getTime() + 2 * 60);
+			WXPayNoData *pp = new WXPayNoData();
+			pp->_endtime = Common::getTime() + 2 * 60;
+			pp->_out_trade_no = out_trade_no;
+			pp->_uid = uid;
+			m_pRedisPut->PushWXPayNoData(pp);
 			//定时3分钟查询一次
 			string prepay_id = maps.find("prepay_id")->second;
 			string nonce_str = maps.find("nonce_str")->second;
@@ -433,12 +427,12 @@ string HttpPay::createSign(map<string, string> valuemap){
 
 void HttpPay::checkPay(){
 	vector<int> lens;
-	vector<char *> vecs = m_pRedis->getList("out_trade_no", lens);
-	for (int i = 0; i < vecs.size();i++){
-		char* out1 = vecs.at(i);
-		string out = out1;
+	auto vecs = m_pRedisGet->getWXPayNoDatas();
+	auto itr = vecs.begin();
+	for (itr; itr != vecs.end();itr++){
+		WXPayNoData *p = itr->second;
+		string out = p->_out_trade_no;
 		requestCheckKH(XXIconv::GBK2UTF(out.c_str()));
-		delete out1;
 	}
 }
 
