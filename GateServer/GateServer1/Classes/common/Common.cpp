@@ -183,6 +183,12 @@ string Common::getLocalTime(){
 	return buff;
 }
 
+int Common::getTimeS(){
+	time_t tt = time(NULL);
+	tm* t = localtime(&tt);
+	return t->tm_hour*60*60+t->tm_min*60+t->tm_sec;
+}
+
 string Common::getLocalTimeDay(){
 	char buff[100];
 	time_t tt = time(NULL);//这句返回的只是一个时间cuo

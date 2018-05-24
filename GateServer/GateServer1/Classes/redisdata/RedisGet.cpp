@@ -3,6 +3,8 @@
 #include "RedisPut.h"
 #include "CSVDataInfo.h"
 #include "LoginInfo.h"
+#include "StatTimer.h"
+
 RedisGet *RedisGet::m_ins=NULL;
 RedisGet::RedisGet(){
 	m_pFirstBuyItem = NULL;
@@ -10,6 +12,7 @@ RedisGet::RedisGet(){
 }
 
 RedisGet::~RedisGet(){
+	StatTimer::getIns()->unscheduleSelector(this, schedule_selector(RedisGet::update));
 	if (m_ins){
 		delete m_ins;
 		m_ins = NULL;
@@ -54,7 +57,7 @@ void RedisGet::init(){
 	getPayRecords();
 	getAliPayNoDatas();
 	
-	CLog::log("111\n");
+	StatTimer::getIns()->scheduleSelector(this, schedule_selector(RedisGet::update), 60);
 }
 
 map<string, REDISDBName *> RedisGet::getREDISDBNames(){
@@ -304,14 +307,11 @@ map<int, vector<Rank *>> RedisGet::getRanks(){
 		Rank rk;
 		for (int i = 1; i <= 2; i++){
 			sprintf(buff, "%s%d", g_redisdbnames[REIDS_RANK].c_str(), i);
-
-			vector<string >keys = m_redis->getKeys(buff, false);
-			int len = 0;
-			vector<Rank *>rks;
-			for (int j = 0; j < keys.size(); j++){
-				string name = keys.at(j);
-				Message *msg = m_redis->getHash(name, rk.GetTypeName());
-				rks.push_back((Rank *)msg);
+			vector<Message *>vecs=m_redis->getList(buff,rk.GetTypeName());
+			vector<Rank *> rks;
+			for (int j = 0; j < vecs.size(); j++){
+				Rank *rk1 = (Rank *)vecs.at(j);
+				rks.push_back(rk1);
 			}
 			m_pRanks.insert(make_pair(i, rks));
 		}
@@ -1046,7 +1046,7 @@ map<string, map<int, ExRecord *>> RedisGet::getExRecords(){
 		auto itr = vecs.begin();
 		for (itr; itr != vecs.end(); itr++){
 			string uid = itr->first;
-			vector<string> keys = m_redis->getKeys(g_redisdbnames[REIDS_EXCHANGE]+ uid,false);
+			vector<string> keys = m_redis->getKeys(g_redisdbnames[REIDS_EXCHANGE]+"exrecord"+ uid,false);
 			map<int, ExRecord *> maps;
 			for (int i = 0; i < keys.size();i++){
 				string key = keys.at(i);
@@ -1440,4 +1440,56 @@ int RedisGet::getFriendNoticeID(){
 		return atoi(dd);
 	}
 	return 1;
+}
+
+
+bool compareRank(Rank *rk1, Rank *rk2){
+	int type = rk1->type();
+	if (type == 1){
+		unsigned int gold1 = rk1->info().gold();
+		unsigned int gold2 = rk2->info().gold();
+		if (gold1 > gold2){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	else if (type == 2){
+		unsigned int gold1 = rk1->info().win();
+		unsigned int gold2 = rk2->info().win();
+		if (gold1 > gold2){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	return false;
+}
+
+void RedisGet::sortRank(){
+	auto itr = m_pRanks.begin();
+	char buff[50];
+	for (itr; itr != m_pRanks.end(); itr++){
+		auto vec = itr->second;
+		sort(vec.begin(),vec.end(),compareRank);
+		for (int i = 0; i < vec.size(); i++){
+			Rank *rk1 = vec.at(i);
+			rk1->set_lv(i + 1);
+
+			sprintf(buff, "%s%d", g_redisdbnames[REIDS_RANK].c_str(), itr->first);
+			bool ist = RedisGet::getIns()->SelectDB(REIDS_RANK);
+			if (ist){
+				m_redis->setList(buff, i, rk1);
+			}
+		}
+	}
+}
+
+void RedisGet::update(float){
+	int tm = Common::getTimeS();
+	if (tm > 0 && tm < 2*60){
+		sortRank();
+	}
 }

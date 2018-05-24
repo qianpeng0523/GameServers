@@ -58,7 +58,7 @@ typedef map<string, map<string,Friend *>> FriendMap;
 
 
 
-class RedisGet 
+class RedisGet :public Object
 {
 public:
 	RedisGet();
@@ -183,6 +183,9 @@ public:
 	int getFriendNoticeID();
 private:
 	map<int, FriendNotice *> getFriendNoticeB(string uid);
+
+	void sortRank();
+	void update(float);
 private:
 	static RedisGet *m_ins;
 	redis *m_redis;

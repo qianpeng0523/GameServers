@@ -221,7 +221,7 @@ bool RedisPut::PushRank(Rank *rk){
 		RedisGet::getIns()->setRank(rk, type);
 		char buff[50];
 		sprintf(buff, "%s%d", g_redisdbnames[REIDS_RANK].c_str(), type);
-		m_redis->Hash(buff,rk);
+		m_redis->List(buff,rk);
 	}
 	return ist;
 }
@@ -316,7 +316,8 @@ bool RedisPut::PushExRecord(string uid, ExRecord *er){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
 	if (ist){
 		char buff[100];
-		sprintf("%sexrecord%s%d", g_redisdbnames[REIDS_EXCHANGE].c_str(), uid.c_str(), er->eid());
+		sprintf(buff,"%sexrecord%s%d", g_redisdbnames[REIDS_EXCHANGE].c_str(), uid.c_str(), er->eid());
+		RedisGet::getIns()->PushExRecord(uid, er);
 		m_redis->Hash(buff, er);
 	}
 	return ist;

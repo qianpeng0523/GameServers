@@ -38,7 +38,7 @@ void StatTimer::onTimer(Timer&/*t*/)
 				TimeFun *tf = *itr1;
 				if (tf&&!tf->_pause){
 					if (t){
-						if (*itr1&&tf->_count*ONCETIME >= tf->_interval * 1000){
+						if (*itr1 && (tf->_count*ONCETIME >= tf->_interval * 1000 || tf->_count*ONCETIME==0)){
 							tf->_count = 0;
 							(t->_target->*tf->_selector)(0);
 						}

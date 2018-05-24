@@ -167,16 +167,20 @@ UserBase HttpWXLogin::respondUserinfo(string result){
 		
 		m_pRedisPut->PushUserBase(&ub);
 
+		int sz = m_pRedisGet->getRank(1).size() + 1;
 		Rank rk;
 		rk.set_type(1);
 		rk.set_uid(ub.userid());
+		rk.set_lv(sz);
 		UserBase *ub1 = rk.mutable_info();
 		ub1->CopyFrom(ub);
-
 		m_pRedisPut->PushRank(&rk);
+		
+		int sz1 = m_pRedisGet->getRank(2).size() + 1;
 		Rank rk1;
 		rk1.set_type(2);
 		rk1.set_uid(ub.userid());
+		rk1.set_lv(sz);
 		UserBase *ub2 = rk1.mutable_info();
 		ub2->CopyFrom(ub);
 		m_pRedisPut->PushRank(&rk1);

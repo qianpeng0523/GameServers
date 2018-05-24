@@ -112,6 +112,7 @@ private:
 	void update(float);
 
 	map<int,int> getRandNum(int maxnum,int num);
+	
 private:
 	static HallInfo *m_shareHallInfo;
 	

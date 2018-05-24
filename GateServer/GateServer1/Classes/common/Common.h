@@ -26,5 +26,6 @@ public:
 	static string getTimeStr(time_t tp);
 	static int getTime(time_t ptimep, int type);//type 1年 2月 3日 4时 5分 6秒 
 	static string getHostNameIp(string hostname,unsigned int &port);
+	static int getTimeS();
 };
 #endif // __Common_H__

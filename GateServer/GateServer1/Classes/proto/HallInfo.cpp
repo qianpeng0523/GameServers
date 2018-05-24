@@ -117,7 +117,11 @@ void HallInfo::HandlerCRankHand(ccEvent *event){
 	SRank sl;
 	sl.set_type(type);
 	vector<Rank *> vec = m_pRedisGet->getRank(type);
-	for (int i = 0; i < vec.size();i++){
+	int ii = index * 20;
+	int im = (index+1)*20;
+	int sz = vec.size();
+	int endindex = (im < sz) ? im : sz;
+	for (int i = ii; i <endindex; i++){
 		Rank *rk = vec.at(i);
 		Rank *k = sl.add_list();
 
@@ -1111,8 +1115,8 @@ void HallInfo::HandlerCSign(ccEvent *event){
 			if (sc&&sc->yqs()){
 				sc->set_yqs(false);
 				sc->set_mail(true);
-				ConfigInfo::getIns()->SendSConfig(*sc,event->m_fd);
 				m_pRedisPut->PushConfig(uid, sc);
+				ConfigInfo::getIns()->SendSConfig(*sc,event->m_fd);
 			}
 			//SendSMail(sm,event->m_fd);
 		}
