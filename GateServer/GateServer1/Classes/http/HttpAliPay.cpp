@@ -54,7 +54,7 @@ string HttpAliPay::getOutTradeNo(){
 	string time = Common::getLocalTimeDay1() + "YLHD";
 	int len = 0;
 	char buff[50];
-	string dd = m_pRedis->get("aliouttradeno", len);
+	string dd = m_pRedisGet->getAliOuttradeNo();
 	if (!dd.empty()){
 		time += INITNO;
 		m_pRedisPut->setAliOuttradeNo(INITNO);
@@ -87,28 +87,21 @@ void HttpAliPay::respondResult(string content, struct evhttp_request *req ){
 	//通过out_trade_no获取uid，并发送货物给用户
 	if (app_id.compare(ALIAPPID) == 0){
 		int len = 0;
-		char *dd = m_pRedis->get("trade" + out_trade_no, len);
-		if (dd){
-			m_pRedis->eraseList("aliout_trade_no", out_trade_no);
-			m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
-			m_pRedis->delKey("trade" + out_trade_no);
-			m_pRedis->delKey("tradetimeend" + out_trade_no);
+		AliPayNoData *p = m_pRedisGet->getAliPayNoData(out_trade_no);
+		if (p&&p->_out_trade_no.compare(out_trade_no)==0){
 			if (req){
 				HttpEvent::getIns()->SendMsg("success", req);
 			}
-			string uid = dd;
+			string uid = p->_uid;
+			int shopid = p->_shopid;
+			m_pRedisPut->eraseAliPayOuttradeno(out_trade_no);
 			ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
 			if (data){
 				int fd = data->_fd;
-				dd = m_pRedis->get("shop" + out_trade_no, len);
-				if (dd){
-					m_pRedis->delKey("shop" + out_trade_no);
-					string shopid = dd;
-					ShopItem *si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
-					if (si->consume().number() == atoi(total_amount.c_str())){
-						Reward rew = si->prop();
-						HttpPay::getIns()->NoticePushCurrency(rew, uid);
-					}
+				ShopItem *si = RedisGet::getIns()->getShop(shopid);
+				if (si->consume().number() == atoi(total_amount.c_str())){
+					Reward rew = si->prop();
+					HttpPay::getIns()->NoticePushCurrency(rew, uid);
 				}
 			}
 		}
@@ -124,34 +117,24 @@ void HttpAliPay::respondQueryResult(string content){
 	string trade_no = response["trade_no"].asString();
 	string total_amount = response["total_amount"].asString();
 	int len = 0;
-	char *dd = m_pRedis->get("trade" + out_trade_no, len);
-	if (dd){
-		m_pRedis->eraseList("aliout_trade_no", out_trade_no);
-		m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
-		m_pRedis->delKey("trade" + out_trade_no);
-		m_pRedis->delKey("tradetimeend" + out_trade_no);
-		string uid = dd;
+	AliPayNoData *p = m_pRedisGet->getAliPayNoData(out_trade_no);
+	if (p&&!p->_out_trade_no.empty()){
+		int shopid = p->_shopid;
+		string uid = p->_uid;
+		m_pRedisPut->eraseAliPayOuttradeno(out_trade_no);
 		ClientData *data = LibEvent::getIns()->getClientDataByUID(uid);
 		if (data){
 			int fd = data->_fd;
-			dd = m_pRedis->get("shop" + out_trade_no, len);
-			if (dd){
-				m_pRedis->delKey("shop" + out_trade_no);
-				string shopid = dd;
-				ShopItem *si = RedisGet::getIns()->getShop(atoi(shopid.c_str()));
-				if (si->consume().number() == atoi(total_amount.c_str())){
-					Reward rew = si->prop();
-					HttpPay::getIns()->NoticePushCurrency(rew, uid);
-				}
+			ShopItem *si = RedisGet::getIns()->getShop(shopid);
+			if (si->consume().number() == atoi(total_amount.c_str())){
+				Reward rew = si->prop();
+				HttpPay::getIns()->NoticePushCurrency(rew, uid);
 			}
+			
 		}
 	}
 	else{
-		m_pRedis->eraseList("aliout_trade_no", out_trade_no);
-		m_pRedis->delKey("aliout_trade_no_hash" + out_trade_no);
-		m_pRedis->delKey("trade" + out_trade_no);
-		m_pRedis->delKey("shop" + out_trade_no);
-		m_pRedis->delKey("tradetimeend" + out_trade_no);
+		m_pRedisPut->eraseAliPayOuttradeno(out_trade_no);
 	}
 }
 
@@ -189,13 +172,8 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 	string responseContent = analyzeResponse(responseStr);
 	
 	//记录订单
-	m_pRedis->List("aliout_trade_no", (char *)outtradeno.c_str());
-	m_pRedis->set("trade" + outtradeno, (char *)uid.c_str(), uid.length());
-	m_pRedis->set("tradetimeend" + outtradeno, Common::getTime()+2*60);
-	m_pRedis->set("shop" + outtradeno, (char *)shopid.c_str(), shopid.length());
-	for (auto itr = requestPairs.begin(); itr != requestPairs.end(); itr++){
-		m_pRedis->Hash("aliout_trade_no_hash" + outtradeno, itr->first, itr->second);
-	}
+	m_pRedisPut->pushAliPayOuttradeno(uid, outtradeno, Common::getTime() + 2 * 60,atoi(shopid.c_str()),requestPairs);
+
 	//记录下单记录
 	PayRecord pr;
 	pr.set_userid(uid);
@@ -208,8 +186,8 @@ SAliPayOrder HttpAliPay::requestOrder(string uid, string shopid, float price, st
 	sprintf(buff, "%g", price * 100);
 	pr.set_total_fee(buff);
 
-	m_pRedis->List(pr.GetTypeName(), &pr);
-
+	m_pRedisPut->PushPayRecord(pr);
+	
 	//传给客户端
 	contentMap.insert(JsonMap::value_type(JsonType("product_code"), JsonType("QUICK_MSECURITY_PAY")));
 	contentMap.insert(JsonMap::value_type(JsonType("timeout_express"), JsonType("30m")));
@@ -409,11 +387,12 @@ void HttpAliPay::update(float dt){
 
 void HttpAliPay::checkPay(){
 	vector<int> lens;
-	vector<char *> vecs = m_pRedis->getList("aliout_trade_no", lens);
-	for (int i = 0; i < vecs.size(); i++){
-		char* out1 = vecs.at(i);
-		string out = out1;
-		map<string,string>mp= m_pRedis->getHash("aliout_trade_no_hash" + out);
+	auto vecs = m_pRedisGet->getAliPayNoDatas();
+	auto itr = vecs.begin();
+	for (itr; itr != vecs.end();itr++){
+		string out = itr->first;
+		AliPayNoData *p = itr->second;
+		map<string,string>mp= p->_maps;
 		if (!mp.empty()){
 			if (mp.find("method") != mp.end()){
 				mp.at("method")="alipay.trade.query";
@@ -428,18 +407,13 @@ void HttpAliPay::checkPay(){
 			string responseContent = analyzeResponse(responseStr);
 			YMSocketData sd(responseContent);
 			string code=sd["code"].asString();
-			
 			if (code.compare("40004")==0){
-				int len = 0;
-				string tradetime = m_pRedis->get("tradetimeend"+out,len);
-				time_t timeend = atol(tradetime.c_str());
-				if (timeend < Common::getTime()){
-					m_pRedis->eraseList("aliout_trade_no", out);
-					m_pRedis->delKey("aliout_trade_no_hash" + out);
-					m_pRedis->delKey("trade" + out);
-					m_pRedis->delKey("shop" + out);
-					m_pRedis->delKey("tradetimeend" + out);
-					requestCloseOrder(mp);
+				if (p){
+					time_t timeend = p->_endtime;
+					if (timeend < Common::getTime()){
+						m_pRedisPut->eraseAliPayOuttradeno(out);
+						requestCloseOrder(mp);
+					}
 				}
 			}
 			else if(code.compare("10000")==0){
@@ -447,13 +421,8 @@ void HttpAliPay::checkPay(){
 			}
 		}
 		else{
-			m_pRedis->eraseList("aliout_trade_no", out);
-			m_pRedis->delKey("aliout_trade_no_hash" + out);
-			m_pRedis->delKey("trade" + out);
-			m_pRedis->delKey("shop" + out);
-			m_pRedis->delKey("tradetimeend" + out);
+			m_pRedisPut->eraseAliPayOuttradeno(out);
 		}
-		delete out1;
 	}
 }
 
@@ -470,15 +439,6 @@ void HttpAliPay::requestCloseOrder(map<string, string>mp){
 	DebugLog("Response:%s", responseStr.c_str());
 	string responseContent = analyzeResponse(responseStr);
 	DebugLog("[Response responseContent]:%s", responseStr.c_str());
-	if (mp.find("out_trade_no")!=mp.end()){
-		m_pRedis->delKey("tradetimeend" + mp.find("out_trade_no")->second);
-	}
-	else if(mp.find("biz_content")!=mp.end()){
-		string t = mp.at("biz_content");
-		YMSocketData sd;
-		sd.parse((char *)t.c_str(), t.length());
-		m_pRedis->delKey("tradetimeend" + sd["out_trade_no"].asString());
-	}
 	
 }
 

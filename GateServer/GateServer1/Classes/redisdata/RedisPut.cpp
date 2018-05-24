@@ -404,6 +404,78 @@ bool RedisPut::setAliOuttradeNo(string num){
 	return ist;
 }
 
+bool RedisPut::pushAliPayOuttradeno(string uid, string out_trade_no, time_t time, int shopid, map<string, string> requestPairs){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP]+"_alipay_no_data";
+		char buff[4096];
+		sprintf(buff,"%s,%s,%ld,%d,",uid.c_str(),out_trade_no.c_str(),time,shopid);
+		string con = buff;
+		auto itr = requestPairs.begin();
+		int index = 0;
+		for (itr; itr != requestPairs.end();itr++){
+			string k = itr->first;
+			string v = itr->second;
+			if (index < requestPairs.size() - 1){
+				con += k + "^" + v + "|";
+			}
+			else{
+				con += k + "^" + v;
+			}
+			index++;
+		}
+		AliPayNoData *p = new AliPayNoData();
+		p->_uid = uid;
+		p->_endtime = time;
+		p->_maps = requestPairs;
+		p->_out_trade_no = out_trade_no;
+		p->_shopid = shopid;
+		RedisGet::getIns()->setAliPayNoData(p);
+		return m_redis->List(key, (char *)con.c_str());
+	}
+	return false;
+}
+
+bool RedisPut::eraseAliPayOuttradeno(string out_trade_no){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP] + "_alipay_no_data";
+		AliPayNoData *p = RedisGet::getIns()->getAliPayNoData(out_trade_no);
+		if (p){
+			char buff[4096];
+			sprintf(buff, "%s,%s,%ld,%d,", p->_uid.c_str(), p->_out_trade_no.c_str(), p->_endtime, p->_shopid);
+			string con = buff;
+			auto itr = p->_maps.begin();
+			int index = 0;
+			for (itr; itr != p->_maps.end(); itr++){
+				string k = itr->first;
+				string v = itr->second;
+				if (index < p->_maps.size() - 1){
+					con += k + "^" + v + "|";
+				}
+				else{
+					con += k + "^" + v;
+				}
+				index++;
+			}
+			RedisGet::getIns()->eraseAliPayNoData(out_trade_no);
+			return m_redis->eraseList(key, con);
+		}
+	}
+	return ist;
+}
+
+bool RedisPut::PushPayRecord(PayRecord pr){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string uid = pr.userid();
+		string key = g_redisdbnames[REIDS_SHOP] + "_PayRecord_"+uid;
+		RedisGet::getIns()->setPayRecord(&pr);
+		return m_redis->List(key, &pr);
+	}
+	return ist;
+}
+
 void RedisPut::ZeroChange(char *&data, int sz){
 	for (int i = 0; i < sz; i++){
 		if (data[i] == ZERO_STR){

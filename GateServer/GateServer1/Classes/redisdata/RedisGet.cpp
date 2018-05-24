@@ -51,7 +51,9 @@ void RedisGet::init(){
 	getTaskStatus();
 	getFreeStatus();
 	getExRecords();
-
+	getPayRecords();
+	getAliPayNoDatas();
+	
 	CLog::log("111\n");
 }
 
@@ -452,6 +454,101 @@ string RedisGet::getAliOuttradeNo(){
 	return "";
 }
 
+map<string, AliPayNoData *> RedisGet::getAliPayNoDatas(){
+	if (!m_pAliPayNoDatas.empty()){
+		return m_pAliPayNoDatas;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		string key = g_redisdbnames[REIDS_SHOP] + "_alipay_no_data";
+		vector<string> vecs = m_redis->getListStr(key);
+		for (int i = 0; i < vecs.size(); i++){
+			string con = vecs.at(i);
+			vector<string> convec = CSVDataInfo::getIns()->getStrFromstr(con,",");
+			AliPayNoData *p = new AliPayNoData();
+			p->_uid = convec.at(0);
+			p->_out_trade_no = convec.at(1);
+			p->_endtime = atol(convec.at(2).c_str());
+			p->_shopid = atoi(convec.at(3).c_str());
+			string content = convec.at(4);
+			vector<string> mpcontent = CSVDataInfo::getIns()->getStrFromstr(content, "|");
+			for (int j = 0; j < mpcontent.size(); j++){
+				string mpkeys = mpcontent.at(j);
+				vector<string > mpvec = CSVDataInfo::getIns()->getStrFromstr(content, "^");
+				p->_maps.insert(make_pair(mpvec.at(0),mpvec.at(1)));
+			}
+			m_pAliPayNoDatas.insert(make_pair(p->_out_trade_no,p));
+		}
+	}
+	return m_pAliPayNoDatas;
+}
+
+AliPayNoData *RedisGet::getAliPayNoData(string out_trade_no){
+	if (m_pAliPayNoDatas.find(out_trade_no) != m_pAliPayNoDatas.end()){
+		return m_pAliPayNoDatas.at(out_trade_no);
+	}
+	return NULL;
+}
+
+void RedisGet::eraseAliPayNoData(string out_trade_no){
+	if (m_pAliPayNoDatas.find(out_trade_no) != m_pAliPayNoDatas.end()){
+		AliPayNoData *p = m_pAliPayNoDatas.at(out_trade_no);
+		m_pAliPayNoDatas.erase(m_pAliPayNoDatas.find(out_trade_no));
+		delete p;
+		p = NULL;
+	}
+}
+
+void RedisGet::setAliPayNoData(AliPayNoData *p){
+	string out_trade_no = p->_out_trade_no;
+	if (m_pAliPayNoDatas.find(out_trade_no) == m_pAliPayNoDatas.end()){
+		m_pAliPayNoDatas.insert(make_pair(out_trade_no,p));
+	}
+}
+
+map<string, map<string, PayRecord *>> RedisGet::getPayRecords(){
+	if (!m_pPayRecords.empty()){
+		return m_pPayRecords;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_SHOP);
+	if (ist){
+		PayRecord pr;
+		auto users = getUserBases();
+		auto itr = users.begin();
+		for (itr; itr != users.end();itr++){
+			string uid = itr->first;
+			string key = g_redisdbnames[REIDS_SHOP] + "_PayRecord_" + uid;
+			auto vec = m_redis->getList(key, pr.GetTypeName());
+			for (int i = 0; i < vec.size();i++){
+				PayRecord *p = (PayRecord *)vec.at(i);
+				setPayRecord(p);
+			}
+			redis::getIns()->releaseMessages(vec);
+		}
+	}
+	return m_pPayRecords;
+}
+
+void RedisGet::setPayRecord(PayRecord *pr){
+	string uid = pr->userid();
+	string outno = pr->out_trade_no();
+	if (m_pPayRecords.find(uid) == m_pPayRecords.end()){
+		map<string, PayRecord *> mps;
+		PayRecord *pr1 = (PayRecord *)ccEvent::create_message(pr->GetTypeName());
+		pr1->CopyFrom(*pr);
+		mps.insert(make_pair(outno,pr1));
+		m_pPayRecords.insert(make_pair(uid,mps));
+	}
+	else{
+		map<string, PayRecord *> mps=m_pPayRecords.at(uid);
+		if (mps.find(outno) == mps.end()){
+			PayRecord *pr1 = (PayRecord *)ccEvent::create_message(pr->GetTypeName());
+			pr1->CopyFrom(*pr);
+			mps.insert(make_pair(outno,pr1));
+			m_pPayRecords.at(uid) = mps;
+		}
+	}
+}
 
 map<string, map<int, Mail *>> RedisGet::getMails(){
 	if (!m_pMails.empty()){

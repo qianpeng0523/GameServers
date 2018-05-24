@@ -37,8 +37,19 @@ struct PExchangeCode :public Object
 	bool _isdui;
 };
 
+struct AliPayNoData :public Object
+{
+	string _uid;
+	string _out_trade_no;
+	time_t _endtime;
+	int _shopid;
+	map<string, string> _maps;
+};
+
 typedef map<string, UserBase *> UserBaseMap;
 typedef map<string, map<string,Friend *>> FriendMap;
+
+
 
 class RedisGet 
 {
@@ -84,6 +95,13 @@ public:
 	FirstBuyItem *getFirstBuy();
 	string getNoTime();
 	string getAliOuttradeNo();
+	map<string, AliPayNoData *> getAliPayNoDatas();
+	AliPayNoData *getAliPayNoData(string out_trade_no);
+	void eraseAliPayNoData(string out_trade_no);
+	void setAliPayNoData(AliPayNoData *p);
+	void setPayRecord(PayRecord *pr);
+	map<string, map<string, PayRecord *>> getPayRecords();
+	
 
 	map<string, map<int, Mail *>>getMails();
 	map<int, Mail *> getMail(string uid);
@@ -190,6 +208,10 @@ private:
 	map<string, time_t> m_pUserLoginTime;
 	map<string, string>m_pPass;
 	map<string, string>m_pOpenids;
+
+	map<string, AliPayNoData *>m_pAliPayNoDatas;
+	map<string, map<string, PayRecord *>> m_pPayRecords;
+	
 
 	map<string, REDISDBName *>m_RedisDBNames;
 };

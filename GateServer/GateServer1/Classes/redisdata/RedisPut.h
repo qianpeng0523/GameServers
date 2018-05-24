@@ -57,7 +57,11 @@ public:
 
 	bool setNoTime(string time);
 	bool setAliOuttradeNo(string num);
+	bool pushAliPayOuttradeno(string uid, string out_trade_no, time_t time, int shopid, map<string, string> requestPairs);
+	bool eraseAliPayOuttradeno(string out_trade_no);
 
+	bool PushPayRecord(PayRecord pr);
+	
 	void ZeroChange(char *&data, int sz);
 private:
 	static RedisPut *m_ins;
