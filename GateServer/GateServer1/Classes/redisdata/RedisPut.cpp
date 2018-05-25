@@ -255,16 +255,18 @@ bool RedisPut::PushFriend(string uid, Friend *fd){
 		char buff[100];
 		string fuid = fd->info().userid();
 		sprintf(buff, "%s%s%s", g_redisdbnames[REIDS_FRIEND].c_str(), uid.c_str(), fuid.c_str());
+		RedisGet::getIns()->setFriend(uid, fd, true);
 		m_redis->Hash(buff, fd);
 	}
 	return ist;
 }
 
-bool RedisPut::eraseFriend(string uid, string fuid){
+bool RedisPut::eraseFriend(string uid, Friend *fd){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
 	if (ist){
 		char buff[100];
-		sprintf(buff, "%s%s%s", g_redisdbnames[REIDS_FRIEND].c_str(), uid.c_str(), fuid.c_str());
+		sprintf(buff, "%s%s%s", g_redisdbnames[REIDS_FRIEND].c_str(), uid.c_str(),fd->info().userid().c_str());
+		RedisGet::getIns()->setFriend(uid, fd, false);
 		return m_redis->delKey(buff);
 	}
 	return ist;
@@ -339,14 +341,22 @@ bool RedisPut::setExchangeRecordId(string uid, int id){
 	return ist;
 }
 
-bool RedisPut::setEXCode(string code, bool isdui){
+bool RedisPut::erasePExchangeCode(PExchangeCode *p){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_EXCHANGE);
 	if (ist){
-		char buff[10];
-		sprintf(buff, "%d", isdui);
-		int len = 0;
-		RedisGet::getIns()->setEXCodeStatus(code, isdui);
-		return m_redis->set(g_redisdbnames[REIDS_EXCHANGE]+"duihuancode"+code, buff,len);
+		char buff[100];
+		sprintf(buff, "%d", p->_id);
+		string content = buff;
+		content += ",";
+		for (int i = 0; i < p->_rewardid.size(); i++){
+			sprintf(buff,"%d",p->_rewardid.at(i));
+			content += buff;
+			if (i < p->_rewardid.size() - 1){
+				content += "|";
+			}
+		}
+		content += "," + p->_code;
+		return m_redis->eraseList(g_redisdbnames[REIDS_EXCHANGE] + "code", content);
 	}
 	return ist;
 }

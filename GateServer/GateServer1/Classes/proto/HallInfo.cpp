@@ -290,7 +290,7 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 	SFindFriend fris;
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
-		string uid = cl.uid();
+		string uid = data->_uid;
 		int type = cl.type();
 		char buff[100];
 		
@@ -466,6 +466,7 @@ void HallInfo::HandlerCAddFriend(ccEvent *event){
 				sl.set_err(2);
 			}
 			else{
+				m_pRedisPut->setConfig(uid, POINT_HAOYOU, true);
 				FriendNotice temp;
 				string time = Common::getLocalTime();
 				FriendNotice *sp = (FriendNotice *)ccEvent::create_message(temp.GetTypeName());
@@ -473,18 +474,18 @@ void HallInfo::HandlerCAddFriend(ccEvent *event){
 				sp->set_uid(puid);
 				sp->set_time(time);
 				sp->set_status(0);
-				sp->set_content(XXIconv::GBK2UTF("请求") + puid + XXIconv::GBK2UTF("添加好友"));
+				sp->set_content(XXIconv::GBK2UTF("您请求") + puid + XXIconv::GBK2UTF("添加为好友"));
 				m_pRedisPut->PushFriendNotice(uid, sp);
-				m_pRedisPut->setConfig(uid, POINT_HAOYOU, true);
-
+				
+				m_pRedisPut->setConfig(puid, POINT_HAOYOU, true);
 				FriendNotice *sp1 = (FriendNotice *)ccEvent::create_message(temp.GetTypeName());
 				sp1->set_nid(m_pRedisGet->getFriendNoticeID());
 				sp1->set_uid(uid);
 				sp1->set_time(time);
-				sp1->set_status(0);
-				sp1->set_content(uid+XXIconv::GBK2UTF("请求您添加好友"));
+				sp1->set_status(1);
+				sp1->set_content(uid+XXIconv::GBK2UTF("请求添加您为好友"));
 				m_pRedisPut->PushFriendNotice(puid, sp1);
-				m_pRedisPut->setConfig(puid, POINT_HAOYOU, true);
+				
 				ClientData *ddata = pLibEvent->getClientData(puid);
 				if (ddata){
 					SendSAddFriend(sl, ddata->_fd);
@@ -515,8 +516,9 @@ void HallInfo::HandlerCAddFriendList(ccEvent *event){
 	if (data){
 		string uid = data->_uid;
 		auto vec = m_pRedisGet->getFriendNotice(uid);
-		for (int i = 0; i < vec.size(); i++){
-			FriendNotice *p = vec.at(i);
+		auto itr = vec.begin();
+		for (itr; itr != vec.end();itr++){
+			FriendNotice *p = itr->second;
 			FriendNotice *p1 = fris.add_list();
 			p1->CopyFrom(*p);
 		}
@@ -551,27 +553,50 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 			sl.set_nid(nid);
 			fn->set_status(agree ? 2 : 3);
 			
+			Friend ff;
 			m_pRedisPut->PushFriendNotice(uid, fn);
-			Friend *fri = m_pRedisGet->getFriend(puid,puid);
-			fri->set_give(false);
-			m_pRedisPut->PushFriend(uid, fri);
-			//申请方
-			SAgreeFriend sl1;
-			FriendNotice *fn1 = m_pRedisGet->getFriendNotice(puid, uid);
-			if (fn1){
-				int pnid = fn1->nid();
-				sl.set_userid(uid);
-				sl.set_agree(agree);
-				sl.set_nid(pnid);
-				fn1->set_status(agree ? 2 : 3);
-				m_pRedisPut->PushFriendNotice(puid, fn);
-				Friend *fri1 = m_pRedisGet->getFriend(puid, uid);
-				fri1->set_give(false);
-				m_pRedisPut->PushFriend(puid, fri1);
-				ClientData *data1 = LibEvent::getIns()->getClientData(puid);
-				if (data1){
-					SendSAgreeFriend(sl1, data1->_fd);
+			Friend *fri = m_pRedisGet->getFriend(uid,puid);
+			if (!fri){
+				fri = (Friend *)ccEvent::create_message(ff.GetTypeName());
+				UserBase *ub = fri->mutable_info();
+				UserBase *ub1 = m_pRedisGet->getUserBase(puid);
+				if (ub1){
+					ub->CopyFrom(*ub1);
 				}
+				fri->set_give(false);
+				m_pRedisPut->PushFriend(uid, fri);
+
+				//申请方
+				SAgreeFriend sl1;
+				FriendNotice *fn1 = m_pRedisGet->getFriendNotice(puid, uid);
+				if (fn1){
+					int pnid = fn1->nid();
+					sl1.set_userid(uid);
+					sl1.set_agree(agree);
+					sl1.set_nid(pnid);
+					fn1->set_status(agree ? 2 : 3);
+					m_pRedisPut->PushFriendNotice(puid, fn);
+					Friend *fri1 = m_pRedisGet->getFriend(puid, uid);
+					if (!fri1){
+						fri1 = (Friend *)ccEvent::create_message(ff.GetTypeName());
+						UserBase *ubb = fri1->mutable_info();
+						UserBase *ubb1 = m_pRedisGet->getUserBase(uid);
+						if (ubb1){
+							ubb->CopyFrom(*ubb1);
+						}
+						fri1->set_give(false);
+
+						m_pRedisPut->PushFriend(puid, fri1);
+						ClientData *data1 = LibEvent::getIns()->getClientData(puid);
+						if (data1){
+							SendSAgreeFriend(sl1, data1->_fd);
+						}
+					}
+					
+				}
+			}
+			else{
+				sl.set_err(1);
 			}
 		}
 		else{
@@ -680,52 +705,47 @@ void HallInfo::HandlerCExchangeCode(ccEvent *event){
 		string uid = data->_uid;
 		SExchangeCode sl;
 		string code = cl.excode();
-		bool liangqu = m_pRedisGet->getExcode(code);
-		if (!liangqu){
-			auto maps = m_pRedisGet->getCSVExchangeCode();
-			if (maps.find(code) != maps.end()){
-				sl.set_success(true);
-				m_pRedisPut->setEXCode(code, true);
-				PExchangeCode *p = m_pRedisGet->getPExchangeCode(code);
-				if (p){
-					auto vec = p->_rewardid;
-					for (int i = 0; i < vec.size(); i++){
-						int rid = vec.at(i);
-						Reward *rd = m_pRedisGet->getReward(rid);
-						Reward *rd1 = sl.add_rd();
-						rd1->CopyFrom(*rd);
-						HttpPay::getIns()->NoticePushCurrency(*rd, uid);
-					}
-					
+		PExchangeCode *p = m_pRedisGet->getPExchangeCode(code);
+		if (p){
+			sl.set_success(true);
+			PExchangeCode *p = m_pRedisGet->getPExchangeCode(code);
+			if (p){
+				auto vec = p->_rewardid;
+				for (int i = 0; i < vec.size(); i++){
+					int rid = vec.at(i);
+					Reward *rd = m_pRedisGet->getReward(rid);
+					Reward *rd1 = sl.add_rd();
+					rd1->CopyFrom(*rd);
+					HttpPay::getIns()->NoticePushCurrency(*rd, uid);
 				}
-				string code = m_pRedisGet->getExchangeCode();
-				char buff[10];
-				sprintf(buff, "%d", atoi(code.c_str()) + 1);
-				m_pRedisPut->setExchangeCode(buff);
-				
-				ExRecord exr;
-				int eid = m_pRedisGet->getExchangeRecordId(uid);
-				m_pRedisPut->setExchangeRecordId(uid, eid + 1);
-				exr.set_eid(eid);
-				exr.set_title(XXIconv::GBK2UTF("兑换码兑换"));
-				exr.set_orderid(code);
-				exr.set_time(Common::getLocalTime());
-				exr.set_status(1);
-				m_pRedisPut->PushExRecord(uid, &exr);
 
-				CExchangeRecord ce;
-				ce.set_cmd(ce.cmd());
-				int sz = ce.ByteSize();
-				char *buffer = new char[sz];
-				ce.SerializePartialToArray(buffer, sz);
-				ccEvent *ev = new ccEvent(ce.cmd(),buffer,sz,event->m_fd,event->m_type);
-				HandlerCExchangeRecord(ev);
-				delete ev;
-				ev = NULL;
 			}
-			else{
-				sl.set_err(1);
-			}
+			m_pRedisPut->erasePExchangeCode(p);
+			string code = m_pRedisGet->getExchangeCode();
+			char buff[10];
+			sprintf(buff, "%d", atoi(code.c_str()) + 1);
+			m_pRedisPut->setExchangeCode(buff);
+
+			ExRecord exr;
+			int eid = m_pRedisGet->getExchangeRecordId(uid);
+			m_pRedisPut->setExchangeRecordId(uid, eid + 1);
+			exr.set_eid(eid);
+			exr.set_title(XXIconv::GBK2UTF("兑换码兑换"));
+			exr.set_orderid(code);
+			exr.set_time(Common::getLocalTime());
+			exr.set_status(1);
+			m_pRedisPut->PushExRecord(uid, &exr);
+
+			CExchangeRecord ce;
+			ce.set_cmd(ce.cmd());
+			int sz = ce.ByteSize();
+			char *buffer = new char[sz];
+			ce.SerializePartialToArray(buffer, sz);
+			ccEvent *ev = new ccEvent(ce.cmd(), buffer, sz, event->m_fd, event->m_type);
+			HandlerCExchangeRecord(ev);
+			delete ev;
+			ev = NULL;
+			
 		}
 		else{
 			sl.set_err(1);

@@ -44,10 +44,7 @@ void ConfigInfo::HandlerCConfig(ccEvent *event){
 	if (data){
 		string uid = data->_uid;
 		SConfig *sl1 = RedisGet::getIns()->getSConfig(uid);
-		if (sl1){
-			return;
-		}
-		else{
+		if (!sl1){
 			SConfig sl;
 			sl1 = (SConfig *)ccEvent::create_message(sl.GetTypeName());
 			sl.set_mail(false);

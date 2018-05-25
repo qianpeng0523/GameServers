@@ -230,12 +230,14 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	rk.set_uid(ub.userid());
 	UserBase *ub1 = rk.mutable_info();
 	ub1->CopyFrom(ub);
+	printf("111222\n");
 	m_pRedisPut->PushRank(&rk);
 	Rank rk1;
 	rk1.set_type(2);
 	rk1.set_uid(ub.userid());
 	UserBase *ub2 = rk1.mutable_info();
 	ub2->CopyFrom(ub);
+	printf("111333\n");
 	m_pRedisPut->PushRank(&rk1);
 
 	SConfig sl;
@@ -248,10 +250,12 @@ UserBase HttpWXLogin::getUserinfo(string name, string pwd){
 	sl.set_free(false);
 	sl.set_yqs(true);
 	sl1->CopyFrom(sl);
+	printf("111444\n");
 	RedisPut::getIns()->PushConfig(uid, sl1);
 
 	SignStatus *ss = new SignStatus();
 	ss->_uid = uid;
+	printf("111555\n");
 	m_pRedisPut->setSignStatus(ss);
 	return ub;
 }

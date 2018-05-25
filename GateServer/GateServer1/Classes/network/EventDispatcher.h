@@ -17,7 +17,7 @@ public:
 	EventHandler handler;
 };
 
-typedef std::vector<CallList *> CallList_Vec;
+//typedef std::vector<CallList *> CallList_Vec;
 
 class EventDispatcher : public Object
 {
@@ -36,12 +36,13 @@ public:
 	void registerProto(int cmd, string tname, SERVERTYPE type);
 	string getProtoName(int cmd, SERVERTYPE type);
 private:
-	void EventPathch(std::vector<ccEvent *> &ep);
+	void EventPathch();
 private:
 	static EventDispatcher* m_ins;
-	map<SERVERTYPE, map<int, CallList_Vec>> m_eventLists;
+	map<SERVERTYPE, map<int, CallList *>> m_eventLists;
 	vector<ccEvent *> m_Events;
 	map<SERVERTYPE, map<int, string>> m_protos;
+	bool m_lock;
 private:
 
 };

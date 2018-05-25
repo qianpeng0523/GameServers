@@ -125,7 +125,7 @@ public:
 	FriendMap getFriend();
 	map<string, Friend *> getFriend(string uid);
 	Friend *getFriend(string uid, string fuid);
-	void setFriend(string uid,string fuid,bool isadd);
+	void setFriend(string uid,Friend *fri,bool isadd);
 
 	map<string, map<int, FriendNotice *>> getFriendNotices();
 	void setFriendNotice(string uid,FriendNotice *p);
@@ -174,10 +174,7 @@ public:
 
 	map<string, PExchangeCode*> getCSVExchangeCode();
 	PExchangeCode* getPExchangeCode(string code);
-
-	map<string, bool> getExcode();
-	bool getExcode(string code);
-	void setEXCodeStatus(string code, bool ist);//不记录到数据库中
+	void erasePExchangeCode(string code);
 
 	int getMailID();
 	int getFriendNoticeID();
@@ -203,7 +200,6 @@ private:
 	map<string, SignStatus*>m_pSignStatuss;
 
 	map<string, PExchangeCode*> m_pExchangeCodes;
-	map<string, bool> m_pEXCodes;
 	map<string, map<int, ExRecord *>> m_pExRecords;
 	map<int,ExAward *> m_pExAwards;
 

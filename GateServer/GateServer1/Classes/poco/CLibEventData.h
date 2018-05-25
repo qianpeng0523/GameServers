@@ -107,7 +107,7 @@ struct _ClientData:public Object
 		_fd = 0;
 		_conn = NULL;
 		m_lasttime = 0;
-		StatTimer::getIns()->scheduleSelector(this, schedule_selector(_ClientData::update), 1.0);
+		StatTimer::getIns()->scheduleSelector(this, schedule_selector(_ClientData::update), 1.0,1.0);
 	}
 	~_ClientData(){
 		StatTimer::getIns()->unscheduleSelector(this, schedule_selector(_ClientData::update));

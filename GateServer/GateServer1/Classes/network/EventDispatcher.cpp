@@ -6,7 +6,7 @@
 EventDispatcher* EventDispatcher::m_ins = NULL;
 
 EventDispatcher::EventDispatcher(){
-	
+	m_lock = false;
 }
 
 EventDispatcher::~EventDispatcher(){
@@ -28,51 +28,41 @@ EventDispatcher *EventDispatcher::getIns(){
 }
 
 void EventDispatcher::addListener(int cmd, Object *target, EventHandler handler, SERVERTYPE type){
-	CallList *clist = new CallList();
-	clist->cmd = cmd;
-	clist->obj = target;
-	clist->handler = handler;
-	clist->type = type;
+	
 
-	CallList_Vec vec;
 	if (m_eventLists.find(type) != m_eventLists.end()){
-		map<int, CallList_Vec>mmp = m_eventLists.at(type);
-		if (mmp.find(cmd) != mmp.end()){
-			vec = mmp.at(cmd);
-			vec.push_back(clist);
-			mmp.at(cmd) = vec;
-			m_eventLists.at(type) = mmp;
-		}
-		else{
-			vec.push_back(clist);
-			mmp.insert(make_pair(cmd, vec));
+		map<int, CallList *>mmp = m_eventLists.at(type);
+		if (mmp.find(cmd) == mmp.end()){
+			CallList *clist = new CallList();
+			clist->cmd = cmd;
+			clist->obj = target;
+			clist->handler = handler;
+			clist->type = type;
+
+			mmp.insert(make_pair(cmd, clist));
 			m_eventLists.at(type) = mmp;
 		}
 	}
 	else{
-		map<int, CallList_Vec>mmp;
-		vec.push_back(clist);
-		mmp.insert(make_pair(cmd, vec));
+		CallList *clist = new CallList();
+		clist->cmd = cmd;
+		clist->obj = target;
+		clist->handler = handler;
+		clist->type = type;
+
+		map<int, CallList *>mmp;
+		mmp.insert(make_pair(cmd, clist));
 		m_eventLists.insert(make_pair(type, mmp));
 	}
 }
 
 void EventDispatcher::removeListener(int cmd, Object *target, EventHandler handler, SERVERTYPE type){
-	CallList_Vec vec;
 	if (m_eventLists.find(type) != m_eventLists.end()){
-		map<int, CallList_Vec>mmp = m_eventLists.at(type);
+		map<int, CallList *>mmp = m_eventLists.at(type);
 		if (mmp.find(cmd) != mmp.end()){
-			vec = mmp.at(cmd);
-			CallList_Vec::iterator itr = vec.begin();
-			while (itr != vec.end()){
-				CallList *clist = *itr;
-				if (clist && clist->obj == target && clist->handler == handler){
-					vec.erase(itr++);
-					break;
-				}
-				else{
-					itr++;
-				}
+			CallList *clist = mmp.at(cmd);
+			if (clist && clist->obj == target && clist->handler == handler){
+				mmp.erase(mmp.find(cmd));
 			}
 		}
 	}
@@ -85,11 +75,8 @@ void EventDispatcher::removeAllListener(){
 		auto mmp = eitr->second;
 		auto mitr = mmp.begin();
 		for (mitr; mitr != mmp.end();){
-			CallList_Vec vec = mitr->second;
-			CallList_Vec::iterator itr = vec.begin();
-			for (itr; itr != vec.end();){
-				itr = vec.erase(itr);
-			}
+			CallList *clist = mitr->second;
+			delete clist;
 			mitr = mmp.erase(mitr);
 		}
 		eitr = m_eventLists.erase(eitr);
@@ -99,42 +86,37 @@ void EventDispatcher::removeAllListener(){
 void EventDispatcher::disEventDispatcher(ccEvent *event){
 	if (event&&event->m_cmd > 0){
 		m_Events.push_back(event);
-		while (!m_Events.empty()){
-			EventPathch(m_Events);
+		if (!m_lock){
+			m_lock = true;
+			EventPathch();
+			m_lock = false;
 		}
 	}
 }
 
-void EventDispatcher::EventPathch(std::vector<ccEvent *> &ep){
-	if (!ep.empty()){
-		vector<ccEvent *>::iterator itr = ep.begin();
-		if (itr != ep.end()){
+void EventDispatcher::EventPathch(){
+	while (!m_Events.empty()){
+		auto itr = m_Events.begin();
+		if (itr != m_Events.end()){
 			ccEvent *event = *itr;
 			int cmd = event->m_cmd;
 			SERVERTYPE type = event->m_type;
 
 			if (m_eventLists.find(type) != m_eventLists.end()){
-				CallList_Vec vec;
 				auto mmp = m_eventLists.at(type);
 				if (mmp.find(cmd) != mmp.end()){
-					vec = mmp.at(cmd);
-					CallList_Vec::iterator itr1 = vec.begin();
-					while (itr1 != vec.end()){
-						CallList *clist = *itr1;
-						if (clist && clist->obj && clist->handler){
-							(clist->obj->*clist->handler)(event);
-							itr1++;
-							
-						}
-						break;
+					CallList *clist = mmp.at(cmd);
+					if (clist && clist->obj && clist->handler){
+						(clist->obj->*clist->handler)(event);
 					}
 				}
 			}
+			
+			m_Events.erase(itr);
 			if (event){
 				delete event;
 				event = NULL;
 			}
-			ep.erase(itr);
 		}
 	}
 }

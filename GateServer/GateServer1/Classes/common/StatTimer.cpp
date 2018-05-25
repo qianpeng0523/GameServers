@@ -38,7 +38,7 @@ void StatTimer::onTimer(Timer&/*t*/)
 				TimeFun *tf = *itr1;
 				if (tf&&!tf->_pause){
 					if (t){
-						if (*itr1 && (tf->_count*ONCETIME >= tf->_interval * 1000 || tf->_count*ONCETIME==0)){
+						if (*itr1 && (tf->_count*ONCETIME >= tf->_interval * 1000 || tf->_count*ONCETIME==tf->_delaytime*1000)){
 							tf->_count = 0;
 							(t->_target->*tf->_selector)(0);
 						}
@@ -171,8 +171,8 @@ void StatTimer::unschedule(Object *obj, SEL_SCHEDULE selector){
 	}
 }
 
-void StatTimer::scheduleSelector(Object *target, SEL_SCHEDULE selector, float interval){
-	schedule(target, selector, interval, 0);
+void StatTimer::scheduleSelector(Object *target, SEL_SCHEDULE selector, float interval, float delaytime){
+	schedule(target, selector, interval, delaytime);
 }
 
 void StatTimer::scheduleOnce(Object *target, SEL_SCHEDULE selector, float delaytime){

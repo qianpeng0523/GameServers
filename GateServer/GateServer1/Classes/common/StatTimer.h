@@ -56,7 +56,7 @@ public:
 
 	void scheduleUpdate(Object *target);
 	void unscheduleUpdate(Object *target);
-	void scheduleSelector(Object *target, SEL_SCHEDULE selector, float interval);
+	void scheduleSelector(Object *target, SEL_SCHEDULE selector, float interval,float delaytime=0);
 	void scheduleOnce(Object *target, SEL_SCHEDULE selector,float delaytime);
 	void unscheduleSelector(Object *target,SEL_SCHEDULE selector);
 

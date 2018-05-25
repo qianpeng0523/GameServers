@@ -34,7 +34,7 @@ public:
 	void PopMail(string uid, Mail *ml);
 
 	bool PushFriend(string uid, Friend *fd);
-	bool eraseFriend(string uid,string fuid);
+	bool eraseFriend(string uid, Friend *fd);
 	bool PushFriendNotice(string uid, FriendNotice *fn);
 	bool eraseFriendNotice(string uid, FriendNotice *fn);
 	bool setFriendNoticeID(int id);
@@ -47,7 +47,7 @@ public:
 	bool setExchangeCode(string code);
 	bool setExchangeRecordId(string uid, int id);
 
-	bool setEXCode(string code, bool isdui);
+	bool erasePExchangeCode(PExchangeCode *p);
 	
 	bool setSignStatus(SignStatus *ss);
 	
