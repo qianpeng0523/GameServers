@@ -56,7 +56,7 @@ int RedisGet::getRedisDBIndex(string name){
 
 bool RedisGet::SelectDB(REDISTYPE type){
 	string dbname = g_redisdbnames[type];
-	int index = getRedisDBIndex(dbname);
+	int index = /*getRedisDBIndex(dbname)*/0;
 	return m_redis->SelectDB(index);
 }
 
