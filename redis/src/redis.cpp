@@ -200,14 +200,14 @@ bool redis::delKey(std::string key){
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "del %s", key.c_str());
 	if (!r)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("del key %s faliled\n",key.c_str());
 		return false;
 	}
 
 	//执行失败
 	if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "OK") == 0))
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("del key %s faliled\n", key.c_str());
 		freeReplyObject(r);
 		return false;
 	}
@@ -228,14 +228,14 @@ bool redis::set(std::string key, char* value, int len)
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), value);
 	if (!r)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("set %s %s faliled\n",key.c_str(),value);
 		return false;
 	}
 
 	//执行失败
 	if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "OK") == 0))
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("set %s %s faliled\n", key.c_str(), value);
 		freeReplyObject(r);
 		return false;
 	}
@@ -252,14 +252,14 @@ bool redis::set(std::string key, char* value){
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), value);
 	if (!r)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("set %s %s faliled\n", key.c_str(), value);
 		return false;
 	}
 
 	//执行失败
 	if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "OK") == 0))
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("set %s %s faliled\n", key.c_str(), value);
 		freeReplyObject(r);
 		return false;
 	}
@@ -278,14 +278,14 @@ bool redis::set(string key, int value){
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, "SET %s %s", key.c_str(), buff);
 	if (!r)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("set %s %s faliled\n", key.c_str(), buff);
 		return false;
 	}
 
 	//执行失败
 	if (!(r->type == REDIS_REPLY_STATUS && strcasecmp(r->str, "OK") == 0))
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("set %s %s faliled\n", key.c_str(), buff);
 		freeReplyObject(r);
 		return false;
 	}
@@ -305,13 +305,13 @@ char* redis::get(std::string key, int &len)
 	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "GET %s", key.c_str());
 	if (!m_pReply)
 	{
-		CLog::log("get value failed\n");
+		CLog::log("get %s faliled\n", key.c_str(), key.c_str());
 		return NULL;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type != REDIS_REPLY_STRING)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("get %s faliled\n", key.c_str(), key.c_str());
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return NULL;
@@ -338,14 +338,14 @@ bool redis::Hash(std::string key, Message *msg){
 		redisReply* r = (redisReply*)redisCommand(this->m_pConnect, content.c_str());
 		if (!r)
 		{
-			CLog::log("set redis faliled\n");
+			CLog::log("%s faliled\n",content.c_str());
 			return false;
 		}
 
 		//执行失败
 		if (r->type == REDIS_REPLY_ERROR || r->str)
 		{
-			CLog::log("set redis faliled\n");
+			CLog::log("%s faliled\n", content.c_str());
 			freeReplyObject(r);
 			return false;
 		}
@@ -361,14 +361,14 @@ bool redis::Hash(std::string key, std::string name, std::string value){
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, ("hset "+key+" "+name+" "+value).c_str());
 	if (!r)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("%s faliled\n", ("hset " + key + " " + name + " " + value).c_str());
 		return false;
 	}
 
 	//执行失败
 	if (r->type == REDIS_REPLY_ERROR || r->str)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("%s faliled\n", ("hset " + key + " " + name + " " + value).c_str());
 		freeReplyObject(r);
 		return false;
 	}
@@ -379,18 +379,18 @@ bool redis::Hash(std::string key, std::string name, std::string value){
 
 bool redis::addHash(std::string key, std::string name, int value){
 	char buff[300];
-	sprintf(buff,"hincrby %s %s %d",key,name,value);
+	sprintf(buff,"hincrby %s %s %d",key.c_str(),name.c_str(),value);
 	redisReply* r = (redisReply*)redisCommand(this->m_pConnect, buff);
 	if (!r)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("hincrby %s %s %d faild", key.c_str(), name.c_str(), value);
 		return false;
 	}
 
 	//执行失败
 	if (r->type == REDIS_REPLY_ERROR || r->str)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("hincrby %s %s %d faild", key.c_str(), name.c_str(), value);
 		freeReplyObject(r);
 		return false;
 	}
@@ -406,13 +406,13 @@ Message *redis::getHash(std::string key, string msgname){
 	if (!m_pReply)
 	{
 		reconnect();
-		CLog::log("get value failed\n");
+		CLog::log("hgetall %s faild", key.c_str());
 		return NULL;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("hgetall %s faild", key.c_str());
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return NULL;
@@ -433,12 +433,11 @@ Message *redis::getHash(std::string key, string msgname){
 		msg = PopDataFromRedis(msgname, datas);
 	}
 	else{
-		CLog::log("get redis faild\n");
+		CLog::log("hgetall %s faild", key.c_str());
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return NULL;
 	}
-	CLog::log("get redis success\n");
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
 	return msg;
@@ -450,13 +449,13 @@ map<string, string> redis::getHash(std::string key){
 	if (!m_pReply)
 	{
 		reconnect();
-		CLog::log("datas value failed\n");
+		CLog::log("hgetall %s faild", key.c_str());
 		return datas;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("hgetall %s faild", key.c_str());
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return datas;
@@ -474,7 +473,7 @@ map<string, string> redis::getHash(std::string key){
 		}
 		datas.insert(make_pair(name, value));
 	}
-	CLog::log("get redis success\n");
+	
 	freeReplyObject(m_pReply);
 	m_pReply = NULL;
 	return datas;
@@ -484,18 +483,18 @@ bool redis::List(std::string key, char* value){
 	m_pReply = (redisReply*)redisCommand(this->m_pConnect, "rpush %s %s", key.c_str(), value);
 	if (!m_pReply)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("rpush %s %s faild", key.c_str(), value);
 		return false;
 	}
 
 	//执行失败
 	if (m_pReply->type == REDIS_REPLY_ERROR || m_pReply->str)
 	{
-		CLog::log("set redis faliled\n");
+		CLog::log("rpush %s %s faild", key.c_str(), value);
 		freeReplyObject(m_pReply);
 		return false;
 	}
-	CLog::log("set redis success\n");
+	
 	freeReplyObject(m_pReply);
 
 	return true;
@@ -530,13 +529,13 @@ int redis::eraseList(string key, string value){
 	if (!m_pReply)
 	{
 		reconnect();
-		CLog::log("get value failed\n");
+		CLog::log("lrem  %s %d %s faild", key.c_str(), 0, value.c_str());
 		return 0;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("lrem  %s %d %s faild", key.c_str(), 0, value.c_str());
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return 0;
@@ -559,13 +558,13 @@ bool redis::eraseList(string key, Message *msg){
 	if (!m_pReply)
 	{
 		reconnect();
-		CLog::log("get value failed\n");
+		CLog::log("lrem  %s %d %s faild", key.c_str(), 0, buffer);
 		return 0;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("lrem  %s %d %s faild", key.c_str(), 0, buffer);
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return 0;
@@ -584,13 +583,13 @@ map<uint64, int> redis::getList(string key){
 	if (!m_pReply)
 	{
 		reconnect();
-		CLog::log("get value failed\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), 0, -1);
 		return vec;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), 0, -1);
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return vec;
@@ -622,13 +621,13 @@ vector<std::string> redis::getListStr(string key){
 	if (!m_pReply)
 	{
 		reconnect();
-		printf("get value failed\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), 0, -1);
 		return vec;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		printf("get redis faliled\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), 0, -1);
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return vec;
@@ -704,14 +703,14 @@ bool redis::setList(std::string key, string keyname, string value, Message *msg1
 				bool ist = true;
 				if (!m_pReply)
 				{
-					CLog::log("set redis faliled\n");
+					CLog::log("lset %s %d %s faild", (key + msg1->GetTypeName()).c_str(), i, buffer);
 					ist = false;
 					releaseMessages(vec);
 					return false;
 				}
 				if (ist && m_pReply->type == REDIS_REPLY_ERROR){
 					ist = false;
-					CLog::log("set redis faliled\n");
+					CLog::log("lset %s %d %s faild", (key + msg1->GetTypeName()).c_str(), i, buffer);
 					freeReplyObject(m_pReply);
 					releaseMessages(vec);
 					return false;
@@ -731,13 +730,13 @@ bool redis::setList(std::string key, int index, string value){
 	bool ist = true;
 	if (!m_pReply)
 	{
-		printf("set redis faliled\n");
+		CLog::log("lset %s %d %s faild", key.c_str(), index, value.c_str());
 		ist = false;
 		return false;
 	}
 	if (ist && m_pReply->type == REDIS_REPLY_ERROR){
 		ist = false;
-		printf("set redis faliled\n");
+		CLog::log("lset %s %d %s faild", key.c_str(), index, value.c_str());
 		freeReplyObject(m_pReply);
 		return false;
 	}
@@ -768,13 +767,13 @@ vector<char *> redis::getList(string key, vector<int> &lens, int beginindex, int
 	if (!m_pReply)
 	{
 		reconnect();
-		CLog::log("get value failed\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), beginindex, endindex);
 		return vec;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), beginindex, endindex);
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return vec;
@@ -804,13 +803,13 @@ std::vector<Message *> redis::getList(std::string key, string mesname, int begin
 	if (!m_pReply)
 	{
 		reconnect();
-		CLog::log("get value failed\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), beginindex, endindex);
 		return vec;
 	}
 	//get成功返回结果为 REDIS_REPLY_STRING 
 	if (m_pReply->type == REDIS_REPLY_ERROR)
 	{
-		CLog::log("get redis faliled\n");
+		CLog::log("lrange %s %d %d faild", key.c_str(), beginindex, endindex);
 		freeReplyObject(m_pReply);
 		m_pReply = NULL;
 		return vec;
