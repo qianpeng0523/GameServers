@@ -53,6 +53,7 @@ public:
 	bool setList(std::string key,string keyname,string value,Message *msg);
 	bool setList(std::string key, int index, string value);
 	bool setList(std::string key, int index, Message *msg);
+	bool setFriendList(std::string key, Message *msg);
 
 	bool isConnect();
 	void releaseMessages(vector<Message *>vecs);

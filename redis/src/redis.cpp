@@ -753,6 +753,18 @@ bool redis::setList(std::string key, int index, Message *msg){
 	return setList(key, index, buffer);
 }
 
+bool redis::setFriendList(std::string key, Message *msg){
+	vector<Message *>vec = redis::getIns()->getList(key, msg->GetTypeName());
+	Friend *fd = (Friend *)msg;
+	for (int i = 0; i < vec.size(); i++){
+		Friend *ff=(Friend *)vec.at(i);
+		if (fd->info().userid() == ff->info().userid()){
+			return setList(key, i, msg);
+		}
+	}
+	return false;
+}
+
 void redis::releaseMessages(vector<Message *>vecs){
 	for (int i = 0; i < vecs.size(); i++){
 		Message *msg = vecs.at(i);
