@@ -93,6 +93,13 @@ message Friend
 	optional uint32		time		= 6;	//多久前在线过
 }
 
+message FriendChat{
+	optional string 	content = 1;  //content
+	optional string 	uid 	= 2;  //uid
+	optional string		time	= 3;  //什么发的
+	optional string 	uname 	= 4;  //uid
+}
+
 // Active
 message Active
 {

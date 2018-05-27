@@ -117,6 +117,37 @@ message SAddFriendList
 	optional uint32 			err  	= 3;	//
 }
 
+message CFriendChat{
+	optional uint32 	cmd 			= 1[default=0x5021];  	//
+	optional string		content			= 2;
+	optional string 	uid 			= 3;					//
+}
+
+message SFriendChat{
+	optional uint32 	cmd 			= 1[default=0x5021];  	//
+	optional FriendChat	chat			= 2;
+}
+
+message CFriendChatList{
+	optional uint32 	cmd 			= 1[default=0x5022];  	//
+}
+
+message SFriendChatList{
+	optional uint32 	cmd 			= 1[default=0x5022];  	//
+	repeated FriendChat list			= 2;
+}
+
+message CFriendChatRead{
+	optional uint32 	cmd 			= 1[default=0x5023];  	//
+	optional FriendChat chat			= 2;
+}
+
+message SFriendChatRead{
+	optional uint32 	cmd 			= 1[default=0x5023];  	//
+	optional FriendChat chat			= 2;
+	optional uint32 	err				= 3;
+}
+
 //CActive 活动
 message CActive
 {
