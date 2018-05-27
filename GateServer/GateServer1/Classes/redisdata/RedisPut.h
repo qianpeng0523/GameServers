@@ -39,6 +39,9 @@ public:
 	bool eraseFriendNotice(string uid, FriendNotice *fn);
 	bool setFriendNoticeID(int id);
 
+	bool PushFriendChat(string sui,FriendChat fc);
+	bool eraseFriendChat(string sui, FriendChat fc);
+
 	bool PushTaskStatus(string uid, int taskid, Status *status);
 
 	bool PushFreeStatus(string uid, int fid, Status *status);

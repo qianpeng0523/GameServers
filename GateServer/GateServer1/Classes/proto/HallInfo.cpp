@@ -74,6 +74,15 @@ HallInfo::HallInfo()
 	CFirsyBuyData sl27;
 	regist(sl27.cmd(), sl27.GetTypeName(), Event_Handler(HallInfo::HandCFirsyBuyData));
 
+	CFriendChat sl28;
+	regist(sl28.cmd(), sl28.GetTypeName(), Event_Handler(HallInfo::HandlerCFriendChat));
+
+	CFriendChatList sl29;
+	regist(sl29.cmd(), sl29.GetTypeName(), Event_Handler(HallInfo::HandCFriendChatList));
+
+	CFriendChatRead sl30;
+	regist(sl30.cmd(), sl30.GetTypeName(), Event_Handler(HallInfo::HandCFriendChatRead));
+
 	m_lastday = Common::getLocalTimeDay();
 	StatTimer::getIns()->scheduleSelector(this, schedule_selector(HallInfo::update), 1.0);
 }
@@ -264,6 +273,7 @@ void HallInfo::HandlerCFriend(ccEvent *event){
 	
 
 	SFriend sf;
+	sf.set_cmd(sf.cmd());
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
 		string uid = data->_uid;
@@ -287,6 +297,7 @@ void HallInfo::SendSFindFriend(SFindFriend cl, int fd){
 void HallInfo::HandlerCFindFriend(ccEvent *event){
 	CFindFriend cl;
 	cl.CopyFrom(*event->msg);
+	string fuid = cl.uid();
 	SFindFriend fris;
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
@@ -297,12 +308,12 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 		fris.set_type(type);
 		fris.set_err(0);
 		if (type == 1){
-			UserBase *fir = m_pRedisGet->getUserBase(uid);
+			UserBase *fir = m_pRedisGet->getUserBase(fuid);
 			if (fir){
 				Friend *fri = fris.add_list();
 				fri->set_acttype(1);
-				fri->set_online(LibEvent::getIns()->isHave(uid));
-				fri->set_time(Common::getTime() - RedisGet::getIns()->getUserLoginTime(uid));
+				fri->set_online(LibEvent::getIns()->isHave(fuid));
+				fri->set_time(Common::getTime() - RedisGet::getIns()->getUserLoginTime(fuid));
 				UserBase *user = fri->mutable_info();
 				user->CopyFrom(*fir);
 			}
@@ -313,8 +324,24 @@ void HallInfo::HandlerCFindFriend(ccEvent *event){
 			if (vec.find(uid) != vec.end()){
 				vec.erase(vec.find(uid));
 			}
+			auto ffris = m_pRedisGet->getFriend(uid);
+			auto itrfri = ffris.begin();
+			for (itrfri; itrfri != ffris.end(); itrfri++){
+				string ffuid = itrfri->first;
+				if (vec.find(ffuid) != vec.end()){
+					vec.erase(vec.find(ffuid));
+				}
+			}
 			int num1 = vec.size();
 			auto vec1 = pLoginInfo->getOnLineUser(false);
+			itrfri = ffris.begin();
+			for (itrfri; itrfri != ffris.end(); itrfri++){
+				string ffuid = itrfri->first;
+				if (vec1.find(ffuid) != vec1.end()){
+					vec1.erase(vec1.find(ffuid));
+				}
+			}
+
 			int num2 = vec1.size();
 			int offnum = 4 - num1;
 			map<int, int> m1 = getRandNum(4, num1);
@@ -424,11 +451,11 @@ void HallInfo::HandlerCGiveFriend(ccEvent *event){
 				ml->set_status(1);
 				ml->set_time(Common::getLocalTime());
 				ml->set_title(XXIconv::GBK2UTF("好友【")+uname + XXIconv::GBK2UTF("】赠送"));
-
 				m_pRedisPut->setMailID(eid);
 				m_pRedisPut->PushMail(uid, ml);
 				m_pRedisPut->setConfig(uid, POINT_MAIL, true);
-				
+				fri->set_give(true);
+				m_pRedisPut->PushFriend(uid, fri);
 				ClientData *data1 = LibEvent::getIns()->getClientData(fuid);
 				if (data1){
 					SConfig *sc = m_pRedisGet->getSConfig(uid);
@@ -438,6 +465,9 @@ void HallInfo::HandlerCGiveFriend(ccEvent *event){
 					}
 				}
 			}
+		}
+		else{
+			sl.set_err(1);
 		}
 		
 	}
@@ -512,6 +542,7 @@ void HallInfo::HandlerCAddFriendList(ccEvent *event){
 	cl.CopyFrom(*event->msg);
 	
 	SAddFriendList fris;
+	fris.set_cmd(fris.cmd());
 	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
 	if (data){
 		string uid = data->_uid;
@@ -605,6 +636,105 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 	}
 	
 	SendSAgreeFriend(sl, event->m_fd);
+}
+
+
+void HallInfo::SendSFriendChat(SFriendChat cl, int fd){
+	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
+}
+
+void HallInfo::HandlerCFriendChat(ccEvent *event){
+	CFriendChat cl;
+	cl.CopyFrom(*event->msg);
+
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string uid = cl.uid();
+		UserBase *ub = m_pRedisGet->getUserBase(uid);
+		if (!ub){
+			SFriendChat sl;
+			sl.set_cmd(sl.cmd());
+			SendSFriendChat(sl, event->m_fd);
+			return;
+		}
+		string content = cl.content();
+		string suid = data->_uid;
+		FriendChat fc;
+		fc.set_uid(suid);
+		fc.set_content(content);
+		fc.set_time(Common::getLocalTime());
+		UserBase *ub1 = m_pRedisGet->getUserBase(suid);
+		if (ub1){
+			fc.set_uname(ub1->username());
+		}
+
+		m_pRedisPut->PushFriendChat(uid, fc);
+
+		ClientData *data1 = LibEvent::getIns()->getClientDataByUID(uid);
+		if (data1){
+			int fd = data1->_fd;
+			SFriendChat sl1;
+			FriendChat *fc2 = sl1.mutable_chat();
+			fc2->CopyFrom(fc);
+			SendSFriendChat(sl1, fd);
+		}
+
+		SFriendChat sl;
+		FriendChat *fc1 = sl.mutable_chat();
+		fc1->CopyFrom(fc);
+		fc1->set_uid(uid);
+		SendSFriendChat(sl, event->m_fd);
+
+		
+	}
+}
+
+void HallInfo::SendSFriendChatList(SFriendChatList cl, int fd){
+	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
+}
+
+void HallInfo::HandCFriendChatList(ccEvent *event){
+	CFriendChatList cl;
+	cl.CopyFrom(*event->msg);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		SFriendChatList sl;
+		sl.set_cmd(sl.cmd());
+		string suid = data->_uid;
+		auto vec = m_pRedisGet->getFriendChat(suid);
+		auto itr = vec.begin();
+		for (itr; itr != vec.end(); itr++){
+			auto mp = itr->second;
+			for (int i = 0; i < mp.size(); i++){
+				FriendChat *fc = mp.at(i);
+				FriendChat *fc1 = sl.add_list();
+				fc1->CopyFrom(*fc);
+			}
+		}
+		SendSFriendChatList(sl, event->m_fd);
+	}
+}
+
+void HallInfo::SendSSFriendChatRead(SFriendChatRead cl, int fd){
+	LibEvent::getIns()->SendData(cl.cmd(), &cl, fd);
+}
+
+void HallInfo::HandCFriendChatRead(ccEvent *event){
+	CFriendChatRead cl;
+	cl.CopyFrom(*event->msg);
+	ClientData *data = LibEvent::getIns()->getClientData(event->m_fd);
+	if (data){
+		string suid = data->_uid;
+		SFriendChatRead sl;
+		sl.set_cmd(sl.cmd());
+		FriendChat fc = cl.chat();
+		FriendChat *fc1 = sl.mutable_chat();
+		fc1->CopyFrom(fc);
+		bool ist = m_pRedisPut->eraseFriendChat(suid,fc);
+		sl.set_err(!ist);
+		SendSSFriendChatRead(sl,event->m_fd);
+	}
+	
 }
 
 void HallInfo::SendSActive(SActive cl, int fd){

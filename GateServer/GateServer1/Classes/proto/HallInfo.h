@@ -53,6 +53,14 @@ public:
 	void SendSAgreeFriend(SAgreeFriend cl, int fd);
 	void HandlerCAgreeFriend(ccEvent *event);
 
+	void SendSFriendChat(SFriendChat cl,int fd);
+	void HandlerCFriendChat(ccEvent *event);
+
+	void SendSFriendChatList(SFriendChatList cl, int fd);
+	void HandCFriendChatList(ccEvent *event);
+
+	void SendSSFriendChatRead(SFriendChatRead cl,int fd);
+	void HandCFriendChatRead(ccEvent *event);
 	//活动
 	void SendSActive(SActive cl, int fd);
 	void HandlerCActive(ccEvent *event);

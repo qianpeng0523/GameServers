@@ -47,6 +47,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Friend_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Friend_reflection_ = NULL;
+const ::google::protobuf::Descriptor* FriendChat_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  FriendChat_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Active_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Active_reflection_ = NULL;
@@ -279,7 +282,25 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Friend));
-  Active_descriptor_ = file->message_type(9);
+  FriendChat_descriptor_ = file->message_type(9);
+  static const int FriendChat_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FriendChat, content_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FriendChat, uid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FriendChat, time_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FriendChat, uname_),
+  };
+  FriendChat_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      FriendChat_descriptor_,
+      FriendChat::default_instance_,
+      FriendChat_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FriendChat, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FriendChat, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(FriendChat));
+  Active_descriptor_ = file->message_type(10);
   static const int Active_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Active, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Active, type_),
@@ -296,7 +317,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Active));
-  Status_descriptor_ = file->message_type(10);
+  Status_descriptor_ = file->message_type(11);
   static const int Status_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, count_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, fcount_),
@@ -313,7 +334,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Status));
-  Task_descriptor_ = file->message_type(11);
+  Task_descriptor_ = file->message_type(12);
   static const int Task_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Task, taskid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Task, title_),
@@ -333,7 +354,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Task));
-  ExAward_descriptor_ = file->message_type(12);
+  ExAward_descriptor_ = file->message_type(13);
   static const int ExAward_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExAward, eid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExAward, title_),
@@ -351,7 +372,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ExAward));
-  ExRecord_descriptor_ = file->message_type(13);
+  ExRecord_descriptor_ = file->message_type(14);
   static const int ExRecord_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExRecord, eid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExRecord, title_),
@@ -370,7 +391,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ExRecord));
-  SignAward_descriptor_ = file->message_type(14);
+  SignAward_descriptor_ = file->message_type(15);
   static const int SignAward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignAward, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignAward, day_),
@@ -387,7 +408,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SignAward));
-  SignZhuan_descriptor_ = file->message_type(15);
+  SignZhuan_descriptor_ = file->message_type(16);
   static const int SignZhuan_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignZhuan, index_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignZhuan, reward_),
@@ -403,7 +424,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SignZhuan));
-  PayRecord_descriptor_ = file->message_type(16);
+  PayRecord_descriptor_ = file->message_type(17);
   static const int PayRecord_offsets_[9] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PayRecord, userid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PayRecord, attach_),
@@ -426,7 +447,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PayRecord));
-  RoomData_descriptor_ = file->message_type(17);
+  RoomData_descriptor_ = file->message_type(18);
   static const int RoomData_offsets_[9] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomData, ante_),
@@ -449,7 +470,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(RoomData));
-  CPGCardData_descriptor_ = file->message_type(18);
+  CPGCardData_descriptor_ = file->message_type(19);
   static const int CPGCardData_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPGCardData, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPGCardData, cards_),
@@ -467,7 +488,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CPGCardData));
-  RoomUser_descriptor_ = file->message_type(19);
+  RoomUser_descriptor_ = file->message_type(20);
   static const int RoomUser_offsets_[22] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, userid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RoomUser, username_),
@@ -503,7 +524,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(RoomUser));
-  TingCard_descriptor_ = file->message_type(20);
+  TingCard_descriptor_ = file->message_type(21);
   static const int TingCard_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TingCard, card_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TingCard, ting_),
@@ -519,7 +540,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(TingCard));
-  UserOver_descriptor_ = file->message_type(21);
+  UserOver_descriptor_ = file->message_type(22);
   static const int UserOver_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UserOver, userid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UserOver, position_),
@@ -538,7 +559,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(UserOver));
-  UserRound_descriptor_ = file->message_type(22);
+  UserRound_descriptor_ = file->message_type(23);
   static const int UserRound_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UserRound, userid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UserRound, total_),
@@ -556,7 +577,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(UserRound));
-  CPing_descriptor_ = file->message_type(23);
+  CPing_descriptor_ = file->message_type(24);
   static const int CPing_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPing, cmd_),
   };
@@ -571,7 +592,7 @@ void protobuf_AssignDesc_Vo_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CPing));
-  SPing_descriptor_ = file->message_type(24);
+  SPing_descriptor_ = file->message_type(25);
   static const int SPing_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SPing, cmd_),
   };
@@ -616,6 +637,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
     FriendNotice_descriptor_, &FriendNotice::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Friend_descriptor_, &Friend::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    FriendChat_descriptor_, &FriendChat::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Active_descriptor_, &Active::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -671,6 +694,8 @@ void protobuf_ShutdownFile_Vo_2eproto() {
   delete FriendNotice_reflection_;
   delete Friend::default_instance_;
   delete Friend_reflection_;
+  delete FriendChat::default_instance_;
+  delete FriendChat_reflection_;
   delete Active::default_instance_;
   delete Active_reflection_;
   delete Status::default_instance_;
@@ -736,47 +761,49 @@ void protobuf_AddDesc_Vo_2eproto() {
     "d\030\003 \001(\t\022\014\n\004time\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\"w\n"
     "\006Friend\022 \n\004info\030\001 \001(\0132\022.protocol.UserBas"
     "e\022\016\n\006online\030\002 \001(\010\022\016\n\006friend\030\003 \001(\010\022\017\n\007act"
-    "type\030\004 \001(\r\022\014\n\004give\030\005 \001(\010\022\014\n\004time\030\006 \001(\r\"/"
-    "\n\006Active\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\r\022\013\n\003ur"
-    "l\030\003 \001(\t\"9\n\006Status\022\r\n\005count\030\001 \001(\r\022\016\n\006fcou"
-    "nt\030\002 \001(\r\022\020\n\010finished\030\003 \001(\r\"\214\001\n\004Task\022\016\n\006t"
-    "askid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007content\030\003 "
-    "\001(\t\022\014\n\004type\030\004 \001(\r\022$\n\nrewardlist\030\005 \003(\0132\020."
-    "protocol.Reward\022 \n\006status\030\006 \001(\0132\020.protoc"
-    "ol.Status\"e\n\007ExAward\022\013\n\003eid\030\001 \001(\r\022\r\n\005tit"
-    "le\030\002 \001(\t\022\037\n\005award\030\003 \001(\0132\020.protocol.Rewar"
-    "d\022\035\n\003buy\030\004 \001(\0132\020.protocol.Reward\"U\n\010ExRe"
-    "cord\022\013\n\003eid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007orde"
-    "rid\030\003 \001(\t\022\014\n\004time\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\""
-    "F\n\tSignAward\022\n\n\002id\030\001 \001(\r\022\013\n\003day\030\002 \001(\r\022 \n"
-    "\006reward\030\003 \001(\0132\020.protocol.Reward\"<\n\tSignZ"
-    "huan\022\r\n\005index\030\001 \001(\r\022 \n\006reward\030\002 \001(\0132\020.pr"
-    "otocol.Reward\"\270\001\n\tPayRecord\022\016\n\006userid\030\001 "
-    "\001(\t\022\016\n\006attach\030\002 \001(\t\022\024\n\014out_trade_no\030\003 \001("
-    "\t\022\022\n\ntime_start\030\004 \001(\t\022\023\n\013time_expire\030\005 \001"
-    "(\t\022\021\n\tprepay_id\030\006 \001(\t\022\014\n\004body\030\007 \001(\t\022\021\n\tt"
-    "otal_fee\030\010 \001(\t\022\030\n\020spbill_create_ip\030\t \001(\t"
-    "\"\215\001\n\010RoomData\022\014\n\004type\030\001 \001(\r\022\014\n\004ante\030\002 \001("
-    "\r\022\r\n\005round\030\003 \001(\r\022\013\n\003bao\030\004 \001(\r\022\014\n\004bang\030\005 "
-    "\001(\r\022\016\n\006roomid\030\006 \001(\t\022\020\n\010roomtype\030\007 \001(\t\022\013\n"
-    "\003uid\030\010 \001(\t\022\014\n\004left\030\t \001(\r\"F\n\013CPGCardData\022"
-    "\014\n\004type\030\001 \001(\r\022\r\n\005cards\030\002 \001(\014\022\r\n\005index\030\003 "
-    "\001(\r\022\013\n\003bei\030\004 \001(\r\"\352\002\n\010RoomUser\022\016\n\006userid\030"
-    "\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005picid\030\003 \001(\r\022\016"
-    "\n\006picurl\030\004 \001(\t\022\013\n\003sex\030\005 \001(\r\022\n\n\002ip\030\006 \001(\t\022"
-    "\014\n\004gold\030\007 \001(\r\022\r\n\005score\030\010 \001(\005\022\013\n\003win\030\t \001("
-    "\r\022\014\n\004lose\030\n \001(\r\022\014\n\004ping\030\013 \001(\r\022\013\n\003vip\030\014 \001"
-    "(\r\022&\n\007cpgcard\030\r \003(\0132\025.protocol.CPGCardDa"
-    "ta\022\020\n\010position\030\016 \001(\r\022\r\n\005cards\030\017 \001(\014\022\020\n\010o"
-    "utcards\030\020 \001(\014\022\n\n\002fa\030\021 \001(\r\022\014\n\004piao\030\022 \001(\r\022"
-    "\r\n\005ready\030\023 \001(\010\022\r\n\005begin\030\024 \001(\010\022\016\n\006zhuang\030"
-    "\025 \001(\010\022\016\n\006online\030\026 \001(\010\"&\n\010TingCard\022\014\n\004car"
-    "d\030\001 \001(\r\022\014\n\004ting\030\002 \001(\014\"Y\n\010UserOver\022\016\n\006use"
-    "rid\030\001 \001(\t\022\020\n\010position\030\002 \001(\r\022\r\n\005score\030\003 \001"
-    "(\r\022\r\n\005total\030\004 \001(\r\022\r\n\005cards\030\005 \001(\014\"D\n\tUser"
-    "Round\022\016\n\006userid\030\001 \001(\t\022\r\n\005total\030\002 \001(\r\022\013\n\003"
-    "pao\030\003 \001(\t\022\013\n\003win\030\004 \001(\t\"\033\n\005CPing\022\022\n\003cmd\030\001"
-    " \001(\r:\00516387\"\033\n\005SPing\022\022\n\003cmd\030\001 \001(\r:\00516387", 2600);
+    "type\030\004 \001(\r\022\014\n\004give\030\005 \001(\010\022\014\n\004time\030\006 \001(\r\"G"
+    "\n\nFriendChat\022\017\n\007content\030\001 \001(\t\022\013\n\003uid\030\002 \001"
+    "(\t\022\014\n\004time\030\003 \001(\t\022\r\n\005uname\030\004 \001(\t\"/\n\006Activ"
+    "e\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\r\022\013\n\003url\030\003 \001(\t"
+    "\"9\n\006Status\022\r\n\005count\030\001 \001(\r\022\016\n\006fcount\030\002 \001("
+    "\r\022\020\n\010finished\030\003 \001(\r\"\214\001\n\004Task\022\016\n\006taskid\030\001"
+    " \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007content\030\003 \001(\t\022\014\n\004"
+    "type\030\004 \001(\r\022$\n\nrewardlist\030\005 \003(\0132\020.protoco"
+    "l.Reward\022 \n\006status\030\006 \001(\0132\020.protocol.Stat"
+    "us\"e\n\007ExAward\022\013\n\003eid\030\001 \001(\r\022\r\n\005title\030\002 \001("
+    "\t\022\037\n\005award\030\003 \001(\0132\020.protocol.Reward\022\035\n\003bu"
+    "y\030\004 \001(\0132\020.protocol.Reward\"U\n\010ExRecord\022\013\n"
+    "\003eid\030\001 \001(\r\022\r\n\005title\030\002 \001(\t\022\017\n\007orderid\030\003 \001"
+    "(\t\022\014\n\004time\030\004 \001(\t\022\016\n\006status\030\005 \001(\r\"F\n\tSign"
+    "Award\022\n\n\002id\030\001 \001(\r\022\013\n\003day\030\002 \001(\r\022 \n\006reward"
+    "\030\003 \001(\0132\020.protocol.Reward\"<\n\tSignZhuan\022\r\n"
+    "\005index\030\001 \001(\r\022 \n\006reward\030\002 \001(\0132\020.protocol."
+    "Reward\"\270\001\n\tPayRecord\022\016\n\006userid\030\001 \001(\t\022\016\n\006"
+    "attach\030\002 \001(\t\022\024\n\014out_trade_no\030\003 \001(\t\022\022\n\nti"
+    "me_start\030\004 \001(\t\022\023\n\013time_expire\030\005 \001(\t\022\021\n\tp"
+    "repay_id\030\006 \001(\t\022\014\n\004body\030\007 \001(\t\022\021\n\ttotal_fe"
+    "e\030\010 \001(\t\022\030\n\020spbill_create_ip\030\t \001(\t\"\215\001\n\010Ro"
+    "omData\022\014\n\004type\030\001 \001(\r\022\014\n\004ante\030\002 \001(\r\022\r\n\005ro"
+    "und\030\003 \001(\r\022\013\n\003bao\030\004 \001(\r\022\014\n\004bang\030\005 \001(\r\022\016\n\006"
+    "roomid\030\006 \001(\t\022\020\n\010roomtype\030\007 \001(\t\022\013\n\003uid\030\010 "
+    "\001(\t\022\014\n\004left\030\t \001(\r\"F\n\013CPGCardData\022\014\n\004type"
+    "\030\001 \001(\r\022\r\n\005cards\030\002 \001(\014\022\r\n\005index\030\003 \001(\r\022\013\n\003"
+    "bei\030\004 \001(\r\"\352\002\n\010RoomUser\022\016\n\006userid\030\001 \001(\t\022\020"
+    "\n\010username\030\002 \001(\t\022\r\n\005picid\030\003 \001(\r\022\016\n\006picur"
+    "l\030\004 \001(\t\022\013\n\003sex\030\005 \001(\r\022\n\n\002ip\030\006 \001(\t\022\014\n\004gold"
+    "\030\007 \001(\r\022\r\n\005score\030\010 \001(\005\022\013\n\003win\030\t \001(\r\022\014\n\004lo"
+    "se\030\n \001(\r\022\014\n\004ping\030\013 \001(\r\022\013\n\003vip\030\014 \001(\r\022&\n\007c"
+    "pgcard\030\r \003(\0132\025.protocol.CPGCardData\022\020\n\010p"
+    "osition\030\016 \001(\r\022\r\n\005cards\030\017 \001(\014\022\020\n\010outcards"
+    "\030\020 \001(\014\022\n\n\002fa\030\021 \001(\r\022\014\n\004piao\030\022 \001(\r\022\r\n\005read"
+    "y\030\023 \001(\010\022\r\n\005begin\030\024 \001(\010\022\016\n\006zhuang\030\025 \001(\010\022\016"
+    "\n\006online\030\026 \001(\010\"&\n\010TingCard\022\014\n\004card\030\001 \001(\r"
+    "\022\014\n\004ting\030\002 \001(\014\"Y\n\010UserOver\022\016\n\006userid\030\001 \001"
+    "(\t\022\020\n\010position\030\002 \001(\r\022\r\n\005score\030\003 \001(\r\022\r\n\005t"
+    "otal\030\004 \001(\r\022\r\n\005cards\030\005 \001(\014\"D\n\tUserRound\022\016"
+    "\n\006userid\030\001 \001(\t\022\r\n\005total\030\002 \001(\r\022\013\n\003pao\030\003 \001"
+    "(\t\022\013\n\003win\030\004 \001(\t\"\033\n\005CPing\022\022\n\003cmd\030\001 \001(\r:\0051"
+    "6387\"\033\n\005SPing\022\022\n\003cmd\030\001 \001(\r:\00516387", 2673);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Vo.proto", &protobuf_RegisterTypes);
   UserBase::default_instance_ = new UserBase();
@@ -788,6 +815,7 @@ void protobuf_AddDesc_Vo_2eproto() {
   Mail::default_instance_ = new Mail();
   FriendNotice::default_instance_ = new FriendNotice();
   Friend::default_instance_ = new Friend();
+  FriendChat::default_instance_ = new FriendChat();
   Active::default_instance_ = new Active();
   Status::default_instance_ = new Status();
   Task::default_instance_ = new Task();
@@ -813,6 +841,7 @@ void protobuf_AddDesc_Vo_2eproto() {
   Mail::default_instance_->InitAsDefaultInstance();
   FriendNotice::default_instance_->InitAsDefaultInstance();
   Friend::default_instance_->InitAsDefaultInstance();
+  FriendChat::default_instance_->InitAsDefaultInstance();
   Active::default_instance_->InitAsDefaultInstance();
   Status::default_instance_->InitAsDefaultInstance();
   Task::default_instance_->InitAsDefaultInstance();
@@ -4538,6 +4567,402 @@ void Friend::Swap(Friend* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = Friend_descriptor_;
   metadata.reflection = Friend_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int FriendChat::kContentFieldNumber;
+const int FriendChat::kUidFieldNumber;
+const int FriendChat::kTimeFieldNumber;
+const int FriendChat::kUnameFieldNumber;
+#endif  // !_MSC_VER
+
+FriendChat::FriendChat()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void FriendChat::InitAsDefaultInstance() {
+}
+
+FriendChat::FriendChat(const FriendChat& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void FriendChat::SharedCtor() {
+  _cached_size_ = 0;
+  content_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  time_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  uname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+FriendChat::~FriendChat() {
+  SharedDtor();
+}
+
+void FriendChat::SharedDtor() {
+  if (content_ != &::google::protobuf::internal::kEmptyString) {
+    delete content_;
+  }
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (time_ != &::google::protobuf::internal::kEmptyString) {
+    delete time_;
+  }
+  if (uname_ != &::google::protobuf::internal::kEmptyString) {
+    delete uname_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void FriendChat::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* FriendChat::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return FriendChat_descriptor_;
+}
+
+const FriendChat& FriendChat::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Vo_2eproto();
+  return *default_instance_;
+}
+
+FriendChat* FriendChat::default_instance_ = NULL;
+
+FriendChat* FriendChat::New() const {
+  return new FriendChat;
+}
+
+void FriendChat::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_content()) {
+      if (content_ != &::google::protobuf::internal::kEmptyString) {
+        content_->clear();
+      }
+    }
+    if (has_uid()) {
+      if (uid_ != &::google::protobuf::internal::kEmptyString) {
+        uid_->clear();
+      }
+    }
+    if (has_time()) {
+      if (time_ != &::google::protobuf::internal::kEmptyString) {
+        time_->clear();
+      }
+    }
+    if (has_uname()) {
+      if (uname_ != &::google::protobuf::internal::kEmptyString) {
+        uname_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool FriendChat::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string content = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_content()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->content().data(), this->content().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_uid;
+        break;
+      }
+
+      // optional string uid = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_uid:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_uid()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->uid().data(), this->uid().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_time;
+        break;
+      }
+
+      // optional string time = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_time:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_time()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->time().data(), this->time().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(34)) goto parse_uname;
+        break;
+      }
+
+      // optional string uname = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_uname:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_uname()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->uname().data(), this->uname().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void FriendChat::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional string content = 1;
+  if (has_content()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->content().data(), this->content().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      1, this->content(), output);
+  }
+
+  // optional string uid = 2;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->uid(), output);
+  }
+
+  // optional string time = 3;
+  if (has_time()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->time().data(), this->time().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      3, this->time(), output);
+  }
+
+  // optional string uname = 4;
+  if (has_uname()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uname().data(), this->uname().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      4, this->uname(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* FriendChat::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional string content = 1;
+  if (has_content()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->content().data(), this->content().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->content(), target);
+  }
+
+  // optional string uid = 2;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->uid(), target);
+  }
+
+  // optional string time = 3;
+  if (has_time()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->time().data(), this->time().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->time(), target);
+  }
+
+  // optional string uname = 4;
+  if (has_uname()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uname().data(), this->uname().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->uname(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int FriendChat::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string content = 1;
+    if (has_content()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->content());
+    }
+
+    // optional string uid = 2;
+    if (has_uid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->uid());
+    }
+
+    // optional string time = 3;
+    if (has_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->time());
+    }
+
+    // optional string uname = 4;
+    if (has_uname()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->uname());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void FriendChat::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const FriendChat* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const FriendChat*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void FriendChat::MergeFrom(const FriendChat& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_content()) {
+      set_content(from.content());
+    }
+    if (from.has_uid()) {
+      set_uid(from.uid());
+    }
+    if (from.has_time()) {
+      set_time(from.time());
+    }
+    if (from.has_uname()) {
+      set_uname(from.uname());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void FriendChat::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void FriendChat::CopyFrom(const FriendChat& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FriendChat::IsInitialized() const {
+
+  return true;
+}
+
+void FriendChat::Swap(FriendChat* other) {
+  if (other != this) {
+    std::swap(content_, other->content_);
+    std::swap(uid_, other->uid_);
+    std::swap(time_, other->time_);
+    std::swap(uname_, other->uname_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata FriendChat::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = FriendChat_descriptor_;
+  metadata.reflection = FriendChat_reflection_;
   return metadata;
 }
 

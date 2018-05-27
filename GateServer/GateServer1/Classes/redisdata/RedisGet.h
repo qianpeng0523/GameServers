@@ -127,6 +127,12 @@ public:
 	Friend *getFriend(string uid, string fuid);
 	void setFriend(string uid,Friend *fri,bool isadd);
 
+	map<string, map<string, vector<FriendChat *>>> getFriendChats();
+	map<string, vector<FriendChat *>>getFriendChat(string uid);
+	vector<FriendChat *>getFriendChat(string uid,string fuid);
+	void setFriendChat(string suid, FriendChat *fc);
+	void eraseFriendChat(string suid, FriendChat fc);
+
 	map<string, map<int, FriendNotice *>> getFriendNotices();
 	void setFriendNotice(string uid,FriendNotice *p);
 	void eraseFriendNotice(string uid, FriendNotice *p);
@@ -227,6 +233,7 @@ private:
 
 	map<string, REDISDBName *>m_RedisDBNames;
 	int m_wxnonceid;
+	map<string, map<string, vector<FriendChat *>>> m_pFriendChats;
 };
 
 

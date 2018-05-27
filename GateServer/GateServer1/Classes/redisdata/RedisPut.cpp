@@ -254,9 +254,16 @@ bool RedisPut::PushFriend(string uid, Friend *fd){
 	if (ist){
 		char buff[100];
 		string fuid = fd->info().userid();
-		sprintf(buff, "%s%s%s", g_redisdbnames[REIDS_FRIEND].c_str(), uid.c_str(), fuid.c_str());
-		RedisGet::getIns()->setFriend(uid, fd, true);
-		m_redis->Hash(buff, fd);
+		sprintf(buff, "%s_%s", g_redisdbnames[REIDS_FRIEND].c_str(), uid.c_str());
+		Friend *fri = RedisGet::getIns()->getFriend(uid,fuid);
+		if (!fri){
+			RedisGet::getIns()->setFriend(uid, fd, true);
+			return m_redis->List(buff, fd);
+		}
+		else{
+			RedisGet::getIns()->setFriend(uid, fd, true);
+			return m_redis->setFriendList(buff, fd);
+		}
 	}
 	return ist;
 }
@@ -265,9 +272,31 @@ bool RedisPut::eraseFriend(string uid, Friend *fd){
 	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
 	if (ist){
 		char buff[100];
-		sprintf(buff, "%s%s%s", g_redisdbnames[REIDS_FRIEND].c_str(), uid.c_str(),fd->info().userid().c_str());
+		sprintf(buff, "%s_%s", g_redisdbnames[REIDS_FRIEND].c_str(), uid.c_str());
 		RedisGet::getIns()->setFriend(uid, fd, false);
-		return m_redis->delKey(buff);
+		return m_redis->eraseList(buff,fd);
+	}
+	return ist;
+}
+
+bool RedisPut::PushFriendChat(string sui, FriendChat fc){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
+	if (ist){
+		string key = g_redisdbnames[REIDS_FRIEND]+"_chat_"+sui;
+		FriendChat *fc1 = (FriendChat *)ccEvent::create_message(fc.GetTypeName());
+		fc1->CopyFrom(fc);
+		RedisGet::getIns()->setFriendChat(sui,fc1);
+		return m_redis->List(key, &fc);
+	}
+	return ist;
+}
+
+bool RedisPut::eraseFriendChat(string sui, FriendChat fc){
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
+	if (ist){
+		string key = g_redisdbnames[REIDS_FRIEND] + "_chat_"+sui;
+		RedisGet::getIns()->eraseFriendChat(sui, fc);
+		return m_redis->eraseList(key,&fc);
 	}
 	return ist;
 }

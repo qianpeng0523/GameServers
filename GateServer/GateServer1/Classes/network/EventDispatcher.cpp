@@ -89,7 +89,7 @@ void EventDispatcher::disEventDispatcher(ccEvent *event){
 		if (!m_lock){
 			m_lock = true;
 			EventPathch();
-			m_lock = false;
+			
 		}
 	}
 }
@@ -119,6 +119,7 @@ void EventDispatcher::EventPathch(){
 			}
 		}
 	}
+	m_lock = false;
 }
 
 void EventDispatcher::registerProto(int cmd, string tname, SERVERTYPE type){

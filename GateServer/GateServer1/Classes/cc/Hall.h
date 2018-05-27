@@ -50,6 +50,12 @@ class CAddFriend;
 class SAddFriend;
 class CAddFriendList;
 class SAddFriendList;
+class CFriendChat;
+class SFriendChat;
+class CFriendChatList;
+class SFriendChatList;
+class CFriendChatRead;
+class SFriendChatRead;
 class CActive;
 class SActive;
 class CTask;
@@ -1703,6 +1709,587 @@ class SAddFriendList : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SAddFriendList* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CFriendChat : public ::google::protobuf::Message {
+ public:
+  CFriendChat();
+  virtual ~CFriendChat();
+
+  CFriendChat(const CFriendChat& from);
+
+  inline CFriendChat& operator=(const CFriendChat& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CFriendChat& default_instance();
+
+  void Swap(CFriendChat* other);
+
+  // implements Message ----------------------------------------------
+
+  CFriendChat* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CFriendChat& from);
+  void MergeFrom(const CFriendChat& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 20513];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional string content = 2;
+  inline bool has_content() const;
+  inline void clear_content();
+  static const int kContentFieldNumber = 2;
+  inline const ::std::string& content() const;
+  inline void set_content(const ::std::string& value);
+  inline void set_content(const char* value);
+  inline void set_content(const char* value, size_t size);
+  inline ::std::string* mutable_content();
+  inline ::std::string* release_content();
+  inline void set_allocated_content(::std::string* content);
+
+  // optional string uid = 3;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 3;
+  inline const ::std::string& uid() const;
+  inline void set_uid(const ::std::string& value);
+  inline void set_uid(const char* value);
+  inline void set_uid(const char* value, size_t size);
+  inline ::std::string* mutable_uid();
+  inline ::std::string* release_uid();
+  inline void set_allocated_uid(::std::string* uid);
+
+  // @@protoc_insertion_point(class_scope:protocol.CFriendChat)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_content();
+  inline void clear_has_content();
+  inline void set_has_uid();
+  inline void clear_has_uid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* content_;
+  ::std::string* uid_;
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static CFriendChat* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SFriendChat : public ::google::protobuf::Message {
+ public:
+  SFriendChat();
+  virtual ~SFriendChat();
+
+  SFriendChat(const SFriendChat& from);
+
+  inline SFriendChat& operator=(const SFriendChat& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SFriendChat& default_instance();
+
+  void Swap(SFriendChat* other);
+
+  // implements Message ----------------------------------------------
+
+  SFriendChat* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SFriendChat& from);
+  void MergeFrom(const SFriendChat& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 20513];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional .protocol.FriendChat chat = 2;
+  inline bool has_chat() const;
+  inline void clear_chat();
+  static const int kChatFieldNumber = 2;
+  inline const ::protocol::FriendChat& chat() const;
+  inline ::protocol::FriendChat* mutable_chat();
+  inline ::protocol::FriendChat* release_chat();
+  inline void set_allocated_chat(::protocol::FriendChat* chat);
+
+  // @@protoc_insertion_point(class_scope:protocol.SFriendChat)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_chat();
+  inline void clear_has_chat();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::protocol::FriendChat* chat_;
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static SFriendChat* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CFriendChatList : public ::google::protobuf::Message {
+ public:
+  CFriendChatList();
+  virtual ~CFriendChatList();
+
+  CFriendChatList(const CFriendChatList& from);
+
+  inline CFriendChatList& operator=(const CFriendChatList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CFriendChatList& default_instance();
+
+  void Swap(CFriendChatList* other);
+
+  // implements Message ----------------------------------------------
+
+  CFriendChatList* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CFriendChatList& from);
+  void MergeFrom(const CFriendChatList& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 20514];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.CFriendChatList)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static CFriendChatList* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SFriendChatList : public ::google::protobuf::Message {
+ public:
+  SFriendChatList();
+  virtual ~SFriendChatList();
+
+  SFriendChatList(const SFriendChatList& from);
+
+  inline SFriendChatList& operator=(const SFriendChatList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SFriendChatList& default_instance();
+
+  void Swap(SFriendChatList* other);
+
+  // implements Message ----------------------------------------------
+
+  SFriendChatList* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SFriendChatList& from);
+  void MergeFrom(const SFriendChatList& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 20514];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // repeated .protocol.FriendChat list = 2;
+  inline int list_size() const;
+  inline void clear_list();
+  static const int kListFieldNumber = 2;
+  inline const ::protocol::FriendChat& list(int index) const;
+  inline ::protocol::FriendChat* mutable_list(int index);
+  inline ::protocol::FriendChat* add_list();
+  inline const ::google::protobuf::RepeatedPtrField< ::protocol::FriendChat >&
+      list() const;
+  inline ::google::protobuf::RepeatedPtrField< ::protocol::FriendChat >*
+      mutable_list();
+
+  // @@protoc_insertion_point(class_scope:protocol.SFriendChatList)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::protocol::FriendChat > list_;
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static SFriendChatList* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CFriendChatRead : public ::google::protobuf::Message {
+ public:
+  CFriendChatRead();
+  virtual ~CFriendChatRead();
+
+  CFriendChatRead(const CFriendChatRead& from);
+
+  inline CFriendChatRead& operator=(const CFriendChatRead& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CFriendChatRead& default_instance();
+
+  void Swap(CFriendChatRead* other);
+
+  // implements Message ----------------------------------------------
+
+  CFriendChatRead* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CFriendChatRead& from);
+  void MergeFrom(const CFriendChatRead& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 20515];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional .protocol.FriendChat chat = 2;
+  inline bool has_chat() const;
+  inline void clear_chat();
+  static const int kChatFieldNumber = 2;
+  inline const ::protocol::FriendChat& chat() const;
+  inline ::protocol::FriendChat* mutable_chat();
+  inline ::protocol::FriendChat* release_chat();
+  inline void set_allocated_chat(::protocol::FriendChat* chat);
+
+  // @@protoc_insertion_point(class_scope:protocol.CFriendChatRead)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_chat();
+  inline void clear_has_chat();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::protocol::FriendChat* chat_;
+  ::google::protobuf::uint32 cmd_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static CFriendChatRead* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SFriendChatRead : public ::google::protobuf::Message {
+ public:
+  SFriendChatRead();
+  virtual ~SFriendChatRead();
+
+  SFriendChatRead(const SFriendChatRead& from);
+
+  inline SFriendChatRead& operator=(const SFriendChatRead& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SFriendChatRead& default_instance();
+
+  void Swap(SFriendChatRead* other);
+
+  // implements Message ----------------------------------------------
+
+  SFriendChatRead* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SFriendChatRead& from);
+  void MergeFrom(const SFriendChatRead& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 cmd = 1 [default = 20515];
+  inline bool has_cmd() const;
+  inline void clear_cmd();
+  static const int kCmdFieldNumber = 1;
+  inline ::google::protobuf::uint32 cmd() const;
+  inline void set_cmd(::google::protobuf::uint32 value);
+
+  // optional .protocol.FriendChat chat = 2;
+  inline bool has_chat() const;
+  inline void clear_chat();
+  static const int kChatFieldNumber = 2;
+  inline const ::protocol::FriendChat& chat() const;
+  inline ::protocol::FriendChat* mutable_chat();
+  inline ::protocol::FriendChat* release_chat();
+  inline void set_allocated_chat(::protocol::FriendChat* chat);
+
+  // optional uint32 err = 3;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 3;
+  inline ::google::protobuf::uint32 err() const;
+  inline void set_err(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:protocol.SFriendChatRead)
+ private:
+  inline void set_has_cmd();
+  inline void clear_has_cmd();
+  inline void set_has_chat();
+  inline void clear_has_chat();
+  inline void set_has_err();
+  inline void clear_has_err();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::protocol::FriendChat* chat_;
+  ::google::protobuf::uint32 cmd_;
+  ::google::protobuf::uint32 err_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Hall_2eproto();
+  friend void protobuf_AssignDesc_Hall_2eproto();
+  friend void protobuf_ShutdownFile_Hall_2eproto();
+
+  void InitAsDefaultInstance();
+  static SFriendChatRead* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -7017,6 +7604,463 @@ inline ::google::protobuf::uint32 SAddFriendList::err() const {
   return err_;
 }
 inline void SAddFriendList::set_err(::google::protobuf::uint32 value) {
+  set_has_err();
+  err_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// CFriendChat
+
+// optional uint32 cmd = 1 [default = 20513];
+inline bool CFriendChat::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CFriendChat::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CFriendChat::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CFriendChat::clear_cmd() {
+  cmd_ = 20513u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 CFriendChat::cmd() const {
+  return cmd_;
+}
+inline void CFriendChat::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional string content = 2;
+inline bool CFriendChat::has_content() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CFriendChat::set_has_content() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CFriendChat::clear_has_content() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CFriendChat::clear_content() {
+  if (content_ != &::google::protobuf::internal::kEmptyString) {
+    content_->clear();
+  }
+  clear_has_content();
+}
+inline const ::std::string& CFriendChat::content() const {
+  return *content_;
+}
+inline void CFriendChat::set_content(const ::std::string& value) {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  content_->assign(value);
+}
+inline void CFriendChat::set_content(const char* value) {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  content_->assign(value);
+}
+inline void CFriendChat::set_content(const char* value, size_t size) {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  content_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CFriendChat::mutable_content() {
+  set_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    content_ = new ::std::string;
+  }
+  return content_;
+}
+inline ::std::string* CFriendChat::release_content() {
+  clear_has_content();
+  if (content_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = content_;
+    content_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CFriendChat::set_allocated_content(::std::string* content) {
+  if (content_ != &::google::protobuf::internal::kEmptyString) {
+    delete content_;
+  }
+  if (content) {
+    set_has_content();
+    content_ = content;
+  } else {
+    clear_has_content();
+    content_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string uid = 3;
+inline bool CFriendChat::has_uid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CFriendChat::set_has_uid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CFriendChat::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CFriendChat::clear_uid() {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    uid_->clear();
+  }
+  clear_has_uid();
+}
+inline const ::std::string& CFriendChat::uid() const {
+  return *uid_;
+}
+inline void CFriendChat::set_uid(const ::std::string& value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CFriendChat::set_uid(const char* value) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(value);
+}
+inline void CFriendChat::set_uid(const char* value, size_t size) {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  uid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CFriendChat::mutable_uid() {
+  set_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    uid_ = new ::std::string;
+  }
+  return uid_;
+}
+inline ::std::string* CFriendChat::release_uid() {
+  clear_has_uid();
+  if (uid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uid_;
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CFriendChat::set_allocated_uid(::std::string* uid) {
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (uid) {
+    set_has_uid();
+    uid_ = uid;
+  } else {
+    clear_has_uid();
+    uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// SFriendChat
+
+// optional uint32 cmd = 1 [default = 20513];
+inline bool SFriendChat::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SFriendChat::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SFriendChat::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SFriendChat::clear_cmd() {
+  cmd_ = 20513u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 SFriendChat::cmd() const {
+  return cmd_;
+}
+inline void SFriendChat::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional .protocol.FriendChat chat = 2;
+inline bool SFriendChat::has_chat() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SFriendChat::set_has_chat() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SFriendChat::clear_has_chat() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SFriendChat::clear_chat() {
+  if (chat_ != NULL) chat_->::protocol::FriendChat::Clear();
+  clear_has_chat();
+}
+inline const ::protocol::FriendChat& SFriendChat::chat() const {
+  return chat_ != NULL ? *chat_ : *default_instance_->chat_;
+}
+inline ::protocol::FriendChat* SFriendChat::mutable_chat() {
+  set_has_chat();
+  if (chat_ == NULL) chat_ = new ::protocol::FriendChat;
+  return chat_;
+}
+inline ::protocol::FriendChat* SFriendChat::release_chat() {
+  clear_has_chat();
+  ::protocol::FriendChat* temp = chat_;
+  chat_ = NULL;
+  return temp;
+}
+inline void SFriendChat::set_allocated_chat(::protocol::FriendChat* chat) {
+  delete chat_;
+  chat_ = chat;
+  if (chat) {
+    set_has_chat();
+  } else {
+    clear_has_chat();
+  }
+}
+
+// -------------------------------------------------------------------
+
+// CFriendChatList
+
+// optional uint32 cmd = 1 [default = 20514];
+inline bool CFriendChatList::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CFriendChatList::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CFriendChatList::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CFriendChatList::clear_cmd() {
+  cmd_ = 20514u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 CFriendChatList::cmd() const {
+  return cmd_;
+}
+inline void CFriendChatList::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// SFriendChatList
+
+// optional uint32 cmd = 1 [default = 20514];
+inline bool SFriendChatList::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SFriendChatList::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SFriendChatList::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SFriendChatList::clear_cmd() {
+  cmd_ = 20514u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 SFriendChatList::cmd() const {
+  return cmd_;
+}
+inline void SFriendChatList::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// repeated .protocol.FriendChat list = 2;
+inline int SFriendChatList::list_size() const {
+  return list_.size();
+}
+inline void SFriendChatList::clear_list() {
+  list_.Clear();
+}
+inline const ::protocol::FriendChat& SFriendChatList::list(int index) const {
+  return list_.Get(index);
+}
+inline ::protocol::FriendChat* SFriendChatList::mutable_list(int index) {
+  return list_.Mutable(index);
+}
+inline ::protocol::FriendChat* SFriendChatList::add_list() {
+  return list_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::protocol::FriendChat >&
+SFriendChatList::list() const {
+  return list_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::protocol::FriendChat >*
+SFriendChatList::mutable_list() {
+  return &list_;
+}
+
+// -------------------------------------------------------------------
+
+// CFriendChatRead
+
+// optional uint32 cmd = 1 [default = 20515];
+inline bool CFriendChatRead::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CFriendChatRead::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CFriendChatRead::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CFriendChatRead::clear_cmd() {
+  cmd_ = 20515u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 CFriendChatRead::cmd() const {
+  return cmd_;
+}
+inline void CFriendChatRead::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional .protocol.FriendChat chat = 2;
+inline bool CFriendChatRead::has_chat() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CFriendChatRead::set_has_chat() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CFriendChatRead::clear_has_chat() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CFriendChatRead::clear_chat() {
+  if (chat_ != NULL) chat_->::protocol::FriendChat::Clear();
+  clear_has_chat();
+}
+inline const ::protocol::FriendChat& CFriendChatRead::chat() const {
+  return chat_ != NULL ? *chat_ : *default_instance_->chat_;
+}
+inline ::protocol::FriendChat* CFriendChatRead::mutable_chat() {
+  set_has_chat();
+  if (chat_ == NULL) chat_ = new ::protocol::FriendChat;
+  return chat_;
+}
+inline ::protocol::FriendChat* CFriendChatRead::release_chat() {
+  clear_has_chat();
+  ::protocol::FriendChat* temp = chat_;
+  chat_ = NULL;
+  return temp;
+}
+inline void CFriendChatRead::set_allocated_chat(::protocol::FriendChat* chat) {
+  delete chat_;
+  chat_ = chat;
+  if (chat) {
+    set_has_chat();
+  } else {
+    clear_has_chat();
+  }
+}
+
+// -------------------------------------------------------------------
+
+// SFriendChatRead
+
+// optional uint32 cmd = 1 [default = 20515];
+inline bool SFriendChatRead::has_cmd() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SFriendChatRead::set_has_cmd() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SFriendChatRead::clear_has_cmd() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SFriendChatRead::clear_cmd() {
+  cmd_ = 20515u;
+  clear_has_cmd();
+}
+inline ::google::protobuf::uint32 SFriendChatRead::cmd() const {
+  return cmd_;
+}
+inline void SFriendChatRead::set_cmd(::google::protobuf::uint32 value) {
+  set_has_cmd();
+  cmd_ = value;
+}
+
+// optional .protocol.FriendChat chat = 2;
+inline bool SFriendChatRead::has_chat() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SFriendChatRead::set_has_chat() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SFriendChatRead::clear_has_chat() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SFriendChatRead::clear_chat() {
+  if (chat_ != NULL) chat_->::protocol::FriendChat::Clear();
+  clear_has_chat();
+}
+inline const ::protocol::FriendChat& SFriendChatRead::chat() const {
+  return chat_ != NULL ? *chat_ : *default_instance_->chat_;
+}
+inline ::protocol::FriendChat* SFriendChatRead::mutable_chat() {
+  set_has_chat();
+  if (chat_ == NULL) chat_ = new ::protocol::FriendChat;
+  return chat_;
+}
+inline ::protocol::FriendChat* SFriendChatRead::release_chat() {
+  clear_has_chat();
+  ::protocol::FriendChat* temp = chat_;
+  chat_ = NULL;
+  return temp;
+}
+inline void SFriendChatRead::set_allocated_chat(::protocol::FriendChat* chat) {
+  delete chat_;
+  chat_ = chat;
+  if (chat) {
+    set_has_chat();
+  } else {
+    clear_has_chat();
+  }
+}
+
+// optional uint32 err = 3;
+inline bool SFriendChatRead::has_err() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SFriendChatRead::set_has_err() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SFriendChatRead::clear_has_err() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SFriendChatRead::clear_err() {
+  err_ = 0u;
+  clear_has_err();
+}
+inline ::google::protobuf::uint32 SFriendChatRead::err() const {
+  return err_;
+}
+inline void SFriendChatRead::set_err(::google::protobuf::uint32 value) {
   set_has_err();
   err_ = value;
 }

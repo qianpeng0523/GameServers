@@ -68,6 +68,24 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* SAddFriendList_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SAddFriendList_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CFriendChat_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CFriendChat_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SFriendChat_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SFriendChat_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CFriendChatList_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CFriendChatList_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SFriendChatList_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SFriendChatList_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CFriendChatRead_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CFriendChatRead_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SFriendChatRead_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SFriendChatRead_reflection_ = NULL;
 const ::google::protobuf::Descriptor* CActive_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   CActive_reflection_ = NULL;
@@ -458,7 +476,104 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SAddFriendList));
-  CActive_descriptor_ = file->message_type(16);
+  CFriendChat_descriptor_ = file->message_type(16);
+  static const int CFriendChat_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChat, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChat, content_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChat, uid_),
+  };
+  CFriendChat_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CFriendChat_descriptor_,
+      CFriendChat::default_instance_,
+      CFriendChat_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChat, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChat, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CFriendChat));
+  SFriendChat_descriptor_ = file->message_type(17);
+  static const int SFriendChat_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChat, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChat, chat_),
+  };
+  SFriendChat_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      SFriendChat_descriptor_,
+      SFriendChat::default_instance_,
+      SFriendChat_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChat, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChat, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(SFriendChat));
+  CFriendChatList_descriptor_ = file->message_type(18);
+  static const int CFriendChatList_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChatList, cmd_),
+  };
+  CFriendChatList_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CFriendChatList_descriptor_,
+      CFriendChatList::default_instance_,
+      CFriendChatList_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChatList, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChatList, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CFriendChatList));
+  SFriendChatList_descriptor_ = file->message_type(19);
+  static const int SFriendChatList_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatList, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatList, list_),
+  };
+  SFriendChatList_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      SFriendChatList_descriptor_,
+      SFriendChatList::default_instance_,
+      SFriendChatList_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatList, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatList, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(SFriendChatList));
+  CFriendChatRead_descriptor_ = file->message_type(20);
+  static const int CFriendChatRead_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChatRead, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChatRead, chat_),
+  };
+  CFriendChatRead_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CFriendChatRead_descriptor_,
+      CFriendChatRead::default_instance_,
+      CFriendChatRead_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChatRead, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFriendChatRead, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CFriendChatRead));
+  SFriendChatRead_descriptor_ = file->message_type(21);
+  static const int SFriendChatRead_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatRead, cmd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatRead, chat_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatRead, err_),
+  };
+  SFriendChatRead_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      SFriendChatRead_descriptor_,
+      SFriendChatRead::default_instance_,
+      SFriendChatRead_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatRead, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFriendChatRead, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(SFriendChatRead));
+  CActive_descriptor_ = file->message_type(22);
   static const int CActive_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CActive, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CActive, type_),
@@ -474,7 +589,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CActive));
-  SActive_descriptor_ = file->message_type(17);
+  SActive_descriptor_ = file->message_type(23);
   static const int SActive_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SActive, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SActive, list_),
@@ -491,7 +606,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SActive));
-  CTask_descriptor_ = file->message_type(18);
+  CTask_descriptor_ = file->message_type(24);
   static const int CTask_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CTask, cmd_),
   };
@@ -506,7 +621,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CTask));
-  STask_descriptor_ = file->message_type(19);
+  STask_descriptor_ = file->message_type(25);
   static const int STask_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(STask, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(STask, list_),
@@ -523,7 +638,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(STask));
-  CReward_descriptor_ = file->message_type(20);
+  CReward_descriptor_ = file->message_type(26);
   static const int CReward_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CReward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CReward, id_),
@@ -539,7 +654,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CReward));
-  SReward_descriptor_ = file->message_type(21);
+  SReward_descriptor_ = file->message_type(27);
   static const int SReward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SReward, reward_),
@@ -556,7 +671,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SReward));
-  CAgreeFriend_descriptor_ = file->message_type(22);
+  CAgreeFriend_descriptor_ = file->message_type(28);
   static const int CAgreeFriend_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAgreeFriend, agree_),
@@ -574,7 +689,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CAgreeFriend));
-  SAgreeFriend_descriptor_ = file->message_type(23);
+  SAgreeFriend_descriptor_ = file->message_type(29);
   static const int SAgreeFriend_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAgreeFriend, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAgreeFriend, agree_),
@@ -593,7 +708,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SAgreeFriend));
-  CExchangeReward_descriptor_ = file->message_type(24);
+  CExchangeReward_descriptor_ = file->message_type(30);
   static const int CExchangeReward_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeReward, cmd_),
   };
@@ -608,7 +723,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchangeReward));
-  SExchangeReward_descriptor_ = file->message_type(25);
+  SExchangeReward_descriptor_ = file->message_type(31);
   static const int SExchangeReward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeReward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeReward, list_),
@@ -625,7 +740,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchangeReward));
-  CExchangeCode_descriptor_ = file->message_type(26);
+  CExchangeCode_descriptor_ = file->message_type(32);
   static const int CExchangeCode_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeCode, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeCode, excode_),
@@ -642,7 +757,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchangeCode));
-  SExchangeCode_descriptor_ = file->message_type(27);
+  SExchangeCode_descriptor_ = file->message_type(33);
   static const int SExchangeCode_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeCode, success_),
@@ -660,7 +775,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchangeCode));
-  CExchangeRecord_descriptor_ = file->message_type(28);
+  CExchangeRecord_descriptor_ = file->message_type(34);
   static const int CExchangeRecord_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchangeRecord, cmd_),
   };
@@ -675,7 +790,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchangeRecord));
-  SExchangeRecord_descriptor_ = file->message_type(29);
+  SExchangeRecord_descriptor_ = file->message_type(35);
   static const int SExchangeRecord_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeRecord, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchangeRecord, list_),
@@ -692,7 +807,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchangeRecord));
-  CExchange_descriptor_ = file->message_type(30);
+  CExchange_descriptor_ = file->message_type(36);
   static const int CExchange_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchange, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CExchange, id_),
@@ -708,7 +823,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CExchange));
-  SExchange_descriptor_ = file->message_type(31);
+  SExchange_descriptor_ = file->message_type(37);
   static const int SExchange_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchange, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SExchange, id_),
@@ -726,7 +841,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SExchange));
-  CApplePay_descriptor_ = file->message_type(32);
+  CApplePay_descriptor_ = file->message_type(38);
   static const int CApplePay_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CApplePay, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CApplePay, id_),
@@ -743,7 +858,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CApplePay));
-  SApplePay_descriptor_ = file->message_type(33);
+  SApplePay_descriptor_ = file->message_type(39);
   static const int SApplePay_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SApplePay, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SApplePay, id_),
@@ -760,7 +875,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SApplePay));
-  CWxpayOrder_descriptor_ = file->message_type(34);
+  CWxpayOrder_descriptor_ = file->message_type(40);
   static const int CWxpayOrder_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayOrder, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayOrder, id_),
@@ -777,7 +892,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CWxpayOrder));
-  SWxpayOrder_descriptor_ = file->message_type(35);
+  SWxpayOrder_descriptor_ = file->message_type(41);
   static const int SWxpayOrder_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayOrder, noncestr_),
@@ -797,7 +912,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SWxpayOrder));
-  CAliPayOrder_descriptor_ = file->message_type(36);
+  CAliPayOrder_descriptor_ = file->message_type(42);
   static const int CAliPayOrder_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAliPayOrder, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAliPayOrder, id_),
@@ -815,7 +930,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CAliPayOrder));
-  SAliPayOrder_descriptor_ = file->message_type(37);
+  SAliPayOrder_descriptor_ = file->message_type(43);
   static const int SAliPayOrder_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAliPayOrder, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAliPayOrder, orderinfo_),
@@ -835,7 +950,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SAliPayOrder));
-  CAliPayResult_descriptor_ = file->message_type(38);
+  CAliPayResult_descriptor_ = file->message_type(44);
   static const int CAliPayResult_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAliPayResult, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CAliPayResult, content_),
@@ -851,7 +966,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CAliPayResult));
-  SAliPayResult_descriptor_ = file->message_type(39);
+  SAliPayResult_descriptor_ = file->message_type(45);
   static const int SAliPayResult_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAliPayResult, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SAliPayResult, err_),
@@ -867,7 +982,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SAliPayResult));
-  CWxpayQuery_descriptor_ = file->message_type(40);
+  CWxpayQuery_descriptor_ = file->message_type(46);
   static const int CWxpayQuery_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayQuery, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CWxpayQuery, transid_),
@@ -883,7 +998,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CWxpayQuery));
-  SWxpayQuery_descriptor_ = file->message_type(41);
+  SWxpayQuery_descriptor_ = file->message_type(47);
   static const int SWxpayQuery_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayQuery, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SWxpayQuery, transid_),
@@ -900,7 +1015,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SWxpayQuery));
-  CFirstBuy_descriptor_ = file->message_type(42);
+  CFirstBuy_descriptor_ = file->message_type(48);
   static const int CFirstBuy_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirstBuy, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirstBuy, type_),
@@ -916,7 +1031,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFirstBuy));
-  SFirstBuy_descriptor_ = file->message_type(43);
+  SFirstBuy_descriptor_ = file->message_type(49);
   static const int SFirstBuy_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirstBuy, noncestr_),
@@ -937,7 +1052,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SFirstBuy));
-  CFeedBack_descriptor_ = file->message_type(44);
+  CFeedBack_descriptor_ = file->message_type(50);
   static const int CFeedBack_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFeedBack, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFeedBack, uid_),
@@ -955,7 +1070,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFeedBack));
-  SFeedBack_descriptor_ = file->message_type(45);
+  SFeedBack_descriptor_ = file->message_type(51);
   static const int SFeedBack_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFeedBack, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFeedBack, err_),
@@ -971,7 +1086,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SFeedBack));
-  CSign_descriptor_ = file->message_type(46);
+  CSign_descriptor_ = file->message_type(52);
   static const int CSign_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CSign, cmd_),
   };
@@ -986,7 +1101,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CSign));
-  SSign_descriptor_ = file->message_type(47);
+  SSign_descriptor_ = file->message_type(53);
   static const int SSign_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSign, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSign, index_),
@@ -1004,7 +1119,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSign));
-  CSignList_descriptor_ = file->message_type(48);
+  CSignList_descriptor_ = file->message_type(54);
   static const int CSignList_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CSignList, cmd_),
   };
@@ -1019,7 +1134,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CSignList));
-  SSignList_descriptor_ = file->message_type(49);
+  SSignList_descriptor_ = file->message_type(55);
   static const int SSignList_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSignList, sign_),
@@ -1039,7 +1154,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSignList));
-  CMailAward_descriptor_ = file->message_type(50);
+  CMailAward_descriptor_ = file->message_type(56);
   static const int CMailAward_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CMailAward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CMailAward, id_),
@@ -1055,7 +1170,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CMailAward));
-  SMailAward_descriptor_ = file->message_type(51);
+  SMailAward_descriptor_ = file->message_type(57);
   static const int SMailAward_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SMailAward, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SMailAward, id_),
@@ -1072,7 +1187,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SMailAward));
-  CFirsyBuyData_descriptor_ = file->message_type(52);
+  CFirsyBuyData_descriptor_ = file->message_type(58);
   static const int CFirsyBuyData_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CFirsyBuyData, cmd_),
   };
@@ -1087,7 +1202,7 @@ void protobuf_AssignDesc_Hall_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CFirsyBuyData));
-  SFirsyBuyData_descriptor_ = file->message_type(53);
+  SFirsyBuyData_descriptor_ = file->message_type(59);
   static const int SFirsyBuyData_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, cmd_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SFirsyBuyData, id_),
@@ -1151,6 +1266,18 @@ void protobuf_RegisterTypes(const ::std::string&) {
     CAddFriendList_descriptor_, &CAddFriendList::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     SAddFriendList_descriptor_, &SAddFriendList::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CFriendChat_descriptor_, &CFriendChat::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    SFriendChat_descriptor_, &SFriendChat::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CFriendChatList_descriptor_, &CFriendChatList::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    SFriendChatList_descriptor_, &SFriendChatList::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CFriendChatRead_descriptor_, &CFriendChatRead::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    SFriendChatRead_descriptor_, &SFriendChatRead::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     CActive_descriptor_, &CActive::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -1264,6 +1391,18 @@ void protobuf_ShutdownFile_Hall_2eproto() {
   delete CAddFriendList_reflection_;
   delete SAddFriendList::default_instance_;
   delete SAddFriendList_reflection_;
+  delete CFriendChat::default_instance_;
+  delete CFriendChat_reflection_;
+  delete SFriendChat::default_instance_;
+  delete SFriendChat_reflection_;
+  delete CFriendChatList::default_instance_;
+  delete CFriendChatList_reflection_;
+  delete SFriendChatList::default_instance_;
+  delete SFriendChatList_reflection_;
+  delete CFriendChatRead::default_instance_;
+  delete CFriendChatRead_reflection_;
+  delete SFriendChatRead::default_instance_;
+  delete SFriendChatRead_reflection_;
   delete CActive::default_instance_;
   delete CActive_reflection_;
   delete SActive::default_instance_;
@@ -1375,73 +1514,83 @@ void protobuf_AddDesc_Hall_2eproto() {
     "err\030\003 \001(\r\"$\n\016CAddFriendList\022\022\n\003cmd\030\001 \002(\r"
     ":\00520487\"W\n\016SAddFriendList\022\022\n\003cmd\030\001 \002(\r:\005"
     "20487\022$\n\004list\030\002 \003(\0132\026.protocol.FriendNot"
-    "ice\022\013\n\003err\030\003 \001(\r\"+\n\007CActive\022\022\n\003cmd\030\001 \002(\r"
-    ":\00520488\022\014\n\004type\030\002 \002(\r\"J\n\007SActive\022\022\n\003cmd\030"
-    "\001 \002(\r:\00520488\022\036\n\004list\030\002 \003(\0132\020.protocol.Ac"
-    "tive\022\013\n\003err\030\003 \001(\r\"\033\n\005CTask\022\022\n\003cmd\030\001 \002(\r:"
-    "\00520489\"F\n\005STask\022\022\n\003cmd\030\001 \002(\r:\00520489\022\034\n\004l"
-    "ist\030\002 \003(\0132\016.protocol.Task\022\013\n\003err\030\003 \001(\r\")"
-    "\n\007CReward\022\022\n\003cmd\030\001 \002(\r:\00520490\022\n\n\002id\030\003 \001("
-    "\r\"L\n\007SReward\022\022\n\003cmd\030\001 \002(\r:\00520490\022 \n\006rewa"
-    "rd\030\004 \003(\0132\020.protocol.Reward\022\013\n\003err\030\005 \001(\r\""
-    "N\n\014CAgreeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005a"
-    "gree\030\002 \001(\010\022\013\n\003nid\030\003 \001(\r\022\016\n\006userid\030\004 \001(\t\""
-    "[\n\014SAgreeFriend\022\022\n\003cmd\030\001 \002(\r:\00520491\022\r\n\005a"
-    "gree\030\002 \001(\010\022\016\n\006userid\030\003 \001(\t\022\013\n\003nid\030\004 \001(\r\022"
-    "\013\n\003err\030\005 \001(\r\"%\n\017CExchangeReward\022\022\n\003cmd\030\001"
-    " \002(\r:\00520492\"S\n\017SExchangeReward\022\022\n\003cmd\030\001 "
-    "\002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021.protocol.ExAw"
-    "ard\022\013\n\003err\030\003 \001(\r\"C\n\rCExchangeCode\022\022\n\003cmd"
-    "\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 \001(\t\022\016\n\006yzcode\030"
-    "\003 \001(\t\"_\n\rSExchangeCode\022\022\n\003cmd\030\001 \002(\r:\005204"
-    "93\022\017\n\007success\030\002 \001(\010\022\034\n\002rd\030\003 \003(\0132\020.protoc"
-    "ol.Reward\022\013\n\003err\030\004 \001(\r\"%\n\017CExchangeRecor"
-    "d\022\022\n\003cmd\030\001 \002(\r:\00520494\"T\n\017SExchangeRecord"
-    "\022\022\n\003cmd\030\001 \002(\r:\00520494\022 \n\004list\030\002 \003(\0132\022.pro"
-    "tocol.ExRecord\022\013\n\003err\030\003 \001(\r\"+\n\tCExchange"
-    "\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n\n\002id\030\002 \001(\r\"F\n\tSExc"
-    "hange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n\n\002id\030\002 \001(\r\022\014\n"
-    "\004code\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"<\n\tCApplePay\022\022\n"
-    "\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\017\n\007receipt"
-    "\030\003 \001(\t\"8\n\tSApplePay\022\022\n\003cmd\030\001 \002(\r:\00520496\022"
-    "\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\";\n\013CWxpayOrder\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n\002id\030\002 \001(\r\022\014\n\004body\030"
-    "\003 \001(\t\"q\n\013SWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497"
-    "\022\020\n\010noncestr\030\002 \001(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n\tti"
-    "mestamp\030\004 \001(\t\022\014\n\004sign\030\005 \001(\t\022\013\n\003err\030\006 \001(\r"
-    "\"J\n\014CAliPayOrder\022\022\n\003cmd\030\001 \002(\r:\00520504\022\n\n\002"
-    "id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\022\014\n\004type\030\004 \001(\r\"x\n\014"
-    "SAliPayOrder\022\022\n\003cmd\030\001 \002(\r:\00520504\022\021\n\torde"
-    "rinfo\030\002 \001(\t\022\r\n\005appid\030\003 \001(\t\022\021\n\ttimestamp\030"
-    "\004 \001(\t\022\022\n\nprivatekey\030\005 \001(\t\022\013\n\003err\030\006 \001(\r\"4"
-    "\n\rCAliPayResult\022\022\n\003cmd\030\001 \002(\r:\00520505\022\017\n\007c"
-    "ontent\030\002 \001(\t\"0\n\rSAliPayResult\022\022\n\003cmd\030\001 \002"
-    "(\r:\00520505\022\013\n\003err\030\006 \001(\r\"2\n\013CWxpayQuery\022\022\n"
-    "\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid\030\002 \001(\t\"\?\n\013SW"
-    "xpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transid"
-    "\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFirstBuy\022\022\n\003cmd\030"
-    "\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r\"}\n\tSFirstBuy\022"
-    "\022\n\003cmd\030\001 \002(\r:\00520499\022\020\n\010noncestr\030\002 \001(\t\022\016\n"
-    "\006payreq\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n\004sign"
-    "\030\005 \001(\t\022\014\n\004type\030\006 \002(\r\022\013\n\003err\030\007 \001(\r\"L\n\tCFe"
-    "edBack\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013\n\003uid\030\002 \001(\t\022"
-    "\r\n\005uname\030\003 \001(\t\022\017\n\007content\030\004 \001(\t\",\n\tSFeed"
-    "Back\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013\n\003err\030\002 \001(\r\"\033\n"
-    "\005CSign\022\022\n\003cmd\030\001 \002(\r:\00520501\"F\n\005SSign\022\022\n\003c"
-    "md\030\001 \002(\r:\00520501\022\r\n\005index\030\002 \001(\r\022\r\n\005count\030"
-    "\003 \001(\r\022\013\n\003err\030\004 \001(\r\"\037\n\tCSignList\022\022\n\003cmd\030\001"
-    " \002(\r:\00520502\"\222\001\n\tSSignList\022\022\n\003cmd\030\001 \002(\r:\005"
-    "20502\022\014\n\004sign\030\002 \001(\r\022\r\n\005count\030\003 \001(\r\022#\n\006re"
-    "ward\030\004 \003(\0132\023.protocol.SignAward\022\"\n\005zhuan"
-    "\030\005 \003(\0132\023.protocol.SignZhuan\022\013\n\003err\030\006 \001(\r"
-    "\",\n\nCMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503\022\n\n\002id"
-    "\030\002 \002(\r\"9\n\nSMailAward\022\022\n\003cmd\030\001 \002(\r:\00520503"
-    "\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\"#\n\rCFirsyBuyDa"
-    "ta\022\022\n\003cmd\030\001 \002(\r:\00520512\"\241\001\n\rSFirsyBuyData"
-    "\022\022\n\003cmd\030\001 \002(\r:\00520512\022\n\n\002id\030\002 \001(\r\022 \n\006rewa"
-    "rd\030\003 \003(\0132\020.protocol.Reward\022!\n\007consume\030\004 "
-    "\001(\0132\020.protocol.Reward\022\036\n\004give\030\005 \003(\0132\020.pr"
-    "otocol.Reward\022\013\n\003err\030\006 \001(\r", 3666);
+    "ice\022\013\n\003err\030\003 \001(\r\"\?\n\013CFriendChat\022\022\n\003cmd\030\001"
+    " \001(\r:\00520513\022\017\n\007content\030\002 \001(\t\022\013\n\003uid\030\003 \001("
+    "\t\"E\n\013SFriendChat\022\022\n\003cmd\030\001 \001(\r:\00520513\022\"\n\004"
+    "chat\030\002 \001(\0132\024.protocol.FriendChat\"%\n\017CFri"
+    "endChatList\022\022\n\003cmd\030\001 \001(\r:\00520514\"I\n\017SFrie"
+    "ndChatList\022\022\n\003cmd\030\001 \001(\r:\00520514\022\"\n\004list\030\002"
+    " \003(\0132\024.protocol.FriendChat\"I\n\017CFriendCha"
+    "tRead\022\022\n\003cmd\030\001 \001(\r:\00520515\022\"\n\004chat\030\002 \001(\0132"
+    "\024.protocol.FriendChat\"V\n\017SFriendChatRead"
+    "\022\022\n\003cmd\030\001 \001(\r:\00520515\022\"\n\004chat\030\002 \001(\0132\024.pro"
+    "tocol.FriendChat\022\013\n\003err\030\003 \001(\r\"+\n\007CActive"
+    "\022\022\n\003cmd\030\001 \002(\r:\00520488\022\014\n\004type\030\002 \002(\r\"J\n\007SA"
+    "ctive\022\022\n\003cmd\030\001 \002(\r:\00520488\022\036\n\004list\030\002 \003(\0132"
+    "\020.protocol.Active\022\013\n\003err\030\003 \001(\r\"\033\n\005CTask\022"
+    "\022\n\003cmd\030\001 \002(\r:\00520489\"F\n\005STask\022\022\n\003cmd\030\001 \002("
+    "\r:\00520489\022\034\n\004list\030\002 \003(\0132\016.protocol.Task\022\013"
+    "\n\003err\030\003 \001(\r\")\n\007CReward\022\022\n\003cmd\030\001 \002(\r:\005204"
+    "90\022\n\n\002id\030\003 \001(\r\"L\n\007SReward\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20490\022 \n\006reward\030\004 \003(\0132\020.protocol.Reward\022"
+    "\013\n\003err\030\005 \001(\r\"N\n\014CAgreeFriend\022\022\n\003cmd\030\001 \002("
+    "\r:\00520491\022\r\n\005agree\030\002 \001(\010\022\013\n\003nid\030\003 \001(\r\022\016\n\006"
+    "userid\030\004 \001(\t\"[\n\014SAgreeFriend\022\022\n\003cmd\030\001 \002("
+    "\r:\00520491\022\r\n\005agree\030\002 \001(\010\022\016\n\006userid\030\003 \001(\t\022"
+    "\013\n\003nid\030\004 \001(\r\022\013\n\003err\030\005 \001(\r\"%\n\017CExchangeRe"
+    "ward\022\022\n\003cmd\030\001 \002(\r:\00520492\"S\n\017SExchangeRew"
+    "ard\022\022\n\003cmd\030\001 \002(\r:\00520492\022\037\n\004list\030\002 \003(\0132\021."
+    "protocol.ExAward\022\013\n\003err\030\003 \001(\r\"C\n\rCExchan"
+    "geCode\022\022\n\003cmd\030\001 \002(\r:\00520493\022\016\n\006excode\030\002 \001"
+    "(\t\022\016\n\006yzcode\030\003 \001(\t\"_\n\rSExchangeCode\022\022\n\003c"
+    "md\030\001 \002(\r:\00520493\022\017\n\007success\030\002 \001(\010\022\034\n\002rd\030\003"
+    " \003(\0132\020.protocol.Reward\022\013\n\003err\030\004 \001(\r\"%\n\017C"
+    "ExchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\"T\n\017SE"
+    "xchangeRecord\022\022\n\003cmd\030\001 \002(\r:\00520494\022 \n\004lis"
+    "t\030\002 \003(\0132\022.protocol.ExRecord\022\013\n\003err\030\003 \001(\r"
+    "\"+\n\tCExchange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n\n\002id\030"
+    "\002 \001(\r\"F\n\tSExchange\022\022\n\003cmd\030\001 \002(\r:\00520495\022\n"
+    "\n\002id\030\002 \001(\r\022\014\n\004code\030\003 \001(\t\022\013\n\003err\030\004 \001(\r\"<\n"
+    "\tCApplePay\022\022\n\003cmd\030\001 \002(\r:\00520496\022\n\n\002id\030\002 \001"
+    "(\r\022\017\n\007receipt\030\003 \001(\t\"8\n\tSApplePay\022\022\n\003cmd\030"
+    "\001 \002(\r:\00520496\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\";\n"
+    "\013CWxpayOrder\022\022\n\003cmd\030\001 \002(\r:\00520497\022\n\n\002id\030\002"
+    " \001(\r\022\014\n\004body\030\003 \001(\t\"q\n\013SWxpayOrder\022\022\n\003cmd"
+    "\030\001 \002(\r:\00520497\022\020\n\010noncestr\030\002 \001(\t\022\016\n\006payre"
+    "q\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\014\n\004sign\030\005 \001(\t"
+    "\022\013\n\003err\030\006 \001(\r\"J\n\014CAliPayOrder\022\022\n\003cmd\030\001 \002"
+    "(\r:\00520504\022\n\n\002id\030\002 \001(\r\022\014\n\004body\030\003 \001(\t\022\014\n\004t"
+    "ype\030\004 \001(\r\"x\n\014SAliPayOrder\022\022\n\003cmd\030\001 \002(\r:\005"
+    "20504\022\021\n\torderinfo\030\002 \001(\t\022\r\n\005appid\030\003 \001(\t\022"
+    "\021\n\ttimestamp\030\004 \001(\t\022\022\n\nprivatekey\030\005 \001(\t\022\013"
+    "\n\003err\030\006 \001(\r\"4\n\rCAliPayResult\022\022\n\003cmd\030\001 \002("
+    "\r:\00520505\022\017\n\007content\030\002 \001(\t\"0\n\rSAliPayResu"
+    "lt\022\022\n\003cmd\030\001 \002(\r:\00520505\022\013\n\003err\030\006 \001(\r\"2\n\013C"
+    "WxpayQuery\022\022\n\003cmd\030\001 \002(\r:\00520498\022\017\n\007transi"
+    "d\030\002 \001(\t\"\?\n\013SWxpayQuery\022\022\n\003cmd\030\001 \002(\r:\005204"
+    "98\022\017\n\007transid\030\002 \001(\t\022\013\n\003err\030\003 \001(\r\"-\n\tCFir"
+    "stBuy\022\022\n\003cmd\030\001 \002(\r:\00520499\022\014\n\004type\030\002 \001(\r\""
+    "}\n\tSFirstBuy\022\022\n\003cmd\030\001 \002(\r:\00520499\022\020\n\010nonc"
+    "estr\030\002 \001(\t\022\016\n\006payreq\030\003 \001(\t\022\021\n\ttimestamp\030"
+    "\004 \001(\t\022\014\n\004sign\030\005 \001(\t\022\014\n\004type\030\006 \002(\r\022\013\n\003err"
+    "\030\007 \001(\r\"L\n\tCFeedBack\022\022\n\003cmd\030\001 \002(\r:\00520500\022"
+    "\013\n\003uid\030\002 \001(\t\022\r\n\005uname\030\003 \001(\t\022\017\n\007content\030\004"
+    " \001(\t\",\n\tSFeedBack\022\022\n\003cmd\030\001 \002(\r:\00520500\022\013\n"
+    "\003err\030\002 \001(\r\"\033\n\005CSign\022\022\n\003cmd\030\001 \002(\r:\00520501\""
+    "F\n\005SSign\022\022\n\003cmd\030\001 \002(\r:\00520501\022\r\n\005index\030\002 "
+    "\001(\r\022\r\n\005count\030\003 \001(\r\022\013\n\003err\030\004 \001(\r\"\037\n\tCSign"
+    "List\022\022\n\003cmd\030\001 \002(\r:\00520502\"\222\001\n\tSSignList\022\022"
+    "\n\003cmd\030\001 \002(\r:\00520502\022\014\n\004sign\030\002 \001(\r\022\r\n\005coun"
+    "t\030\003 \001(\r\022#\n\006reward\030\004 \003(\0132\023.protocol.SignA"
+    "ward\022\"\n\005zhuan\030\005 \003(\0132\023.protocol.SignZhuan"
+    "\022\013\n\003err\030\006 \001(\r\",\n\nCMailAward\022\022\n\003cmd\030\001 \002(\r"
+    ":\00520503\022\n\n\002id\030\002 \002(\r\"9\n\nSMailAward\022\022\n\003cmd"
+    "\030\001 \002(\r:\00520503\022\n\n\002id\030\002 \001(\r\022\013\n\003err\030\003 \001(\r\"#"
+    "\n\rCFirsyBuyData\022\022\n\003cmd\030\001 \002(\r:\00520512\"\241\001\n\r"
+    "SFirsyBuyData\022\022\n\003cmd\030\001 \002(\r:\00520512\022\n\n\002id\030"
+    "\002 \001(\r\022 \n\006reward\030\003 \003(\0132\020.protocol.Reward\022"
+    "!\n\007consume\030\004 \001(\0132\020.protocol.Reward\022\036\n\004gi"
+    "ve\030\005 \003(\0132\020.protocol.Reward\022\013\n\003err\030\006 \001(\r", 4079);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Hall.proto", &protobuf_RegisterTypes);
   CRank::default_instance_ = new CRank();
@@ -1460,6 +1609,12 @@ void protobuf_AddDesc_Hall_2eproto() {
   SAddFriend::default_instance_ = new SAddFriend();
   CAddFriendList::default_instance_ = new CAddFriendList();
   SAddFriendList::default_instance_ = new SAddFriendList();
+  CFriendChat::default_instance_ = new CFriendChat();
+  SFriendChat::default_instance_ = new SFriendChat();
+  CFriendChatList::default_instance_ = new CFriendChatList();
+  SFriendChatList::default_instance_ = new SFriendChatList();
+  CFriendChatRead::default_instance_ = new CFriendChatRead();
+  SFriendChatRead::default_instance_ = new SFriendChatRead();
   CActive::default_instance_ = new CActive();
   SActive::default_instance_ = new SActive();
   CTask::default_instance_ = new CTask();
@@ -1514,6 +1669,12 @@ void protobuf_AddDesc_Hall_2eproto() {
   SAddFriend::default_instance_->InitAsDefaultInstance();
   CAddFriendList::default_instance_->InitAsDefaultInstance();
   SAddFriendList::default_instance_->InitAsDefaultInstance();
+  CFriendChat::default_instance_->InitAsDefaultInstance();
+  SFriendChat::default_instance_->InitAsDefaultInstance();
+  CFriendChatList::default_instance_->InitAsDefaultInstance();
+  SFriendChatList::default_instance_->InitAsDefaultInstance();
+  CFriendChatRead::default_instance_->InitAsDefaultInstance();
+  SFriendChatRead::default_instance_->InitAsDefaultInstance();
   CActive::default_instance_->InitAsDefaultInstance();
   SActive::default_instance_->InitAsDefaultInstance();
   CTask::default_instance_->InitAsDefaultInstance();
@@ -6027,6 +6188,1583 @@ void SAddFriendList::Swap(SAddFriendList* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = SAddFriendList_descriptor_;
   metadata.reflection = SAddFriendList_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int CFriendChat::kCmdFieldNumber;
+const int CFriendChat::kContentFieldNumber;
+const int CFriendChat::kUidFieldNumber;
+#endif  // !_MSC_VER
+
+CFriendChat::CFriendChat()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void CFriendChat::InitAsDefaultInstance() {
+}
+
+CFriendChat::CFriendChat(const CFriendChat& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CFriendChat::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20513u;
+  content_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  uid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CFriendChat::~CFriendChat() {
+  SharedDtor();
+}
+
+void CFriendChat::SharedDtor() {
+  if (content_ != &::google::protobuf::internal::kEmptyString) {
+    delete content_;
+  }
+  if (uid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uid_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void CFriendChat::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CFriendChat::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CFriendChat_descriptor_;
+}
+
+const CFriendChat& CFriendChat::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+CFriendChat* CFriendChat::default_instance_ = NULL;
+
+CFriendChat* CFriendChat::New() const {
+  return new CFriendChat;
+}
+
+void CFriendChat::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20513u;
+    if (has_content()) {
+      if (content_ != &::google::protobuf::internal::kEmptyString) {
+        content_->clear();
+      }
+    }
+    if (has_uid()) {
+      if (uid_ != &::google::protobuf::internal::kEmptyString) {
+        uid_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CFriendChat::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 20513];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_content;
+        break;
+      }
+
+      // optional string content = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_content:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_content()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->content().data(), this->content().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_uid;
+        break;
+      }
+
+      // optional string uid = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_uid:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_uid()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->uid().data(), this->uid().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CFriendChat::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 20513];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // optional string content = 2;
+  if (has_content()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->content().data(), this->content().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->content(), output);
+  }
+
+  // optional string uid = 3;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      3, this->uid(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CFriendChat::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 20513];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional string content = 2;
+  if (has_content()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->content().data(), this->content().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->content(), target);
+  }
+
+  // optional string uid = 3;
+  if (has_uid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->uid().data(), this->uid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->uid(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int CFriendChat::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 20513];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+    // optional string content = 2;
+    if (has_content()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->content());
+    }
+
+    // optional string uid = 3;
+    if (has_uid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->uid());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CFriendChat::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CFriendChat* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CFriendChat*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CFriendChat::MergeFrom(const CFriendChat& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+    if (from.has_content()) {
+      set_content(from.content());
+    }
+    if (from.has_uid()) {
+      set_uid(from.uid());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CFriendChat::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CFriendChat::CopyFrom(const CFriendChat& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CFriendChat::IsInitialized() const {
+
+  return true;
+}
+
+void CFriendChat::Swap(CFriendChat* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(content_, other->content_);
+    std::swap(uid_, other->uid_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CFriendChat::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CFriendChat_descriptor_;
+  metadata.reflection = CFriendChat_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int SFriendChat::kCmdFieldNumber;
+const int SFriendChat::kChatFieldNumber;
+#endif  // !_MSC_VER
+
+SFriendChat::SFriendChat()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void SFriendChat::InitAsDefaultInstance() {
+  chat_ = const_cast< ::protocol::FriendChat*>(&::protocol::FriendChat::default_instance());
+}
+
+SFriendChat::SFriendChat(const SFriendChat& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void SFriendChat::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20513u;
+  chat_ = NULL;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+SFriendChat::~SFriendChat() {
+  SharedDtor();
+}
+
+void SFriendChat::SharedDtor() {
+  if (this != default_instance_) {
+    delete chat_;
+  }
+}
+
+void SFriendChat::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SFriendChat::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SFriendChat_descriptor_;
+}
+
+const SFriendChat& SFriendChat::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+SFriendChat* SFriendChat::default_instance_ = NULL;
+
+SFriendChat* SFriendChat::New() const {
+  return new SFriendChat;
+}
+
+void SFriendChat::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20513u;
+    if (has_chat()) {
+      if (chat_ != NULL) chat_->::protocol::FriendChat::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SFriendChat::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 20513];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_chat;
+        break;
+      }
+
+      // optional .protocol.FriendChat chat = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_chat:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_chat()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void SFriendChat::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 20513];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // optional .protocol.FriendChat chat = 2;
+  if (has_chat()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->chat(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* SFriendChat::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 20513];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional .protocol.FriendChat chat = 2;
+  if (has_chat()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->chat(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int SFriendChat::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 20513];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+    // optional .protocol.FriendChat chat = 2;
+    if (has_chat()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->chat());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SFriendChat::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SFriendChat* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SFriendChat*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SFriendChat::MergeFrom(const SFriendChat& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+    if (from.has_chat()) {
+      mutable_chat()->::protocol::FriendChat::MergeFrom(from.chat());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SFriendChat::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SFriendChat::CopyFrom(const SFriendChat& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SFriendChat::IsInitialized() const {
+
+  return true;
+}
+
+void SFriendChat::Swap(SFriendChat* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(chat_, other->chat_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata SFriendChat::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SFriendChat_descriptor_;
+  metadata.reflection = SFriendChat_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int CFriendChatList::kCmdFieldNumber;
+#endif  // !_MSC_VER
+
+CFriendChatList::CFriendChatList()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void CFriendChatList::InitAsDefaultInstance() {
+}
+
+CFriendChatList::CFriendChatList(const CFriendChatList& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CFriendChatList::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20514u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CFriendChatList::~CFriendChatList() {
+  SharedDtor();
+}
+
+void CFriendChatList::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void CFriendChatList::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CFriendChatList::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CFriendChatList_descriptor_;
+}
+
+const CFriendChatList& CFriendChatList::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+CFriendChatList* CFriendChatList::default_instance_ = NULL;
+
+CFriendChatList* CFriendChatList::New() const {
+  return new CFriendChatList;
+}
+
+void CFriendChatList::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20514u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CFriendChatList::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 20514];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CFriendChatList::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 20514];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CFriendChatList::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 20514];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int CFriendChatList::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 20514];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CFriendChatList::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CFriendChatList* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CFriendChatList*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CFriendChatList::MergeFrom(const CFriendChatList& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CFriendChatList::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CFriendChatList::CopyFrom(const CFriendChatList& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CFriendChatList::IsInitialized() const {
+
+  return true;
+}
+
+void CFriendChatList::Swap(CFriendChatList* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CFriendChatList::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CFriendChatList_descriptor_;
+  metadata.reflection = CFriendChatList_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int SFriendChatList::kCmdFieldNumber;
+const int SFriendChatList::kListFieldNumber;
+#endif  // !_MSC_VER
+
+SFriendChatList::SFriendChatList()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void SFriendChatList::InitAsDefaultInstance() {
+}
+
+SFriendChatList::SFriendChatList(const SFriendChatList& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void SFriendChatList::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20514u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+SFriendChatList::~SFriendChatList() {
+  SharedDtor();
+}
+
+void SFriendChatList::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void SFriendChatList::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SFriendChatList::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SFriendChatList_descriptor_;
+}
+
+const SFriendChatList& SFriendChatList::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+SFriendChatList* SFriendChatList::default_instance_ = NULL;
+
+SFriendChatList* SFriendChatList::New() const {
+  return new SFriendChatList;
+}
+
+void SFriendChatList::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20514u;
+  }
+  list_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SFriendChatList::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 20514];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_list;
+        break;
+      }
+
+      // repeated .protocol.FriendChat list = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_list:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_list()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_list;
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void SFriendChatList::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 20514];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // repeated .protocol.FriendChat list = 2;
+  for (int i = 0; i < this->list_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->list(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* SFriendChatList::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 20514];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // repeated .protocol.FriendChat list = 2;
+  for (int i = 0; i < this->list_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->list(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int SFriendChatList::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 20514];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+  }
+  // repeated .protocol.FriendChat list = 2;
+  total_size += 1 * this->list_size();
+  for (int i = 0; i < this->list_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->list(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SFriendChatList::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SFriendChatList* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SFriendChatList*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SFriendChatList::MergeFrom(const SFriendChatList& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  list_.MergeFrom(from.list_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SFriendChatList::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SFriendChatList::CopyFrom(const SFriendChatList& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SFriendChatList::IsInitialized() const {
+
+  return true;
+}
+
+void SFriendChatList::Swap(SFriendChatList* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    list_.Swap(&other->list_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata SFriendChatList::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SFriendChatList_descriptor_;
+  metadata.reflection = SFriendChatList_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int CFriendChatRead::kCmdFieldNumber;
+const int CFriendChatRead::kChatFieldNumber;
+#endif  // !_MSC_VER
+
+CFriendChatRead::CFriendChatRead()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void CFriendChatRead::InitAsDefaultInstance() {
+  chat_ = const_cast< ::protocol::FriendChat*>(&::protocol::FriendChat::default_instance());
+}
+
+CFriendChatRead::CFriendChatRead(const CFriendChatRead& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CFriendChatRead::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20515u;
+  chat_ = NULL;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CFriendChatRead::~CFriendChatRead() {
+  SharedDtor();
+}
+
+void CFriendChatRead::SharedDtor() {
+  if (this != default_instance_) {
+    delete chat_;
+  }
+}
+
+void CFriendChatRead::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CFriendChatRead::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CFriendChatRead_descriptor_;
+}
+
+const CFriendChatRead& CFriendChatRead::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+CFriendChatRead* CFriendChatRead::default_instance_ = NULL;
+
+CFriendChatRead* CFriendChatRead::New() const {
+  return new CFriendChatRead;
+}
+
+void CFriendChatRead::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20515u;
+    if (has_chat()) {
+      if (chat_ != NULL) chat_->::protocol::FriendChat::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CFriendChatRead::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 20515];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_chat;
+        break;
+      }
+
+      // optional .protocol.FriendChat chat = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_chat:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_chat()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CFriendChatRead::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 20515];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // optional .protocol.FriendChat chat = 2;
+  if (has_chat()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->chat(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CFriendChatRead::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 20515];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional .protocol.FriendChat chat = 2;
+  if (has_chat()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->chat(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int CFriendChatRead::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 20515];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+    // optional .protocol.FriendChat chat = 2;
+    if (has_chat()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->chat());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CFriendChatRead::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CFriendChatRead* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CFriendChatRead*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CFriendChatRead::MergeFrom(const CFriendChatRead& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+    if (from.has_chat()) {
+      mutable_chat()->::protocol::FriendChat::MergeFrom(from.chat());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CFriendChatRead::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CFriendChatRead::CopyFrom(const CFriendChatRead& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CFriendChatRead::IsInitialized() const {
+
+  return true;
+}
+
+void CFriendChatRead::Swap(CFriendChatRead* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(chat_, other->chat_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CFriendChatRead::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CFriendChatRead_descriptor_;
+  metadata.reflection = CFriendChatRead_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int SFriendChatRead::kCmdFieldNumber;
+const int SFriendChatRead::kChatFieldNumber;
+const int SFriendChatRead::kErrFieldNumber;
+#endif  // !_MSC_VER
+
+SFriendChatRead::SFriendChatRead()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void SFriendChatRead::InitAsDefaultInstance() {
+  chat_ = const_cast< ::protocol::FriendChat*>(&::protocol::FriendChat::default_instance());
+}
+
+SFriendChatRead::SFriendChatRead(const SFriendChatRead& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void SFriendChatRead::SharedCtor() {
+  _cached_size_ = 0;
+  cmd_ = 20515u;
+  chat_ = NULL;
+  err_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+SFriendChatRead::~SFriendChatRead() {
+  SharedDtor();
+}
+
+void SFriendChatRead::SharedDtor() {
+  if (this != default_instance_) {
+    delete chat_;
+  }
+}
+
+void SFriendChatRead::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SFriendChatRead::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SFriendChatRead_descriptor_;
+}
+
+const SFriendChatRead& SFriendChatRead::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Hall_2eproto();
+  return *default_instance_;
+}
+
+SFriendChatRead* SFriendChatRead::default_instance_ = NULL;
+
+SFriendChatRead* SFriendChatRead::New() const {
+  return new SFriendChatRead;
+}
+
+void SFriendChatRead::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    cmd_ = 20515u;
+    if (has_chat()) {
+      if (chat_ != NULL) chat_->::protocol::FriendChat::Clear();
+    }
+    err_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SFriendChatRead::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 cmd = 1 [default = 20515];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmd_)));
+          set_has_cmd();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_chat;
+        break;
+      }
+
+      // optional .protocol.FriendChat chat = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_chat:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_chat()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_err;
+        break;
+      }
+
+      // optional uint32 err = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_err:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &err_)));
+          set_has_err();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void SFriendChatRead::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 cmd = 1 [default = 20515];
+  if (has_cmd()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->cmd(), output);
+  }
+
+  // optional .protocol.FriendChat chat = 2;
+  if (has_chat()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->chat(), output);
+  }
+
+  // optional uint32 err = 3;
+  if (has_err()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->err(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* SFriendChatRead::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 cmd = 1 [default = 20515];
+  if (has_cmd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->cmd(), target);
+  }
+
+  // optional .protocol.FriendChat chat = 2;
+  if (has_chat()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->chat(), target);
+  }
+
+  // optional uint32 err = 3;
+  if (has_err()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->err(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int SFriendChatRead::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 cmd = 1 [default = 20515];
+    if (has_cmd()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cmd());
+    }
+
+    // optional .protocol.FriendChat chat = 2;
+    if (has_chat()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->chat());
+    }
+
+    // optional uint32 err = 3;
+    if (has_err()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->err());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SFriendChatRead::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SFriendChatRead* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SFriendChatRead*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SFriendChatRead::MergeFrom(const SFriendChatRead& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_cmd()) {
+      set_cmd(from.cmd());
+    }
+    if (from.has_chat()) {
+      mutable_chat()->::protocol::FriendChat::MergeFrom(from.chat());
+    }
+    if (from.has_err()) {
+      set_err(from.err());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SFriendChatRead::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SFriendChatRead::CopyFrom(const SFriendChatRead& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SFriendChatRead::IsInitialized() const {
+
+  return true;
+}
+
+void SFriendChatRead::Swap(SFriendChatRead* other) {
+  if (other != this) {
+    std::swap(cmd_, other->cmd_);
+    std::swap(chat_, other->chat_);
+    std::swap(err_, other->err_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata SFriendChatRead::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SFriendChatRead_descriptor_;
+  metadata.reflection = SFriendChatRead_reflection_;
   return metadata;
 }
 

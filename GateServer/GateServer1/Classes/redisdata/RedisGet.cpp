@@ -56,7 +56,7 @@ void RedisGet::init(){
 	getExRecords();
 	getPayRecords();
 	getAliPayNoDatas();
-	
+	getFriendChats();
 	StatTimer::getIns()->scheduleSelector(this, schedule_selector(RedisGet::update), 60,60);
 }
 
@@ -705,18 +705,29 @@ FriendMap RedisGet::getFriend(){
 	if (ist){
 		auto maps = getUserBases();
 		auto itr = maps.begin();
+		Friend fri;
 		for (itr; itr != maps.end(); itr++){
 			string uid = itr->first;
-			map<string, Friend *>vec;
-			vector<string> vv = m_redis->getKeys(g_redisdbnames[REIDS_FRIEND] + uid, false);
-			Friend fr;
-			for (int i = 0; i < vv.size(); i++){
-				string key = vv.at(i);
-				Friend *fd = (Friend *)m_redis->getHash(key, fr.GetTypeName());
-				vec.insert(make_pair(fd->info().userid(), fd));
-			}
-			if (!vec.empty()){
-				m_pfriends.insert(make_pair(uid, vec));
+			
+			string key = g_redisdbnames[REIDS_FRIEND]+"_"+uid;
+			auto vecs = m_redis->getList(key,fri.GetTypeName());
+			for (int i = 0; i < vecs.size(); i++){
+				Friend *fri1 = (Friend *)vecs.at(i);
+				string fruid = fri1->info().userid();
+				UserBase *ub = fri1->mutable_info();
+				UserBase *ub1 = getUserBase(fruid);
+				ub->CopyFrom(*ub1);
+
+				map<string, Friend *>vec;
+				if (m_pfriends.find(uid) == m_pfriends.end()){
+					vec.insert(make_pair(fruid,fri1));
+					m_pfriends.insert(make_pair(uid, vec));
+				}
+				else{
+					vec = m_pfriends.at(uid);
+					vec.insert(make_pair(fruid, fri1));
+					m_pfriends.at(uid)=vec;
+				}
 			}
 		}
 	}
@@ -768,6 +779,95 @@ void RedisGet::setFriend(string uid, Friend *fri, bool isadd){
 		}
 	}
 }
+
+map<string, map<string, vector<FriendChat *>>> RedisGet::getFriendChats(){
+	if (!m_pFriendChats.empty()){
+		return m_pFriendChats;
+	}
+	bool ist = RedisGet::getIns()->SelectDB(REIDS_FRIEND);
+	if (ist){
+		auto mps = getUserBases();
+		auto itr = mps.begin();
+		FriendChat fc;
+		for (itr; itr != mps.end(); itr++){
+			string suid = itr->first;
+			string key = g_redisdbnames[REIDS_FRIEND] + "_chat_"+suid;
+			vector<Message *> vec = m_redis->getList(key,fc.GetTypeName());
+			for (int i = 0; i < vec.size();i++){
+				FriendChat *fc = (FriendChat *)vec.at(i);
+				setFriendChat(suid,fc);
+			}
+		}
+	}
+	return m_pFriendChats;
+}
+
+map<string, vector<FriendChat *>> RedisGet::getFriendChat(string uid){
+	map<string, vector<FriendChat *>> mps;
+	if (m_pFriendChats.find(uid) != m_pFriendChats.end()){
+		mps = m_pFriendChats.at(uid);
+	}
+	return mps;
+}
+
+vector<FriendChat *> RedisGet::getFriendChat(string uid, string fuid){
+	vector<FriendChat *> vec;
+	auto mps = getFriendChat(uid);
+	if (mps.find(fuid)!=mps.end()){
+		vec = mps.at(uid);
+	}
+	return vec;
+}
+
+void RedisGet::setFriendChat(string suid, FriendChat *fc){
+	string uid = fc->uid();
+	map<string, vector<FriendChat *>> pmps;
+	vector<FriendChat *> vec;
+	if (m_pFriendChats.find(suid) != m_pFriendChats.end()){
+		pmps = m_pFriendChats.at(suid);
+		if (pmps.find(uid) != pmps.end()){
+			vec = pmps.at(uid);
+			vec.push_back(fc);
+			pmps.at(uid) = vec;
+			m_pFriendChats.at(suid) = pmps;
+		}
+		else{
+			vec.push_back(fc);
+			pmps.insert(make_pair(uid, vec));
+			m_pFriendChats.at(suid) = pmps;
+		}
+	}
+	else{
+		vec.push_back(fc);
+		pmps.insert(make_pair(uid, vec));
+		m_pFriendChats.insert(make_pair(suid, pmps));
+	}
+}
+
+void RedisGet::eraseFriendChat(string suid, FriendChat fc){
+	string uid = fc.uid();
+	string content = fc.content();
+	map<string, vector<FriendChat *>> pmps;
+	vector<FriendChat *> vec;
+	if (m_pFriendChats.find(suid) != m_pFriendChats.end()){
+		pmps = m_pFriendChats.at(suid);
+		if (pmps.find(uid) != pmps.end()){
+			vec = pmps.at(uid);
+			auto itr = vec.begin();
+			for (itr; itr != vec.end();itr++){
+				FriendChat *fc1 = *itr;
+				string con = fc1->uid()+fc1->content();
+				if (con.compare(uid + content) == 0){
+					vec.erase(itr);
+					pmps.at(uid)=vec;
+					m_pFriendChats.at(suid) = pmps;
+					break;
+				}
+			}
+		}
+	}
+}
+
 
 map<int, FriendNotice *> RedisGet::getFriendNotice(string uid){
 	if (m_pFriendNotices.find(uid) != m_pFriendNotices.end()){
