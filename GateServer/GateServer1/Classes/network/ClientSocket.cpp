@@ -190,9 +190,9 @@ void *ClientSocket::threadHandler(void *arg) {
 			}
 
         }else{
-			CLog::log("%s\n","==== connect break up ====");
+			//CLog::log("%s\n","==== connect break up ====");
             //服务端断开
-            p->close();
+            //p->close();
 			//断开线程
             break;
         }

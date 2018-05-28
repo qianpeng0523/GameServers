@@ -27,10 +27,10 @@ bool StatTimer::start()
 void StatTimer::onTimer(Timer&/*t*/)
 {
 	StatTimer::getIns()->m_lock = true;
-	map<Object *, TimerEvent *> *maps=&StatTimer::getIns()->m_timeevents;
-	map<Object *, TimerEvent *>::iterator itr = maps->begin();
-	auto itrend = maps->end();
-	for (itr; itr != maps->end();){
+	map<Object *, TimerEvent *> maps=StatTimer::getIns()->m_timeevents;
+	map<Object *, TimerEvent *>::iterator itr = maps.begin();
+	auto itrend = maps.end();
+	for (itr; itr != maps.end();){
 		TimerEvent *t = itr->second;
 		if (t){
 			auto itr1 = t->_funs.begin();
@@ -38,13 +38,17 @@ void StatTimer::onTimer(Timer&/*t*/)
 				TimeFun *tf = *itr1;
 				if (tf&&!tf->_pause){
 					if (t){
-						if (*itr1 && (tf->_count*ONCETIME >= tf->_interval * 1000 || tf->_count*ONCETIME==tf->_delaytime*1000)){
+						if (*itr1 && (tf->_count*ONCETIME >= tf->_interval * 1000 || (tf->_count*ONCETIME==tf->_delaytime*1000&&!tf->_once))){
 							tf->_count = 0;
 							(t->_target->*tf->_selector)(0);
+							if (tf->_once){
+								tf->_pause = true;
+							}
 						}
 						tf->_count++;
 					}
 					itr1++;
+					continue;
 				}
 				else{
 					itr1= t->_funs.erase(itr1);
@@ -56,18 +60,16 @@ void StatTimer::onTimer(Timer&/*t*/)
 			if (t->_funs.empty()){
 				delete t;
 				t = NULL;
-				itr = maps->erase(itr);
+				itr = maps.erase(itr);
+				StatTimer::getIns()->m_timeevents = maps;
 			}
 			else{
 				itr++;
 			}
 		}
 		else{
-			if (t){
-				delete t;
-				t = NULL;
-			}
-			itr=maps->erase(itr);
+			itr=maps.erase(itr);
+			StatTimer::getIns()->m_timeevents = maps;
 		}
 	}
 	StatTimer::getIns()->m_lock = false;
@@ -120,6 +122,7 @@ void StatTimer::schedule(Object *target, SEL_SCHEDULE selector, float interval, 
 		fun->_interval = interval;
 		fun->_delaytime = delaytime;
 		fun->_selector = selector;
+		fun->_once = once;
 		t->_funs.push_back(fun);
 		temp->insert(make_pair(target, t));
 	}
@@ -137,6 +140,7 @@ void StatTimer::schedule(Object *target, SEL_SCHEDULE selector, float interval, 
 			fun->_interval = interval;
 			fun->_delaytime = delaytime;
 			fun->_selector = selector;
+			fun->_once = once;
 			t->_funs.push_back(fun);
 			temp->at(target) = t;
 		}

@@ -317,6 +317,7 @@ bool RedisPut::eraseFriendNotice(string uid, FriendNotice *fn){
 	if (ist){
 		char buff[100];
 		sprintf(buff, "%s%d", (g_redisdbnames[REIDS_FRIEND] + "notice" + uid).c_str(), fn->nid());
+		RedisGet::getIns()->eraseFriendNotice(uid, fn);
 		return m_redis->delKey(buff);
 	}
 	return ist;

@@ -24,9 +24,11 @@
 #include "PingInfo.h"
 #include "CLog.h"
 #include "ConfigInfo.h"
-
+#include "ConfigData1.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
+	ConfigData1::getIns();
+
 	/*
 	map<int, vector<int>>mps;
 	for (int i = 0; i < 100; i++){

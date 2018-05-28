@@ -204,6 +204,9 @@
     <ClCompile Include="Classes\common\CLog.cpp">
       <Filter>源文件\Classes\common</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\ConfigData1.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\stdafx.h">
@@ -391,6 +394,234 @@
     </ClInclude>
     <ClInclude Include="Classes\common\CLog.h">
       <Filter>源文件\Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\aes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\asn1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\asn1t.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\asn1_mac.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\bio.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\blowfish.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\bn.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\buffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\camellia.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\cast.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\cmac.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\cms.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\comp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\conf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\conf_api.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\crypto.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\des.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\des_old.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\dh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\dsa.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\dso.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\dtls1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ebcdic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ecdh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ecdsa.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\engine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\err.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\evp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\e_os2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\hmac.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\idea.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\krb5_asn.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\kssl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\lhash.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\md4.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\md5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\mdc2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\modes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\objects.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\obj_mac.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ocsp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\opensslconf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\opensslv.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ossl_typ.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\pem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\pem2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\pkcs12.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\pkcs7.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\pqueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\rand.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\rc2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\rc4.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ripemd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\rsa.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\safestack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\seed.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\sha.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\srp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\srtp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ssl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ssl2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ssl23.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ssl3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\stack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\symhacks.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\tls1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ts.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\txt_db.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ui.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\ui_compat.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\whrlpool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\x509.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\x509v3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\openapi\openssl\x509_vfy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ConfigData1.h">
+      <Filter>源文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

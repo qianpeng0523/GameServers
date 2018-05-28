@@ -585,7 +585,7 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 			fn->set_status(agree ? 2 : 3);
 			
 			Friend ff;
-			m_pRedisPut->PushFriendNotice(uid, fn);
+			m_pRedisPut->eraseFriendNotice(uid, fn);
 			Friend *fri = m_pRedisGet->getFriend(uid,puid);
 			if (!fri){
 				fri = (Friend *)ccEvent::create_message(ff.GetTypeName());
@@ -606,7 +606,7 @@ void HallInfo::HandlerCAgreeFriend(ccEvent *event){
 					sl1.set_agree(agree);
 					sl1.set_nid(pnid);
 					fn1->set_status(agree ? 2 : 3);
-					m_pRedisPut->PushFriendNotice(puid, fn);
+					m_pRedisPut->eraseFriendNotice(puid, fn1);
 					Friend *fri1 = m_pRedisGet->getFriend(puid, uid);
 					if (!fri1){
 						fri1 = (Friend *)ccEvent::create_message(ff.GetTypeName());

@@ -7,6 +7,7 @@ EventDispatcher* EventDispatcher::m_ins = NULL;
 
 EventDispatcher::EventDispatcher(){
 	m_lock = false;
+	m_count = 0;
 }
 
 EventDispatcher::~EventDispatcher(){
@@ -28,8 +29,6 @@ EventDispatcher *EventDispatcher::getIns(){
 }
 
 void EventDispatcher::addListener(int cmd, Object *target, EventHandler handler, SERVERTYPE type){
-	
-
 	if (m_eventLists.find(type) != m_eventLists.end()){
 		map<int, CallList *>mmp = m_eventLists.at(type);
 		if (mmp.find(cmd) == mmp.end()){
@@ -38,9 +37,14 @@ void EventDispatcher::addListener(int cmd, Object *target, EventHandler handler,
 			clist->obj = target;
 			clist->handler = handler;
 			clist->type = type;
+			clist->count = 1;
 
 			mmp.insert(make_pair(cmd, clist));
 			m_eventLists.at(type) = mmp;
+		}
+		else{
+			CallList *clist = mmp.at(cmd);
+			clist->count++;
 		}
 	}
 	else{
@@ -49,6 +53,7 @@ void EventDispatcher::addListener(int cmd, Object *target, EventHandler handler,
 		clist->obj = target;
 		clist->handler = handler;
 		clist->type = type;
+		clist->count = 1;
 
 		map<int, CallList *>mmp;
 		mmp.insert(make_pair(cmd, clist));
@@ -62,7 +67,12 @@ void EventDispatcher::removeListener(int cmd, Object *target, EventHandler handl
 		if (mmp.find(cmd) != mmp.end()){
 			CallList *clist = mmp.at(cmd);
 			if (clist && clist->obj == target && clist->handler == handler){
-				mmp.erase(mmp.find(cmd));
+				if (clist->count <= 0){
+					mmp.erase(mmp.find(cmd));
+				}
+				else{
+					clist->count--;
+				}
 			}
 		}
 	}
@@ -89,7 +99,6 @@ void EventDispatcher::disEventDispatcher(ccEvent *event){
 		if (!m_lock){
 			m_lock = true;
 			EventPathch();
-			
 		}
 	}
 }
@@ -107,6 +116,7 @@ void EventDispatcher::EventPathch(){
 				if (mmp.find(cmd) != mmp.end()){
 					CallList *clist = mmp.at(cmd);
 					if (clist && clist->obj && clist->handler){
+						CLog::log("#########################:count[%d][%s]", m_count++,event->msg->GetTypeName().c_str());
 						(clist->obj->*clist->handler)(event);
 					}
 				}

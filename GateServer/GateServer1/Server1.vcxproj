@@ -110,6 +110,7 @@
     <ClCompile Include="Classes\common\StatTimer.cpp" />
     <ClCompile Include="Classes\common\XXIconv.cpp" />
     <ClCompile Include="Classes\ConfigData.cpp" />
+    <ClCompile Include="Classes\ConfigData1.cpp" />
     <ClCompile Include="Classes\config\XmlConfig.cpp" />
     <ClCompile Include="Classes\http\HttpAliPay.cpp" />
     <ClCompile Include="Classes\http\HttpEvent.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Classes\common\StatTimer.h" />
     <ClInclude Include="Classes\common\XXIconv.h" />
     <ClInclude Include="Classes\ConfigData.h" />
+    <ClInclude Include="Classes\ConfigData1.h" />
     <ClInclude Include="Classes\config\XmlConfig.h" />
     <ClInclude Include="Classes\http\HttpAliPay.h" />
     <ClInclude Include="Classes\http\HttpEvent.h" />

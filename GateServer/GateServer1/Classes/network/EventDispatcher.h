@@ -15,6 +15,7 @@ public:
 	Object *obj;
 	SERVERTYPE type;
 	EventHandler handler;
+	int count;
 };
 
 //typedef std::vector<CallList *> CallList_Vec;
@@ -43,6 +44,7 @@ private:
 	vector<ccEvent *> m_Events;
 	map<SERVERTYPE, map<int, string>> m_protos;
 	bool m_lock;
+	int m_count;
 private:
 
 };
