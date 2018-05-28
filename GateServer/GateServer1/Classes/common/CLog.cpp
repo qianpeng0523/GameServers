@@ -21,7 +21,7 @@ CLog::~CLog()
 //获取日志文件名
 string CLog::getFile()
 {
-	string strFileName="./res/mysqlserver_";
+	string strFileName="./res/gate_";
 	strFileName += Common::getLocalTimeDay() + ".log";
 
 	return strFileName;

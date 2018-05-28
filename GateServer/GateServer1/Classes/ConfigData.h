@@ -19,8 +19,8 @@ enum HuTypeEnum
 
 enum HeiOrYing
 {
+	RUAN=0,
 	HEI,
-	RUAN,
 };
 
 enum HUTYPE{

@@ -69,78 +69,78 @@ uint64 ConfigData::getRedisLastIndex(string key){
 }
 
 void ConfigData::init(){
-	int64_t t = Common::getCurrentTime();
-	int len = 0;
-	m_predis = redis::getIns();
-	char* vv= m_predis->getLastList("baoke14204");
-	char buff[200];
-	char buff1[200];
-	if (!vv){
-		setKezi();
-		setShunzi();
-		for (int i = 1; i <= 4; i++){
-			for (int j = 0; j <= i; j++){
-				init3P(i, j);
-			}
-		}
-
-		map<int, map<uint64, int>>::iterator itr = m_lianke.begin();
-		
-		for (itr; itr != m_lianke.end(); itr++){
-			int sr = itr->first;
-			sprintf(buff, "ke%d", sr);
-			uint64 kk = getRedisLastIndex(buff);
-			map<uint64, int> vec = itr->second;
-			map<uint64, int>::iterator itr1 = vec.find(kk);
-			if (itr1 == vec.end()){
-				itr1 = vec.begin();
-			}
-			else{
-				itr1++;
-			}
-			for (itr1; itr1 != vec.end(); itr1++){
-				sprintf(buff1,"%ld",itr1->first);
-				m_predis->List(buff, buff1);
-			}
-			CLog::log("******%s***********\n",buff);
-		}
-
-		for (int i = 1; i <= 4; i++){
-			setLiankeBao(i);
-		}
-		CLog::log("______\n");
-	}
-	else{
-		string vv[] = {"5","52","8","82","11","112","14","142"};
-		CSVSTRUCT ct[] = { CSV_HU5, CSV_HU52, CSV_HU8, CSV_HU82, CSV_HU11, CSV_HU112, CSV_HU14, CSV_HU142 };
-		string vr[] = { "01", "02", "03", "04" };
-		for (int i = 0; i < 8; i++){
-			sprintf(buff,"ke%s",vv[i].c_str());
-			CLog::log("*********type:%d********\n", ct[i]);
-			map<uint64, int> vec = m_predis->getList(buff);
-			if (!vec.empty()){
-				int len = atoi(vv[i].c_str());
-				m_lianke.insert(make_pair(len, vec));
-			}
-			for (int j = 0; j < 4; j++){
-				sprintf(buff, "baoke%s%s", vv[i].c_str(), vr[j].c_str());
-				CSVSTRUCT type = (CSVSTRUCT)(CSV_BAOHU51 + i * 4 + j);
-				map<uint64, int> vec5 = m_predis->getIns()->getList(buff);
-				if (!vec5.empty()){
-					m_liankebao.insert(make_pair(atoi((vv[i] + vr[j]).c_str()), vec5));
-				}
-				CLog::log("**********type:%d**********\n", type);
-			}
-		}
-
-	}
-	int64_t t2 = Common::getCurrentTime();
-	uint64_t tt = t2 - t;
-	CLog::log("******use time:%gs******\n", tt / 1000.0 / 1000);
-
-
-
-	test();
+// 	int64_t t = Common::getCurrentTime();
+// 	int len = 0;
+// 	m_predis = redis::getIns();
+// 	char* vv= m_predis->getLastList("baoke14204");
+// 	char buff[200];
+// 	char buff1[200];
+// 	if (!vv){
+// 		setKezi();
+// 		setShunzi();
+// 		for (int i = 1; i <= 4; i++){
+// 			for (int j = 0; j <= i; j++){
+// 				init3P(i, j);
+// 			}
+// 		}
+// 
+// 		map<int, map<uint64, int>>::iterator itr = m_lianke.begin();
+// 		
+// 		for (itr; itr != m_lianke.end(); itr++){
+// 			int sr = itr->first;
+// 			sprintf(buff, "ke%d", sr);
+// 			uint64 kk = getRedisLastIndex(buff);
+// 			map<uint64, int> vec = itr->second;
+// 			map<uint64, int>::iterator itr1 = vec.find(kk);
+// 			if (itr1 == vec.end()){
+// 				itr1 = vec.begin();
+// 			}
+// 			else{
+// 				itr1++;
+// 			}
+// 			for (itr1; itr1 != vec.end(); itr1++){
+// 				sprintf(buff1,"%ld",itr1->first);
+// 				m_predis->List(buff, buff1);
+// 			}
+// 			CLog::log("******%s***********\n",buff);
+// 		}
+// 
+// 		for (int i = 1; i <= 4; i++){
+// 			setLiankeBao(i);
+// 		}
+// 		CLog::log("______\n");
+// 	}
+// 	else{
+// 		string vv[] = {"5","52","8","82","11","112","14","142"};
+// 		CSVSTRUCT ct[] = { CSV_HU5, CSV_HU52, CSV_HU8, CSV_HU82, CSV_HU11, CSV_HU112, CSV_HU14, CSV_HU142 };
+// 		string vr[] = { "01", "02", "03", "04" };
+// 		for (int i = 0; i < 8; i++){
+// 			sprintf(buff,"ke%s",vv[i].c_str());
+// 			CLog::log("*********type:%d********\n", ct[i]);
+// 			map<uint64, int> vec = m_predis->getList(buff);
+// 			if (!vec.empty()){
+// 				int len = atoi(vv[i].c_str());
+// 				m_lianke.insert(make_pair(len, vec));
+// 			}
+// 			for (int j = 0; j < 4; j++){
+// 				sprintf(buff, "baoke%s%s", vv[i].c_str(), vr[j].c_str());
+// 				CSVSTRUCT type = (CSVSTRUCT)(CSV_BAOHU51 + i * 4 + j);
+// 				map<uint64, int> vec5 = m_predis->getIns()->getList(buff);
+// 				if (!vec5.empty()){
+// 					m_liankebao.insert(make_pair(atoi((vv[i] + vr[j]).c_str()), vec5));
+// 				}
+// 				CLog::log("**********type:%d**********\n", type);
+// 			}
+// 		}
+// 
+// 	}
+// 	int64_t t2 = Common::getCurrentTime();
+// 	uint64_t tt = t2 - t;
+// 	CLog::log("******use time:%gs******\n", tt / 1000.0 / 1000);
+// 
+// 
+// 
+// 	test();
 	
 }
 #define  TESTCOUNT 50

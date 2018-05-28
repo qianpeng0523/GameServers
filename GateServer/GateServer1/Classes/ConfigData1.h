@@ -13,9 +13,11 @@ public:
 	static ConfigData1 *getIns();
 	void init();
 	HuItem isHu(int *pai, int baovalue);
+
+	void test();
 private:
 	_int64 getLeftValue(_int64 a1, map<char, int> v2,vector<int> &leftvs);
-	vector<_int64> getLtftValue(_int64 a, int baocount, vector<vector<int>> &leftvs);
+	vector<_int64> getLeftValue(_int64 a, int baocount, vector<vector<int>> &leftvs);
 	HuItem isQidui(int *pai,int baovalue);
 	HuItem isPPH(int *pai,int baovalue);
 	HuItem isQYS(int *pai,int baovalue);
