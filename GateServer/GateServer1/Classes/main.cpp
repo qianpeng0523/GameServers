@@ -24,10 +24,134 @@
 #include "PingInfo.h"
 #include "CLog.h"
 #include "ConfigInfo.h"
-#include "ConfigData1.h"
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ConfigData1::getIns();
+	//1.生成所有的刻子
+	vector<string> ke;
+	for (int i = 0; i < 9; i++){
+		string vc;
+		for (int j = 0; j < 3; j++){
+			int v = i + 1;
+			vc += (char)(v +'0');
+		}
+		ke.push_back(vc);
+	}
+	//2.生成所有的连子
+	vector<string> lian;
+	for (int i = 0; i < 7; i++){
+		int v1 = i + 1;
+		int v2 = i + 2;
+		int v3 = i + 3;
+		string vc;
+		vc += (char)(v1 + '0');
+		vc += (char)(v2 + '0');
+		vc += (char)(v3 + '0');
+		lian.push_back(vc);
+	}
+	//组合所有的刻子和连子
+	map<string, string>mps;
+	for (int i = 0; i < lian.size(); i++){
+		string t1 = lian.at(i);
+		string con = t1;
+		sort(con.begin(), con.end());
+		if (mps.find(con) == mps.end()){
+			mps.insert(make_pair(con, ""));
+		}
+		for (int j = i; j < lian.size(); j++){
+			string t2 = lian.at(j);
+			con = t1 + t2;
+			sort(con.begin(), con.end());
+			if (mps.find(con) == mps.end()){
+				mps.insert(make_pair(con, ""));
+			}
+			for (int k = j; k < lian.size(); k++){
+				string t3 = lian.at(k);
+				con = t1 + t2 + t3;
+				sort(con.begin(), con.end());
+				if (mps.find(con) == mps.end()){
+					mps.insert(make_pair(con, ""));
+				}
+				for (int m = k; m < lian.size(); m++){
+					string t4 = lian.at(m);
+					con = t1+t2+t3+t4;
+					sort(con.begin(),con.end());
+					if (mps.find(con) == mps.end()){
+						mps.insert(make_pair(con, ""));
+					}
+				}
+			}
+		}
+	}
+	mps.insert(make_pair("", ""));
+	map<string, string>mps1;
+	for (int i = 0; i < ke.size(); i++){
+		string t1 = ke.at(i);
+		string con = t1;
+		sort(con.begin(), con.end());
+		if (mps1.find(con) == mps1.end()){
+			mps1.insert(make_pair(con, ""));
+		}
+		for (int j = i+1; j < ke.size(); j++){
+			string t2 = ke.at(j);
+			string con = t1+t2;
+			sort(con.begin(), con.end());
+			if (mps1.find(con) == mps1.end()){
+				mps1.insert(make_pair(con, ""));
+			}
+			for (int m = j+1; m < ke.size(); m++){
+				string t3 = ke.at(m);
+				string con = t1 + t2+t3;
+				sort(con.begin(), con.end());
+				if (mps1.find(con) == mps1.end()){
+					mps1.insert(make_pair(con, ""));
+				}
+				for (int n = m+1; n < ke.size(); n++){
+					string t4 = ke.at(n);
+					string con = t1 + t2 + t3+t4;
+					sort(con.begin(), con.end());
+					if (mps1.find(con) == mps1.end()){
+						mps1.insert(make_pair(con, ""));
+					}
+				}
+
+			}
+
+		}
+		
+	}
+	mps1.insert(make_pair("", ""));
+	//组合
+	map<string, string>allmps;
+	auto itr = mps.begin();
+	for (itr; itr != mps.end();itr++){
+		string con1 = itr->first;
+		auto itr1 = mps1.begin();
+		for (itr1; itr1 != mps1.end();itr1++){
+			string con2 = itr1->first;
+			string con = con1+con2;
+			int len = strlen(con.c_str());
+			if (len <= 12){
+				for (int i = 0; i < 9;i++){
+					int co = count(con.begin(),con.end(),i+'0');
+					if (co == 4){
+						continue;
+					}
+				}
+				sort(con.begin(), con.end());
+				if (allmps.find(con) == allmps.end()){
+					allmps.insert(make_pair(con, ""));
+				}
+			}
+		}
+	}
+
+	//终极所有
+	for (int i = 0; i < allmps.size();i++){
+
+	}
+
+	printf("\n");
 
 	/*
 	map<int, vector<int>>mps;
