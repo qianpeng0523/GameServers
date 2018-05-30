@@ -306,14 +306,13 @@ void ConfigData::addnumber(string &content, int num){
 
 static string g_typestr[5] = { "#", "@", "$", "%", "&" };
 string ConfigData::inserDui(string &content,char va){
-	string tp = content;
-	string cr;
-	cr += va;
-	cr += va;
-	tp += cr;
-	if (Over4(tp, va)){
+	if (count(content.begin(), content.end(), a)>2){
 		return content;
 	}
+	string tp = content;
+	tp += va;
+	tp += va;
+	
 	sort(tp.begin(),tp.end());
 	return tp;
 }
