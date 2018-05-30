@@ -63,8 +63,8 @@ static int g_all_mjkind[] = {
 	0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
 	0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19,
 	0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29,
-	0x31, 0x32, 0x33, 0x34,
-	0x41, 0x42, 0x43
+	0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37
+	
 };
 
 #define g_kind (sizeof(g_all_mjkind)/sizeof(int))
@@ -141,6 +141,7 @@ class ConfigData
 public:
 	ConfigData();
 	virtual ~ConfigData();
+	
 	static ConfigData *getIns();
 	void init();
 	void quickSort(int *s, int l, int r);
@@ -148,21 +149,36 @@ public:
 	int getMJ(int index);
 	void initMJ();
 	
-	void createHus();
+	void setKezi();
+	
+	void setFengKeTo(int len, map<uint64, int> &maps);
+	void setShunzi();
+	void init3P(int index, int kenum);
+	void init3L(int shunnum, int index, vector<int>&ww);
+
+	HuItem isHu(int *pai, bool ispengqing);
+	HuItem isHu(int *pai, bool ispengqing, int bao);
+	uint64 getRedisLastIndex(string key);
+	PaoItem getHandOtherPao(PaoNeed pn);//peng
 private:
-	bool PushHus(string &content, int index);
-	bool Over4(string &content);
-	bool Over4(string &content,char a);
-	bool OverLen(string &content, int count);
-	void eraseEmpty(string &content,string old);
-	string inserDui(string &content, char va);
-	void addnumber(string &content, int num);
+	void setValueZero(int *a, int v, int len,int &baocount);
+	HuTypeEnum isFit(vector<int>*p, int baocount, HuItem &item,int kind);
+	void getKindCard(int *temppai, map<int, vector<int>> &kindcards);
+	void setLiankeBao(int i);
+	void isTing(int *pai, int bao, map<int, int> &ting);
+	map<int, map<int, int>> chuTing(int *pai, int bao);
+	void test();
+
 private:
+	
 	static ConfigData *m_ins;
-	vector<int> m_cards;
-	map<string, string> m_zjallmaps[3125];
-	map<string, string> m_zjallmaps1[3125];//pow(5,5)
+	vector<int >m_cards;
 	int m_index;
+	vector<vector<int>>m_kezi;
+	vector<vector<int>>m_shunzi;
+	map<int, map<uint64, int>>m_lianke;
+	map<int, map<uint64, int>>m_liankebao;
+	redis *m_predis;
 };
 
 
