@@ -141,7 +141,6 @@ class ConfigData
 public:
 	ConfigData();
 	virtual ~ConfigData();
-	
 	static ConfigData *getIns();
 	void init();
 	void quickSort(int *s, int l, int r);
@@ -149,36 +148,21 @@ public:
 	int getMJ(int index);
 	void initMJ();
 	
-	void setKezi();
-	
-	void setFengKeTo(int len, map<uint64, int> maps);
-	void setShunzi();
-	void init3P(int index, int kenum);
-	void init3L(int shunnum, int index, vector<int>ww);
-
-	HuItem isHu(int *pai, bool ispengqing);
-	HuItem isHu(int *pai, bool ispengqing, int bao);
-	uint64 getRedisLastIndex(string key);
-	PaoItem getHandOtherPao(PaoNeed pn);//peng
+	void createHus();
 private:
-	void setValueZero(int *a, int v, int len,int &baocount);
-	HuTypeEnum isFit(vector<int>p, int baocount, HuItem &item,int kind);
-	map<int, vector<int>> getKindCard(int *temppai);
-	void setLiankeBao(int i);
-	vector<int> isTing(int *pai,int bao);
-	map<int, vector<int>>chuTing(int *pai,int bao);
-	void test();
-
+	bool PushHus(string &content, int index);
+	bool Over4(string &content);
+	bool Over4(string &content,char a);
+	bool OverLen(string &content, int count);
+	void eraseEmpty(string &content,string old);
+	string inserDui(string &content, char va);
+	void addnumber(string &content, int num);
 private:
-	
 	static ConfigData *m_ins;
-	vector<int >m_cards;
+	vector<int> m_cards;
+	map<string, string> m_zjallmaps[3125];
+	map<string, string> m_zjallmaps1[3125];//pow(5,5)
 	int m_index;
-	vector<vector<int>>m_kezi;
-	vector<vector<int>>m_shunzi;
-	map<int, map<uint64, int>>m_lianke;
-	map<int, map<uint64, int>>m_liankebao;
-	redis *m_predis;
 };
 
 
