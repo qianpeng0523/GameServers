@@ -1543,3 +1543,25 @@ void RedisGet::update(float){
 		sortRank();
 	}
 }
+
+void RedisGet::getHuList(map<int, map<uint64, int>> &mps, int type){
+	char buff[100];
+	sprintf(buff, "hulist%d", type);
+	string key = buff;
+	vector<string> vecs = m_redis->getListStr(key);
+	for (int i = 0; i < vecs.size();i++){
+		string con = vecs.at(i);
+		vector<string> mp = CSVDataInfo::getIns()->getStrFromstr(con,",");
+		int len = atoi(mp.at(0).c_str());
+		uint64 va = atoll(mp.at(1).c_str());
+		if (mps.find(len) == mps.end()){
+			map<uint64, int> vec;
+			vec.insert(make_pair(va, 0));
+			mps.insert(make_pair(len, vec));
+		}
+		else{
+			map<uint64, int> *vec = &mps.at(len);
+			vec->insert(make_pair(va, 0));
+		}
+	}
+}

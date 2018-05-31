@@ -184,6 +184,8 @@ public:
 
 	int getMailID();
 	int getFriendNoticeID();
+
+	void getHuList(map<int, map<uint64, int>> &mps,int type);
 private:
 	map<int, FriendNotice *> getFriendNoticeB(string uid);
 

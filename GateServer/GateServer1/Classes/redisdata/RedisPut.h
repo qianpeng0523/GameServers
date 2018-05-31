@@ -69,6 +69,8 @@ public:
 
 	bool PushPayRecord(PayRecord pr);
 	
+	bool PushHus(map<int, map<uint64, int>> mps,int type);
+
 	void ZeroChange(char *&data, int sz);
 private:
 	static RedisPut *m_ins;

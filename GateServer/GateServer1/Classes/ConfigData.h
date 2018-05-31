@@ -162,7 +162,7 @@ public:
 	PaoItem getHandOtherPao(PaoNeed pn);//peng
 private:
 	void setValueZero(int *a, int v, int len,int &baocount);
-	HuTypeEnum isFit(vector<int>*p, int baocount, HuItem &item,int kind);
+	HuTypeEnum isFit(vector<int>*p, int &baocount, HuItem &item,int kind);
 	void getKindCard(int *temppai, map<int, vector<int>> &kindcards);
 	void setLiankeBao(int i);
 	void isTing(int *pai, int bao, map<int, int> &ting);

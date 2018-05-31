@@ -3,7 +3,8 @@
 #include "time.h"
 #include "Common.h"
 #include "CSVDataInfo.h"
-
+#include "RedisGet.h"
+#include "RedisPut.h"
 
 bool compare(int a, int b){
 	if (a < b){
@@ -40,7 +41,15 @@ int ConfigData::getMJ(){
 	if (m_index >= m_cards.size()){
 		return -1;
 	}
-	return m_cards.at(m_index++);
+	int va = m_cards.at(m_index++);
+#ifndef DONGXINANBEI
+	if (va >= 0x31 && va <= 0x34){
+		return getMJ();
+	}
+#else
+
+#endif
+	return va;
 }
 
 int ConfigData::getMJ(int index){
@@ -69,18 +78,29 @@ uint64 ConfigData::getRedisLastIndex(string key){
 }
 
 void ConfigData::init(){
-	int64_t t = Common::getCurrentTime();
 	
-	setKezi();
-	setShunzi();
-	for (int i = 1; i <= 4; i++){
-		for (int j = 0; j <= i; j++){
-			init3P(i, j);
+	int64_t t = Common::getCurrentTime();
+	RedisGet::getIns()->getHuList(m_lianke,1);
+	RedisGet::getIns()->getHuList(m_liankebao,2);
+	if (m_lianke.empty()){
+		setKezi();
+		setShunzi();
+		for (int i = 1; i <= 4; i++){
+			for (int j = 0; j <= i; j++){
+				init3P(i, j);
+			}
 		}
+		RedisPut::getIns()->PushHus(m_lianke,1);
 	}
-	for (int i = 1; i <= 4; i++){
-		setLiankeBao(i);
+	char buff[200];
+	if (m_liankebao.empty()){
+		for (int i = 1; i <= 4; i++){
+			setLiankeBao(i);
+		}
+		RedisPut::getIns()->PushHus(m_liankebao,2);
 	}
+	
+	
 	
 	int64_t t2 = Common::getCurrentTime();
 	uint64_t tt = t2 - t;
@@ -88,14 +108,12 @@ void ConfigData::init(){
 
 
 
-	test();
+	//test();
 	
 }
 #define  TESTCOUNT 50
 void ConfigData::test(){
-	int ta[14] = {1,2,3,4,5,6,7,0x35,0x36,0x37,0x37};
-	HuItem ii = isHu(ta,false,1);
-
+	
 	int a[TESTCOUNT][14] = { 0 };
 	int b[TESTCOUNT][14] = { 0 };
 	int index = 0;
@@ -108,6 +126,7 @@ void ConfigData::test(){
 				a[index][j] = getMJ();
 			}
 		}
+		quickSort(a[index], 0, 13);
 		//听牌随机牌测试
 		for (int i = 1; i <= 13; i += 3){
 			initMJ();
@@ -115,7 +134,7 @@ void ConfigData::test(){
 				b[index][j] = getMJ();
 			}
 		}
-
+		quickSort(b[index], 0, 13);
 		index++;
 	}
 	int64_t ttt = Common::getCurrentTime();
@@ -124,8 +143,42 @@ void ConfigData::test(){
 
 
 	index = 0;
+	string tp;
 	while (index < TESTCOUNT){
-		isHu(a[index], false,1);
+		HuItem item = isHu(a[index], false,1);
+		
+		HuTypeEnum type = item._hutype;
+		switch (type)
+		{
+		case None:
+			tp = "None";
+			break;
+		case PI:
+			tp = "PI";
+			break;
+		case PENGPENG:
+			tp = "PENGPENG";
+			break;
+		case QIDUI:
+			tp = "QIDUI";
+			break;
+		case QINGYISE:
+			tp = "QINGYISE";
+			break;
+		case QYSPENG:
+			tp = "QYSPENG";
+			break;
+		case QYSQD:
+			tp = "QYSQD";
+			break;
+		default:
+			break;
+		}
+		CLog::log("[%d]{0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X}:%s-%s",index+1,
+			a[index][0], a[index][1], a[index][2], a[index][3], a[index][4], a[index][5], a[index][6],
+			a[index][7], a[index][8], a[index][9], a[index][10], a[index][11], a[index][12], a[index][13],
+			tp.c_str(), item._hy == HEI ? "HEI" : "RUAN"
+			);
 		index++;
 	}
 	int64_t t3 = Common::getCurrentTime();
@@ -133,10 +186,29 @@ void ConfigData::test(){
 	CLog::log("******Hu.use time:%fs******\n", tt / 1000.0 / 1000);
 
 	index = 0;
+	char buff[30];
+	
 	while (index < TESTCOUNT){
+		tp = "";
 		map<int, int> vec;
 		isTing(b[index], 1,vec);
+		auto itr = vec.begin();
+		for (itr; itr != vec.end();itr++){
+			int va = itr->first;
+			sprintf(buff, "0x%02X",va);
+			if (itr != vec.begin()){
+				tp += ",";
+			}
+			tp += buff;
+		}
+		CLog::log("Ting.[%d]{0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X}:[%s]", index + 1,
+			b[index][0], b[index][1], b[index][2], b[index][3], b[index][4], b[index][5], b[index][6],
+			b[index][7], b[index][8], b[index][9], b[index][10], b[index][11], b[index][12], b[index][13],
+			tp.c_str()
+			);
+
 		index++;
+		
 	}
 	int64_t t2 = Common::getCurrentTime();
 	tt = t2 - t3;
@@ -144,17 +216,38 @@ void ConfigData::test(){
 
 	index = 0;
 	while (index < TESTCOUNT){
-		map<int, map<int, int>> vec = chuTing(a[index], 1);
+		map<int, map<int, int>> vec1 = chuTing(a[index], 1);
+		CLog::log("ChuTing.[%d]{0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X}", index + 1,
+			a[index][0], a[index][1], a[index][2], a[index][3], a[index][4], a[index][5], a[index][6],
+			a[index][7], a[index][8], a[index][9], a[index][10], a[index][11], a[index][12], a[index][13]
+			);
+		auto itr1 = vec1.begin();
+		for (itr1; itr1 != vec1.end(); itr1++){
+			auto vec = &itr1->second;
+			auto itr = vec->begin();
+			tp = "";
+			for (itr; itr != vec->end(); itr++){
+				int va = itr->first;
+				sprintf(buff, "0x%02X", va);
+				if (itr != vec->begin()){
+					tp += ",";
+				}
+				tp += buff;
+			}
+			CLog::log("%d.CHU[0x%02X]-Ting[%s]",index+1,itr1->first,tp.c_str());
+		}
 		index++;
 	}
 	int64_t t1 = Common::getCurrentTime();
 	tt = t1 - t2;
 	CLog::log("******ChuTing.use time:%fs******\n", tt/1000.0/1000);
-
 	
-
-	
-
+// 	int a[14] = { 0x03, 0x03, 0x05, 0x04, 0x04,0x05,0x06,0x07,0x06,0x07,0x08,0x08,0x09,0x09};
+// 	map<int, int> vec;
+// 	HuItem item= isHu(a, false,1);
+// 
+// 	int a1[14] = { 0x01, 0x03, 0x05, 0x04, 0x04, 0x05, 0x06, 0x07, 0x06, 0x07, 0x08, 0x08, 0x09, 0x09 };
+// 	HuItem item1 = isHu(a1, false, 1);
 
 	CLog::log("1111\n");
 }
@@ -311,7 +404,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>&ww){
 									}
 									sort(vvvvv.begin(), vvvvv.end(), compare);
 									for (int mm = 0; mm < vvvvv.size(); mm++){
-										sprintf(buff + mm, "%c", 48+vvvvv.at(mm));
+										buff[mm] = '0' + vvvvv.at(mm);
 									}
 									maps.insert(make_pair(atoll(buff), 0));
 								}
@@ -331,7 +424,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>&ww){
 								}
 								sort(vvvvv.begin(), vvvvv.end(), compare);
 								for (int mm = 0; mm < vvvvv.size(); mm++){
-									sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
+									buff[mm] = '0' + vvvvv.at(mm);
 								}
 								maps.insert(make_pair(atoll(buff), 0));
 							}
@@ -350,7 +443,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>&ww){
 						}
 						sort(vvvvv.begin(), vvvvv.end(), compare);
 						for (int mm = 0; mm < vvvvv.size(); mm++){
-							sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
+							buff[mm] = '0' + vvvvv.at(mm);
 						}
 						maps.insert(make_pair(atoll(buff), 0));
 					}
@@ -367,7 +460,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>&ww){
 				}
 				sort(vvvvv.begin(), vvvvv.end(), compare);
 				for (int mm = 0; mm < vvvvv.size(); mm++){
-					sprintf(buff + mm, "%c", 48 + vvvvv.at(mm));
+					buff[mm] = '0' + vvvvv.at(mm);
 				}
 				maps.insert(make_pair(atoll(buff), 0));
 			}
@@ -377,7 +470,7 @@ void ConfigData::init3L(int shunnum, int index, vector<int>&ww){
 		if (!ww.empty()){
 			sort(ww.begin(), ww.end(), compare);
 			for (int mm = 0; mm < ww.size(); mm++){
-				sprintf(buff + mm, "%c", 48 + ww.at(mm));
+				buff[mm] = '0' + ww.at(mm);
 			}
 			maps.insert(make_pair(atoll(buff), 0));
 		}
@@ -404,6 +497,7 @@ HuItem ConfigData::isHu(int *pai,bool ispengqing){
 	bool isq = ispengqing;
 	HuItem huitem;
 	huitem._hutype = None;
+	huitem._hy = HEI;
 	//统计总牌数
 	map<int, int>dui;
 	int count = 0;
@@ -442,12 +536,12 @@ HuItem ConfigData::isHu(int *pai,bool ispengqing){
 	}
 	else{
 		if (count == 2){
-			huitem._hutype =isq?QYSPENG:PENGPENG;
+			huitem._hutype =isq? QYSPENG:PENGPENG;
 			return huitem;
 		}
 		
-		map<int, int>::iterator itr1 = dui.begin();
-		for (itr1; itr1 != dui.end();itr1++){
+		auto itr1 = dui.rbegin();
+		for (itr1; itr1 != dui.rend();itr1++){
 			int count1 = itr1->second;
 			if (count1 < 2){
 				continue;
@@ -463,7 +557,8 @@ HuItem ConfigData::isHu(int *pai,bool ispengqing){
 			int ii = 0;
 			HuTypeEnum lasttype = None;
 			for (itr; itr != kindcards.end();itr++){
-				HuTypeEnum type = isFit(&itr->second, 0, huitem, itr->first);
+				int baocount = 0;
+				HuTypeEnum type = isFit(&itr->second, baocount, huitem, itr->first);
 				if (ii > 0){
 					if (type>None&& type > lasttype){
 						lasttype = type;
@@ -517,13 +612,12 @@ void ConfigData::getKindCard(int *temppai, map<int, vector<int>> &kindcards){
 HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 	quickSort(pai, 0, 13);
 	HuItem huitem = isHu(pai, ispengqing);
-	if (huitem._hutype != None){
+	if (huitem._hutype == QYSPENG || huitem._hutype == QYSQD || huitem._hutype == QINGYISE){
+		//这些黑的比任何软的胡都大，所以不用考虑软的胡
 		huitem._hy = HEI;
 		return huitem;
 	}
 	bool isq = ispengqing;
-	huitem._hutype = None;
-	huitem._hy = HEI;
 	int temppai[14] = { 0 };
 	memcpy(temppai, pai, sizeof(int)* 14);
 	int baocount = 0;
@@ -564,31 +658,34 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 		return huitem;
 	}
 	//统计对子数
-	
-	if (duicount == 0&&baocount==0){
-		return huitem;
-	}
-	else if (duicount == 7){
-		huitem._hutype = isq ? QYSQD : QIDUI;
-		huitem._hy = HEI;
-		return huitem;
-	}
-	else if ((baocount == 1 && duicount==6) || (baocount == 2 && duicount==5) || (baocount == 3 && duicount==4)){
+	if ((baocount == 1 && duicount==6) || (baocount == 2 && duicount==5) || (baocount == 3 && duicount==4)||(baocount==4&&duicount==3)){
 		huitem._hutype = isq ? QYSQD : QIDUI;
 		huitem._hy = RUAN;
 	}
 	else{
-		if ((count == 2&&duicount==1)||(count==2&&duicount==2)){
-			huitem._hutype = isq ? QYSPENG : PENGPENG;
+		if (count == 0){
+			huitem._hutype = isq ? QYSPENG:PENGPENG;
 			huitem._hy = HEI;
 			return huitem;
 		}
-		else if ((count == 2 && duicount == 1)){
-			huitem._hutype = isq ? QYSPENG : PENGPENG;
+		else if (count == 1){
+			huitem._hutype = isq ? QYSPENG:PENGPENG;
 			huitem._hy = RUAN;
 			return huitem;
 		}
-		if (baocount > 0&&duicount==0){
+		else if (count==2){
+			if (duicount == 1){
+				huitem._hutype = isq ? QYSPENG:PENGPENG;
+				huitem._hy = HEI;
+				return huitem;
+			}
+			else{
+				huitem._hutype = isq ? QYSPENG:PENGPENG;
+				huitem._hy = RUAN;
+				return huitem;
+			}
+		}
+		else if (duicount==0){
 			auto itr1 = dui.begin();
 			for (itr1; itr1 != dui.end();itr1++){
 				int v = itr1->first;
@@ -602,9 +699,6 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 		map<int, int>::iterator itr1 = dui.begin();
 		for (itr1; itr1 != dui.end(); itr1++){
 			int count1 = itr1->second;
-			if (count1 < 2){
-				continue;
-			}
 			int temppai1[14] = { 0 };
 			memcpy(temppai1, temppai, sizeof(int)* 14);
 			int v = itr1->first;
@@ -616,11 +710,13 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 			int ii = 0;
 			HuTypeEnum lasttype = None;
 			for (itr; itr != kindcards.end(); itr++){
+				
 				HuTypeEnum type = isFit(&itr->second, baocount1, huitem, itr->first);
 				
 				if (ii > 0){
 					if (type > None&& type > lasttype){
 						lasttype = type;
+						huitem._hy = RUAN;
 					}
 					else if (type == None){
 						lasttype = type;
@@ -638,11 +734,18 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 			}
 			
 			if (lasttype == PI){
-				huitem._hutype = isq ? QINGYISE : PI;
+				if (huitem._hutype == None){
+					huitem._hutype = isq ? QINGYISE : PI;
+					huitem._hy = RUAN;
+				}
 				return huitem;
 			}
 			else if (lasttype == PENGPENG){
-				huitem._hutype = isq ? QYSPENG : PENGPENG;
+				if (isq&&huitem._hutype==PENGPENG){
+					huitem._hutype = QYSPENG;
+					huitem._hy = RUAN;
+					return huitem;
+				}
 				return huitem;
 			}
 		}
@@ -651,7 +754,7 @@ HuItem ConfigData::isHu(int *pai, bool ispengqing, int bao){
 	return huitem;
 }
 
-HuTypeEnum ConfigData::isFit(vector<int>*p, int baocount, HuItem &item, int kind){
+HuTypeEnum ConfigData::isFit(vector<int>*p, int &baocount, HuItem &item, int kind){
 	char buff[200];
 	int len = p->size();
 	if (len == 0){
@@ -665,6 +768,7 @@ HuTypeEnum ConfigData::isFit(vector<int>*p, int baocount, HuItem &item, int kind
 	int co = l * 10 + 2;//碰碰胡
 	int baoco1 = l * 100 + baocount;
 	int baoco2 = co * 100 + baocount;//碰碰胡
+
 	map<int, map<uint64, int>>::iterator itr1 = m_lianke.find(co);
 	if (itr1 != m_lianke.end()){
 		map<uint64, int> *maps = &itr1->second;
@@ -674,12 +778,14 @@ HuTypeEnum ConfigData::isFit(vector<int>*p, int baocount, HuItem &item, int kind
 		}
 	}
 
+	int sub = (((strlen(buff) - 1) / 3 + 1) * 3 - strlen(buff));
 	if (baocount > 0){
 		itr1 = m_liankebao.find(baoco2);
 		if (itr1 != m_liankebao.end()){
 			map<uint64, int> *maps = &itr1->second;
 			if (maps->find(atoll(buff)) != maps->end()){
 				item._hy = RUAN;
+				baocount -= sub;
 				return PENGPENG;
 			}
 		}
@@ -695,7 +801,7 @@ HuTypeEnum ConfigData::isFit(vector<int>*p, int baocount, HuItem &item, int kind
 			}
 		}
 	}
-	
+
 	if (baocount > 0){
 		if (kind < 3){
 			itr1 = m_liankebao.find(baoco1);
@@ -703,11 +809,13 @@ HuTypeEnum ConfigData::isFit(vector<int>*p, int baocount, HuItem &item, int kind
 				map<uint64, int> *maps = &itr1->second;
 				if (maps->find(atoll(buff)) != maps->end()){
 					item._hy = RUAN;
+					baocount -= sub;
 					return PI;
 				}
 			}
 		}
 	}
+	
 	return None;
 }
 
@@ -735,7 +843,7 @@ void ConfigData::setLiankeBao(int i){
 		map<uint64, int>::iterator itr1 = maps->begin();
 		for (itr1; itr1 != maps->end();itr1++){
 			uint64 key = itr1->first;
-			sprintf(buff,"%ld",key);
+			sprintf(buff,"%lld",key);
 			int len = strlen(buff);
 			if (i >= 1){
 				for (int j = 0; j < len; j++){

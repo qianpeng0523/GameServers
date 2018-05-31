@@ -556,3 +556,23 @@ void RedisPut::ZeroChange(char *&data, int sz){
 		}
 	}
 }
+
+bool RedisPut::PushHus(map<int, map<uint64, int>> mps, int type){
+	char buff[100];
+	sprintf(buff,"hulist%d",type);
+	string key = buff;
+	auto itr = mps.begin();
+	int index = 0;
+	for (itr; itr != mps.end(); itr++){
+		auto vec = itr->second;
+		int len = itr->first;
+		auto itr1 = vec.begin();
+		for (itr1; itr1 != vec.end(); itr1++){
+			uint64 va = itr1->first;
+			sprintf(buff,"%d,%lld",len,va);
+			m_redis->List(key, buff);
+			printf("[%d][%d].{%s}\n",type,index++,buff);
+		}
+	}
+	return true;
+}

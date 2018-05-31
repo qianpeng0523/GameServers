@@ -28,7 +28,6 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	
-	ConfigData::getIns();
 	/*
 	map<int, vector<int>>mps;
 	for (int i = 0; i < 100; i++){
@@ -125,7 +124,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	redis::getIns()->initial("www.lesharecs.com", 6379, "3.1415926qp");
 	RedisGet::getIns()->init();
 	//HttpAliPay::getIns()->requestOrder("100001", "1", 1, "test 1", "", 2);
-	//ConfigData::getIns();
+	ConfigData::getIns();
 	
 	LoginInfo::getIns()->openCheckUpdate(true);
 	HallInfo::getIns();
