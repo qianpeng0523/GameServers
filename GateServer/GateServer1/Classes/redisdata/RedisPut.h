@@ -69,7 +69,7 @@ public:
 
 	bool PushPayRecord(PayRecord pr);
 	
-	bool PushHus(map<int, map<uint64, int>> mps,int type);
+	bool PushHus(map<int, map<uint64, int>> mps, int type, map<int, map<uint64, int>>mm);
 
 	void ZeroChange(char *&data, int sz);
 private:

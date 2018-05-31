@@ -80,8 +80,10 @@ uint64 ConfigData::getRedisLastIndex(string key){
 void ConfigData::init(){
 	
 	int64_t t = Common::getCurrentTime();
-	RedisGet::getIns()->getHuList(m_lianke,1);
-	RedisGet::getIns()->getHuList(m_liankebao,2);
+	map<int, map<uint64, int>> m1;
+	map<int, map<uint64, int>> m2;
+	RedisGet::getIns()->getHuList(m1,1);
+	RedisGet::getIns()->getHuList(m2,2);
 	if (m_lianke.empty()){
 		setKezi();
 		setShunzi();
@@ -90,14 +92,14 @@ void ConfigData::init(){
 				init3P(i, j);
 			}
 		}
-		RedisPut::getIns()->PushHus(m_lianke,1);
+		RedisPut::getIns()->PushHus(m_lianke,1,m1);
 	}
 	char buff[200];
 	if (m_liankebao.empty()){
 		for (int i = 1; i <= 4; i++){
 			setLiankeBao(i);
 		}
-		RedisPut::getIns()->PushHus(m_liankebao,2);
+		RedisPut::getIns()->PushHus(m_liankebao,2,m2);
 	}
 	
 	
