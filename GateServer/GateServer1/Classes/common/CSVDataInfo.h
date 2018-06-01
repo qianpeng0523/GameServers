@@ -4,6 +4,10 @@
 #include "CSVDataHelper.h"
 #include "CSVBaseData.h"
 
+enum CSVSTRUCT{
+	CSV_HUS,
+};
+
 typedef std::map<CSVSTRUCT, CSVDataHelper *> CSVDATAS;
 
 
@@ -16,17 +20,22 @@ public:
 	~CSVDataInfo();
     virtual bool init();
 	static CSVDataInfo* getIns();
-	
-	void openCSVFile(string file, CSVSTRUCT filekey);//打开文件并读取文件
-	string getDataHuItem(string key, CSVSTRUCT csvenum);
+	void openCSVFile(string file, CSVSTRUCT filekey);
+	void openCSVFile(string file, map<string, char> &mps);//打开文件并读取文件
+	void openCSVFile(string file, std::map<int, int> &mps);
+	Object *getData(int key, CSVSTRUCT csvenum);
 	int getDataSize(CSVSTRUCT csvenu);
-	map<string, int> getDatasHuItem(CSVSTRUCT csvenum);
-	vector<int> getIntFromstr(string str,string fenge);
+	std::map<int, Object *> getDatas(CSVSTRUCT csvenum);
+
+	vector<int> getIntFromstr(string str, string fenge);
 	vector<string> getStrFromstr(string str, string fenge);
 private:
 	static CSVDataInfo *m_ins;
+	CSVDATAS m_pCSVDataInfos;
 public:
-	CSVDATAS m_CSVDataHelpers;
+	std::map<CSVSTRUCT, std::map<int, Object *>> m_Objects;//_widgetid 
+	
+	std::map<CSVSTRUCT, CSVDataHelper *>m_CSVDataHelpers;
 };
 
 #endif 

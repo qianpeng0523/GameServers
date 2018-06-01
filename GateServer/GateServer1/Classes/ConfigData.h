@@ -150,21 +150,24 @@ public:
 	
 	
 private:
+	void getHus();
 	void createHus();
 	bool PushHus(string &content, int index);
 	bool PushHus1(string &content, int index);
-	bool Over4(string &content, int len);
-	bool Over4(string &content,char a);
+	bool Over4(string &content);
+	bool Over41(string &content);
 	bool OverLen(string &content, int count);
 	void eraseEmpty(string &content,string old);
 	string inserDui(string &content, char va);
 	void addnumber(string &content, int num);
+	void Compress(string &content);
 private:
 	static ConfigData *m_ins;
 	vector<int> m_cards;
-	map<int,map<string, string>> m_zjallmaps;
-	map<int, map<string, string>> m_zjallmaps1;
+	map<int,map<string, char>> m_zjallmaps;
+	map<string, char> m_zjallmaps1[126];
 	int m_index;
+	map<int, int> m_husindex;
 };
 
 
