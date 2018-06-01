@@ -403,7 +403,7 @@ void ConfigData::createHus(){
 		for (int i = 0; i < g_kind; i++){
 			int type = g_all_mjkind[i] / 16;
 			int va = g_all_mjkind[i] % 16;
-			char a = va + type * 10 + '0';
+			char a = va + type * 10 + '0'+10;
 			map<string, char> *vec = &itrr->second;
 			auto it1 = vec->begin();
 			for (it1; it1 != vec->end(); it1++){
