@@ -74,7 +74,7 @@ void CSVDataInfo::openCSVFile(string file, CSVSTRUCT filekey){
 
 }
 
-void CSVDataInfo::openCSVFile(string file, map<string, char> &mps){
+void CSVDataInfo::openCSVFile(string file, string &mps){
 	CSVDataHelper *p = new CSVDataHelper();
 	p->openAndResolveFile(file.c_str(),mps);
 	delete p;

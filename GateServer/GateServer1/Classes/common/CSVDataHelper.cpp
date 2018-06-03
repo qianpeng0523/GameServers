@@ -41,7 +41,7 @@ bool CSVDataHelper::openAndResolveFile(const char *fileName)
 	return true;
 }
 
-bool CSVDataHelper::openAndResolveFile(const char *fileName, map<string, char> &mps)
+bool CSVDataHelper::openAndResolveFile(const char *fileName, string &mps)
 {
 	std::string pathKey = fileName;
 	unsigned char* pBuffer = NULL;
@@ -52,22 +52,30 @@ bool CSVDataHelper::openAndResolveFile(const char *fileName, map<string, char> &
 
 	std::string tmpStr = (char*)pBuffer;
 	std::string fileContent = tmpStr.substr(0, bufferSize);
-
+	tmpStr.clear();
+	tmpStr = "";
 	std::string::size_type lastIndex = fileContent.find_first_not_of("\n", 0);
 	std::string::size_type    currentIndex = fileContent.find_first_of("\n", lastIndex);
-
+	mps = (char*)pBuffer;
+	/*
 	while (std::string::npos != currentIndex || std::string::npos != lastIndex) {
 		string cc = fileContent.substr(lastIndex, currentIndex - lastIndex);
 		if (cc[cc.length() - 1] == '\r') {
 			cc = cc.substr(0, cc.length() - 1);
 		}
-		if (mps.find(cc) == mps.end()){
-			mps.insert(make_pair(cc,'\n'));
+		if (mps.find((char *)cc.c_str()) == mps.end()){
+			int len = cc.length() + 1;
+			char *bb = new char[len];
+			bb[len - 1] = '\0';
+			memcpy(bb,cc.c_str(),len);
+			mps.insert(bb);
 		}
 		lastIndex = fileContent.find_first_not_of("\n", currentIndex);
 		currentIndex = fileContent.find_first_of("\n", lastIndex);
-	}
+	}*/
 	delete fdata;
+	fileContent.clear();
+	fileContent = "";
 	return true;
 }
 

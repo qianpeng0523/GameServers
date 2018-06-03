@@ -210,6 +210,13 @@ void CLog::printflt(double flt)
 	printch('.');
 	flt = flt - tmpint;
 	tmpint = (int)(flt * 1000000);
+	int index = 5;
+	int de = tmpint / ((int)pow(10, index));
+	while (index>0 && de == 0){
+		printch('0');
+		index--;
+		de = tmpint / ((int)pow(10, index));
+	}
 	printdec(tmpint);
 }
 

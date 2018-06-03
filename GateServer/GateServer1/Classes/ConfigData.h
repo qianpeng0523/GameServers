@@ -59,17 +59,17 @@ struct PaoItem
 	int _fapao;
 };
 
-static int g_all_mjkind[] = {
-	0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
-	0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19,
-	0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29,
-	0x31, 0x32, 0x33, 0x34,
-	0x41, 0x42, 0x43
+static char g_all_mjkind[] = {
+	0x01 + '0', 0x02 + '0', 0x03 + '0', 0x04 + '0', 0x05 + '0', 0x06 + '0', 0x07 + '0', 0x08 + '0', 0x09 + '0',
+	0x11 + '0', 0x12 + '0', 0x13 + '0', 0x14 + '0', 0x15 + '0', 0x16 + '0', 0x17 + '0', 0x18 + '0', 0x19 + '0',
+	0x21 + '0', 0x22 + '0', 0x23 + '0', 0x24 + '0', 0x25 + '0', 0x26 + '0', 0x27 + '0', 0x28 + '0', 0x29 + '0',
+	0x31 + '0', 0x32 + '0', 0x33 + '0', 0x34 + '0',
+	0x41 + '0', 0x42 + '0', 0x43 + '0'
 };
 
 #define g_kind (sizeof(g_all_mjkind)/sizeof(int))
 
-static int g_all_mj[] = {
+static char g_all_mj[] = {
 	g_all_mjkind[0], g_all_mjkind[0], g_all_mjkind[0], g_all_mjkind[0],
 	g_all_mjkind[1], g_all_mjkind[1], g_all_mjkind[1], g_all_mjkind[1],
 	g_all_mjkind[2], g_all_mjkind[2], g_all_mjkind[2], g_all_mjkind[2],
@@ -121,18 +121,19 @@ struct PaoNeed
 		_baoniang = 0;
 		_zhua = false;
 		_isgang = false;
-		_hu = None;
+		_hu._hutype = None;
+		_hu._hy = RUAN;
 		_hucard = 0;
 	}
-	int _handcards[14];
-	int _peng[4];
+	char _handcards[14];
+	char _peng[4];
 	PENGPAO _ptype[4];
 	int _facount;
-	int _bao;
-	int _baoniang;
+	char _bao;
+	char _baoniang;
 	bool _zhua;
 	bool _isgang;
-	HuTypeEnum _hu;
+	HuItem _hu;
 	int _hucard;
 };
 
@@ -147,25 +148,27 @@ public:
 	int getMJ();
 	int getMJ(int index);
 	void initMJ();
-	
-	
+	void test();
+	PaoNeed isHu(int *pai, bool isqing, int baovalue);
+	PaoNeed isHu(char *pai, bool isqing, char baovalue);
+	PaoNeed isHu(char *pai, bool isqing);
+	PaoNeed isHu(char* pai,int index, bool isqing);
 private:
-	void getHus();
 	void createHus();
-	bool PushHus(string &content, int index);
-	bool PushHus1(string &content, int index);
+	bool PushHus(string &content, int index, map<int, set<string>> &zjallmaps);
+	bool PushHus1(string &content, int index, string &zjallmaps1, map<int, set<string>> &mmaps);
+	void PushHus2(string &content, int index, map<int, set<string>> &maps);
 	bool Over4(string &content);
-	bool Over41(string &content);
 	bool OverLen(string &content, int count);
 	void eraseEmpty(string &content,string old);
 	string inserDui(string &content, char va);
 	void addnumber(string &content, int num);
 	void Compress(string &content);
+	void getHusString(int index,string &content);
+
 private:
 	static ConfigData *m_ins;
-	vector<int> m_cards;
-	map<int,map<string, char>> m_zjallmaps;
-	map<string, char> m_zjallmaps1[126];
+	vector<char> m_cards;
 	int m_index;
 	map<int, int> m_husindex;
 };

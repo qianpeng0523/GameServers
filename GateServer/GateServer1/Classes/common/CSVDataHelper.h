@@ -7,6 +7,15 @@ using namespace std;
 
 struct FILEDATA
 {
+	FILEDATA(){
+		_data = NULL;
+	}
+	~FILEDATA(){
+		if (_data){
+			delete _data;
+			_data = NULL;
+		}
+	}
 	unsigned char *_data;
 	long _len;
 };
@@ -18,7 +27,7 @@ public:
 	~CSVDataHelper();
 
 	bool openAndResolveFile(const char *fileName);
-	bool openAndResolveFile(const char *fileName, map<string, char> &mps);
+	bool openAndResolveFile(const char *fileName, string &mps);
 
 	const char *getData(unsigned int rowIndex, unsigned int colIndex);
 

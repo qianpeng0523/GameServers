@@ -27,7 +27,6 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	
 	/*
 	map<int, vector<int>>mps;
 	for (int i = 0; i < 100; i++){

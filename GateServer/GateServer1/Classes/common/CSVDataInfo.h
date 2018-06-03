@@ -21,7 +21,7 @@ public:
     virtual bool init();
 	static CSVDataInfo* getIns();
 	void openCSVFile(string file, CSVSTRUCT filekey);
-	void openCSVFile(string file, map<string, char> &mps);//打开文件并读取文件
+	void openCSVFile(string file, string &mps);//打开文件并读取文件
 	void openCSVFile(string file, std::map<int, int> &mps);
 	Object *getData(int key, CSVSTRUCT csvenum);
 	int getDataSize(CSVSTRUCT csvenu);
