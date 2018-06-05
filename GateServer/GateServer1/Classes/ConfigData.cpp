@@ -773,29 +773,61 @@ bool ConfigData::PushHus1(string &content, int index, string &zjallmaps1, map<in
 
 		//写入文件 
 		//time_t t0 = Common::getCurrentTime();
+		char t1='\0';
 		for (int i = 0; i < content.length(); i++){
 			string con = content;
+			char tt1 = con[i];
+			if (t1 == tt1){
+				continue;
+			}
+			else{
+				t1 = tt1;
+			}
 			con.erase(i, 1);
 			string ct = con;
 			Compress(ct);
 			PushHus2(ct, index, mmaps);
 			
+			char t2 = '\0';
 			for (int j = 0; j < con.length(); j++){
 				string con1 = con;
+				char tt2 = con1[i];
+				if (t2 == tt2){
+					continue;
+				}
+				else{
+					t2 = tt2;
+				}
 				con1.erase(j, 1);
 				string ct1 = con1;
 				Compress(ct1);
 				PushHus2(ct1, index, mmaps);
 				
+				char t3 = '\0';
 				for (int k = 0; k < con1.length(); k++){
 					string con2 = con1;
+					char tt3 = con1[i];
+					if (t3 == tt3){
+						continue;
+					}
+					else{
+						t3 = tt3;
+					}
 					con2.erase(k, 1);
 					string ct2 = con2;
 					Compress(ct2);
 					PushHus2(ct2, index, mmaps);
 					
+					char t4 = '\0';
 					for (int m = 0; m < con2.length(); m++){
 						string con3 = con2;
+						char tt4 = con1[i];
+						if (t4 == tt4){
+							continue;
+						}
+						else{
+							t4 = tt4;
+						}
 						con3.erase(m, 1);
 						string ct3 = con3;
 						Compress(ct3);
