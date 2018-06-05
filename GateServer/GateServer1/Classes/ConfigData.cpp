@@ -596,7 +596,11 @@ void ConfigData::createHus(){
 	auto itrr = zjallmaps.begin();
 	for (itrr; itrr != zjallmaps.end();){
 		int index = itrr->first;
-		map<int, set<string>> mmaps;
+		if (isHaveFile(index)){
+			itrr++;
+			continue;
+		}
+		map<int, string> mmaps;
 		string str;
 		for (int i = 0; i < g_kind; i++){
 			int type = g_all_mjkind[i] / 16;
@@ -625,29 +629,21 @@ void ConfigData::createHus(){
 		
 		auto iiiit = mmaps.begin();
 		for (iiiit; iiiit != mmaps.end();){
-			auto vi = &iiiit->second;
 			int in = iiiit->first;
+			string *cont = &iiiit->second;
 			char buff[50];
 			sprintf(buff, "./res/ssbao/hu%d", in);
 			FILE *file = fopen(buff, "a+");
-			auto viitr = vi->begin();
-			for (viitr; viitr != vi->end();){
-				string cont = *viitr;
-				if (vi->size() != 1){
-					fprintf(file, (cont + "\n").c_str());
-				}
-				else{
-					fprintf(file, (cont).c_str());
-				}
-				viitr = vi->erase(viitr);
-			}
+			fprintf(file, cont->c_str());
 			fclose(file);
-			set<string>mi;
-			vi->swap(mi);
+			string mi;
+			cont->clear();
+			cont->swap(mi);
 			iiiit = mmaps.erase(iiiit);
+			printf("****%s*****\n",buff);
 			
 		}
-		map<int, set<string>> mmaps1;
+		map<int, string> mmaps1;
 		mmaps.clear();
 		mmaps.swap(mmaps1);
 
@@ -683,6 +679,18 @@ void ConfigData::createHus(){
 	printf("4.use time:%f\n", (t4 - t3) / 1000.0 / 1000);
 	printf("5.alluse time:%f\n", (t4 - t0) / 1000.0 / 1000);
 	printf("\n");
+}
+
+bool ConfigData::isHaveFile(int index){
+	char buff[50];
+	for (int i = 15; i >= 1; i--){
+		sprintf(buff, "./res/ssbao/hu%d", i*10000+index);
+		FILE *file = fopen(buff, "r");
+		if (file){
+			return true;
+		}
+	}
+	return false;
 }
 
 void ConfigData::addnumber(string &content, int num){
@@ -755,10 +763,10 @@ bool ConfigData::PushHus(string &content, int index, map<int, set<string>> &zjal
 	return true;
 }
 
-bool ConfigData::PushHus1(string &content, int index, string &zjallmaps1, map<int, set<string>> &mmaps){
+bool ConfigData::PushHus1(string &content, int index, string &zjallmaps1, map<int, string> &mmaps){
 	int ind = m_husindex.at(index);
 	if (zjallmaps1.find(content) == -1){
-		zjallmaps1.append(content);
+		zjallmaps1.append(content+"\n");
 		if (g_index % 1000000 == 0){
 			printf("%d.%s\n", g_index++, content.c_str());
 		}
@@ -767,31 +775,31 @@ bool ConfigData::PushHus1(string &content, int index, string &zjallmaps1, map<in
 		//time_t t0 = Common::getCurrentTime();
 		for (int i = 0; i < content.length(); i++){
 			string con = content;
-			//con.erase(i, 1);
-			//string ct = con;
-			//Compress(ct);
-			//PushHus2(ct, index, mmaps);
+			con.erase(i, 1);
+			string ct = con;
+			Compress(ct);
+			PushHus2(ct, index, mmaps);
 			
 			for (int j = 0; j < con.length(); j++){
 				string con1 = con;
-				//con1.erase(j, 1);
-				//string ct1 = con1;
-				//Compress(ct1);
-				//PushHus2(ct1, index, mmaps);
+				con1.erase(j, 1);
+				string ct1 = con1;
+				Compress(ct1);
+				PushHus2(ct1, index, mmaps);
 				
 				for (int k = 0; k < con1.length(); k++){
 					string con2 = con1;
-					//con2.erase(k, 1);
-					//string ct2 = con2;
-					//Compress(ct2);
-					//PushHus2(ct2, index, mmaps);
+					con2.erase(k, 1);
+					string ct2 = con2;
+					Compress(ct2);
+					PushHus2(ct2, index, mmaps);
 					
-					for (int m = 0; m < con1.length(); m++){
+					for (int m = 0; m < con2.length(); m++){
 						string con3 = con2;
-						//con3.erase(m, 1);
-						//string ct3 = con3;
-						//Compress(ct3);
-						//PushHus2(ct3, index, mmaps);
+						con3.erase(m, 1);
+						string ct3 = con3;
+						Compress(ct3);
+						PushHus2(ct3, index, mmaps);
 						
 					}
 				}
@@ -813,26 +821,36 @@ void ConfigData::getHusString(int index, string &content){
 	}
 }
 
-void ConfigData::PushHus2(string &content, int index, map<int, set<string>> &maps){
+void ConfigData::PushHus2(string &content, int index, map<int, string> &maps){
 	int a = index+(content.length()+1)*10000;
 	if (maps.find(a) == maps.end()){
-		set<string> vs;
-		char buff[50];
+		string vs;
 		if (content.empty()){
-			vs.insert("");
+			vs += "\n";
 			maps.insert(make_pair(a, vs));
 		}
 		else{
-			vs.insert(content);
+			vs += content+"\n";
 			maps.insert(make_pair(a,vs));
 		}
+// 		char buff[50];
+// 		sprintf(buff, "./res/ssbao/hu%d", a);
+// 		FILE *file = fopen(buff, "a+");
+// 		fprintf(file,(content+"\n").c_str());
+// 		fclose(file);
 	}
 	else{
 		if (!content.empty()){
-			set<string> *vs = &maps.at(a);
-			if (vs->find(content) == vs->end()){
-				vs->insert(content);
+			string *vs = &maps.at(a);
+			if (vs->find(content) ==-1){
+				vs->append(content + "\n");
+// 				char buff[50];
+// 				sprintf(buff, "./res/ssbao/hu%d", a);
+// 				FILE *file = fopen(buff, "a+");
+// 				fprintf(file, (content+"\n").c_str());
+// 				fclose(file);
 			}
 		}
 	}
+	
 }

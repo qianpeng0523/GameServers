@@ -156,8 +156,8 @@ public:
 private:
 	void createHus();
 	bool PushHus(string &content, int index, map<int, set<string>> &zjallmaps);
-	bool PushHus1(string &content, int index, string &zjallmaps1, map<int, set<string>> &mmaps);
-	void PushHus2(string &content, int index, map<int, set<string>> &maps);
+	bool PushHus1(string &content, int index, string &zjallmaps1, map<int, string> &mmaps);
+	void PushHus2(string &content, int index, map<int, string> &maps);
 	bool Over4(string &content);
 	bool OverLen(string &content, int count);
 	void eraseEmpty(string &content,string old);
@@ -165,7 +165,7 @@ private:
 	void addnumber(string &content, int num);
 	void Compress(string &content);
 	void getHusString(int index,string &content);
-
+	bool isHaveFile(int index);
 private:
 	static ConfigData *m_ins;
 	vector<char> m_cards;
