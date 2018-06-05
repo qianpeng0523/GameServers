@@ -791,7 +791,7 @@ bool ConfigData::PushHus1(string &content, int index, string &zjallmaps1, map<in
 			char t2 = '\0';
 			for (int j = 0; j < con.length(); j++){
 				string con1 = con;
-				char tt2 = con1[i];
+				char tt2 = con1[j];
 				if (t2 == tt2){
 					continue;
 				}
@@ -806,7 +806,7 @@ bool ConfigData::PushHus1(string &content, int index, string &zjallmaps1, map<in
 				char t3 = '\0';
 				for (int k = 0; k < con1.length(); k++){
 					string con2 = con1;
-					char tt3 = con1[i];
+					char tt3 = con2[k];
 					if (t3 == tt3){
 						continue;
 					}
@@ -821,7 +821,7 @@ bool ConfigData::PushHus1(string &content, int index, string &zjallmaps1, map<in
 					char t4 = '\0';
 					for (int m = 0; m < con2.length(); m++){
 						string con3 = con2;
-						char tt4 = con1[i];
+						char tt4 = con3[m];
 						if (t4 == tt4){
 							continue;
 						}
