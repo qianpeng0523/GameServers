@@ -151,7 +151,7 @@ public:
 	void test();
 	PaoNeed isHu(int *pai, bool isqing, int baovalue);
 	PaoNeed isHu(char *pai, bool isqing, char baovalue);
-	PaoNeed isHu(char *pai, bool isqing);
+	void isHu(char *pai, bool isqing,int &index,string &hcon);
 	PaoNeed isHu(char* pai,int index, bool isqing);
 private:
 	void createHus();
@@ -165,6 +165,7 @@ private:
 	void addnumber(string &content, int num);
 	void Compress(string &content);
 	void getHusString(int index,string &content);
+	void getBaoHusString(int index,int len,string &content);
 	bool isHaveFile(int index);
 private:
 	static ConfigData *m_ins;

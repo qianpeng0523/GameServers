@@ -37,7 +37,7 @@ ConfigData *ConfigData::getIns(){
 }
 
 void ConfigData::init(){
-	createHus();
+	//createHus();
 	//test();
 }
 
@@ -165,12 +165,19 @@ PaoNeed ConfigData::isHu(int *pai, bool isqing, int baovalue){
 
 PaoNeed ConfigData::isHu(char *pai, bool isqing, char baovalue){
 	int baocount = 0;
+	int len = 0;
 	map<char, int> dds;
+	char hhcon[14];
 	for (int i = 0; i < 14; i++){
 		char va = pai[i];
 		if (va>'0'){
 			if (baovalue == va){
 				baocount++;
+				hhcon[i] = '0';
+			}
+			else{
+				len++;
+				hhcon[i] = va;
 			}
 			if (dds.find(va) == dds.end()){
 				dds.insert(make_pair(va, 1));
@@ -179,28 +186,44 @@ PaoNeed ConfigData::isHu(char *pai, bool isqing, char baovalue){
 				dds.at(va)++;
 			}
 		}
+		else{
+			hhcon[i] = '0';
+		}
 	}
 	PaoNeed pn;
 	memcpy(pn._handcards, pai, sizeof(char)* 14);
 // 	map<char, int> mm;
 // 	dds.swap(mm);
 // 	dds.clear();
+	string hcon;
+	int index = 0;
+	isHu(pai, isqing, index, hcon);
 	if (baocount == 0){
-		pn = isHu(pai, isqing);
-		return pn;
+		return isHu((char *)hcon.c_str(), index, isqing);
 	}
 	else{
 		//先计算黑的
-		pn = isHu(pai, isqing);
-
-		memcpy(pn._handcards, pai, sizeof(char)* 14);
+		pn = isHu((char *)hcon.c_str(), index, isqing);
+		if (pn._hu._hutype == None){
+			string baocon;
+			string con;
+			getBaoHusString(index, len, con);
+			if (!con.empty()){
+				isHu(hhcon, isqing, index, hcon);
+				if (con.find(hcon) != con.end()){
+					pn._hu._hutype = PI;
+					pn._hu._hy = RUAN;
+					return pn;
+				}
+			}
+		}
+		
 		return pn;
 	}
 }
 
-PaoNeed ConfigData::isHu(char *pai, bool isqing){
+void ConfigData::isHu(char *pai, bool isqing, int &index, string &hcon){
 	int baocount = 0;
-	string hcon;
 	int types[5] = { 0 };
 	for (int i = 0; i < 14; i++){
 		int va = pai[i]-'0';
@@ -213,7 +236,6 @@ PaoNeed ConfigData::isHu(char *pai, bool isqing){
 		}
 	}
 	PaoNeed pn;
-	int index = 0;
 	int yus[5] = { types[0] % 3, types[1] % 3, types[2] % 3, types[3] % 3, types[4] % 3 };
 	int co = 0;
 	int tts[5] = { types[0] / 3, types[1] / 3, types[2] / 3, types[3] / 3, types[4] / 3 };
@@ -227,7 +249,6 @@ PaoNeed ConfigData::isHu(char *pai, bool isqing){
 		index += pow(5, 4 - i)*tts[i];
 	}
 	Compress(hcon);
-	return isHu((char *)hcon.c_str(), index, isqing);
 }
 
 PaoNeed ConfigData::isHu(char* pai, int index, bool isqing){
@@ -849,6 +870,16 @@ void ConfigData::getHusString(int index, string &content){
 		int in = m_husindex.at(index);
 		char buff[50];
 		sprintf(buff, "./res/ss/hu%d", in);
+		CSVDataInfo::getIns()->openCSVFile(buff, content);
+	}
+}
+
+void ConfigData::getBaoHusString(int index, int len, string &content){
+	if (m_husindex.find(index) != m_husindex.end()){
+		int in = m_husindex.at(index);
+		in = (len+1)*10000+in;
+		char buff[50];
+		sprintf(buff, "./res/ssbao/hu%d", in);
 		CSVDataInfo::getIns()->openCSVFile(buff, content);
 	}
 }
